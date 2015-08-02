@@ -19,8 +19,8 @@ func primaryAccount() -> ISStoreAccount {
     func downloadQueue(queue: CKDownloadQueue, statusChangedForDownload download: SSDownload!) {
         if let activePhase = download.status.activePhase {
             let percentage = String(Int(floor(download.status.percentComplete * 100))) + "%"
-            let phase = String(activePhase.phaseType)
-            print("\r" + phase + " " + percentage + " " + download.metadata.title, appendNewline: false)
+//            let phase = String(activePhase.phaseType)
+            print("\u{001B}[2K\r" + percentage + " " + download.metadata.title, appendNewline: false)
         }
     }
     
@@ -29,7 +29,9 @@ func primaryAccount() -> ISStoreAccount {
     }
     
     func downloadQueue(queue: CKDownloadQueue, changedWithRemoval download: SSDownload!) {
+        print("")
         print("Finished: " + download.metadata.title)
+        exit(EXIT_SUCCESS)
     }
 }
 
@@ -165,6 +167,7 @@ registry.register(ListInstalledCommand())
 registry.register(ListUpdatesCommand())
 registry.register(helpCommand)
 
+setbuf(__stdoutp, nil)
 registry.main(defaultVerb: helpCommand.verb, errorHandler: { error in
     fputs(error.description + "\n", stderr)
 })
