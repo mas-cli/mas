@@ -126,6 +126,27 @@ struct ListUpdatesCommand: CommandType {
     }
 }
 
+struct ListInstalledCommand: CommandType {
+    let verb = "list-installed"
+    let function = "Lists apps from the Mac App Store which are currently installed"
+    
+    func run(mode: CommandMode) -> Result<(), CommandantError<MASError>> {
+        switch mode {
+        case .Arguments:
+            let softwareMap = CKSoftwareMap.sharedSoftwareMap()
+            let products = softwareMap.allProducts()
+            products.map({ product -> Bool in
+                print(String(product.itemIdentifier) + " " + product.appName)
+                return true
+            })
+            
+        default:
+            break
+        }
+        return .Success(())
+    }
+}
+
 public enum MASError: ErrorType, Equatable {
     public var description: String {
         return ""
@@ -140,6 +161,7 @@ let registry = CommandRegistry<MASError>()
 let helpCommand = HelpCommand(registry: registry)
 registry.register(AccountCommand())
 registry.register(InstallCommand())
+registry.register(ListInstalledCommand())
 registry.register(ListUpdatesCommand())
 registry.register(helpCommand)
 
