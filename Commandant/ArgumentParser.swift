@@ -37,7 +37,7 @@ private func ==(lhs: RawArgument, rhs: RawArgument) -> Bool {
 	}
 }
 
-extension RawArgument: CustomStringConvertible {
+extension RawArgument: Printable {
 	private var description: String {
 		switch self {
 		case let .Key(key):
@@ -67,8 +67,8 @@ public final class ArgumentParser {
 		rawArguments.extend(options.map { arg in
 			if arg.hasPrefix("-") {
 				// Do we have `--{key}` or `-{flags}`.
-				let opt = dropFirst(arg.characters)
-				return String(opt).hasPrefix("-") ? .Key(String(dropFirst(opt))) : .Flag(Set(opt))
+				var opt = dropFirst(arg)
+				return opt.hasPrefix("-") ? .Key(dropFirst(opt)) : .Flag(Set(opt))
 			} else {
 				return .Value(arg)
 			}
@@ -77,7 +77,7 @@ public final class ArgumentParser {
 		// Remaining arguments are all positional parameters.
 		if params.count == 2 {
 			let positional = params.last!
-			rawArguments.extend(Array(positional.map { .Value($0) }))
+			rawArguments.extend(positional.map { .Value($0) })
 		}
 	}
 
@@ -130,13 +130,13 @@ public final class ArgumentParser {
 					}
 				}
 
-				return .Failure(missingArgumentError("--\(key)"))
+				return .failure(missingArgumentError("--\(key)"))
 			} else {
 				rawArguments.append(arg)
 			}
 		}
 
-		return .Success(foundValue)
+		return .success(foundValue)
 	}
 
 	/// Returns the next positional argument that hasn't yet been returned, or
@@ -168,7 +168,7 @@ public final class ArgumentParser {
 	/// Returns whether the given flag was specified and removes it from the
 	/// list of arguments remaining.
 	internal func consumeBooleanFlag(flag: Character) -> Bool {
-		for (index, arg) in rawArguments.enumerate() {
+		for (index, arg) in enumerate(rawArguments) {
 			switch arg {
 			case var .Flag(flags) where flags.contains(flag):
 				flags.remove(flag)

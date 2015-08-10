@@ -81,7 +81,7 @@ public struct Option<T> {
 	}
 }
 
-extension Option: CustomStringConvertible {
+extension Option: Printable {
 	public var description: String {
 		if let key = key {
 			return "--\(key)"
@@ -104,16 +104,8 @@ extension Int: ArgumentType {
 	public static let name = "integer"
 
 	public static func fromString(string: String) -> Int? {
-		return Int(string)
+		return string.toInt()
 	}
-}
-
-extension UInt64: ArgumentType {
-    public static let name = "integer"
-    
-    public static func fromString(string: String) -> UInt64? {
-        return UInt64(string, radix: 10)
-    }
 }
 
 extension String: ArgumentType {
@@ -174,17 +166,17 @@ public func <*> <T, U, ClientError>(f: T -> U, value: Result<T, CommandantError<
 public func <*> <T, U, ClientError>(f: Result<(T -> U), CommandantError<ClientError>>, value: Result<T, CommandantError<ClientError>>) -> Result<U, CommandantError<ClientError>> {
 	switch (f, value) {
 	case let (.Failure(left), .Failure(right)):
-		return .Failure(combineUsageErrors(left, rhs: right))
+		return .failure(combineUsageErrors(left.value, right.value))
 
 	case let (.Failure(left), .Success):
-		return .Failure(left)
+		return .failure(left.value)
 
 	case let (.Success, .Failure(right)):
-		return .Failure(right)
+		return .failure(right.value)
 
 	case let (.Success(f), .Success(value)):
-		let newValue = f(value)
-		return .Success(newValue)
+		let newValue = f.value(value.value)
+		return .success(newValue)
 	}
 }
 
@@ -199,12 +191,12 @@ public func <| <T: ArgumentType, ClientError>(mode: CommandMode, option: Option<
 		if let key = option.key {
 			switch arguments.consumeValueForKey(key) {
 			case let .Success(value):
-				stringValue = value
+				stringValue = value.value
 
 			case let .Failure(error):
-				switch error {
+				switch error.value {
 				case let .UsageError(description):
-					return .Failure(.UsageError(description: description))
+					return .failure(.UsageError(description: description))
 
 				case .CommandError:
 					fatalError("CommandError should be impossible when parameterized over NoError")
@@ -216,18 +208,18 @@ public func <| <T: ArgumentType, ClientError>(mode: CommandMode, option: Option<
 
 		if let stringValue = stringValue {
 			if let value = T.fromString(stringValue) {
-				return .Success(value)
+				return .success(value)
 			}
 
-			return .Failure(option.invalidUsageError(stringValue))
+			return .failure(option.invalidUsageError(stringValue))
 		} else if let defaultValue = option.defaultValue {
-			return .Success(defaultValue)
+			return .success(defaultValue)
 		} else {
-			return .Failure(missingArgumentError(option.description))
+			return .failure(missingArgumentError(option.description))
 		}
 
 	case .Usage:
-		return .Failure(informativeUsageError(option))
+		return .failure(informativeUsageError(option))
 	}
 }
 
@@ -241,14 +233,14 @@ public func <| <ClientError>(mode: CommandMode, option: Option<Bool>) -> Result<
 	switch mode {
 	case let .Arguments(arguments):
 		if let value = arguments.consumeBooleanKey(option.key!) {
-			return .Success(value)
+			return .success(value)
 		} else if let defaultValue = option.defaultValue {
-			return .Success(defaultValue)
+			return .success(defaultValue)
 		} else {
-			return .Failure(missingArgumentError(option.description))
+			return .failure(missingArgumentError(option.description))
 		}
 
 	case .Usage:
-		return .Failure(informativeUsageError(option))
+		return .failure(informativeUsageError(option))
 	}
 }

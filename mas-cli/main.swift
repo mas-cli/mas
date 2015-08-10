@@ -20,7 +20,7 @@ func primaryAccount() -> ISStoreAccount {
         if let activePhase = download.status.activePhase {
             let percentage = String(Int(floor(download.status.percentComplete * 100))) + "%"
 //            let phase = String(activePhase.phaseType)
-            print("\u{001B}[2K\r" + percentage + " " + download.metadata.title, appendNewline: false)
+            print("\u{001B}[2K\r" + percentage + " " + download.metadata.title)
         }
     }
     
@@ -79,7 +79,7 @@ struct AccountCommand: CommandType {
         default:
             break
         }
-        return .Success(())
+        return .success(())
     }
 }
 
@@ -102,13 +102,13 @@ struct InstallCommand: CommandType {
 struct InstallOptions: OptionsType {
     let appId: UInt64
     
-    static func create(appId: UInt64) -> InstallOptions {
-        return InstallOptions(appId: appId)
+    static func create(appId: Int) -> InstallOptions {
+        return InstallOptions(appId: UInt64(appId))
     }
     
     static func evaluate(m: CommandMode) -> Result<InstallOptions, CommandantError<MASError>> {
         return create
-            <*> m <| Option(usage: "the app ID to install")
+            <*> m <| Option(key: nil, defaultValue: nil, usage: "the app ID to install")
     }
 }
 
@@ -124,7 +124,7 @@ struct ListUpdatesCommand: CommandType {
         default:
             break
         }
-        return .Success(())
+        return .success(())
     }
 }
 
@@ -145,11 +145,11 @@ struct ListInstalledCommand: CommandType {
         default:
             break
         }
-        return .Success(())
+        return .success(())
     }
 }
 
-public enum MASError: ErrorType, Equatable {
+public enum MASError: Equatable {
     public var description: String {
         return ""
     }

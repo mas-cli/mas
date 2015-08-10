@@ -24,7 +24,7 @@
 - (BOOL)isTrialVersionOfBundleIdentifier:(id)arg1;
 - (id)receiptFromBundleAtPath:(id)arg1;
 - (id)productForPath:(id)arg1;
-- (NSArray<CKSoftwareProduct *>*)allProducts;
+- (NSArray*)allProducts;
 - (CKSoftwareProduct *)productForItemIdentifier:(unsigned long long)arg1;
 - (CKSoftwareProduct *)productForBundleIdentifier:(NSString *)arg1;
 - (void)removeProductsObserver:(id)arg1;

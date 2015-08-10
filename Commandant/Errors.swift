@@ -12,22 +12,22 @@ import Foundation
 ///
 /// `ClientError` should be the type of error (if any) that can occur when
 /// running commands.
-public enum CommandantError<ClientError>: ErrorType {
+public enum CommandantError<ClientError> {
 	/// An option was used incorrectly.
 	case UsageError(description: String)
 
 	/// An error occurred while running a command.
-	case CommandError(ClientError)
+	case CommandError(Box<ClientError>)
 }
 
-extension CommandantError: CustomStringConvertible {
+extension CommandantError: Printable {
 	public var description: String {
 		switch self {
 		case let .UsageError(description):
 			return description
 
 		case let .CommandError(error):
-			return String(error)
+			return toString(error)
 		}
 	}
 }
@@ -47,7 +47,7 @@ internal func missingArgumentError<ClientError>(argumentName: String) -> Command
 internal func informativeUsageError<ClientError>(keyValueExample: String, usage: String) -> CommandantError<ClientError> {
 	let lines = usage.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet())
 
-	return .UsageError(description: lines.reduce(keyValueExample) { previous, value in
+	return .UsageError(description: reduce(lines, keyValueExample) { previous, value in
 		return previous + "\n\t" + value
 	})
 }
@@ -56,9 +56,9 @@ internal func informativeUsageError<ClientError>(keyValueExample: String, usage:
 /// example of key (and value, if applicable) usage.
 internal func informativeUsageError<T, ClientError>(keyValueExample: String, option: Option<T>) -> CommandantError<ClientError> {
 	if option.defaultValue != nil {
-		return informativeUsageError("[\(keyValueExample)]", usage: option.usage)
+		return informativeUsageError("[\(keyValueExample)]", option.usage)
 	} else {
-		return informativeUsageError(keyValueExample, usage: option.usage)
+		return informativeUsageError(keyValueExample, option.usage)
 	}
 }
 
@@ -81,7 +81,7 @@ internal func informativeUsageError<T: ArgumentType, ClientError>(option: Option
 		example += valueExample
 	}
 
-	return informativeUsageError(example, option: option)
+	return informativeUsageError(example, option)
 }
 
 /// Constructs an error that describes how to use the given boolean option.
@@ -91,9 +91,9 @@ internal func informativeUsageError<ClientError>(option: Option<Bool>) -> Comman
 	let key = option.key!
 
 	if let defaultValue = option.defaultValue {
-		return informativeUsageError((defaultValue ? "--no-\(key)" : "--\(key)"), option: option)
+		return informativeUsageError((defaultValue ? "--no-\(key)" : "--\(key)"), option)
 	} else {
-		return informativeUsageError("--(no-)\(key)", option: option)
+		return informativeUsageError("--(no-)\(key)", option)
 	}
 }
 

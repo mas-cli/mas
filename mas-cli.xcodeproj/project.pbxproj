@@ -15,7 +15,6 @@
 		ED128ECE1B6C2A0B00C4050A /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED128EC71B6C2A0B00C4050A /* Option.swift */; };
 		ED128ECF1B6C2A0B00C4050A /* Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED128EC81B6C2A0B00C4050A /* Switch.swift */; };
 		ED128ED31B6C2AA200C4050A /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED128ED21B6C2AA200C4050A /* Result.swift */; };
-		ED128ED51B6C2AB700C4050A /* ResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED128ED41B6C2AB700C4050A /* ResultType.swift */; };
 		ED128EDC1B6C2B4400C4050A /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED128ED91B6C2B4400C4050A /* Box.swift */; };
 		ED128EDD1B6C2B4400C4050A /* BoxType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED128EDA1B6C2B4400C4050A /* BoxType.swift */; };
 		ED128EDE1B6C2B4400C4050A /* MutableBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED128EDB1B6C2B4400C4050A /* MutableBox.swift */; };
@@ -48,7 +47,6 @@
 		ED128EC81B6C2A0B00C4050A /* Switch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Switch.swift; sourceTree = "<group>"; };
 		ED128ED11B6C2A8B00C4050A /* Result.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Result.h; sourceTree = "<group>"; };
 		ED128ED21B6C2AA200C4050A /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
-		ED128ED41B6C2AB700C4050A /* ResultType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultType.swift; sourceTree = "<group>"; };
 		ED128ED81B6C2B4400C4050A /* Box.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Box.h; sourceTree = "<group>"; };
 		ED128ED91B6C2B4400C4050A /* Box.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
 		ED128EDA1B6C2B4400C4050A /* BoxType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoxType.swift; sourceTree = "<group>"; };
@@ -303,7 +301,6 @@
 			children = (
 				ED128ED11B6C2A8B00C4050A /* Result.h */,
 				ED128ED21B6C2AA200C4050A /* Result.swift */,
-				ED128ED41B6C2AB700C4050A /* ResultType.swift */,
 			);
 			path = Result;
 			sourceTree = "<group>";
@@ -598,7 +595,6 @@
 				ED128EDE1B6C2B4400C4050A /* MutableBox.swift in Sources */,
 				ED128ECA1B6C2A0B00C4050A /* ArgumentParser.swift in Sources */,
 				ED128ECB1B6C2A0B00C4050A /* Command.swift in Sources */,
-				ED128ED51B6C2AB700C4050A /* ResultType.swift in Sources */,
 				ED128ECE1B6C2A0B00C4050A /* Option.swift in Sources */,
 				ED128ECD1B6C2A0B00C4050A /* HelpCommand.swift in Sources */,
 				ED128ED31B6C2AA200C4050A /* Result.swift in Sources */,
@@ -694,6 +690,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "mas-cli/mas-cli-Bridging-Header.h";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/mas-cli/Headers/**";
 			};
 			name = Debug;
 		};
@@ -706,6 +703,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "mas-cli/mas-cli-Bridging-Header.h";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/mas-cli/Headers/**";
 			};
 			name = Release;
 		};
