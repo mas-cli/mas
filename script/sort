@@ -1,13 +1,11 @@
 #!/bin/bash
 
-main()
-{
-    echo "*** Sorting project files ***"
+main() {
+    echo "==> Sorting project files"
     sort_project
 }
 
-sort_project()
-{
+sort_project() {
     perl script/sort.pl mas-cli.xcodeproj/project.pbxproj
 }
 
