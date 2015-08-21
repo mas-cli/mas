@@ -20,8 +20,3 @@ struct AccountCommand: CommandType {
         return .success(())
     }
 }
-
-func primaryAccount() -> ISStoreAccount {
-    let accountController = CKAccountStore.sharedAccountStore()
-    return accountController.primaryAccount
-}
