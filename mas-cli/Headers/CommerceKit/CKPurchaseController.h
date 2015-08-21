@@ -7,6 +7,8 @@
 #import "CKServiceInterface.h"
 #import "SSPurchase.h"
 
+@class SSPurchaseResponse;
+
 @interface CKPurchaseController : CKServiceInterface
 {
     NSMutableArray *_purchases;

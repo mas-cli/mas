@@ -11,28 +11,21 @@
 
 @import Foundation;
 
-#import "ISServiceRemoteObject-Protocol.h"
-#import "ISAccountService-Protocol.h"
-#import "ISTransactionService-Protocol.h"
-#import "ISServiceProxy.h"
-#import "ISServiceClientInterface.h"
-#import "ISStoreClient.h"
 #import "ISStoreAccount.h"
 
 #import "CKAccountStore.h"
 #import "CKDownloadQueue.h"
 #import "CKDownloadQueueClient.h"
+#import "CKPurchaseController.h"
 #import "CKSoftwareMap.h"
+#import "CKUpdateController.h"
+
 #import "SSDownload.h"
-#import "SSDownloadStatus.h"
+#import "SSDownloadMetadata.h"
 #import "SSDownloadPhase.h"
+#import "SSDownloadStatus.h"
 #import "SSPurchase.h"
 #import "SSPurchaseResponse.h"
-#import "SSDownloadMetadata.h"
-#import "CKItemLookupRequest.h"
-#import "CKItemLookupResponse.h"
-#import "CKPurchaseController.h"
-#import "CKUpdateController.h"
 
 @protocol CKDownloadQueueObserver
 
