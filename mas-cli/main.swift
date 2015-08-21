@@ -26,7 +26,6 @@ registry.register(ListInstalledCommand())
 registry.register(ListUpdatesCommand())
 registry.register(helpCommand)
 
-setbuf(__stdoutp, nil)
 registry.main(defaultVerb: helpCommand.verb, errorHandler: { error in
     fputs(error.description + "\n", stderr)
 })

@@ -58,6 +58,7 @@ func progress(state: ProgressState) {
         }
     }
     print("\(csi)2K\(csi)0G\(bar) \(state.percentage) \(state.phase)")
+    fflush(stdout)
 }
 
 extension SSDownloadStatus {
