@@ -8,8 +8,6 @@
 
 import Foundation
 
-var client = ISStoreClient(storeClientType: 0)
-
 var downloadQueue = CKDownloadQueue.sharedDownloadQueue()
 downloadQueue.addObserver(DownloadQueueObserver())
 
