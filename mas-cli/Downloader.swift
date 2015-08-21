@@ -9,7 +9,7 @@
 typealias DownloadCompletion = (purchase: SSPurchase!, completed: Bool, error: NSError?, response: SSPurchaseResponse!) -> ()
 
 func download(adamId: UInt64, completion:DownloadCompletion) {
-    let buyParameters = "productType=C&price=0&salableAdamId=\(String(adamId))&pricingParameters=STDRDL"
+    let buyParameters = "productType=C&price=0&salableAdamId=\(adamId)&pricingParameters=STDRDL"
     let purchase = SSPurchase()
     purchase.buyParameters = buyParameters
     purchase.itemIdentifier = adamId
