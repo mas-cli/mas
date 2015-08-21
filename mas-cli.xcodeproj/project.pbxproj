@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		ED031A7C1B5127C00097692E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED031A7B1B5127C00097692E /* main.swift */; };
+		ED0F237F1B87522400AE40CD /* Install.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F237E1B87522400AE40CD /* Install.swift */; };
+		ED0F23831B87533A00AE40CD /* ListInstalled.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F23821B87533A00AE40CD /* ListInstalled.swift */; };
+		ED0F23851B87536A00AE40CD /* ListUpdates.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F23841B87536A00AE40CD /* ListUpdates.swift */; };
+		ED0F23871B87537200AE40CD /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F23861B87537200AE40CD /* Account.swift */; };
+		ED0F23891B87543D00AE40CD /* DownloadQueueObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F23881B87543D00AE40CD /* DownloadQueueObserver.swift */; };
+		ED0F238B1B87569C00AE40CD /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F238A1B87569C00AE40CD /* Downloader.swift */; };
+		ED0F238D1B8756E600AE40CD /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F238C1B8756E600AE40CD /* Error.swift */; };
 		ED128ECA1B6C2A0B00C4050A /* ArgumentParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED128EC11B6C2A0B00C4050A /* ArgumentParser.swift */; };
 		ED128ECB1B6C2A0B00C4050A /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED128EC21B6C2A0B00C4050A /* Command.swift */; };
 		ED128ECC1B6C2A0B00C4050A /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED128EC41B6C2A0B00C4050A /* Errors.swift */; };
@@ -37,6 +44,13 @@
 /* Begin PBXFileReference section */
 		ED031A781B5127C00097692E /* mas-cli */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "mas-cli"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED031A7B1B5127C00097692E /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		ED0F237E1B87522400AE40CD /* Install.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Install.swift; sourceTree = "<group>"; };
+		ED0F23821B87533A00AE40CD /* ListInstalled.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListInstalled.swift; sourceTree = "<group>"; };
+		ED0F23841B87536A00AE40CD /* ListUpdates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListUpdates.swift; sourceTree = "<group>"; };
+		ED0F23861B87537200AE40CD /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		ED0F23881B87543D00AE40CD /* DownloadQueueObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadQueueObserver.swift; sourceTree = "<group>"; };
+		ED0F238A1B87569C00AE40CD /* Downloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
+		ED0F238C1B8756E600AE40CD /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		ED128EC11B6C2A0B00C4050A /* ArgumentParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentParser.swift; sourceTree = "<group>"; };
 		ED128EC21B6C2A0B00C4050A /* Command.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
 		ED128EC31B6C2A0B00C4050A /* Commandant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Commandant.h; sourceTree = "<group>"; };
@@ -275,11 +289,27 @@
 		ED031A7A1B5127C00097692E /* mas-cli */ = {
 			isa = PBXGroup;
 			children = (
+				ED0F23801B87524700AE40CD /* Commands */,
+				ED0F238A1B87569C00AE40CD /* Downloader.swift */,
+				ED0F23881B87543D00AE40CD /* DownloadQueueObserver.swift */,
+				ED0F238C1B8756E600AE40CD /* Error.swift */,
 				ED031A7B1B5127C00097692E /* main.swift */,
 				EDEAA12C1B51CF8000F2FC3F /* mas-cli-Bridging-Header.h */,
 			);
 			path = "mas-cli";
 			sourceTree = "<group>";
+		};
+		ED0F23801B87524700AE40CD /* Commands */ = {
+			isa = PBXGroup;
+			children = (
+				ED0F23861B87537200AE40CD /* Account.swift */,
+				ED0F237E1B87522400AE40CD /* Install.swift */,
+				ED0F23821B87533A00AE40CD /* ListInstalled.swift */,
+				ED0F23841B87536A00AE40CD /* ListUpdates.swift */,
+			);
+			name = Commands;
+			path = "mas-cli/Commands";
+			sourceTree = SOURCE_ROOT;
 		};
 		ED128EC91B6C2A0B00C4050A /* Commandant */ = {
 			isa = PBXGroup;
@@ -590,7 +620,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED0F23871B87537200AE40CD /* Account.swift in Sources */,
+				ED0F238B1B87569C00AE40CD /* Downloader.swift in Sources */,
+				ED0F23891B87543D00AE40CD /* DownloadQueueObserver.swift in Sources */,
+				ED0F238D1B8756E600AE40CD /* Error.swift in Sources */,
 				ED128ECC1B6C2A0B00C4050A /* Errors.swift in Sources */,
+				ED0F237F1B87522400AE40CD /* Install.swift in Sources */,
+				ED0F23831B87533A00AE40CD /* ListInstalled.swift in Sources */,
+				ED0F23851B87536A00AE40CD /* ListUpdates.swift in Sources */,
 				ED031A7C1B5127C00097692E /* main.swift in Sources */,
 				ED128EDE1B6C2B4400C4050A /* MutableBox.swift in Sources */,
 				ED128ECA1B6C2A0B00C4050A /* ArgumentParser.swift in Sources */,
