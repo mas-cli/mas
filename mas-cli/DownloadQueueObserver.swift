@@ -40,6 +40,11 @@ struct ProgressState {
 }
 
 func progress(state: ProgressState) {
+    // Don't display the progress bar if we're not on a terminal
+    if isatty(fileno(stdout)) == 0 {
+        return
+    }
+    
     let barLength = 60
     
     let completeLength = Int(state.percentComplete * Float(barLength))
