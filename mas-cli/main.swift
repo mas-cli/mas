@@ -10,11 +10,6 @@ import Foundation
 
 var client = ISStoreClient(storeClientType: 0)
 
-func primaryAccount() -> ISStoreAccount {
-    let accountController = CKAccountStore.sharedAccountStore()
-    return accountController.primaryAccount
-}
-
 var downloadQueue = CKDownloadQueue.sharedDownloadQueue()
 downloadQueue.addObserver(DownloadQueueObserver())
 
