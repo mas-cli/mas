@@ -13,10 +13,7 @@ struct InstallCommand: CommandType {
     func run(mode: CommandMode) -> Result<(), CommandantError<MASError>> {
         return InstallOptions.evaluate(mode).map { options in
             download(options.appId) { (purchase, completed, error, response) in
-                print(purchase)
-                print(completed)
-                print(error)
-                print(response)
+                
             }
         }
     }
