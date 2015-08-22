@@ -15,10 +15,9 @@ struct ListInstalledCommand: CommandType {
         case .Arguments:
             let softwareMap = CKSoftwareMap.sharedSoftwareMap()
             let products = softwareMap.allProducts() as! [CKSoftwareProduct]
-            products.map({ product -> Bool in
+            for product in products {
                 println("\(product.itemIdentifier) \(product.appName)")
-                return true
-            })
+            }
             
         default:
             break
