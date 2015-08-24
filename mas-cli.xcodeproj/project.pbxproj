@@ -21,10 +21,11 @@
 		ED0F23831B87533A00AE40CD /* ListInstalled.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F23821B87533A00AE40CD /* ListInstalled.swift */; };
 		ED0F23851B87536A00AE40CD /* ListUpdates.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F23841B87536A00AE40CD /* ListUpdates.swift */; };
 		ED0F23871B87537200AE40CD /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F23861B87537200AE40CD /* Account.swift */; };
-		ED0F23891B87543D00AE40CD /* DownloadQueueObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F23881B87543D00AE40CD /* DownloadQueueObserver.swift */; };
+		ED0F23891B87543D00AE40CD /* PurchaseDownloadObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F23881B87543D00AE40CD /* PurchaseDownloadObserver.swift */; };
 		ED0F238B1B87569C00AE40CD /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F238A1B87569C00AE40CD /* Downloader.swift */; };
 		ED0F238D1B8756E600AE40CD /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F238C1B8756E600AE40CD /* Error.swift */; };
 		ED0F23901B87A56F00AE40CD /* ISStoreAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F238F1B87A56F00AE40CD /* ISStoreAccount.swift */; };
+		EDA3BE521B8B84AF00C18D70 /* SSPurchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA3BE511B8B84AF00C18D70 /* SSPurchase.swift */; };
 		EDEAA0C01B51CE6200F2FC3F /* StoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDEAA0BF1B51CE6200F2FC3F /* StoreFoundation.framework */; };
 		EDEAA17D1B5C579100F2FC3F /* CommerceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDEAA17C1B5C579100F2FC3F /* CommerceKit.framework */; };
 		F5F01044EC3065C6EBAB95D7 /* BoxType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E87CFA5E6371893D5B1807 /* BoxType.swift */; };
@@ -57,10 +58,11 @@
 		ED0F23821B87533A00AE40CD /* ListInstalled.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListInstalled.swift; sourceTree = "<group>"; };
 		ED0F23841B87536A00AE40CD /* ListUpdates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListUpdates.swift; sourceTree = "<group>"; };
 		ED0F23861B87537200AE40CD /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
-		ED0F23881B87543D00AE40CD /* DownloadQueueObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadQueueObserver.swift; sourceTree = "<group>"; };
+		ED0F23881B87543D00AE40CD /* PurchaseDownloadObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseDownloadObserver.swift; sourceTree = "<group>"; };
 		ED0F238A1B87569C00AE40CD /* Downloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
 		ED0F238C1B8756E600AE40CD /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		ED0F238F1B87A56F00AE40CD /* ISStoreAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISStoreAccount.swift; sourceTree = "<group>"; };
+		EDA3BE511B8B84AF00C18D70 /* SSPurchase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSPurchase.swift; sourceTree = "<group>"; };
 		EDEAA0BF1B51CE6200F2FC3F /* StoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreFoundation.framework; path = /System/Library/PrivateFrameworks/StoreFoundation.framework; sourceTree = "<absolute>"; };
 		EDEAA0C31B51CEE400F2FC3F /* CDStructures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CDStructures.h; sourceTree = "<group>"; };
 		EDEAA0C41B51CEE400F2FC3F /* CKBook.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKBook.h; sourceTree = "<group>"; };
@@ -351,8 +353,9 @@
 			isa = PBXGroup;
 			children = (
 				ED0F238A1B87569C00AE40CD /* Downloader.swift */,
-				ED0F23881B87543D00AE40CD /* DownloadQueueObserver.swift */,
 				ED0F238F1B87A56F00AE40CD /* ISStoreAccount.swift */,
+				ED0F23881B87543D00AE40CD /* PurchaseDownloadObserver.swift */,
+				EDA3BE511B8B84AF00C18D70 /* SSPurchase.swift */,
 			);
 			path = AppStore;
 			sourceTree = "<group>";
@@ -637,7 +640,6 @@
 				F5F01044EC3065C6EBAB95D7 /* BoxType.swift in Sources */,
 				21EC092422A3EDFE33B153B8 /* Command.swift in Sources */,
 				ED0F238B1B87569C00AE40CD /* Downloader.swift in Sources */,
-				ED0F23891B87543D00AE40CD /* DownloadQueueObserver.swift in Sources */,
 				ED0F238D1B8756E600AE40CD /* Error.swift in Sources */,
 				B80C5DDD38A8F7EB6F320697 /* Errors.swift in Sources */,
 				5918483F96256CDAC88FF450 /* HelpCommand.swift in Sources */,
@@ -648,7 +650,9 @@
 				ED031A7C1B5127C00097692E /* main.swift in Sources */,
 				DE39BCA91D1BC3D876711677 /* MutableBox.swift in Sources */,
 				92828DCD99CED47F54242776 /* Option.swift in Sources */,
+				ED0F23891B87543D00AE40CD /* PurchaseDownloadObserver.swift in Sources */,
 				1CC607DA6B900AA3FEC3F6D8 /* Result.swift in Sources */,
+				EDA3BE521B8B84AF00C18D70 /* SSPurchase.swift in Sources */,
 				7858BCFB4D5A4251DE998CE4 /* Switch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

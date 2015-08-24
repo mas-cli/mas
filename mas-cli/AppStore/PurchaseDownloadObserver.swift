@@ -1,5 +1,5 @@
 //
-//  DownloadQueueObserver.swift
+//  PurchaseDownloadObserver.swift
 //  mas-cli
 //
 //  Created by Andrew Naylor on 21/08/2015.
@@ -8,8 +8,14 @@
 
 let csi = "\u{001B}["
 
-@objc class DownloadQueueObserver: CKDownloadQueueObserver {
+@objc class PurchaseDownloadObserver: CKDownloadQueueObserver {
+    let purchase: SSPurchase
+    var completionHandler: (() -> ())?
     var started = false
+    
+    init(purchase: SSPurchase) {
+        self.purchase = purchase
+    }
     
     func downloadQueue(queue: CKDownloadQueue, statusChangedForDownload download: SSDownload!) {
         if !started {
@@ -26,7 +32,13 @@ let csi = "\u{001B}["
     func downloadQueue(queue: CKDownloadQueue, changedWithRemoval download: SSDownload!) {
         println("")
         println("==> Installed " + download.metadata.title)
-        exit(EXIT_SUCCESS)
+        if let complete = self.completionHandler {
+            complete()
+        }
+    }
+    
+    func onCompletion(complete: () -> ()) {
+        self.completionHandler = complete
     }
 }
 

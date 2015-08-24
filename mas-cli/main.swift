@@ -8,8 +8,6 @@
 
 import Foundation
 
-var downloadQueue = CKDownloadQueue.sharedDownloadQueue()
-downloadQueue.addObserver(DownloadQueueObserver())
 
 let registry = CommandRegistry<MASError>()
 let helpCommand = HelpCommand(registry: registry)

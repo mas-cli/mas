@@ -6,25 +6,34 @@
 //  Copyright (c) 2015 Andrew Naylor. All rights reserved.
 //
 
-typealias DownloadCompletion = (purchase: SSPurchase!, completed: Bool, error: NSError?, response: SSPurchaseResponse!) -> ()
+func download(adamId: UInt64) -> MASError? {
 
-func download(adamId: UInt64, completion:DownloadCompletion) {
-    let buyParameters = "productType=C&price=0&salableAdamId=\(adamId)&pricingParameters=STDRDL"
-    let purchase = SSPurchase()
-    purchase.buyParameters = buyParameters
-    purchase.itemIdentifier = adamId
-    purchase.accountIdentifier = primaryAccount().dsID
-    purchase.appleID = primaryAccount().identifier
-    
-    let downloadMetadata = SSDownloadMetadata()
-    downloadMetadata.kind = "software"
-    downloadMetadata.itemIdentifier = adamId
-    
-    purchase.downloadMetadata = downloadMetadata
-    
-    let purchaseController = CKPurchaseController.sharedPurchaseController()
-    purchaseController.performPurchase(purchase, withOptions: 0, completionHandler: completion)
-    while true {
-        NSRunLoop.mainRunLoop().runMode(NSDefaultRunLoopMode, beforeDate: NSDate(timeIntervalSinceNow: 10))
+    if let account = ISStoreAccount.primaryAccount {
+        let group = dispatch_group_create()
+        let purchase = SSPurchase(adamId: adamId, account: account)
+        
+        var purchaseError: MASError?
+        
+        purchase.perform { purchase, completed, error, response in
+            if completed {
+                let observer = PurchaseDownloadObserver(purchase: purchase)
+                observer.onCompletion {
+                    dispatch_group_leave(group)
+                }
+                
+                CKDownloadQueue.sharedDownloadQueue().addObserver(observer)
+            }
+            else {
+                purchaseError = MASError(code: .PurchaseError, sourceError: error)
+                dispatch_group_leave(group)
+            }
+        }
+        
+        dispatch_group_enter(group)
+        dispatch_group_wait(group, DISPATCH_TIME_FOREVER)
+        return purchaseError
+    }
+    else {
+        return MASError(code: .NotSignedIn)
     }
 }

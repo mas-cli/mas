@@ -11,10 +11,18 @@ struct InstallCommand: CommandType {
     let function = "Install from the Mac App Store"
     
     func run(mode: CommandMode) -> Result<(), CommandantError<MASError>> {
-        return InstallOptions.evaluate(mode).map { options in
-            download(options.appId) { (purchase, completed, error, response) in
-                
+        let optionsResult = InstallOptions.evaluate(mode)
+            
+        switch optionsResult {
+        case let .Failure(error):
+            return .Failure(error)
+            
+        case let .Success(options):
+            if let error = download(options.value.appId) {
+                return .failure(CommandantError.CommandError(Box(error)))
             }
+            
+            return .success(())
         }
     }
 }

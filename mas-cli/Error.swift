@@ -13,6 +13,7 @@ private let MASErrorSource: String = "MASErrorSource"
 public enum MASErrorCode: Int {
     case NoError
     case NotSignedIn
+    case PurchaseError
     
     var exitCode: Int32 {
         return Int32(self.rawValue)
