@@ -13,7 +13,13 @@ struct AccountCommand: CommandType {
     func run(mode: CommandMode) -> Result<(), CommandantError<MASError>> {
         switch mode {
         case .Arguments:
-            print(primaryAccount().identifier)
+            if let account = ISStoreAccount.primaryAccount {
+                println(account.identifier)
+            }
+            else {
+                println("Not signed in")
+                exit(MASErrorCode.NotSignedIn.exitCode)
+            }
         default:
             break
         }
