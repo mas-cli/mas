@@ -14,7 +14,10 @@ struct ListUpdatesCommand: CommandType {
         switch mode {
         case .Arguments:
             let updateController = CKUpdateController.sharedUpdateController()
-            print(updateController.availableUpdates())
+            let updates = updateController.availableUpdates() as! [CKUpdate]
+            for update in updates {
+                println("\(update.itemIdentifier) \(update.title) \(update.actionParams)")
+            }
         default:
             break
         }

@@ -18,6 +18,7 @@
 #import "CKDownloadQueueClient.h"
 #import "CKPurchaseController.h"
 #import "CKSoftwareMap.h"
+#import "CKUpdate.h"
 #import "CKUpdateController.h"
 
 #import "SSDownload.h"
