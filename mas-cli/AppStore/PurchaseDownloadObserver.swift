@@ -11,34 +11,44 @@ let csi = "\u{001B}["
 @objc class PurchaseDownloadObserver: CKDownloadQueueObserver {
     let purchase: SSPurchase
     var completionHandler: (() -> ())?
-    var started = false
+    var errorHandler: ((MASError) -> ())?
     
     init(purchase: SSPurchase) {
         self.purchase = purchase
     }
     
     func downloadQueue(queue: CKDownloadQueue, statusChangedForDownload download: SSDownload!) {
-        if !started {
+        if download.metadata.itemIdentifier != purchase.itemIdentifier {
             return
         }
-        progress(download.status.progressState)
+        let status = download.status
+        if status.failed || status.cancelled {
+            queue.removeDownloadWithItemIdentifier(download.metadata.itemIdentifier)
+        }
+        else {
+            progress(status.progressState)
+        }
     }
     
     func downloadQueue(queue: CKDownloadQueue, changedWithAddition download: SSDownload!) {
-        started = true
         println("==> Downloading " + download.metadata.title)
     }
     
     func downloadQueue(queue: CKDownloadQueue, changedWithRemoval download: SSDownload!) {
-        println("")
-        println("==> Installed " + download.metadata.title)
-        if let complete = self.completionHandler {
-            complete()
+        clearLine()
+        let status = download.status
+        if status.failed {
+            println("==> Download Failed: \(status.error.localizedDescription)")
+            errorHandler?(MASError(code: .DownloadFailed, sourceError: status.error))
         }
-    }
-    
-    func onCompletion(complete: () -> ()) {
-        self.completionHandler = complete
+        else if status.cancelled {
+            println("==> Download Cancelled")
+            errorHandler?(MASError(code: .Cancelled))
+        }
+        else {
+            println("==> Installed " + download.metadata.title)
+            completionHandler?()
+        }
     }
 }
 
@@ -69,8 +79,13 @@ func progress(state: ProgressState) {
             bar += "-"
         }
     }
-    print("\(csi)2K\(csi)0G\(bar) \(state.percentage) \(state.phase)")
+    clearLine()
+    print("\(bar) \(state.percentage) \(state.phase)")
     fflush(stdout)
+}
+
+func clearLine() {
+    print("\(csi)2K\(csi)0G")
 }
 
 extension SSDownloadStatus {

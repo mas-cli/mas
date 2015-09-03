@@ -14,17 +14,30 @@ func download(adamId: UInt64) -> MASError? {
         
         var purchaseError: MASError?
         
-        purchase.perform { purchase, completed, error, response in
-            if completed {
+        purchase.perform { purchase, unused, error, response in
+            if let error = error {
+                purchaseError = MASError(code: .PurchaseError, sourceError: error)
+                dispatch_group_leave(group)
+                return
+            }
+            
+            if let downloads = response.downloads as? [SSDownload] where count(downloads) > 0 {
                 let observer = PurchaseDownloadObserver(purchase: purchase)
-                observer.onCompletion {
+                
+                observer.errorHandler = { error in
+                    purchaseError = error
+                    dispatch_group_leave(group)
+                }
+                
+                observer.completionHandler = {
                     dispatch_group_leave(group)
                 }
                 
                 CKDownloadQueue.sharedDownloadQueue().addObserver(observer)
             }
             else {
-                purchaseError = MASError(code: .PurchaseError, sourceError: error)
+                println("No downloads")
+                purchaseError = MASError(code: .NoDownloads)
                 dispatch_group_leave(group)
             }
         }

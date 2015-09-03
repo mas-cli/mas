@@ -14,6 +14,9 @@ public enum MASErrorCode: Int {
     case NoError
     case NotSignedIn
     case PurchaseError
+    case NoDownloads
+    case Cancelled
+    case DownloadFailed
     
     var exitCode: Int32 {
         return Int32(self.rawValue)

@@ -17,7 +17,7 @@ registry.register(ListInstalledCommand())
 registry.register(ListUpdatesCommand())
 registry.register(helpCommand)
 
-registry.main(defaultVerb: helpCommand.verb, errorHandler: { error in
-    fputs(error.description + "\n", stderr)
-})
+registry.main(defaultVerb: helpCommand.verb) { error in
+    exit(Int32(error.code))
+}
 
