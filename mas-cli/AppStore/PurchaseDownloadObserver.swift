@@ -38,7 +38,7 @@ let csi = "\u{001B}["
         clearLine()
         let status = download.status
         if status.failed {
-            println("==> Download Failed: \(status.error.localizedDescription)")
+            println("==> Download Failed")
             errorHandler?(MASError(code: .DownloadFailed, sourceError: status.error))
         }
         else if status.cancelled {

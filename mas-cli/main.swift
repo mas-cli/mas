@@ -8,6 +8,11 @@
 
 import Foundation
 
+public struct StderrOutputStream: OutputStreamType {
+    public mutating func write(string: String) {
+        fputs(string, stderr)
+    }
+}
 
 let registry = CommandRegistry<MASError>()
 let helpCommand = HelpCommand(registry: registry)
@@ -18,6 +23,10 @@ registry.register(ListUpdatesCommand())
 registry.register(helpCommand)
 
 registry.main(defaultVerb: helpCommand.verb) { error in
+    if let sourceError = error.sourceError {
+        var stderr = StderrOutputStream()
+        println(sourceError.localizedDescription, &stderr)
+    }
     exit(Int32(error.code))
 }
 

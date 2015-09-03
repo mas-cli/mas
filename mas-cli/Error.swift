@@ -28,6 +28,10 @@ public class MASError: NSError {
         return MASErrorCode(rawValue: code)
     }
     
+    var sourceError: NSError? {
+        return userInfo?[MASErrorSource] as? NSError
+    }
+    
     convenience init(code: MASErrorCode, sourceError: NSError? = nil) {
         var userInfo: [NSObject: AnyObject] = [:]
         if let error = sourceError {
