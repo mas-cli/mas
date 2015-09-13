@@ -18,8 +18,8 @@ let registry = CommandRegistry<MASError>()
 let helpCommand = HelpCommand(registry: registry)
 registry.register(AccountCommand())
 registry.register(InstallCommand())
-registry.register(ListInstalledCommand())
-registry.register(ListUpdatesCommand())
+registry.register(ListCommand())
+registry.register(OutdatedCommand())
 registry.register(helpCommand)
 
 registry.main(defaultVerb: helpCommand.verb) { error in

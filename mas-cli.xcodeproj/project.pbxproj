@@ -18,8 +18,8 @@
 		DE39BCA91D1BC3D876711677 /* MutableBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8007A86176C1DC9462A80FA /* MutableBox.swift */; };
 		ED031A7C1B5127C00097692E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED031A7B1B5127C00097692E /* main.swift */; };
 		ED0F237F1B87522400AE40CD /* Install.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F237E1B87522400AE40CD /* Install.swift */; };
-		ED0F23831B87533A00AE40CD /* ListInstalled.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F23821B87533A00AE40CD /* ListInstalled.swift */; };
-		ED0F23851B87536A00AE40CD /* ListUpdates.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F23841B87536A00AE40CD /* ListUpdates.swift */; };
+		ED0F23831B87533A00AE40CD /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F23821B87533A00AE40CD /* List.swift */; };
+		ED0F23851B87536A00AE40CD /* Outdated.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F23841B87536A00AE40CD /* Outdated.swift */; };
 		ED0F23871B87537200AE40CD /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F23861B87537200AE40CD /* Account.swift */; };
 		ED0F23891B87543D00AE40CD /* PurchaseDownloadObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F23881B87543D00AE40CD /* PurchaseDownloadObserver.swift */; };
 		ED0F238B1B87569C00AE40CD /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F238A1B87569C00AE40CD /* Downloader.swift */; };
@@ -55,8 +55,8 @@
 		ED031A781B5127C00097692E /* mas-cli */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "mas-cli"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED031A7B1B5127C00097692E /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		ED0F237E1B87522400AE40CD /* Install.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Install.swift; sourceTree = "<group>"; };
-		ED0F23821B87533A00AE40CD /* ListInstalled.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListInstalled.swift; sourceTree = "<group>"; };
-		ED0F23841B87536A00AE40CD /* ListUpdates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListUpdates.swift; sourceTree = "<group>"; };
+		ED0F23821B87533A00AE40CD /* List.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
+		ED0F23841B87536A00AE40CD /* Outdated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Outdated.swift; sourceTree = "<group>"; };
 		ED0F23861B87537200AE40CD /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		ED0F23881B87543D00AE40CD /* PurchaseDownloadObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseDownloadObserver.swift; sourceTree = "<group>"; };
 		ED0F238A1B87569C00AE40CD /* Downloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
@@ -342,8 +342,8 @@
 			children = (
 				ED0F23861B87537200AE40CD /* Account.swift */,
 				ED0F237E1B87522400AE40CD /* Install.swift */,
-				ED0F23821B87533A00AE40CD /* ListInstalled.swift */,
-				ED0F23841B87536A00AE40CD /* ListUpdates.swift */,
+				ED0F23821B87533A00AE40CD /* List.swift */,
+				ED0F23841B87536A00AE40CD /* Outdated.swift */,
 			);
 			name = Commands;
 			path = "mas-cli/Commands";
@@ -645,11 +645,11 @@
 				5918483F96256CDAC88FF450 /* HelpCommand.swift in Sources */,
 				ED0F237F1B87522400AE40CD /* Install.swift in Sources */,
 				ED0F23901B87A56F00AE40CD /* ISStoreAccount.swift in Sources */,
-				ED0F23831B87533A00AE40CD /* ListInstalled.swift in Sources */,
-				ED0F23851B87536A00AE40CD /* ListUpdates.swift in Sources */,
+				ED0F23831B87533A00AE40CD /* List.swift in Sources */,
 				ED031A7C1B5127C00097692E /* main.swift in Sources */,
 				DE39BCA91D1BC3D876711677 /* MutableBox.swift in Sources */,
 				92828DCD99CED47F54242776 /* Option.swift in Sources */,
+				ED0F23851B87536A00AE40CD /* Outdated.swift in Sources */,
 				ED0F23891B87543D00AE40CD /* PurchaseDownloadObserver.swift in Sources */,
 				1CC607DA6B900AA3FEC3F6D8 /* Result.swift in Sources */,
 				EDA3BE521B8B84AF00C18D70 /* SSPurchase.swift in Sources */,
