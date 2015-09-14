@@ -363,14 +363,14 @@
 		EDEAA0C11B51CEBD00F2FC3F /* Headers */ = {
 			isa = PBXGroup;
 			children = (
-				EDEAA12E1B5C576D00F2FC3F /* CommerceKit.framework */,
-				EDEAA0C21B51CEC900F2FC3F /* StoreFoundation.framework */,
+				EDEAA12E1B5C576D00F2FC3F /* CommerceKit */,
+				EDEAA0C21B51CEC900F2FC3F /* StoreFoundation */,
 			);
 			name = Headers;
 			path = "mas-cli/Headers";
 			sourceTree = "<group>";
 		};
-		EDEAA0C21B51CEC900F2FC3F /* StoreFoundation.framework */ = {
+		EDEAA0C21B51CEC900F2FC3F /* StoreFoundation */ = {
 			isa = PBXGroup;
 			children = (
 				EDEAA0C31B51CEE400F2FC3F /* CDStructures.h */,
@@ -479,11 +479,10 @@
 				EDEAA12A1B51CEE400F2FC3F /* SSPurchaseResponse.h */,
 				EDEAA12B1B51CEE400F2FC3F /* SSRequest.h */,
 			);
-			name = StoreFoundation.framework;
 			path = StoreFoundation;
 			sourceTree = "<group>";
 		};
-		EDEAA12E1B5C576D00F2FC3F /* CommerceKit.framework */ = {
+		EDEAA12E1B5C576D00F2FC3F /* CommerceKit */ = {
 			isa = PBXGroup;
 			children = (
 				EDEAA12F1B5C576D00F2FC3F /* CDStructures.h */,
@@ -564,7 +563,6 @@
 				EDEAA17A1B5C576D00F2FC3F /* SSRestoreContentItem.h */,
 				EDEAA17B1B5C576D00F2FC3F /* SSURLRequestProperties.h */,
 			);
-			name = CommerceKit.framework;
 			path = CommerceKit;
 			sourceTree = "<group>";
 		};
@@ -741,9 +739,12 @@
 					"$(inherited)",
 					"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/mas-cli/Headers",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "mas-cli/mas-cli-Bridging-Header.h";
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/mas-cli/Headers/**";
 			};
 			name = Debug;
 		};
@@ -754,9 +755,12 @@
 					"$(inherited)",
 					"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/mas-cli/Headers",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "mas-cli/mas-cli-Bridging-Header.h";
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/mas-cli/Headers/**";
 			};
 			name = Release;
 		};

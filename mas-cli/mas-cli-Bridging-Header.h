@@ -11,22 +11,20 @@
 
 @import Foundation;
 
-#import "ISStoreAccount.h"
+#import <StoreFoundation/ISStoreAccount.h>
 
-#import "CKAccountStore.h"
-#import "CKDownloadQueue.h"
-#import "CKDownloadQueueClient.h"
-#import "CKPurchaseController.h"
-#import "CKSoftwareMap.h"
-#import "CKUpdate.h"
-#import "CKUpdateController.h"
+#import <CommerceKit/CKAccountStore.h>
+#import <CommerceKit/CKDownloadQueue.h>
+#import <CommerceKit/CKPurchaseController.h>
+#import <CommerceKit/CKSoftwareMap.h>
+#import <CommerceKit/CKUpdateController.h>
 
-#import "SSDownload.h"
-#import "SSDownloadMetadata.h"
-#import "SSDownloadPhase.h"
-#import "SSDownloadStatus.h"
-#import "SSPurchase.h"
-#import "SSPurchaseResponse.h"
+#import <StoreFoundation/CKUpdate.h>
+#import <StoreFoundation/SSDownload.h>
+#import <StoreFoundation/SSDownloadMetadata.h>
+#import <StoreFoundation/SSDownloadPhase.h>
+#import <StoreFoundation/SSDownloadStatus.h>
+#import <StoreFoundation/SSPurchaseResponse.h>
 
 @protocol CKDownloadQueueObserver
 
