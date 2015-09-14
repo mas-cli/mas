@@ -21,7 +21,7 @@ func download(adamId: UInt64) -> MASError? {
                 return
             }
             
-            if let downloads = response.downloads as? [SSDownload] where count(downloads) > 0 {
+            if let downloads = response.downloads as? [SSDownload] where downloads.count > 0 {
                 let observer = PurchaseDownloadObserver(purchase: purchase)
                 
                 observer.errorHandler = { error in
@@ -36,7 +36,7 @@ func download(adamId: UInt64) -> MASError? {
                 CKDownloadQueue.sharedDownloadQueue().addObserver(observer)
             }
             else {
-                println("No downloads")
+                print("No downloads")
                 purchaseError = MASError(code: .NoDownloads)
                 dispatch_group_leave(group)
             }

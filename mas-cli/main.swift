@@ -25,7 +25,7 @@ registry.register(helpCommand)
 registry.main(defaultVerb: helpCommand.verb) { error in
     if let sourceError = error.sourceError {
         var stderr = StderrOutputStream()
-        println(sourceError.localizedDescription, &stderr)
+        print(sourceError.localizedDescription, toStream: &stderr)
     }
     exit(Int32(error.code))
 }

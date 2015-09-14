@@ -8,7 +8,7 @@
 
 let csi = "\u{001B}["
 
-@objc class PurchaseDownloadObserver: CKDownloadQueueObserver {
+@objc class PurchaseDownloadObserver: NSObject, CKDownloadQueueObserver {
     let purchase: SSPurchase
     var completionHandler: (() -> ())?
     var errorHandler: ((MASError) -> ())?
@@ -31,22 +31,22 @@ let csi = "\u{001B}["
     }
     
     func downloadQueue(queue: CKDownloadQueue, changedWithAddition download: SSDownload!) {
-        println("==> Downloading " + download.metadata.title)
+        print("==> Downloading " + download.metadata.title)
     }
     
     func downloadQueue(queue: CKDownloadQueue, changedWithRemoval download: SSDownload!) {
         clearLine()
         let status = download.status
         if status.failed {
-            println("==> Download Failed")
+            print("==> Download Failed")
             errorHandler?(MASError(code: .DownloadFailed, sourceError: status.error))
         }
         else if status.cancelled {
-            println("==> Download Cancelled")
+            print("==> Download Cancelled")
             errorHandler?(MASError(code: .Cancelled))
         }
         else {
-            println("==> Installed " + download.metadata.title)
+            print("==> Installed " + download.metadata.title)
             completionHandler?()
         }
     }
@@ -80,7 +80,7 @@ func progress(state: ProgressState) {
         }
     }
     clearLine()
-    print("\(bar) \(state.percentage) \(state.phase)")
+    print("\(bar) \(state.percentage) \(state.phase)", terminator: "")
     fflush(stdout)
 }
 

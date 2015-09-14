@@ -16,12 +16,12 @@ struct ListCommand: CommandType {
             let softwareMap = CKSoftwareMap.sharedSoftwareMap()
             let products = softwareMap.allProducts() as! [CKSoftwareProduct]
             for product in products {
-                println("\(product.itemIdentifier) \(product.appName)")
+                print("\(product.itemIdentifier) \(product.appName)")
             }
             
         default:
             break
         }
-        return .success(())
+        return .Success(())
     }
 }

@@ -29,7 +29,7 @@ public class MASError: NSError {
     }
     
     var sourceError: NSError? {
-        return userInfo?[MASErrorSource] as? NSError
+        return userInfo[MASErrorSource] as? NSError
     }
     
     convenience init(code: MASErrorCode, sourceError: NSError? = nil) {

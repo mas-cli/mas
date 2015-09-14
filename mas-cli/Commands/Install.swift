@@ -18,11 +18,11 @@ struct InstallCommand: CommandType {
             return .Failure(error)
             
         case let .Success(options):
-            if let error = download(options.value.appId) {
-                return .failure(CommandantError.CommandError(Box(error)))
+            if let error = download(options.appId) {
+                return .Failure(CommandantError.CommandError(error))
             }
             
-            return .success(())
+            return .Success(())
         }
     }
 }

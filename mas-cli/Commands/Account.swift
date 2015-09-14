@@ -14,15 +14,15 @@ struct AccountCommand: CommandType {
         switch mode {
         case .Arguments:
             if let account = ISStoreAccount.primaryAccount {
-                println(account.identifier)
+                print(account.identifier)
             }
             else {
-                println("Not signed in")
+                print("Not signed in")
                 exit(MASErrorCode.NotSignedIn.exitCode)
             }
         default:
             break
         }
-        return .success(())
+        return .Success(())
     }
 }
