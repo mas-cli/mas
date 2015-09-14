@@ -147,8 +147,8 @@
 			isa = PBXGroup;
 			children = (
 				EDFC76381B642A2E00D0DBD7 /* Frameworks */,
-				EDEAA0C11B51CEBD00F2FC3F /* Headers */,
 				ED031A7A1B5127C00097692E /* mas-cli */,
+				EDEAA0C11B51CEBD00F2FC3F /* PrivateHeaders */,
 				ED031A791B5127C00097692E /* Products */,
 				0739FA024AB80925B32D64D1 /* Seeds */,
 			);
@@ -197,14 +197,14 @@
 			path = AppStore;
 			sourceTree = "<group>";
 		};
-		EDEAA0C11B51CEBD00F2FC3F /* Headers */ = {
+		EDEAA0C11B51CEBD00F2FC3F /* PrivateHeaders */ = {
 			isa = PBXGroup;
 			children = (
 				EDEAA12E1B5C576D00F2FC3F /* CommerceKit */,
 				EDEAA0C21B51CEC900F2FC3F /* StoreFoundation */,
 			);
-			name = Headers;
-			path = "mas-cli/Headers";
+			name = PrivateHeaders;
+			path = "mas-cli/PrivateHeaders";
 			sourceTree = "<group>";
 		};
 		EDEAA0C21B51CEC900F2FC3F /* StoreFoundation */ = {
@@ -415,7 +415,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/mas-cli/Headers",
+					"$(SRCROOT)/mas-cli/PrivateHeaders",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "mas-cli/mas-cli-Bridging-Header.h";
@@ -431,7 +431,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/mas-cli/Headers",
+					"$(SRCROOT)/mas-cli/PrivateHeaders",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "mas-cli/mas-cli-Bridging-Header.h";
