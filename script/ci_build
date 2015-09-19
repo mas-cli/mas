@@ -1,4 +1,0 @@
-#!/bin/bash -xe
-
-xctool -scheme mas-cli clean
-xctool -scheme mas-cli build

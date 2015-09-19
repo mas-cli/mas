@@ -12,4 +12,4 @@ install:
   - bash script/bootstrap
 
 script:
-  - bash script/ci_build
+  - bash script/build

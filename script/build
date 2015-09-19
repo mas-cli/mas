@@ -1,0 +1,3 @@
+#!/bin/bash -xe
+
+xcodebuild -project "mas-cli.xcodeproj" -scheme mas-cli clean build | xcpretty -c
