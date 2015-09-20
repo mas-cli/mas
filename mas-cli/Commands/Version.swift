@@ -8,7 +8,7 @@
 
 struct VersionCommand: CommandType {
     let verb = "version"
-    let function = "Display version information about the tool"
+    let function = "Print version number"
     
     func run(mode: CommandMode) -> Result<(), CommandantError<MASError>> {
         switch mode {
