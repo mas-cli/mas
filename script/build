@@ -1,3 +1,20 @@
-#!/bin/bash -xe
+#!/bin/bash -e
 
-xcodebuild -project "mas-cli.xcodeproj" -scheme mas-cli clean build | xcpretty -c
+main() {
+  build
+
+  # If this is a tagged build we are going to relase
+  if [[ ! -z $TRAVIS_TAG ]]; then
+    archive
+  fi
+}
+
+build() {
+  xcodebuild -project "mas-cli.xcodeproj" -scheme mas-cli clean build | xcpretty -c
+}
+
+archive() {
+  xcodebuild -project "mas-cli.xcodeproj" -scheme mas-cli -archivePath mas.xcarchive archive | xcpretty -c
+}
+
+main
