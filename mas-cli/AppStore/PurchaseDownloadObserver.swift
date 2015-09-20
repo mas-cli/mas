@@ -90,6 +90,7 @@ func clearLine() {
         return
     }
     print("\(csi)2K\(csi)0G")
+    fflush(stdout)
 }
 
 extension SSDownloadStatus {
