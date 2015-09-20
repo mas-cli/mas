@@ -51,7 +51,7 @@
 		B7F27132AB0C6BC7BA7078EF /* HelpCommand.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HelpCommand.swift; path = Seeds/Commandant/Commandant/HelpCommand.swift; sourceTree = "<group>"; };
 		C4E553CF8A2DE31278400C3A /* Errors.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Errors.swift; path = Seeds/Commandant/Commandant/Errors.swift; sourceTree = "<group>"; };
 		DD1005EEE43D06F809260BEA /* Command.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Command.swift; path = Seeds/Commandant/Commandant/Command.swift; sourceTree = "<group>"; };
-		ED031A781B5127C00097692E /* mas-cli */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "mas-cli"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED031A781B5127C00097692E /* mas */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = mas; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED031A7B1B5127C00097692E /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		ED0F237E1B87522400AE40CD /* Install.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Install.swift; sourceTree = "<group>"; };
 		ED0F23821B87533A00AE40CD /* List.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
@@ -146,7 +146,7 @@
 		ED031A791B5127C00097692E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				ED031A781B5127C00097692E /* mas-cli */,
+				ED031A781B5127C00097692E /* mas */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -243,9 +243,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		ED031A771B5127C00097692E /* mas-cli */ = {
+		ED031A771B5127C00097692E /* mas */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = ED031A7F1B5127C00097692E /* Build configuration list for PBXNativeTarget "mas-cli" */;
+			buildConfigurationList = ED031A7F1B5127C00097692E /* Build configuration list for PBXNativeTarget "mas" */;
 			buildPhases = (
 				ED031A741B5127C00097692E /* Sources */,
 				ED031A751B5127C00097692E /* Frameworks */,
@@ -255,9 +255,9 @@
 			);
 			dependencies = (
 			);
-			name = "mas-cli";
+			name = mas;
 			productName = "mas-cli";
-			productReference = ED031A781B5127C00097692E /* mas-cli */;
+			productReference = ED031A781B5127C00097692E /* mas */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -287,7 +287,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				ED031A771B5127C00097692E /* mas-cli */,
+				ED031A771B5127C00097692E /* mas */,
 			);
 		};
 /* End PBXProject section */
@@ -449,7 +449,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		ED031A7F1B5127C00097692E /* Build configuration list for PBXNativeTarget "mas-cli" */ = {
+		ED031A7F1B5127C00097692E /* Build configuration list for PBXNativeTarget "mas" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				ED031A801B5127C00097692E /* Debug */,

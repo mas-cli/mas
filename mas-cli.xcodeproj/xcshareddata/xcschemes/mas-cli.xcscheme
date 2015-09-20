@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "ED031A771B5127C00097692E"
-               BuildableName = "mas-cli"
-               BlueprintName = "mas-cli"
+               BuildableName = "mas"
+               BlueprintName = "mas"
                ReferencedContainer = "container:mas-cli.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,8 +33,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "ED031A771B5127C00097692E"
-            BuildableName = "mas-cli"
-            BlueprintName = "mas-cli"
+            BuildableName = "mas"
+            BlueprintName = "mas"
             ReferencedContainer = "container:mas-cli.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -56,8 +56,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "ED031A771B5127C00097692E"
-            BuildableName = "mas-cli"
-            BlueprintName = "mas-cli"
+            BuildableName = "mas"
+            BlueprintName = "mas"
             ReferencedContainer = "container:mas-cli.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -75,8 +75,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "ED031A771B5127C00097692E"
-            BuildableName = "mas-cli"
-            BlueprintName = "mas-cli"
+            BuildableName = "mas"
+            BlueprintName = "mas"
             ReferencedContainer = "container:mas-cli.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
