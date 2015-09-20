@@ -1,7 +1,7 @@
 # mas-cli
 
-Command line interface for the Mac App Store, designed for scripting and
-automation.
+A simple command line interface for the Mac App Store. Designed for scripting 
+and automation.
 
 ## Install
 
@@ -14,22 +14,19 @@ Alternatively binaries are available in the [GitHub Releases](ghreleases)
 ## Usage
 
 Each application in the Mac App Store has a product identifier which is also
-used for mas-cli commands. The best way to find the product identifier of an 
-app is to run `mas list`. This will list all installed applications along with
-their product identifiers
+used for mas-cli commands. Using `mas list` will show all installed
+applications and their product identifiers.
 
     $ mas list
     446107677 Screens
     407963104 Pixelmator
     497799835 Xcode
 
-To install an application simply run `mas install`:
+To install or update an application simply run `mas install`:
 
     $ mas install 808809998
     ==> Downloading PaintCode 2
     ==> Installed PaintCode 2
-
-`mas install` can also be used to install pending updates.
 
 Use `mas outdated` to list all applications with pending updates.
 
