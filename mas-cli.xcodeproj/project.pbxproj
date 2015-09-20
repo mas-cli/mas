@@ -73,6 +73,7 @@
 		ED1EF9571BA6BBBF0075453C /* SSPurchase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSPurchase.h; sourceTree = "<group>"; };
 		ED1EF9581BA6BBBF0075453C /* SSPurchaseResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSPurchaseResponse.h; sourceTree = "<group>"; };
 		EDA3BE511B8B84AF00C18D70 /* SSPurchase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSPurchase.swift; sourceTree = "<group>"; };
+		EDB6CE8A1BAEB95100648B4D /* mas-cli-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "mas-cli-Info.plist"; sourceTree = "<group>"; };
 		EDEAA0BF1B51CE6200F2FC3F /* StoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreFoundation.framework; path = /System/Library/PrivateFrameworks/StoreFoundation.framework; sourceTree = "<absolute>"; };
 		EDEAA12C1B51CF8000F2FC3F /* mas-cli-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "mas-cli-Bridging-Header.h"; sourceTree = "<group>"; };
 		EDEAA1311B5C576D00F2FC3F /* CKAccountStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKAccountStore.h; sourceTree = "<group>"; };
@@ -156,6 +157,7 @@
 				ED0F238C1B8756E600AE40CD /* Error.swift */,
 				ED031A7B1B5127C00097692E /* main.swift */,
 				EDEAA12C1B51CF8000F2FC3F /* mas-cli-Bridging-Header.h */,
+				EDB6CE8A1BAEB95100648B4D /* mas-cli-Info.plist */,
 			);
 			path = "mas-cli";
 			sourceTree = "<group>";
@@ -350,9 +352,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "mas-cli/mas-cli-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mphys.mas-cli";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -385,8 +389,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "mas-cli/mas-cli-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mphys.mas-cli";
 			};
 			name = Release;
 		};
@@ -400,6 +406,12 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/mas-cli/PrivateHeaders",
+				);
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					"$(INFOPLIST_FILE)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "mas-cli/mas-cli-Bridging-Header.h";
@@ -416,6 +428,12 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/mas-cli/PrivateHeaders",
+				);
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					"$(INFOPLIST_FILE)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "mas-cli/mas-cli-Bridging-Header.h";
