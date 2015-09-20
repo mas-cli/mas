@@ -86,6 +86,9 @@ func progress(state: ProgressState) {
 }
 
 func clearLine() {
+    guard isatty(fileno(stdout)) != 0 else {
+        return
+    }
     print("\(csi)2K\(csi)0G")
 }
 
