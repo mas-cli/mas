@@ -31,6 +31,7 @@ let csi = "\u{001B}["
     }
     
     func downloadQueue(queue: CKDownloadQueue, changedWithAddition download: SSDownload!) {
+        clearLine()
         print("==> Downloading " + download.metadata.title)
     }
     
