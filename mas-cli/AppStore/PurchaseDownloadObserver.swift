@@ -25,8 +25,8 @@ let csi = "\u{001B}["
         if status.failed || status.cancelled {
             queue.removeDownloadWithItemIdentifier(download.metadata.itemIdentifier)
         }
-        else {
-            progress(status.progressState)
+        else if let state = status.progressState {
+            progress(state)
         }
     }
     
@@ -94,9 +94,13 @@ func clearLine() {
 }
 
 extension SSDownloadStatus {
-    var progressState: ProgressState {
-        let phase = activePhase?.phaseDescription ?? "Waiting"
-        return ProgressState(percentComplete: percentComplete, phase: phase)
+    var progressState: ProgressState? {
+        if let phase = activePhase {
+            return ProgressState(percentComplete: percentComplete, phase: phase.phaseDescription)
+        }
+        else {
+            return nil
+        }
     }
 }
 
