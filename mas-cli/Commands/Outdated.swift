@@ -14,7 +14,7 @@ struct OutdatedCommand: CommandType {
         switch mode {
         case .Arguments:
             let updateController = CKUpdateController.sharedUpdateController()
-            let updates = updateController.availableUpdates() as! [CKUpdate]
+            let updates = updateController.availableUpdates()
             for update in updates {
                 print("\(update.itemIdentifier) \(update.title) (\(update.bundleVersion))")
             }

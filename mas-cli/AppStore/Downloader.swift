@@ -21,7 +21,7 @@ func download(adamId: UInt64) -> MASError? {
                 return
             }
             
-            if let downloads = response.downloads as? [SSDownload] where downloads.count > 0 {
+            if let downloads = response.downloads where downloads.count > 0 {
                 let observer = PurchaseDownloadObserver(purchase: purchase)
                 
                 observer.errorHandler = { error in

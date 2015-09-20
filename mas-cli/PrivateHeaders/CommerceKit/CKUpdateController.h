@@ -6,6 +6,8 @@
 
 #import "CKServiceInterface.h"
 
+@class CKUpdate;
+
 @interface CKUpdateController : CKServiceInterface
 {
 //    CDUnknownBlockType _dialogHandler;
@@ -49,7 +51,7 @@
 - (unsigned long long)availableUpdatesBadgeCount;
 - (id)incompatibleUpdates;
 - (id)availableUpdateWithItemIdentifier:(unsigned long long)arg1;
-- (id)availableUpdates;
+- (NSArray<CKUpdate *>*)availableUpdates;
 - (id)init;
 
 @end

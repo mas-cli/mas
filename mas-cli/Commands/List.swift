@@ -14,7 +14,7 @@ struct ListCommand: CommandType {
         switch mode {
         case .Arguments:
             let softwareMap = CKSoftwareMap.sharedSoftwareMap()
-            let products = softwareMap.allProducts() as! [CKSoftwareProduct]
+            let products = softwareMap.allProducts()
             for product in products {
                 print("\(product.itemIdentifier) \(product.appName)")
             }

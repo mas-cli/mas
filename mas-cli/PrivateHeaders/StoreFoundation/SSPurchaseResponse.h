@@ -15,7 +15,7 @@
 
 + (BOOL)supportsSecureCoding;
 @property(retain) NSDictionary *metrics; // @synthesize metrics=_metrics;
-@property(retain) NSArray *downloads; // @synthesize downloads=_downloads;
+@property(retain) NSArray<SSDownload*> *downloads; // @synthesize downloads=_downloads;
 //- (void).cxx_destruct;
 - (id)initWithCoder:(id)arg1;
 - (void)encodeWithCoder:(id)arg1;
