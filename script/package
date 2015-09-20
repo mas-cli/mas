@@ -1,0 +1,7 @@
+#!/bin/bash -x
+
+echo "==> Compressing mas.xcarchive"
+zip -r mas.xcarchive.zip mas.xcarchive
+
+echo "==> Compressing binary"
+zip mas-cli.zip mas.xcarchive/Products/usr/local/bin/mas-cli

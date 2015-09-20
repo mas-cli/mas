@@ -13,3 +13,6 @@ install:
 
 script:
   - bash script/build
+
+before_deploy:
+  - bash script/package

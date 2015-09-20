@@ -1,6 +1,7 @@
 #!/bin/bash -e
 
 main() {
+  script/clean
   build
 
   # If this is a tagged build we are going to relase
