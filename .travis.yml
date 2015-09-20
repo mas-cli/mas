@@ -16,3 +16,14 @@ script:
 
 before_deploy:
   - bash script/package
+
+deploy:
+  provider: releases
+  api_key:
+    secure: cxYCOPCK+QONwnk5XWGO1TlvAHryx6duAhCVVs7ck7pwalYPnps+SBed/A/VYJcnX31Is2N5aBn0cqaFDA3lAQqKWOT/PaC3HB89/eruE0PhjXjGG6SIjaGSgU9sTxEFpaWcAGKPIdK0xE4x1Fdravx28JL7AGSaCfQii7Ia6WI7jTH8FMAeTuDR3JABz+oBgTm0tl52K+rai4nl1k4B3uFiONfbfuPY6Q5m+R/M2UWLL3CLpIL5ROg5INmqItTjUTr4rLM5c/GnSCjqTvq/pbBvkss7xcGi+6u4YDmkC1/WFgJJPlfn/ERmhZRS1paURltARHsQ/XNxe5JWLJEn7ULw2nUJUHT1/rcepJOgn0+MPuTKUJ7yG2bslV7Rgj1wolJZa7O1ijda6HfYo4slCwFAG6rG+4K6eG8Jr/IRYiA2r+drNAwXh0xuA3lRb971yEEJkiJoZeSMFohlYNayKltXRuSOi8dcHgoElWrouRlimiACK64CdAUeITg9uM5jHzrYq551aAdo2r21wiTsIjiXbb604VyyPOb8nZHZ1SuFXg//OeTODvewSVWbyzd8zefP61YUTmeeowSl/LVBn2YZDN5GkbgjA/3mAVeYMaeI0tdQMj7bbp2TgeSnZFTf1OIwsrjWXVka97KU5aTeQf+oVkSlbX3wsPCd4npA9lk=
+  file: 
+    - mas-cli.zip
+    - mas.xcarchive.zip
+  on:
+    repo: argon/mas
+    tags: true
