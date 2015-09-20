@@ -20,6 +20,7 @@ registry.register(AccountCommand())
 registry.register(InstallCommand())
 registry.register(ListCommand())
 registry.register(OutdatedCommand())
+registry.register(VersionCommand())
 registry.register(helpCommand)
 
 registry.main(defaultVerb: helpCommand.verb) { error in

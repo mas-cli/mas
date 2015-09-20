@@ -25,6 +25,7 @@
 		ED0F238D1B8756E600AE40CD /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F238C1B8756E600AE40CD /* Error.swift */; };
 		ED0F23901B87A56F00AE40CD /* ISStoreAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F238F1B87A56F00AE40CD /* ISStoreAccount.swift */; };
 		EDA3BE521B8B84AF00C18D70 /* SSPurchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA3BE511B8B84AF00C18D70 /* SSPurchase.swift */; };
+		EDB6CE8C1BAEC3D400648B4D /* Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB6CE8B1BAEC3D400648B4D /* Version.swift */; settings = {ASSET_TAGS = (); }; };
 		EDEAA0C01B51CE6200F2FC3F /* StoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDEAA0BF1B51CE6200F2FC3F /* StoreFoundation.framework */; };
 		EDEAA17D1B5C579100F2FC3F /* CommerceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDEAA17C1B5C579100F2FC3F /* CommerceKit.framework */; };
 /* End PBXBuildFile section */
@@ -74,6 +75,7 @@
 		ED1EF9581BA6BBBF0075453C /* SSPurchaseResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSPurchaseResponse.h; sourceTree = "<group>"; };
 		EDA3BE511B8B84AF00C18D70 /* SSPurchase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSPurchase.swift; sourceTree = "<group>"; };
 		EDB6CE8A1BAEB95100648B4D /* mas-cli-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "mas-cli-Info.plist"; sourceTree = "<group>"; };
+		EDB6CE8B1BAEC3D400648B4D /* Version.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Version.swift; sourceTree = "<group>"; };
 		EDEAA0BF1B51CE6200F2FC3F /* StoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreFoundation.framework; path = /System/Library/PrivateFrameworks/StoreFoundation.framework; sourceTree = "<absolute>"; };
 		EDEAA12C1B51CF8000F2FC3F /* mas-cli-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "mas-cli-Bridging-Header.h"; sourceTree = "<group>"; };
 		EDEAA1311B5C576D00F2FC3F /* CKAccountStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKAccountStore.h; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 				ED0F237E1B87522400AE40CD /* Install.swift */,
 				ED0F23821B87533A00AE40CD /* List.swift */,
 				ED0F23841B87536A00AE40CD /* Outdated.swift */,
+				EDB6CE8B1BAEC3D400648B4D /* Version.swift */,
 			);
 			name = Commands;
 			path = "mas-cli/Commands";
@@ -307,6 +310,7 @@
 				ED031A7C1B5127C00097692E /* main.swift in Sources */,
 				92828DCD99CED47F54242776 /* Option.swift in Sources */,
 				ED0F23851B87536A00AE40CD /* Outdated.swift in Sources */,
+				EDB6CE8C1BAEC3D400648B4D /* Version.swift in Sources */,
 				ED0F23891B87543D00AE40CD /* PurchaseDownloadObserver.swift in Sources */,
 				1CC607DA6B900AA3FEC3F6D8 /* Result.swift in Sources */,
 				D40342B675C91E513F04B66E /* ResultType.swift in Sources */,
