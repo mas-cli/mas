@@ -16,7 +16,7 @@ struct OutdatedCommand: CommandType {
             let updateController = CKUpdateController.sharedUpdateController()
             let updates = updateController.availableUpdates() as! [CKUpdate]
             for update in updates {
-                print("\(update.itemIdentifier) \(update.title) \(update.actionParams)")
+                print("\(update.itemIdentifier) \(update.title)")
             }
         default:
             break
