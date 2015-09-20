@@ -6,11 +6,11 @@
 	<string>en_GB</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.mphys.mas-cli</string>
-	<key>CFBundleShortVersionString</key>
-	<string>1.0.0</string>
-	<key>CFBundleName</key>
-	<string>mas-cli</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>mas-cli</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0.0</string>
 </dict>
 </plist>
