@@ -4,7 +4,7 @@ echo "==> Compressing mas.xcarchive"
 zip -r mas.xcarchive.zip mas.xcarchive
 
 echo "==> Compressing binary"
-zip mas-cli.zip mas.xcarchive/Products/usr/local/bin/mas
+zip -j mas-cli.zip mas.xcarchive/Products/usr/local/bin/mas
 
 echo -n "==> "
 openssl sha1 mas-cli.zip
