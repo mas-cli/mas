@@ -6,5 +6,5 @@ zip -r mas.xcarchive.zip mas.xcarchive
 echo "==> Compressing binary"
 zip -j mas-cli.zip mas.xcarchive/Products/usr/local/bin/mas
 
-echo -n "==> "
-openssl sha1 mas-cli.zip
+echo -n "==> SHA256: "
+shasum -a 256 mas-cli.zip
