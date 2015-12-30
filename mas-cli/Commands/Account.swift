@@ -7,21 +7,17 @@
 //
 
 struct AccountCommand: CommandType {
+    typealias Options = NoOptions<MASError>
     let verb = "account"
     let function = "Prints the primary account Apple ID"
     
-    func run(mode: CommandMode) -> Result<(), CommandantError<MASError>> {
-        switch mode {
-        case .Arguments:
-            if let account = ISStoreAccount.primaryAccount {
-                print(account.identifier)
-            }
-            else {
-                print("Not signed in")
-                exit(MASErrorCode.NotSignedIn.exitCode)
-            }
-        default:
-            break
+    func run(options: Options) -> Result<(), MASError> {
+        if let account = ISStoreAccount.primaryAccount {
+            print(account.identifier)
+        }
+        else {
+            print("Not signed in")
+            exit(MASErrorCode.NotSignedIn.exitCode)
         }
         return .Success(())
     }

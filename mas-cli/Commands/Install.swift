@@ -7,23 +7,16 @@
 //
 
 struct InstallCommand: CommandType {
+    typealias Options = InstallOptions
     let verb = "install"
     let function = "Install from the Mac App Store"
     
-    func run(mode: CommandMode) -> Result<(), CommandantError<MASError>> {
-        let optionsResult = InstallOptions.evaluate(mode)
-            
-        switch optionsResult {
-        case let .Failure(error):
+    func run(options: Options) -> Result<(), MASError> {
+        if let error = download(options.appId) {
             return .Failure(error)
-            
-        case let .Success(options):
-            if let error = download(options.appId) {
-                return .Failure(CommandantError.CommandError(error))
-            }
-            
-            return .Success(())
         }
+        
+        return .Success(())
     }
 }
 
@@ -36,6 +29,6 @@ struct InstallOptions: OptionsType {
     
     static func evaluate(m: CommandMode) -> Result<InstallOptions, CommandantError<MASError>> {
         return create
-            <*> m <| Option(key: nil, defaultValue: nil, usage: "the app ID to install")
+            <*> m <| Option(key: "", defaultValue: nil, usage: "the app ID to install")
     }
 }

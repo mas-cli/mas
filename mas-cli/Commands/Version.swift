@@ -7,18 +7,14 @@
 //
 
 struct VersionCommand: CommandType {
+    typealias Options = NoOptions<MASError>
     let verb = "version"
     let function = "Print version number"
     
-    func run(mode: CommandMode) -> Result<(), CommandantError<MASError>> {
-        switch mode {
-        case .Arguments:
-            let plist = NSBundle.mainBundle().infoDictionary
-            if let versionString = plist?["CFBundleShortVersionString"] {
-                print(versionString)
-            }
-        default:
-            break
+    func run(options: Options) -> Result<(), MASError> {
+        let plist = NSBundle.mainBundle().infoDictionary
+        if let versionString = plist?["CFBundleShortVersionString"] {
+            print(versionString)
         }
         return .Success(())
     }

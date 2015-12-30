@@ -7,19 +7,15 @@
 //
 
 struct OutdatedCommand: CommandType {
+    typealias Options = NoOptions<MASError>
     let verb = "outdated"
     let function = "Lists pending updates from the Mac App Store"
     
-    func run(mode: CommandMode) -> Result<(), CommandantError<MASError>> {
-        switch mode {
-        case .Arguments:
-            let updateController = CKUpdateController.sharedUpdateController()
-            let updates = updateController.availableUpdates()
-            for update in updates {
-                print("\(update.itemIdentifier) \(update.title) (\(update.bundleVersion))")
-            }
-        default:
-            break
+    func run(options: Options) -> Result<(), MASError> {
+        let updateController = CKUpdateController.sharedUpdateController()
+        let updates = updateController.availableUpdates()
+        for update in updates {
+            print("\(update.itemIdentifier) \(update.title) (\(update.bundleVersion))")
         }
         return .Success(())
     }

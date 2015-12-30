@@ -1,2 +1,2 @@
-github "Carthage/Commandant", "swift-2.0", :files => "Commandant/*.swift"
-github "antitypical/Result", "master", :files => "Result/*.swift"
+github "Carthage/Commandant", "0.8.1", :files => "Commandant/*.swift"
+github "antitypical/Result", "1.0.0", :files => "Result/*.swift"

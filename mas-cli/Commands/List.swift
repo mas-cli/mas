@@ -7,20 +7,15 @@
 //
 
 struct ListCommand: CommandType {
+    typealias Options = NoOptions<MASError>
     let verb = "list"
     let function = "Lists apps from the Mac App Store which are currently installed"
     
-    func run(mode: CommandMode) -> Result<(), CommandantError<MASError>> {
-        switch mode {
-        case .Arguments:
-            let softwareMap = CKSoftwareMap.sharedSoftwareMap()
-            let products = softwareMap.allProducts()
-            for product in products {
-                print("\(product.itemIdentifier) \(product.appName)")
-            }
-            
-        default:
-            break
+    func run(options: Options) -> Result<(), MASError> {
+        let softwareMap = CKSoftwareMap.sharedSoftwareMap()
+        let products = softwareMap.allProducts()
+        for product in products {
+            print("\(product.itemIdentifier) \(product.appName)")
         }
         return .Success(())
     }
