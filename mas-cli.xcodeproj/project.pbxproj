@@ -25,7 +25,8 @@
 		ED0F238D1B8756E600AE40CD /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F238C1B8756E600AE40CD /* Error.swift */; };
 		ED0F23901B87A56F00AE40CD /* ISStoreAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F238F1B87A56F00AE40CD /* ISStoreAccount.swift */; };
 		EDA3BE521B8B84AF00C18D70 /* SSPurchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA3BE511B8B84AF00C18D70 /* SSPurchase.swift */; };
-		EDB6CE8C1BAEC3D400648B4D /* Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB6CE8B1BAEC3D400648B4D /* Version.swift */; settings = {ASSET_TAGS = (); }; };
+		EDB6CE8C1BAEC3D400648B4D /* Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB6CE8B1BAEC3D400648B4D /* Version.swift */; };
+		EDD3B3631C34709400B56B88 /* Upgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B3621C34709400B56B88 /* Upgrade.swift */; };
 		EDEAA0C01B51CE6200F2FC3F /* StoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDEAA0BF1B51CE6200F2FC3F /* StoreFoundation.framework */; };
 		EDEAA17D1B5C579100F2FC3F /* CommerceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDEAA17C1B5C579100F2FC3F /* CommerceKit.framework */; };
 /* End PBXBuildFile section */
@@ -76,6 +77,7 @@
 		EDA3BE511B8B84AF00C18D70 /* SSPurchase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSPurchase.swift; sourceTree = "<group>"; };
 		EDB6CE8A1BAEB95100648B4D /* mas-cli-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "mas-cli-Info.plist"; sourceTree = "<group>"; };
 		EDB6CE8B1BAEC3D400648B4D /* Version.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Version.swift; sourceTree = "<group>"; };
+		EDD3B3621C34709400B56B88 /* Upgrade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Upgrade.swift; sourceTree = "<group>"; };
 		EDEAA0BF1B51CE6200F2FC3F /* StoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreFoundation.framework; path = /System/Library/PrivateFrameworks/StoreFoundation.framework; sourceTree = "<absolute>"; };
 		EDEAA12C1B51CF8000F2FC3F /* mas-cli-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "mas-cli-Bridging-Header.h"; sourceTree = "<group>"; };
 		EDEAA1311B5C576D00F2FC3F /* CKAccountStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKAccountStore.h; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				ED0F237E1B87522400AE40CD /* Install.swift */,
 				ED0F23821B87533A00AE40CD /* List.swift */,
 				ED0F23841B87536A00AE40CD /* Outdated.swift */,
+				EDD3B3621C34709400B56B88 /* Upgrade.swift */,
 				EDB6CE8B1BAEC3D400648B4D /* Version.swift */,
 			);
 			name = Commands;
@@ -315,6 +318,7 @@
 				D40342B675C91E513F04B66E /* ResultType.swift in Sources */,
 				EDA3BE521B8B84AF00C18D70 /* SSPurchase.swift in Sources */,
 				7858BCFB4D5A4251DE998CE4 /* Switch.swift in Sources */,
+				EDD3B3631C34709400B56B88 /* Upgrade.swift in Sources */,
 				EDB6CE8C1BAEC3D400648B4D /* Version.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
