@@ -4,14 +4,14 @@ main() {
   script/clean
   build
 
-  # If this is a tagged build we are going to relase
+  # If this is a tagged build we are going to release
   if [[ ! -z $TRAVIS_TAG ]]; then
     archive
   fi
 }
 
 build() {
-  xcodebuild -project "mas-cli.xcodeproj" -scheme mas-cli clean build | xcpretty -c
+  xcodebuild -project "mas-cli.xcodeproj" -scheme mas-cli -configuration Release clean build | xcpretty -c
 }
 
 archive() {
