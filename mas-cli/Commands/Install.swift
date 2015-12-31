@@ -29,6 +29,6 @@ struct InstallOptions: OptionsType {
     
     static func evaluate(m: CommandMode) -> Result<InstallOptions, CommandantError<MASError>> {
         return create
-            <*> m <| Option(key: "", defaultValue: nil, usage: "the app ID to install")
+            <*> m <| Argument(usage: "the app ID to install")
     }
 }
