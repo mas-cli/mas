@@ -1,6 +1,7 @@
 #!/bin/bash -e
 
 main() {
+  rm -rf build/
   rm -rf mas.xcarchive
   rm -f mas.xcarchive.zip
   rm -f mas-cli.zip
