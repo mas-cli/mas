@@ -13,6 +13,9 @@ private let MASErrorSource: String = "MASErrorSource"
 public enum MASErrorCode: Int {
     case NoError
     case NotSignedIn
+    case AlreadySignedIn
+    case SignInError
+    case NoAccessibilityPermission
     case PurchaseError
     case NoDownloads
     case Cancelled
