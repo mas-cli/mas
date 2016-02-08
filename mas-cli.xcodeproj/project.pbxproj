@@ -14,6 +14,7 @@
 		30EA893640B02CCF679F9C57 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECDEA314BB1F1599638884C /* Option.swift */; };
 		319FDBA6ED6443A912B9A65F /* ResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580DF177A1A8B1DF500CADA7 /* ResultType.swift */; };
 		345960DE661C85EB2609263C /* ArgumentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F4795E73E2065824AEDC5B /* ArgumentType.swift */; };
+		92F4E6411C5C606B0019AB57 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F4E6401C5C606B0019AB57 /* Login.swift */; };
 		AD0785BC0EC6BBF4ED560DCC /* ArgumentParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52882737E43AACD9AAEF5D9D /* ArgumentParser.swift */; };
 		EBD6B44FDF65E0253153629F /* HelpCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F27132AB0C6BC7BA7078EF /* HelpCommand.swift */; };
 		ED031A7C1B5127C00097692E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED031A7B1B5127C00097692E /* main.swift */; };
@@ -52,6 +53,7 @@
 		7516403ABCFB43FD80CCD0DB /* Argument.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Argument.swift; path = Seeds/Commandant/Commandant/Argument.swift; sourceTree = "<group>"; };
 		75F4795E73E2065824AEDC5B /* ArgumentType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ArgumentType.swift; path = Seeds/Commandant/Commandant/ArgumentType.swift; sourceTree = "<group>"; };
 		9257C5FABA335E5F060CB7F7 /* Result.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Result.swift; path = Seeds/Result/Result/Result.swift; sourceTree = "<group>"; };
+		92F4E6401C5C606B0019AB57 /* Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		AECDEA314BB1F1599638884C /* Option.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Option.swift; path = Seeds/Commandant/Commandant/Option.swift; sourceTree = "<group>"; };
 		B7F27132AB0C6BC7BA7078EF /* HelpCommand.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HelpCommand.swift; path = Seeds/Commandant/Commandant/HelpCommand.swift; sourceTree = "<group>"; };
 		C4E553CF8A2DE31278400C3A /* Errors.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Errors.swift; path = Seeds/Commandant/Commandant/Errors.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 		ED0F23801B87524700AE40CD /* Commands */ = {
 			isa = PBXGroup;
 			children = (
+				92F4E6401C5C606B0019AB57 /* Login.swift */,
 				ED0F23861B87537200AE40CD /* Account.swift */,
 				ED0F237E1B87522400AE40CD /* Install.swift */,
 				ED0F23821B87533A00AE40CD /* List.swift */,
@@ -323,6 +326,7 @@
 				ED0F23851B87536A00AE40CD /* Outdated.swift in Sources */,
 				ED0F23891B87543D00AE40CD /* PurchaseDownloadObserver.swift in Sources */,
 				0EBF5CDD379D7462C3389536 /* Result.swift in Sources */,
+				92F4E6411C5C606B0019AB57 /* Login.swift in Sources */,
 				319FDBA6ED6443A912B9A65F /* ResultType.swift in Sources */,
 				EDA3BE521B8B84AF00C18D70 /* SSPurchase.swift in Sources */,
 				15E27926A580EABEB1B218EF /* Switch.swift in Sources */,
@@ -425,6 +429,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/mas-cli/PrivateHeaders",
 				);
+				OTHER_SWIFT_FLAGS = "-DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mphys.mas-cli";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "mas-cli/mas-cli-Bridging-Header.h";
