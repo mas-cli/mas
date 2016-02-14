@@ -30,6 +30,7 @@
 		EDB6CE8C1BAEC3D400648B4D /* Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB6CE8B1BAEC3D400648B4D /* Version.swift */; };
 		EDC90B651C70045E0019E396 /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC90B641C70045E0019E396 /* SignIn.swift */; };
 		EDD3B3631C34709400B56B88 /* Upgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B3621C34709400B56B88 /* Upgrade.swift */; };
+		EDE296531C700F4300554778 /* SignOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE296521C700F4300554778 /* SignOut.swift */; };
 		EDEAA0C01B51CE6200F2FC3F /* StoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDEAA0BF1B51CE6200F2FC3F /* StoreFoundation.framework */; };
 		EDEAA17D1B5C579100F2FC3F /* CommerceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDEAA17C1B5C579100F2FC3F /* CommerceKit.framework */; };
 		F184B6B7CD9C013CACDED0FB /* Argument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7516403ABCFB43FD80CCD0DB /* Argument.swift */; };
@@ -90,6 +91,7 @@
 		EDE2964F1C700B0300554778 /* ISAuthenticationContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISAuthenticationContext.h; sourceTree = "<group>"; };
 		EDE296501C700B0300554778 /* ISServiceRemoteObject-Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ISServiceRemoteObject-Protocol.h"; sourceTree = "<group>"; };
 		EDE296511C700B0300554778 /* ISStoreClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISStoreClient.h; sourceTree = "<group>"; };
+		EDE296521C700F4300554778 /* SignOut.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignOut.swift; sourceTree = "<group>"; };
 		EDEAA0BF1B51CE6200F2FC3F /* StoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreFoundation.framework; path = /System/Library/PrivateFrameworks/StoreFoundation.framework; sourceTree = "<absolute>"; };
 		EDEAA12C1B51CF8000F2FC3F /* mas-cli-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "mas-cli-Bridging-Header.h"; sourceTree = "<group>"; };
 		EDEAA1311B5C576D00F2FC3F /* CKAccountStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKAccountStore.h; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 				EDC90B641C70045E0019E396 /* SignIn.swift */,
 				EDD3B3621C34709400B56B88 /* Upgrade.swift */,
 				EDB6CE8B1BAEC3D400648B4D /* Version.swift */,
+				EDE296521C700F4300554778 /* SignOut.swift */,
 			);
 			name = Commands;
 			path = "mas-cli/Commands";
@@ -360,6 +363,7 @@
 				319FDBA6ED6443A912B9A65F /* ResultType.swift in Sources */,
 				EDC90B651C70045E0019E396 /* SignIn.swift in Sources */,
 				EDA3BE521B8B84AF00C18D70 /* SSPurchase.swift in Sources */,
+				EDE296531C700F4300554778 /* SignOut.swift in Sources */,
 				15E27926A580EABEB1B218EF /* Switch.swift in Sources */,
 				EDD3B3631C34709400B56B88 /* Upgrade.swift in Sources */,
 				EDB6CE8C1BAEC3D400648B4D /* Version.swift in Sources */,
