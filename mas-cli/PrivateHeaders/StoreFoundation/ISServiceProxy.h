@@ -8,6 +8,8 @@
 
 @class ISStoreClient, NSLock, NSMutableDictionary, Protocol;
 
+@protocol ISAccountService;
+
 @interface ISServiceProxy : NSObject
 {
     NSLock *_serviceConnectionLock;
@@ -36,7 +38,7 @@ typedef void (^ISErrorHandler)(NSError * __nonnull error);
 //@property(readonly, nonatomic) id <ISDownloadService> downloadService;
 //- (id)downloadServiceWithErrorHandler:(CDUnknownBlockType)arg1;
 //- (void)accountServiceSynchronousBlock:(void (^ __nonnull)(id <ISAccountService> __nonnull))arg1;
-//@property(readonly, nonatomic) id <ISAccountService> __nonnull accountService;
+@property(readonly, nonatomic) id <ISAccountService> __nonnull accountService;
 //- (id <ISAccountService> __nonnull)accountServiceWithErrorHandler:(ISErrorHandler __nonnull)arg1;
 //- (void)performSynchronousBlock:(CDUnknownBlockType)arg1 withServiceName:(id)arg2 protocol:(id)arg3 isMachService:(BOOL)arg4 interfaceClassName:(id)arg5;
 //- (id)objectProxyForServiceName:(id)arg1 protocol:(id)arg2 interfaceClassName:(id)arg3 isMachService:(BOOL)arg4 errorHandler:(CDUnknownBlockType)arg5;
