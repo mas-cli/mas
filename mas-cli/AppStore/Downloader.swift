@@ -17,6 +17,7 @@ func download(adamId: UInt64) -> MASError? {
     
     var purchaseError: MASError?
     
+    dispatch_group_enter(group)
     purchase.perform { purchase, unused, error, response in
         if let error = error {
             purchaseError = MASError(code: .PurchaseError, sourceError: error)
@@ -45,7 +46,6 @@ func download(adamId: UInt64) -> MASError? {
         }
     }
     
-    dispatch_group_enter(group)
     dispatch_group_wait(group, DISPATCH_TIME_FOREVER)
     return purchaseError
 }
