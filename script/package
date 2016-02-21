@@ -1,5 +1,8 @@
 #!/bin/bash -e
 
+echo "==> Moving dSYM to xcarchive"
+mv build/mas.dSYM mas.xcarchive/dSYMs/
+
 echo "==> Compressing mas.xcarchive"
 zip -r mas.xcarchive.zip mas.xcarchive
 
@@ -9,7 +12,3 @@ zip -j mas-cli.zip mas.xcarchive/Products/usr/local/bin/mas
 echo -n "==> SHA256: "
 shasum -a 256 mas-cli.zip
 
-echo "==> Compressing dSYM"
-pushd build/
-  zip -r ../mas-cli.dSYM.zip mas.dSYM
-popd
