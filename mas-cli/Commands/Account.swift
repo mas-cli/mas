@@ -17,7 +17,7 @@ struct AccountCommand: CommandType {
         }
         else {
             print("Not signed in")
-            exit(MASErrorCode.NotSignedIn.exitCode)
+            return .Failure(MASError(code: .NotSignedIn))
         }
         return .Success(())
     }
