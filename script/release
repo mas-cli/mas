@@ -1,0 +1,75 @@
+#!/bin/bash -e
+
+PLIST_FILE="$PWD/mas-cli/mas-cli-Info.plist"
+
+main() {
+  VERSION_NUMBER=$(update_version_number)
+
+  git add "$PLIST_FILE"
+  git commit -eF <(commit_message)
+
+  git tag -a "v${VERSION_NUMBER}"
+
+  echo "Finalise release with: git push --tags"
+}
+
+commit_message() {
+  cat <<COMMIT_MESSAGE
+Preparing release ${VERSION_NUMBER}
+#
+# To abort: Empty this file, Save and exit
+COMMIT_MESSAGE
+}
+
+update_version_number() {
+  local version_number
+
+  # Get the current CFBundleShortVersionString
+  version_number=$(read_version_number)
+
+  # Ask for the new one
+  new_version_number=$(prompt "Enter version number [${version_number}]: ")
+  
+  if [[ -z $new_version_number ]]; then
+    echo "No version number specified"
+    return 1
+  fi
+
+  # Put it back
+  write_version_number "${new_version_number}"
+  echo "${new_version_number}"
+}
+
+prompt() {
+  local input
+  echo -n "==> $1" >&2
+  read -r input
+  echo "$input"
+}
+
+write_version_number() {
+  local value
+  value=$1; shift
+  write_plist "CFBundleShortVersionString" "${value}"
+}
+
+read_version_number() {
+  read_plist "CFBundleShortVersionString" 
+}
+
+read_plist() {
+  local key
+  key=$1; shift
+  /usr/libexec/PlistBuddy -c "Print :${key}" "${PLIST_FILE}"
+}
+
+write_plist() {
+  local key
+  local value
+  key=$1; shift
+  value=$1; shift
+  echo "Setting ${key} to ${value}" >&2
+  /usr/libexec/PlistBuddy -c "Set :${key} ${value}" "${PLIST_FILE}"
+}
+
+main
