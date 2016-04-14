@@ -6,6 +6,8 @@
 //  Copyright © 2016 Andrew Naylor. All rights reserved.
 //
 
+// Synchronous NSURLSession code found at: http://ericasadun.com/2015/11/12/more-bad-things-synchronous-nsurlsessions/
+
 import Foundation
 
 /// NSURLSession synchronous behavior
@@ -49,3 +51,13 @@ public extension NSURLSession {
         return NSURLSession.requestSynchronousJSON(request)
     }
 }
+
+public extension String {
+    
+    /// Return an URL encoded string
+    func URLEncodedString() -> String? {
+        let customAllowedSet =  NSCharacterSet.URLQueryAllowedCharacterSet()
+        return self.stringByAddingPercentEncodingWithAllowedCharacters(customAllowedSet)
+    }
+}
+

@@ -6,28 +6,34 @@
 //  Copyright © 2016 Andrew Naylor. All rights reserved.
 //
 
+struct ResultKeys {
+    static let ResultCount = "resultCount"
+    static let Results = "results"
+    static let TrackName = "trackName"
+    static let TrackId = "trackId"
+}
+
 struct SearchCommand: CommandType {
     typealias Options = SearchOptions
     let verb = "search"
     let function = "Search for apps from the Mac App Store"
     
     func run(options: Options) -> Result<(), MASError> {
-        let searchRequest = NSURLRequest(URL: NSURL(string: searchURLString(options.appName))!)
         
-        guard let searchData = NSURLSession.requestSynchronousData(searchRequest),
-              let searchJsonString = try? NSJSONSerialization.JSONObjectWithData(searchData, options: []) as! Dictionary<String, AnyObject> else {
+        guard let searchURLString = searchURLString(options.appName),
+              let searchJson = NSURLSession.requestSynchronousJSONWithURLString(searchURLString) as? [String: AnyObject] else {
             return .Failure(MASError(code:.SearchError))
         }
         
-        guard let resultCount = searchJsonString["resultCount"] as? Int where resultCount > 0,
-              let results = searchJsonString["results"] as? Array<Dictionary<String, AnyObject>> else {
-            print("No apps found")
+        guard let resultCount = searchJson[ResultKeys.ResultCount] as? Int where resultCount > 0,
+              let results = searchJson[ResultKeys.Results] as? [[String: AnyObject]] else {
+            print("No results found")
             return .Failure(MASError(code:.NoSearchResultsFound))
         }
         
         for result in results {
-            if let appName = result["trackName"] as? String,
-                   appId = result["trackId"] as? Int {
+            if let appName = result[ResultKeys.TrackName] as? String,
+                   appId = result[ResultKeys.TrackId] as? Int {
                 print("\(String(appId)) \(appName)")
             }
         }
@@ -35,8 +41,11 @@ struct SearchCommand: CommandType {
         return .Success(())
     }
     
-    func searchURLString(appName: String) -> String {
-        return "https://itunes.apple.com/search?entity=macSoftware&term=\(appName)&attribute=allTrackTerm"
+    func searchURLString(appName: String) -> String? {
+        if let urlEncodedAppName = appName.URLEncodedString() {
+            return "https://itunes.apple.com/search?entity=macSoftware&term=\(urlEncodedAppName)&attribute=allTrackTerm"
+        }
+        return nil
     }
 }
 
