@@ -17,6 +17,7 @@ public struct StderrOutputStream: OutputStreamType {
 let registry = CommandRegistry<MASError>()
 let helpCommand = HelpCommand(registry: registry)
 registry.register(AccountCommand())
+registry.register(SearchCommand())
 registry.register(InstallCommand())
 registry.register(ListCommand())
 registry.register(OutdatedCommand())
