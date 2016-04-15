@@ -19,6 +19,8 @@ public enum MASErrorCode: Int {
     case DownloadFailed
     case SignInError
     case AlreadySignedIn
+    case SearchError
+    case NoSearchResultsFound
     
     var exitCode: Int32 {
         return Int32(self.rawValue)

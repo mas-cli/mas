@@ -15,6 +15,8 @@
 		319FDBA6ED6443A912B9A65F /* ResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580DF177A1A8B1DF500CADA7 /* ResultType.swift */; };
 		345960DE661C85EB2609263C /* ArgumentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F77E7DD6274E0371AF5CA6 /* ArgumentType.swift */; };
 		3A45897E98247F74ED6D51E2 /* Curry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE1408CEE41BD4CD64491E3 /* Curry.swift */; };
+		693A98991CBFFA760004D3B4 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A98981CBFFA760004D3B4 /* Search.swift */; };
+		693A989B1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A989A1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift */; };
 		AD0785BC0EC6BBF4ED560DCC /* ArgumentParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9D96DDBBCCCC5944160ABE /* ArgumentParser.swift */; };
 		EBD6B44FDF65E0253153629F /* HelpCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDC2B8063EC231E28353D23 /* HelpCommand.swift */; };
 		ED031A7C1B5127C00097692E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED031A7B1B5127C00097692E /* main.swift */; };
@@ -53,6 +55,8 @@
 		326E4D331CCD66ADFE19CE39 /* Command.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Command.swift; path = Seeds/Commandant/Sources/Commandant/Command.swift; sourceTree = "<group>"; };
 		580DF177A1A8B1DF500CADA7 /* ResultType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ResultType.swift; path = Seeds/Result/Result/ResultType.swift; sourceTree = "<group>"; };
 		62F77E7DD6274E0371AF5CA6 /* ArgumentType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ArgumentType.swift; path = Seeds/Commandant/Sources/Commandant/ArgumentType.swift; sourceTree = "<group>"; };
+		693A98981CBFFA760004D3B4 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
+		693A989A1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURLSession+Synchronous.swift"; sourceTree = "<group>"; };
 		8FDC2B8063EC231E28353D23 /* HelpCommand.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HelpCommand.swift; path = Seeds/Commandant/Sources/Commandant/HelpCommand.swift; sourceTree = "<group>"; };
 		9257C5FABA335E5F060CB7F7 /* Result.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Result.swift; path = Seeds/Result/Result/Result.swift; sourceTree = "<group>"; };
 		9AE1408CEE41BD4CD64491E3 /* Curry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Curry.swift; path = Seeds/Curry/Source/Curry.swift; sourceTree = "<group>"; };
@@ -187,6 +191,7 @@
 				ED031A7B1B5127C00097692E /* main.swift */,
 				EDEAA12C1B51CF8000F2FC3F /* mas-cli-Bridging-Header.h */,
 				EDB6CE8A1BAEB95100648B4D /* mas-cli-Info.plist */,
+				693A989A1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift */,
 			);
 			path = "mas-cli";
 			sourceTree = "<group>";
@@ -198,6 +203,7 @@
 				ED0F237E1B87522400AE40CD /* Install.swift */,
 				ED0F23821B87533A00AE40CD /* List.swift */,
 				ED0F23841B87536A00AE40CD /* Outdated.swift */,
+				693A98981CBFFA760004D3B4 /* Search.swift */,
 				EDC90B641C70045E0019E396 /* SignIn.swift */,
 				EDE296521C700F4300554778 /* SignOut.swift */,
 				EDD3B3621C34709400B56B88 /* Upgrade.swift */,
@@ -356,11 +362,13 @@
 				ED0F23901B87A56F00AE40CD /* ISStoreAccount.swift in Sources */,
 				ED0F23831B87533A00AE40CD /* List.swift in Sources */,
 				ED031A7C1B5127C00097692E /* main.swift in Sources */,
+				693A989B1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift in Sources */,
 				30EA893640B02CCF679F9C57 /* Option.swift in Sources */,
 				ED0F23851B87536A00AE40CD /* Outdated.swift in Sources */,
 				ED0F23891B87543D00AE40CD /* PurchaseDownloadObserver.swift in Sources */,
 				0EBF5CDD379D7462C3389536 /* Result.swift in Sources */,
 				319FDBA6ED6443A912B9A65F /* ResultType.swift in Sources */,
+				693A98991CBFFA760004D3B4 /* Search.swift in Sources */,
 				EDC90B651C70045E0019E396 /* SignIn.swift in Sources */,
 				EDE296531C700F4300554778 /* SignOut.swift in Sources */,
 				EDA3BE521B8B84AF00C18D70 /* SSPurchase.swift in Sources */,
