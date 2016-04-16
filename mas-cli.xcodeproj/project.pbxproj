@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 47;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,6 +17,7 @@
 		3A45897E98247F74ED6D51E2 /* Curry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE1408CEE41BD4CD64491E3 /* Curry.swift */; };
 		693A98991CBFFA760004D3B4 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A98981CBFFA760004D3B4 /* Search.swift */; };
 		693A989B1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A989A1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift */; };
+		85D89FD23A18FFD1949E7D80 /* Swift3to22.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC41890B0F4AD08AD578F71E /* Swift3to22.swift */; };
 		AD0785BC0EC6BBF4ED560DCC /* ArgumentParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9D96DDBBCCCC5944160ABE /* ArgumentParser.swift */; };
 		EBD6B44FDF65E0253153629F /* HelpCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDC2B8063EC231E28353D23 /* HelpCommand.swift */; };
 		ED031A7C1B5127C00097692E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED031A7B1B5127C00097692E /* main.swift */; };
@@ -60,6 +61,7 @@
 		8FDC2B8063EC231E28353D23 /* HelpCommand.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HelpCommand.swift; path = Seeds/Commandant/Sources/Commandant/HelpCommand.swift; sourceTree = "<group>"; };
 		9257C5FABA335E5F060CB7F7 /* Result.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Result.swift; path = Seeds/Result/Result/Result.swift; sourceTree = "<group>"; };
 		9AE1408CEE41BD4CD64491E3 /* Curry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Curry.swift; path = Seeds/Curry/Source/Curry.swift; sourceTree = "<group>"; };
+		AC41890B0F4AD08AD578F71E /* Swift3to22.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Swift3to22.swift; path = Seeds/Commandant/Sources/Commandant/Swift3to22.swift; sourceTree = "<group>"; };
 		AF1B6BEDF32AF3F8A575FB1F /* Switch.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Switch.swift; path = Seeds/Commandant/Sources/Commandant/Switch.swift; sourceTree = "<group>"; };
 		EA9D96DDBBCCCC5944160ABE /* ArgumentParser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ArgumentParser.swift; path = Seeds/Commandant/Sources/Commandant/ArgumentParser.swift; sourceTree = "<group>"; };
 		ED031A781B5127C00097692E /* mas */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = mas; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -158,6 +160,7 @@
 				F547B3DC473CFB1BE0AEB70A /* Errors.swift */,
 				8FDC2B8063EC231E28353D23 /* HelpCommand.swift */,
 				2AD7FE171F643805F7BC38A7 /* Option.swift */,
+				AC41890B0F4AD08AD578F71E /* Swift3to22.swift */,
 				AF1B6BEDF32AF3F8A575FB1F /* Switch.swift */,
 			);
 			name = Commandant;
@@ -317,7 +320,7 @@
 				};
 			};
 			buildConfigurationList = ED031A731B5127C00097692E /* Build configuration list for PBXProject "mas-cli" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 6.3";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -372,6 +375,7 @@
 				EDC90B651C70045E0019E396 /* SignIn.swift in Sources */,
 				EDE296531C700F4300554778 /* SignOut.swift in Sources */,
 				EDA3BE521B8B84AF00C18D70 /* SSPurchase.swift in Sources */,
+				85D89FD23A18FFD1949E7D80 /* Swift3to22.swift in Sources */,
 				15E27926A580EABEB1B218EF /* Switch.swift in Sources */,
 				EDD3B3631C34709400B56B88 /* Upgrade.swift in Sources */,
 				EDB6CE8C1BAEC3D400648B4D /* Version.swift in Sources */,
