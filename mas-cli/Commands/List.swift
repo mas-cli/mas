@@ -13,7 +13,10 @@ struct ListCommand: CommandType {
     
     func run(options: Options) -> Result<(), MASError> {
         let softwareMap = CKSoftwareMap.sharedSoftwareMap()
-        let products = softwareMap.allProducts()
+        guard let products = softwareMap.allProducts() else {
+            print("No installed apps found")
+            return .Success(())
+        }
         for product in products {
             print("\(product.itemIdentifier) \(product.appName)")
         }

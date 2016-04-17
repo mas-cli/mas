@@ -7,6 +7,7 @@
 #import <CommerceKit/CKServiceInterface.h>
 #import <StoreFoundation/CKSoftwareProduct.h>
 
+NS_ASSUME_NONNULL_BEGIN
 @class NSLock, NSMutableArray;
 
 @interface CKSoftwareMap : CKServiceInterface
@@ -17,14 +18,14 @@
 
 + (CKSoftwareMap *)sharedSoftwareMap;
 - (id)adaptableBundleIdentifiers;
-- (BOOL)adoptionCompletedForBundleID:(id)arg1 adoptingDSID:(out id *)arg2 appleID:(out id *)arg3;
+- (BOOL)adoptionCompletedForBundleID:(id)arg1 adoptingDSID:(out _Nonnull id *)arg2 appleID:(out _Nonnull id *)arg3;
 - (id)updateRequestBodyData:(char *)arg1 includeInstalledApps:(BOOL)arg2 includeBundledApps:(BOOL)arg3 conditionally:(BOOL)arg4 hadUnadoptedApps:(out char *)arg5;
 - (id)iconForApplicationWithBundeID:(id)arg1;
 - (id)bundleInfoFromBundleAtPath:(id)arg1;
 - (BOOL)isTrialVersionOfBundleIdentifier:(id)arg1;
 - (id)receiptFromBundleAtPath:(id)arg1;
 - (id)productForPath:(id)arg1;
-- (NSArray<CKSoftwareProduct *>*)allProducts;
+- (NSArray<CKSoftwareProduct *>* __nullable)allProducts;
 - (CKSoftwareProduct *)productForItemIdentifier:(unsigned long long)arg1;
 - (CKSoftwareProduct *)productForBundleIdentifier:(NSString *)arg1;
 - (void)removeProductsObserver:(id)arg1;
@@ -33,3 +34,4 @@
 
 @end
 
+NS_ASSUME_NONNULL_END
