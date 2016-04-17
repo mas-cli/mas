@@ -9,13 +9,13 @@ env:
     - LANGUAGE=en_US.UTF-8
 
 install:
-  - bash script/bootstrap
+  - script/bootstrap
 
 script:
-  - bash script/build
+  - script/build
 
 before_deploy:
-  - bash script/package
+  - script/package
 
 deploy:
   provider: releases
