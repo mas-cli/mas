@@ -22,7 +22,17 @@ applications and their product identifiers.
     407963104 Pixelmator
     497799835 Xcode
 
-To install or update an application simply run `mas install`:
+It is possible to search for applications by name using `mas search` which
+will search the Mac App Store and return matching identifiers
+
+    $ mas search Xcode search Xcode
+    497799835 Xcode
+    688199928 Docs for Xcode
+    449589707 Dash 3 - API Docs & Snippets. Integrates with Xcode, Alfred, TextWrangler and many more.
+    [...]
+
+To install or update an application simply run `mas install` with an
+application identifier:
 
     $ mas install 808809998
     ==> Downloading PaintCode 2
