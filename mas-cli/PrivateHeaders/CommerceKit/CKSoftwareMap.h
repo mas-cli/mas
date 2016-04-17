@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (CKSoftwareMap *)sharedSoftwareMap;
 - (id)adaptableBundleIdentifiers;
-- (BOOL)adoptionCompletedForBundleID:(id)arg1 adoptingDSID:(out _Nonnull id *)arg2 appleID:(out _Nonnull id *)arg3;
+- (BOOL)adoptionCompletedForBundleID:(id)arg1 adoptingDSID:(out _Nullable id * _Nonnull)arg2 appleID:(out _Nullable id * _Nonnull)arg3;
 - (id)updateRequestBodyData:(char *)arg1 includeInstalledApps:(BOOL)arg2 includeBundledApps:(BOOL)arg3 conditionally:(BOOL)arg4 hadUnadoptedApps:(out char *)arg5;
 - (id)iconForApplicationWithBundeID:(id)arg1;
 - (id)bundleInfoFromBundleAtPath:(id)arg1;
