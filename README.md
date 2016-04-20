@@ -25,7 +25,7 @@ applications and their product identifiers.
 It is possible to search for applications by name using `mas search` which
 will search the Mac App Store and return matching identifiers
 
-    $ mas search Xcode search Xcode
+    $ mas search Xcode
     497799835 Xcode
     688199928 Docs for Xcode
     449589707 Dash 3 - API Docs & Snippets. Integrates with Xcode, Alfred, TextWrangler and many more.
