@@ -5,11 +5,11 @@ and automation.
 
 ## Install
 
-[Homebrew](hb) is the preferred way to install:
+[Homebrew](https://brew.sh) is the preferred way to install:
 
-    brew install argon/mas/mas
+    brew install mas
 
-Alternatively binaries are available in the [GitHub Releases](ghreleases)
+Alternatively, binaries are available in the [GitHub Releases](https://github.com/argon/mas/releases)
 
 ## Usage
 
@@ -88,8 +88,4 @@ Build output can be found in the `build/` directory within the project.
 
 ## License
 
-Code is under the MIT license.
-
-[hb]: https://brew.sh
-[ghreleases]: https://github.com/argon/mas/releases
-
+Code is under the [MIT license](LICENSE).
