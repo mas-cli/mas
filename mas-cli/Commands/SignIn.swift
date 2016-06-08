@@ -19,7 +19,14 @@ struct SignInCommand: CommandType {
         
         do {
             print("==> Signing in to Apple ID: \(options.username)")
-            try ISStoreAccount.signIn(username: options.username, password: options.password)
+
+            var password = options.password
+            if password == ""
+            {
+                password = String.fromCString(getpass("Password: "))!
+            }
+
+            try ISStoreAccount.signIn(username: options.username, password: password)
         } catch let error as NSError {
             return .Failure(MASError(code: .SignInError, sourceError: error))
         }
@@ -35,6 +42,6 @@ struct SignInOptions: OptionsType {
     static func evaluate(m: CommandMode) -> Result<SignInOptions, CommandantError<MASError>> {
         return curry(SignInOptions.init)
             <*> m <| Argument(usage: "Apple ID")
-            <*> m <| Argument(usage: "Password")
+            <*> m <| Argument(defaultValue: "", usage: "Password")
     }
 }
