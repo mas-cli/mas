@@ -56,6 +56,13 @@ To install all pending updates run `mas upgrade`.
 
 To sign into the Mac App Store for the first time run `mas signin`.
 
+    $ mas signin mas@example.com
+    ==> Signing in to Apple ID: mas@example.com
+    Password: 
+
+
+You can also embed your password in the command.
+
     $ mas signin mas@example.com "ZdkM4f$gzF;gX3ABXNLf8KcCt.x.np"
     ==> Signing in to Apple ID: mas@example.com
 
