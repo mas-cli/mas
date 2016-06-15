@@ -68,6 +68,17 @@ You can also embed your password in the command.
 
 Use `mas signout` to sign out from the Mac App Store.
 
+### tmux
+
+`mas` operates via the same system services as the Mac App Store. These exist as separate processes with communication through XPC. As a result of this, `mas` experiences similar problems as the pasteboard when running inside `tmux`. A [wrapper tool exists](https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard) to fix pasteboard behaviour which also works for `mas`.
+
+You should consider configuring `tmux` to use the wrapper but if you do not wish to do this it can be used on a one-off basis as follows:
+
+```
+$ brew install reattach-to-user-namespace
+$ reattach-to-user-namespace mas install
+```
+
 ## Build from source
 
 `mas` currently requires the [bundler](http://bundler.io/) RubyGem in order to 
