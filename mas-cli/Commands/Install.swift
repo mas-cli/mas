@@ -12,23 +12,25 @@ struct InstallCommand: CommandType {
     let function = "Install from the Mac App Store"
     
     func run(options: Options) -> Result<(), MASError> {
-        if let error = download(options.appId) {
-            return .Failure(error)
+        for id in options.appIds {
+            if let error = download(id) {
+                return .Failure(error)
+            }
         }
-        
+
         return .Success(())
     }
 }
 
 struct InstallOptions: OptionsType {
-    let appId: UInt64
+    let appIds: [UInt64]
     
-    static func create(appId: Int) -> InstallOptions {
-        return InstallOptions(appId: UInt64(appId))
+    static func create(appIds: [Int]) -> InstallOptions {
+        return InstallOptions(appIds: appIds.map{UInt64($0)})
     }
     
     static func evaluate(m: CommandMode) -> Result<InstallOptions, CommandantError<MASError>> {
         return create
-            <*> m <| Argument(usage: "the app ID to install")
+            <*> m <| Argument(usage: "the list of app IDs to install")
     }
 }
