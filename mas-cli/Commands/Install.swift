@@ -13,26 +13,13 @@ struct InstallCommand: CommandType {
     
     func run(options: Options) -> Result<(), MASError> {
         // Try to download applications with given identifiers and collect results
-        let results = options.appIds.map { (id) -> Result<(), MASError> in
-            if let error = download(id) {
-                return .Failure(error)
-            } else {
-                return .Success()
-            }
+        let downloadResults = options.appIds.flatMap(download)
+
+        if downloadResults.count > 0 {
+            return .Failure(downloadResults[0])
         }
-        // See if at least one of the downloads failed
-        let errorIndex = results.indexOf {
-            if case .Failure(_) = $0 {
-                return true
-            }
-            return false
-        }
-        // And return an overrall general failure if there're failed downloads
-        if let _ = errorIndex {
-            return .Failure(MASError(code: .DownloadFailed))
-        } else {
-            return .Success()
-        }
+        
+        return .Success()
     }
 }
 
@@ -45,6 +32,6 @@ struct InstallOptions: OptionsType {
     
     static func evaluate(m: CommandMode) -> Result<InstallOptions, CommandantError<MASError>> {
         return create
-            <*> m <| Argument(usage: "the list of app IDs to install")
+            <*> m <| Argument(usage: "app ID(s) to install")
     }
 }
