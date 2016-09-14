@@ -14,7 +14,7 @@ struct InstallCommand: CommandType {
     func run(options: Options) -> Result<(), MASError> {
         // Try to download applications with given identifiers and collect results
         let downloadResults = options.appIds.flatMap { (appId) -> MASError? in
-            if let product = installedApp(appId) {
+            if let product = installedApp(appId) where !options.forceInstall {
                 warn("\(product.appName) is already installed")
                 return nil
             }
@@ -42,13 +42,15 @@ struct InstallCommand: CommandType {
 
 struct InstallOptions: OptionsType {
     let appIds: [UInt64]
+    let forceInstall: Bool
     
-    static func create(appIds: [Int]) -> InstallOptions {
-        return InstallOptions(appIds: appIds.map{UInt64($0)})
+    static func create(appIds: [Int], forceInstall: Bool) -> InstallOptions {
+        return InstallOptions(appIds: appIds.map{UInt64($0)}, forceInstall: forceInstall)
     }
     
     static func evaluate(m: CommandMode) -> Result<InstallOptions, CommandantError<MASError>> {
-        return create
+        return curry(InstallOptions.create)
             <*> m <| Argument(usage: "app ID(s) to install")
+            <*> m <| Switch(flag: nil, key: "force", usage: "force reinstall")
     }
 }
