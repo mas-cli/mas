@@ -13,13 +13,30 @@ struct InstallCommand: CommandType {
     
     func run(options: Options) -> Result<(), MASError> {
         // Try to download applications with given identifiers and collect results
-        let downloadResults = options.appIds.flatMap(download)
-
-        if downloadResults.count > 0 {
-            return .Failure(downloadResults[0])
+        let downloadResults = options.appIds.flatMap { (appId) -> MASError? in
+            if let product = installedApp(appId) {
+                warn("\(product.appName) is already installed")
+                return nil
+            }
+            
+            return download(appId)
         }
+
+        switch downloadResults.count {
+        case 0:
+            return .Success()
+        case 1:
+            return .Failure(downloadResults[0])
+        default:
+            return .Failure(MASError(code: .DownloadFailed))
+        }
+    }
+    
+    private func installedApp(appId: UInt64) -> CKSoftwareProduct? {
+        let appId = NSNumber(unsignedLongLong: appId)
         
-        return .Success()
+        let softwareMap = CKSoftwareMap.sharedSoftwareMap()
+        return softwareMap.allProducts()?.filter { $0.itemIdentifier == appId }.first
     }
 }
 

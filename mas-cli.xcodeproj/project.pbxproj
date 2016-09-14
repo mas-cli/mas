@@ -33,6 +33,7 @@
 		EDB6CE8C1BAEC3D400648B4D /* Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB6CE8B1BAEC3D400648B4D /* Version.swift */; };
 		EDC90B651C70045E0019E396 /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC90B641C70045E0019E396 /* SignIn.swift */; };
 		EDCBF9531D89AC6F000039C6 /* Reset.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDCBF9521D89AC6F000039C6 /* Reset.swift */; };
+		EDCBF9551D89CFC7000039C6 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDCBF9541D89CFC7000039C6 /* Utilities.swift */; };
 		EDD3B3631C34709400B56B88 /* Upgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B3621C34709400B56B88 /* Upgrade.swift */; };
 		EDE296531C700F4300554778 /* SignOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE296521C700F4300554778 /* SignOut.swift */; };
 		EDEAA0C01B51CE6200F2FC3F /* StoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDEAA0BF1B51CE6200F2FC3F /* StoreFoundation.framework */; };
@@ -93,6 +94,7 @@
 		EDC90B621C6FF50B0019E396 /* ISAccountService-Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ISAccountService-Protocol.h"; sourceTree = "<group>"; };
 		EDC90B641C70045E0019E396 /* SignIn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
 		EDCBF9521D89AC6F000039C6 /* Reset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reset.swift; sourceTree = "<group>"; };
+		EDCBF9541D89CFC7000039C6 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		EDD3B3621C34709400B56B88 /* Upgrade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Upgrade.swift; sourceTree = "<group>"; };
 		EDE2964F1C700B0300554778 /* ISAuthenticationContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISAuthenticationContext.h; sourceTree = "<group>"; };
 		EDE296501C700B0300554778 /* ISServiceRemoteObject-Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ISServiceRemoteObject-Protocol.h"; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 				EDEAA12C1B51CF8000F2FC3F /* mas-cli-Bridging-Header.h */,
 				EDB6CE8A1BAEB95100648B4D /* mas-cli-Info.plist */,
 				693A989A1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift */,
+				EDCBF9541D89CFC7000039C6 /* Utilities.swift */,
 			);
 			path = "mas-cli";
 			sourceTree = "<group>";
@@ -372,6 +375,7 @@
 				30EA893640B02CCF679F9C57 /* Option.swift in Sources */,
 				ED0F23851B87536A00AE40CD /* Outdated.swift in Sources */,
 				ED0F23891B87543D00AE40CD /* PurchaseDownloadObserver.swift in Sources */,
+				EDCBF9551D89CFC7000039C6 /* Utilities.swift in Sources */,
 				EDCBF9531D89AC6F000039C6 /* Reset.swift in Sources */,
 				0EBF5CDD379D7462C3389536 /* Result.swift in Sources */,
 				319FDBA6ED6443A912B9A65F /* ResultType.swift in Sources */,
