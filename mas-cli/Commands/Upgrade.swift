@@ -23,6 +23,11 @@ struct UpgradeCommand: CommandType {
             updates = pendingUpdates.filter {
                 appIds.contains($0.itemIdentifier.unsignedLongLongValue)
             }
+            
+            guard updates.count > 0 else {
+                warn("Nothing found to upgrade")
+                return .Success(())
+            }
         } else {
             // Upgrade everything
             guard pendingUpdates.count > 0 else {
