@@ -39,4 +39,6 @@
 
 @end
 
+NSString* CKDownloadDirectory(NSString *target);
+
 #endif /* mas_cli_Bridging_Header_h */
