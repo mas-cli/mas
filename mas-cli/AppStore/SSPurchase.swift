@@ -11,7 +11,7 @@ typealias SSPurchaseCompletion = (purchase: SSPurchase!, completed: Bool, error:
 extension SSPurchase {
     convenience init(adamId: UInt64, account: ISStoreAccount) {
         self.init()
-        self.buyParameters = "productType=C&price=0&salableAdamId=\(adamId)&pricingParameters=STDRDL"
+        self.buyParameters = "productType=C&price=0&salableAdamId=\(adamId)&pricingParameters=STDRDL&pg=default&appExtVrsId=0"
         self.itemIdentifier = adamId
         self.accountIdentifier = account.dsID
         self.appleID = account.identifier
