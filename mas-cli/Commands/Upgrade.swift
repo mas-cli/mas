@@ -7,25 +7,64 @@
 //
 
 struct UpgradeCommand: CommandType {
-    typealias Options = NoOptions<MASError>
+    typealias Options = UpgradeOptions
     let verb = "upgrade"
-    let function = "Performs all pending updates from the Mac App Store"
+    let function = "Upgrade outdated apps from the Mac App Store"
     
     func run(options: Options) -> Result<(), MASError> {
         let updateController = CKUpdateController.sharedUpdateController()
         
-        guard let updates = updateController.availableUpdates() where updates.count > 0 else {
-            print("Everything is up-to-date")
-            return .Success(())
+        guard let pendingUpdates = updateController.availableUpdates() else {
+            return .Failure(MASError(code: .NoUpdatesFound))
+        }
+        
+        let updates: [CKUpdate]
+        let appIds = options.appIds
+        if appIds.count > 0 {
+            updates = pendingUpdates.filter {
+                appIds.contains($0.itemIdentifier.unsignedLongLongValue)
+            }
+            
+            guard updates.count > 0 else {
+                warn("Nothing found to upgrade")
+                return .Success(())
+            }
+        } else {
+            // Upgrade everything
+            guard pendingUpdates.count > 0 else {
+                print("Everything is up-to-date")
+                return .Success(())
+            }
+            updates = pendingUpdates
         }
         
         print("Upgrading \(updates.count) outdated application\(updates.count > 1 ? "s" : ""):")
         print(updates.map({ "\($0.title) (\($0.bundleVersion))" }).joinWithSeparator(", "))
-        for update in updates {
-            if let error = download(UInt64(update.itemIdentifier.intValue)) {
-                return .Failure(error)
-            }
+        
+        let updateResults = updates.flatMap {
+            download($0.itemIdentifier.unsignedLongLongValue)
         }
-        return .Success(())
+
+        switch updateResults.count {
+        case 0:
+            return .Success()
+        case 1:
+            return .Failure(updateResults[0])
+        default:
+            return .Failure(MASError(code: .DownloadFailed))
+        }
+    }
+}
+
+struct UpgradeOptions: OptionsType {
+    let appIds: [UInt64]
+    
+    static func create(appIds: [Int]) -> UpgradeOptions {
+        return UpgradeOptions(appIds: appIds.map { UInt64($0) })
+    }
+    
+    static func evaluate(m: CommandMode) -> Result<UpgradeOptions, CommandantError<MASError>> {
+        return create
+            <*> m <| Argument(defaultValue: [], usage: "app ID(s) to install")
     }
 }
