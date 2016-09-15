@@ -19,7 +19,8 @@ struct UpgradeCommand: CommandType {
         }
         
         let updates: [CKUpdate]
-        if let appIds = options.appIds where appIds.count > 0 {
+        let appIds = options.appIds
+        if appIds.count > 0 {
             updates = pendingUpdates.filter {
                 appIds.contains($0.itemIdentifier.unsignedLongLongValue)
             }
@@ -56,7 +57,7 @@ struct UpgradeCommand: CommandType {
 }
 
 struct UpgradeOptions: OptionsType {
-    let appIds: [UInt64]?
+    let appIds: [UInt64]
     
     static func create(appIds: [Int]) -> UpgradeOptions {
         return UpgradeOptions(appIds: appIds.map { UInt64($0) })
@@ -64,6 +65,6 @@ struct UpgradeOptions: OptionsType {
     
     static func evaluate(m: CommandMode) -> Result<UpgradeOptions, CommandantError<MASError>> {
         return create
-            <*> m <| Argument(usage: "app ID(s) to install")
+            <*> m <| Argument(defaultValue: [], usage: "app ID(s) to install")
     }
 }
