@@ -11,10 +11,10 @@ struct InstallCommand: CommandType {
     let verb = "install"
     let function = "Install from the Mac App Store"
     
-    func run(options: Options) -> Result<(), MASError> {
+    func run(_ options: Options) -> Result<(), MASError> {
         // Try to download applications with given identifiers and collect results
         let downloadResults = options.appIds.flatMap { (appId) -> MASError? in
-            if let product = installedApp(appId) where !options.forceInstall {
+            if let product = installedApp(appId) , !options.forceInstall {
                 warn("\(product.appName) is already installed")
                 return nil
             }
@@ -24,18 +24,18 @@ struct InstallCommand: CommandType {
 
         switch downloadResults.count {
         case 0:
-            return .Success()
+            return .success()
         case 1:
-            return .Failure(downloadResults[0])
+            return .failure(downloadResults[0])
         default:
-            return .Failure(MASError(code: .DownloadFailed))
+            return .failure(MASError(code: .downloadFailed))
         }
     }
     
-    private func installedApp(appId: UInt64) -> CKSoftwareProduct? {
-        let appId = NSNumber(unsignedLongLong: appId)
+    fileprivate func installedApp(_ appId: UInt64) -> CKSoftwareProduct? {
+        let appId = NSNumber(value: appId)
         
-        let softwareMap = CKSoftwareMap.sharedSoftwareMap()
+        let softwareMap = CKSoftwareMap.shared()
         return softwareMap.allProducts()?.filter { $0.itemIdentifier == appId }.first
     }
 }
@@ -44,12 +44,14 @@ struct InstallOptions: OptionsType {
     let appIds: [UInt64]
     let forceInstall: Bool
     
-    static func create(appIds: [Int], forceInstall: Bool) -> InstallOptions {
-        return InstallOptions(appIds: appIds.map{UInt64($0)}, forceInstall: forceInstall)
+    static func create(_ appIds: [Int]) -> (_ forceInstall: Bool) -> InstallOptions {
+        return { forceInstall in
+            return InstallOptions(appIds: appIds.map{UInt64($0)}, forceInstall: forceInstall)
+        }
     }
     
-    static func evaluate(m: CommandMode) -> Result<InstallOptions, CommandantError<MASError>> {
-        return curry(InstallOptions.create)
+    static func evaluate(_ m: CommandMode) -> Result<InstallOptions, CommandantError<MASError>> {
+        return create
             <*> m <| Argument(usage: "app ID(s) to install")
             <*> m <| Switch(flag: nil, key: "force", usage: "force reinstall")
     }

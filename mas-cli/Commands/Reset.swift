@@ -11,7 +11,7 @@ struct ResetCommand: CommandType {
     let verb = "reset"
     let function = "Resets the Mac App Store"
     
-    func run(options: Options) -> Result<(), MASError> {
+    func run(_ options: Options) -> Result<(), MASError> {
         /*
         The "Reset Application" command in the Mac App Store debug menu performs
         the following steps
@@ -40,9 +40,9 @@ struct ResetCommand: CommandType {
             "storelegacy",
         ]
         
-        let kill = NSTask()
-        let stdout = NSPipe()
-        let stderr = NSPipe()
+        let kill = Process()
+        let stdout = Pipe()
+        let stderr = Pipe()
         
         kill.launchPath = "/usr/bin/killall"
         kill.arguments = killProcs
@@ -54,28 +54,32 @@ struct ResetCommand: CommandType {
         
         if kill.terminationStatus != 0 && options.debug {
             let output = stderr.fileHandleForReading.readDataToEndOfFile()
-            print("==> killall  failed:\r\n\(String(data: output, encoding: NSUTF8StringEncoding)!)")
+            print("==> killall  failed:\r\n\(String(data: output, encoding: String.Encoding.utf8)!)")
         }
         
         // Wipe Download Directory
         let directory = CKDownloadDirectory(nil)
         do {
-            try NSFileManager.defaultManager().removeItemAtPath(directory)
+            try FileManager.default.removeItem(atPath: directory!)
         } catch {
             if options.debug {
                 print("removeItemAtPath:\"\(directory)\" failed, \(error)")
             }
         }
         
-        return .Success(())
+        return .success(())
     }
 }
 
 struct ResetOptions: OptionsType {
     let debug: Bool
     
-    static func evaluate(m: CommandMode) -> Result<ResetOptions, CommandantError<MASError>> {
-        return curry(ResetOptions.init)
+    static func create(debug: Bool) -> ResetOptions {
+        return ResetOptions(debug: debug)
+    }
+    
+    static func evaluate(_ m: CommandMode) -> Result<ResetOptions, CommandantError<MASError>> {
+        return create
             <*> m <| Switch(flag: nil, key: "debug", usage: "Enable debug mode")
     }
 }

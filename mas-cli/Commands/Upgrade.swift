@@ -11,47 +11,47 @@ struct UpgradeCommand: CommandType {
     let verb = "upgrade"
     let function = "Upgrade outdated apps from the Mac App Store"
     
-    func run(options: Options) -> Result<(), MASError> {
-        let updateController = CKUpdateController.sharedUpdateController()
+    func run(_ options: Options) -> Result<(), MASError> {
+        let updateController = CKUpdateController.shared()
         
-        guard let pendingUpdates = updateController.availableUpdates() else {
-            return .Failure(MASError(code: .NoUpdatesFound))
+        guard let pendingUpdates = updateController?.availableUpdates() else {
+            return .failure(MASError(code: .noUpdatesFound))
         }
         
         let updates: [CKUpdate]
         let appIds = options.appIds
         if appIds.count > 0 {
             updates = pendingUpdates.filter {
-                appIds.contains($0.itemIdentifier.unsignedLongLongValue)
+                appIds.contains($0.itemIdentifier.uint64Value)
             }
             
             guard updates.count > 0 else {
                 warn("Nothing found to upgrade")
-                return .Success(())
+                return .success(())
             }
         } else {
             // Upgrade everything
             guard pendingUpdates.count > 0 else {
                 print("Everything is up-to-date")
-                return .Success(())
+                return .success(())
             }
             updates = pendingUpdates
         }
         
         print("Upgrading \(updates.count) outdated application\(updates.count > 1 ? "s" : ""):")
-        print(updates.map({ "\($0.title) (\($0.bundleVersion))" }).joinWithSeparator(", "))
+        print(updates.map({ "\($0.title) (\($0.bundleVersion))" }).joined(separator: ", "))
         
         let updateResults = updates.flatMap {
-            download($0.itemIdentifier.unsignedLongLongValue)
+            download($0.itemIdentifier.uint64Value)
         }
 
         switch updateResults.count {
         case 0:
-            return .Success()
+            return .success()
         case 1:
-            return .Failure(updateResults[0])
+            return .failure(updateResults[0])
         default:
-            return .Failure(MASError(code: .DownloadFailed))
+            return .failure(MASError(code: .downloadFailed))
         }
     }
 }
@@ -59,11 +59,11 @@ struct UpgradeCommand: CommandType {
 struct UpgradeOptions: OptionsType {
     let appIds: [UInt64]
     
-    static func create(appIds: [Int]) -> UpgradeOptions {
+    static func create(_ appIds: [Int]) -> UpgradeOptions {
         return UpgradeOptions(appIds: appIds.map { UInt64($0) })
     }
     
-    static func evaluate(m: CommandMode) -> Result<UpgradeOptions, CommandantError<MASError>> {
+    static func evaluate(_ m: CommandMode) -> Result<UpgradeOptions, CommandantError<MASError>> {
         return create
             <*> m <| Argument(defaultValue: [], usage: "app ID(s) to install")
     }

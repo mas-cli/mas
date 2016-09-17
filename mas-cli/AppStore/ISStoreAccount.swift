@@ -8,44 +8,55 @@
 
 extension ISStoreAccount {
     static var primaryAccountIsPresentAndSignedIn: Bool {
-        return CKAccountStore.sharedAccountStore().primaryAccountIsPresentAndSignedIn
+        return CKAccountStore.shared().primaryAccountIsPresentAndSignedIn
     }
     
     static var primaryAccount: ISStoreAccount? {
-        return CKAccountStore.sharedAccountStore().primaryAccount
+        return CKAccountStore.shared().primaryAccount
     }
     
-    static func signIn(username username: String, password: String) throws -> ISStoreAccount {
+    static func signIn(username: String? = nil, password: String? = nil, systemDialog: Bool = false) throws -> ISStoreAccount {
         var account: ISStoreAccount? = nil
-        var error: NSError? = nil
+        var error: Error? = nil
         
-        let accountService = ISServiceProxy.genericSharedProxy().accountService
+        let accountService = ISServiceProxy.genericShared().accountService
         let client = ISStoreClient(storeClientType: 0)
         accountService.setStoreClient(client)
         
-        let context = ISAuthenticationContext(accountID: 0)
-        context.demoMode = true
-        context.demoAccountName = username
-        context.demoAccountPassword = password
-        context.demoAutologinMode = true
+        let context = ISAuthenticationContext(accountID: 0)!
+        context.appleIDOverride = username
         
-        let group = dispatch_group_create()
-        dispatch_group_enter(group)
+        if systemDialog {
+            context.appleIDOverride = username
+        } else {
+            context.demoMode = true
+            context.demoAccountName = username
+            context.demoAccountPassword = password
+            context.demoAutologinMode = true
+        }
         
-        accountService.signInWithContext(context) { success, _account, _error in
+        let group = DispatchGroup()
+        group.enter()
+        
+        accountService.signIn(with: context) { success, _account, _error in
             if success {
                 account = _account
             } else {
                 error = _error
             }
-            dispatch_group_leave(group)
+            group.leave()
         }
-        dispatch_group_wait(group, dispatch_time(DISPATCH_TIME_NOW, Int64(UInt64(15) * NSEC_PER_SEC)))
+        
+        if systemDialog {
+            group.wait()
+        } else {
+            let _ = group.wait(timeout: DispatchTime.now() + Double(Int64(UInt64(30) * NSEC_PER_SEC)) / Double(NSEC_PER_SEC))
+        }
         
         if let account = account {
             return account
         }
         
-        throw error ?? MASError(code: .SignInError)
+        throw error ?? MASError(code: .signInError)
     }
 }

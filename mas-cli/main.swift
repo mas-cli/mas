@@ -8,8 +8,8 @@
 
 import Foundation
 
-public struct StderrOutputStream: OutputStreamType {
-    public mutating func write(string: String) {
+public struct StderrOutputStream: TextOutputStream {
+    public mutating func write(_ string: String) {
         fputs(string, stderr)
     }
 }
@@ -31,8 +31,8 @@ registry.register(helpCommand)
 registry.main(defaultVerb: helpCommand.verb) { error in
     if let sourceError = error.sourceError {
         var stderr = StderrOutputStream()
-        print(sourceError.localizedDescription, toStream: &stderr)
+        print(sourceError.localizedDescription, to: &stderr)
     }
-    exit(Int32(error.code))
+    exit(Int32(error.code.rawValue))
 }
 

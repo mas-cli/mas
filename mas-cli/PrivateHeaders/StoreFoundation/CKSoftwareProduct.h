@@ -4,6 +4,8 @@
 //     class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
 //
 
+#import <Foundation/NSZone.h>
+
 @class NSDate, NSNumber, NSString, NSValue;
 
 @interface CKSoftwareProduct : NSObject <NSSecureCoding, NSCopying>
@@ -33,39 +35,39 @@
     NSNumber *_expectedStoreVersion;
 }
 
-+ (id)productAtPath:(id)arg1;
-+ (id)productPathToUpgradeForBundleIdentifier:(id)arg1 versionNumberString:(id)arg2;
++ (nullable instancetype)productAtPath:(nonnull NSString *)arg1;
++ (nullable instancetype)productPathToUpgradeForBundleIdentifier:(nonnull NSString *)bundleIdentifier versionNumberString:(nonnull NSString *)versionNumber;
 + (BOOL)supportsSecureCoding;
-@property(copy) NSNumber *expectedStoreVersion; // @synthesize expectedStoreVersion=_expectedStoreVersion;
-@property(copy) NSString *expectedBundleVersion; // @synthesize expectedBundleVersion=_expectedBundleVersion;
+@property(copy, nullable) NSNumber *expectedStoreVersion; // @synthesize expectedStoreVersion=_expectedStoreVersion;
+@property(copy, nullable) NSString *expectedBundleVersion; // @synthesize expectedBundleVersion=_expectedBundleVersion;
 @property BOOL metadataChangeIsExpected; // @synthesize metadataChangeIsExpected=_metadataChangeIsExpected;
 @property long long source; // @synthesize source=_source;
 @property BOOL isLegacyApp; // @synthesize isLegacyApp=_isLegacyApp;
 @property BOOL isMachineLicensed; // @synthesize isMachineLicensed=_isMachineLicensed;
-@property(retain) NSString *vppLicenseCancellationReason; // @synthesize vppLicenseCancellationReason=_vppLicenseCancellationReason;
-@property(retain) NSDate *vppLicenseRenewalDate; // @synthesize vppLicenseRenewalDate=_vppLicenseRenewalDate;
-@property(retain) NSDate *vppLicenseExpirationDate; // @synthesize vppLicenseExpirationDate=_vppLicenseExpirationDate;
-@property(retain) NSString *vppLicenseOrganizationName; // @synthesize vppLicenseOrganizationName=_vppLicenseOrganizationName;
+@property(retain, nullable) NSString *vppLicenseCancellationReason; // @synthesize vppLicenseCancellationReason=_vppLicenseCancellationReason;
+@property(retain, nullable) NSDate *vppLicenseRenewalDate; // @synthesize vppLicenseRenewalDate=_vppLicenseRenewalDate;
+@property(retain, nullable) NSDate *vppLicenseExpirationDate; // @synthesize vppLicenseExpirationDate=_vppLicenseExpirationDate;
+@property(retain, nullable) NSString *vppLicenseOrganizationName; // @synthesize vppLicenseOrganizationName=_vppLicenseOrganizationName;
 @property BOOL vppLicenseRevoked; // @synthesize vppLicenseRevoked=_vppLicenseRevoked;
 @property BOOL isVPPLicensed; // @synthesize isVPPLicensed=_isVPPLicensed;
 @property BOOL installed; // @synthesize installed=_installed;
-@property(retain) NSValue *mdItemRef; // @synthesize mdItemRef=_mdItemRef;
-@property(retain) NSNumber *versionIdentifier; // @synthesize versionIdentifier=_versionIdentifier;
-@property(retain) NSNumber *storeFrontIdentifier; // @synthesize storeFrontIdentifier=_storeFrontIdentifier;
-@property(retain) NSNumber *itemIdentifier; // @synthesize itemIdentifier=_itemIdentifier;
-@property(retain) NSString *receiptType; // @synthesize receiptType=_receiptType;
-@property(retain) NSString *bundlePath; // @synthesize bundlePath=_bundlePath;
-@property(retain) NSString *bundleVersion; // @synthesize bundleVersion=_bundleVersion;
-@property(retain) NSString *bundleIdentifier; // @synthesize bundleIdentifier=_bundleIdentifier;
-@property(retain) NSString *accountIdentifier; // @synthesize accountIdentifier=_accountIdentifier;
-@property(retain) NSString *accountOpaqueDSID; // @synthesize accountOpaqueDSID=_accountOpaqueDSID;
+@property(retain, nullable) NSValue *mdItemRef; // @synthesize mdItemRef=_mdItemRef;
+@property(retain, nullable) NSNumber *versionIdentifier; // @synthesize versionIdentifier=_versionIdentifier;
+@property(retain, nullable) NSNumber *storeFrontIdentifier; // @synthesize storeFrontIdentifier=_storeFrontIdentifier;
+@property(retain, nonnull) NSNumber *itemIdentifier; // @synthesize itemIdentifier=_itemIdentifier;
+@property(retain, nullable) NSString *receiptType; // @synthesize receiptType=_receiptType;
+@property(retain, nullable) NSString *bundlePath; // @synthesize bundlePath=_bundlePath;
+@property(retain, nullable) NSString *bundleVersion; // @synthesize bundleVersion=_bundleVersion;
+@property(retain, nullable) NSString *bundleIdentifier; // @synthesize bundleIdentifier=_bundleIdentifier;
+@property(retain, nullable) NSString *accountIdentifier; // @synthesize accountIdentifier=_accountIdentifier;
+@property(retain, nullable) NSString *accountOpaqueDSID; // @synthesize accountOpaqueDSID=_accountOpaqueDSID;
 //- (void).cxx_destruct;
-- (id)copyWithZone:(struct _NSZone *)arg1;
-- (id)initWithCoder:(id)arg1;
-- (void)encodeWithCoder:(id)arg1;
-@property(readonly) NSString *appName;
-- (id)description;
-@property(readonly) NSString *sourceString;
+- (nonnull instancetype)copyWithZone:(nullable NSZone *)zone;
+- (nullable instancetype)initWithCoder:(nonnull NSCoder *)coder;
+- (void)encodeWithCoder:(nonnull NSCoder *)coder;
+@property(readonly, nonnull) NSString *appName;
+- (nonnull NSString *)description;
+@property(readonly, nullable) NSString *sourceString;
 
 @end
 

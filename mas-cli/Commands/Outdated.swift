@@ -11,17 +11,17 @@ struct OutdatedCommand: CommandType {
     let verb = "outdated"
     let function = "Lists pending updates from the Mac App Store"
     
-    func run(options: Options) -> Result<(), MASError> {
-        let updateController = CKUpdateController.sharedUpdateController()
-        let updates = updateController.availableUpdates()
-        let softwareMap = CKSoftwareMap.sharedSoftwareMap()
-        for update in updates {
-            if let installed = softwareMap.productForBundleIdentifier(update.bundleID) {
+    func run(_ options: Options) -> Result<(), MASError> {
+        let updateController = CKUpdateController.shared()
+        let updates = updateController?.availableUpdates()
+        let softwareMap = CKSoftwareMap.shared()
+        for update in updates! {
+            if let installed = softwareMap.product(forBundleIdentifier: update.bundleID) {
                 print("\(update.itemIdentifier) \(update.title) (\(installed.bundleVersion) -> \(update.bundleVersion))")
             } else {
                 print("\(update.itemIdentifier) \(update.title) (unknown -> \(update.bundleVersion))")
             }
         }
-        return .Success(())
+        return .success(())
     }
 }

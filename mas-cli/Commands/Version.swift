@@ -11,11 +11,11 @@ struct VersionCommand: CommandType {
     let verb = "version"
     let function = "Print version number"
     
-    func run(options: Options) -> Result<(), MASError> {
-        let plist = NSBundle.mainBundle().infoDictionary
+    func run(_ options: Options) -> Result<(), MASError> {
+        let plist = Bundle.main.infoDictionary
         if let versionString = plist?["CFBundleShortVersionString"] {
             print(versionString)
         }
-        return .Success(())
+        return .success(())
     }
 }

@@ -11,26 +11,28 @@ struct SignInCommand: CommandType {
     let verb = "signin"
     let function = "Sign in to the Mac App Store"
     
-    func run(options: Options) -> Result<(), MASError> {
+    func run(_ options: Options) -> Result<(), MASError> {
         
         guard ISStoreAccount.primaryAccount == nil else {
-            return .Failure(MASError.init(code: .AlreadySignedIn))
+            return .failure(MASError.init(code: .alreadySignedIn))
         }
         
         do {
             print("==> Signing in to Apple ID: \(options.username)")
+            
+            let password: String = {
+                if options.password == "" && !options.dialog {
+                    return String(validatingUTF8: getpass("Password: "))!
+                }
+                return options.password
+            }()
 
-            var password = options.password
-            if password == "" {
-                password = String.fromCString(getpass("Password: "))!
-            }
-
-            try ISStoreAccount.signIn(username: options.username, password: password)
+            let _ = try ISStoreAccount.signIn(username: options.username, password: password, systemDialog: options.dialog)
         } catch let error as NSError {
-            return .Failure(MASError(code: .SignInError, sourceError: error))
+            return .failure(MASError(code: .signInError, sourceError: error))
         }
         
-        return .Success(())
+        return .success(())
     }
 }
 
@@ -38,9 +40,20 @@ struct SignInOptions: OptionsType {
     let username: String
     let password: String
     
-    static func evaluate(m: CommandMode) -> Result<SignInOptions, CommandantError<MASError>> {
-        return curry(SignInOptions.init)
+    let dialog:   Bool
+    
+    typealias ClientError = MASError
+    
+    static func create(username: String) -> (_ password: String) -> (_ dialog: Bool) -> SignInOptions {
+        return { password in { dialog in
+            return SignInOptions(username: username, password: password, dialog: dialog)
+        }}
+    }
+    
+    static func evaluate(_ m: CommandMode) -> Result<SignInOptions, CommandantError<MASError>> {
+        return create
             <*> m <| Argument(usage: "Apple ID")
             <*> m <| Argument(defaultValue: "", usage: "Password")
+            <*> m <| Option(key: "dialog", defaultValue: false, usage: "Complete login with graphical dialog")
     }
 }

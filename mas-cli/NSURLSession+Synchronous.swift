@@ -12,43 +12,43 @@ import Foundation
 
 /// NSURLSession synchronous behavior
 /// Particularly for playground sessions that need to run sequentially
-public extension NSURLSession {
+public extension URLSession {
     
     /// Return data from synchronous URL request
-    public static func requestSynchronousData(request: NSURLRequest) -> NSData? {
-        var data: NSData? = nil
-        let semaphore: dispatch_semaphore_t = dispatch_semaphore_create(0)
-        let task = NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: {
+    public static func requestSynchronousData(_ request: URLRequest) -> Data? {
+        var data: Data? = nil
+        let semaphore: DispatchSemaphore = DispatchSemaphore(value: 0)
+        let task = URLSession.shared.dataTask(with: request, completionHandler: {
             taskData, _, error -> () in
             data = taskData
             if data == nil, let error = error {print(error)}
-            dispatch_semaphore_signal(semaphore);
+            semaphore.signal();
         })
         task.resume()
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
+        let _ = semaphore.wait(timeout: DispatchTime.distantFuture)
         return data
     }
     
     /// Return data synchronous from specified endpoint
-    public static func requestSynchronousDataWithURLString(requestString: String) -> NSData? {
-        guard let url = NSURL(string:requestString) else {return nil}
-        let request = NSURLRequest(URL: url)
-        return NSURLSession.requestSynchronousData(request)
+    public static func requestSynchronousDataWithURLString(_ requestString: String) -> Data? {
+        guard let url = URL(string:requestString) else {return nil}
+        let request = URLRequest(url: url)
+        return URLSession.requestSynchronousData(request)
     }
     
     /// Return JSON synchronous from URL request
-    public static func requestSynchronousJSON(request: NSURLRequest) -> AnyObject? {
-        guard let data = NSURLSession.requestSynchronousData(request) else {return nil}
-        return try? NSJSONSerialization.JSONObjectWithData(data, options: [])
+    public static func requestSynchronousJSON(_ request: URLRequest) -> AnyObject? {
+        guard let data = URLSession.requestSynchronousData(request) else {return nil}
+        return try! JSONSerialization.jsonObject(with: data, options: []) as AnyObject?
     }
     
     /// Return JSON synchronous from specified endpoint
-    public static func requestSynchronousJSONWithURLString(requestString: String) -> AnyObject? {
-        guard let url = NSURL(string: requestString) else {return nil}
-        let request = NSMutableURLRequest(URL:url)
-        request.HTTPMethod = "GET"
+    public static func requestSynchronousJSONWithURLString(_ requestString: String) -> AnyObject? {
+        guard let url = URL(string: requestString) else {return nil}
+        let request = NSMutableURLRequest(url:url)
+        request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        return NSURLSession.requestSynchronousJSON(request)
+        return URLSession.requestSynchronousJSON(request as URLRequest)
     }
 }
 
@@ -56,8 +56,8 @@ public extension String {
     
     /// Return an URL encoded string
     func URLEncodedString() -> String? {
-        let customAllowedSet =  NSCharacterSet.URLQueryAllowedCharacterSet()
-        return self.stringByAddingPercentEncodingWithAllowedCharacters(customAllowedSet)
+        let customAllowedSet =  CharacterSet.urlQueryAllowed
+        return addingPercentEncoding(withAllowedCharacters: customAllowedSet)
     }
 }
 

@@ -6,7 +6,7 @@
 //  Copyright © 2016 Andrew Naylor. All rights reserved.
 //
 
-func warn(message: String) {
+func warn(_ message: String) {
     guard isatty(fileno(stdout)) != 0 else {
         print("Warning: \(message)")
         return
@@ -16,7 +16,7 @@ func warn(message: String) {
     print("\(csi)4m\(csi)33mWarning:\(csi)0m \(message)")
 }
 
-func error(message: String) {
+func error(_ message: String) {
     guard isatty(fileno(stdout)) != 0 else {
         print("Warning: \(message)")
         return
