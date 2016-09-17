@@ -19,13 +19,15 @@ struct SignInCommand: CommandType {
         
         do {
             print("==> Signing in to Apple ID: \(options.username)")
+            
+            let password: String = {
+                if options.password == "" && !options.dialog {
+                    return String(validatingUTF8: getpass("Password: "))!
+                }
+                return options.password
+            }()
 
-            var password = options.password
-            if password == "" {
-                password = String(validatingUTF8: getpass("Password: "))!
-            }
-
-            let _ = try ISStoreAccount.signIn(username: options.username, password: password)
+            let _ = try ISStoreAccount.signIn(username: options.username, password: password, systemDialog: options.dialog)
         } catch let error as NSError {
             return .failure(MASError(code: .signInError, sourceError: error))
         }
@@ -38,17 +40,20 @@ struct SignInOptions: OptionsType {
     let username: String
     let password: String
     
+    let dialog:   Bool
+    
     typealias ClientError = MASError
     
-    static func create(username: String) -> (_ password: String) -> SignInOptions {
-        return { password in
-            return SignInOptions(username: username, password: password)
-        }
+    static func create(username: String) -> (_ password: String) -> (_ dialog: Bool) -> SignInOptions {
+        return { password in { dialog in
+            return SignInOptions(username: username, password: password, dialog: dialog)
+        }}
     }
     
     static func evaluate(_ m: CommandMode) -> Result<SignInOptions, CommandantError<MASError>> {
         return create
             <*> m <| Argument(usage: "Apple ID")
             <*> m <| Argument(defaultValue: "", usage: "Password")
+            <*> m <| Option(key: "dialog", defaultValue: false, usage: "Complete login with graphical dialog")
     }
 }

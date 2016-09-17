@@ -15,7 +15,7 @@ extension ISStoreAccount {
         return CKAccountStore.shared().primaryAccount
     }
     
-    static func signIn(username: String, password: String) throws -> ISStoreAccount {
+    static func signIn(username: String? = nil, password: String? = nil, systemDialog: Bool = false) throws -> ISStoreAccount {
         var account: ISStoreAccount? = nil
         var error: Error? = nil
         
@@ -24,10 +24,16 @@ extension ISStoreAccount {
         accountService.setStoreClient(client)
         
         let context = ISAuthenticationContext(accountID: 0)!
-        context.demoMode = true
-        context.demoAccountName = username
-        context.demoAccountPassword = password
-        context.demoAutologinMode = true
+        context.appleIDOverride = username
+        
+        if systemDialog {
+            context.appleIDOverride = username
+        } else {
+            context.demoMode = true
+            context.demoAccountName = username
+            context.demoAccountPassword = password
+            context.demoAutologinMode = true
+        }
         
         let group = DispatchGroup()
         group.enter()
@@ -40,7 +46,12 @@ extension ISStoreAccount {
             }
             group.leave()
         }
-        let _ = group.wait(timeout: DispatchTime.now() + Double(Int64(UInt64(15) * NSEC_PER_SEC)) / Double(NSEC_PER_SEC))
+        
+        if systemDialog {
+            group.wait()
+        } else {
+            let _ = group.wait(timeout: DispatchTime.now() + Double(Int64(UInt64(30) * NSEC_PER_SEC)) / Double(NSEC_PER_SEC))
+        }
         
         if let account = account {
             return account
