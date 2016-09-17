@@ -316,12 +316,14 @@
 		ED031A701B5127C00097692E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0730;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Andrew Naylor";
 				TargetAttributes = {
 					ED031A771B5127C00097692E = {
 						CreatedOnToolsVersion = 7.0;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -375,7 +377,6 @@
 				30EA893640B02CCF679F9C57 /* Option.swift in Sources */,
 				ED0F23851B87536A00AE40CD /* Outdated.swift in Sources */,
 				ED0F23891B87543D00AE40CD /* PurchaseDownloadObserver.swift in Sources */,
-				EDCBF9551D89CFC7000039C6 /* Utilities.swift in Sources */,
 				EDCBF9531D89AC6F000039C6 /* Reset.swift in Sources */,
 				0EBF5CDD379D7462C3389536 /* Result.swift in Sources */,
 				319FDBA6ED6443A912B9A65F /* ResultType.swift in Sources */,
@@ -386,6 +387,7 @@
 				85D89FD23A18FFD1949E7D80 /* Swift3to22.swift in Sources */,
 				15E27926A580EABEB1B218EF /* Switch.swift in Sources */,
 				EDD3B3631C34709400B56B88 /* Upgrade.swift in Sources */,
+				EDCBF9551D89CFC7000039C6 /* Utilities.swift in Sources */,
 				EDB6CE8C1BAEC3D400648B4D /* Version.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -406,8 +408,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
@@ -450,8 +454,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
