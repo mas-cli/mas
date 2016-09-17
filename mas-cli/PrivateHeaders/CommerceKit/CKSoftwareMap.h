@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (id)productForPath:(id)arg1;
 - (NSArray<CKSoftwareProduct *>* __nullable)allProducts;
 - (CKSoftwareProduct *)productForItemIdentifier:(unsigned long long)arg1;
-- (CKSoftwareProduct *)productForBundleIdentifier:(NSString *)arg1;
+- (nullable CKSoftwareProduct *)productForBundleIdentifier:(NSString *)arg1;
 - (void)removeProductsObserver:(id)arg1;
 //- (id)addProductsObserver:(CDUnknownBlockType)arg1 queue:(id)arg2;
 - (id)initWithStoreClient:(id)arg1;

@@ -18,7 +18,7 @@ struct ListCommand: CommandType {
             return .success(())
         }
         for product in products {
-            print("\(product.itemIdentifier) \(product.appName)")
+            print("\(product.itemIdentifier) \(product.appName) (\(product.bundleVersion))")
         }
         return .success(())
     }

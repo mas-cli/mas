@@ -14,8 +14,13 @@ struct OutdatedCommand: CommandType {
     func run(_ options: Options) -> Result<(), MASError> {
         let updateController = CKUpdateController.shared()
         let updates = updateController?.availableUpdates()
+        let softwareMap = CKSoftwareMap.shared()
         for update in updates! {
-            print("\(update.itemIdentifier) \(update.title) (\(update.bundleVersion))")
+            if let installed = softwareMap.product(forBundleIdentifier: update.bundleID) {
+                print("\(update.itemIdentifier) \(update.title) (\(installed.bundleVersion) -> \(update.bundleVersion))")
+            } else {
+                print("\(update.itemIdentifier) \(update.title) (unknown -> \(update.bundleVersion))")
+            }
         }
         return .success(())
     }
