@@ -11,14 +11,14 @@ struct AccountCommand: CommandType {
     let verb = "account"
     let function = "Prints the primary account Apple ID"
     
-    func run(options: Options) -> Result<(), MASError> {
+    func run(_ options: Options) -> Result<(), MASError> {
         if let account = ISStoreAccount.primaryAccount {
             print(account.identifier)
         }
         else {
             print("Not signed in")
-            return .Failure(MASError(code: .NotSignedIn))
+            return .failure(MASError(code: .notSignedIn))
         }
-        return .Success(())
+        return .success(())
     }
 }

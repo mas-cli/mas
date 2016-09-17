@@ -18,30 +18,30 @@ struct SearchCommand: CommandType {
     let verb = "search"
     let function = "Search for apps from the Mac App Store"
     
-    func run(options: Options) -> Result<(), MASError> {
+    func run(_ options: Options) -> Result<(), MASError> {
         
         guard let searchURLString = searchURLString(options.appName),
-              let searchJson = NSURLSession.requestSynchronousJSONWithURLString(searchURLString) as? [String: AnyObject] else {
-            return .Failure(MASError(code:.SearchError))
+              let searchJson = URLSession.requestSynchronousJSONWithURLString(searchURLString) as? [String: AnyObject] else {
+            return .failure(MASError(code:.searchError))
         }
         
-        guard let resultCount = searchJson[ResultKeys.ResultCount] as? Int where resultCount > 0,
+        guard let resultCount = searchJson[ResultKeys.ResultCount] as? Int , resultCount > 0,
               let results = searchJson[ResultKeys.Results] as? [[String: AnyObject]] else {
             print("No results found")
-            return .Failure(MASError(code:.NoSearchResultsFound))
+            return .failure(MASError(code:.noSearchResultsFound))
         }
         
         for result in results {
             if let appName = result[ResultKeys.TrackName] as? String,
-                   appId = result[ResultKeys.TrackId] as? Int {
+                   let appId = result[ResultKeys.TrackId] as? Int {
                 print("\(String(appId)) \(appName)")
             }
         }
         
-        return .Success(())
+        return .success(())
     }
     
-    func searchURLString(appName: String) -> String? {
+    func searchURLString(_ appName: String) -> String? {
         if let urlEncodedAppName = appName.URLEncodedString() {
             return "https://itunes.apple.com/search?entity=macSoftware&term=\(urlEncodedAppName)&attribute=allTrackTerm"
         }
@@ -52,11 +52,11 @@ struct SearchCommand: CommandType {
 struct SearchOptions: OptionsType {
     let appName: String
     
-    static func create(appName: String) -> SearchOptions {
+    static func create(_ appName: String) -> SearchOptions {
         return SearchOptions(appName: appName)
     }
     
-    static func evaluate(m: CommandMode) -> Result<SearchOptions, CommandantError<MASError>> {
+    static func evaluate(_ m: CommandMode) -> Result<SearchOptions, CommandantError<MASError>> {
         return create
             <*> m <| Argument(usage: "the app name to search")
     }

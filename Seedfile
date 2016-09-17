@@ -1,3 +1,2 @@
-github "thoughtbot/Curry", "v2.3.3", :files => "Source/Curry.swift"
-github "Carthage/Commandant", "0.10.0", :files => "Sources/Commandant/*.swift"
-github "antitypical/Result", "2.0.0", :files => "Result/*.swift"
+github "giginet/Commandant", "3.0", :files => "Sources/Commandant/*.swift"
+github "antitypical/Result", "3.0.0", :files => "Result/*.swift"

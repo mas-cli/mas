@@ -11,15 +11,15 @@ struct ListCommand: CommandType {
     let verb = "list"
     let function = "Lists apps from the Mac App Store which are currently installed"
     
-    func run(options: Options) -> Result<(), MASError> {
-        let softwareMap = CKSoftwareMap.sharedSoftwareMap()
+    func run(_ options: Options) -> Result<(), MASError> {
+        let softwareMap = CKSoftwareMap.shared()
         guard let products = softwareMap.allProducts() else {
             print("No installed apps found")
-            return .Success(())
+            return .success(())
         }
         for product in products {
             print("\(product.itemIdentifier) \(product.appName)")
         }
-        return .Success(())
+        return .success(())
     }
 }

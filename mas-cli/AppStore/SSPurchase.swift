@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Andrew Naylor. All rights reserved.
 //
 
-typealias SSPurchaseCompletion = (purchase: SSPurchase!, completed: Bool, error: NSError?, response: SSPurchaseResponse!) -> ()
+typealias SSPurchaseCompletion = (_ purchase: SSPurchase?, _ completed: Bool, _ error: Error?, _ response: SSPurchaseResponse?) -> ()
 
 extension SSPurchase {
     convenience init(adamId: UInt64, account: ISStoreAccount) {
@@ -23,7 +23,7 @@ extension SSPurchase {
         self.downloadMetadata = downloadMetadata
     }
     
-    func perform(completion: SSPurchaseCompletion) {
-        CKPurchaseController.sharedPurchaseController().performPurchase(self, withOptions: 0, completionHandler: completion)
+    func perform(_ completion: @escaping SSPurchaseCompletion) {
+        CKPurchaseController.shared().perform(self, withOptions: 0, completionHandler: completion)
     }
 }

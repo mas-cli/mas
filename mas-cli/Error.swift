@@ -11,38 +11,31 @@ public let MASErrorDomain: String = "MASErrorDomain"
 private let MASErrorSource: String = "MASErrorSource"
 
 public enum MASErrorCode: Int {
-    case NoError
-    case NotSignedIn
-    case PurchaseError
-    case NoDownloads
-    case Cancelled
-    case DownloadFailed
-    case SignInError
-    case AlreadySignedIn
-    case SearchError
-    case NoSearchResultsFound
-    case NoUpdatesFound
+    case noError
+    case notSignedIn
+    case purchaseError
+    case noDownloads
+    case cancelled
+    case downloadFailed
+    case signInError
+    case alreadySignedIn
+    case searchError
+    case noSearchResultsFound
+    case noUpdatesFound
     
     var exitCode: Int32 {
         return Int32(self.rawValue)
     }
 }
 
-public class MASError: NSError {
-    var masCode: MASErrorCode? {
-        return MASErrorCode(rawValue: code)
-    }
+public struct MASError: Error {
+    let code: MASErrorCode
     
-    var sourceError: NSError? {
-        return userInfo[MASErrorSource] as? NSError
-    }
+    let sourceError: NSError?
     
-    convenience init(code: MASErrorCode, sourceError: NSError? = nil) {
-        var userInfo: [NSObject: AnyObject] = [:]
-        if let error = sourceError {
-            userInfo[MASErrorSource] = error
-        }
-        self.init(domain: MASErrorDomain, code: code.rawValue, userInfo: userInfo)
+    init(code: MASErrorCode, sourceError: NSError? = nil) {
+        self.code = code
+        self.sourceError = sourceError
     }
 }
 

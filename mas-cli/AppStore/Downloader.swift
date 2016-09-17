@@ -6,52 +6,52 @@
 //  Copyright (c) 2015 Andrew Naylor. All rights reserved.
 //
 
-func download(adamId: UInt64) -> MASError? {
+func download(_ adamId: UInt64) -> MASError? {
 
     guard let account = ISStoreAccount.primaryAccount else {
-        return MASError(code: .NotSignedIn)
+        return MASError(code: .notSignedIn)
     }
     
-    let group = dispatch_group_create()
+    let group = DispatchGroup()
     let purchase = SSPurchase(adamId: adamId, account: account)
     
     var purchaseError: MASError?
-    var observerIdentifier: AnyObject? = nil
+    var observerIdentifier: Any? = nil
     
-    dispatch_group_enter(group)
-    purchase.perform { purchase, unused, error, response in
+    group.enter()
+    purchase.perform { purchase, _, error, response in
         if let error = error {
-            purchaseError = MASError(code: .PurchaseError, sourceError: error)
-            dispatch_group_leave(group)
+            purchaseError = MASError(code: .purchaseError, sourceError: error as NSError)
+            group.leave()
             return
         }
         
-        if let downloads = response.downloads where downloads.count > 0 {
+        if let downloads = response?.downloads, downloads.count > 0, let purchase = purchase {
             let observer = PurchaseDownloadObserver(purchase: purchase)
 
             observer.errorHandler = { error in
                 purchaseError = error
-                dispatch_group_leave(group)
+                group.leave()
             }
             
             observer.completionHandler = {
-                dispatch_group_leave(group)
+                group.leave()
             }
 
-            let downloadQueue = CKDownloadQueue.sharedDownloadQueue()
-            observerIdentifier = downloadQueue.addObserver(observer)
+            let downloadQueue = CKDownloadQueue.shared()
+            observerIdentifier = downloadQueue?.add(observer) as Any?
         }
         else {
             print("No downloads")
-            purchaseError = MASError(code: .NoDownloads)
-            dispatch_group_leave(group)
+            purchaseError = MASError(code: .noDownloads)
+            group.leave()
         }
     }
     
-    dispatch_group_wait(group, DISPATCH_TIME_FOREVER)
+    let _ = group.wait(timeout: DispatchTime.distantFuture)
     
     if let observerIdentifier = observerIdentifier {
-        CKDownloadQueue.sharedDownloadQueue().removeObserver(observerIdentifier)
+        CKDownloadQueue.shared().removeObserver(observerIdentifier)
     }
 
     return purchaseError

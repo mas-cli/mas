@@ -11,8 +11,8 @@ struct SignOutCommand: CommandType {
     let verb = "signout"
     let function = "Sign out of the Mac App Store"
     
-    func run(options: Options) -> Result<(), MASError> {
-        CKAccountStore.sharedAccountStore().signOut()
-        return .Success(())
+    func run(_ options: Options) -> Result<(), MASError> {
+        CKAccountStore.shared().signOut()
+        return .success(())
     }
 }

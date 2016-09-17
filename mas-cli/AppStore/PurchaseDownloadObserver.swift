@@ -17,34 +17,42 @@ let csi = "\u{001B}["
         self.purchase = purchase
     }
     
-    func downloadQueue(queue: CKDownloadQueue, statusChangedForDownload download: SSDownload!) {
-        if download.metadata.itemIdentifier != purchase.itemIdentifier {
+    func downloadQueue(_ queue: CKDownloadQueue, statusChangedFor download: SSDownload!) {
+        guard download.metadata.itemIdentifier == purchase.itemIdentifier,
+            let status = download.status else {
             return
         }
-        let status = download.status
-        if status.failed || status.cancelled {
-            queue.removeDownloadWithItemIdentifier(download.metadata.itemIdentifier)
+        
+        if status.isFailed || status.isCancelled {
+            queue.removeDownload(withItemIdentifier: download.metadata.itemIdentifier)
         }
         else if let state = status.progressState {
             progress(state)
         }
     }
     
-    func downloadQueue(queue: CKDownloadQueue, changedWithAddition download: SSDownload!) {
+    func downloadQueue(_ queue: CKDownloadQueue, changedWithAddition download: SSDownload!) {
+        guard download.metadata.itemIdentifier == purchase.itemIdentifier else {
+                return
+        }
         clearLine()
         print("==> Downloading " + download.metadata.title)
     }
     
-    func downloadQueue(queue: CKDownloadQueue, changedWithRemoval download: SSDownload!) {
-        clearLine()
-        let status = download.status
-        if status.failed {
-            print("==> Download Failed")
-            errorHandler?(MASError(code: .DownloadFailed, sourceError: status.error))
+    func downloadQueue(_ queue: CKDownloadQueue, changedWithRemoval download: SSDownload!) {
+        guard download.metadata.itemIdentifier == purchase.itemIdentifier,
+              let status = download.status else {
+            return
         }
-        else if status.cancelled {
+        
+        clearLine()
+        if status.isFailed {
+            print("==> Download Failed")
+            errorHandler?(MASError(code: .downloadFailed, sourceError: status.error as NSError?))
+        }
+        else if status.isCancelled {
             print("==> Download Cancelled")
-            errorHandler?(MASError(code: .Cancelled))
+            errorHandler?(MASError(code: .cancelled))
         }
         else {
             print("==> Installed " + download.metadata.title)
@@ -62,7 +70,7 @@ struct ProgressState {
     }
 }
 
-func progress(state: ProgressState) {
+func progress(_ state: ProgressState) {
     // Don't display the progress bar if we're not on a terminal
     guard isatty(fileno(stdout)) != 0 else {
         return
