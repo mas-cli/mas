@@ -19,7 +19,7 @@ struct OutdatedCommand: CommandType {
             if let installed = softwareMap.productForBundleIdentifier(update.bundleID) {
                 print("\(update.itemIdentifier) \(update.title) (\(installed.bundleVersion) -> \(update.bundleVersion))")
             } else {
-                print("\(update.itemIdentifier) \(update.title) (\(update.bundleVersion))")
+                print("\(update.itemIdentifier) \(update.title) (unknown -> \(update.bundleVersion))")
             }
         }
         return .Success(())
