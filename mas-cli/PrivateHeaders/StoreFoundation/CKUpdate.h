@@ -6,6 +6,8 @@
 
 @class NSDate, NSDictionary, NSMutableDictionary, NSNumber, NSString, SSPurchase;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface CKUpdate : NSObject <NSSecureCoding>
 {
     NSMutableDictionary *_dictionary;
@@ -37,3 +39,4 @@
 
 @end
 
+NS_ASSUME_NONNULL_END

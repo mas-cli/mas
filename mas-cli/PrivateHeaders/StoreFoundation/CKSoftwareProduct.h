@@ -57,7 +57,7 @@
 @property(retain, nonnull) NSNumber *itemIdentifier; // @synthesize itemIdentifier=_itemIdentifier;
 @property(retain, nullable) NSString *receiptType; // @synthesize receiptType=_receiptType;
 @property(retain, nullable) NSString *bundlePath; // @synthesize bundlePath=_bundlePath;
-@property(retain, nullable) NSString *bundleVersion; // @synthesize bundleVersion=_bundleVersion;
+@property(retain, nonnull) NSString *bundleVersion; // @synthesize bundleVersion=_bundleVersion;
 @property(retain, nullable) NSString *bundleIdentifier; // @synthesize bundleIdentifier=_bundleIdentifier;
 @property(retain, nullable) NSString *accountIdentifier; // @synthesize accountIdentifier=_accountIdentifier;
 @property(retain, nullable) NSString *accountOpaqueDSID; // @synthesize accountOpaqueDSID=_accountOpaqueDSID;
