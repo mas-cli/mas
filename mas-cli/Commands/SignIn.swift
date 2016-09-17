@@ -21,8 +21,7 @@ struct SignInCommand: CommandType {
             print("==> Signing in to Apple ID: \(options.username)")
 
             var password = options.password
-            if password == ""
-            {
+            if password == "" {
                 password = String.fromCString(getpass("Password: "))!
             }
 
