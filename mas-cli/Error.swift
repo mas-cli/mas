@@ -28,7 +28,7 @@ public enum MASErrorCode: Int {
     }
 }
 
-public struct MASError: Error {
+open class MASError: Error {
     let code: MASErrorCode
     
     let sourceError: NSError?
