@@ -22,7 +22,7 @@ remove_seed_imports() {
     local pattern
     pattern="/import ($(join "|" "${MODULES[@]}"))/d"
 
-    find . -name "*.swift" -type f -exec sed -Eie "${pattern}" {} \;
+    find . -name "*.swift" -type f -exec sed -E -i '' "${pattern}" {} \;
   popd > /dev/null
 }
 
