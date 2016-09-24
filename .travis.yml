@@ -8,9 +8,6 @@ env:
     - LC_ALL=en_US.UTF-8
     - LANGUAGE=en_US.UTF-8
 
-install:
-  - script/bootstrap
-
 script:
   - script/build
 
