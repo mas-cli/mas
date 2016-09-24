@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Andrew Naylor. All rights reserved.
 //
 
-struct OutdatedCommand: CommandType {
+struct OutdatedCommand: CommandProtocol {
     typealias Options = NoOptions<MASError>
     let verb = "outdated"
     let function = "Lists pending updates from the Mac App Store"

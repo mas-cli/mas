@@ -13,7 +13,7 @@ struct ResultKeys {
     static let TrackId = "trackId"
 }
 
-struct SearchCommand: CommandType {
+struct SearchCommand: CommandProtocol {
     typealias Options = SearchOptions
     let verb = "search"
     let function = "Search for apps from the Mac App Store"
@@ -49,7 +49,7 @@ struct SearchCommand: CommandType {
     }
 }
 
-struct SearchOptions: OptionsType {
+struct SearchOptions: OptionsProtocol {
     let appName: String
     
     static func create(_ appName: String) -> SearchOptions {

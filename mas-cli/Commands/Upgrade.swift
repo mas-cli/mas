@@ -6,7 +6,7 @@
 //  Copyright © 2015 Andrew Naylor. All rights reserved.
 //
 
-struct UpgradeCommand: CommandType {
+struct UpgradeCommand: CommandProtocol {
     typealias Options = UpgradeOptions
     let verb = "upgrade"
     let function = "Upgrade outdated apps from the Mac App Store"
@@ -56,7 +56,7 @@ struct UpgradeCommand: CommandType {
     }
 }
 
-struct UpgradeOptions: OptionsType {
+struct UpgradeOptions: OptionsProtocol {
     let appIds: [UInt64]
     
     static func create(_ appIds: [Int]) -> UpgradeOptions {

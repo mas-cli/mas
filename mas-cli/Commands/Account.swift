@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Andrew Naylor. All rights reserved.
 //
 
-struct AccountCommand: CommandType {
+struct AccountCommand: CommandProtocol {
     typealias Options = NoOptions<MASError>
     let verb = "account"
     let function = "Prints the primary account Apple ID"

@@ -6,7 +6,7 @@
 //  Copyright © 2016 Andrew Naylor. All rights reserved.
 //
 
-struct SignInCommand: CommandType {
+struct SignInCommand: CommandProtocol {
     typealias Options = SignInOptions
     let verb = "signin"
     let function = "Sign in to the Mac App Store"
@@ -36,7 +36,7 @@ struct SignInCommand: CommandType {
     }
 }
 
-struct SignInOptions: OptionsType {
+struct SignInOptions: OptionsProtocol {
     let username: String
     let password: String
     

@@ -6,7 +6,7 @@
 //  Copyright © 2015 Andrew Naylor. All rights reserved.
 //
 
-struct VersionCommand: CommandType {
+struct VersionCommand: CommandProtocol {
     typealias Options = NoOptions<MASError>
     let verb = "version"
     let function = "Print version number"

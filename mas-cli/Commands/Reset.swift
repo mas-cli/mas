@@ -6,7 +6,7 @@
 //  Copyright © 2016 Andrew Naylor. All rights reserved.
 //
 
-struct ResetCommand: CommandType {
+struct ResetCommand: CommandProtocol {
     typealias Options = ResetOptions
     let verb = "reset"
     let function = "Resets the Mac App Store"
@@ -71,7 +71,7 @@ struct ResetCommand: CommandType {
     }
 }
 
-struct ResetOptions: OptionsType {
+struct ResetOptions: OptionsProtocol {
     let debug: Bool
     
     static func create(debug: Bool) -> ResetOptions {

@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Andrew Naylor. All rights reserved.
 //
 
-struct InstallCommand: CommandType {
+struct InstallCommand: CommandProtocol {
     typealias Options = InstallOptions
     let verb = "install"
     let function = "Install from the Mac App Store"
@@ -40,7 +40,7 @@ struct InstallCommand: CommandType {
     }
 }
 
-struct InstallOptions: OptionsType {
+struct InstallOptions: OptionsProtocol {
     let appIds: [UInt64]
     let forceInstall: Bool
     

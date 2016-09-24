@@ -6,7 +6,7 @@
 //  Copyright © 2016 Andrew Naylor. All rights reserved.
 //
 
-struct SignOutCommand: CommandType {
+struct SignOutCommand: CommandProtocol {
     typealias Options = NoOptions<MASError>
     let verb = "signout"
     let function = "Sign out of the Mac App Store"

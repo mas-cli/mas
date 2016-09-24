@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Andrew Naylor. All rights reserved.
 //
 
-struct ListCommand: CommandType {
+struct ListCommand: CommandProtocol {
     typealias Options = NoOptions<MASError>
     let verb = "list"
     let function = "Lists apps from the Mac App Store which are currently installed"

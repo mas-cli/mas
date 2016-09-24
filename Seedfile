@@ -1,2 +1,2 @@
-github "giginet/Commandant", "3.0", :files => "Sources/Commandant/*.swift"
+github "carthage/Commandant", "0.11.1", :files => "Sources/Commandant/*.swift"
 github "antitypical/Result", "3.0.0", :files => "Result/*.swift"
