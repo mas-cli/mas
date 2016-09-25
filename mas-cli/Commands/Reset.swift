@@ -54,7 +54,7 @@ struct ResetCommand: CommandProtocol {
         
         if kill.terminationStatus != 0 && options.debug {
             let output = stderr.fileHandleForReading.readDataToEndOfFile()
-            print("==> killall  failed:\r\n\(String(data: output, encoding: String.Encoding.utf8)!)")
+            printInfo("killall  failed:\r\n\(String(data: output, encoding: String.Encoding.utf8)!)")
         }
         
         // Wipe Download Directory
@@ -63,7 +63,7 @@ struct ResetCommand: CommandProtocol {
             try FileManager.default.removeItem(atPath: directory!)
         } catch {
             if options.debug {
-                print("removeItemAtPath:\"\(directory)\" failed, \(error)")
+                printError("removeItemAtPath:\"\(directory)\" failed, \(error)")
             }
         }
         

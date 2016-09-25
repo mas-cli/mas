@@ -18,7 +18,7 @@ struct SignInCommand: CommandProtocol {
         }
         
         do {
-            print("==> Signing in to Apple ID: \(options.username)")
+            printInfo("Signing in to Apple ID: \(options.username)")
             
             let password: String = {
                 if options.password == "" && !options.dialog {
