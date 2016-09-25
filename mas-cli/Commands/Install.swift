@@ -15,7 +15,7 @@ struct InstallCommand: CommandProtocol {
         // Try to download applications with given identifiers and collect results
         let downloadResults = options.appIds.flatMap { (appId) -> MASError? in
             if let product = installedApp(appId) , !options.forceInstall {
-                warn("\(product.appName) is already installed")
+                printWarning("\(product.appName) is already installed")
                 return nil
             }
             
@@ -28,7 +28,7 @@ struct InstallCommand: CommandProtocol {
         case 1:
             return .failure(downloadResults[0])
         default:
-            return .failure(MASError(code: .downloadFailed))
+            return .failure(.downloadFailed(error: nil))
         }
     }
     

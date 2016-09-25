@@ -6,39 +6,58 @@
 //  Copyright (c) 2015 Andrew Naylor. All rights reserved.
 //
 
-public let MASErrorDomain: String = "MASErrorDomain"
-
-private let MASErrorSource: String = "MASErrorSource"
-
-public enum MASErrorCode: Int {
-    case noError
+enum MASError: Error, CustomStringConvertible {
     case notSignedIn
-    case purchaseError
+    case signInFailed(error: NSError?)
+    case alreadySignedIn
+    
+    case purchaseFailed(error: NSError?)
+    case downloadFailed(error: NSError?)
     case noDownloads
     case cancelled
-    case downloadFailed
-    case signInError
-    case alreadySignedIn
-    case searchError
+    
+    case searchFailed
     case noSearchResultsFound
-    case noUpdatesFound
     
-    var exitCode: Int32 {
-        return Int32(self.rawValue)
+    var description: String {
+        switch self {
+        case .notSignedIn:
+            return "Not signed in"
+            
+        case .signInFailed(error: let error):
+            if let error = error {
+                return "Sign in failed: \(error.localizedDescription)"
+            } else {
+                return "Sign in failed"
+            }
+            
+        case .alreadySignedIn:
+            return "Already signed in"
+            
+        case .purchaseFailed(error: let error):
+            if let error = error {
+                return "Download request failed: \(error.localizedDescription)"
+            } else {
+                return "Download request failed"
+            }
+        case .downloadFailed(error: let error):
+            if let error = error {
+                return "Download failed: \(error.localizedDescription)"
+            } else {
+                return "Download failed"
+            }
+            
+        case .noDownloads:
+            return "No downloads began"
+        
+        case .cancelled:
+            return "Download cancelled"
+            
+        case .searchFailed:
+            return "Search failed"
+            
+        case .noSearchResultsFound:
+            return "No results found"            
+        }
     }
-}
-
-open class MASError: Error {
-    let code: MASErrorCode
-    
-    let sourceError: NSError?
-    
-    init(code: MASErrorCode, sourceError: NSError? = nil) {
-        self.code = code
-        self.sourceError = sourceError
-    }
-}
-
-public func == (lhs: MASError, rhs: MASError) -> Bool {
-    return false
 }

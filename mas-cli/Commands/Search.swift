@@ -22,13 +22,13 @@ struct SearchCommand: CommandProtocol {
         
         guard let searchURLString = searchURLString(options.appName),
               let searchJson = URLSession.requestSynchronousJSONWithURLString(searchURLString) as? [String: AnyObject] else {
-            return .failure(MASError(code:.searchError))
+            return .failure(.searchFailed)
         }
         
         guard let resultCount = searchJson[ResultKeys.ResultCount] as? Int , resultCount > 0,
               let results = searchJson[ResultKeys.Results] as? [[String: AnyObject]] else {
             print("No results found")
-            return .failure(MASError(code:.noSearchResultsFound))
+            return .failure(.noSearchResultsFound)
         }
         
         for result in results {

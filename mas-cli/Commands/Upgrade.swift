@@ -20,7 +20,7 @@ struct UpgradeCommand: CommandProtocol {
             updates = appIds.flatMap { updateController?.availableUpdate(withItemIdentifier: $0) }
             
             guard updates.count > 0 else {
-                warn("Nothing found to upgrade")
+                printWarning("Nothing found to upgrade")
                 return .success(())
             }
         } else {
@@ -46,7 +46,7 @@ struct UpgradeCommand: CommandProtocol {
         case 1:
             return .failure(updateResults[0])
         default:
-            return .failure(MASError(code: .downloadFailed))
+            return .failure(.downloadFailed(error: nil))
         }
     }
 }

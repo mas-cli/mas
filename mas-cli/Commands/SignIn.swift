@@ -14,7 +14,7 @@ struct SignInCommand: CommandProtocol {
     func run(_ options: Options) -> Result<(), MASError> {
         
         guard ISStoreAccount.primaryAccount == nil else {
-            return .failure(MASError.init(code: .alreadySignedIn))
+            return .failure(.alreadySignedIn)
         }
         
         do {
@@ -29,7 +29,7 @@ struct SignInCommand: CommandProtocol {
 
             let _ = try ISStoreAccount.signIn(username: options.username, password: password, systemDialog: options.dialog)
         } catch let error as NSError {
-            return .failure(MASError(code: .signInError, sourceError: error))
+            return .failure(.signInFailed(error: error))
         }
         
         return .success(())

@@ -29,10 +29,7 @@ registry.register(VersionCommand())
 registry.register(helpCommand)
 
 registry.main(defaultVerb: helpCommand.verb) { error in
-    if let sourceError = error.sourceError {
-        var stderr = StderrOutputStream()
-        print(sourceError.localizedDescription, to: &stderr)
-    }
-    exit(Int32(error.code.rawValue))
+    printError(String(describing: error))
+    exit(1)
 }
 

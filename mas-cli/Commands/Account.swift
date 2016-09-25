@@ -17,7 +17,7 @@ struct AccountCommand: CommandProtocol {
         }
         else {
             print("Not signed in")
-            return .failure(MASError(code: .notSignedIn))
+            return .failure(.notSignedIn)
         }
         return .success(())
     }

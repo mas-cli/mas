@@ -9,7 +9,7 @@
 func download(_ adamId: UInt64) -> MASError? {
 
     guard let account = ISStoreAccount.primaryAccount else {
-        return MASError(code: .notSignedIn)
+        return .notSignedIn
     }
     
     let group = DispatchGroup()
@@ -21,7 +21,7 @@ func download(_ adamId: UInt64) -> MASError? {
     group.enter()
     purchase.perform { purchase, _, error, response in
         if let error = error {
-            purchaseError = MASError(code: .purchaseError, sourceError: error as NSError)
+            purchaseError = .purchaseFailed(error: error as NSError?)
             group.leave()
             return
         }
@@ -43,7 +43,7 @@ func download(_ adamId: UInt64) -> MASError? {
         }
         else {
             print("No downloads")
-            purchaseError = MASError(code: .noDownloads)
+            purchaseError = .noDownloads
             group.leave()
         }
     }

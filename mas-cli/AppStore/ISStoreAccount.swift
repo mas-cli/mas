@@ -57,6 +57,6 @@ extension ISStoreAccount {
             return account
         }
         
-        throw error ?? MASError(code: .signInError)
+        throw error ?? MASError.signInFailed(error: nil)
     }
 }
