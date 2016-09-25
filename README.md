@@ -56,6 +56,15 @@ To install all pending updates run `mas upgrade`.
     ==> Downloading iFlicks
     ==> Installed iFlicks    
 
+Updates can be performed selectively by providing the app identifier(s) to
+`mas upgrade`
+
+    $ mas upgrade 715768417
+    Upgrading 1 outdated application:
+    Xcode (8.0)
+    ==> Downloading Xcode
+    ==> Installed Xcode
+
 To sign into the Mac App Store for the first time run `mas signin`.
 
     $ mas signin mas@example.com
