@@ -100,21 +100,6 @@ $ reattach-to-user-namespace mas install
 
 ## Build from source
 
-`mas` currently requires the [bundler](http://bundler.io/) RubyGem in order to 
-bootstrap and build the project. There are a number ways to install bundler but
-if you have never used it before then installing it with `gem` should be enough.
-
-```
-$ gem install bundler
-```
-
-You can now bootstrap the project by executing the `bootstrap` script
-from the mas sources script directory:
-
-```
-$ script/bootstrap
-```
-
 You can now build from Xcode by opening `mas-cli.xcodeproj`, or from the Terminal:
 
 ```
