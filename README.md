@@ -109,3 +109,5 @@ Build output can be found in the `build/` directory within the project.
 ## License
 
 Code is under the [MIT license](LICENSE).
+
+[mas-cli]: https://github.com/argon/mas
