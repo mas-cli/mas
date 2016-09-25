@@ -1,3 +1,5 @@
+[<p align="center"><img src="mas-cli.png" alt="mas-cli" width="450" height="auto"></p>][mas-cli]
+
 # mas-cli
 
 A simple command line interface for the Mac App Store. Designed for scripting 
