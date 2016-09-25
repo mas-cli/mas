@@ -17,7 +17,7 @@ extension ISStoreAccount {
     
     static func signIn(username: String? = nil, password: String? = nil, systemDialog: Bool = false) throws -> ISStoreAccount {
         var account: ISStoreAccount? = nil
-        var error: Error? = nil
+        var error: MASError? = nil
         
         let accountService = ISServiceProxy.genericShared().accountService
         let client = ISStoreClient(storeClientType: 0)
@@ -42,7 +42,7 @@ extension ISStoreAccount {
             if success {
                 account = _account
             } else {
-                error = _error
+                error = .signInFailed(error: _error as NSError?)
             }
             group.leave()
         }
