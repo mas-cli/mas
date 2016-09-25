@@ -14,28 +14,23 @@ struct UpgradeCommand: CommandProtocol {
     func run(_ options: Options) -> Result<(), MASError> {
         let updateController = CKUpdateController.shared()
         
-        guard let pendingUpdates = updateController?.availableUpdates() else {
-            return .failure(MASError(code: .noUpdatesFound))
-        }
-        
         let updates: [CKUpdate]
         let appIds = options.appIds
         if appIds.count > 0 {
-            updates = pendingUpdates.filter {
-                appIds.contains($0.itemIdentifier.uint64Value)
-            }
+            updates = appIds.flatMap { updateController?.availableUpdate(withItemIdentifier: $0) }
             
             guard updates.count > 0 else {
                 warn("Nothing found to upgrade")
                 return .success(())
             }
         } else {
+            updates = updateController?.availableUpdates() ?? []
+
             // Upgrade everything
-            guard pendingUpdates.count > 0 else {
+            guard updates.count > 0 else {
                 print("Everything is up-to-date")
                 return .success(())
             }
-            updates = pendingUpdates
         }
         
         print("Upgrading \(updates.count) outdated application\(updates.count > 1 ? "s" : ""):")

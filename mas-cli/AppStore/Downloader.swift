@@ -56,3 +56,4 @@ func download(_ adamId: UInt64) -> MASError? {
 
     return purchaseError
 }
+

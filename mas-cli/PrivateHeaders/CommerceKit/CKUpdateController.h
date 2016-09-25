@@ -8,12 +8,13 @@
 
 @class CKUpdate;
 
+NS_ASSUME_NONNULL_BEGIN
 @interface CKUpdateController : CKServiceInterface
 {
 //    CDUnknownBlockType _dialogHandler;
 }
 
-+ (CKUpdateController *)sharedUpdateController;
++ (CKUpdateController * _Nullable)sharedUpdateController;
 //@property(copy) CDUnknownBlockType dialogHandler; // @synthesize dialogHandler=_dialogHandler;
 //- (void).cxx_destruct;
 - (void)promptUserToOptInForAutoUpdateWithShowNotification:(BOOL)arg1;
@@ -50,9 +51,9 @@
 //- (id)addAvailableUpdatesObserverWithBlock:(CDUnknownBlockType)arg1;
 - (unsigned long long)availableUpdatesBadgeCount;
 - (id)incompatibleUpdates;
-- (id)availableUpdateWithItemIdentifier:(unsigned long long)arg1;
+- (nullable CKUpdate *)availableUpdateWithItemIdentifier:(unsigned long long)arg1;
 - (NSArray<CKUpdate *>*)availableUpdates;
 - (id)init;
 
 @end
-
+NS_ASSUME_NONNULL_END
