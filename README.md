@@ -9,7 +9,7 @@ and automation.
 
 ## Install
 
-[Homebrew](https://brew.sh) is the preferred way to install:
+[Homebrew](http://brew.sh) is the preferred way to install:
 
     brew install mas
 
