@@ -39,6 +39,8 @@ application identifier:
     $ mas install 808809998
     ==> Downloading PaintCode 2
     ==> Installed PaintCode 2
+    
+> Please note that this command will not allow you to install (or even purchase) an app for the first time: it must already be in the Purchased tab of the App Store.
 
 Use `mas outdated` to list all applications with pending updates.
 
