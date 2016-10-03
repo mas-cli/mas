@@ -5,8 +5,6 @@
 A simple command line interface for the Mac App Store. Designed for scripting 
 and automation.
 
-[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](https://github.com/argon/mas/issues/47)
-
 ## Install
 
 [Homebrew](http://brew.sh) is the preferred way to install:
