@@ -11,7 +11,7 @@ and automation.
 
     brew install mas
 
-Alternatively, binaries are available in the [GitHub Releases](https://github.com/argon/mas/releases)
+Alternatively, binaries are available in the [GitHub Releases](https://github.com/mas-cli/mas/releases)
 
 ## Usage
 
@@ -114,4 +114,4 @@ Build output can be found in the `build/` directory within the project.
 
 Code is under the [MIT license](LICENSE).
 
-[mas-cli]: https://github.com/argon/mas
+[mas-cli]: https://github.com/mas-cli/mas

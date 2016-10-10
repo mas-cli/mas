@@ -23,5 +23,5 @@ deploy:
     - mas.xcarchive.zip
   skip_cleanup: true
   on:
-    repo: argon/mas
+    repo: mas-cli/mas
     tags: true
