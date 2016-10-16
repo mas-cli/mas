@@ -24,7 +24,7 @@ enum MASError: Error, CustomStringConvertible {
         case .notSignedIn:
             return "Not signed in"
             
-        case .signInFailed(error: let error):
+        case .signInFailed(let error):
             if let error = error {
                 return "Sign in failed: \(error.localizedDescription)"
             } else {
@@ -34,13 +34,14 @@ enum MASError: Error, CustomStringConvertible {
         case .alreadySignedIn:
             return "Already signed in"
             
-        case .purchaseFailed(error: let error):
+        case .purchaseFailed(let error):
             if let error = error {
                 return "Download request failed: \(error.localizedDescription)"
             } else {
                 return "Download request failed"
             }
-        case .downloadFailed(error: let error):
+
+        case .downloadFailed(let error):
             if let error = error {
                 return "Download failed: \(error.localizedDescription)"
             } else {
