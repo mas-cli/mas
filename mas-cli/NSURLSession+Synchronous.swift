@@ -17,15 +17,15 @@ public extension URLSession {
     /// Return data from synchronous URL request
     public static func requestSynchronousData(_ request: URLRequest) -> Data? {
         var data: Data? = nil
-        let semaphore: DispatchSemaphore = DispatchSemaphore(value: 0)
-        let task = URLSession.shared.dataTask(with: request, completionHandler: {
+        let semaphore = DispatchSemaphore(value: 0)
+        let task = URLSession.shared.dataTask(with: request) {
             taskData, _, error -> () in
             data = taskData
             if data == nil, let error = error {print(error)}
-            semaphore.signal();
-        })
+            semaphore.signal()
+        }
         task.resume()
-        let _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+        let _ = semaphore.wait(timeout: .distantFuture)
         return data
     }
     
@@ -37,18 +37,18 @@ public extension URLSession {
     }
     
     /// Return JSON synchronous from URL request
-    public static func requestSynchronousJSON(_ request: URLRequest) -> AnyObject? {
+    public static func requestSynchronousJSON(_ request: URLRequest) -> Any? {
         guard let data = URLSession.requestSynchronousData(request) else {return nil}
-        return try! JSONSerialization.jsonObject(with: data, options: []) as AnyObject?
+        return try! JSONSerialization.jsonObject(with: data, options: [])
     }
     
     /// Return JSON synchronous from specified endpoint
-    public static func requestSynchronousJSONWithURLString(_ requestString: String) -> AnyObject? {
+    public static func requestSynchronousJSONWithURLString(_ requestString: String) -> Any? {
         guard let url = URL(string: requestString) else {return nil}
-        let request = NSMutableURLRequest(url:url)
+        var request = URLRequest(url:url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        return URLSession.requestSynchronousJSON(request as URLRequest)
+        return URLSession.requestSynchronousJSON(request)
     }
 }
 
@@ -56,7 +56,7 @@ public extension String {
     
     /// Return an URL encoded string
     func URLEncodedString() -> String? {
-        let customAllowedSet =  CharacterSet.urlQueryAllowed
+        let customAllowedSet = CharacterSet.urlQueryAllowed
         return addingPercentEncoding(withAllowedCharacters: customAllowedSet)
     }
 }
