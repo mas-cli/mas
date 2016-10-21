@@ -21,12 +21,12 @@ struct SearchCommand: CommandProtocol {
     func run(_ options: Options) -> Result<(), MASError> {
         
         guard let searchURLString = searchURLString(options.appName),
-              let searchJson = URLSession.requestSynchronousJSONWithURLString(searchURLString) as? [String: AnyObject] else {
+              let searchJson = URLSession.requestSynchronousJSONWithURLString(searchURLString) as? [String: Any] else {
             return .failure(.searchFailed)
         }
         
-        guard let resultCount = searchJson[ResultKeys.ResultCount] as? Int , resultCount > 0,
-              let results = searchJson[ResultKeys.Results] as? [[String: AnyObject]] else {
+        guard let resultCount = searchJson[ResultKeys.ResultCount] as? Int, resultCount > 0,
+              let results = searchJson[ResultKeys.Results] as? [[String: Any]] else {
             print("No results found")
             return .failure(.noSearchResultsFound)
         }
