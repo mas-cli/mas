@@ -39,7 +39,7 @@ func download(_ adamId: UInt64) -> MASError? {
             }
 
             let downloadQueue = CKDownloadQueue.shared()
-            observerIdentifier = downloadQueue?.add(observer) as Any?
+            observerIdentifier = downloadQueue?.add(observer)
         }
         else {
             print("No downloads")
@@ -48,7 +48,7 @@ func download(_ adamId: UInt64) -> MASError? {
         }
     }
     
-    let _ = group.wait(timeout: DispatchTime.distantFuture)
+    let _ = group.wait(timeout: .distantFuture)
     
     if let observerIdentifier = observerIdentifier {
         CKDownloadQueue.shared().removeObserver(observerIdentifier)

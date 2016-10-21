@@ -15,7 +15,7 @@
         self.purchase = purchase
     }
     
-    func downloadQueue(_ queue: CKDownloadQueue, statusChangedFor download: SSDownload!) {
+    func downloadQueue(_ queue: CKDownloadQueue, statusChangedFor download: SSDownload) {
         guard download.metadata.itemIdentifier == purchase.itemIdentifier,
             let status = download.status else {
             return
@@ -29,15 +29,15 @@
         }
     }
     
-    func downloadQueue(_ queue: CKDownloadQueue, changedWithAddition download: SSDownload!) {
+    func downloadQueue(_ queue: CKDownloadQueue, changedWithAddition download: SSDownload) {
         guard download.metadata.itemIdentifier == purchase.itemIdentifier else {
-                return
+            return
         }
         clearLine()
         printInfo("Downloading \(download.metadata.title)")
     }
     
-    func downloadQueue(_ queue: CKDownloadQueue, changedWithRemoval download: SSDownload!) {
+    func downloadQueue(_ queue: CKDownloadQueue, changedWithRemoval download: SSDownload) {
         guard download.metadata.itemIdentifier == purchase.itemIdentifier,
               let status = download.status else {
             return

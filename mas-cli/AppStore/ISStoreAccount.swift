@@ -50,7 +50,7 @@ extension ISStoreAccount {
         if systemDialog {
             group.wait()
         } else {
-            let _ = group.wait(timeout: DispatchTime.now() + Double(Int64(UInt64(30) * NSEC_PER_SEC)) / Double(NSEC_PER_SEC))
+            let _ = group.wait(timeout: .now() + 30)
         }
         
         if let account = account {

@@ -36,7 +36,7 @@ struct InstallCommand: CommandProtocol {
         let appId = NSNumber(value: appId)
         
         let softwareMap = CKSoftwareMap.shared()
-        return softwareMap.allProducts()?.filter { $0.itemIdentifier == appId }.first
+        return softwareMap.allProducts()?.first { $0.itemIdentifier == appId }
     }
 }
 
