@@ -55,9 +55,8 @@ public extension URLSession {
 public extension String {
     
     /// Return an URL encoded string
-    func URLEncodedString() -> String? {
-        let customAllowedSet = CharacterSet.urlQueryAllowed
-        return addingPercentEncoding(withAllowedCharacters: customAllowedSet)
+    var URLEncodedString: String? {
+        return addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
     }
 }
 
