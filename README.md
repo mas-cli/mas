@@ -73,7 +73,7 @@ To sign into the Mac App Store for the first time run `mas signin`.
     ==> Signing in to Apple ID: mas@example.com
     Password: 
 
-> If you experience issues signing in this way, you can ask to signin using a graphical gialog (provided by Mac App Store application):
+> If you experience issues signing in this way, you can ask to signin using a graphical dialog (provided by Mac App Store application):
 >
 >     $ mas signin --dialog mas@example.com
 >     ==> Signing in to Apple ID: mas@example.com
