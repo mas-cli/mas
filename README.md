@@ -85,12 +85,9 @@ You can also embed your password in the command.
 
 Use `mas signout` to sign out from the Mac App Store.
 
-If you experience issues with App Store downloads, try `mas reset` to
-clear temporary data in the App Store daemons.
-
 ## When something doesn't work
 
-If `mas` doesn't work for you, run `mas reset` and try again. If the issue persists, please [file a bug](https://github.com/mas-cli/mas/issues/new)! All your feedback is much appriciated ✨
+If `mas` doesn't work for you as expected (e.g. you can't update/download apps), run `mas reset` and try again. If the issue persists, please [file a bug](https://github.com/mas-cli/mas/issues/new)! All your feedback is much appriciated ✨
 
 ## Using `tmux`
 
