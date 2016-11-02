@@ -47,6 +47,8 @@ Use `mas outdated` to list all applications with pending updates.
     $ mas outdated
     497799835 Xcode (7.0)
     446107677 Screens VNC - Access Your Computer From Anywhere (3.6.7)
+    
+> `mas` is only able to install/update applications that are listed in the Mac App Store itself. Use [`softwareupdate(8)`](https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man8/softwareupdate.8.html) utility for downloading system updates (like iTunes, Xcode Command Line Tools, etc)
 
 To install all pending updates run `mas upgrade`.
 
