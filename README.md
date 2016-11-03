@@ -2,7 +2,7 @@
 
 # mas-cli
 
-A simple command line interface for the Mac App Store. Designed for scripting 
+A simple command line interface for the Mac App Store. Designed for scripting
 and automation.
 
 ## Install
@@ -39,7 +39,7 @@ application identifier:
     $ mas install 808809998
     ==> Downloading PaintCode 2
     ==> Installed PaintCode 2
-    
+
 > Please note that this command will not allow you to install (or even purchase) an app for the first time: it must already be in the Purchased tab of the App Store.
 
 Use `mas outdated` to list all applications with pending updates.
@@ -47,7 +47,7 @@ Use `mas outdated` to list all applications with pending updates.
     $ mas outdated
     497799835 Xcode (7.0)
     446107677 Screens VNC - Access Your Computer From Anywhere (3.6.7)
-    
+
 > `mas` is only able to install/update applications that are listed in the Mac App Store itself. Use [`softwareupdate(8)`](https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man8/softwareupdate.8.html) utility for downloading system updates (like iTunes, Xcode Command Line Tools, etc)
 
 To install all pending updates run `mas upgrade`.
@@ -73,7 +73,7 @@ To sign into the Mac App Store for the first time run `mas signin`.
 
     $ mas signin mas@example.com
     ==> Signing in to Apple ID: mas@example.com
-    Password: 
+    Password:
 
 > If you experience issues signing in this way, you can ask to signin using a graphical dialog (provided by Mac App Store application):
 >
@@ -89,7 +89,7 @@ Use `mas signout` to sign out from the Mac App Store.
 
 ## When something doesn't work
 
-If `mas` doesn't work for you as expected (e.g. you can't update/download apps), run `mas reset` and try again. If the issue persists, please [file a bug](https://github.com/mas-cli/mas/issues/new)! All your feedback is much appriciated ✨
+If `mas` doesn't work for you as expected (e.g. you can't update/download apps), run `mas reset` and try again. If the issue persists, please [file a bug](https://github.com/mas-cli/mas/issues/new)! All your feedback is much appreciated ✨
 
 ## Using `tmux`
 
