@@ -87,6 +87,10 @@ You can also embed your password in the command.
 
 Use `mas signout` to sign out from the Mac App Store.
 
+## Homebrew integration
+
+`mas` is integrated with [homebrew-bundle](https://github.com/Homebrew/homebrew-bundle). If `mas` is installed, and you run `brew bundle dump`, then your Mac App Store apps will be included in the Brewfile created. See the [homebrew-bundle](https://github.com/Homebrew/homebrew-bundle) docs for more details.
+
 ## When something doesn't work
 
 If `mas` doesn't work for you as expected (e.g. you can't update/download apps), run `mas reset` and try again. If the issue persists, please [file a bug](https://github.com/mas-cli/mas/issues/new)! All your feedback is much appreciated ✨
