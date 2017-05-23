@@ -16,7 +16,7 @@ build() {
           -scheme mas-cli \
           -configuration Release \
           clean build \
-      | xcpretty -c
+      | xcpretty --color
 }
 
 archive() {
@@ -25,7 +25,7 @@ archive() {
           -scheme mas-cli \
           -archivePath mas.xcarchive \
           archive \
-      | xcpretty -c
+      | xcpretty --color
 }
 
 main
