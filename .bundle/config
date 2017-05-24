@@ -1,0 +1,5 @@
+---
+BUNDLE_CLEAN: "true"
+BUNDLE_PATH: ".rubygems"
+BUNDLE_BIN: "bin"
+BUNDLE_JOBS: "8"

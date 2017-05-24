@@ -28,6 +28,10 @@ xcuserdata
 *.hmap
 *.ipa
 
+# Bundler
+/.rubygems/
+/bin/
+
 # CocoaPods
 #
 # We recommend against adding the Pods directory to your .gitignore. However
@@ -69,8 +73,7 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
-
+# Build artifacts
 mas-cli.zip
 mas-cli.dSYM.zip
 mas.xcarchive.zip
-
