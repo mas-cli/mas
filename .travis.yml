@@ -8,7 +8,7 @@ env:
     - LC_ALL=en_US.UTF-8
     - LANGUAGE=en_US.UTF-8
 
-before_install:
+install:
   - bundle install
 
 script:
