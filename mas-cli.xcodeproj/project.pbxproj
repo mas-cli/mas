@@ -13,6 +13,7 @@
 		15E27926A580EABEB1B218EF /* Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1B6BEDF32AF3F8A575FB1F /* Switch.swift */; };
 		3053D11E74A22A4C5A6BE833 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F547B3DC473CFB1BE0AEB70A /* Errors.swift */; };
 		30EA893640B02CCF679F9C57 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7FE171F643805F7BC38A7 /* Option.swift */; };
+		4913269B1F48921D0010EB86 /* CKSoftwareMap+AppLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4913269A1F48921D0010EB86 /* CKSoftwareMap+AppLookup.swift */; };
 		693A98991CBFFA760004D3B4 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A98981CBFFA760004D3B4 /* Search.swift */; };
 		693A989B1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A989A1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift */; };
 		8078FAA81EC4F2FB004B5B3F /* Lucky.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8078FAA71EC4F2FB004B5B3F /* Lucky.swift */; };
@@ -57,6 +58,7 @@
 /* Begin PBXFileReference section */
 		2AD7FE171F643805F7BC38A7 /* Option.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Option.swift; path = Seeds/Commandant/Sources/Commandant/Option.swift; sourceTree = "<group>"; };
 		326E4D331CCD66ADFE19CE39 /* Command.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Command.swift; path = Seeds/Commandant/Sources/Commandant/Command.swift; sourceTree = "<group>"; };
+		4913269A1F48921D0010EB86 /* CKSoftwareMap+AppLookup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CKSoftwareMap+AppLookup.swift"; sourceTree = "<group>"; };
 		5150F7FB7CF2A77F675D8E92 /* ResultProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ResultProtocol.swift; path = Seeds/Result/Result/ResultProtocol.swift; sourceTree = "<group>"; };
 		693A98981CBFFA760004D3B4 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		693A989A1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURLSession+Synchronous.swift"; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 				ED0F238F1B87A56F00AE40CD /* ISStoreAccount.swift */,
 				ED0F23881B87543D00AE40CD /* PurchaseDownloadObserver.swift */,
 				EDA3BE511B8B84AF00C18D70 /* SSPurchase.swift */,
+				4913269A1F48921D0010EB86 /* CKSoftwareMap+AppLookup.swift */,
 			);
 			path = AppStore;
 			sourceTree = "<group>";
@@ -366,6 +369,8 @@
 				EBD6B44FDF65E0253153629F /* HelpCommand.swift in Sources */,
 				ED0F237F1B87522400AE40CD /* Install.swift in Sources */,
 				ED0F23901B87A56F00AE40CD /* ISStoreAccount.swift in Sources */,
+				4913269B1F48921D0010EB86 /* CKSoftwareMap+AppLookup.swift in Sources */,
+				25209791ED0F49CF5BAF7348 /* LinuxSupport.swift in Sources */,
 				ED0F23831B87533A00AE40CD /* List.swift in Sources */,
 				ED031A7C1B5127C00097692E /* main.swift in Sources */,
 				8078FAA81EC4F2FB004B5B3F /* Lucky.swift in Sources */,
