@@ -15,9 +15,29 @@ struct UpgradeCommand: CommandProtocol {
         let updateController = CKUpdateController.shared()
         
         let updates: [CKUpdate]
-        let appIds = options.appIds
-        if appIds.count > 0 {
-            updates = appIds.flatMap { updateController?.availableUpdate(withItemIdentifier: $0) }
+        let apps = options.apps
+        if apps.count > 0 {
+            let softwareMap = CKSoftwareMap.shared()
+
+            // convert input into a list of appId's
+
+            let appIds: [UInt64]
+
+            appIds = apps.flatMap {
+                if let appId = softwareMap.appIdWithProductName($0) {
+                    return appId
+                }
+                if let appId = UInt64($0) {
+                    return appId
+                }
+                return nil
+            }
+
+            // check each of those for updates
+
+            updates = appIds.flatMap {
+                updateController?.availableUpdate(withItemIdentifier: $0)
+            }
             
             guard updates.count > 0 else {
                 printWarning("Nothing found to upgrade")
@@ -52,14 +72,14 @@ struct UpgradeCommand: CommandProtocol {
 }
 
 struct UpgradeOptions: OptionsProtocol {
-    let appIds: [UInt64]
+    let apps: [String]
     
-    static func create(_ appIds: [Int]) -> UpgradeOptions {
-        return UpgradeOptions(appIds: appIds.map { UInt64($0) })
+    static func create(_ apps: [String]) -> UpgradeOptions {
+        return UpgradeOptions(apps: apps)
     }
     
     static func evaluate(_ m: CommandMode) -> Result<UpgradeOptions, CommandantError<MASError>> {
         return create
-            <*> m <| Argument(defaultValue: [], usage: "app ID(s) to install")
+            <*> m <| Argument(defaultValue: [], usage: "app(s) to upgrade")
     }
 }
