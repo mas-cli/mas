@@ -6,14 +6,14 @@
 //  Copyright (c) 2015 Andrew Naylor. All rights reserved.
 //
 
-func download(_ adamId: UInt64) -> MASError? {
+func download(_ adamId: UInt64, isPurchase: Bool) -> MASError? {
 
     guard let account = ISStoreAccount.primaryAccount else {
         return .notSignedIn
     }
     
     let group = DispatchGroup()
-    let purchase = SSPurchase(adamId: adamId, account: account)
+    let purchase = SSPurchase(adamId: adamId, account: account, isPurchase: isPurchase)
     
     var purchaseError: MASError?
     var observerIdentifier: Any? = nil
