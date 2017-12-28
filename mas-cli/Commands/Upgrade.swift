@@ -42,7 +42,7 @@ struct UpgradeCommand: CommandProtocol {
 
         switch updateResults.count {
         case 0:
-            return .success()
+            return .success(())
         case 1:
             return .failure(updateResults[0])
         default:
