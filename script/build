@@ -11,11 +11,21 @@ main() {
 }
 
 build() {
-  set -o pipefail && xcodebuild -project "mas-cli.xcodeproj" -scheme mas-cli -configuration Release clean build | xcpretty -c
+  set -o pipefail && \
+      xcodebuild -project "mas-cli.xcodeproj" \
+          -scheme mas-cli \
+          -configuration Release \
+          clean build \
+      | xcpretty --color
 }
 
 archive() {
-  set -o pipefail && xcodebuild -project "mas-cli.xcodeproj" -scheme mas-cli -archivePath mas.xcarchive archive | xcpretty -c
+  set -o pipefail && \
+      xcodebuild -project "mas-cli.xcodeproj" \
+          -scheme mas-cli \
+          -archivePath mas.xcarchive \
+          archive \
+      | xcpretty --color
 }
 
 main
