@@ -58,12 +58,13 @@ struct ResetCommand: CommandProtocol {
         }
         
         // Wipe Download Directory
-        let directory = CKDownloadDirectory(nil)
-        do {
-            try FileManager.default.removeItem(atPath: directory!)
-        } catch {
-            if options.debug {
-                printError("removeItemAtPath:\"\(directory)\" failed, \(error)")
+        if let directory = CKDownloadDirectory(nil) {
+            do {
+                try FileManager.default.removeItem(atPath: directory)
+            } catch {
+                if options.debug {
+                    printError("removeItemAtPath:\"\(directory)\" failed, \(error)")
+                }
             }
         }
         

@@ -1,5 +1,5 @@
 language: objective-c
-xcode_sdk: macosx10.12
+xcode_sdk: macosx10.13
 osx_image: xcode9.2
 
 env:

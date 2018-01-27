@@ -85,12 +85,19 @@ public final class CommandRegistry<ClientError: Error> {
 
 	public init() {}
 
-	/// Registers the given command, making it available to run.
+	/// Registers the given commands, making those available to run.
 	///
-	/// If another command was already registered with the same `verb`, it will
-	/// be overwritten.
-	public func register<C: CommandProtocol>(_ command: C) where C.ClientError == ClientError, C.Options.ClientError == ClientError {
-		commandsByVerb[command.verb] = CommandWrapper(command)
+	/// If another commands were already registered with the same `verb`s, those
+	/// will be overwritten.
+	@discardableResult
+	public func register<C: CommandProtocol>(_ commands: C...)
+		-> CommandRegistry
+		where C.ClientError == ClientError, C.Options.ClientError == ClientError
+	{
+		for command in commands {
+			commandsByVerb[command.verb] = CommandWrapper(command)
+		}
+		return self
 	}
 
 	/// Runs the command corresponding to the given verb, passing it the given
@@ -155,12 +162,14 @@ extension CommandRegistry {
 		// Extract the executable name.
 		let executableName = arguments.remove(at: 0)
 
-		let verb = arguments.first ?? defaultVerb
-		if arguments.count > 0 {
+		// use the default verb even if we have other arguments
+		var verb = defaultVerb
+		if let argument = arguments.first, !argument.hasPrefix("-") {
+			verb = argument
 			// Remove the command name.
 			arguments.remove(at: 0)
 		}
-
+		
 		switch run(command: verb, arguments: arguments) {
 		case .success?:
 			exit(EXIT_SUCCESS)
@@ -209,16 +218,5 @@ extension CommandRegistry {
 		}
 
 		return launchTask("/usr/bin/env", arguments: [ subcommand ] + arguments)
-	}
-}
-
-// MARK: - migration support
-@available(*, unavailable, renamed: "CommandProtocol")
-public typealias CommandType = CommandProtocol
-
-extension CommandRegistry {
-	@available(*, unavailable, renamed: "run(command:arguments:)")
-	public func runCommand(_ verb: String, arguments: [String]) -> Result<(), CommandantError<ClientError>>? {
-		return run(command: verb, arguments: arguments)
 	}
 }
