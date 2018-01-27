@@ -43,7 +43,7 @@ struct LuckyCommand: CommandProtocol {
         
         switch downloadResults.count {
         case 0:
-            return .success()
+            return .success(())
         case 1:
             return .failure(downloadResults[0])
         default:
@@ -57,9 +57,9 @@ struct LuckyCommand: CommandProtocol {
         let softwareMap = CKSoftwareMap.shared()
         return softwareMap.allProducts()?.first { $0.itemIdentifier == appId }
     }
-    
+
     func searchURLString(_ appName: String) -> String? {
-        if let urlEncodedAppName = appName.URLEncodedString() {
+        if let urlEncodedAppName = appName.URLEncodedString {
             return "https://itunes.apple.com/search?entity=macSoftware&term=\(urlEncodedAppName)&attribute=allTrackTerm"
         }
         return nil
