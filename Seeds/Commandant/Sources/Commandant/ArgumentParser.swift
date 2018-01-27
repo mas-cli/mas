@@ -67,7 +67,7 @@ public final class ArgumentParser {
 		rawArguments.append(contentsOf: options.map { arg in
 			if arg.hasPrefix("-") {
 				// Do we have `--{key}` or `-{flags}`.
-				let opt = arg.characters.dropFirst()
+				let opt = arg.dropFirst()
 				if opt.first == "-" {
 					return .key(String(opt.dropFirst()))
 				} else {

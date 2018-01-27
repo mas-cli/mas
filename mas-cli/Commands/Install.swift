@@ -24,7 +24,7 @@ struct InstallCommand: CommandProtocol {
 
         switch downloadResults.count {
         case 0:
-            return .success()
+            return .success(())
         case 1:
             return .failure(downloadResults[0])
         default:
