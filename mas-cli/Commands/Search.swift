@@ -42,7 +42,7 @@ struct SearchCommand: CommandProtocol {
     }
     
     func searchURLString(_ appName: String) -> String? {
-        if let urlEncodedAppName = appName.URLEncodedString() {
+        if let urlEncodedAppName = appName.URLEncodedString {
             return "https://itunes.apple.com/search?entity=macSoftware&term=\(urlEncodedAppName)&attribute=allTrackTerm"
         }
         return nil

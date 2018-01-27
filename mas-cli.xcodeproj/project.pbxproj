@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 47;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,11 +11,12 @@
 		0C47E694564FCB59996690DD /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326E4D331CCD66ADFE19CE39 /* Command.swift */; };
 		0EBF5CDD379D7462C3389536 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9257C5FABA335E5F060CB7F7 /* Result.swift */; };
 		15E27926A580EABEB1B218EF /* Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1B6BEDF32AF3F8A575FB1F /* Switch.swift */; };
-		25209791ED0F49CF5BAF7348 /* LinuxSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E3BFBE58DFCE19A53A23D7 /* LinuxSupport.swift */; };
 		3053D11E74A22A4C5A6BE833 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F547B3DC473CFB1BE0AEB70A /* Errors.swift */; };
 		30EA893640B02CCF679F9C57 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7FE171F643805F7BC38A7 /* Option.swift */; };
 		693A98991CBFFA760004D3B4 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A98981CBFFA760004D3B4 /* Search.swift */; };
 		693A989B1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A989A1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift */; };
+		900A1E811DBAC8CB0069B1A8 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900A1E801DBAC8CB0069B1A8 /* Info.swift */; };
+		92AE0FD7BE06D64692E6C1E6 /* OrderedSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9871C2273F4D762A1F19B07 /* OrderedSet.swift */; };
 		AD0785BC0EC6BBF4ED560DCC /* ArgumentParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9D96DDBBCCCC5944160ABE /* ArgumentParser.swift */; };
 		ADE553C828AF4EAFF39ED3E1 /* ArgumentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4237E5AA1A289D03D2A2FB8 /* ArgumentProtocol.swift */; };
 		EBD6B44FDF65E0253153629F /* HelpCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDC2B8063EC231E28353D23 /* HelpCommand.swift */; };
@@ -56,13 +57,14 @@
 		2AD7FE171F643805F7BC38A7 /* Option.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Option.swift; path = Seeds/Commandant/Sources/Commandant/Option.swift; sourceTree = "<group>"; };
 		326E4D331CCD66ADFE19CE39 /* Command.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Command.swift; path = Seeds/Commandant/Sources/Commandant/Command.swift; sourceTree = "<group>"; };
 		5150F7FB7CF2A77F675D8E92 /* ResultProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ResultProtocol.swift; path = Seeds/Result/Result/ResultProtocol.swift; sourceTree = "<group>"; };
-		55E3BFBE58DFCE19A53A23D7 /* LinuxSupport.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LinuxSupport.swift; path = Seeds/Commandant/Sources/Commandant/LinuxSupport.swift; sourceTree = "<group>"; };
 		693A98981CBFFA760004D3B4 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		693A989A1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURLSession+Synchronous.swift"; sourceTree = "<group>"; };
 		8FDC2B8063EC231E28353D23 /* HelpCommand.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HelpCommand.swift; path = Seeds/Commandant/Sources/Commandant/HelpCommand.swift; sourceTree = "<group>"; };
+		900A1E801DBAC8CB0069B1A8 /* Info.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 		9257C5FABA335E5F060CB7F7 /* Result.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Result.swift; path = Seeds/Result/Result/Result.swift; sourceTree = "<group>"; };
 		AF1B6BEDF32AF3F8A575FB1F /* Switch.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Switch.swift; path = Seeds/Commandant/Sources/Commandant/Switch.swift; sourceTree = "<group>"; };
 		B4237E5AA1A289D03D2A2FB8 /* ArgumentProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ArgumentProtocol.swift; path = Seeds/Commandant/Sources/Commandant/ArgumentProtocol.swift; sourceTree = "<group>"; };
+		D9871C2273F4D762A1F19B07 /* OrderedSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OrderedSet.swift; path = Seeds/Commandant/Sources/Commandant/OrderedSet.swift; sourceTree = "<group>"; };
 		EA9D96DDBBCCCC5944160ABE /* ArgumentParser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ArgumentParser.swift; path = Seeds/Commandant/Sources/Commandant/ArgumentParser.swift; sourceTree = "<group>"; };
 		ED031A781B5127C00097692E /* mas */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = mas; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED031A7B1B5127C00097692E /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -152,8 +154,8 @@
 				326E4D331CCD66ADFE19CE39 /* Command.swift */,
 				F547B3DC473CFB1BE0AEB70A /* Errors.swift */,
 				8FDC2B8063EC231E28353D23 /* HelpCommand.swift */,
-				55E3BFBE58DFCE19A53A23D7 /* LinuxSupport.swift */,
 				2AD7FE171F643805F7BC38A7 /* Option.swift */,
+				D9871C2273F4D762A1F19B07 /* OrderedSet.swift */,
 				AF1B6BEDF32AF3F8A575FB1F /* Switch.swift */,
 			);
 			name = Commandant;
@@ -206,6 +208,7 @@
 				EDE296521C700F4300554778 /* SignOut.swift */,
 				EDD3B3621C34709400B56B88 /* Upgrade.swift */,
 				EDB6CE8B1BAEC3D400648B4D /* Version.swift */,
+				900A1E801DBAC8CB0069B1A8 /* Info.swift */,
 			);
 			name = Commands;
 			path = "mas-cli/Commands";
@@ -307,17 +310,17 @@
 			attributes = {
 				LastSwiftMigration = 0730;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "Andrew Naylor";
 				TargetAttributes = {
 					ED031A771B5127C00097692E = {
 						CreatedOnToolsVersion = 7.0;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0920;
 					};
 				};
 			};
 			buildConfigurationList = ED031A731B5127C00097692E /* Build configuration list for PBXProject "mas-cli" */;
-			compatibilityVersion = "Xcode 6.3";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -351,6 +354,7 @@
 				ED0F23871B87537200AE40CD /* Account.swift in Sources */,
 				F184B6B7CD9C013CACDED0FB /* Argument.swift in Sources */,
 				AD0785BC0EC6BBF4ED560DCC /* ArgumentParser.swift in Sources */,
+				900A1E811DBAC8CB0069B1A8 /* Info.swift in Sources */,
 				ADE553C828AF4EAFF39ED3E1 /* ArgumentProtocol.swift in Sources */,
 				0C47E694564FCB59996690DD /* Command.swift in Sources */,
 				ED0F238B1B87569C00AE40CD /* Downloader.swift in Sources */,
@@ -359,11 +363,11 @@
 				EBD6B44FDF65E0253153629F /* HelpCommand.swift in Sources */,
 				ED0F237F1B87522400AE40CD /* Install.swift in Sources */,
 				ED0F23901B87A56F00AE40CD /* ISStoreAccount.swift in Sources */,
-				25209791ED0F49CF5BAF7348 /* LinuxSupport.swift in Sources */,
 				ED0F23831B87533A00AE40CD /* List.swift in Sources */,
 				ED031A7C1B5127C00097692E /* main.swift in Sources */,
 				693A989B1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift in Sources */,
 				30EA893640B02CCF679F9C57 /* Option.swift in Sources */,
+				92AE0FD7BE06D64692E6C1E6 /* OrderedSet.swift in Sources */,
 				ED0F23851B87536A00AE40CD /* Outdated.swift in Sources */,
 				ED0F23891B87543D00AE40CD /* PurchaseDownloadObserver.swift in Sources */,
 				EDCBF9531D89AC6F000039C6 /* Reset.swift in Sources */,
@@ -391,14 +395,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -438,14 +448,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -483,6 +499,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mphys.mas-cli";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "mas-cli/mas-cli-Bridging-Header.h";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -501,7 +518,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mphys.mas-cli";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "mas-cli/mas-cli-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

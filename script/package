@@ -1,6 +1,7 @@
 #!/bin/bash -e
 
 echo "==> Moving dSYM to xcarchive"
+mkdir -p mas.xcarchive/dSYMs/
 mv build/mas.dSYM mas.xcarchive/dSYMs/
 
 echo "==> Compressing mas.xcarchive"

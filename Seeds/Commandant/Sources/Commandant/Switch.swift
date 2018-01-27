@@ -44,20 +44,25 @@ extension Switch: CustomStringConvertible {
 	}
 }
 
-/// Evaluates the given boolean switch in the given mode.
-///
-/// If parsing command line arguments, and no value was specified on the command
-/// line, the option's `defaultValue` is used.
-public func <| <ClientError> (mode: CommandMode, option: Switch) -> Result<Bool, CommandantError<ClientError>> {
-	switch mode {
-	case let .arguments(arguments):
-		var enabled = arguments.consume(key: option.key)
-		if let flag = option.flag {
-			enabled = arguments.consumeBoolean(flag: flag)
-		}
-		return .success(enabled)
+// MARK: - Operators
 
-	case .usage:
-		return .failure(informativeUsageError(option.description, usage: option.usage))
+extension CommandMode {
+	/// Evaluates the given boolean switch in the given mode.
+	///
+	/// If parsing command line arguments, and no value was specified on the command
+	/// line, the option's `defaultValue` is used.
+	public static func <| <ClientError> (mode: CommandMode, option: Switch) -> Result<Bool, CommandantError<ClientError>> {
+		switch mode {
+		case let .arguments(arguments):
+			var enabled = arguments.consume(key: option.key)
+
+			if let flag = option.flag, !enabled {
+				enabled = arguments.consumeBoolean(flag: flag)
+			}
+			return .success(enabled)
+
+		case .usage:
+			return .failure(informativeUsageError(option.description, usage: option.usage))
+		}
 	}
 }

@@ -31,11 +31,14 @@ extension String: ArgumentProtocol {
 	}
 }
 
-// MARK: - migration support
-@available(*, unavailable, renamed: "ArgumentProtocol")
-public typealias ArgumentType = ArgumentProtocol
+extension RawRepresentable where RawValue: StringProtocol, Self: ArgumentProtocol {
+	public static func from(string: String) -> Self? {
+		return RawValue(string).flatMap(Self.init(rawValue:))
+	}
+}
 
-extension ArgumentProtocol {
-	@available(*, unavailable, renamed: "from(string:)")
-	static func fromString(_ string: String) -> Self? { return nil }
+extension RawRepresentable where RawValue: FixedWidthInteger, Self: ArgumentProtocol {
+	public static func from(string: String) -> Self? {
+		return RawValue(string).flatMap(Self.init(rawValue:))
+	}
 }

@@ -1,12 +1,15 @@
 language: objective-c
-xcode_sdk: macosx10.11
-osx_image: xcode8.2
+xcode_sdk: macosx10.13
+osx_image: xcode9.2
 
 env:
   global:
     - LANG=en_US.UTF-8
     - LC_ALL=en_US.UTF-8
     - LANGUAGE=en_US.UTF-8
+
+install:
+  - bundle install
 
 script:
   - script/build
