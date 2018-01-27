@@ -1,2 +1,3 @@
-github "carthage/Commandant", "0.11.1", :files => "Sources/Commandant/*.swift"
-github "antitypical/Result", "3.0.0", :files => "Result/*.swift"
+# Commandant 0.12.0 doesn't have Swift 4 fixes yet
+github "carthage/Commandant", "master", files: "Sources/Commandant/*.swift"
+github "antitypical/Result", "3.2.4", files: "Result/*.swift"
