@@ -2,8 +2,9 @@
 
 # mas-cli
 
-A simple command line interface for the Mac App Store. Designed for scripting 
-and automation.
+A simple command line interface for the Mac App Store. Designed for scripting and automation.
+
+[![Build Status](https://travis-ci.org/mas-cli/mas.svg?branch=master)](https://travis-ci.org/mas-cli/mas)
 
 ## Install
 
@@ -39,7 +40,7 @@ application identifier:
     $ mas install 808809998
     ==> Downloading PaintCode 2
     ==> Installed PaintCode 2
-    
+
 > Please note that this command will not allow you to install (or even purchase) an app for the first time: it must already be in the Purchased tab of the App Store.
 
 Use `mas outdated` to list all applications with pending updates.
@@ -47,6 +48,8 @@ Use `mas outdated` to list all applications with pending updates.
     $ mas outdated
     497799835 Xcode (7.0)
     446107677 Screens VNC - Access Your Computer From Anywhere (3.6.7)
+
+> `mas` is only able to install/update applications that are listed in the Mac App Store itself. Use [`softwareupdate(8)`](https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man8/softwareupdate.8.html) utility for downloading system updates (like iTunes, Xcode Command Line Tools, etc)
 
 To install all pending updates run `mas upgrade`.
 
@@ -71,8 +74,12 @@ To sign into the Mac App Store for the first time run `mas signin`.
 
     $ mas signin mas@example.com
     ==> Signing in to Apple ID: mas@example.com
-    Password: 
+    Password:
 
+> If you experience issues signing in this way, you can ask to signin using a graphical dialog (provided by Mac App Store application):
+>
+>     $ mas signin --dialog mas@example.com
+>     ==> Signing in to Apple ID: mas@example.com
 
 You can also embed your password in the command.
 
@@ -81,8 +88,13 @@ You can also embed your password in the command.
 
 Use `mas signout` to sign out from the Mac App Store.
 
-If you experience issues with App Store downloads, try `mas reset` to
-clear temporary data in the App Store daemons.
+## Homebrew integration
+
+`mas` is integrated with [homebrew-bundle](https://github.com/Homebrew/homebrew-bundle). If `mas` is installed, and you run `brew bundle dump`, then your Mac App Store apps will be included in the Brewfile created. See the [homebrew-bundle](https://github.com/Homebrew/homebrew-bundle) docs for more details.
+
+## When something doesn't work
+
+If `mas` doesn't work for you as expected (e.g. you can't update/download apps), run `mas reset` and try again. If the issue persists, please [file a bug](https://github.com/mas-cli/mas/issues/new)! All your feedback is much appreciated ✨
 
 ## Using `tmux`
 

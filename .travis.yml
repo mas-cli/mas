@@ -1,12 +1,15 @@
 language: objective-c
-xcode_sdk: macosx10.11
-osx_image: xcode8
+xcode_sdk: macosx10.13
+osx_image: xcode9.2
 
 env:
   global:
     - LANG=en_US.UTF-8
     - LC_ALL=en_US.UTF-8
     - LANGUAGE=en_US.UTF-8
+
+install:
+  - bundle install
 
 script:
   - script/build
@@ -18,7 +21,7 @@ deploy:
   provider: releases
   api_key:
     secure: SEAdxkLeRJ/z7cO4Y//8sxrYbNlzz3W4ip717gcMsuxp6LzsQtS7QW+/N3iSNuowgIKqTad0ZdiYHczwa+mTI/rjPDP1mxC4Bx+pQpZN+bizY9MNVcDDTSD6yCvI1vZl+dLQwUKKzW/lTKDk4yunOmxLV4xtDE7EDfyf1Zkypx0mQ6SoG2cFHZVDrDrU4c05oPtD/3dTvq2lVf5suBhjrRNLSOpIU4fPgc3PbPCL1MtIZRQpGfVPGWZLRMOHLXNIKFkP1qaa6Z2+R1iZjtqZ5isECikRNSPeBYm7OWx/EoGqRbC64YVIjTKi17rjEHDf46RxskPKa4Df6i2X4HCzhZBKcVB/Zu4HpjaR8gMcTCT0QnfHpDDgyAMVBPW84uyhfJ93GJaK7vk5NebY6IWg4d/mrisZ5XA4o6EXZSOSTbrZEZDn+2Knp9IIad169YYymo6ESr4zFwfxXG516ozYi8ROuWP0ZR+wxgBkm3b2mvryABgye45k/yqX/8Pd7RD/wB03RTOKkog4gQkyhrR9VSpuSVXfAm89Qg4Y+nzdDNoSR8i9xKN/c+rXFMnmuTItwiIqE30Nb58dISt2BEpFzDRh00ae1kOZ3coC0WsqW7hmdk46QvhhEOIYGVYOlUDU/8BownV37alfAiiQV0tjEwX7YMV+6qwraKmdnjOWISk=
-  file: 
+  file:
     - mas-cli.zip
     - mas.xcarchive.zip
   skip_cleanup: true
