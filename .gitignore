@@ -28,6 +28,10 @@ xcuserdata
 *.hmap
 *.ipa
 
+# Bundler
+/.rubygems/
+/bin/
+
 # CocoaPods
 #
 # We recommend against adding the Pods directory to your .gitignore. However
@@ -42,6 +46,25 @@ xcuserdata
 # Carthage/Checkouts
 
 Carthage/Build
+
+# CocoaSeeds
+!Seeds/Seedfile.lock
+Seeds/**/.git*
+Seeds/**/.swift-version
+Seeds/**/.travis.yml
+Seeds/**/*.md
+Seeds/**/Cartfile*
+Seeds/**/Carthage/
+Seeds/**/LICENSE*
+Seeds/**/Package.*
+Seeds/**/*Info.plist
+Seeds/**/*.podspec
+Seeds/**/*.xc*
+Seeds/**/Tests/
+# Commandant
+!Seeds/Commandant/Source/*.swift
+# Result
+!Seeds/Result/Result/*.swift
 
 ## https://github.com/github/gitignore/blob/master/Global/OSX.gitignore
 .DS_Store
@@ -70,7 +93,5 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-mas-cli.zip
-mas-cli.dSYM.zip
-mas.xcarchive.zip
-
+# Build artifacts
+*.zip

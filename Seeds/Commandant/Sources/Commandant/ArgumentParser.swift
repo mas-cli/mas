@@ -18,7 +18,7 @@ private enum RawArgument: Equatable {
 	case value(String)
 
 	/// One or more flag arguments (e.g 'r' and 'f' for `-rf`)
-	case flag(Set<Character>)
+	case flag(OrderedSet<Character>)
 }
 
 private func ==(lhs: RawArgument, rhs: RawArgument) -> Bool {
@@ -67,11 +67,11 @@ public final class ArgumentParser {
 		rawArguments.append(contentsOf: options.map { arg in
 			if arg.hasPrefix("-") {
 				// Do we have `--{key}` or `-{flags}`.
-				let opt = arg.characters.dropFirst()
+				let opt = arg.dropFirst()
 				if opt.first == "-" {
 					return .key(String(opt.dropFirst()))
 				} else {
-					return .flag(Set(opt))
+					return .flag(OrderedSet(opt))
 				}
 			} else {
 				return .value(arg)
