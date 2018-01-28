@@ -26,6 +26,7 @@ We love pull requests from everyone. By participating in this project, you agree
 - Check for unnecessary whitespace with `git diff --check` before committing.
    - Note that [two trailing spaces](https://gist.github.com/shaunlebron/746476e6e7a4d698b373) is intentional
      in markdown documents to create a line break like `<br>`, so these should _not_ be removed.
+- Push your topic branch to your fork and [submit a pull request](https://github.com/mas-cli/mas/compare/master...your-username:topic-branch).
 
 Some things that will increase the chance that your pull request is accepted:
 
@@ -42,6 +43,9 @@ Once you have had a few PRs accepted, if you are interested in joining the
 team to help with the issue/PR backlog and even release new versions of this project,
 [open a new issue](https://github.com/mas-cli/mas/issues/new)
 titled "Add Contributor: @YourGitHubUsername", with a brief message asking to join the team.
+
+This project was created by [@argon](https://github.com/argon), who is unable to continue contributing
+to this project, but must remain an owner. By becoming a contributor, you agree to the terms in [#47](https://github.com/mas-cli/mas/issues/47).
 
 ## Branching and Releases
 
