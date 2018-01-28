@@ -35,6 +35,7 @@ Some things that will increase the chance that your pull request is accepted:
    - Add "[WIP]" to the title of your PR to indicate that it's not ready to be merged.
 - Follow our [style guide](docs/style.md).
 - Write a [good commit message](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html).
+   - Including [appropriate emoji](https://gitmoji.carloscuesta.me/) in the first line of commit messages is fun :wink:.
 
 ## Becoming a Contributor
 
