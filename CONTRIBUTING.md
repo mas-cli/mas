@@ -32,7 +32,7 @@ Some things that will increase the chance that your pull request is accepted:
 - Write tests. (Tests target is still [in progress](https://github.com/mas-cli/mas/issues/123))
    - If you need help with tests, feel free to open a PR in the meantime and just ask for some help.
    - Add "[WIP]" to the title of your PR to indicate that it's not ready to be merged.
-- Follow our [style guide](style.md).
+- Follow our [style guide](docs/style.md).
 - Write a [good commit message](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html).
 
 ## Becoming a Contributor
