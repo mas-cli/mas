@@ -20,6 +20,7 @@ end
 
 # Let people say that this isn't worth a CHANGELOG entry in the PR if they choose
 declared_trivial = (github.pr_title + github.pr_body).include?("#trivial") || !has_app_changes
+message("This PR might seem trivial, but every contribution counts. :kissing_heart:") if declared_trivial
 
 # Keep the CHANGELOG up-to-date
 if !git.modified_files.include?("CHANGELOG.md") && !declared_trivial
