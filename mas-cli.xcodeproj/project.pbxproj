@@ -15,6 +15,7 @@
 		30EA893640B02CCF679F9C57 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7FE171F643805F7BC38A7 /* Option.swift */; };
 		693A98991CBFFA760004D3B4 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A98981CBFFA760004D3B4 /* Search.swift */; };
 		693A989B1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A989A1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift */; };
+		8078FAA81EC4F2FB004B5B3F /* Lucky.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8078FAA71EC4F2FB004B5B3F /* Lucky.swift */; };
 		900A1E811DBAC8CB0069B1A8 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900A1E801DBAC8CB0069B1A8 /* Info.swift */; };
 		92AE0FD7BE06D64692E6C1E6 /* OrderedSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9871C2273F4D762A1F19B07 /* OrderedSet.swift */; };
 		AD0785BC0EC6BBF4ED560DCC /* ArgumentParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9D96DDBBCCCC5944160ABE /* ArgumentParser.swift */; };
@@ -59,6 +60,7 @@
 		5150F7FB7CF2A77F675D8E92 /* ResultProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ResultProtocol.swift; path = Seeds/Result/Result/ResultProtocol.swift; sourceTree = "<group>"; };
 		693A98981CBFFA760004D3B4 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		693A989A1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURLSession+Synchronous.swift"; sourceTree = "<group>"; };
+		8078FAA71EC4F2FB004B5B3F /* Lucky.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lucky.swift; sourceTree = "<group>"; };
 		8FDC2B8063EC231E28353D23 /* HelpCommand.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HelpCommand.swift; path = Seeds/Commandant/Sources/Commandant/HelpCommand.swift; sourceTree = "<group>"; };
 		900A1E801DBAC8CB0069B1A8 /* Info.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 		9257C5FABA335E5F060CB7F7 /* Result.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Result.swift; path = Seeds/Result/Result/Result.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 				ED0F23821B87533A00AE40CD /* List.swift */,
 				ED0F23841B87536A00AE40CD /* Outdated.swift */,
 				EDCBF9521D89AC6F000039C6 /* Reset.swift */,
+				8078FAA71EC4F2FB004B5B3F /* Lucky.swift */,
 				693A98981CBFFA760004D3B4 /* Search.swift */,
 				EDC90B641C70045E0019E396 /* SignIn.swift */,
 				EDE296521C700F4300554778 /* SignOut.swift */,
@@ -365,6 +368,7 @@
 				ED0F23901B87A56F00AE40CD /* ISStoreAccount.swift in Sources */,
 				ED0F23831B87533A00AE40CD /* List.swift in Sources */,
 				ED031A7C1B5127C00097692E /* main.swift in Sources */,
+				8078FAA81EC4F2FB004B5B3F /* Lucky.swift in Sources */,
 				693A989B1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift in Sources */,
 				30EA893640B02CCF679F9C57 /* Option.swift in Sources */,
 				92AE0FD7BE06D64692E6C1E6 /* OrderedSet.swift in Sources */,
