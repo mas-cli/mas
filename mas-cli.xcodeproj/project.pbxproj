@@ -166,8 +166,8 @@
 		ED031A6F1B5127C00097692E = {
 			isa = PBXGroup;
 			children = (
+				ED031A7A1B5127C00097692E /* App */,
 				EDFC76381B642A2E00D0DBD7 /* Frameworks */,
-				ED031A7A1B5127C00097692E /* mas-cli */,
 				EDEAA0C11B51CEBD00F2FC3F /* PrivateHeaders */,
 				ED031A791B5127C00097692E /* Products */,
 				0739FA024AB80925B32D64D1 /* Seeds */,
@@ -182,7 +182,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		ED031A7A1B5127C00097692E /* mas-cli */ = {
+		ED031A7A1B5127C00097692E /* App */ = {
 			isa = PBXGroup;
 			children = (
 				ED0F238E1B87A54700AE40CD /* AppStore */,
@@ -194,27 +194,27 @@
 				693A989A1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift */,
 				EDCBF9541D89CFC7000039C6 /* Utilities.swift */,
 			);
-			path = "mas-cli";
+			path = App;
 			sourceTree = "<group>";
 		};
 		ED0F23801B87524700AE40CD /* Commands */ = {
 			isa = PBXGroup;
 			children = (
 				ED0F23861B87537200AE40CD /* Account.swift */,
+				900A1E801DBAC8CB0069B1A8 /* Info.swift */,
 				ED0F237E1B87522400AE40CD /* Install.swift */,
 				ED0F23821B87533A00AE40CD /* List.swift */,
+				8078FAA71EC4F2FB004B5B3F /* Lucky.swift */,
 				ED0F23841B87536A00AE40CD /* Outdated.swift */,
 				EDCBF9521D89AC6F000039C6 /* Reset.swift */,
-				8078FAA71EC4F2FB004B5B3F /* Lucky.swift */,
 				693A98981CBFFA760004D3B4 /* Search.swift */,
 				EDC90B641C70045E0019E396 /* SignIn.swift */,
 				EDE296521C700F4300554778 /* SignOut.swift */,
 				EDD3B3621C34709400B56B88 /* Upgrade.swift */,
 				EDB6CE8B1BAEC3D400648B4D /* Version.swift */,
-				900A1E801DBAC8CB0069B1A8 /* Info.swift */,
 			);
 			name = Commands;
-			path = "mas-cli/Commands";
+			path = App/Commands;
 			sourceTree = SOURCE_ROOT;
 		};
 		ED0F238E1B87A54700AE40CD /* AppStore */ = {
@@ -235,7 +235,7 @@
 				EDEAA0C21B51CEC900F2FC3F /* StoreFoundation */,
 			);
 			name = PrivateHeaders;
-			path = "mas-cli/PrivateHeaders";
+			path = App/PrivateHeaders;
 			sourceTree = "<group>";
 		};
 		EDEAA0C21B51CEC900F2FC3F /* StoreFoundation */ = {
@@ -357,18 +357,18 @@
 				ED0F23871B87537200AE40CD /* Account.swift in Sources */,
 				F184B6B7CD9C013CACDED0FB /* Argument.swift in Sources */,
 				AD0785BC0EC6BBF4ED560DCC /* ArgumentParser.swift in Sources */,
-				900A1E811DBAC8CB0069B1A8 /* Info.swift in Sources */,
 				ADE553C828AF4EAFF39ED3E1 /* ArgumentProtocol.swift in Sources */,
 				0C47E694564FCB59996690DD /* Command.swift in Sources */,
 				ED0F238B1B87569C00AE40CD /* Downloader.swift in Sources */,
 				ED0F238D1B8756E600AE40CD /* Error.swift in Sources */,
 				3053D11E74A22A4C5A6BE833 /* Errors.swift in Sources */,
 				EBD6B44FDF65E0253153629F /* HelpCommand.swift in Sources */,
+				900A1E811DBAC8CB0069B1A8 /* Info.swift in Sources */,
 				ED0F237F1B87522400AE40CD /* Install.swift in Sources */,
 				ED0F23901B87A56F00AE40CD /* ISStoreAccount.swift in Sources */,
 				ED0F23831B87533A00AE40CD /* List.swift in Sources */,
-				ED031A7C1B5127C00097692E /* main.swift in Sources */,
 				8078FAA81EC4F2FB004B5B3F /* Lucky.swift in Sources */,
+				ED031A7C1B5127C00097692E /* main.swift in Sources */,
 				693A989B1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift in Sources */,
 				30EA893640B02CCF679F9C57 /* Option.swift in Sources */,
 				92AE0FD7BE06D64692E6C1E6 /* OrderedSet.swift in Sources */,
@@ -434,7 +434,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "mas-cli/mas-cli-Info.plist";
+				INFOPLIST_FILE = "App/mas-cli-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -481,7 +481,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "mas-cli/mas-cli-Info.plist";
+				INFOPLIST_FILE = "App/mas-cli-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mphys.mas-cli";
@@ -498,11 +498,11 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/mas-cli/PrivateHeaders",
+					"$(SRCROOT)/App/PrivateHeaders",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mphys.mas-cli";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "mas-cli/mas-cli-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "App/mas-cli-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -517,11 +517,11 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/mas-cli/PrivateHeaders",
+					"$(SRCROOT)/App/PrivateHeaders",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mphys.mas-cli";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "mas-cli/mas-cli-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "App/mas-cli-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.0;
 			};
