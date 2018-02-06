@@ -42,8 +42,7 @@ extension CKSoftwareMap {
             appIdsByName = destMap
         }
         
-        let ids = appIdsByName!
-        return ids[name]
+        return appIdsByName?[name]
     }
 }
 
