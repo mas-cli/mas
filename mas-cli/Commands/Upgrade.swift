@@ -24,10 +24,10 @@ struct UpgradeCommand: CommandProtocol {
             let appIds: [UInt64]
 
             appIds = apps.flatMap {
-                if let appId = softwareMap.appIdWithProductName($0) {
+                if let appId = UInt64($0) {
                     return appId
                 }
-                if let appId = UInt64($0) {
+                if let appId = softwareMap.appIdWithProductName($0) {
                     return appId
                 }
                 return nil
