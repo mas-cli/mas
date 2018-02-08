@@ -1,5 +1,4 @@
-# Commandant 0.12.0 doesn't have Swift 4 fixes yet
-github "carthage/Commandant", "master", files: "Sources/Commandant/*.swift"
+github "carthage/Commandant", "0.13.0", files: "Sources/Commandant/*.swift"
 github "antitypical/Result", "3.2.4", files: "Result/*.swift"
 
 target :"mas-tests" do
