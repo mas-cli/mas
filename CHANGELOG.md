@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+- Added the version number to search output
 
 ## [v1.3.1] Better Errors - 2016-09-25
 - Descriptive error messages instead of exit codes
