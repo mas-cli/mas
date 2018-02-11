@@ -52,7 +52,6 @@
 		F184B6B7CD9C013CACDED0FB /* Argument.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36A4ABD8025E13060312925 /* Argument.swift */; };
 		F48562FA81B0C0258AC063B4 /* HelpCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDC2B8063EC231E28353D23 /* HelpCommand.swift */; };
 		F6D2058A70757D3477185A50 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7FE171F643805F7BC38A7 /* Option.swift */; };
-		F8233C8A201EBDF100268278 /* mas_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8233C89201EBDF100268278 /* mas_tests.swift */; };
 		F865880B2030F6DE0093DE57 /* MASErrorTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F865880A2030F6DE0093DE57 /* MASErrorTestCase.swift */; };
 		F86588272030FAE70093DE57 /* MASError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F238C1B8756E600AE40CD /* MASError.swift */; };
 /* End PBXBuildFile section */
@@ -141,7 +140,6 @@
 		F36A4ABD8025E13060312925 /* Argument.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Argument.swift; path = Seeds/Commandant/Sources/Commandant/Argument.swift; sourceTree = "<group>"; };
 		F547B3DC473CFB1BE0AEB70A /* Errors.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Errors.swift; path = Seeds/Commandant/Sources/Commandant/Errors.swift; sourceTree = "<group>"; };
 		F8233C87201EBDF000268278 /* mas-tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mas-tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F8233C89201EBDF100268278 /* mas_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mas_tests.swift; sourceTree = "<group>"; };
 		F8233C8B201EBDF100268278 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F865880A2030F6DE0093DE57 /* MASErrorTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MASErrorTestCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -328,7 +326,6 @@
 			isa = PBXGroup;
 			children = (
 				F8233C8B201EBDF100268278 /* Info.plist */,
-				F8233C89201EBDF100268278 /* mas_tests.swift */,
 				F865880A2030F6DE0093DE57 /* MASErrorTestCase.swift */,
 			);
 			path = AppTests;
@@ -480,7 +477,6 @@
 				DE6E193A6671F3D6807F746D /* Command.swift in Sources */,
 				4C8321353B9AE40539A1AC8A /* Errors.swift in Sources */,
 				F48562FA81B0C0258AC063B4 /* HelpCommand.swift in Sources */,
-				F8233C8A201EBDF100268278 /* mas_tests.swift in Sources */,
 				F6D2058A70757D3477185A50 /* Option.swift in Sources */,
 				073998C12AE3BEEC41CE0DAD /* OrderedSet.swift in Sources */,
 				C50DD25454FC5CAA1F37763F /* Result.swift in Sources */,
