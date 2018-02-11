@@ -191,11 +191,11 @@
 			isa = PBXGroup;
 			children = (
 				ED031A7A1B5127C00097692E /* App */,
+				F8233C88201EBDF100268278 /* AppTests */,
 				EDFC76381B642A2E00D0DBD7 /* Frameworks */,
 				EDEAA0C11B51CEBD00F2FC3F /* PrivateHeaders */,
 				ED031A791B5127C00097692E /* Products */,
 				0739FA024AB80925B32D64D1 /* Seeds */,
-				F8233C88201EBDF100268278 /* Tests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -311,13 +311,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		F8233C88201EBDF100268278 /* Tests */ = {
+		F8233C88201EBDF100268278 /* AppTests */ = {
 			isa = PBXGroup;
 			children = (
 				F8233C8B201EBDF100268278 /* Info.plist */,
 				F8233C89201EBDF100268278 /* mas_tests.swift */,
 			);
-			path = Tests;
+			path = AppTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -625,7 +625,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = Tests/Info.plist;
+				INFOPLIST_FILE = AppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mphys.mas-cli.tests";
@@ -649,7 +649,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = Tests/Info.plist;
+				INFOPLIST_FILE = AppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mphys.mas-cli.tests";
