@@ -130,6 +130,17 @@ $ script/build
 
 Build output can be found in the `build/` directory within the project.
 
+## 🚧✅ Tests
+
+The tests in this project are a work-in-progress. Since Xcode does not officially support tests for command-line tool targets, there are some manual actions necessary to create and/or update the tests:
+
+- Types from the `mas` target must be included in the `mas-tests` target in order to be used in a test.
+   - `@testable import mas` does not work
+- XCTest is the current test framework
+   - this may change in the future to Quick/Nimble.
+
+We may move the app code into a framework target to make it easier to test. 
+
 ## License
 
 mas-cli was created by [@argon](https://github.com/argon).
