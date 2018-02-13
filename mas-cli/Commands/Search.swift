@@ -11,6 +11,7 @@ struct ResultKeys {
     static let Results = "results"
     static let TrackName = "trackName"
     static let TrackId = "trackId"
+    static let Version = "version"
 }
 
 struct SearchCommand: CommandProtocol {
@@ -33,8 +34,9 @@ struct SearchCommand: CommandProtocol {
         
         for result in results {
             if let appName = result[ResultKeys.TrackName] as? String,
+                   let appVersion = result[ResultKeys.Version] as? String,
                    let appId = result[ResultKeys.TrackId] as? Int {
-                print("\(String(appId)) \(appName)")
+                print("\(String(appId)) \(appName) (\(appVersion))")
             }
         }
         
