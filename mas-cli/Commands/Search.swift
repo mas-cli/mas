@@ -36,7 +36,7 @@ struct SearchCommand: CommandProtocol {
             if let appName = result[ResultKeys.TrackName] as? String,
                    let appVersion = result[ResultKeys.Version] as? String,
                    let appId = result[ResultKeys.TrackId] as? Int {
-                print("\(String(appId)) \(appName) \(appVersion)")
+                print("\(String(appId)) \(appName) (\(appVersion))")
             }
         }
         
