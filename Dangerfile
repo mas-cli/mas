@@ -1,9 +1,9 @@
 # Sometimes it's a README fix, or something like that - which isn't relevant for
 # including in a project's CHANGELOG for example
-has_app_changes = !git.modified_files.grep(/mas-cli/).empty?
-# has_test_changes = !git.modified_files.grep(/Tests/).empty?
+has_app_changes = !git.modified_files.grep(/App/).empty?
+# has_test_changes = !git.modified_files.grep(/AppTests/).empty?
 
-is_version_bump = git.modified_files.sort == ["CHANGELOG.md", "mas-cli/mas-cli-Info.plist"].sort
+is_version_bump = git.modified_files.sort == ["CHANGELOG.md", "App/mas-cli-Info.plist"].sort
 message(":bookmark: Version bump!") if is_version_bump
 
 # if has_app_changes && !has_test_changes && !is_version_bump
@@ -24,7 +24,7 @@ message("This PR might seem trivial, but every contribution counts. :kissing_hea
 
 # Keep the CHANGELOG up-to-date
 if !git.modified_files.include?("CHANGELOG.md") && !declared_trivial
-    fail(":book: Please include a CHANGELOG entry. \nYou can find it at [CHANGELOG.md](https://github.com/mas-cli/mas/blob/master/CHANGELOG.md).", sticky: false)
+    fail(":memo: Please include a CHANGELOG entry. \nYou can find it at [CHANGELOG.md](https://github.com/mas-cli/mas/blob/master/CHANGELOG.md).", sticky: false)
 end
 
 # Make it more obvious that a PR is a work in progress and shouldn't be merged yet
