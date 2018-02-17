@@ -29,7 +29,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - 📝 Added CHANGELOG #119
 - 📝 Added note about installing through app store first #93
 
-### 🏛 Dependencies
+### 🏛 Dependencies #122
 - ⬆️ Commandant (0.13.0)
 - ⬆️ Result (3.2.4)
 - ⬆️ cocoaseeds (0.8.3)
