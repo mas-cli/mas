@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 - Added test target #127
+- Added the version number to search output
 
 ## [v1.3.1] Better Errors - 2016-09-25
 - Descriptive error messages instead of exit codes
