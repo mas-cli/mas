@@ -13,7 +13,7 @@ main() {
 build() {
   set -o pipefail && \
       xcodebuild -project "mas-cli.xcodeproj" \
-          -scheme mas-cli \
+          -scheme "mas-cli Release" \
           -configuration Release \
           clean build \
       | bundle exec xcpretty --color
@@ -22,7 +22,7 @@ build() {
 archive() {
   set -o pipefail && \
       xcodebuild -project "mas-cli.xcodeproj" \
-          -scheme mas-cli \
+          -scheme "mas-cli Release" \
           -archivePath mas.xcarchive \
           archive \
       | bundle exec xcpretty --color
