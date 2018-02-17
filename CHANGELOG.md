@@ -6,8 +6,37 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-- Added test target #127
-- Added the version number to search output
+
+
+
+## [v1.4.0] It's Alive! 🧟‍♂️ - 2018-02-16
+
+### ✨ Enhancements
+- ℹ️ Info command #26, #55
+- 🍀 Lucky command #88
+- 🕵🏽‍♀️ Include version number in search output #131
+- ☝🏻 Support app name(s) arugments for upgrade command #100
+
+### 🔨 Xcode Project
+- ⬆️ Swift 4 #114
+- ✅ Added test target #127
+- 📛 Add build badge to readme #121
+- 💎 Configure bundler #118
+
+### 🐙 GitHub
+- ⚠️ Added Danger for PR feedback #124
+- 📝🤝🎨 Added Contributing Guidelines, Code of Conduct and style guide #117, #126
+- 📝 Added CHANGELOG #119
+- 📝 Added note about installing through app store first #93
+
+### 🏛 Dependencies
+- ⬆️ Commandant (0.13.0)
+- ⬆️ Result (3.2.4)
+- ⬆️ cocoaseeds (0.8.3)
+- ⬆️ xcpretty (0.2.8)
+
+### 👷🏻‍♀️ CI Build
+- 🍎 Now using [`xcode9.2`](https://docs.travis-ci.com/user/reference/osx#Xcode-9.2) image for `macosx10.13` SDK #120
 
 ## [v1.3.1] Better Errors - 2016-09-25
 - Descriptive error messages instead of exit codes
@@ -58,7 +87,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [v1.0.0] - 2015-09-20
 - Initial Release
 
-[Unreleased]: https://github.com/mas-cli/mas/compare/v1.3.1...HEAD
+[Unreleased]: https://github.com/mas-cli/mas/compare/v1.4.0...HEAD
+[v1.4.0]: https://github.com/mas-cli/mas/compare/v1.3.1...v1.4.0
 [v1.3.1]: https://github.com/mas-cli/mas/compare/v1.3.0...v1.3.1
 [v1.3.0]: https://github.com/mas-cli/mas/compare/v1.2.2...v1.3.0
 [v1.2.2]: https://github.com/mas-cli/mas/compare/v1.2.1...v1.2.2
