@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-PLIST_FILE="$PWD/mas-cli/mas-cli-Info.plist"
+PLIST_FILE="$PWD/App/mas-cli-Info.plist"
 
 main() {
   VERSION_NUMBER=$(update_version_number)
