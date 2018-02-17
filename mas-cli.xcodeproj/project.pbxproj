@@ -7,13 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		073998C12AE3BEEC41CE0DAD /* OrderedSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9871C2273F4D762A1F19B07 /* OrderedSet.swift */; };
 		09756A23E9102359296C821B /* ResultProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5150F7FB7CF2A77F675D8E92 /* ResultProtocol.swift */; };
+		09A04CB22DC02B86AE4ACC8A /* ArgumentParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9D96DDBBCCCC5944160ABE /* ArgumentParser.swift */; };
 		0C47E694564FCB59996690DD /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326E4D331CCD66ADFE19CE39 /* Command.swift */; };
 		0EBF5CDD379D7462C3389536 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9257C5FABA335E5F060CB7F7 /* Result.swift */; };
 		15E27926A580EABEB1B218EF /* Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1B6BEDF32AF3F8A575FB1F /* Switch.swift */; };
+		27340A5BB9F2A5B166E3A72A /* ArgumentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4237E5AA1A289D03D2A2FB8 /* ArgumentProtocol.swift */; };
 		3053D11E74A22A4C5A6BE833 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F547B3DC473CFB1BE0AEB70A /* Errors.swift */; };
 		30EA893640B02CCF679F9C57 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7FE171F643805F7BC38A7 /* Option.swift */; };
+		3F177C62A7053BA3ED415E5E /* Argument.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36A4ABD8025E13060312925 /* Argument.swift */; };
 		4913269B1F48921D0010EB86 /* CKSoftwareMap+AppLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4913269A1F48921D0010EB86 /* CKSoftwareMap+AppLookup.swift */; };
+		49C2F3FDD805256BE934A70E /* Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1B6BEDF32AF3F8A575FB1F /* Switch.swift */; };
+		4C8321353B9AE40539A1AC8A /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F547B3DC473CFB1BE0AEB70A /* Errors.swift */; };
 		693A98991CBFFA760004D3B4 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A98981CBFFA760004D3B4 /* Search.swift */; };
 		693A989B1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A989A1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift */; };
 		8078FAA81EC4F2FB004B5B3F /* Lucky.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8078FAA71EC4F2FB004B5B3F /* Lucky.swift */; };
@@ -21,7 +27,10 @@
 		92AE0FD7BE06D64692E6C1E6 /* OrderedSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9871C2273F4D762A1F19B07 /* OrderedSet.swift */; };
 		AD0785BC0EC6BBF4ED560DCC /* ArgumentParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9D96DDBBCCCC5944160ABE /* ArgumentParser.swift */; };
 		ADE553C828AF4EAFF39ED3E1 /* ArgumentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4237E5AA1A289D03D2A2FB8 /* ArgumentProtocol.swift */; };
+		C50DD25454FC5CAA1F37763F /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9257C5FABA335E5F060CB7F7 /* Result.swift */; };
+		DE6E193A6671F3D6807F746D /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326E4D331CCD66ADFE19CE39 /* Command.swift */; };
 		EBD6B44FDF65E0253153629F /* HelpCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDC2B8063EC231E28353D23 /* HelpCommand.swift */; };
+		EC113CE6C98E8D8358228D33 /* ResultProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5150F7FB7CF2A77F675D8E92 /* ResultProtocol.swift */; };
 		ED031A7C1B5127C00097692E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED031A7B1B5127C00097692E /* main.swift */; };
 		ED0F237F1B87522400AE40CD /* Install.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F237E1B87522400AE40CD /* Install.swift */; };
 		ED0F23831B87533A00AE40CD /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F23821B87533A00AE40CD /* List.swift */; };
@@ -29,7 +38,7 @@
 		ED0F23871B87537200AE40CD /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F23861B87537200AE40CD /* Account.swift */; };
 		ED0F23891B87543D00AE40CD /* PurchaseDownloadObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F23881B87543D00AE40CD /* PurchaseDownloadObserver.swift */; };
 		ED0F238B1B87569C00AE40CD /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F238A1B87569C00AE40CD /* Downloader.swift */; };
-		ED0F238D1B8756E600AE40CD /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F238C1B8756E600AE40CD /* Error.swift */; };
+		ED0F238D1B8756E600AE40CD /* MASError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F238C1B8756E600AE40CD /* MASError.swift */; };
 		ED0F23901B87A56F00AE40CD /* ISStoreAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F238F1B87A56F00AE40CD /* ISStoreAccount.swift */; };
 		EDA3BE521B8B84AF00C18D70 /* SSPurchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA3BE511B8B84AF00C18D70 /* SSPurchase.swift */; };
 		EDB6CE8C1BAEC3D400648B4D /* Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB6CE8B1BAEC3D400648B4D /* Version.swift */; };
@@ -41,7 +50,21 @@
 		EDEAA0C01B51CE6200F2FC3F /* StoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDEAA0BF1B51CE6200F2FC3F /* StoreFoundation.framework */; };
 		EDEAA17D1B5C579100F2FC3F /* CommerceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDEAA17C1B5C579100F2FC3F /* CommerceKit.framework */; };
 		F184B6B7CD9C013CACDED0FB /* Argument.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36A4ABD8025E13060312925 /* Argument.swift */; };
+		F48562FA81B0C0258AC063B4 /* HelpCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDC2B8063EC231E28353D23 /* HelpCommand.swift */; };
+		F6D2058A70757D3477185A50 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7FE171F643805F7BC38A7 /* Option.swift */; };
+		F865880B2030F6DE0093DE57 /* MASErrorTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F865880A2030F6DE0093DE57 /* MASErrorTestCase.swift */; };
+		F86588272030FAE70093DE57 /* MASError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F238C1B8756E600AE40CD /* MASError.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F86588252030F8DA0093DE57 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ED031A701B5127C00097692E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ED031A771B5127C00097692E;
+			remoteInfo = mas;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		ED031A761B5127C00097692E /* CopyFiles */ = {
@@ -78,7 +101,7 @@
 		ED0F23861B87537200AE40CD /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		ED0F23881B87543D00AE40CD /* PurchaseDownloadObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseDownloadObserver.swift; sourceTree = "<group>"; };
 		ED0F238A1B87569C00AE40CD /* Downloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
-		ED0F238C1B8756E600AE40CD /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		ED0F238C1B8756E600AE40CD /* MASError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MASError.swift; sourceTree = "<group>"; };
 		ED0F238F1B87A56F00AE40CD /* ISStoreAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISStoreAccount.swift; sourceTree = "<group>"; };
 		ED1EF94D1BA6BBBF0075453C /* CKSoftwareProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKSoftwareProduct.h; sourceTree = "<group>"; };
 		ED1EF94E1BA6BBBF0075453C /* CKUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKUpdate.h; sourceTree = "<group>"; };
@@ -116,6 +139,9 @@
 		EDEAA17C1B5C579100F2FC3F /* CommerceKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CommerceKit.framework; path = /System/Library/PrivateFrameworks/CommerceKit.framework; sourceTree = "<absolute>"; };
 		F36A4ABD8025E13060312925 /* Argument.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Argument.swift; path = Seeds/Commandant/Sources/Commandant/Argument.swift; sourceTree = "<group>"; };
 		F547B3DC473CFB1BE0AEB70A /* Errors.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Errors.swift; path = Seeds/Commandant/Sources/Commandant/Errors.swift; sourceTree = "<group>"; };
+		F8233C87201EBDF000268278 /* mas-tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mas-tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8233C8B201EBDF100268278 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F865880A2030F6DE0093DE57 /* MASErrorTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MASErrorTestCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +151,13 @@
 			files = (
 				EDEAA17D1B5C579100F2FC3F /* CommerceKit.framework in Frameworks */,
 				EDEAA0C01B51CE6200F2FC3F /* StoreFoundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8233C84201EBDF000268278 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,8 +201,9 @@
 		ED031A6F1B5127C00097692E = {
 			isa = PBXGroup;
 			children = (
+				ED031A7A1B5127C00097692E /* App */,
+				F8233C88201EBDF100268278 /* AppTests */,
 				EDFC76381B642A2E00D0DBD7 /* Frameworks */,
-				ED031A7A1B5127C00097692E /* mas-cli */,
 				EDEAA0C11B51CEBD00F2FC3F /* PrivateHeaders */,
 				ED031A791B5127C00097692E /* Products */,
 				0739FA024AB80925B32D64D1 /* Seeds */,
@@ -180,53 +214,54 @@
 			isa = PBXGroup;
 			children = (
 				ED031A781B5127C00097692E /* mas */,
+				F8233C87201EBDF000268278 /* mas-tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		ED031A7A1B5127C00097692E /* mas-cli */ = {
+		ED031A7A1B5127C00097692E /* App */ = {
 			isa = PBXGroup;
 			children = (
 				ED0F238E1B87A54700AE40CD /* AppStore */,
 				ED0F23801B87524700AE40CD /* Commands */,
-				ED0F238C1B8756E600AE40CD /* Error.swift */,
 				ED031A7B1B5127C00097692E /* main.swift */,
 				EDEAA12C1B51CF8000F2FC3F /* mas-cli-Bridging-Header.h */,
 				EDB6CE8A1BAEB95100648B4D /* mas-cli-Info.plist */,
+				ED0F238C1B8756E600AE40CD /* MASError.swift */,
 				693A989A1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift */,
 				EDCBF9541D89CFC7000039C6 /* Utilities.swift */,
 			);
-			path = "mas-cli";
+			path = App;
 			sourceTree = "<group>";
 		};
 		ED0F23801B87524700AE40CD /* Commands */ = {
 			isa = PBXGroup;
 			children = (
 				ED0F23861B87537200AE40CD /* Account.swift */,
+				900A1E801DBAC8CB0069B1A8 /* Info.swift */,
 				ED0F237E1B87522400AE40CD /* Install.swift */,
 				ED0F23821B87533A00AE40CD /* List.swift */,
+				8078FAA71EC4F2FB004B5B3F /* Lucky.swift */,
 				ED0F23841B87536A00AE40CD /* Outdated.swift */,
 				EDCBF9521D89AC6F000039C6 /* Reset.swift */,
-				8078FAA71EC4F2FB004B5B3F /* Lucky.swift */,
 				693A98981CBFFA760004D3B4 /* Search.swift */,
 				EDC90B641C70045E0019E396 /* SignIn.swift */,
 				EDE296521C700F4300554778 /* SignOut.swift */,
 				EDD3B3621C34709400B56B88 /* Upgrade.swift */,
 				EDB6CE8B1BAEC3D400648B4D /* Version.swift */,
-				900A1E801DBAC8CB0069B1A8 /* Info.swift */,
 			);
 			name = Commands;
-			path = "mas-cli/Commands";
+			path = App/Commands;
 			sourceTree = SOURCE_ROOT;
 		};
 		ED0F238E1B87A54700AE40CD /* AppStore */ = {
 			isa = PBXGroup;
 			children = (
+				4913269A1F48921D0010EB86 /* CKSoftwareMap+AppLookup.swift */,
 				ED0F238A1B87569C00AE40CD /* Downloader.swift */,
 				ED0F238F1B87A56F00AE40CD /* ISStoreAccount.swift */,
 				ED0F23881B87543D00AE40CD /* PurchaseDownloadObserver.swift */,
 				EDA3BE511B8B84AF00C18D70 /* SSPurchase.swift */,
-				4913269A1F48921D0010EB86 /* CKSoftwareMap+AppLookup.swift */,
 			);
 			path = AppStore;
 			sourceTree = "<group>";
@@ -238,7 +273,7 @@
 				EDEAA0C21B51CEC900F2FC3F /* StoreFoundation */,
 			);
 			name = PrivateHeaders;
-			path = "mas-cli/PrivateHeaders";
+			path = App/PrivateHeaders;
 			sourceTree = "<group>";
 		};
 		EDEAA0C21B51CEC900F2FC3F /* StoreFoundation */ = {
@@ -287,6 +322,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		F8233C88201EBDF100268278 /* AppTests */ = {
+			isa = PBXGroup;
+			children = (
+				F8233C8B201EBDF100268278 /* Info.plist */,
+				F865880A2030F6DE0093DE57 /* MASErrorTestCase.swift */,
+			);
+			path = AppTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -308,6 +352,24 @@
 			productReference = ED031A781B5127C00097692E /* mas */;
 			productType = "com.apple.product-type.tool";
 		};
+		F8233C86201EBDF000268278 /* mas-tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F8233C8C201EBDF100268278 /* Build configuration list for PBXNativeTarget "mas-tests" */;
+			buildPhases = (
+				F8233C83201EBDF000268278 /* Sources */,
+				F8233C84201EBDF000268278 /* Frameworks */,
+				F8233C85201EBDF000268278 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F86588262030F8DA0093DE57 /* PBXTargetDependency */,
+			);
+			name = "mas-tests";
+			productName = "mas-tests";
+			productReference = F8233C87201EBDF000268278 /* mas-tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -315,13 +377,17 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftMigration = 0730;
-				LastSwiftUpdateCheck = 0700;
+				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "Andrew Naylor";
 				TargetAttributes = {
 					ED031A771B5127C00097692E = {
 						CreatedOnToolsVersion = 7.0;
 						LastSwiftMigration = 0920;
+					};
+					F8233C86201EBDF000268278 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -338,12 +404,20 @@
 			projectRoot = "";
 			targets = (
 				ED031A771B5127C00097692E /* mas */,
+				F8233C86201EBDF000268278 /* mas-tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		E7460A391382D898934EFFBD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8233C85201EBDF000268278 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -360,20 +434,19 @@
 				ED0F23871B87537200AE40CD /* Account.swift in Sources */,
 				F184B6B7CD9C013CACDED0FB /* Argument.swift in Sources */,
 				AD0785BC0EC6BBF4ED560DCC /* ArgumentParser.swift in Sources */,
-				900A1E811DBAC8CB0069B1A8 /* Info.swift in Sources */,
 				ADE553C828AF4EAFF39ED3E1 /* ArgumentProtocol.swift in Sources */,
+				4913269B1F48921D0010EB86 /* CKSoftwareMap+AppLookup.swift in Sources */,
 				0C47E694564FCB59996690DD /* Command.swift in Sources */,
 				ED0F238B1B87569C00AE40CD /* Downloader.swift in Sources */,
-				ED0F238D1B8756E600AE40CD /* Error.swift in Sources */,
+				ED0F238D1B8756E600AE40CD /* MASError.swift in Sources */,
 				3053D11E74A22A4C5A6BE833 /* Errors.swift in Sources */,
 				EBD6B44FDF65E0253153629F /* HelpCommand.swift in Sources */,
+				900A1E811DBAC8CB0069B1A8 /* Info.swift in Sources */,
 				ED0F237F1B87522400AE40CD /* Install.swift in Sources */,
 				ED0F23901B87A56F00AE40CD /* ISStoreAccount.swift in Sources */,
-				4913269B1F48921D0010EB86 /* CKSoftwareMap+AppLookup.swift in Sources */,
-				25209791ED0F49CF5BAF7348 /* LinuxSupport.swift in Sources */,
 				ED0F23831B87533A00AE40CD /* List.swift in Sources */,
-				ED031A7C1B5127C00097692E /* main.swift in Sources */,
 				8078FAA81EC4F2FB004B5B3F /* Lucky.swift in Sources */,
+				ED031A7C1B5127C00097692E /* main.swift in Sources */,
 				693A989B1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift in Sources */,
 				30EA893640B02CCF679F9C57 /* Option.swift in Sources */,
 				92AE0FD7BE06D64692E6C1E6 /* OrderedSet.swift in Sources */,
@@ -393,7 +466,35 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F8233C83201EBDF000268278 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F86588272030FAE70093DE57 /* MASError.swift in Sources */,
+				3F177C62A7053BA3ED415E5E /* Argument.swift in Sources */,
+				09A04CB22DC02B86AE4ACC8A /* ArgumentParser.swift in Sources */,
+				27340A5BB9F2A5B166E3A72A /* ArgumentProtocol.swift in Sources */,
+				DE6E193A6671F3D6807F746D /* Command.swift in Sources */,
+				4C8321353B9AE40539A1AC8A /* Errors.swift in Sources */,
+				F48562FA81B0C0258AC063B4 /* HelpCommand.swift in Sources */,
+				F6D2058A70757D3477185A50 /* Option.swift in Sources */,
+				073998C12AE3BEEC41CE0DAD /* OrderedSet.swift in Sources */,
+				C50DD25454FC5CAA1F37763F /* Result.swift in Sources */,
+				EC113CE6C98E8D8358228D33 /* ResultProtocol.swift in Sources */,
+				F865880B2030F6DE0093DE57 /* MASErrorTestCase.swift in Sources */,
+				49C2F3FDD805256BE934A70E /* Switch.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F86588262030F8DA0093DE57 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ED031A771B5127C00097692E /* mas */;
+			targetProxy = F86588252030F8DA0093DE57 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		ED031A7D1B5127C00097692E /* Debug */ = {
@@ -425,6 +526,10 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -439,7 +544,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "mas-cli/mas-cli-Info.plist";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/App/PrivateHeaders",
+				);
+				INFOPLIST_FILE = "App/mas-cli-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -478,6 +587,10 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -486,7 +599,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "mas-cli/mas-cli-Info.plist";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/App/PrivateHeaders",
+				);
+				INFOPLIST_FILE = "App/mas-cli-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mphys.mas-cli";
@@ -497,17 +614,9 @@
 		ED031A801B5127C00097692E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
-				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/mas-cli/PrivateHeaders",
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mphys.mas-cli";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "mas-cli/mas-cli-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "App/mas-cli-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -516,17 +625,57 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
-				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/mas-cli/PrivateHeaders",
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mphys.mas-cli";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "mas-cli/mas-cli-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "App/mas-cli-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+		F8233C8D201EBDF100268278 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = AppTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mphys.mas-cli.tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		F8233C8E201EBDF100268278 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = AppTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mphys.mas-cli.tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.0;
 			};
@@ -549,6 +698,15 @@
 			buildConfigurations = (
 				ED031A801B5127C00097692E /* Debug */,
 				ED031A811B5127C00097692E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F8233C8C201EBDF100268278 /* Build configuration list for PBXNativeTarget "mas-tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8233C8D201EBDF100268278 /* Debug */,
+				F8233C8E201EBDF100268278 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

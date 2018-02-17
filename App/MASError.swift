@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Andrew Naylor. All rights reserved.
 //
 
+import Foundation
+
 enum MASError: Error, CustomStringConvertible {
     case notSignedIn
     case signInFailed(error: NSError?)
