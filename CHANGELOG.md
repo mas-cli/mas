@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v1.4.1] Stop Littering️ - 2018-02-18
 
+- 🐛 Prevent `default.profraw` from getting created #135
 
 ## [v1.4.0] It's Alive! 🧟‍♂️ - 2018-02-16
 
@@ -87,7 +89,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [v1.0.0] - 2015-09-20
 - Initial Release
 
-[Unreleased]: https://github.com/mas-cli/mas/compare/v1.4.0...HEAD
+[Unreleased]: https://github.com/mas-cli/mas/compare/v1.4.1...HEAD
+[v1.4.1]: https://github.com/mas-cli/mas/compare/v1.4.0...v1.4.1
 [v1.4.0]: https://github.com/mas-cli/mas/compare/v1.3.1...v1.4.0
 [v1.3.1]: https://github.com/mas-cli/mas/compare/v1.3.0...v1.3.1
 [v1.3.0]: https://github.com/mas-cli/mas/compare/v1.2.2...v1.3.0
