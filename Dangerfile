@@ -3,7 +3,12 @@
 has_app_changes = !git.modified_files.grep(/App/).empty?
 # has_test_changes = !git.modified_files.grep(/AppTests/).empty?
 
-is_version_bump = git.modified_files.sort == ["CHANGELOG.md", "App/mas-cli-Info.plist"].sort
+is_version_bump = git.modified_files.sort == [
+    "App/mas-cli-Info.plist",
+    "AppTests/Info.plist",
+    "CHANGELOG.md",
+    "mas-cli.xcodeproj/project.pbxproj"
+].sort
 message(":bookmark: Version bump!") if is_version_bump
 
 # if has_app_changes && !has_test_changes && !is_version_bump
