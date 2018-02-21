@@ -10,6 +10,7 @@
 {
     BOOL __alwaysUseSandboxEnvironment;
     BOOL _isDaemon;
+    int _pid;
     unsigned long long _frameworkVersion;
     NSString *_identifier;
     long long _clientType;
@@ -39,6 +40,7 @@
 + (BOOL)supportsSecureCoding;
 @property BOOL isDaemon; // @synthesize isDaemon=_isDaemon;
 @property(copy) NSString *agentListenerName; // @synthesize agentListenerName=_agentListenerName;
+@property(readonly) int pid; // @synthesize pid=_pid;
 @property(copy) NSString *displayUIHostID; // @synthesize displayUIHostID=_displayUIHostID;
 @property(copy) NSDictionary *daap; // @synthesize daap=_daap;
 @property(copy) NSString *appPath; // @synthesize appPath=_appPath;
@@ -63,12 +65,14 @@
 @property(copy) NSString *identifier; // @synthesize identifier=_identifier;
 @property unsigned long long frameworkVersion; // @synthesize frameworkVersion=_frameworkVersion;
 //- (void).cxx_destruct;
+- (id)callerIdentity;
 - (BOOL)isEqualToStoreClient:(id)arg1;
 - (void)_cacheKnownClient:(id)arg1;
 - (id)initWithCoder:(id)arg1;
 - (void)encodeWithCoder:(id)arg1;
 - (id)initWithApplicationPath:(id)arg1;
 - (id)initWithStoreClientType:(long long)arg1;
+- (id)init;
 
 @end
 

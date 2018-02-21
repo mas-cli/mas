@@ -7,16 +7,29 @@
 #import "CKServiceInterface.h"
 
 @class CKUpdate;
+@class CKUpdateControllerClient, NSMutableDictionary;
 
 NS_ASSUME_NONNULL_BEGIN
 @interface CKUpdateController : CKServiceInterface
 {
+    BOOL _shouldNotAttemptInstallationAfterFailureDialog;
 //    CDUnknownBlockType _dialogHandler;
+    NSMutableDictionary *_availableUpdatesObservers;
+    NSMutableDictionary *_updateScanObservers;
+    NSMutableDictionary *_updateProgressObservers;
+    CKUpdateControllerClient *_sharedObserver;
 }
 
 + (CKUpdateController * _Nullable)sharedUpdateController;
+@property(retain, nonatomic) CKUpdateControllerClient *sharedObserver; // @synthesize sharedObserver=_sharedObserver;
+@property(retain, nonatomic) NSMutableDictionary *updateProgressObservers; // @synthesize updateProgressObservers=_updateProgressObservers;
+@property(retain, nonatomic) NSMutableDictionary *updateScanObservers; // @synthesize updateScanObservers=_updateScanObservers;
+@property(retain, nonatomic) NSMutableDictionary *availableUpdatesObservers; // @synthesize availableUpdatesObservers=_availableUpdatesObservers;
+@property BOOL shouldNotAttemptInstallationAfterFailureDialog; // @synthesize shouldNotAttemptInstallationAfterFailureDialog=_shouldNotAttemptInstallationAfterFailureDialog;
 //@property(copy) CDUnknownBlockType dialogHandler; // @synthesize dialogHandler=_dialogHandler;
 //- (void).cxx_destruct;
+- (void)didInteractivelyPurchaseItemIdentifier:(unsigned long long)arg1 success:(BOOL)arg2;
+- (BOOL)willInteractivelyPurchaseItemIdentifier:(unsigned long long)arg1;
 - (void)promptUserToOptInForAutoUpdateWithShowNotification:(BOOL)arg1;
 - (BOOL)shouldPromptForAutoUpdateOptIn;
 - (BOOL)isAutoUpdatedEnabled;
@@ -26,9 +39,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (int)catalogTrustLevel;
 - (id)catalogHostName;
 - (void)stopObservingOSUpdateProgressWithCallback:(id)arg1;
-//- (id)observerOSUpdateProgressWithProgressHandler:(CDUnknownBlockType)arg1;
+//- (id)observeOSUpdateProgressWithProgressHandler:(CDUnknownBlockType)arg1;
 - (void)stopObservingOSUpdateScansWithCallback:(id)arg1;
-//- (id)observerOSUpdateScansWithProgressHandler:(CDUnknownBlockType)arg1;
+//- (id)observeOSUpdateScansWithProgressHandler:(CDUnknownBlockType)arg1;
 - (void)startOSUpdateScanWithForceFullScan:(BOOL)arg1 reportProgressImmediately:(BOOL)arg2 launchedFromNotification:(BOOL)arg3 userHasSeenAllUpdates:(BOOL)arg4 checkForOtherUpdates:(BOOL)arg5;
 - (void)unhideAllOSUpdates;
 - (void)hideOSUpdatesWithProductKeys:(id)arg1;
@@ -42,10 +55,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (id)osUpdatesToBeInstalledLater;
 - (id)osUpdatesToBeInstalledAfterLogout;
 - (void)cancelUpdatesToBeInstalledLater;
+//- (void)queueOSUpdatesForLaterInstall:(id)arg1 withMode:(long long)arg2 completionHandler:(CDUnknownBlockType)arg3;
 - (void)installAvailableUpdatesLaterWithMode:(long long)arg1;
 - (BOOL)shouldOfferDoItLater;
+//- (void)updatesWithTags:(id)arg1 completionHandler:(CDUnknownBlockType)arg2;
 - (void)installAllAvailableUpdates;
+//- (void)startAppInstallWithTags:(id)arg1 fallbackPurchase:(id)arg2 completionHandler:(CDUnknownBlockType)arg3;
 //- (void)startAppUpdates:(id)arg1 andOSUpdates:(id)arg2 withDelegate:(id)arg3 completionHandler:(CDUnknownBlockType)arg4;
+//- (void)_checkForBookUpdatesWithCompletionHandler:(CDUnknownBlockType)arg1;
 //- (void)checkForUpdatesWithUserHasSeenUpdates:(BOOL)arg1 completionHandler:(CDUnknownBlockType)arg2;
 - (void)removeAvailableUpdatesObserver:(id)arg1;
 //- (id)addAvailableUpdatesObserverWithBlock:(CDUnknownBlockType)arg1;
@@ -53,6 +70,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (id)incompatibleUpdates;
 - (nullable CKUpdate *)availableUpdateWithItemIdentifier:(unsigned long long)arg1;
 - (NSArray<CKUpdate *>*)availableUpdates;
+- (void)connectionWasInterrupted;
+- (id)initWithStoreClient:(id)arg1;
 - (id)init;
 
 @end

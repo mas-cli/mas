@@ -23,30 +23,46 @@ extension ISStoreAccount {
         let client = ISStoreClient(storeClientType: 0)
         accountService.setStoreClient(client)
         
-        let context = ISAuthenticationContext(accountID: 0)!
-        context.appleIDOverride = username
-        
-        if systemDialog {
-            context.appleIDOverride = username
-        } else {
-            context.demoMode = true
-            context.demoAccountName = username
-            context.demoAccountPassword = password
-            context.demoAutologinMode = true
-        }
-        
+//        let context = ISAuthenticationContext(accountID: 0)!
+//        context.appleIDOverride = username
+//
+//        if systemDialog {
+//            context.appleIDOverride = username
+//        } else {
+//            context.demoMode = true
+//            context.demoAccountName = username
+//            context.demoAccountPassword = password
+//            context.demoAutologinMode = true
+//        }
+
         let group = DispatchGroup()
         group.enter()
-        
-        accountService.signIn(with: context) { success, _account, _error in
-            if success {
+
+        accountService.account(withAppleID: username) { (storeAccount: ISStoreAccount?) in
+            if let _account = storeAccount {
+                _account.password = password
+//                accountService.add(_account)
+                accountService.addAccount(authenticationResponse: ISAuthenticationResponse, makePrimary: true) { (storeAccount: ISStoreAccount?)
+                    if let _account = storeAccount {
+                        account = _account
+                    }
+                }
                 account = _account
             } else {
-                error = .signInFailed(error: _error as NSError?)
+                // TODO: Handle failed AppleID lookup
             }
             group.leave()
         }
         
+//        accountService.signIn(with: context) { success, _account, _error in
+//            if success {
+//                account = _account
+//            } else {
+//                error = .signInFailed(error: _error as NSError?)
+//            }
+//            group.leave()
+//        }
+
         if systemDialog {
             group.wait()
         } else {

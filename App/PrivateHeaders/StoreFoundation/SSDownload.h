@@ -52,6 +52,7 @@
 - (void)encodeWithCoder:(id)arg1;
 - (BOOL)isEqual:(id)arg1;
 - (id)initWithAssets:(id)arg1 metadata:(id)arg2;
+- (id)init;
 - (void)resume;
 - (void)pause;
 - (void)cancel;

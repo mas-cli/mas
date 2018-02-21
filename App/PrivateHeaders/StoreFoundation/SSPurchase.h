@@ -22,25 +22,29 @@
     BOOL _isVPP;
     BOOL _shouldBeInstalledAfterLogout;
     BOOL _isCancelled;
+    BOOL _isDSIDLessPurchase;
     NSString *_sortableAccountIdentifier;
     unsigned long long _itemIdentifier;
 //    CDUnknownBlockType _authFallbackHandler;
     ISOperation *_purchaseOperation;
     NSDictionary *_responseDialog;
+    NSDictionary *_dsidLessOptions;
 }
 
 + (id)purchasesGroupedByAccountIdentifierWithPurchases:(id)arg1;
 + (BOOL)supportsSecureCoding;
 + (id)purchaseWithBuyParameters:(id)arg1;
+@property(retain) NSDictionary *dsidLessOptions; // @synthesize dsidLessOptions=_dsidLessOptions;
+@property BOOL isDSIDLessPurchase; // @synthesize isDSIDLessPurchase=_isDSIDLessPurchase;
 @property(copy) NSDictionary *responseDialog; // @synthesize responseDialog=_responseDialog;
 @property __weak ISOperation *purchaseOperation; // @synthesize purchaseOperation=_purchaseOperation;
 @property BOOL isCancelled; // @synthesize isCancelled=_isCancelled;
 //@property(copy) CDUnknownBlockType authFallbackHandler; // @synthesize authFallbackHandler=_authFallbackHandler;
 @property unsigned long long itemIdentifier; // @synthesize itemIdentifier=_itemIdentifier;
 @property BOOL shouldBeInstalledAfterLogout; // @synthesize shouldBeInstalledAfterLogout=_shouldBeInstalledAfterLogout;
+@property BOOL checkPreflightAterPurchase; // @synthesize checkPreflightAterPurchase=_checkPreflightAterPurchase;
 @property(readonly, nonatomic) NSString *sortableAccountIdentifier; // @synthesize sortableAccountIdentifier=_sortableAccountIdentifier;
 @property(retain, nonatomic) NSString *parentalControls; // @synthesize parentalControls=_parentalControls;
-@property BOOL checkPreflightAterPurchase; // @synthesize checkPreflightAterPurchase=_checkPreflightAterPurchase;
 @property(retain, nonatomic) NSData *receiptData; // @synthesize receiptData=_receiptData;
 @property(nonatomic) long long purchaseType; // @synthesize purchaseType=_purchaseType;
 @property BOOL isVPP; // @synthesize isVPP=_isVPP;
@@ -54,7 +58,6 @@
 - (BOOL)purchaseDSIDMatchesPrimaryAccount;
 @property(readonly) BOOL needsAuthentication; // @dynamic needsAuthentication;
 @property BOOL isRecoveryPurchase; // @dynamic isRecoveryPurchase;
-@property(readonly) BOOL isDSIDLessPurchase;
 - (id)productID;
 @property(readonly, nonatomic) NSString *uniqueIdentifier;
 - (id)_sortableAccountIdentifier;

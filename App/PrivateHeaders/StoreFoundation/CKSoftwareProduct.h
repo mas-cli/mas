@@ -25,6 +25,7 @@
     NSNumber *_itemIdentifier;
     NSNumber *_storeFrontIdentifier;
     NSNumber *_versionIdentifier;
+    NSDate *_purchaseDate;
     NSValue *_mdItemRef;
     NSString *_vppLicenseOrganizationName;
     NSDate *_vppLicenseExpirationDate;
@@ -35,7 +36,7 @@
     NSNumber *_expectedStoreVersion;
 }
 
-+ (nullable instancetype)productAtPath:(nonnull NSString *)arg1;
++ (nullable instancetype)createSoftwareProductForAppAtPath:(nonnull NSString *)arg1;
 + (nullable instancetype)productPathToUpgradeForBundleIdentifier:(nonnull NSString *)bundleIdentifier versionNumberString:(nonnull NSString *)versionNumber;
 + (BOOL)supportsSecureCoding;
 @property(copy, nullable) NSNumber *expectedStoreVersion; // @synthesize expectedStoreVersion=_expectedStoreVersion;
@@ -52,6 +53,7 @@
 @property BOOL isVPPLicensed; // @synthesize isVPPLicensed=_isVPPLicensed;
 @property BOOL installed; // @synthesize installed=_installed;
 @property(retain, nullable) NSValue *mdItemRef; // @synthesize mdItemRef=_mdItemRef;
+@property(retain, nullable) NSDate *purchaseDate; // @synthesize purchaseDate=_purchaseDate;
 @property(retain, nullable) NSNumber *versionIdentifier; // @synthesize versionIdentifier=_versionIdentifier;
 @property(retain, nullable) NSNumber *storeFrontIdentifier; // @synthesize storeFrontIdentifier=_storeFrontIdentifier;
 @property(retain, nonnull) NSNumber *itemIdentifier; // @synthesize itemIdentifier=_itemIdentifier;

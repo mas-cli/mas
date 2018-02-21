@@ -9,6 +9,7 @@
 @class ISStoreClient, NSLock, NSMutableDictionary, Protocol;
 
 @protocol ISAccountService;
+@class ISStoreClient, Protocol;
 
 @interface ISServiceProxy : NSObject
 {
@@ -21,7 +22,9 @@
 typedef void (^ISErrorHandler)(NSError * __nonnull error);
 
 + (ISServiceProxy * __nonnull)genericSharedProxy;
++ (void)initialize;
 @property(retain, nonatomic) ISStoreClient * __nullable storeClient; // @synthesize storeClient=_storeClient;
+//- (void).cxx_destruct;
 //- (void)uiServiceSynchronousBlock:(CDUnknownBlockType)arg1;
 //@property(readonly, nonatomic) id <ISUIService> uiService;
 //- (id)uiServiceWithErrorHandler:(CDUnknownBlockType)arg1;
@@ -40,6 +43,8 @@ typedef void (^ISErrorHandler)(NSError * __nonnull error);
 //- (void)accountServiceSynchronousBlock:(void (^ __nonnull)(id <ISAccountService> __nonnull))arg1;
 @property(readonly, nonatomic) id <ISAccountService> __nonnull accountService;
 //- (id <ISAccountService> __nonnull)accountServiceWithErrorHandler:(ISErrorHandler __nonnull)arg1;
+- (void)connectionWasInterrupted;
+- (void)registerForInterrptionNotification;
 //- (void)performSynchronousBlock:(CDUnknownBlockType)arg1 withServiceName:(id)arg2 protocol:(id)arg3 isMachService:(BOOL)arg4 interfaceClassName:(id)arg5;
 //- (id)objectProxyForServiceName:(id)arg1 protocol:(id)arg2 interfaceClassName:(id)arg3 isMachService:(BOOL)arg4 errorHandler:(CDUnknownBlockType)arg5;
 //- (id)connectionWithServiceName:(id)arg1 protocol:(id)arg2 isMachService:(BOOL)arg3;
