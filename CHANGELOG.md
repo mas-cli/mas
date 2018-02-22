@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [v1.4.1] Stop Littering️ - 2018-02-18
+- 👷🏻‍♀️⚠️ Re-enable Danger #137
+
+## [v1.4.1] Stop Littering - 2018-02-18
 
 - 🐛 Prevent `default.profraw` from getting created #135
 
