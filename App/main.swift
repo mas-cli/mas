@@ -33,4 +33,3 @@ registry.register(helpCommand)
 registry.main(defaultVerb: helpCommand.verb) { error in
     printError(String(describing: error))
 }
-
