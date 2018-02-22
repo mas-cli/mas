@@ -13,7 +13,7 @@ install:
 
 script:
   - script/build
-  # - bundle exec danger
+  - bundle exec danger
 
 before_deploy:
   - script/package
