@@ -118,6 +118,7 @@
 		F865880A2030F6DE0093DE57 /* MASErrorTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MASErrorTestCase.swift; sourceTree = "<group>"; };
 		F876BB4A20ED717800EB9FD1 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		FC1AE3BA07E7DEC5CED36469 /* Pods-mas-tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mas-tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-mas-tests/Pods-mas-tests.debug.xcconfig"; sourceTree = "<group>"; };
+		F876300720438AF2003D370B /* ISAuthenticationResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISAuthenticationResponse.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -238,6 +239,7 @@
 				ED1EF94E1BA6BBBF0075453C /* CKUpdate.h */,
 				EDC90B621C6FF50B0019E396 /* ISAccountService-Protocol.h */,
 				EDE2964F1C700B0300554778 /* ISAuthenticationContext.h */,
+				F876300720438AF2003D370B /* ISAuthenticationResponse.h */,
 				ED1EF94F1BA6BBBF0075453C /* ISOperationDelegate-Protocol.h */,
 				ED1EF9501BA6BBBF0075453C /* ISServiceProxy.h */,
 				EDE296501C700B0300554778 /* ISServiceRemoteObject-Protocol.h */,
