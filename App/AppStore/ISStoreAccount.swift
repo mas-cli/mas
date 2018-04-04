@@ -6,12 +6,12 @@
 //  Copyright (c) 2015 Andrew Naylor. All rights reserved.
 //
 
-extension ISStoreAccount {
+extension ISStoreAccount: StoreAccount {
     static var primaryAccountIsPresentAndSignedIn: Bool {
         return CKAccountStore.shared().primaryAccountIsPresentAndSignedIn
     }
 
-    static var primaryAccount: ISStoreAccount? {
+    static var primaryAccount: StoreAccount? {
         var account: ISStoreAccount?
 
         if #available(macOS 10.13, *) {
@@ -34,7 +34,7 @@ extension ISStoreAccount {
         return account
     }
 
-    static func signIn(username: String, password: String, systemDialog: Bool = false) throws -> ISStoreAccount {
+    static func signIn(username: String, password: String, systemDialog: Bool = false) throws -> StoreAccount {
         var account: ISStoreAccount? = nil
         var error: MASError? = nil
 

@@ -42,6 +42,10 @@
 		EDE296531C700F4300554778 /* SignOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE296521C700F4300554778 /* SignOut.swift */; };
 		EDEAA0C01B51CE6200F2FC3F /* StoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDEAA0BF1B51CE6200F2FC3F /* StoreFoundation.framework */; };
 		EDEAA17D1B5C579100F2FC3F /* CommerceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDEAA17C1B5C579100F2FC3F /* CommerceKit.framework */; };
+		F184B6B7CD9C013CACDED0FB /* Argument.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36A4ABD8025E13060312925 /* Argument.swift */; };
+		F48562FA81B0C0258AC063B4 /* HelpCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDC2B8063EC231E28353D23 /* HelpCommand.swift */; };
+		F6D2058A70757D3477185A50 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7FE171F643805F7BC38A7 /* Option.swift */; };
+		F8242D8120746A510026DF35 /* StoreAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8242D8020746A510026DF35 /* StoreAccount.swift */; };
 		F865880B2030F6DE0093DE57 /* MASErrorTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F865880A2030F6DE0093DE57 /* MASErrorTestCase.swift */; };
 		F86588272030FAE70093DE57 /* MASError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F238C1B8756E600AE40CD /* MASError.swift */; };
 /* End PBXBuildFile section */
@@ -175,6 +179,7 @@
 		EDEAA17C1B5C579100F2FC3F /* CommerceKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CommerceKit.framework; path = /System/Library/PrivateFrameworks/CommerceKit.framework; sourceTree = "<absolute>"; };
 		F8233C87201EBDF000268278 /* mas-tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mas-tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8233C8B201EBDF100268278 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F8242D8020746A510026DF35 /* StoreAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreAccount.swift; sourceTree = "<group>"; };
 		F865880A2030F6DE0093DE57 /* MASErrorTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MASErrorTestCase.swift; sourceTree = "<group>"; };
 		F86EBF2E2077214100C0976E /* ISStoreURLOperationDelegate-Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ISStoreURLOperationDelegate-Protocol.h"; sourceTree = "<group>"; };
 		F876300720438AF2003D370B /* ISAuthenticationResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISAuthenticationResponse.h; sourceTree = "<group>"; };
@@ -285,6 +290,7 @@
 				ED0F238F1B87A56F00AE40CD /* ISStoreAccount.swift */,
 				ED0F23881B87543D00AE40CD /* PurchaseDownloadObserver.swift */,
 				EDA3BE511B8B84AF00C18D70 /* SSPurchase.swift */,
+				F8242D8020746A510026DF35 /* StoreAccount.swift */,
 			);
 			path = AppStore;
 			sourceTree = "<group>";
@@ -475,6 +481,9 @@
 				ED0F23851B87536A00AE40CD /* Outdated.swift in Sources */,
 				ED0F23891B87543D00AE40CD /* PurchaseDownloadObserver.swift in Sources */,
 				EDCBF9531D89AC6F000039C6 /* Reset.swift in Sources */,
+				F8242D8120746A510026DF35 /* StoreAccount.swift in Sources */,
+				0EBF5CDD379D7462C3389536 /* Result.swift in Sources */,
+				09756A23E9102359296C821B /* ResultProtocol.swift in Sources */,
 				693A98991CBFFA760004D3B4 /* Search.swift in Sources */,
 				EDC90B651C70045E0019E396 /* SignIn.swift in Sources */,
 				EDE296531C700F4300554778 /* SignOut.swift in Sources */,

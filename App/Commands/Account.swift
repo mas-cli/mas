@@ -16,7 +16,7 @@ struct AccountCommand: CommandProtocol {
     
     func run(_ options: Options) -> Result<(), MASError> {
         if let account = ISStoreAccount.primaryAccount {
-            print(account.identifier)
+            print(String(describing: account.identifier))
         }
         else {
             print("Not signed in")
