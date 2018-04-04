@@ -8,7 +8,7 @@
 
 language: objective-c
 xcode_sdk: macosx10.13
-osx_image: xcode9.3
+osx_image: xcode9.3beta
 
 env:
   global:
