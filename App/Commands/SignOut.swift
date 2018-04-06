@@ -15,7 +15,8 @@ struct SignOutCommand: CommandProtocol {
     let function = "Sign out of the Mac App Store"
     
     func run(_ options: Options) -> Result<(), MASError> {
-        CKAccountStore.shared().signOut()
+        let accountService: ISAccountService = ISServiceProxy.genericShared().accountService
+        accountService.signOut()
         return .success(())
     }
 }
