@@ -4,9 +4,13 @@
 //     class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
 //
 
+// #import "ISOperationDelegate.h"
+
 #import "ISOperationDelegate-Protocol.h"
 
 @class ISURLOperation, NSMutableURLRequest, NSURLResponse;
+
+NS_ASSUME_NONNULL_BEGIN
 
 @protocol ISURLOperationDelegate <ISOperationDelegate>
 
@@ -16,3 +20,4 @@
 - (void)operation:(ISURLOperation *)arg1 finishedWithOutput:(id)arg2;
 @end
 
+NS_ASSUME_NONNULL_END

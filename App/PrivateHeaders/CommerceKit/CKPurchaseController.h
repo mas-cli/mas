@@ -5,10 +5,12 @@
 //
 
 #import <CommerceKit/CKServiceInterface.h>
+
 #import <StoreFoundation/SSPurchase.h>
 
-@class SSPurchaseResponse;
 @class NSArray, NSMutableArray, NSNumber;
+
+@class SSPurchaseResponse;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,7 +27,8 @@ typedef void (^SSPurchaseCompletion)(SSPurchase * _Nullable purchase, BOOL compl
 }
 
 + (void)setNeedsSilentMachineAuthorization:(BOOL)arg1;
-+ (CKPurchaseController * _Nonnull)sharedPurchaseController;
++ (CKPurchaseController *)sharedPurchaseController;
+
 //@property(copy) CDUnknownBlockType dialogHandler; // @synthesize dialogHandler=_dialogHandler;
 //- (void).cxx_destruct;
 //- (BOOL)adoptionCompletedForBundleID:(id)arg1;
@@ -37,7 +40,8 @@ typedef void (^SSPurchaseCompletion)(SSPurchase * _Nullable purchase, BOOL compl
 //- (void)resumeDownloadForPurchasedProductID:(id)arg1;
 //- (void)startPurchases:(NSArray<SSPurchase *> *)purchases shouldStartDownloads:(BOOL)downloads eventHandler:(CDUnknownBlockType)arg3;
 //- (void)startPurchases:(NSArray<SSPurchase *> *)purchases withOptions:(unsigned long long)arg2 completionHandler:(CDUnknownBlockType)arg3;
-- (void)performPurchase:(SSPurchase * _Nonnull)purchase withOptions:(unsigned long long)arg2 completionHandler:(SSPurchaseCompletion _Nullable)completionHandler;
+
+- (void)performPurchase:(SSPurchase *)purchase withOptions:(unsigned long long)arg2 completionHandler:(SSPurchaseCompletion _Nullable)completionHandler;
 
 @end
 

@@ -4,6 +4,10 @@
 //     class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
 //
 
+// #import "NSObject.h"
+
+// #import "NSSecureCoding.h"
+
 @class NSArray, NSNumber, NSString, NSURL, SSDownloadMetadata, SSDownloadStatus;
 
 @interface SSDownload : NSObject <NSSecureCoding>
@@ -38,7 +42,9 @@
 @property(retain, nonatomic) SSDownloadStatus *status; // @synthesize status=_status;
 @property(copy, nonatomic) SSDownloadMetadata *metadata; // @synthesize metadata=_metadata;
 @property(copy, nonatomic) NSArray *assets; // @synthesize assets=_assets;
-//- (void).cxx_destruct;
+
+// - (void).cxx_destruct;
+
 @property BOOL skipInstallPhase;
 - (void)setUseUniqueDownloadFolder:(BOOL)arg1;
 @property(copy) NSString *customDownloadPath;

@@ -4,7 +4,15 @@
 //     class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
 //
 
-@class NSArray, NSDictionary, SSDownload;
+// #import "NSObject.h"
+
+// #import "NSSecureCoding.h"
+
+@class NSArray, NSDictionary;
+
+@class SSDownload;
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface SSPurchaseResponse : NSObject <NSSecureCoding>
 {
@@ -24,3 +32,4 @@
 
 @end
 
+NS_ASSUME_NONNULL_END

@@ -4,7 +4,13 @@
 //     class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
 //
 
+// #import "NSObject.h"
+
+// #import "NSSecureCoding.h"
+
 @class NSDate, NSNumber, NSString, NSTimer;
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface ISStoreAccount : NSObject <NSSecureCoding>
 {
@@ -41,7 +47,9 @@
 @property long long kind; // @synthesize kind=_kind;
 @property(copy) NSString *identifier; // @synthesize identifier=_identifier;
 @property(copy) NSNumber *dsID; // @synthesize dsID=_dsID;
-//- (void).cxx_destruct;
+
+// - (void).cxx_destruct;
+
 - (long long)getTouchIDState;
 @property long long touchIDState; // @synthesize touchIDState=_touchIDState;
 - (void)resetTouchIDState;
@@ -57,3 +65,4 @@
 
 @end
 
+NS_ASSUME_NONNULL_END

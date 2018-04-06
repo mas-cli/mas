@@ -4,7 +4,14 @@
 //     class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
 //
 
+// #import "NSObject.h"
+
+// #import "NSCopying.h"
+// #import "NSSecureCoding.h"
+
 @class ISOperation, NSData, NSDictionary, NSNumber, NSString, SSDownloadMetadata;
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface SSPurchase : NSObject <NSSecureCoding, NSCopying>
 {
@@ -25,7 +32,9 @@
     BOOL _isDSIDLessPurchase;
     NSString *_sortableAccountIdentifier;
     unsigned long long _itemIdentifier;
-//    CDUnknownBlockType _authFallbackHandler;
+
+    // CDUnknownBlockType _authFallbackHandler;
+    
     ISOperation *_purchaseOperation;
     NSDictionary *_responseDialog;
     NSDictionary *_dsidLessOptions;
@@ -37,9 +46,13 @@
 @property(retain) NSDictionary *dsidLessOptions; // @synthesize dsidLessOptions=_dsidLessOptions;
 @property BOOL isDSIDLessPurchase; // @synthesize isDSIDLessPurchase=_isDSIDLessPurchase;
 @property(copy) NSDictionary *responseDialog; // @synthesize responseDialog=_responseDialog;
-@property __weak ISOperation *purchaseOperation; // @synthesize purchaseOperation=_purchaseOperation;
+
+@property (nullable) __weak ISOperation *purchaseOperation; // @synthesize purchaseOperation=_purchaseOperation;
+
 @property BOOL isCancelled; // @synthesize isCancelled=_isCancelled;
-//@property(copy) CDUnknownBlockType authFallbackHandler; // @synthesize authFallbackHandler=_authFallbackHandler;
+
+// @property(copy) CDUnknownBlockType authFallbackHandler; // @synthesize authFallbackHandler=_authFallbackHandler;
+
 @property unsigned long long itemIdentifier; // @synthesize itemIdentifier=_itemIdentifier;
 @property BOOL shouldBeInstalledAfterLogout; // @synthesize shouldBeInstalledAfterLogout=_shouldBeInstalledAfterLogout;
 @property BOOL checkPreflightAterPurchase; // @synthesize checkPreflightAterPurchase=_checkPreflightAterPurchase;
@@ -54,7 +67,9 @@
 @property(copy, nonatomic) SSDownloadMetadata *downloadMetadata; // @synthesize downloadMetadata=_downloadMetadata;
 @property(copy, nonatomic) NSString *buyParameters; // @synthesize buyParameters=_buyParameters;
 @property(retain, nonatomic) NSNumber *accountIdentifier; // @synthesize accountIdentifier=_accountIdentifier;
-//- (void).cxx_destruct;
+
+// - (void).cxx_destruct;
+
 - (BOOL)purchaseDSIDMatchesPrimaryAccount;
 @property(readonly) BOOL needsAuthentication; // @dynamic needsAuthentication;
 @property BOOL isRecoveryPurchase; // @dynamic isRecoveryPurchase;
@@ -62,9 +77,10 @@
 @property(readonly, nonatomic) NSString *uniqueIdentifier;
 - (id)_sortableAccountIdentifier;
 - (id)description;
-- (id)copyWithZone:(struct _NSZone *)arg1;
+- (id)copyWithZone:(nullable struct _NSZone *)arg1;
 - (void)encodeWithCoder:(id)arg1;
 - (id)initWithCoder:(id)arg1;
 
 @end
 
+NS_ASSUME_NONNULL_END

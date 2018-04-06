@@ -19,7 +19,7 @@ extension ISStoreAccount {
         var account: ISStoreAccount? = nil
         var error: MASError? = nil
         
-        let accountService = ISServiceProxy.genericShared().accountService
+        let accountService: ISAccountService = ISServiceProxy.genericShared().accountService
         let client = ISStoreClient(storeClientType: 0)
         accountService.setStoreClient(client)
         

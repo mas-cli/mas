@@ -3,9 +3,17 @@
 //
 //     class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
 //
+
+// #import "NSObject.h"
+
+// #import "NSCopying.h"
+// #import "NSSecureCoding.h"
+
 #import <Foundation/NSZone.h>
 
 @class NSArray, NSData, NSDictionary, NSLock, NSMutableDictionary, NSNumber, NSString, NSURL;
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface SSDownloadMetadata : NSObject <NSSecureCoding, NSCopying>
 {
@@ -14,10 +22,12 @@
 }
 
 + (BOOL)supportsSecureCoding;
-//- (void).cxx_destruct;
-- (id _Nullable)_valueForFirstAvailableKey:(id _Nonnull)arg1;
+
+// - (void).cxx_destruct;
+
+- (id _Nullable)_valueForFirstAvailableKey:(id)arg1;
 @property(retain, nullable) NSArray *sinfs;
-- (void)setValue:(id _Nullable)arg1 forMetadataKey:(id _Nonnull)arg2;
+- (void)setValue:(id _Nullable)arg1 forMetadataKey:(id)arg2;
 @property(retain, nullable) NSString *iapInstallPath;
 @property(retain, nullable) NSString *fileExtension;
 @property(retain, nullable) NSString *appleID;
@@ -28,46 +38,66 @@
 @property(readonly, nullable) NSString *iapContentVersion;
 @property(readonly, nullable) NSNumber *iapContentSize;
 @property(readonly, nullable) NSArray *assets;
+
 @property BOOL animationExpected;
+
 @property(retain, nullable) NSString *transactionIdentifier;
-@property(retain, nonnull) NSString *title;
+
+@property(retain) NSString *title;
+
 @property(retain, nullable) NSURL *thumbnailImageURL;
 @property(retain, nullable) NSString *subtitle;
 @property(retain, nullable) NSString *ipaInstallPath;
+
 @property BOOL isMDMProvided;
+
 - (void)setUncompressedSize:(NSNumber * _Nonnull)arg1;
+
 - (void)setExtractionCanBeStreamed:(BOOL)arg1;
+
 @property(retain, nullable) NSString *buyParameters;
 @property(retain, nullable) NSURL *preflightPackageURL;
+
 @property(getter=isRental) BOOL rental;
+
 @property(retain, nullable) NSString *kind;
+
 @property unsigned long long itemIdentifier;
+
 @property(retain, nullable) NSString *genre;
 @property(retain, nullable) NSNumber *durationInMilliseconds;
 @property(retain, nullable) NSString *collectionName;
 @property(retain, nullable) NSString *bundleVersion;
 @property(retain, nullable) NSString *bundleIdentifier;
+
 @property BOOL artworkIsPrerendered;
+
 @property(readonly, nullable) NSString *bundleShortVersionString;
 @property(readonly, nullable) NSString *bundleDisplayName;
 @property(readonly, nullable) NSNumber *uncompressedSize;
+
 @property(readonly) BOOL extractionCanBeStreamed;
 @property(readonly) BOOL needsSoftwareInstallOperation;
+
 - (id _Nullable)deltaPackages;
+
 @property(readonly, getter=isSample) BOOL sample;
+
 @property(readonly, nullable) NSString *purchaseDate;
+
 @property(readonly) BOOL isExplicitContents;
+
 @property(readonly, nullable) NSNumber *ageRestriction;
 @property(retain, nullable) NSString *productType;
-@property(readonly, nullable) NSNumber *version;
 @property(readonly, nullable) NSString *applicationIdentifier;
 
-- (nonnull id)copyWithZone:(nullable NSZone *)zone;
-- (nullable instancetype)initWithCoder:(nonnull NSCoder *)coder;
-- (void)encodeWithCoder:(nonnull NSCoder *)coder;
-- (nullable instancetype)initWithDictionary:(nonnull NSDictionary *)dictionary;
-- (nullable instancetype)initWithKind:(nonnull NSString *)kind;
-- (nonnull instancetype)init;
+- (id)copyWithZone:(nullable NSZone *)zone;
+- (nullable instancetype)initWithCoder:( NSCoder *)coder;
+- (void)encodeWithCoder:(NSCoder *)coder;
+- (nullable instancetype)initWithDictionary:(NSDictionary *)dictionary;
+- (nullable instancetype)initWithKind:(NSString *)kind;
+- (instancetype)init;
 
 @end
 
+NS_ASSUME_NONNULL_END
