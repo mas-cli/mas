@@ -12,6 +12,7 @@ struct ResultKeys {
     static let TrackName = "trackName"
     static let TrackId = "trackId"
     static let Version = "version"
+    static let Price = "price"
 }
 
 struct SearchCommand: CommandProtocol {
@@ -32,11 +33,33 @@ struct SearchCommand: CommandProtocol {
             return .failure(.noSearchResultsFound)
         }
         
+        // find out longest appName for formatting
+        var appNameMaxLength = 0
+        for result in results {
+            if let appName = result[ResultKeys.TrackName] as? String {
+                if appName.count > appNameMaxLength {
+                    appNameMaxLength = appName.count
+                }
+            }
+        }
+        if appNameMaxLength > 50 {
+            appNameMaxLength = 50
+        }
+        
         for result in results {
             if let appName = result[ResultKeys.TrackName] as? String,
-                   let appVersion = result[ResultKeys.Version] as? String,
-                   let appId = result[ResultKeys.TrackId] as? Int {
-                print("\(String(appId)) \(appName) (\(appVersion))")
+                let appVersion = result[ResultKeys.Version] as? String,
+                let appId = result[ResultKeys.TrackId] as? Int,
+                let appPrice = result[ResultKeys.Price] as? Double {
+                
+                // add empty spaces to app name that every app name has the same length
+                let countedAppName = String((appName + String(repeating: " ", count: appNameMaxLength)).prefix(appNameMaxLength))
+                
+                if options.price {
+                    print(String(format:"%12d  %@  $%5.2f  (%@)", appId, countedAppName, appPrice, appVersion))
+                } else {
+                    print(String(format:"%12d  %@ (%@)", appId, countedAppName, appVersion))
+                }
             }
         }
         
@@ -53,13 +76,17 @@ struct SearchCommand: CommandProtocol {
 
 struct SearchOptions: OptionsProtocol {
     let appName: String
+    let price: Bool
     
-    static func create(_ appName: String) -> SearchOptions {
-        return SearchOptions(appName: appName)
+    static func create(_ appName: String) -> (_ price: Bool) -> SearchOptions {
+        return { price in
+            SearchOptions(appName: appName, price: price)
+        }
     }
     
     static func evaluate(_ m: CommandMode) -> Result<SearchOptions, CommandantError<MASError>> {
         return create
             <*> m <| Argument(usage: "the app name to search")
+            <*> m <| Option(key: "price", defaultValue: false, usage: "Show price of found apps")
     }
 }
