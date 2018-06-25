@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 - 👷🏻‍♀️⚠️ Re-enable Danger #137
+- ✨ Add price to search #62
 
 ## [v1.4.1] Stop Littering - 2018-02-18
 
