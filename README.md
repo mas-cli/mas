@@ -49,7 +49,7 @@ Use `mas outdated` to list all applications with pending updates.
     497799835 Xcode (7.0)
     446107677 Screens VNC - Access Your Computer From Anywhere (3.6.7)
     
-   If you want to install the first result that the `search` command would pompt you:
+   If you want to install the first result that the `search` command would prompt you:
        
      $ mas lucky twitter
      ==> Downloading Twitter
