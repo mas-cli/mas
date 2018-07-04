@@ -65,6 +65,8 @@ Seeds/**/Tests/
 !Seeds/Commandant/Source/*.swift
 # Result
 !Seeds/Result/Result/*.swift
+Seeds/Quick
+Seeds/Nimble
 
 ## https://github.com/github/gitignore/blob/master/Global/OSX.gitignore
 .DS_Store

@@ -168,6 +168,8 @@
 			isa = PBXGroup;
 			children = (
 				A49C8EB621015CD588C621FD /* Commandant */,
+				A96B40B5852A4F029AFDA669 /* Nimble */,
+				6EB4B681BB79E32622860164 /* Quick */,
 				6569B225928F21A4A639BB22 /* Result */,
 			);
 			name = Seeds;
@@ -180,6 +182,13 @@
 				5150F7FB7CF2A77F675D8E92 /* ResultProtocol.swift */,
 			);
 			name = Result;
+			sourceTree = "<group>";
+		};
+		6EB4B681BB79E32622860164 /* Quick */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Quick;
 			sourceTree = "<group>";
 		};
 		A49C8EB621015CD588C621FD /* Commandant */ = {
@@ -196,6 +205,13 @@
 				AF1B6BEDF32AF3F8A575FB1F /* Switch.swift */,
 			);
 			name = Commandant;
+			sourceTree = "<group>";
+		};
+		A96B40B5852A4F029AFDA669 /* Nimble */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Nimble;
 			sourceTree = "<group>";
 		};
 		ED031A6F1B5127C00097692E = {
@@ -438,7 +454,6 @@
 				4913269B1F48921D0010EB86 /* CKSoftwareMap+AppLookup.swift in Sources */,
 				0C47E694564FCB59996690DD /* Command.swift in Sources */,
 				ED0F238B1B87569C00AE40CD /* Downloader.swift in Sources */,
-				ED0F238D1B8756E600AE40CD /* MASError.swift in Sources */,
 				3053D11E74A22A4C5A6BE833 /* Errors.swift in Sources */,
 				EBD6B44FDF65E0253153629F /* HelpCommand.swift in Sources */,
 				900A1E811DBAC8CB0069B1A8 /* Info.swift in Sources */,
@@ -447,6 +462,7 @@
 				ED0F23831B87533A00AE40CD /* List.swift in Sources */,
 				8078FAA81EC4F2FB004B5B3F /* Lucky.swift in Sources */,
 				ED031A7C1B5127C00097692E /* main.swift in Sources */,
+				ED0F238D1B8756E600AE40CD /* MASError.swift in Sources */,
 				693A989B1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift in Sources */,
 				30EA893640B02CCF679F9C57 /* Option.swift in Sources */,
 				92AE0FD7BE06D64692E6C1E6 /* OrderedSet.swift in Sources */,
@@ -470,18 +486,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F86588272030FAE70093DE57 /* MASError.swift in Sources */,
 				3F177C62A7053BA3ED415E5E /* Argument.swift in Sources */,
 				09A04CB22DC02B86AE4ACC8A /* ArgumentParser.swift in Sources */,
 				27340A5BB9F2A5B166E3A72A /* ArgumentProtocol.swift in Sources */,
 				DE6E193A6671F3D6807F746D /* Command.swift in Sources */,
 				4C8321353B9AE40539A1AC8A /* Errors.swift in Sources */,
 				F48562FA81B0C0258AC063B4 /* HelpCommand.swift in Sources */,
+				F86588272030FAE70093DE57 /* MASError.swift in Sources */,
+				F865880B2030F6DE0093DE57 /* MASErrorTestCase.swift in Sources */,
 				F6D2058A70757D3477185A50 /* Option.swift in Sources */,
 				073998C12AE3BEEC41CE0DAD /* OrderedSet.swift in Sources */,
 				C50DD25454FC5CAA1F37763F /* Result.swift in Sources */,
 				EC113CE6C98E8D8358228D33 /* ResultProtocol.swift in Sources */,
-				F865880B2030F6DE0093DE57 /* MASErrorTestCase.swift in Sources */,
 				49C2F3FDD805256BE934A70E /* Switch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
