@@ -1,6 +1,14 @@
+#
+# .travis.yml
+# mas-cli
+#
+# https://travis-ci.org/mas-cli/mas
+# https://docs.travis-ci.com/user/reference/osx/
+#
+
 language: objective-c
 xcode_sdk: macosx10.13
-osx_image: xcode9.2
+osx_image: xcode9.3
 
 env:
   global:

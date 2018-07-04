@@ -13,7 +13,7 @@ struct InstallCommand: CommandProtocol {
     
     func run(_ options: Options) -> Result<(), MASError> {
         // Try to download applications with given identifiers and collect results
-        let downloadResults = options.appIds.flatMap { (appId) -> MASError? in
+        let downloadResults = options.appIds.compactMap { (appId) -> MASError? in
             if let product = installedApp(appId) , !options.forceInstall {
                 printWarning("\(product.appName) is already installed")
                 return nil

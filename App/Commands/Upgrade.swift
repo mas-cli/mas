@@ -23,7 +23,7 @@ struct UpgradeCommand: CommandProtocol {
 
             let appIds: [UInt64]
 
-            appIds = apps.flatMap {
+            appIds = apps.compactMap {
                 if let appId = UInt64($0) {
                     return appId
                 }
@@ -35,7 +35,7 @@ struct UpgradeCommand: CommandProtocol {
 
             // check each of those for updates
 
-            updates = appIds.flatMap {
+            updates = appIds.compactMap {
                 updateController?.availableUpdate(withItemIdentifier: $0)
             }
             
@@ -56,7 +56,7 @@ struct UpgradeCommand: CommandProtocol {
         print("Upgrading \(updates.count) outdated application\(updates.count > 1 ? "s" : ""):")
         print(updates.map({ "\($0.title) (\($0.bundleVersion))" }).joined(separator: ", "))
         
-        let updateResults = updates.flatMap {
+        let updateResults = updates.compactMap {
             download($0.itemIdentifier.uint64Value)
         }
 
