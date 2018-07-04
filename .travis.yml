@@ -4,11 +4,13 @@
 #
 # https://travis-ci.org/mas-cli/mas
 # https://docs.travis-ci.com/user/reference/osx/
+# https://docs.travis-ci.com/user/languages/objective-c/
 #
 
-language: objective-c
+os: osx
+osx_image: xcode9.4         # macOS 10.13
 xcode_sdk: macosx10.13
-osx_image: xcode9.3
+language: objective-c
 
 env:
   global:
