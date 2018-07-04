@@ -6,6 +6,9 @@
 //  Copyright © 2015 Andrew Naylor. All rights reserved.
 //
 
+import Commandant
+import Result
+
 struct VersionCommand: CommandProtocol {
     typealias Options = NoOptions<MASError>
     let verb = "version"

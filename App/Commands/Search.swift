@@ -6,6 +6,9 @@
 //  Copyright © 2016 Andrew Naylor. All rights reserved.
 //
 
+import Commandant
+import Result
+
 struct ResultKeys {
     static let ResultCount = "resultCount"
     static let Results = "results"

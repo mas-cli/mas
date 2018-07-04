@@ -6,6 +6,9 @@
 //  Copyright © 2015 Andrew Naylor. All rights reserved.
 //
 
+import Commandant
+import Result
+
 struct UpgradeCommand: CommandProtocol {
     typealias Options = UpgradeOptions
     let verb = "upgrade"
