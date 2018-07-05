@@ -614,6 +614,9 @@
 			baseConfigurationReference = 21AF31A18424A9AC0333ECB1 /* Pods-mas.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = "$(SRCROOT)";
+				INSTALL_PATH = /build;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mphys.mas-cli";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "App/mas-cli-Bridging-Header.h";
