@@ -6,6 +6,9 @@
 //  Copyright (c) 2015 Andrew Naylor. All rights reserved.
 //
 
+import Commandant
+import Result
+
 struct InstallCommand: CommandProtocol {
     typealias Options = InstallOptions
     let verb = "install"

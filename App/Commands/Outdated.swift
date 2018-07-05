@@ -6,6 +6,9 @@
 //  Copyright (c) 2015 Andrew Naylor. All rights reserved.
 //
 
+import Commandant
+import Result
+
 struct OutdatedCommand: CommandProtocol {
     typealias Options = NoOptions<MASError>
     let verb = "outdated"

@@ -6,6 +6,8 @@
 //  Copyright © 2016 Andrew Naylor. All rights reserved.
 //
 
+import Commandant
+import Result
 import Foundation
 
 struct InfoCommand: CommandProtocol {

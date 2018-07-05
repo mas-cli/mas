@@ -6,6 +6,7 @@
 //  Copyright © 2015 Andrew Naylor. All rights reserved.
 //
 
+import Commandant
 import Foundation
 
 public struct StderrOutputStream: TextOutputStream {

@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
--️ 🛠 Xcode 9.4 #153
+- ➖ CocoaSeeds #155
+- ➕🍫 CocoaPods (1.5.3) #155
+- 🛠 Xcode 9.4 #153
 - 🛠 Xcode 9.3 #141
 - 👷🏻‍♀️⚠️ Re-enable Danger #137
 - ✨ Add price to search #62

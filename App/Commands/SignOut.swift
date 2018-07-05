@@ -6,6 +6,9 @@
 //  Copyright © 2016 Andrew Naylor. All rights reserved.
 //
 
+import Commandant
+import Result
+
 struct SignOutCommand: CommandProtocol {
     typealias Options = NoOptions<MASError>
     let verb = "signout"

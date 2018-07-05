@@ -1,34 +1,11 @@
 #!/bin/bash -e
 
 main() {
+  echo "==> 👢 Bootstrapping"
   bundle install
-  bundle exec seed install
+  bundle exec pod install
 
   script/sort
-
-  echo "==> Removing CocoaSeed imports"
-  remove_seed_imports
-}
-
-remove_seed_imports() {
-  pushd Seeds/ > /dev/null
-    # Build a list of the seeded modules
-    MODULES=( )
-    for i in  */; do 
-      MODULES+=(${i%%/})
-    done
-
-    # Construct a pattern for module imports to remove
-    local pattern
-    pattern="/import ($(join "|" "${MODULES[@]}"))/d"
-
-    find . -name "*.swift" -type f -exec sed -E -i '' "${pattern}" {} \;
-  popd > /dev/null
-}
-
-join() {
-  local IFS="$1"; shift
-  echo "$*"
 }
 
 main

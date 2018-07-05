@@ -1,7 +1,18 @@
 #!/bin/bash -e
 
+BUILD_DIR="$PWD/build"
+WORKSPACE="mas-cli.xcworkspace"
+SCHEME="mas-cli Release"
+CONFIG="Release"
+
 main() {
   script/clean
+
+  xcodebuild -workspace "$WORKSPACE" \
+    -scheme "$SCHEME" \
+    -configuration "$CONFIG" \
+    clean
+
   build
 
   # If this is a tagged build we are going to release
@@ -11,19 +22,28 @@ main() {
 }
 
 build() {
+  echo "==> 🏗️ Building"
   set -o pipefail && \
-      xcodebuild -project "mas-cli.xcodeproj" \
-          -scheme "mas-cli Release" \
-          -configuration Release \
-          clean build \
+      xcodebuild -workspace "$WORKSPACE" \
+          -scheme "$SCHEME" \
+          -configuration "$CONFIG" \
+          OBJROOT="$BUILD_DIR/obj" \
+          SHARED_PRECOMPS_DIR="$OBJROOT/SharedPrecompiledHeaders" \
+          SYMROOT="$BUILD_DIR/sym" \
+          build \
       | bundle exec xcpretty --color
 }
 
 archive() {
+  echo "==> 📦 Archiving"
   set -o pipefail && \
-      xcodebuild -project "mas-cli.xcodeproj" \
-          -scheme "mas-cli Release" \
-          -archivePath mas.xcarchive \
+      xcodebuild -workspace "$WORKSPACE" \
+          -scheme "$SCHEME" \
+          -configuration "$CONFIG" \
+          -archivePath "$BUILD_DIR/mas.xcarchive" \
+          OBJROOT="$BUILD_DIR/obj" \
+          SHARED_PRECOMPS_DIR="$OBJROOT/SharedPrecompiledHeaders" \
+          SYMROOT="$BUILD_DIR/sym" \
           archive \
       | bundle exec xcpretty --color
 }
