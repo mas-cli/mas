@@ -1,10 +1,9 @@
 #!/bin/bash -e
 
+BUILD_DIR=build
+
 main() {
-  rm -rf build/
-  rm -rf mas.xcarchive
-  rm -f mas.xcarchive.zip
-  rm -f mas-cli.zip
+  rm -rf $BUILD_DIR/
 }
 
 main

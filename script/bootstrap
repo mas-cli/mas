@@ -1,6 +1,7 @@
 #!/bin/bash -e
 
 main() {
+  echo "==> 👢 Bootstrapping"
   bundle install
   bundle exec pod install
 
