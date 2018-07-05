@@ -12,7 +12,7 @@ main() {
 
 build() {
   set -o pipefail && \
-      xcodebuild -project "mas-cli.xcodeproj" \
+      xcodebuild -workspace "mas-cli.xcworkspace" \
           -scheme "mas-cli Release" \
           -configuration Release \
           clean build \
@@ -21,7 +21,7 @@ build() {
 
 archive() {
   set -o pipefail && \
-      xcodebuild -project "mas-cli.xcodeproj" \
+      xcodebuild -workspace "mas-cli.xcworkspace" \
           -scheme "mas-cli Release" \
           -archivePath mas.xcarchive \
           archive \

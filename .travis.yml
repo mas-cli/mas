@@ -19,7 +19,7 @@ env:
     - LANGUAGE=en_US.UTF-8
 
 install:
-  - bundle install
+  - script/bootstrap
 
 script:
   - script/build
