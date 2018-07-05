@@ -48,9 +48,9 @@ Use `mas outdated` to list all applications with pending updates.
     $ mas outdated
     497799835 Xcode (7.0)
     446107677 Screens VNC - Access Your Computer From Anywhere (3.6.7)
-    
+
    If you want to install the first result that the `search` command would prompt you:
-       
+
      $ mas lucky twitter
      ==> Downloading Twitter
      ==> Installed Twitter
@@ -63,9 +63,9 @@ To install all pending updates run `mas upgrade`.
     Upgrading 2 outdated applications:
     Xcode (7.0), Screens VNC - Access Your Computer From Anywhere (3.6.7)
     ==> Downloading Xcode
-    ==> Installed Xcode    
+    ==> Installed Xcode
     ==> Downloading iFlicks
-    ==> Installed iFlicks    
+    ==> Installed iFlicks
 
 Updates can be performed selectively by providing the app identifier(s) to
 `mas upgrade`
@@ -140,7 +140,7 @@ The tests in this project are a work-in-progress. Since Xcode does not officiall
    - this may change in the future to Quick/Nimble.
 - Code coverage doesn't show up for code under test until you enable "Show Test Bundles". Presumably, this is because production code is currently being added to two targets and Xcode is getting confused.
 
-We may move the app code into a framework target to make it easier to test. 
+We may move the app code into a framework target to make it easier to test.
 
 ## License
 
