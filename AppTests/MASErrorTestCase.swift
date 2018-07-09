@@ -6,7 +6,7 @@
 //  Copyright © 2018 Andrew Naylor. All rights reserved.
 //
 
-//@testable import mas
+@testable import MasKit
 import XCTest
 import Foundation
 
