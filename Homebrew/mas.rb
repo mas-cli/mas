@@ -19,6 +19,8 @@ class Mas < Formula
                "-configuration", "Release",
                "SYMROOT=build"
     bin.install "build/mas"
+
+    bash_completion.install "contrib/completion/mas-completion.bash" => "mas"
   end
 
   test do
