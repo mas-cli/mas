@@ -1,4 +1,13 @@
 #!/bin/bash -ex
+#
+# script/build
+# mas
+#
+# Builds the Xcode project. The xcpretty gem is used to format the build log.
+#
+# If the TRAVIS_TAG env variable is present, it generates an archive.
+# https://docs.travis-ci.com/user/environment-variables/#default-environment-variables
+#
 
 BUILD_DIR="$PWD/build"
 PROJECT="mas-cli.xcodeproj"

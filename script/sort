@@ -1,4 +1,10 @@
 #!/bin/bash
+#
+# script/sort
+# mas
+#
+# Invokes the sort.pl script on the Xcode project.
+#
 
 main() {
     echo "==> 📶 Sorting project files"

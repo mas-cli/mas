@@ -1,4 +1,10 @@
-#!/bin/bash 
+#!/bin/bash
+#
+# script/update_headers
+# mas
+#
+# Runs class-dump to generate headers for Apple private frameworks.
+#
 
 main() {
   check_class_dump
