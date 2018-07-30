@@ -33,7 +33,7 @@ end
 s3 = Aws::S3::Resource.new
 
 # Upload all .zip and .tar.gz files
-Dir["*.{zip,tar.gz}"].each { |f|
+Dir["build/*.{zip,tar.gz}"].each { |f|
     puts "Uploading #{f} to S3 bucket #{s3_bucket}"
     # Place files into numbered build dir
     s3.bucket(s3_bucket)
