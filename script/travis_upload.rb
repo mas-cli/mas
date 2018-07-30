@@ -31,12 +31,14 @@ if travis_build_number.nil? || travis_build_number.empty?
 end
 
 s3 = Aws::S3::Resource.new
+build_dir = "build"
 
 # Upload all .zip and .tar.gz files
-Dir["build/*.{zip,tar.gz}"].each { |f|
-    puts "Uploading #{f} to S3 bucket #{s3_bucket}"
+Dir["#{build_dir}/*.{zip,tar.gz}"].each { |f|
+    file = f.gsub(/^#{build_dir}\/(.*)/
+    puts "Uploading #{file} to S3 bucket #{s3_bucket}"
     # Place files into numbered build dir
     s3.bucket(s3_bucket)
-        .put_object(key: "#{travis_build_number}/#{f}")
-        .upload_file(f)
+        .put_object(key: "#{travis_build_number}/#{file}")
+        .upload_file(file)
 }
