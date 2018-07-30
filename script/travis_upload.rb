@@ -17,10 +17,18 @@ require 'aws-sdk-s3'
 
 # S3_BUCKET variable
 s3_bucket = ARGV[0]
+if s3_bucket.nil? || s3_bucket.empty?
+    puts "s3_bucket is required"
+    exit 1
+end
 
 # TRAVIS_BUILD_NUMBER variable
 # https://docs.travis-ci.com/user/environment-variables/#default-environment-variables
 travis_build_number = ARGV[1]
+if travis_build_number.nil? || travis_build_number.empty?
+    puts "travis_build_number is required"
+    exit 2
+end
 
 s3 = Aws::S3::Resource.new
 
