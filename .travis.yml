@@ -30,19 +30,21 @@ env:
 install:
 - script/bootstrap
 
-script:
-- script/build
-- script/package
-- bundle exec danger
-
-after_success:
-- bundle exec script/travis_upload.rb $S3_BUCKET $TRAVIS_BUILD_NUMBER
-
-# Deploy stage
-
 jobs:
   include:
-  - stage: deploy
+  # Assemble stage
+  - stage: Assemble
+
+    script:
+    - script/build
+    - script/package
+    - bundle exec danger
+
+    after_success:
+    - bundle exec script/travis_upload.rb $S3_BUCKET $TRAVIS_BUILD_NUMBER
+
+  # Deploy stage
+  - stage: Deploy
     script: skip
 
     before_deploy:
