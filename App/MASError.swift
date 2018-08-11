@@ -10,32 +10,38 @@ import Foundation
 
 enum MASError: Error, CustomStringConvertible {
     case notSignedIn
+    case signInDisabled
     case signInFailed(error: NSError?)
     case alreadySignedIn
-    
+
     case purchaseFailed(error: NSError?)
     case downloadFailed(error: NSError?)
     case noDownloads
     case cancelled
-    
+
     case searchFailed
     case noSearchResultsFound
-    
+
     var description: String {
         switch self {
         case .notSignedIn:
             return "Not signed in"
-            
+
+        case .signInDisabled:
+            return "The 'signin' command has been disabled on this macOS version. " +
+                "\nFor more info see: " +
+                "https://github.com/mas-cli/mas/issues/107"
+
         case .signInFailed(let error):
             if let error = error {
                 return "Sign in failed: \(error.localizedDescription)"
             } else {
                 return "Sign in failed"
             }
-            
+
         case .alreadySignedIn:
             return "Already signed in"
-            
+
         case .purchaseFailed(let error):
             if let error = error {
                 return "Download request failed: \(error.localizedDescription)"
@@ -49,16 +55,16 @@ enum MASError: Error, CustomStringConvertible {
             } else {
                 return "Download failed"
             }
-            
+
         case .noDownloads:
             return "No downloads began"
-        
+
         case .cancelled:
             return "Download cancelled"
-            
+
         case .searchFailed:
             return "Search failed"
-            
+
         case .noSearchResultsFound:
             return "No results found"            
         }

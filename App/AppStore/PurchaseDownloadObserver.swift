@@ -24,8 +24,8 @@
         if status.isFailed || status.isCancelled {
             queue.removeDownload(withItemIdentifier: download.metadata.itemIdentifier)
         }
-        else if let state = status.progressState {
-            progress(state)
+        else {
+            progress(status.progressState)
         }
     }
     
@@ -90,13 +90,8 @@ func progress(_ state: ProgressState) {
 }
 
 extension SSDownloadStatus {
-    var progressState: ProgressState? {
-        if let phase = activePhase {
-            return ProgressState(percentComplete: percentComplete, phase: phase.phaseDescription)
-        }
-        else {
-            return nil
-        }
+    var progressState: ProgressState {
+        return ProgressState(percentComplete: percentComplete, phase: activePhase.phaseDescription)
     }
 }
 

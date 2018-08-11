@@ -4,6 +4,10 @@
 //     class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
 //
 
+// #import "NSObject.h"
+
+// #import "NSSecureCoding.h"
+
 @class NSDate, NSDictionary, NSMutableDictionary, NSNumber, NSString, SSPurchase;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -17,7 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)supportsSecureCoding;
 @property(nonatomic) long long softwareUpdateState; // @synthesize softwareUpdateState=_softwareUpdateState;
 @property(readonly) NSDictionary *dictionary; // @synthesize dictionary=_dictionary;
-//- (void).cxx_destruct;
+
+// - (void).cxx_destruct;
+
 @property(readonly, nonatomic) NSString *autoUpdateAbortReason;
 @property(nonatomic) BOOL hasBeenSeenByUser;
 @property(readonly, nonatomic) BOOL didFailToAutoInstall;

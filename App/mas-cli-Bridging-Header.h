@@ -27,8 +27,10 @@
 #import <StoreFoundation/SSPurchaseResponse.h>
 #import <StoreFoundation/ISStoreClient.h>
 #import <StoreFoundation/ISAuthenticationContext.h>
+#import <StoreFoundation/ISAuthenticationResponse.h>
 #import <StoreFoundation/ISServiceRemoteObject-Protocol.h>
 #import <StoreFoundation/ISAccountService-Protocol.h>
+#import "ISAccountService-Protocol.h"
 #import <StoreFoundation/ISServiceProxy.h>
 
 @protocol CKDownloadQueueObserver

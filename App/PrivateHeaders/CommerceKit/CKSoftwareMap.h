@@ -5,32 +5,48 @@
 //
 
 #import <CommerceKit/CKServiceInterface.h>
+
 #import <StoreFoundation/CKSoftwareProduct.h>
 
+@class CKSoftwareMapObserver, NSMutableDictionary;
+
 NS_ASSUME_NONNULL_BEGIN
-@class NSLock, NSMutableArray;
 
 @interface CKSoftwareMap : CKServiceInterface
 {
-    NSMutableArray *_observers;
-    NSLock *_observersLock;
+    NSMutableDictionary *_productsObservers;
+    CKSoftwareMapObserver *_sharedObserver;
 }
 
-+ (CKSoftwareMap *)sharedSoftwareMap;
-- (id)adaptableBundleIdentifiers;
-- (BOOL)adoptionCompletedForBundleID:(id)arg1 adoptingDSID:(out _Nullable id * _Nonnull)arg2 appleID:(out _Nullable id * _Nonnull)arg3;
++ (instancetype)sharedSoftwareMap;
+
+@property(retain, nonatomic) CKSoftwareMapObserver *sharedObserver; // @synthesize sharedObserver=_sharedObserver;
+@property(retain, nonatomic) NSMutableDictionary *productsObservers; // @synthesize productsObservers=_productsObservers;
+
+// - (void).cxx_destruct;
+
+- (id)adoptableBundleIdentifiers;
+
+- (BOOL)adoptionCompletedForBundleID:(id)arg1 adoptingDSID:(out _Nullable id * _Nullable)arg2 appleID:(out _Nullable id * _Nullable)arg3;
+
 - (id)updateRequestBodyData:(char *)arg1 includeInstalledApps:(BOOL)arg2 includeBundledApps:(BOOL)arg3 conditionally:(BOOL)arg4 hadUnadoptedApps:(out char *)arg5;
 - (id)iconForApplicationWithBundeID:(id)arg1;
 - (id)bundleInfoFromBundleAtPath:(id)arg1;
 - (BOOL)isTrialVersionOfBundleIdentifier:(id)arg1;
 - (id)receiptFromBundleAtPath:(id)arg1;
 - (id)productForPath:(id)arg1;
+
 - (NSArray<CKSoftwareProduct *>* __nullable)allProducts;
 - (CKSoftwareProduct *)productForItemIdentifier:(unsigned long long)arg1;
 - (nullable CKSoftwareProduct *)productForBundleIdentifier:(NSString *)arg1;
-- (void)removeProductsObserver:(id)arg1;
-//- (id)addProductsObserver:(CDUnknownBlockType)arg1 queue:(id)arg2;
-- (id)initWithStoreClient:(id)arg1;
+
+- (void)removeProductsObserverForToken:(id)arg1;
+
+// - (id)addProductsObserver:(CDUnknownBlockType)arg1 queue:(id)arg2;
+
+- (void)connectionWasInterrupted;
+
+- (instancetype)initWithStoreClient:(id)arg1;
 
 @end
 

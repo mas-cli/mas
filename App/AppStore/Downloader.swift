@@ -16,7 +16,7 @@ func download(_ adamId: UInt64) -> MASError? {
     let purchase = SSPurchase(adamId: adamId, account: account)
     
     var purchaseError: MASError?
-    var observerIdentifier: Any? = nil
+    var observerIdentifier: CKDownloadQueueObserver? = nil
     
     group.enter()
     purchase.perform { purchase, _, error, response in
@@ -39,7 +39,7 @@ func download(_ adamId: UInt64) -> MASError? {
             }
 
             let downloadQueue = CKDownloadQueue.shared()
-            observerIdentifier = downloadQueue?.add(observer)
+            observerIdentifier = downloadQueue.add(observer)
         }
         else {
             print("No downloads")
@@ -51,7 +51,7 @@ func download(_ adamId: UInt64) -> MASError? {
     let _ = group.wait(timeout: .distantFuture)
     
     if let observerIdentifier = observerIdentifier {
-        CKDownloadQueue.shared().removeObserver(observerIdentifier)
+        CKDownloadQueue.shared().remove(observerIdentifier)
     }
 
     return purchaseError
