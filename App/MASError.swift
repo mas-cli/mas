@@ -30,7 +30,7 @@ enum MASError: Error, CustomStringConvertible {
         case .signInDisabled:
             return "The 'signin' command has been disabled on this macOS version. " +
                 "\nFor more info see: " +
-                "https://github.com/mas-cli/mas/issues/107"
+                "https://github.com/mas-cli/mas/pull/162"
 
         case .signInFailed(let error):
             if let error = error {
