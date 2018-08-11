@@ -111,13 +111,14 @@
 		EDEAA1511B5C576D00F2FC3F /* CKServiceInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKServiceInterface.h; sourceTree = "<group>"; };
 		EDEAA1521B5C576D00F2FC3F /* CKSoftwareMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKSoftwareMap.h; sourceTree = "<group>"; };
 		EDEAA1551B5C576D00F2FC3F /* CKUpdateController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKUpdateController.h; sourceTree = "<group>"; };
-		EDEAA1661B5C576D00F2FC3F /* ISStoreURLOperationDelegate-Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ISStoreURLOperationDelegate-Protocol.h"; sourceTree = "<group>"; };
 		EDEAA17C1B5C579100F2FC3F /* CommerceKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CommerceKit.framework; path = /System/Library/PrivateFrameworks/CommerceKit.framework; sourceTree = "<absolute>"; };
 		F8233C87201EBDF000268278 /* mas-tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mas-tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8233C8B201EBDF100268278 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F865880A2030F6DE0093DE57 /* MASErrorTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MASErrorTestCase.swift; sourceTree = "<group>"; };
 		F876BB4A20ED717800EB9FD1 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		FC1AE3BA07E7DEC5CED36469 /* Pods-mas-tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mas-tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-mas-tests/Pods-mas-tests.debug.xcconfig"; sourceTree = "<group>"; };
+		F86EBF2E2077214100C0976E /* ISStoreURLOperationDelegate-Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ISStoreURLOperationDelegate-Protocol.h"; sourceTree = "<group>"; };
+		F876300720438AF2003D370B /* ISAuthenticationResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISAuthenticationResponse.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,8 +127,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				EDEAA17D1B5C579100F2FC3F /* CommerceKit.framework in Frameworks */,
-				EDEAA0C01B51CE6200F2FC3F /* StoreFoundation.framework in Frameworks */,
 				4762DDE207E8A2231553B32D /* libPods-mas.a in Frameworks */,
+				EDEAA0C01B51CE6200F2FC3F /* StoreFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,10 +146,10 @@
 		10DC3EEDF21809022F0EBF72 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				09C9EDFF416F0BDAC1E7F77A /* Pods-mas.debug.xcconfig */,
-				21AF31A18424A9AC0333ECB1 /* Pods-mas.release.xcconfig */,
 				FC1AE3BA07E7DEC5CED36469 /* Pods-mas-tests.debug.xcconfig */,
 				5A69175AC7646DE30D1F20C9 /* Pods-mas-tests.release.xcconfig */,
+				09C9EDFF416F0BDAC1E7F77A /* Pods-mas.debug.xcconfig */,
+				21AF31A18424A9AC0333ECB1 /* Pods-mas.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -159,9 +160,9 @@
 				ED031A7A1B5127C00097692E /* App */,
 				F8233C88201EBDF100268278 /* AppTests */,
 				EDFC76381B642A2E00D0DBD7 /* Frameworks */,
+				10DC3EEDF21809022F0EBF72 /* Pods */,
 				EDEAA0C11B51CEBD00F2FC3F /* PrivateHeaders */,
 				ED031A791B5127C00097692E /* Products */,
-				10DC3EEDF21809022F0EBF72 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -238,6 +239,7 @@
 				ED1EF94E1BA6BBBF0075453C /* CKUpdate.h */,
 				EDC90B621C6FF50B0019E396 /* ISAccountService-Protocol.h */,
 				EDE2964F1C700B0300554778 /* ISAuthenticationContext.h */,
+				F876300720438AF2003D370B /* ISAuthenticationResponse.h */,
 				ED1EF94F1BA6BBBF0075453C /* ISOperationDelegate-Protocol.h */,
 				ED1EF9501BA6BBBF0075453C /* ISServiceProxy.h */,
 				EDE296501C700B0300554778 /* ISServiceRemoteObject-Protocol.h */,
@@ -263,7 +265,7 @@
 				EDEAA1511B5C576D00F2FC3F /* CKServiceInterface.h */,
 				EDEAA1521B5C576D00F2FC3F /* CKSoftwareMap.h */,
 				EDEAA1551B5C576D00F2FC3F /* CKUpdateController.h */,
-				EDEAA1661B5C576D00F2FC3F /* ISStoreURLOperationDelegate-Protocol.h */,
+				F86EBF2E2077214100C0976E /* ISStoreURLOperationDelegate-Protocol.h */,
 			);
 			path = CommerceKit;
 			sourceTree = "<group>";
@@ -273,9 +275,9 @@
 			children = (
 				F876BB4A20ED717800EB9FD1 /* Cocoa.framework */,
 				EDEAA17C1B5C579100F2FC3F /* CommerceKit.framework */,
-				EDEAA0BF1B51CE6200F2FC3F /* StoreFoundation.framework */,
-				29090AA87DC29A23FA933D23 /* libPods-mas.a */,
 				E699853CA22F704500D0F018 /* libPods-mas-tests.a */,
+				29090AA87DC29A23FA933D23 /* libPods-mas.a */,
+				EDEAA0BF1B51CE6200F2FC3F /* StoreFoundation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

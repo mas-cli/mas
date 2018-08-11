@@ -13,13 +13,17 @@ struct SignInCommand: CommandProtocol {
     typealias Options = SignInOptions
     let verb = "signin"
     let function = "Sign in to the Mac App Store"
-    
+
     func run(_ options: Options) -> Result<(), MASError> {
-        
+
+        if #available(macOS 10.13, *) {
+            return .failure(.signInDisabled)
+        }
+
         guard ISStoreAccount.primaryAccount == nil else {
             return .failure(.alreadySignedIn)
         }
-        
+
         do {
             printInfo("Signing in to Apple ID: \(options.username)")
             
@@ -42,17 +46,17 @@ struct SignInCommand: CommandProtocol {
 struct SignInOptions: OptionsProtocol {
     let username: String
     let password: String
-    
-    let dialog:   Bool
-    
+
+    let dialog: Bool
+
     typealias ClientError = MASError
-    
+
     static func create(username: String) -> (_ password: String) -> (_ dialog: Bool) -> SignInOptions {
         return { password in { dialog in
             return SignInOptions(username: username, password: password, dialog: dialog)
         }}
     }
-    
+
     static func evaluate(_ m: CommandMode) -> Result<SignInOptions, CommandantError<MASError>> {
         return create
             <*> m <| Argument(usage: "Apple ID")
