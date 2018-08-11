@@ -20,13 +20,11 @@ extension ISStoreAccount {
 
             let accountService: ISAccountService = ISServiceProxy.genericShared().accountService
             accountService.primaryAccount { (storeAccount: ISStoreAccount) in
-                print(storeAccount)
                 account = storeAccount
-
                 group.leave()
             }
 
-            let _ = group.wait(timeout: .now() + 30)
+            _ = group.wait(timeout: .now() + 30)
         } else {
             // macOS 10.9-10.12
             let accountStore = CKAccountStore.shared()
