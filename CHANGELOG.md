@@ -7,8 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-- ⛔ Disable `signin` command on macOS 10.13 and greater
-- 🐛 Fix `signout` command
+- ⛔ Disable `signin` command on macOS 10.13+ #162
+- 🐛 Fix `signout` command #162
 - ➖ CocoaSeeds #155
 - ➕🍫 CocoaPods (1.5.3) #155
 - 🛠 Xcode 9.4 #153
