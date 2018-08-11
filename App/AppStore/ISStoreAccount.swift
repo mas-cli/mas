@@ -19,7 +19,7 @@ extension ISStoreAccount {
         guard let username = username, let password = password else { fatalError() }
 
         var account: ISStoreAccount? = nil
-        var error: MASError? = nil
+        let error: MASError? = nil
 
         let accountService: ISAccountService = ISServiceProxy.genericShared().accountService
         let client = ISStoreClient(storeClientType: 0)
