@@ -12,7 +12,28 @@ extension ISStoreAccount {
     }
 
     static var primaryAccount: ISStoreAccount? {
-        return CKAccountStore.shared().primaryAccount
+        var account: ISStoreAccount?
+
+        if #available(macOS 10.13, *) {
+            let group = DispatchGroup()
+            group.enter()
+
+            let accountService: ISAccountService = ISServiceProxy.genericShared().accountService
+            accountService.primaryAccount { (storeAccount: ISStoreAccount) in
+                print(storeAccount)
+                account = storeAccount
+
+                group.leave()
+            }
+
+            let _ = group.wait(timeout: .now() + 30)
+        } else {
+            // macOS 10.9-10.12
+            let accountStore = CKAccountStore.shared()
+            account = accountStore.primaryAccount
+        }
+
+        return account
     }
 
     static func signIn(username: String, password: String, systemDialog: Bool = false) throws -> ISStoreAccount {
