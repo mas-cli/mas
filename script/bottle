@@ -1,0 +1,10 @@
+#!/bin/bash -ex
+#
+# script/bottle
+# mas
+#
+# Builds bottles of Homebrew formula.
+#
+
+brew install --build-bottle mas
+brew bottle --verbose --no-rebuild --root-url=https://dl.bintray.com/phatblat/mas-bottles mas
