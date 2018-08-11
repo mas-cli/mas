@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+
+
+## [v1.4.2] - 2018-08-11
+
 - ⛔ Disable `signin` command on macOS 10.13+ #162
 - 🐛 Fix `signout` command #162
 - ➖ CocoaSeeds #155
@@ -98,7 +102,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [v1.0.0] - 2015-09-20
 - Initial Release
 
-[Unreleased]: https://github.com/mas-cli/mas/compare/v1.4.1...HEAD
+[Unreleased]: https://github.com/mas-cli/mas/compare/v1.4.2...HEAD
+[v1.4.2]: https://github.com/mas-cli/mas/compare/v1.4.1...v1.4.2
 [v1.4.1]: https://github.com/mas-cli/mas/compare/v1.4.0...v1.4.1
 [v1.4.0]: https://github.com/mas-cli/mas/compare/v1.3.1...v1.4.0
 [v1.3.1]: https://github.com/mas-cli/mas/compare/v1.3.0...v1.3.1
