@@ -40,31 +40,6 @@ extension ISStoreAccount {
         let group = DispatchGroup()
         group.enter()
 
-        accountService.account(withAppleID: username) { (storeAccount: ISStoreAccount?) in
-            if let _account = storeAccount {
-                debugPrint("ISStoreAccount: \(String(describing: _account))")
-                _account.password = password
-                accountService.add(_account)
-//                let response = ISAuthenticationResponse()
-//                response.accountIdentifier = username
-//                accountService.addAccount(with: response, makePrimary: true) { (storeAccount: ISStoreAccount?) in
-//                    if let _account = storeAccount {
-//                        account = _account
-//                    }
-//                }
-                account = _account
-
-                let accountStore = CKAccountStore.shared()
-                accountStore.addAccount(_account)
-                accountStore.signIn()
-                debugPrint("ISStoreAccount: \(String(describing: _account))")
-            } else {
-                // TODO: Handle failed AppleID lookup
-                print("No account found for username: \(username)")
-            }
-            group.leave()
-        }
-
         // Only works on macOS Sierra and below
         accountService.signIn(with: context) { success, _account, _error in
             if success {
