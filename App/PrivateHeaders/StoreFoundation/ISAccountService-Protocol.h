@@ -44,6 +44,11 @@ NS_ASSUME_NONNULL_BEGIN
 // - (void)parseCreditStringForProtocol:(NSDictionary *)arg1;
 
 - (void)signOut;
+
+// This method was removed in macOS High Sierra
+// https://github.com/mas-cli/mas/issues/107
+- (void)signInWithContext:(ISAuthenticationContext * __nonnull)arg1 replyBlock:(void (^ __nonnull)(BOOL, ISStoreAccount * __nullable, NSError * __nullable))arg2 NS_DEPRECATED_MAC(10_9, 10.12);
+
 - (void)addAccount:(ISStoreAccount *)arg1;
 - (void)addAccountWithAuthenticationResponse:(ISAuthenticationResponse *)arg1 makePrimary:(BOOL)arg2 replyBlock:(void (^)(ISStoreAccount *))arg3;
 - (void)accountWithAppleID:(NSString *)arg1 replyBlock:(void (^)(ISStoreAccount *))arg2;
