@@ -57,10 +57,10 @@ jobs:
         # "automatic releases for mas-cli/mas" personal access token on @phatblat with scopes:
         # - public_repo
         secure: HMlaLttliCMwJRbJvo2Ddme1OKekPWfxN99SWRjnVTDzJPlLiqWd1KyvEJPHBxlMv5pZ2LnDE9U2iFrB9W/UR9DJ+JHFiyuBdIr9V6RuvFpObGDXQ+v4LMc5q+kt+2rpq3U4kAcbR0QgZR0hc/jrGCjRWRRNEEm1APrh0MnbeN17aaUX+go+zNAvA/+m8fUHe2XwMd3HBg0vtHMB/tJGhAZC26bXGsT5wYaY1oEWUbAlBFB+hHCaCGjOOUySoElrTRGocO3D4U6LpNlSSQrEYTrvMxjPFrwDAfdzxVyoMP4Au1Sv8sYs2DCNdZnOVPW9s4KHYcDMjdDHcSPg2c63NgxyYkzaYncIjhruAL1IKb3COYiz6G0ldrLuAsp62VX8+Ul72ykiM54H5yp7ESJhHVipqTJs+7l6ChCkErW8PNsBTWXufwO+N9Qs1F4ZsdA0m9+1lqqAoc+8zSDnTchSimujLEQsNAlC590Oka7EK0rtCgFJfvPlEfLazd/weXsN9wohsnw78O/+qrwJaPJgYM9sxhLJMRGXUCzknEFIs292vDSObfGbPF81I9OhuI3Vy9jXvApnSVhGXR2VGfjBBK6lGY0q6xbvnadirRzu3e/qo6GEXNQI/S2gJoZDsU6plXXoPi4dL+ZV/X/+w/ePUSfBc4WBgW6lJogvdWqiTzo=
-      file:
-      - mas-cli.zip
-      - mas.xcarchive.zip
+      file_glob: true
+      file: build/*.zip
       skip_cleanup: true
       on:
         repo: mas-cli/mas
         tags: true
+      # TODO: add name, body content to release https://docs.travis-ci.com/user/deployment/releases/#advanced-options
