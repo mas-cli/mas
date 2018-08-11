@@ -15,9 +15,7 @@ extension ISStoreAccount {
         return CKAccountStore.shared().primaryAccount
     }
 
-    static func signIn(username: String? = nil, password: String? = nil, systemDialog: Bool = false) throws -> ISStoreAccount {
-        guard let username = username, let password = password else { fatalError() }
-
+    static func signIn(username: String, password: String, systemDialog: Bool = false) throws -> ISStoreAccount {
         var account: ISStoreAccount? = nil
         var error: MASError? = nil
 
