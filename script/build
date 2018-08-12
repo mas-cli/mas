@@ -16,9 +16,10 @@ main() {
   build
 
   # If this is a tagged build we are going to release
-  if [[ ! -z $TRAVIS_TAG ]]; then
+#   TEMP: Generate archive on all builds
+#   if [[ ! -z $TRAVIS_TAG ]]; then
     archive
-  fi
+#   fi
 }
 
 build() {

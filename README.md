@@ -26,7 +26,8 @@ applications and their product identifiers.
     497799835 Xcode
 
 It is possible to search for applications by name using `mas search` which
-will search the Mac App Store and return matching identifiers
+will search the Mac App Store and return matching identifiers.
+Include the `--price` flag to include prices in the result.
 
     $ mas search Xcode
     497799835 Xcode
@@ -41,7 +42,14 @@ application identifier:
     ==> Downloading PaintCode 2
     ==> Installed PaintCode 2
 
-> Please note that this command will not allow you to install (or even purchase) an app for the first time: it must already be in the Purchased tab of the App Store.
+If you want to install the first result that the `search` command returns, use the `lucky` command.
+
+     $ mas lucky twitter
+     ==> Downloading Twitter
+     ==> Installed Twitter
+
+> Please note that this command will not allow you to install (or even purchase) an app for the first time:
+it must already be in the Purchased tab of the App Store.
 
 Use `mas outdated` to list all applications with pending updates.
 
@@ -49,13 +57,9 @@ Use `mas outdated` to list all applications with pending updates.
     497799835 Xcode (7.0)
     446107677 Screens VNC - Access Your Computer From Anywhere (3.6.7)
 
-   If you want to install the first result that the `search` command would prompt you:
-
-     $ mas lucky twitter
-     ==> Downloading Twitter
-     ==> Installed Twitter
-
-> `mas` is only able to install/update applications that are listed in the Mac App Store itself. Use [`softwareupdate(8)`](https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man8/softwareupdate.8.html) utility for downloading system updates (like iTunes, Xcode Command Line Tools, etc)
+> `mas` is only able to install/update applications that are listed in the Mac App Store itself.
+Use [`softwareupdate(8)`](https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man8/softwareupdate.8.html)
+utility for downloading system updates (like iTunes, Xcode Command Line Tools, etc)
 
 To install all pending updates run `mas upgrade`.
 
@@ -76,16 +80,22 @@ Updates can be performed selectively by providing the app identifier(s) to
     ==> Downloading Xcode
     ==> Installed Xcode
 
+### Signin
+
 To sign into the Mac App Store for the first time run `mas signin`.
 
     $ mas signin mas@example.com
     ==> Signing in to Apple ID: mas@example.com
     Password:
 
+> ⚠️ Due to breaking changes in the underlying API that mas uses to interact with the Mac App Store,
+> the `signin` command has been temporarily disabled on macOS 10.13+ ⛔.
+> For more information on this issue, see [#164](https://github.com/mas-cli/mas/issues/164).
+
 If you experience issues signing in this way, you can ask to signin using a graphical dialog (provided by Mac App Store application):
->
->     $ mas signin --dialog mas@example.com
->     ==> Signing in to Apple ID: mas@example.com
+
+     $ mas signin --dialog mas@example.com
+     ==> Signing in to Apple ID: mas@example.com
 
 You can also embed your password in the command.
 
@@ -96,7 +106,9 @@ Use `mas signout` to sign out from the Mac App Store.
 
 ## Homebrew integration
 
-`mas` is integrated with [homebrew-bundle](https://github.com/Homebrew/homebrew-bundle). If `mas` is installed, and you run `brew bundle dump`, then your Mac App Store apps will be included in the Brewfile created. See the [homebrew-bundle](https://github.com/Homebrew/homebrew-bundle) docs for more details.
+`mas` is integrated with [homebrew-bundle](https://github.com/Homebrew/homebrew-bundle). If `mas` is installed, and you run `brew bundle dump`,
+then your Mac App Store apps will be included in the Brewfile created. See the [homebrew-bundle](https://github.com/Homebrew/homebrew-bundle)
+docs for more details.
 
 ## When something doesn't work
 

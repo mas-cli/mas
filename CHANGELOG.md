@@ -7,14 +7,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-- ⛔ Disable `signin` command on macOS 10.13+ #162
-- 🐛 Fix `signout` command #162
+
+
+## [v1.4.2] - 2018-08-12
+
+- 🚏📥🙅🏻‍♀️ Disabled `signin` command on macOS 10.13+ #162
+  - An error is immediately returned instead of crashing on newer macOS versions.
+  - See #164 for updates on this issue.
+- 🐛 Fixed `signout` command #162
+- 🐛 Fixed `account` command #165
+- ✨ Added price to `search` command when `--price` flag specified #62, #148
+- 🎨 `search` output is now formatted in columns #148
 - ➖ CocoaSeeds #155
 - ➕🍫 CocoaPods (1.5.3) #155
 - 🛠 Xcode 9.4 #153
 - 🛠 Xcode 9.3 #141
-- 👷🏻‍♀️⚠️ Re-enable Danger #137
-- ✨ Add price to `search` command #62
+- 👷🏻‍♀️⚠️ Re-enabled Danger #137
 
 ## [v1.4.1] Stop Littering - 2018-02-18
 
@@ -98,7 +106,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [v1.0.0] - 2015-09-20
 - Initial Release
 
-[Unreleased]: https://github.com/mas-cli/mas/compare/v1.4.1...HEAD
+[Unreleased]: https://github.com/mas-cli/mas/compare/v1.4.2...HEAD
+[v1.4.2]: https://github.com/mas-cli/mas/compare/v1.4.1...v1.4.2
 [v1.4.1]: https://github.com/mas-cli/mas/compare/v1.4.0...v1.4.1
 [v1.4.0]: https://github.com/mas-cli/mas/compare/v1.3.1...v1.4.0
 [v1.3.1]: https://github.com/mas-cli/mas/compare/v1.3.0...v1.3.1
