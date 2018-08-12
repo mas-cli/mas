@@ -90,7 +90,7 @@ To sign into the Mac App Store for the first time run `mas signin`.
 
 > ⚠️ Due to breaking changes in the underlying API that mas uses to interact with the Mac App Store,
 > the `signin` command has been temporarily disabled on macOS 10.13+ ⛔.
-> For more information on this issue, see [#162](https://github.com/mas-cli/mas/pull/162).
+> For more information on this issue, see [#164](https://github.com/mas-cli/mas/issues/164).
 
 If you experience issues signing in this way, you can ask to signin using a graphical dialog (provided by Mac App Store application):
 
