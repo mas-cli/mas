@@ -9,18 +9,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 
-## [v1.4.2] - 2018-08-11
+## [v1.4.2] - 2018-08-12
 
-- ⛔ Disable `signin` command on macOS 10.13+ #162
-- 🐛 Fix `signout` command #162
-- 🐛 Fix `account` command
-- ✨ Add price to `search` command when `--price` flag specified #62, #148
-- 🎨 `search` output formatted in columns #148
+- 🚏📥🙅🏻‍♀️ Disabled `signin` command on macOS 10.13+ #162
+  - An error is immediately returned instead of crashing on newer macOS versions.
+  - See #164 for updates on this issue.
+- 🐛 Fixed `signout` command #162
+- 🐛 Fixed `account` command #165
+- ✨ Added price to `search` command when `--price` flag specified #62, #148
+- 🎨 `search` output is now formatted in columns #148
 - ➖ CocoaSeeds #155
 - ➕🍫 CocoaPods (1.5.3) #155
 - 🛠 Xcode 9.4 #153
 - 🛠 Xcode 9.3 #141
-- 👷🏻‍♀️⚠️ Re-enable Danger #137
+- 👷🏻‍♀️⚠️ Re-enabled Danger #137
 
 ## [v1.4.1] Stop Littering - 2018-02-18
 
