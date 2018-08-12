@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 
-## [v1.4.2] - 2018-08-12
+## [v1.4.2] - Sign-In Disabled - 2018-08-12
 
 - 🚏📥🙅🏻‍♀️ Disabled `signin` command on macOS 10.13+ #162
   - An error is immediately returned instead of crashing on newer macOS versions.
