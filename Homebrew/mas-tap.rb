@@ -26,7 +26,8 @@ class Mas < Formula
     system "bundle", "exec", "pod", "install"
 
     xcodebuild "-workspace", "mas-cli.xcworkspace",
-               "-scheme", "mas-cli Release"
+               "-scheme", "mas-cli Release",
+               "SYMROOT=build"
     bin.install "build/mas"
 
     bash_completion.install "contrib/completion/mas-completion.bash" => "mas"
