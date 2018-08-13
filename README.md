@@ -6,7 +6,9 @@ A simple command line interface for the Mac App Store. Designed for scripting an
 
 [![Build Status](https://travis-ci.org/mas-cli/mas.svg?branch=master)](https://travis-ci.org/mas-cli/mas)
 
-## Install
+## 📲 Install
+
+### 🍺 Homebrew
 
 [Homebrew](http://brew.sh) is the preferred way to install:
 
@@ -80,7 +82,7 @@ Updates can be performed selectively by providing the app identifier(s) to
     ==> Downloading Xcode
     ==> Installed Xcode
 
-### Signin
+### 🚏📥 Sign-in
 
 To sign into the Mac App Store for the first time run `mas signin`.
 
@@ -104,19 +106,19 @@ You can also embed your password in the command.
 
 Use `mas signout` to sign out from the Mac App Store.
 
-## Homebrew integration
+## 🍺 Homebrew integration
 
 `mas` is integrated with [homebrew-bundle](https://github.com/Homebrew/homebrew-bundle). If `mas` is installed, and you run `brew bundle dump`,
 then your Mac App Store apps will be included in the Brewfile created. See the [homebrew-bundle](https://github.com/Homebrew/homebrew-bundle)
 docs for more details.
 
-## When something doesn't work
+## 💥 When something doesn't work
 
 If you see the error "This redownload is not available for this Apple ID either because it was bought by a different user of the item was refunded or cancelled.", it's probably because you haven't installed the app through the App Store yet. See [#46](https://github.com/mas-cli/mas/issues/46#issuecomment-248581233).
 
 If `mas` doesn't work for you as expected (e.g. you can't update/download apps), run `mas reset` and try again. If the issue persists, please [file a bug](https://github.com/mas-cli/mas/issues/new)! All your feedback is much appreciated ✨
 
-## Using `tmux`
+## 📺 Using `tmux`
 
 `mas` operates via the same system services as the Mac App Store. These exist as
 separate processes with communication through XPC. As a result of this, `mas`
@@ -132,7 +134,7 @@ $ brew install reattach-to-user-namespace
 $ reattach-to-user-namespace mas install
 ```
 
-## Build from source
+## ℹ️ Build from source
 
 You can now build from Xcode by opening `mas-cli.xcodeproj`, or from the Terminal:
 
@@ -154,7 +156,7 @@ The tests in this project are a work-in-progress. Since Xcode does not officiall
 
 We may move the app code into a framework target to make it easier to test.
 
-## License
+## 📄 License
 
 mas-cli was created by [@argon](https://github.com/argon).
 Code is under the [MIT license](LICENSE).
