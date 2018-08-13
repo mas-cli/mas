@@ -14,9 +14,30 @@ A simple command line interface for the Mac App Store. Designed for scripting an
 
     brew install mas
 
+### ☎️ Older macOS Versions
+
+Macs running macOS 10.11 (El Capitan) or lower will not be able to install mas from the default homebrew-core tap.
+This project requires at least macOS 10.12 to build and Homebrew does not provide bottles for versions older
+than the minimum supported by the project.
+
+We provide a [custom tap](https://github.com/mas-cli/homebrew-tap) with pre-built bottles for all macOS versions
+since 10.9 (the Xcode project deployment target).
+
+#### 😴 TL;DR
+
+Just run these commands:
+
+```
+$ brew tap mas-cli/tap
+$ brew tap-pin mas-cli/tap
+$ brew install mas
+```
+
+### 🐙 GitHub Releases
+
 Alternatively, binaries are available in the [GitHub Releases](https://github.com/mas-cli/mas/releases)
 
-## Usage
+## 🤳🏻 Usage
 
 Each application in the Mac App Store has a product identifier which is also
 used for mas-cli commands. Using `mas list` will show all installed
