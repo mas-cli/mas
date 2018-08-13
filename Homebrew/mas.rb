@@ -29,6 +29,17 @@ class Mas < Formula
     bash_completion.install "contrib/completion/mas-completion.bash" => "mas"
   end
 
+  def caveats; <<~EOS
+    This core formula cannot be built on macOS 10.11 or older.
+
+    Bottles for all supported macOS versions can be found on our custom tap:
+
+    brew tap mas-cli/tap && brew tap-pin mas-cli/tap
+
+    https://github.com/mas-cli/homebrew-tap
+  EOS
+  end
+
   test do
     assert_equal version.to_s, shell_output("#{bin}/mas version").chomp
   end
