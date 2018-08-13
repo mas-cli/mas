@@ -14,10 +14,15 @@ class Mas < Formula
   depends_on :xcode => ["9.0", :build]
 
   def install
-    xcodebuild "-project", "mas-cli.xcodeproj",
-               "-scheme", "mas-cli Release",
-               "-configuration", "Release",
-               "SYMROOT=build"
+    # Install bundler, then use it to install gems used by project
+    ENV["GEM_HOME"] = buildpath/"gem_home"
+    system "gem", "install", "bundler"
+    ENV.prepend_path "PATH", buildpath/"gem_home/bin"
+    system "bundle", "install"
+    system "bundle", "exec", "pod", "install"
+
+    xcodebuild "-workspace", "mas-cli.xcworkspace",
+               "-scheme", "mas-cli Release"
     bin.install "build/mas"
 
     bash_completion.install "contrib/completion/mas-completion.bash" => "mas"
