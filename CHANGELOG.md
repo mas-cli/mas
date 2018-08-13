@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - 🐛 Fixed `account` command #165
 - ✨ Added price to `search` command when `--price` flag specified #62, #148
 - 🎨 `search` output is now formatted in columns #148
+- 📺 Added simple bash completion #157
 - ➖ CocoaSeeds #155
 - ➕🍫 CocoaPods (1.5.3) #155
 - 🛠 Xcode 9.4 #153
