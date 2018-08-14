@@ -4,7 +4,7 @@
 
 A simple command line interface for the Mac App Store. Designed for scripting and automation.
 
-[![Build Status](https://travis-ci.org/mas-cli/mas.svg?branch=master)](https://travis-ci.org/mas-cli/mas)
+[![Build Status](https://travis-ci.com/mas-cli/mas.svg?branch=master)](https://travis-ci.com/mas-cli/mas)
 
 ## Install
 
