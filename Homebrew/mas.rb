@@ -12,8 +12,12 @@ class Mas < Formula
   end
 
   depends_on :xcode => ["9.0", :build]
+  depends_on "ruby" => :build if MacOS.version <= :sierra
 
   def install
+    # Pre-install a shallow copy of the CocoaPods master repo
+    system "git", "clone", "--depth", "1", "https://github.com/CocoaPods/Specs.git", File.expand_path("~/.cocoapods/repos/master")
+
     # Install bundler, then use it to install gems used by project
     ENV["GEM_HOME"] = buildpath/"gem_home"
     system "gem", "install", "bundler"
@@ -23,21 +27,11 @@ class Mas < Formula
 
     xcodebuild "-workspace", "mas-cli.xcworkspace",
                "-scheme", "mas-cli Release",
-               "SYMROOT=build"
-    bin.install "build/mas"
+               "SYMROOT=#{buildpath.realpath}"
+
+    bin.install buildpath/"build/mas"
 
     bash_completion.install "contrib/completion/mas-completion.bash" => "mas"
-  end
-
-  def caveats; <<~EOS
-    This core formula cannot be built on macOS 10.11 or older.
-
-    Bottles for all supported macOS versions can be found on our custom tap:
-
-    brew tap mas-cli/tap && brew tap-pin mas-cli/tap
-
-    https://github.com/mas-cli/homebrew-tap
-  EOS
   end
 
   test do
