@@ -15,9 +15,17 @@ class Mas < Formula
     sha256 "a99d0d7baecf45a00787365a2a078ae94068a0c63012e87f92282efb120e586e" => :yosemite
   end
 
-  depends_on :xcode => ["9.0", :build]
+  depends_on :xcode => ["9.3", :build]
+
+  resource "cocoapods" do
+    url "https://dl.bintray.com/phatblat/mas-bottles/master.tar.gz"
+    sha256 "fd8f1b06a2a0276c9005241b45cc19393b7c39cfc91d08da92a307ea2416e966"
+  end
 
   def install
+    # Pre-install a shallow copy of the CocoaPods master repo
+    (buildpath/".brew_home/.cocoapods/repos/master").install resource("cocoapods")
+
     # Install bundler, then use it to install gems used by project
     ENV["GEM_HOME"] = buildpath/"gem_home"
     system "gem", "install", "bundler"
@@ -27,8 +35,9 @@ class Mas < Formula
 
     xcodebuild "-workspace", "mas-cli.xcworkspace",
                "-scheme", "mas-cli Release",
-               "SYMROOT=build"
-    bin.install "build/mas"
+               "SYMROOT=#{buildpath.realpath}"
+
+    bin.install buildpath/"build/mas"
 
     bash_completion.install "contrib/completion/mas-completion.bash" => "mas"
   end

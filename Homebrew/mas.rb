@@ -11,12 +11,16 @@ class Mas < Formula
     sha256 "af5be6aa9902d9cfc2aa69dbf313441a7c201463d516face721f900ceae9556b" => :sierra
   end
 
-  depends_on :xcode => ["9.0", :build]
-  depends_on "ruby" => :build if MacOS.version <= :sierra
+  depends_on :xcode => ["9.3", :build]
+
+  resource "cocoapods" do
+    url "https://dl.bintray.com/phatblat/mas-bottles/master.tar.gz"
+    sha256 "fd8f1b06a2a0276c9005241b45cc19393b7c39cfc91d08da92a307ea2416e966"
+  end
 
   def install
     # Pre-install a shallow copy of the CocoaPods master repo
-    system "git", "clone", "--depth", "1", "https://github.com/CocoaPods/Specs.git", File.expand_path("~/.cocoapods/repos/master")
+    (buildpath/".brew_home/.cocoapods/repos/master").install resource("cocoapods")
 
     # Install bundler, then use it to install gems used by project
     ENV["GEM_HOME"] = buildpath/"gem_home"
