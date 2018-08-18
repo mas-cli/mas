@@ -16,12 +16,9 @@ A simple command line interface for the Mac App Store. Designed for scripting an
 
 ### ☎️ Older macOS Versions
 
-Macs running macOS 10.11 (El Capitan) or lower will not be able to install mas from the default homebrew-core tap.
-This project requires at least macOS 10.12 to build and Homebrew does not provide bottles for versions older
-than the minimum supported by the project.
-
-We provide a [custom tap](https://github.com/mas-cli/homebrew-tap) with pre-built bottles for all macOS versions
-since 10.9 (the Xcode project deployment target).
+macOS 10.13 (High Sierra) is required to install mas from the core Homebrew formula.
+We provide a [custom Homebrew tap](https://github.com/mas-cli/homebrew-tap) with pre-built bottles
+for all macOS versions since 10.9.
 
 #### 😴 TL;DR
 
