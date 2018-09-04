@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+. ~/.swiftenv/init
+rake test:swiftpm

@@ -1,0 +1,182 @@
+#!/usr/bin/env sh
+REMOTE_BRANCH=master
+POD_NAME=Quick
+PODSPEC=Quick.podspec
+
+POD=${COCOAPODS:-pod}
+
+function help {
+    echo "Usage: release VERSION RELEASE_NOTES [-f]"
+    echo
+    echo "VERSION should be the version to release, should not include the 'v' prefix"
+    echo "RELEASE_NOTES should be a file that lists all the release notes for this version"
+    echo "              if file does not exist, creates a git-style commit with a diff as a comment"
+    echo
+    echo "FLAGS"
+    echo "  -f  Forces override of tag"
+    echo
+    echo "  Example: ./release 1.0.0-rc.2 ./release-notes.txt"
+    echo
+    echo "HINT: use 'git diff <PREVIOUS_TAG>...HEAD' to build the release notes"
+    echo
+    exit 2
+}
+
+function die {
+    echo "[ERROR] $@"
+    echo
+    exit 1
+}
+
+if [ $# -lt 2 ]; then
+    help
+fi
+
+VERSION=$1
+RELEASE_NOTES=$2
+FORCE_TAG=$3
+
+VERSION_TAG="v$VERSION"
+
+echo "-> Verifying Local Directory for Release"
+
+if [ -z "`which $POD`" ]; then
+    die "Cocoapods is required to produce a release. Aborting."
+fi
+echo " > Cocoapods is installed"
+
+echo " > Is this a reasonable tag?"
+
+echo $VERSION_TAG | grep -q "^vv"
+if [ $? -eq 0 ]; then
+    die "This tag ($VERSION) is an incorrect format. You should remove the 'v' prefix."
+fi
+
+echo $VERSION_TAG | grep -q -E "^v\d+\.\d+\.\d+(-\w+(\.\d)?)?\$"
+if [ $? -ne 0 ]; then
+    die "This tag ($VERSION) is an incorrect format. It should be in 'v{MAJOR}.{MINOR}.{PATCH}(-{PRERELEASE_NAME}.{PRERELEASE_VERSION})' form."
+fi
+
+echo " > Is this version ($VERSION) unique?"
+git describe --exact-match "$VERSION_TAG" > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    if [ -z "$FORCE_TAG" ]; then
+        die "This tag ($VERSION) already exists. Aborting. Append '-f' to override"
+    else
+        echo " > NO, but force was specified."
+    fi
+else
+    echo " > Yes, tag is unique"
+fi
+
+if [ ! -f "$RELEASE_NOTES" ]; then
+    echo " > Failed to find $RELEASE_NOTES. Prompting editor"
+    RELEASE_NOTES=.release-changes
+    LATEST_TAG=`git for-each-ref refs/tags --sort=-refname --format="%(refname:short)" | grep -E "^v\d+\.\d+\.\d+(-\w+(\.\d)?)?\$" | ruby -e 'puts STDIN.read.split("\n").sort { |a,b| Gem::Version.new(a.gsub(/^v/, "")) <=> Gem::Version.new(b.gsub(/^v/, "")) }.last'`
+    echo " > Latest tag ${LATEST_TAG}"
+    echo "${POD_NAME} v$VERSION" > $RELEASE_NOTES
+    echo "================" >> $RELEASE_NOTES
+    echo >> $RELEASE_NOTES
+    echo "# Changelog from ${LATEST_TAG}..HEAD" >> $RELEASE_NOTES
+    git log ${LATEST_TAG}..HEAD | sed -e 's/^/# /' >> $RELEASE_NOTES
+    $EDITOR $RELEASE_NOTES
+    diff -q $RELEASE_NOTES ${RELEASE_NOTES}.backup > /dev/null 2>&1
+    STATUS=$?
+    rm ${RELEASE_NOTES}.backup
+    if [ $STATUS -eq 0 ]; then
+        rm $RELEASE_NOTES
+        die "No changes in release notes file. Aborting."
+    fi
+fi
+echo " > Release notes: $RELEASE_NOTES"
+
+if [ ! -f "$PODSPEC" ]; then
+    die "Cannot find podspec: $PODSPEC. Aborting."
+fi
+echo " > Podspec exists"
+
+git config --get user.signingkey > /dev/null || {
+    echo "[ERROR] No PGP found to sign tag. Aborting."
+    echo
+    echo "  Creating a release requires signing the tag for security purposes. This allows users to verify the git cloned tree is from a trusted source."
+    echo "  From a security perspective, it is not considered safe to trust the commits (including Author & Signed-off fields). It is easy for any"
+    echo "  intermediate between you and the end-users to modify the git repository."
+    echo
+    echo "  While not all users may choose to verify the PGP key for tagged releases. It is a good measure to ensure 'this is an official release'"
+    echo "  from the official maintainers."
+    echo
+    echo "  If you're creating your PGP key for the first time, use RSA with at least 4096 bits."
+    echo
+    echo "Related resources:"
+    echo " - Configuring your system for PGP: https://git-scm.com/book/tr/v2/Git-Tools-Signing-Your-Work"
+    echo " - Why: http://programmers.stackexchange.com/questions/212192/what-are-the-advantages-and-disadvantages-of-cryptographically-signing-commits-a"
+    echo
+    exit 2
+}
+echo " > Found PGP key for git"
+
+# Verify cocoapods trunk ownership
+pod trunk me | grep -q "$POD_NAME" || die "You do not have access to pod repository $POD_NAME. Aborting."
+echo " > Verified ownership to $POD_NAME pod"
+
+
+echo "--- Releasing version $VERSION (tag: $VERSION_TAG)..."
+
+function restore_podspec {
+    if [ -f "${PODSPEC}.backup" ]; then
+        mv -f ${PODSPEC}{.backup,}
+    fi
+}
+
+echo "-> Ensuring no differences to origin/$REMOTE_BRANCH"
+git fetch origin || die "Failed to fetch origin"
+git diff --quiet HEAD "origin/$REMOTE_BRANCH" || die "HEAD is not aligned to origin/$REMOTE_BRANCH. Cannot update version safely"
+
+echo "-> Setting podspec version"
+cat "$PODSPEC" | grep 's.version' | grep -q "\"$VERSION\""
+SET_PODSPEC_VERSION=$?
+if [ $SET_PODSPEC_VERSION -eq 0 ]; then
+    echo " > Podspec already set to $VERSION. Skipping."
+else
+    sed -i.backup "s/s.version *= *\".*\"/s.version      = \"$VERSION\"/g" "$PODSPEC" || {
+        restore_podspec
+        die "Failed to update version in podspec"
+    }
+
+    git add ${PODSPEC} || { restore_podspec; die "Failed to add ${PODSPEC} to INDEX"; }
+    git commit -m "Bumping version to $VERSION" || { restore_podspec; die "Failed to push updated version: $VERSION"; }
+fi
+
+if [ -z "$FORCE_TAG" ]; then
+    echo "-> Tagging version"
+    git tag -s "$VERSION_TAG" -F "$RELEASE_NOTES" || die "Failed to tag version"
+    echo "-> Pushing tag to origin"
+    git push origin "$VERSION_TAG" || die "Failed to push tag '$VERSION_TAG' to origin"
+else
+    echo "-> Tagging version (force)"
+    git tag -f -s "$VERSION_TAG" -F "$RELEASE_NOTES" || die "Failed to tag version"
+    echo "-> Pushing tag to origin (force)"
+    git push origin "$VERSION_TAG" -f || die "Failed to push tag '$VERSION_TAG' to origin"
+fi
+
+if [ $SET_PODSPEC_VERSION -ne 0 ]; then
+    rm $RELEASE_NOTES
+    git push origin "$REMOTE_BRANCH" || die "Failed to push to origin"
+    echo " > Pushed version to origin"
+fi
+
+echo
+echo "Pushing to pod trunk..."
+
+$POD trunk push "$PODSPEC"
+
+echo
+echo "================ Finalizing the Release ================"
+echo
+echo " - Opening GitHub to mark this as a release..."
+echo "   - Paste the contents of $RELEASE_NOTES into the release notes. Tweak for Github styling."
+echo " - Announce!"
+
+open "https://github.com/Quick/Quick/releases/new?tag=$VERSION_TAG"
+
+rm ${PODSPEC}.backup

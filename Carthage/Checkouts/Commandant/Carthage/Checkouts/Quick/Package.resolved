@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Nimble",
+        "repositoryURL": "https://github.com/Quick/Nimble.git",
+        "state": {
+          "branch": null,
+          "revision": "21f4fed2052cea480f5f1d2044d45aa25fdfb988",
+          "version": "7.1.1"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

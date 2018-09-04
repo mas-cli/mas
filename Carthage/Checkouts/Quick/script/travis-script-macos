@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+if [ "$PODSPEC" ]; then
+  TASK="podspec:lint"
+else
+  TASK="test:$PLATFORM"
+fi
+
+echo "Executing rake task: $TASK"
+rake "$TASK"

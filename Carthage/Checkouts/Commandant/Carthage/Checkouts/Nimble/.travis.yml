@@ -1,0 +1,39 @@
+osx_image: xcode8.3
+language: generic
+matrix:
+  include:
+    - os: osx
+      sudo: required
+      env: TYPE=podspec
+    - os: osx
+      env: TYPE=ios NIMBLE_RUNTIME_IOS_SDK_VERSION=10.0
+    - os: osx
+      env: TYPE=tvos NIMBLE_RUNTIME_TVOS_SDK_VERSION=10.0
+    - os: osx
+      env: TYPE=macos
+    - os: osx
+      env: TYPE=macos
+      osx_image: xcode9
+    - os: osx
+      env: TYPE=swiftpm
+    - os: osx
+      env: TYPE=swiftpm
+      osx_image: xcode9
+    - os: linux
+      dist: trusty
+      sudo: required
+      env: TYPE=swiftpm
+      install:
+        - eval "$(curl -sL https://gist.githubusercontent.com/kylef/5c0475ff02b7c7671d2a/raw/9f442512a46d7a2af7b850d65a7e9bd31edfb09b/swiftenv-install.sh)"
+    - os: linux
+      dist: trusty
+      sudo: required
+      env:
+        - TYPE=swiftpm
+        - SWIFT_VERSION=4.0.2
+      install:
+        - eval "$(curl -sL https://gist.githubusercontent.com/kylef/5c0475ff02b7c7671d2a/raw/9f442512a46d7a2af7b850d65a7e9bd31edfb09b/swiftenv-install.sh)"
+install:
+  - if [[ "$TYPE" == "podspec" ]]; then sudo gem install bundler; bundle install; fi
+script:
+  - ./test $TYPE
