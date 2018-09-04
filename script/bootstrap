@@ -3,6 +3,8 @@
 main() {
   echo "==> 👢 Bootstrapping"
   bundle install
+  brew bundle
+  carthage bootstrap --platform macOS --cache-builds
 
   script/sort
 }

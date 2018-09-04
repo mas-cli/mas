@@ -1,0 +1,4 @@
+github "Carthage/Commandant" "0.15.0"
+github "Quick/Nimble" "v7.3.0"
+github "Quick/Quick" "v1.3.1"
+github "antitypical/Result" "4.0.0"
