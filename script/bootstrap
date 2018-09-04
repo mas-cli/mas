@@ -3,7 +3,6 @@
 main() {
   echo "==> 👢 Bootstrapping"
   bundle install
-  bundle exec pod install
 
   script/sort
 }
