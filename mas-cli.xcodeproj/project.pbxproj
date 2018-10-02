@@ -186,10 +186,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EDEAA17D1B5C579100F2FC3F /* CommerceKit.framework in Frameworks */,
-				EDEAA0C01B51CE6200F2FC3F /* StoreFoundation.framework in Frameworks */,
-				90CB4072213F4E020044E445 /* Result.framework in Frameworks */,
 				90CB4071213F4E000044E445 /* Commandant.framework in Frameworks */,
+				EDEAA17D1B5C579100F2FC3F /* CommerceKit.framework in Frameworks */,
+				90CB4072213F4E020044E445 /* Result.framework in Frameworks */,
+				EDEAA0C01B51CE6200F2FC3F /* StoreFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,10 +226,10 @@
 			children = (
 				ED031A7A1B5127C00097692E /* App */,
 				F8233C88201EBDF100268278 /* AppTests */,
+				90CB4068213F4DDD0044E445 /* Carthage */,
 				EDFC76381B642A2E00D0DBD7 /* Frameworks */,
 				EDEAA0C11B51CEBD00F2FC3F /* PrivateHeaders */,
 				ED031A791B5127C00097692E /* Products */,
-				90CB4068213F4DDD0044E445 /* Carthage */,
 			);
 			sourceTree = "<group>";
 		};
