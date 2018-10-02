@@ -11,7 +11,7 @@ class Mas < Formula
     sha256 "af5be6aa9902d9cfc2aa69dbf313441a7c201463d516face721f900ceae9556b" => :sierra
   end
 
-  depends_on :xcode => ["9.3", :build]
+  depends_on :xcode => ["10.0", :build]
 
   resource "cocoapods" do
     url "https://dl.bintray.com/phatblat/mas-bottles/master.tar.gz"
