@@ -3,7 +3,8 @@
 main() {
   echo "==> 👢 Bootstrapping"
   bundle install
-  bundle exec pod install
+  brew bundle
+  carthage bootstrap --platform macOS --cache-builds
 
   script/sort
 }

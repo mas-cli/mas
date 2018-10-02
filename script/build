@@ -1,17 +1,17 @@
 #!/bin/bash -e
 
 BUILD_DIR="$PWD/build"
-WORKSPACE="mas-cli.xcworkspace"
+PROJECT="mas-cli.xcodeproj"
 SCHEME="mas-cli Release"
 CONFIG="Release"
 
 main() {
   script/clean
-
-  xcodebuild -workspace "$WORKSPACE" \
-    -scheme "$SCHEME" \
-    -configuration "$CONFIG" \
-    clean
+  
+  carthage build \
+    --platform macOS \
+    --cache-builds \
+    --configuration "$CONFIG"
 
   build
 
@@ -25,7 +25,7 @@ main() {
 build() {
   echo "==> 🏗️ Building"
   set -o pipefail && \
-      xcodebuild -workspace "$WORKSPACE" \
+      xcodebuild -project "$PROJECT" \
           -scheme "$SCHEME" \
           -configuration "$CONFIG" \
           OBJROOT="$BUILD_DIR/obj" \
@@ -38,7 +38,7 @@ build() {
 archive() {
   echo "==> 📦 Archiving"
   set -o pipefail && \
-      xcodebuild -workspace "$WORKSPACE" \
+      xcodebuild -project "$PROJECT" \
           -scheme "$SCHEME" \
           -configuration "$CONFIG" \
           -archivePath "$BUILD_DIR/mas.xcarchive" \
