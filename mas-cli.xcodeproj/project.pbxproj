@@ -8,10 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		90CB4071213F4E000044E445 /* Commandant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406B213F4DDD0044E445 /* Commandant.framework */; };
-		90CB4079213F4E2E0044E445 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406C213F4DDD0044E445 /* Nimble.framework */; };
-		90CB407A213F4E2F0044E445 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406A213F4DDD0044E445 /* Quick.framework */; };
-		90CB407C213F4E490044E445 /* Nimble.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406C213F4DDD0044E445 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		90CB407D213F4E4B0044E445 /* Quick.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406A213F4DDD0044E445 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		90CB407F213F4E970044E445 /* Commandant.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406B213F4DDD0044E445 /* Commandant.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		90CB4080213F4E990044E445 /* Result.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB4069213F4DDD0044E445 /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ED031A7C1B5127C00097692E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED031A7B1B5127C00097692E /* main.swift */; };
@@ -42,8 +38,6 @@
 		F83213A12173D5B2008BA8A0 /* SSPurchaseResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71B220F2EC4500F56FDC /* SSPurchaseResponse.h */; };
 		F83213A22173DC13008BA8A0 /* Commandant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406B213F4DDD0044E445 /* Commandant.framework */; };
 		F83213A32173DC18008BA8A0 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB4069213F4DDD0044E445 /* Result.framework */; };
-		F865880B2030F6DE0093DE57 /* MASErrorTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F865880A2030F6DE0093DE57 /* MASErrorTestCase.swift */; };
-		F86588272030FAE70093DE57 /* MASError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F238C1B8756E600AE40CD /* MASError.swift */; };
 		F8FB715B20F2B41400F56FDC /* MasKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8FB715220F2B41400F56FDC /* MasKit.framework */; };
 		F8FB716020F2B41400F56FDC /* MasKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FB715F20F2B41400F56FDC /* MasKitTests.swift */; };
 		F8FB716220F2B41400F56FDC /* MasKit.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB715420F2B41400F56FDC /* MasKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -81,13 +75,6 @@
 			remoteGlobalIDString = F8FB715120F2B41400F56FDC;
 			remoteInfo = MasKit;
 		};
-		F86588252030F8DA0093DE57 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = ED031A701B5127C00097692E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = ED031A771B5127C00097692E;
-			remoteInfo = mas;
-		};
 		F8FB715C20F2B41400F56FDC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = ED031A701B5127C00097692E /* Project object */;
@@ -106,28 +93,6 @@
 			files = (
 			);
 			name = "Copy Debugging Symbols";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		90CB4076213F4E1B0044E445 /* Copy Debugging Symbols */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 16;
-			files = (
-			);
-			name = "Copy Debugging Symbols";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		90CB407B213F4E370044E445 /* Copy Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				90CB407C213F4E490044E445 /* Nimble.framework in Copy Frameworks */,
-				90CB407D213F4E4B0044E445 /* Quick.framework in Copy Frameworks */,
-			);
-			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		90CB407E213F4E8A0044E445 /* Copy Frameworks */ = {
@@ -184,11 +149,12 @@
 		EDEAA0BF1B51CE6200F2FC3F /* StoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreFoundation.framework; path = /System/Library/PrivateFrameworks/StoreFoundation.framework; sourceTree = "<absolute>"; };
 		EDEAA12C1B51CF8000F2FC3F /* mas-cli-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "mas-cli-Bridging-Header.h"; sourceTree = "<group>"; };
 		EDEAA17C1B5C579100F2FC3F /* CommerceKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CommerceKit.framework; path = /System/Library/PrivateFrameworks/CommerceKit.framework; sourceTree = "<absolute>"; };
-		F8233C87201EBDF000268278 /* mas-tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mas-tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8233C8B201EBDF100268278 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F8242D8020746A510026DF35 /* StoreAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreAccount.swift; sourceTree = "<group>"; };
+		F83213A42173EF75008BA8A0 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		F83213A52173EF75008BA8A0 /* StoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreFoundation.framework; path = ../../../../../../../System/Library/PrivateFrameworks/StoreFoundation.framework; sourceTree = "<group>"; };
+		F83213A62173EF75008BA8A0 /* CommerceKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CommerceKit.framework; path = ../../../../../../../System/Library/PrivateFrameworks/CommerceKit.framework; sourceTree = "<group>"; };
 		F865880A2030F6DE0093DE57 /* MASErrorTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MASErrorTestCase.swift; sourceTree = "<group>"; };
-		F876300720438AF2003D370B /* ISAuthenticationResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISAuthenticationResponse.h; sourceTree = "<group>"; };
 		F876BB4A20ED717800EB9FD1 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F8FB715220F2B41400F56FDC /* MasKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MasKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8FB715420F2B41400F56FDC /* MasKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasKit.h; sourceTree = "<group>"; };
@@ -231,15 +197,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				90CB4071213F4E000044E445 /* Commandant.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F8233C84201EBDF000268278 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				90CB4079213F4E2E0044E445 /* Nimble.framework in Frameworks */,
-				90CB407A213F4E2F0044E445 /* Quick.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,7 +252,6 @@
 			isa = PBXGroup;
 			children = (
 				ED031A781B5127C00097692E /* mas */,
-				F8233C87201EBDF000268278 /* mas-tests.xctest */,
 				F8FB715220F2B41400F56FDC /* MasKit.framework */,
 				F8FB715A20F2B41400F56FDC /* MasKitTests.xctest */,
 			);
@@ -353,6 +309,9 @@
 		EDFC76381B642A2E00D0DBD7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F83213A42173EF75008BA8A0 /* Cocoa.framework */,
+				F83213A62173EF75008BA8A0 /* CommerceKit.framework */,
+				F83213A52173EF75008BA8A0 /* StoreFoundation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -360,7 +319,6 @@
 		F8233C88201EBDF100268278 /* AppTests */ = {
 			isa = PBXGroup;
 			children = (
-				F876300720438AF2003D370B /* ISAuthenticationResponse.h */,
 				F8233C8B201EBDF100268278 /* Info.plist */,
 				F865880A2030F6DE0093DE57 /* MASErrorTestCase.swift */,
 			);
@@ -498,26 +456,6 @@
 			productReference = ED031A781B5127C00097692E /* mas */;
 			productType = "com.apple.product-type.tool";
 		};
-		F8233C86201EBDF000268278 /* mas-tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = F8233C8C201EBDF100268278 /* Build configuration list for PBXNativeTarget "mas-tests" */;
-			buildPhases = (
-				90CB4076213F4E1B0044E445 /* Copy Debugging Symbols */,
-				F8233C83201EBDF000268278 /* Sources */,
-				F8233C84201EBDF000268278 /* Frameworks */,
-				90CB407B213F4E370044E445 /* Copy Frameworks */,
-				F8233C85201EBDF000268278 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				F86588262030F8DA0093DE57 /* PBXTargetDependency */,
-			);
-			name = "mas-tests";
-			productName = "mas-tests";
-			productReference = F8233C87201EBDF000268278 /* mas-tests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		F8FB715120F2B41400F56FDC /* MasKit */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F8FB716720F2B41400F56FDC /* Build configuration list for PBXNativeTarget "MasKit" */;
@@ -570,11 +508,6 @@
 						CreatedOnToolsVersion = 7.0;
 						LastSwiftMigration = 1000;
 					};
-					F8233C86201EBDF000268278 = {
-						CreatedOnToolsVersion = 9.2;
-						LastSwiftMigration = 1000;
-						ProvisioningStyle = Automatic;
-					};
 					F8FB715120F2B41400F56FDC = {
 						CreatedOnToolsVersion = 10.0;
 						ProvisioningStyle = Automatic;
@@ -598,7 +531,6 @@
 			projectRoot = "";
 			targets = (
 				ED031A771B5127C00097692E /* mas */,
-				F8233C86201EBDF000268278 /* mas-tests */,
 				F8FB715120F2B41400F56FDC /* MasKit */,
 				F8FB715920F2B41400F56FDC /* MasKitTests */,
 			);
@@ -607,13 +539,6 @@
 
 /* Begin PBXResourcesBuildPhase section */
 		E7460A391382D898934EFFBD /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F8233C85201EBDF000268278 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -642,15 +567,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED031A7C1B5127C00097692E /* main.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F8233C83201EBDF000268278 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F86588272030FAE70093DE57 /* MASError.swift in Sources */,
-				F865880B2030F6DE0093DE57 /* MASErrorTestCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -698,11 +614,6 @@
 			isa = PBXTargetDependency;
 			target = F8FB715120F2B41400F56FDC /* MasKit */;
 			targetProxy = F83213872173D2EB008BA8A0 /* PBXContainerItemProxy */;
-		};
-		F86588262030F8DA0093DE57 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = ED031A771B5127C00097692E /* mas */;
-			targetProxy = F86588252030F8DA0093DE57 /* PBXContainerItemProxy */;
 		};
 		F8FB715D20F2B41400F56FDC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -872,62 +783,6 @@
 			};
 			name = Release;
 		};
-		F8233C8D201EBDF100268278 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/Mac",
-				);
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = AppTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mphys.mas-cli.tests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.2;
-			};
-			name = Debug;
-		};
-		F8233C8E201EBDF100268278 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/Mac",
-				);
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = AppTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mphys.mas-cli.tests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.2;
-			};
-			name = Release;
-		};
 		F8FB716320F2B41400F56FDC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1075,15 +930,6 @@
 			buildConfigurations = (
 				ED031A801B5127C00097692E /* Debug */,
 				ED031A811B5127C00097692E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F8233C8C201EBDF100268278 /* Build configuration list for PBXNativeTarget "mas-tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F8233C8D201EBDF100268278 /* Debug */,
-				F8233C8E201EBDF100268278 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
