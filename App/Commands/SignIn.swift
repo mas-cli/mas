@@ -8,6 +8,7 @@
 
 import Commandant
 import Result
+import StoreFoundation
 
 struct SignInCommand: CommandProtocol {
     typealias Options = SignInOptions

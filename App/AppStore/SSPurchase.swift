@@ -6,6 +6,9 @@
 //  Copyright (c) 2015 Andrew Naylor. All rights reserved.
 //
 
+import CommerceKit
+import StoreFoundation
+
 typealias SSPurchaseCompletion = (_ purchase: SSPurchase?, _ completed: Bool, _ error: Error?, _ response: SSPurchaseResponse?) -> ()
 
 extension SSPurchase {

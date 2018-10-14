@@ -8,6 +8,7 @@
 
 import Commandant
 import Result
+import StoreFoundation
 
 struct AccountCommand: CommandProtocol {
     typealias Options = NoOptions<MASError>

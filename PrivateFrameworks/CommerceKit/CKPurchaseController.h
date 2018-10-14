@@ -4,9 +4,15 @@
 //     class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
 //
 
+<<<<<<< HEAD:App/PrivateHeaders/CommerceKit/CKPurchaseController.h
 #import <CommerceKit/CKServiceInterface.h>
 
 #import <StoreFoundation/SSPurchase.h>
+=======
+#import "CKServiceInterface.h"
+//#import <StoreFoundation/SSPurchase.h>
+@import StoreFoundation;
+>>>>>>> 🚧♻️ Create MasKit targets:PrivateFrameworks/CommerceKit/CKPurchaseController.h
 
 @class NSArray, NSMutableArray, NSNumber;
 

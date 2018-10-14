@@ -8,6 +8,7 @@
 
 import Commandant
 import Result
+import CommerceKit
 
 struct ListCommand: CommandProtocol {
     typealias Options = NoOptions<MASError>

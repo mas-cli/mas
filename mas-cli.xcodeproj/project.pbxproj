@@ -42,12 +42,36 @@
 		EDE296531C700F4300554778 /* SignOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE296521C700F4300554778 /* SignOut.swift */; };
 		EDEAA0C01B51CE6200F2FC3F /* StoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDEAA0BF1B51CE6200F2FC3F /* StoreFoundation.framework */; };
 		EDEAA17D1B5C579100F2FC3F /* CommerceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDEAA17C1B5C579100F2FC3F /* CommerceKit.framework */; };
-		F184B6B7CD9C013CACDED0FB /* Argument.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36A4ABD8025E13060312925 /* Argument.swift */; };
-		F48562FA81B0C0258AC063B4 /* HelpCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDC2B8063EC231E28353D23 /* HelpCommand.swift */; };
-		F6D2058A70757D3477185A50 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7FE171F643805F7BC38A7 /* Option.swift */; };
 		F8242D8120746A510026DF35 /* StoreAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8242D8020746A510026DF35 /* StoreAccount.swift */; };
 		F865880B2030F6DE0093DE57 /* MASErrorTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F865880A2030F6DE0093DE57 /* MASErrorTestCase.swift */; };
 		F86588272030FAE70093DE57 /* MASError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F238C1B8756E600AE40CD /* MASError.swift */; };
+		F8FB715B20F2B41400F56FDC /* MasKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8FB715220F2B41400F56FDC /* MasKit.framework */; };
+		F8FB716020F2B41400F56FDC /* MasKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FB715F20F2B41400F56FDC /* MasKitTests.swift */; };
+		F8FB716220F2B41400F56FDC /* MasKit.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB715420F2B41400F56FDC /* MasKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F8FB716920F2B4DD00F56FDC /* CKSoftwareMap+AppLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4913269A1F48921D0010EB86 /* CKSoftwareMap+AppLookup.swift */; };
+		F8FB716A20F2B4DD00F56FDC /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F238A1B87569C00AE40CD /* Downloader.swift */; };
+		F8FB716B20F2B4DD00F56FDC /* ISStoreAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F238F1B87A56F00AE40CD /* ISStoreAccount.swift */; };
+		F8FB716C20F2B4DD00F56FDC /* PurchaseDownloadObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F23881B87543D00AE40CD /* PurchaseDownloadObserver.swift */; };
+		F8FB716D20F2B4DD00F56FDC /* SSPurchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA3BE511B8B84AF00C18D70 /* SSPurchase.swift */; };
+		F8FB716E20F2B4DD00F56FDC /* StoreAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8242D8020746A510026DF35 /* StoreAccount.swift */; };
+		F8FB716F20F2B4DD00F56FDC /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F23861B87537200AE40CD /* Account.swift */; };
+		F8FB717020F2B4DD00F56FDC /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900A1E801DBAC8CB0069B1A8 /* Info.swift */; };
+		F8FB717120F2B4DD00F56FDC /* Install.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F237E1B87522400AE40CD /* Install.swift */; };
+		F8FB717220F2B4DD00F56FDC /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F23821B87533A00AE40CD /* List.swift */; };
+		F8FB717320F2B4DD00F56FDC /* Lucky.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8078FAA71EC4F2FB004B5B3F /* Lucky.swift */; };
+		F8FB717420F2B4DD00F56FDC /* Outdated.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F23841B87536A00AE40CD /* Outdated.swift */; };
+		F8FB717520F2B4DD00F56FDC /* Reset.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDCBF9521D89AC6F000039C6 /* Reset.swift */; };
+		F8FB717620F2B4DD00F56FDC /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A98981CBFFA760004D3B4 /* Search.swift */; };
+		F8FB717720F2B4DD00F56FDC /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC90B641C70045E0019E396 /* SignIn.swift */; };
+		F8FB717820F2B4DD00F56FDC /* SignOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE296521C700F4300554778 /* SignOut.swift */; };
+		F8FB717920F2B4DD00F56FDC /* Upgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B3621C34709400B56B88 /* Upgrade.swift */; };
+		F8FB717A20F2B4DD00F56FDC /* Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB6CE8B1BAEC3D400648B4D /* Version.swift */; };
+		F8FB717B20F2B4DD00F56FDC /* MASError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F238C1B8756E600AE40CD /* MASError.swift */; };
+		F8FB717C20F2B4DD00F56FDC /* NSURLSession+Synchronous.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A989A1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift */; };
+		F8FB717D20F2B4DD00F56FDC /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDCBF9541D89CFC7000039C6 /* Utilities.swift */; };
+		F8FB717E20F2B4E600F56FDC /* MASErrorTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F865880A2030F6DE0093DE57 /* MASErrorTestCase.swift */; };
+		F8FB719620F2B5FF00F56FDC /* CommerceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDEAA17C1B5C579100F2FC3F /* CommerceKit.framework */; };
+		F8FB719720F2B60400F56FDC /* StoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDEAA0BF1B51CE6200F2FC3F /* StoreFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +81,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = ED031A771B5127C00097692E;
 			remoteInfo = mas;
+		};
+		F8FB715C20F2B41400F56FDC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ED031A701B5127C00097692E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F8FB715120F2B41400F56FDC;
+			remoteInfo = MasKit;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -144,29 +175,13 @@
 		ED0F238A1B87569C00AE40CD /* Downloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
 		ED0F238C1B8756E600AE40CD /* MASError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MASError.swift; sourceTree = "<group>"; };
 		ED0F238F1B87A56F00AE40CD /* ISStoreAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISStoreAccount.swift; sourceTree = "<group>"; };
-		ED1EF94D1BA6BBBF0075453C /* CKSoftwareProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKSoftwareProduct.h; sourceTree = "<group>"; };
-		ED1EF94E1BA6BBBF0075453C /* CKUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKUpdate.h; sourceTree = "<group>"; };
-		ED1EF94F1BA6BBBF0075453C /* ISOperationDelegate-Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ISOperationDelegate-Protocol.h"; sourceTree = "<group>"; };
-		ED1EF9501BA6BBBF0075453C /* ISServiceProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISServiceProxy.h; sourceTree = "<group>"; };
-		ED1EF9511BA6BBBF0075453C /* ISStoreAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISStoreAccount.h; sourceTree = "<group>"; };
-		ED1EF9521BA6BBBF0075453C /* ISURLOperationDelegate-Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ISURLOperationDelegate-Protocol.h"; sourceTree = "<group>"; };
-		ED1EF9531BA6BBBF0075453C /* SSDownload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSDownload.h; sourceTree = "<group>"; };
-		ED1EF9541BA6BBBF0075453C /* SSDownloadMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSDownloadMetadata.h; sourceTree = "<group>"; };
-		ED1EF9551BA6BBBF0075453C /* SSDownloadPhase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSDownloadPhase.h; sourceTree = "<group>"; };
-		ED1EF9561BA6BBBF0075453C /* SSDownloadStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSDownloadStatus.h; sourceTree = "<group>"; };
-		ED1EF9571BA6BBBF0075453C /* SSPurchase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSPurchase.h; sourceTree = "<group>"; };
-		ED1EF9581BA6BBBF0075453C /* SSPurchaseResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSPurchaseResponse.h; sourceTree = "<group>"; };
 		EDA3BE511B8B84AF00C18D70 /* SSPurchase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSPurchase.swift; sourceTree = "<group>"; };
 		EDB6CE8A1BAEB95100648B4D /* mas-cli-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "mas-cli-Info.plist"; sourceTree = "<group>"; };
 		EDB6CE8B1BAEC3D400648B4D /* Version.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Version.swift; sourceTree = "<group>"; };
-		EDC90B621C6FF50B0019E396 /* ISAccountService-Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ISAccountService-Protocol.h"; sourceTree = "<group>"; };
 		EDC90B641C70045E0019E396 /* SignIn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
 		EDCBF9521D89AC6F000039C6 /* Reset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reset.swift; sourceTree = "<group>"; };
 		EDCBF9541D89CFC7000039C6 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		EDD3B3621C34709400B56B88 /* Upgrade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Upgrade.swift; sourceTree = "<group>"; };
-		EDE2964F1C700B0300554778 /* ISAuthenticationContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISAuthenticationContext.h; sourceTree = "<group>"; };
-		EDE296501C700B0300554778 /* ISServiceRemoteObject-Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ISServiceRemoteObject-Protocol.h"; sourceTree = "<group>"; };
-		EDE296511C700B0300554778 /* ISStoreClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISStoreClient.h; sourceTree = "<group>"; };
 		EDE296521C700F4300554778 /* SignOut.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignOut.swift; sourceTree = "<group>"; };
 		EDEAA0BF1B51CE6200F2FC3F /* StoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreFoundation.framework; path = /System/Library/PrivateFrameworks/StoreFoundation.framework; sourceTree = "<absolute>"; };
 		EDEAA12C1B51CF8000F2FC3F /* mas-cli-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "mas-cli-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -184,6 +199,39 @@
 		F86EBF2E2077214100C0976E /* ISStoreURLOperationDelegate-Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ISStoreURLOperationDelegate-Protocol.h"; sourceTree = "<group>"; };
 		F876300720438AF2003D370B /* ISAuthenticationResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISAuthenticationResponse.h; sourceTree = "<group>"; };
 		F876BB4A20ED717800EB9FD1 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		F8FB715220F2B41400F56FDC /* MasKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MasKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8FB715420F2B41400F56FDC /* MasKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasKit.h; sourceTree = "<group>"; };
+		F8FB715520F2B41400F56FDC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F8FB715A20F2B41400F56FDC /* MasKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MasKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8FB715F20F2B41400F56FDC /* MasKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasKitTests.swift; sourceTree = "<group>"; };
+		F8FB716120F2B41400F56FDC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F8FB719B20F2EC4500F56FDC /* CKAccountStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKAccountStore.h; sourceTree = "<group>"; };
+		F8FB719C20F2EC4500F56FDC /* CKDownloadQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKDownloadQueue.h; sourceTree = "<group>"; };
+		F8FB719D20F2EC4500F56FDC /* CKPurchaseController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKPurchaseController.h; sourceTree = "<group>"; };
+		F8FB719E20F2EC4500F56FDC /* CKServiceInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKServiceInterface.h; sourceTree = "<group>"; };
+		F8FB719F20F2EC4500F56FDC /* CKSoftwareMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKSoftwareMap.h; sourceTree = "<group>"; };
+		F8FB71A020F2EC4500F56FDC /* CKUpdateController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKUpdateController.h; sourceTree = "<group>"; };
+		F8FB71A120F2EC4500F56FDC /* ISStoreURLOperationDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISStoreURLOperationDelegate.h; sourceTree = "<group>"; };
+		F8FB71A320F2EC4500F56FDC /* CKSoftwareProduct.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKSoftwareProduct.h; sourceTree = "<group>"; };
+		F8FB71A420F2EC4500F56FDC /* CKUpdate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKUpdate.h; sourceTree = "<group>"; };
+		F8FB71A520F2EC4500F56FDC /* ISAccountService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISAccountService.h; sourceTree = "<group>"; };
+		F8FB71A620F2EC4500F56FDC /* ISAuthenticationContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISAuthenticationContext.h; sourceTree = "<group>"; };
+		F8FB71A720F2EC4500F56FDC /* ISOperationDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISOperationDelegate.h; sourceTree = "<group>"; };
+		F8FB71A820F2EC4500F56FDC /* ISServiceProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISServiceProxy.h; sourceTree = "<group>"; };
+		F8FB71A920F2EC4500F56FDC /* ISServiceRemoteObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISServiceRemoteObject.h; sourceTree = "<group>"; };
+		F8FB71AA20F2EC4500F56FDC /* ISStoreAccount.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISStoreAccount.h; sourceTree = "<group>"; };
+		F8FB71AB20F2EC4500F56FDC /* ISStoreClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISStoreClient.h; sourceTree = "<group>"; };
+		F8FB71AC20F2EC4500F56FDC /* ISURLOperationDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISURLOperationDelegate.h; sourceTree = "<group>"; };
+		F8FB71AD20F2EC4500F56FDC /* SSDownload.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSDownload.h; sourceTree = "<group>"; };
+		F8FB71AE20F2EC4500F56FDC /* SSDownloadMetadata.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSDownloadMetadata.h; sourceTree = "<group>"; };
+		F8FB71AF20F2EC4500F56FDC /* SSDownloadPhase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSDownloadPhase.h; sourceTree = "<group>"; };
+		F8FB71B020F2EC4500F56FDC /* SSDownloadStatus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSDownloadStatus.h; sourceTree = "<group>"; };
+		F8FB71B120F2EC4500F56FDC /* SSPurchase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSPurchase.h; sourceTree = "<group>"; };
+		F8FB71B220F2EC4500F56FDC /* SSPurchaseResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSPurchaseResponse.h; sourceTree = "<group>"; };
+		F8FB71B320F2EC7900F56FDC /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		F8FB71B420F2EC8800F56FDC /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		F8FB71B520F2F7E000F56FDC /* CKDownloadQueueObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKDownloadQueueObserver.h; sourceTree = "<group>"; };
+		F8FB71B620F2F87300F56FDC /* CKDownloadDirectory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKDownloadDirectory.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +255,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F8FB714F20F2B41400F56FDC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8FB719720F2B60400F56FDC /* StoreFoundation.framework in Frameworks */,
+				F8FB719620F2B5FF00F56FDC /* CommerceKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8FB715720F2B41400F56FDC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8FB715B20F2B41400F56FDC /* MasKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -223,7 +288,6 @@
 				90CB406F213F4DDD0044E445 /* Result.framework.dSYM */,
 			);
 			name = Carthage;
-			path = Carthage/Build/Mac;
 			sourceTree = "<group>";
 		};
 		ED031A6F1B5127C00097692E = {
@@ -234,6 +298,9 @@
 				90CB4068213F4DDD0044E445 /* Carthage */,
 				EDFC76381B642A2E00D0DBD7 /* Frameworks */,
 				EDEAA0C11B51CEBD00F2FC3F /* PrivateHeaders */,
+				F8FB715320F2B41400F56FDC /* MasKit */,
+				F8FB715E20F2B41400F56FDC /* MasKitTests */,
+				F8FB719920F2EC4500F56FDC /* PrivateFrameworks */,
 				ED031A791B5127C00097692E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -243,6 +310,8 @@
 			children = (
 				ED031A781B5127C00097692E /* mas */,
 				F8233C87201EBDF000268278 /* mas-tests.xctest */,
+				F8FB715220F2B41400F56FDC /* MasKit.framework */,
+				F8FB715A20F2B41400F56FDC /* MasKitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -295,17 +364,16 @@
 			path = AppStore;
 			sourceTree = "<group>";
 		};
-		EDEAA0C11B51CEBD00F2FC3F /* PrivateHeaders */ = {
+		EDFC76381B642A2E00D0DBD7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EDEAA12E1B5C576D00F2FC3F /* CommerceKit */,
-				EDEAA0C21B51CEC900F2FC3F /* StoreFoundation */,
+				EDEAA17C1B5C579100F2FC3F /* CommerceKit.framework */,
+				EDEAA0BF1B51CE6200F2FC3F /* StoreFoundation.framework */,
 			);
-			name = PrivateHeaders;
-			path = App/PrivateHeaders;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		EDEAA0C21B51CEC900F2FC3F /* StoreFoundation */ = {
+		F8233C88201EBDF100268278 /* AppTests */ = {
 			isa = PBXGroup;
 			children = (
 				ED1EF94D1BA6BBBF0075453C /* CKSoftwareProduct.h */,
@@ -325,11 +393,13 @@
 				ED1EF9561BA6BBBF0075453C /* SSDownloadStatus.h */,
 				ED1EF9571BA6BBBF0075453C /* SSPurchase.h */,
 				ED1EF9581BA6BBBF0075453C /* SSPurchaseResponse.h */,
+				F8233C8B201EBDF100268278 /* Info.plist */,
+				F865880A2030F6DE0093DE57 /* MASErrorTestCase.swift */,
 			);
-			path = StoreFoundation;
+			path = AppTests;
 			sourceTree = "<group>";
 		};
-		EDEAA12E1B5C576D00F2FC3F /* CommerceKit */ = {
+		F8FB715320F2B41400F56FDC /* MasKit */ = {
 			isa = PBXGroup;
 			children = (
 				EDEAA1311B5C576D00F2FC3F /* CKAccountStore.h */,
@@ -339,30 +409,86 @@
 				EDEAA1521B5C576D00F2FC3F /* CKSoftwareMap.h */,
 				EDEAA1551B5C576D00F2FC3F /* CKUpdateController.h */,
 				F86EBF2E2077214100C0976E /* ISStoreURLOperationDelegate-Protocol.h */,
+				F8FB715420F2B41400F56FDC /* MasKit.h */,
+				F8FB715520F2B41400F56FDC /* Info.plist */,
 			);
-			path = CommerceKit;
+			path = MasKit;
 			sourceTree = "<group>";
 		};
-		EDFC76381B642A2E00D0DBD7 /* Frameworks */ = {
+		F8FB715E20F2B41400F56FDC /* MasKitTests */ = {
 			isa = PBXGroup;
 			children = (
 				F876BB4A20ED717800EB9FD1 /* Cocoa.framework */,
 				EDEAA17C1B5C579100F2FC3F /* CommerceKit.framework */,
 				EDEAA0BF1B51CE6200F2FC3F /* StoreFoundation.framework */,
+				F8FB715F20F2B41400F56FDC /* MasKitTests.swift */,
+				F8FB716120F2B41400F56FDC /* Info.plist */,
 			);
-			name = Frameworks;
+			path = MasKitTests;
 			sourceTree = "<group>";
 		};
-		F8233C88201EBDF100268278 /* AppTests */ = {
+		F8FB719920F2EC4500F56FDC /* PrivateFrameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F8233C8B201EBDF100268278 /* Info.plist */,
-				F865880A2030F6DE0093DE57 /* MASErrorTestCase.swift */,
+				F8FB719A20F2EC4500F56FDC /* CommerceKit */,
+				F8FB71A220F2EC4500F56FDC /* StoreFoundation */,
 			);
-			path = AppTests;
+			path = PrivateFrameworks;
+			sourceTree = "<group>";
+		};
+		F8FB719A20F2EC4500F56FDC /* CommerceKit */ = {
+			isa = PBXGroup;
+			children = (
+				F8FB719B20F2EC4500F56FDC /* CKAccountStore.h */,
+				F8FB719C20F2EC4500F56FDC /* CKDownloadQueue.h */,
+				F8FB71B520F2F7E000F56FDC /* CKDownloadQueueObserver.h */,
+				F8FB719D20F2EC4500F56FDC /* CKPurchaseController.h */,
+				F8FB719E20F2EC4500F56FDC /* CKServiceInterface.h */,
+				F8FB719F20F2EC4500F56FDC /* CKSoftwareMap.h */,
+				F8FB71A020F2EC4500F56FDC /* CKUpdateController.h */,
+				F8FB71A120F2EC4500F56FDC /* ISStoreURLOperationDelegate.h */,
+				F8FB71B320F2EC7900F56FDC /* module.modulemap */,
+				F8FB71B620F2F87300F56FDC /* CKDownloadDirectory.h */,
+			);
+			path = CommerceKit;
+			sourceTree = "<group>";
+		};
+		F8FB71A220F2EC4500F56FDC /* StoreFoundation */ = {
+			isa = PBXGroup;
+			children = (
+				F8FB71A320F2EC4500F56FDC /* CKSoftwareProduct.h */,
+				F8FB71A420F2EC4500F56FDC /* CKUpdate.h */,
+				F8FB71A520F2EC4500F56FDC /* ISAccountService.h */,
+				F8FB71A620F2EC4500F56FDC /* ISAuthenticationContext.h */,
+				F8FB71A720F2EC4500F56FDC /* ISOperationDelegate.h */,
+				F8FB71A820F2EC4500F56FDC /* ISServiceProxy.h */,
+				F8FB71A920F2EC4500F56FDC /* ISServiceRemoteObject.h */,
+				F8FB71AA20F2EC4500F56FDC /* ISStoreAccount.h */,
+				F8FB71AB20F2EC4500F56FDC /* ISStoreClient.h */,
+				F8FB71AC20F2EC4500F56FDC /* ISURLOperationDelegate.h */,
+				F8FB71B420F2EC8800F56FDC /* module.modulemap */,
+				F8FB71AD20F2EC4500F56FDC /* SSDownload.h */,
+				F8FB71AE20F2EC4500F56FDC /* SSDownloadMetadata.h */,
+				F8FB71AF20F2EC4500F56FDC /* SSDownloadPhase.h */,
+				F8FB71B020F2EC4500F56FDC /* SSDownloadStatus.h */,
+				F8FB71B120F2EC4500F56FDC /* SSPurchase.h */,
+				F8FB71B220F2EC4500F56FDC /* SSPurchaseResponse.h */,
+			);
+			path = StoreFoundation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		F8FB714D20F2B41400F56FDC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8FB716220F2B41400F56FDC /* MasKit.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		ED031A771B5127C00097692E /* mas */ = {
@@ -405,16 +531,53 @@
 			productReference = F8233C87201EBDF000268278 /* mas-tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		F8FB715120F2B41400F56FDC /* MasKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F8FB716720F2B41400F56FDC /* Build configuration list for PBXNativeTarget "MasKit" */;
+			buildPhases = (
+				F8FB714D20F2B41400F56FDC /* Headers */,
+				F8FB714E20F2B41400F56FDC /* Sources */,
+				F8FB714F20F2B41400F56FDC /* Frameworks */,
+				F8FB715020F2B41400F56FDC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MasKit;
+			productName = MasKit;
+			productReference = F8FB715220F2B41400F56FDC /* MasKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		F8FB715920F2B41400F56FDC /* MasKitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F8FB716820F2B41400F56FDC /* Build configuration list for PBXNativeTarget "MasKitTests" */;
+			buildPhases = (
+				F8FB715620F2B41400F56FDC /* Sources */,
+				F8FB715720F2B41400F56FDC /* Frameworks */,
+				F8FB715820F2B41400F56FDC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F8FB715D20F2B41400F56FDC /* PBXTargetDependency */,
+			);
+			name = MasKitTests;
+			productName = MasKitTests;
+			productReference = F8FB715A20F2B41400F56FDC /* MasKitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		ED031A701B5127C00097692E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				DefaultBuildSystemTypeForWorkspace = Latest;
 				LastSwiftMigration = 0730;
-				LastSwiftUpdateCheck = 0920;
+				LastSwiftUpdateCheck = 1000;
 				LastUpgradeCheck = 0930;
-				ORGANIZATIONNAME = "Andrew Naylor";
+				ORGANIZATIONNAME = "mas-cli";
 				TargetAttributes = {
 					ED031A771B5127C00097692E = {
 						CreatedOnToolsVersion = 7.0;
@@ -423,6 +586,14 @@
 					F8233C86201EBDF000268278 = {
 						CreatedOnToolsVersion = 9.2;
 						LastSwiftMigration = 1000;
+						ProvisioningStyle = Automatic;
+					};
+					F8FB715120F2B41400F56FDC = {
+						CreatedOnToolsVersion = 10.0;
+						ProvisioningStyle = Automatic;
+					};
+					F8FB715920F2B41400F56FDC = {
+						CreatedOnToolsVersion = 10.0;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -441,6 +612,8 @@
 			targets = (
 				ED031A771B5127C00097692E /* mas */,
 				F8233C86201EBDF000268278 /* mas-tests */,
+				F8FB715120F2B41400F56FDC /* MasKit */,
+				F8FB715920F2B41400F56FDC /* MasKitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -454,6 +627,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F8233C85201EBDF000268278 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8FB715020F2B41400F56FDC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8FB715820F2B41400F56FDC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -482,8 +669,6 @@
 				ED0F23891B87543D00AE40CD /* PurchaseDownloadObserver.swift in Sources */,
 				EDCBF9531D89AC6F000039C6 /* Reset.swift in Sources */,
 				F8242D8120746A510026DF35 /* StoreAccount.swift in Sources */,
-				0EBF5CDD379D7462C3389536 /* Result.swift in Sources */,
-				09756A23E9102359296C821B /* ResultProtocol.swift in Sources */,
 				693A98991CBFFA760004D3B4 /* Search.swift in Sources */,
 				EDC90B651C70045E0019E396 /* SignIn.swift in Sources */,
 				EDE296531C700F4300554778 /* SignOut.swift in Sources */,
@@ -503,6 +688,43 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F8FB714E20F2B41400F56FDC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8FB716C20F2B4DD00F56FDC /* PurchaseDownloadObserver.swift in Sources */,
+				F8FB717820F2B4DD00F56FDC /* SignOut.swift in Sources */,
+				F8FB717020F2B4DD00F56FDC /* Info.swift in Sources */,
+				F8FB716E20F2B4DD00F56FDC /* StoreAccount.swift in Sources */,
+				F8FB717320F2B4DD00F56FDC /* Lucky.swift in Sources */,
+				F8FB717220F2B4DD00F56FDC /* List.swift in Sources */,
+				F8FB717920F2B4DD00F56FDC /* Upgrade.swift in Sources */,
+				F8FB716D20F2B4DD00F56FDC /* SSPurchase.swift in Sources */,
+				F8FB716A20F2B4DD00F56FDC /* Downloader.swift in Sources */,
+				F8FB717D20F2B4DD00F56FDC /* Utilities.swift in Sources */,
+				F8FB717B20F2B4DD00F56FDC /* MASError.swift in Sources */,
+				F8FB717720F2B4DD00F56FDC /* SignIn.swift in Sources */,
+				F8FB717A20F2B4DD00F56FDC /* Version.swift in Sources */,
+				F8FB716B20F2B4DD00F56FDC /* ISStoreAccount.swift in Sources */,
+				F8FB716920F2B4DD00F56FDC /* CKSoftwareMap+AppLookup.swift in Sources */,
+				F8FB716F20F2B4DD00F56FDC /* Account.swift in Sources */,
+				F8FB717C20F2B4DD00F56FDC /* NSURLSession+Synchronous.swift in Sources */,
+				F8FB717120F2B4DD00F56FDC /* Install.swift in Sources */,
+				F8FB717520F2B4DD00F56FDC /* Reset.swift in Sources */,
+				F8FB717420F2B4DD00F56FDC /* Outdated.swift in Sources */,
+				F8FB717620F2B4DD00F56FDC /* Search.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8FB715620F2B41400F56FDC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8FB717E20F2B4E600F56FDC /* MASErrorTestCase.swift in Sources */,
+				F8FB716020F2B41400F56FDC /* MasKitTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -510,6 +732,11 @@
 			isa = PBXTargetDependency;
 			target = ED031A771B5127C00097692E /* mas */;
 			targetProxy = F86588252030F8DA0093DE57 /* PBXContainerItemProxy */;
+		};
+		F8FB715D20F2B41400F56FDC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F8FB715120F2B41400F56FDC /* MasKit */;
+			targetProxy = F8FB715C20F2B41400F56FDC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -730,6 +957,130 @@
 			};
 			name = Release;
 		};
+		F8FB716320F2B41400F56FDC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = MasKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = at.phatbl.MasKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_INCLUDE_PATHS = "$(inherited) $(SRCROOT)/PrivateFrameworks/CommerceKit $(SRCROOT)/PrivateFrameworks/StoreFoundation";
+				SWIFT_VERSION = 4.2;
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		F8FB716420F2B41400F56FDC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = MasKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = at.phatbl.MasKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_INCLUDE_PATHS = "$(inherited) $(SRCROOT)/PrivateFrameworks/CommerceKit $(SRCROOT)/PrivateFrameworks/StoreFoundation";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.2;
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		F8FB716520F2B41400F56FDC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = MasKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = at.phatbl.MasKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 4.2;
+			};
+			name = Debug;
+		};
+		F8FB716620F2B41400F56FDC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = MasKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = at.phatbl.MasKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -756,6 +1107,24 @@
 			buildConfigurations = (
 				F8233C8D201EBDF100268278 /* Debug */,
 				F8233C8E201EBDF100268278 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F8FB716720F2B41400F56FDC /* Build configuration list for PBXNativeTarget "MasKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8FB716320F2B41400F56FDC /* Debug */,
+				F8FB716420F2B41400F56FDC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F8FB716820F2B41400F56FDC /* Build configuration list for PBXNativeTarget "MasKitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8FB716520F2B41400F56FDC /* Debug */,
+				F8FB716620F2B41400F56FDC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

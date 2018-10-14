@@ -8,6 +8,7 @@
 
 import Commandant
 import Result
+import CommerceKit
 
 struct ResetCommand: CommandProtocol {
     typealias Options = ResetOptions

@@ -8,6 +8,7 @@
 
 import Commandant
 import Result
+import CommerceKit
 
 struct OutdatedCommand: CommandProtocol {
     typealias Options = NoOptions<MASError>

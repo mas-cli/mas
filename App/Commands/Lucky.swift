@@ -9,6 +9,8 @@
 import Commandant
 import Result
 
+import CommerceKit
+
 struct LuckyCommand: CommandProtocol {
     typealias Options = LuckyOptions
     let verb = "lucky"

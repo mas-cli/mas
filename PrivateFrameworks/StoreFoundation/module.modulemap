@@ -1,0 +1,25 @@
+//
+// StoreFoundation.module
+// mas-cli
+//
+
+module StoreFoundation {
+    header "CKSoftwareProduct.h"
+    header "CKUpdate.h"
+//    header "ISAccountService.h"
+    header "ISAuthenticationContext.h"
+    header "ISOperationDelegate.h"
+    header "ISServiceProxy.h"
+    header "ISServiceRemoteObject.h"
+    header "ISStoreAccount.h"
+    header "ISStoreClient.h"
+    header "ISURLOperationDelegate.h"
+    header "SSDownload.h"
+    header "SSDownloadMetadata.h"
+    header "SSDownloadPhase.h"
+    header "SSDownloadStatus.h"
+    header "SSPurchase.h"
+    header "SSPurchaseResponse.h"
+
+    export *
+}

@@ -8,6 +8,7 @@
 
 import Commandant
 import Result
+import CommerceKit
 
 struct UpgradeCommand: CommandProtocol {
     typealias Options = UpgradeOptions
