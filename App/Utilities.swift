@@ -32,7 +32,7 @@ func printWarning(_ message: String) {
     print("\(csi)4;33mWarning:\(csi)0m \(message)")
 }
 
-func printError(_ message: String) {
+public func printError(_ message: String) {
     guard isatty(fileno(stdout)) != 0 else {
         print("Warning: \(message)")
         return

@@ -11,12 +11,14 @@ import Result
 
 import CommerceKit
 
-struct LuckyCommand: CommandProtocol {
-    typealias Options = LuckyOptions
-    let verb = "lucky"
-    let function = "Install the first result from the Mac App Store"
+public struct LuckyCommand: CommandProtocol {
+    public typealias Options = LuckyOptions
+    public let verb = "lucky"
+    public let function = "Install the first result from the Mac App Store"
 
-    func run(_ options: Options) -> Result<(), MASError> {
+    public init() {}
+
+    public func run(_ options: Options) -> Result<(), MASError> {
 
         guard let searchURLString = searchURLString(options.appName),
               let searchJson = URLSession.requestSynchronousJSONWithURLString(searchURLString) as? [String: Any] else {
@@ -71,20 +73,19 @@ struct LuckyCommand: CommandProtocol {
     }
 }
 
-struct LuckyOptions: OptionsProtocol {
+public struct LuckyOptions: OptionsProtocol {
     let appName: String
     let forceInstall: Bool
-    
-    static func create(_ appName: String) -> (_ forceInstall: Bool) -> LuckyOptions {
+
+    public static func create(_ appName: String) -> (_ forceInstall: Bool) -> LuckyOptions {
         return { forceInstall in
             return LuckyOptions(appName: appName, forceInstall: forceInstall)
         }
     }
-    
-    static func evaluate(_ m: CommandMode) -> Result<LuckyOptions, CommandantError<MASError>> {
+
+    public static func evaluate(_ m: CommandMode) -> Result<LuckyOptions, CommandantError<MASError>> {
         return create
             <*> m <| Argument(usage: "the app name to install")
             <*> m <| Switch(flag: nil, key: "force", usage: "force reinstall")
     }
-
 }

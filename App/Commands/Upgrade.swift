@@ -10,14 +10,16 @@ import Commandant
 import Result
 import CommerceKit
 
-struct UpgradeCommand: CommandProtocol {
-    typealias Options = UpgradeOptions
-    let verb = "upgrade"
-    let function = "Upgrade outdated apps from the Mac App Store"
-    
-    func run(_ options: Options) -> Result<(), MASError> {
+public struct UpgradeCommand: CommandProtocol {
+    public typealias Options = UpgradeOptions
+    public let verb = "upgrade"
+    public let function = "Upgrade outdated apps from the Mac App Store"
+
+    public init() {}
+
+    public func run(_ options: Options) -> Result<(), MASError> {
         let updateController = CKUpdateController.shared()
-        
+
         let updates: [CKUpdate]
         let apps = options.apps
         if apps.count > 0 {
@@ -75,14 +77,14 @@ struct UpgradeCommand: CommandProtocol {
     }
 }
 
-struct UpgradeOptions: OptionsProtocol {
+public struct UpgradeOptions: OptionsProtocol {
     let apps: [String]
     
     static func create(_ apps: [String]) -> UpgradeOptions {
         return UpgradeOptions(apps: apps)
     }
     
-    static func evaluate(_ m: CommandMode) -> Result<UpgradeOptions, CommandantError<MASError>> {
+    public static func evaluate(_ m: CommandMode) -> Result<UpgradeOptions, CommandantError<MASError>> {
         return create
             <*> m <| Argument(defaultValue: [], usage: "app(s) to upgrade")
     }

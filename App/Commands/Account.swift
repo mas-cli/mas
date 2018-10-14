@@ -10,12 +10,14 @@ import Commandant
 import Result
 import StoreFoundation
 
-struct AccountCommand: CommandProtocol {
-    typealias Options = NoOptions<MASError>
-    let verb = "account"
-    let function = "Prints the primary account Apple ID"
+public struct AccountCommand: CommandProtocol {
+    public typealias Options = NoOptions<MASError>
+    public let verb = "account"
+    public let function = "Prints the primary account Apple ID"
+
+    public init() {}
     
-    func run(_ options: Options) -> Result<(), MASError> {
+    public func run(_ options: Options) -> Result<(), MASError> {
         if let account = ISStoreAccount.primaryAccount {
             print(String(describing: account.identifier))
         }

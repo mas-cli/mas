@@ -18,12 +18,14 @@ struct ResultKeys {
     static let Price = "price"
 }
 
-struct SearchCommand: CommandProtocol {
-    typealias Options = SearchOptions
-    let verb = "search"
-    let function = "Search for apps from the Mac App Store"
+public struct SearchCommand: CommandProtocol {
+    public typealias Options = SearchOptions
+    public let verb = "search"
+    public let function = "Search for apps from the Mac App Store"
+
+    public init() {}
     
-    func run(_ options: Options) -> Result<(), MASError> {
+    public func run(_ options: Options) -> Result<(), MASError> {
         
         guard let searchURLString = searchURLString(options.appName),
               let searchJson = URLSession.requestSynchronousJSONWithURLString(searchURLString) as? [String: Any] else {
@@ -77,17 +79,17 @@ struct SearchCommand: CommandProtocol {
     }
 }
 
-struct SearchOptions: OptionsProtocol {
+public struct SearchOptions: OptionsProtocol {
     let appName: String
     let price: Bool
-    
-    static func create(_ appName: String) -> (_ price: Bool) -> SearchOptions {
+
+    public static func create(_ appName: String) -> (_ price: Bool) -> SearchOptions {
         return { price in
             SearchOptions(appName: appName, price: price)
         }
     }
-    
-    static func evaluate(_ m: CommandMode) -> Result<SearchOptions, CommandantError<MASError>> {
+
+    public static func evaluate(_ m: CommandMode) -> Result<SearchOptions, CommandantError<MASError>> {
         return create
             <*> m <| Argument(usage: "the app name to search")
             <*> m <| Option(key: "price", defaultValue: false, usage: "Show price of found apps")

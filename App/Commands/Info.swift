@@ -10,11 +10,13 @@ import Commandant
 import Result
 import Foundation
 
-struct InfoCommand: CommandProtocol {
-    let verb = "info"
-    let function = "Display app information from the Mac App Store"
+public struct InfoCommand: CommandProtocol {
+    public let verb = "info"
+    public let function = "Display app information from the Mac App Store"
 
-    func run(_ options: InfoOptions) -> Result<(), MASError> {
+    public init() {}
+
+    public func run(_ options: InfoOptions) -> Result<(), MASError> {
         guard let infoURLString = infoURLString(options.appId),
             let searchJson = URLSession.requestSynchronousJSONWithURLString(infoURLString) as? [String: Any] else {
                 return .failure(.searchFailed)
@@ -40,21 +42,20 @@ struct InfoCommand: CommandProtocol {
     }
 }
 
-struct InfoOptions: OptionsProtocol {
+public struct InfoOptions: OptionsProtocol {
     let appId: String
 
     static func create(_ appId: String) -> InfoOptions {
         return InfoOptions(appId: appId)
     }
 
-    static func evaluate(_ m: CommandMode) -> Result<InfoOptions, CommandantError<MASError>> {
+    public static func evaluate(_ m: CommandMode) -> Result<InfoOptions, CommandantError<MASError>> {
         return create
             <*> m <| Argument(usage: "the app id to show info")
     }
 }
 
 private struct AppInfoFormatter {
-
     private enum Keys {
         static let Name = "trackCensoredName"
         static let Version = "version"

@@ -10,12 +10,14 @@ import Commandant
 import Result
 import CommerceKit
 
-struct InstallCommand: CommandProtocol {
-    typealias Options = InstallOptions
-    let verb = "install"
-    let function = "Install from the Mac App Store"
+public struct InstallCommand: CommandProtocol {
+    public typealias Options = InstallOptions
+    public let verb = "install"
+    public let function = "Install from the Mac App Store"
+
+    public init() {}
     
-    func run(_ options: Options) -> Result<(), MASError> {
+    public func run(_ options: Options) -> Result<(), MASError> {
         // Try to download applications with given identifiers and collect results
         let downloadResults = options.appIds.compactMap { (appId) -> MASError? in
             if let product = installedApp(appId) , !options.forceInstall {
@@ -44,17 +46,17 @@ struct InstallCommand: CommandProtocol {
     }
 }
 
-struct InstallOptions: OptionsProtocol {
+public struct InstallOptions: OptionsProtocol {
     let appIds: [UInt64]
     let forceInstall: Bool
-    
-    static func create(_ appIds: [Int]) -> (_ forceInstall: Bool) -> InstallOptions {
+
+    public static func create(_ appIds: [Int]) -> (_ forceInstall: Bool) -> InstallOptions {
         return { forceInstall in
             return InstallOptions(appIds: appIds.map{UInt64($0)}, forceInstall: forceInstall)
         }
     }
-    
-    static func evaluate(_ m: CommandMode) -> Result<InstallOptions, CommandantError<MASError>> {
+
+    public static func evaluate(_ m: CommandMode) -> Result<InstallOptions, CommandantError<MASError>> {
         return create
             <*> m <| Argument(usage: "app ID(s) to install")
             <*> m <| Switch(flag: nil, key: "force", usage: "force reinstall")
