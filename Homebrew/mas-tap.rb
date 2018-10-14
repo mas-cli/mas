@@ -15,7 +15,7 @@ class Mas < Formula
     sha256 "a99d0d7baecf45a00787365a2a078ae94068a0c63012e87f92282efb120e586e" => :yosemite
   end
 
-  depends_on :xcode => ["9.3", :build]
+  depends_on :xcode => ["10.0", :build]
 
   resource "cocoapods" do
     url "https://dl.bintray.com/phatblat/mas-bottles/master.tar.gz"

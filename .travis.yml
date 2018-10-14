@@ -8,9 +8,7 @@
 #
 
 os: osx
-osx_image: xcode9.4         # macOS 10.13
-xcode_sdk: macosx10.13
-language: objective-c
+osx_image: xcode10         # macOS 10.13
 
 env:
   global:
