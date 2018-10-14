@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+- 🛠 Xcode 10 & Swift 4.2 #173
 - ♻️ Use Carthage rather than CocoaPods to manage dependencies #169
 
 ## [v1.4.2] - Sign-In Disabled - 2018-08-12
