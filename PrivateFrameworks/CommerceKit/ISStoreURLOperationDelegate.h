@@ -5,9 +5,8 @@
 //
 
 @import StoreFoundation;
-//#import "ISURLOperationDelegate.h"
-
-#import "ISURLOperationDelegate-Protocol.h"
+//#import <StoreFoundation/ISURLOperationDelegate.h>
+#import "ISURLOperationDelegate.h"
 
 @class ISStoreURLOperation, NSNumber, NSString;
 

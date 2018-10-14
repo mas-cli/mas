@@ -5,6 +5,7 @@
 //
 
 @import StoreFoundation;
+//#import <StoreFoundation/ISServiceProxy.h>
 #import "ISServiceProxy.h"
 
 @interface CKServiceInterface : ISServiceProxy

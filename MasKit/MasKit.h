@@ -6,6 +6,8 @@
 //  Copyright © 2018 Andrew Naylor. All rights reserved.
 //
 
+@import CommerceKit;
+@import StoreFoundation;
 @import Cocoa;
 
 //! Project version number for MasKit.

@@ -6,7 +6,7 @@
 module StoreFoundation {
     header "CKSoftwareProduct.h"
     header "CKUpdate.h"
-//    header "ISAccountService.h"
+    header "ISAccountService.h"
     header "ISAuthenticationContext.h"
     header "ISOperationDelegate.h"
     header "ISServiceProxy.h"

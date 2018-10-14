@@ -4,11 +4,12 @@
 //     class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
 //
 
-// #import "NSObject.h"
-#import "CKServiceInterface.h"
+@import Cocoa;
 
-#import "ISStoreURLOperationDelegate-Protocol.h"
-#import <CommerceKit/CKServiceInterface.h>
+//#import "NSObject.h"
+//#import "CKServiceInterface.h"
+
+//#import "ISStoreURLOperationDelegate.h"
 
 @class CKDemoAccount, CKStoreAccount, CKStoreClient, ISStoreAccount, NSArray;
 
@@ -61,7 +62,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)signOut;
 - (id)storeAccountForAppleID:(id)arg1;
 - (id)storeAccountForDSID:(id)arg1;
-@property(readonly) BOOL primaryAccountIsPresentAndSignedIn;
 @property(readonly) CKStoreAccount *primaryStoreAccount;
 @property(readonly) CKDemoAccount *demoAccount;
 @property(readonly) BOOL isDemoModeEnabled;
