@@ -204,10 +204,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8FB719720F2B60400F56FDC /* StoreFoundation.framework in Frameworks */,
-				F8FB719620F2B5FF00F56FDC /* CommerceKit.framework in Frameworks */,
 				F83213A22173DC13008BA8A0 /* Commandant.framework in Frameworks */,
+				F8FB719620F2B5FF00F56FDC /* CommerceKit.framework in Frameworks */,
 				F83213A32173DC18008BA8A0 /* Result.framework in Frameworks */,
+				F8FB719720F2B60400F56FDC /* StoreFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,8 +328,8 @@
 		F8FB715320F2B41400F56FDC /* MasKit */ = {
 			isa = PBXGroup;
 			children = (
-				F8FB715420F2B41400F56FDC /* MasKit.h */,
 				F8FB715520F2B41400F56FDC /* Info.plist */,
+				F8FB715420F2B41400F56FDC /* MasKit.h */,
 			);
 			path = MasKit;
 			sourceTree = "<group>";
@@ -339,9 +339,9 @@
 			children = (
 				F876BB4A20ED717800EB9FD1 /* Cocoa.framework */,
 				EDEAA17C1B5C579100F2FC3F /* CommerceKit.framework */,
-				EDEAA0BF1B51CE6200F2FC3F /* StoreFoundation.framework */,
-				F8FB715F20F2B41400F56FDC /* MasKitTests.swift */,
 				F8FB716120F2B41400F56FDC /* Info.plist */,
+				F8FB715F20F2B41400F56FDC /* MasKitTests.swift */,
+				EDEAA0BF1B51CE6200F2FC3F /* StoreFoundation.framework */,
 			);
 			path = MasKitTests;
 			sourceTree = "<group>";
@@ -403,32 +403,32 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F83213952173D5AB008BA8A0 /* ISAuthenticationContext.h in Headers */,
-				F83213902173D3E1008BA8A0 /* ISStoreURLOperationDelegate.h in Headers */,
-				F83213A02173D5B2008BA8A0 /* SSPurchase.h in Headers */,
-				F832138E2173D3E1008BA8A0 /* CKSoftwareMap.h in Headers */,
+				F83213892173D3E1008BA8A0 /* CKAccountStore.h in Headers */,
 				F83213912173D3E1008BA8A0 /* CKDownloadDirectory.h in Headers */,
-				F832139E2173D5B2008BA8A0 /* SSDownloadPhase.h in Headers */,
-				F83213992173D5AB008BA8A0 /* ISStoreAccount.h in Headers */,
-				F832139A2173D5AB008BA8A0 /* ISStoreClient.h in Headers */,
+				F832138A2173D3E1008BA8A0 /* CKDownloadQueue.h in Headers */,
+				F832138B2173D3E1008BA8A0 /* CKDownloadQueueObserver.h in Headers */,
+				F832138C2173D3E1008BA8A0 /* CKPurchaseController.h in Headers */,
+				F832138D2173D3E1008BA8A0 /* CKServiceInterface.h in Headers */,
+				F832138E2173D3E1008BA8A0 /* CKSoftwareMap.h in Headers */,
+				F83213922173D5AB008BA8A0 /* CKSoftwareProduct.h in Headers */,
+				F83213932173D5AB008BA8A0 /* CKUpdate.h in Headers */,
+				F832138F2173D3E1008BA8A0 /* CKUpdateController.h in Headers */,
 				F83213942173D5AB008BA8A0 /* ISAccountService.h in Headers */,
+				F83213952173D5AB008BA8A0 /* ISAuthenticationContext.h in Headers */,
+				F83213962173D5AB008BA8A0 /* ISOperationDelegate.h in Headers */,
 				F83213972173D5AB008BA8A0 /* ISServiceProxy.h in Headers */,
 				F83213982173D5AB008BA8A0 /* ISServiceRemoteObject.h in Headers */,
-				F832139F2173D5B2008BA8A0 /* SSDownloadStatus.h in Headers */,
-				F832138C2173D3E1008BA8A0 /* CKPurchaseController.h in Headers */,
-				F832138A2173D3E1008BA8A0 /* CKDownloadQueue.h in Headers */,
-				F83213A12173D5B2008BA8A0 /* SSPurchaseResponse.h in Headers */,
-				F83213932173D5AB008BA8A0 /* CKUpdate.h in Headers */,
-				F83213892173D3E1008BA8A0 /* CKAccountStore.h in Headers */,
-				F832138B2173D3E1008BA8A0 /* CKDownloadQueueObserver.h in Headers */,
-				F83213962173D5AB008BA8A0 /* ISOperationDelegate.h in Headers */,
-				F832139D2173D5B2008BA8A0 /* SSDownloadMetadata.h in Headers */,
-				F832138D2173D3E1008BA8A0 /* CKServiceInterface.h in Headers */,
-				F83213922173D5AB008BA8A0 /* CKSoftwareProduct.h in Headers */,
+				F83213992173D5AB008BA8A0 /* ISStoreAccount.h in Headers */,
+				F832139A2173D5AB008BA8A0 /* ISStoreClient.h in Headers */,
+				F83213902173D3E1008BA8A0 /* ISStoreURLOperationDelegate.h in Headers */,
 				F832139B2173D5AB008BA8A0 /* ISURLOperationDelegate.h in Headers */,
 				F8FB716220F2B41400F56FDC /* MasKit.h in Headers */,
-				F832138F2173D3E1008BA8A0 /* CKUpdateController.h in Headers */,
 				F832139C2173D5B2008BA8A0 /* SSDownload.h in Headers */,
+				F832139D2173D5B2008BA8A0 /* SSDownloadMetadata.h in Headers */,
+				F832139E2173D5B2008BA8A0 /* SSDownloadPhase.h in Headers */,
+				F832139F2173D5B2008BA8A0 /* SSDownloadStatus.h in Headers */,
+				F83213A02173D5B2008BA8A0 /* SSPurchase.h in Headers */,
+				F83213A12173D5B2008BA8A0 /* SSPurchaseResponse.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -574,27 +574,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8FB716C20F2B4DD00F56FDC /* PurchaseDownloadObserver.swift in Sources */,
-				F8FB717820F2B4DD00F56FDC /* SignOut.swift in Sources */,
-				F8FB717020F2B4DD00F56FDC /* Info.swift in Sources */,
-				F8FB716E20F2B4DD00F56FDC /* StoreAccount.swift in Sources */,
-				F8FB717320F2B4DD00F56FDC /* Lucky.swift in Sources */,
-				F8FB717220F2B4DD00F56FDC /* List.swift in Sources */,
-				F8FB717920F2B4DD00F56FDC /* Upgrade.swift in Sources */,
-				F8FB716D20F2B4DD00F56FDC /* SSPurchase.swift in Sources */,
-				F8FB716A20F2B4DD00F56FDC /* Downloader.swift in Sources */,
-				F8FB717D20F2B4DD00F56FDC /* Utilities.swift in Sources */,
-				F8FB717B20F2B4DD00F56FDC /* MASError.swift in Sources */,
-				F8FB717720F2B4DD00F56FDC /* SignIn.swift in Sources */,
-				F8FB717A20F2B4DD00F56FDC /* Version.swift in Sources */,
-				F8FB716B20F2B4DD00F56FDC /* ISStoreAccount.swift in Sources */,
-				F8FB716920F2B4DD00F56FDC /* CKSoftwareMap+AppLookup.swift in Sources */,
 				F8FB716F20F2B4DD00F56FDC /* Account.swift in Sources */,
-				F8FB717C20F2B4DD00F56FDC /* NSURLSession+Synchronous.swift in Sources */,
+				F8FB716920F2B4DD00F56FDC /* CKSoftwareMap+AppLookup.swift in Sources */,
+				F8FB716A20F2B4DD00F56FDC /* Downloader.swift in Sources */,
+				F8FB717020F2B4DD00F56FDC /* Info.swift in Sources */,
 				F8FB717120F2B4DD00F56FDC /* Install.swift in Sources */,
-				F8FB717520F2B4DD00F56FDC /* Reset.swift in Sources */,
+				F8FB716B20F2B4DD00F56FDC /* ISStoreAccount.swift in Sources */,
+				F8FB717220F2B4DD00F56FDC /* List.swift in Sources */,
+				F8FB717320F2B4DD00F56FDC /* Lucky.swift in Sources */,
+				F8FB717B20F2B4DD00F56FDC /* MASError.swift in Sources */,
+				F8FB717C20F2B4DD00F56FDC /* NSURLSession+Synchronous.swift in Sources */,
 				F8FB717420F2B4DD00F56FDC /* Outdated.swift in Sources */,
+				F8FB716C20F2B4DD00F56FDC /* PurchaseDownloadObserver.swift in Sources */,
+				F8FB717520F2B4DD00F56FDC /* Reset.swift in Sources */,
 				F8FB717620F2B4DD00F56FDC /* Search.swift in Sources */,
+				F8FB717720F2B4DD00F56FDC /* SignIn.swift in Sources */,
+				F8FB717820F2B4DD00F56FDC /* SignOut.swift in Sources */,
+				F8FB716D20F2B4DD00F56FDC /* SSPurchase.swift in Sources */,
+				F8FB716E20F2B4DD00F56FDC /* StoreAccount.swift in Sources */,
+				F8FB717920F2B4DD00F56FDC /* Upgrade.swift in Sources */,
+				F8FB717D20F2B4DD00F56FDC /* Utilities.swift in Sources */,
+				F8FB717A20F2B4DD00F56FDC /* Version.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
