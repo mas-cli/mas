@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -ex
 
 BUILD_DIR="$PWD/build"
 PROJECT="mas-cli.xcodeproj"
@@ -7,7 +7,7 @@ CONFIG="Release"
 
 main() {
   script/clean
-  
+
   carthage build \
     --platform macOS \
     --cache-builds \
