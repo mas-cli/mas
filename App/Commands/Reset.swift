@@ -8,13 +8,16 @@
 
 import Commandant
 import Result
+import CommerceKit
 
-struct ResetCommand: CommandProtocol {
-    typealias Options = ResetOptions
-    let verb = "reset"
-    let function = "Resets the Mac App Store"
+public struct ResetCommand: CommandProtocol {
+    public typealias Options = ResetOptions
+    public let verb = "reset"
+    public let function = "Resets the Mac App Store"
+
+    public init() {}
     
-    func run(_ options: Options) -> Result<(), MASError> {
+    public func run(_ options: Options) -> Result<(), MASError> {
         /*
         The "Reset Application" command in the Mac App Store debug menu performs
         the following steps
@@ -70,19 +73,19 @@ struct ResetCommand: CommandProtocol {
                 }
             }
         }
-        
+
         return .success(())
     }
 }
 
-struct ResetOptions: OptionsProtocol {
+public struct ResetOptions: OptionsProtocol {
     let debug: Bool
-    
-    static func create(debug: Bool) -> ResetOptions {
+
+    public static func create(debug: Bool) -> ResetOptions {
         return ResetOptions(debug: debug)
     }
-    
-    static func evaluate(_ m: CommandMode) -> Result<ResetOptions, CommandantError<MASError>> {
+
+    public static func evaluate(_ m: CommandMode) -> Result<ResetOptions, CommandantError<MASError>> {
         return create
             <*> m <| Switch(flag: nil, key: "debug", usage: "Enable debug mode")
     }

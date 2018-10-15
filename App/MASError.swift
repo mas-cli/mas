@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum MASError: Error, CustomStringConvertible {
+public enum MASError: Error, CustomStringConvertible {
     case notSignedIn
     case signInDisabled
     case signInFailed(error: NSError?)
@@ -22,7 +22,7 @@ enum MASError: Error, CustomStringConvertible {
     case searchFailed
     case noSearchResultsFound
 
-    var description: String {
+    public var description: String {
         switch self {
         case .notSignedIn:
             return "Not signed in"

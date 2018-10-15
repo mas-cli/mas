@@ -8,13 +8,16 @@
 
 import Commandant
 import Result
+import CommerceKit
 
-struct OutdatedCommand: CommandProtocol {
-    typealias Options = NoOptions<MASError>
-    let verb = "outdated"
-    let function = "Lists pending updates from the Mac App Store"
+public struct OutdatedCommand: CommandProtocol {
+    public typealias Options = NoOptions<MASError>
+    public let verb = "outdated"
+    public let function = "Lists pending updates from the Mac App Store"
+
+    public init() {}
     
-    func run(_ options: Options) -> Result<(), MASError> {
+    public func run(_ options: Options) -> Result<(), MASError> {
         let updateController = CKUpdateController.shared()
         let updates = updateController?.availableUpdates()
         let softwareMap = CKSoftwareMap.shared()

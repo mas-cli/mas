@@ -8,13 +8,16 @@
 
 import Commandant
 import Result
+import CommerceKit
 
-struct ListCommand: CommandProtocol {
-    typealias Options = NoOptions<MASError>
-    let verb = "list"
-    let function = "Lists apps from the Mac App Store which are currently installed"
-    
-    func run(_ options: Options) -> Result<(), MASError> {
+public struct ListCommand: CommandProtocol {
+    public typealias Options = NoOptions<MASError>
+    public let verb = "list"
+    public let function = "Lists apps from the Mac App Store which are currently installed"
+
+    public init() {}
+
+    public func run(_ options: Options) -> Result<(), MASError> {
         let softwareMap = CKSoftwareMap.shared()
         guard let products = softwareMap.allProducts() else {
             print("No installed apps found")

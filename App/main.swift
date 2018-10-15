@@ -6,6 +6,7 @@
 //  Copyright © 2015 Andrew Naylor. All rights reserved.
 //
 
+import MasKit
 import Commandant
 import Foundation
 

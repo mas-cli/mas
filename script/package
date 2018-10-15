@@ -1,19 +1,15 @@
 #!/bin/bash -e
 
-BUILD_DIR=build
-SYM_DIR=sym/Release
-
-pushd $BUILD_DIR
-
-echo "==> 🚚 Moving dSYM to xcarchive"
-mkdir -p mas.xcarchive/dSYMs/
-mv $SYM_DIR/mas.dSYM mas.xcarchive/dSYMs/
+pushd build
 
 echo "==> 🗜️ Compressing mas.xcarchive"
 zip -r mas.xcarchive.zip mas.xcarchive
 
-echo "==> ️🗜️ Compressing binary"
-zip -j mas-cli.zip mas.xcarchive/Products/build/mas
+echo "==> ️🗜️ Compressing binary and framework"
+pushd mas.xcarchive/Products/build
+zip -r mas-cli.zip mas MasKit.framework
+mv mas-cli.zip ../../../
+popd
 
 echo -n "==> 🔢 SHA256: "
 shasum -a 256 mas-cli.zip

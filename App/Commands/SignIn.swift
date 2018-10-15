@@ -8,13 +8,16 @@
 
 import Commandant
 import Result
+import StoreFoundation
 
-struct SignInCommand: CommandProtocol {
-    typealias Options = SignInOptions
-    let verb = "signin"
-    let function = "Sign in to the Mac App Store"
+public struct SignInCommand: CommandProtocol {
+    public typealias Options = SignInOptions
+    public let verb = "signin"
+    public let function = "Sign in to the Mac App Store"
 
-    func run(_ options: Options) -> Result<(), MASError> {
+    public init() {}
+
+    public func run(_ options: Options) -> Result<(), MASError> {
 
         if #available(macOS 10.13, *) {
             return .failure(.signInDisabled)
@@ -43,13 +46,13 @@ struct SignInCommand: CommandProtocol {
     }
 }
 
-struct SignInOptions: OptionsProtocol {
+public struct SignInOptions: OptionsProtocol {
     let username: String
     let password: String
 
     let dialog: Bool
 
-    typealias ClientError = MASError
+    public typealias ClientError = MASError
 
     static func create(username: String) -> (_ password: String) -> (_ dialog: Bool) -> SignInOptions {
         return { password in { dialog in
@@ -57,7 +60,7 @@ struct SignInOptions: OptionsProtocol {
         }}
     }
 
-    static func evaluate(_ m: CommandMode) -> Result<SignInOptions, CommandantError<MASError>> {
+    public static func evaluate(_ m: CommandMode) -> Result<SignInOptions, CommandantError<MASError>> {
         return create
             <*> m <| Argument(usage: "Apple ID")
             <*> m <| Argument(defaultValue: "", usage: "Password")

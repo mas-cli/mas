@@ -6,6 +6,9 @@
 //  Copyright (c) 2015 Andrew Naylor. All rights reserved.
 //
 
+import CommerceKit
+import StoreFoundation
+
 func download(_ adamId: UInt64) -> MASError? {
 
     guard let account = ISStoreAccount.primaryAccount else {
@@ -13,7 +16,7 @@ func download(_ adamId: UInt64) -> MASError? {
     }
     
     let group = DispatchGroup()
-    let purchase = SSPurchase(adamId: adamId, account: account)
+    let purchase = SSPurchase(adamId: adamId, account: account as! ISStoreAccount)
     
     var purchaseError: MASError?
     var observerIdentifier: CKDownloadQueueObserver? = nil

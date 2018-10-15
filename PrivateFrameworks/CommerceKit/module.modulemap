@@ -1,0 +1,18 @@
+//
+// CommerceKit.module
+// mas-cli
+//
+
+module CommerceKit {
+    header "CKAccountStore.h"
+    header "CKDownloadDirectory.h"
+    header "CKDownloadQueue.h"
+    header "CKDownloadQueueObserver.h"
+    header "CKPurchaseController.h"
+    header "CKServiceInterface.h"
+    header "CKSoftwareMap.h"
+    header "CKUpdateController.h"
+    header "ISStoreURLOperationDelegate.h"
+
+    export *
+}

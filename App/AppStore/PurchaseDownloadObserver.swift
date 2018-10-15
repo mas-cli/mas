@@ -6,6 +6,9 @@
 //  Copyright (c) 2015 Andrew Naylor. All rights reserved.
 //
 
+import CommerceKit
+import StoreFoundation
+
 @objc class PurchaseDownloadObserver: NSObject, CKDownloadQueueObserver {
     let purchase: SSPurchase
     var completionHandler: (() -> ())?

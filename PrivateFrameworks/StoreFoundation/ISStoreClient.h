@@ -5,10 +5,11 @@
 //
 
 // #import "NSObject.h"
-
 // #import "NSSecureCoding.h"
 
-@class ISStoreAccount, NSArray, NSDictionary, NSString;
+#import "ISStoreAccount.h"
+
+@class NSArray, NSDictionary, NSString;
 
 NS_ASSUME_NONNULL_BEGIN
 

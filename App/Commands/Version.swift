@@ -9,12 +9,14 @@
 import Commandant
 import Result
 
-struct VersionCommand: CommandProtocol {
-    typealias Options = NoOptions<MASError>
-    let verb = "version"
-    let function = "Print version number"
-    
-    func run(_ options: Options) -> Result<(), MASError> {
+public struct VersionCommand: CommandProtocol {
+    public typealias Options = NoOptions<MASError>
+    public let verb = "version"
+    public let function = "Print version number"
+
+    public init() {}
+
+    public func run(_ options: Options) -> Result<(), MASError> {
         let plist = Bundle.main.infoDictionary
         if let versionString = plist?["CFBundleShortVersionString"] {
             print(versionString)

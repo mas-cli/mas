@@ -8,13 +8,16 @@
 
 import Commandant
 import Result
+import CommerceKit
 
-struct SignOutCommand: CommandProtocol {
-    typealias Options = NoOptions<MASError>
-    let verb = "signout"
-    let function = "Sign out of the Mac App Store"
+public struct SignOutCommand: CommandProtocol {
+    public typealias Options = NoOptions<MASError>
+    public let verb = "signout"
+    public let function = "Sign out of the Mac App Store"
+
+    public init() {}
     
-    func run(_ options: Options) -> Result<(), MASError> {
+    public func run(_ options: Options) -> Result<(), MASError> {
         if #available(macOS 10.13, *) {
             let accountService: ISAccountService = ISServiceProxy.genericShared().accountService
             accountService.signOut()

@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+- 🧰 MasKit Framework #175
 - 🛠 Xcode 10 & Swift 4.2 #173
 - ♻️ Use Carthage rather than CocoaPods to manage dependencies #169
 
