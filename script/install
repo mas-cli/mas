@@ -1,0 +1,9 @@
+#!/bin/bash -ex
+
+echo "==> 📲 Installing mas"
+
+sudo installer \
+    -pkg build/mas.pkg \
+    -target /
+
+pkginfo com.mphys.mas-cli
