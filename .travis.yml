@@ -2,7 +2,7 @@
 # .travis.yml
 # mas-cli
 #
-# https://travis-ci.org/mas-cli/mas
+# https://travis-ci.com/mas-cli/mas
 # https://docs.travis-ci.com/user/reference/osx/
 # https://docs.travis-ci.com/user/languages/objective-c/
 #
@@ -15,6 +15,7 @@ env:
   - LANG=en_US.UTF-8
   - LC_ALL=en_US.UTF-8
   - LANGUAGE=en_US.UTF-8
+  - HOMEBREW_NO_AUTO_UPDATE=1
   - HOMEBREW_BINTRAY_USER=phatblat
   - TAP_BOTTLE_DOMAIN=https://dl.bintray.com/phatblat
   - AWS_REGION=us-west-2 # needed because the aws-sdk-s3 gem errors without it
