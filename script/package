@@ -1,4 +1,6 @@
-#!/bin/bash -e
+#!/bin/bash -ex
+
+xcodebuild install
 
 pushd build
 
@@ -6,12 +8,39 @@ echo "==> 🗜️ Compressing mas.xcarchive"
 zip -r mas.xcarchive.zip mas.xcarchive
 
 echo "==> ️🗜️ Compressing binary and framework"
-pushd mas.xcarchive/Products/build
-zip -r mas-cli.zip mas MasKit.framework
-mv mas-cli.zip ../../../
+pushd mas.xcarchive/Products
+zip -r \
+    mas-cli.zip \
+    usr/local/bin/mas \
+    Library/Frameworks/MasKit.framework
+mv mas-cli.zip ../../
 popd
 
-echo -n "==> 🔢 SHA256: "
-shasum -a 256 mas-cli.zip
+echo "==> 📦 Assemble an installer package"
+IDENTIFIER=com.mphys.mas-cli
+COMPONENTS_PLIST=../Homebrew/Components.plist
+DISTRIBUTION_PLIST=../Homebrew/Distribution.plist
+INSTALL_TEMPORARY_FOLDER=/tmp/mas-cli.dst
+INTERNAL_PACKAGE=mas_temp.pkg
+OUTPUT_PACKAGE=mas.pkg
+VERSION_STRING=1.1.1
+
+tree "$INSTALL_TEMPORARY_FOLDER"
+
+pkgbuild \
+    --component-plist "$COMPONENTS_PLIST" \
+    --identifier "$IDENTIFIER" \
+    --install-location "/" \
+    --root "$INSTALL_TEMPORARY_FOLDER" \
+    --version "$VERSION_STRING" \
+    "$INTERNAL_PACKAGE"
+
+productbuild \
+    --distribution "$DISTRIBUTION_PLIST" \
+    --package-path "$INTERNAL_PACKAGE" \
+    "$OUTPUT_PACKAGE"
+
+echo -n "==> 🔢 SHA256 "
+shasum -a 256 mas-cli.zip mas.xcarchive.zip mas.pkg
 
 popd
