@@ -1,9 +1,13 @@
 #!/bin/bash -ex
 
+IDENTIFIER=com.mphys.mas-cli
+
 echo "==> 📲 Installing mas"
 
 sudo installer \
     -pkg build/mas.pkg \
     -target /
 
-pkginfo com.mphys.mas-cli
+pkgutil --pkg-info "$IDENTIFIER"
+
+pkgutil --files "$IDENTIFIER"
