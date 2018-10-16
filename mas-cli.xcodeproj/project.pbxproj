@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		90CB4071213F4E000044E445 /* Commandant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406B213F4DDD0044E445 /* Commandant.framework */; };
 		ED031A7C1B5127C00097692E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED031A7B1B5127C00097692E /* main.swift */; };
 		F83213892173D3E1008BA8A0 /* CKAccountStore.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB719B20F2EC4500F56FDC /* CKAccountStore.h */; };
 		F832138A2173D3E1008BA8A0 /* CKDownloadQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB719C20F2EC4500F56FDC /* CKDownloadQueue.h */; };
@@ -210,7 +209,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F83213A82173F5A7008BA8A0 /* MasKit.framework in Frameworks */,
-				90CB4071213F4E000044E445 /* Commandant.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -803,6 +801,7 @@
 		F8FB716320F2B41400F56FDC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -840,6 +839,7 @@
 		F8FB716420F2B41400F56FDC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
