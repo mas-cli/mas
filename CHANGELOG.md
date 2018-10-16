@@ -7,12 +7,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v1.4.3] - 2018-10-16
+
 - 🧰 MasKit Framework #175
 - 🛠 Xcode 10 & Swift 4.2 #173
 - ♻️ Use Carthage rather than CocoaPods to manage dependencies #169
 - ⬆️ danger (5.7.0) #176
 
-## [v1.4.2] - Sign-In Disabled - 2018-08-12
+## [v1.4.2] Sign-In Disabled - 2018-08-12
+
+> Version 1.4.2 was never [released](https://github.com/Homebrew/homebrew-core/pull/31058) through Homebrew.
 
 - 🚏📥🙅🏻‍♀️ Disabled `signin` command on macOS 10.13+ #162
   - An error is immediately returned instead of crashing on newer macOS versions.
