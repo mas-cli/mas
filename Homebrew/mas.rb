@@ -17,8 +17,9 @@ class Mas < Formula
 
   def install
 
-    xcodebuild "-workspace", "mas-cli.xcworkspace",
+    xcodebuild "-project", "mas-cli.xcodeproj",
                "-scheme", "mas-cli Release",
+               "-configuration," "Release",
                "SYMROOT=#{buildpath.realpath}"
 
     bin.install buildpath/"build/mas"
