@@ -1,6 +1,8 @@
 #!/bin/bash -ex
 
-xcodebuild install
+set -o pipefail && \
+    xcodebuild install \
+    | bundle exec xcpretty --color
 
 pushd build
 
@@ -11,8 +13,8 @@ echo "==> ️🗜️ Compressing binary and framework"
 pushd mas.xcarchive/Products
 zip -r \
     mas-cli.zip \
-    usr/local/bin/mas \
-    Library/Frameworks/MasKit.framework
+    bin/mas \
+    Frameworks/MasKit.framework
 mv mas-cli.zip ../../
 popd
 
@@ -40,7 +42,7 @@ productbuild \
     --package-path "$INTERNAL_PACKAGE" \
     "$OUTPUT_PACKAGE"
 
-echo -n "==> 🔢 SHA256 "
+echo "==> 🔢 Files Hashes"
 shasum -a 256 mas-cli.zip mas.xcarchive.zip mas.pkg
 
 popd

@@ -17,5 +17,5 @@
     <choice id="com.mphys.mas-cli" visible="false">
         <pkg-ref id="com.mphys.mas-cli"/>
     </choice>
-    <pkg-ref id="com.mphys.mas-cli" version="1.0.0" onConclusion="none">MasTemp.pkg</pkg-ref>
+    <pkg-ref id="com.mphys.mas-cli" version="1.0.0" onConclusion="none">mas_temp.pkg</pkg-ref>
 </installer-gui-script>
