@@ -38,7 +38,6 @@
 		F83213A82173F5A7008BA8A0 /* MasKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8FB715220F2B41400F56FDC /* MasKit.framework */; };
 		F83213A92173F5D0008BA8A0 /* Commandant.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406B213F4DDD0044E445 /* Commandant.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F83213AA2173F5D0008BA8A0 /* Result.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB4069213F4DDD0044E445 /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		F83213AB2173F697008BA8A0 /* MasKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = F8FB715220F2B41400F56FDC /* MasKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F8FB715B20F2B41400F56FDC /* MasKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8FB715220F2B41400F56FDC /* MasKit.framework */; };
 		F8FB716020F2B41400F56FDC /* MasKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FB715F20F2B41400F56FDC /* MasKitTests.swift */; };
 		F8FB716220F2B41400F56FDC /* MasKit.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB715420F2B41400F56FDC /* MasKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -94,17 +93,6 @@
 			files = (
 			);
 			name = "Copy Debugging Symbols";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		90CB407E213F4E8A0044E445 /* Copy Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				F83213AB2173F697008BA8A0 /* MasKit.framework in Copy Frameworks */,
-			);
-			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		ED031A761B5127C00097692E /* CopyFiles */ = {
@@ -454,7 +442,6 @@
 				90CB4073213F4E070044E445 /* Copy Debugging Symbols */,
 				ED031A741B5127C00097692E /* Sources */,
 				ED031A751B5127C00097692E /* Frameworks */,
-				90CB407E213F4E8A0044E445 /* Copy Frameworks */,
 				ED031A761B5127C00097692E /* CopyFiles */,
 				E7460A391382D898934EFFBD /* Resources */,
 			);
