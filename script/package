@@ -29,14 +29,19 @@ VERSION_STRING=1.1.1
 
 tree "$INSTALL_TEMPORARY_FOLDER"
 
+# Assemble pkg. Using /usr/local prefix to avoid the following errors with "/"
+#   - installer: The install failed (The Installer encountered an error that caused the installation to fail. Contact the software manufacturer for assistance.)
+#   - GUI warning: This package is incompatible with this version of macOS and may fail to install. (may damage your system... )
 pkgbuild \
     --component-plist "$COMPONENTS_PLIST" \
     --identifier "$IDENTIFIER" \
-    --install-location "/" \
+    --install-location "/usr/local" \
     --root "$INSTALL_TEMPORARY_FOLDER" \
     --version "$VERSION_STRING" \
     "$INTERNAL_PACKAGE"
 
+# Build 2nd pkg from 1st. Not sure why, but this is how Carthage does it.
+# https://github.com/Carthage/Carthage/blob/master/Makefile#L87
 productbuild \
     --distribution "$DISTRIBUTION_PLIST" \
     --package-path "$INTERNAL_PACKAGE" \
