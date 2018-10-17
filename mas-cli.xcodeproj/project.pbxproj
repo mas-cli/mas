@@ -757,7 +757,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
 				INSTALL_PATH = /bin;
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path/. @executable_path/MasKit.framework/Versions/Current/Frameworks /Library/Frameworks /Library/Frameworks/MasKit.framework/Versions/Current/Frameworks $(inherited)";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/. @executable_path/MasKit.framework/Versions/Current/Frameworks /usr/local/Frameworks /usr/local/Frameworks/MasKit.framework/Versions/Current/Frameworks $(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mphys.mas-cli";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
@@ -778,7 +778,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
 				INSTALL_PATH = /bin;
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path/. @executable_path/MasKit.framework/Versions/Current/Frameworks /Library/Frameworks /Library/Frameworks/MasKit.framework/Versions/Current/Frameworks $(inherited)";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/. @executable_path/MasKit.framework/Versions/Current/Frameworks /usr/local/Frameworks /usr/local/Frameworks/MasKit.framework/Versions/Current/Frameworks $(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mphys.mas-cli";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;

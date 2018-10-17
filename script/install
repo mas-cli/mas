@@ -2,6 +2,8 @@
 
 PREFIX=/usr/local
 INSTALL_TEMPORARY_FOLDER=/tmp/mas-cli.dst
+FRAMEWORK_NAME=MasKit.framework
+BINARY_NAME=mas
 
 # Override default prefix path with optional 1st arg
 if test -n "$1"; then
@@ -19,3 +21,17 @@ ditto -v \
 ditto -v \
     "$INSTALL_TEMPORARY_FOLDER/bin" \
     "$PREFIX/bin"
+
+echo "==> 🔗 Update dylib load paths"
+
+install_name_tool \
+    -rpath \
+        "/usr/local/Frameworks" \
+        "@executable_path/../Frameworks" \
+    "$PREFIX/bin/$BINARY_NAME"
+
+install_name_tool \
+    -rpath \
+        "/usr/local/Frameworks/$FRAMEWORK_NAME/Versions/Current/Frameworks" \
+        "@executable_path/../Frameworks/$FRAMEWORK_NAME/Versions/Current/Frameworks" \
+    "$PREFIX/bin/$BINARY_NAME"
