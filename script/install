@@ -3,6 +3,7 @@
 PREFIX=/usr/local
 INSTALL_TEMPORARY_FOLDER=/tmp/mas-cli.dst
 
+# Override default prefix path with optional 1st arg
 if test -n "$1"; then
     PREFIX="$1"
 fi
@@ -11,16 +12,10 @@ echo "==> 📲 Installing mas to $PREFIX"
 
 xcodebuild install
 
-pushd "$INSTALL_TEMPORARY_FOLDER"
+ditto -v \
+    "$INSTALL_TEMPORARY_FOLDER/Frameworks" \
+    "$PREFIX/Frameworks"
 
-mkdir -p "$PREFIX/Frameworks/"
-
-mv -v \
-    Frameworks/MasKit.framework \
-    "$PREFIX/Frameworks/"
-
-mv -f \
-    bin/mas \
-    "$PREFIX/bin/"
-
-popd
+ditto -v \
+    "$INSTALL_TEMPORARY_FOLDER/bin" \
+    "$PREFIX/bin"
