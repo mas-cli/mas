@@ -760,6 +760,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/. @executable_path/MasKit.framework/Versions/Current/Frameworks /Library/Frameworks /Library/Frameworks/MasKit.framework/Versions/Current/Frameworks $(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mphys.mas-cli";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
+				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "App/mas-cli-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 			};
@@ -779,6 +781,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/. @executable_path/MasKit.framework/Versions/Current/Frameworks /Library/Frameworks /Library/Frameworks/MasKit.framework/Versions/Current/Frameworks $(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mphys.mas-cli";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
+				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "App/mas-cli-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.2;
