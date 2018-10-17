@@ -1,0 +1,20 @@
+#!/bin/bash -e
+
+PREFIX=/usr/local
+INSTALL_TEMPORARY_FOLDER=/tmp/mas-cli.dst
+
+echo "==> 📲 Installing mas to $PREFIX"
+
+xcodebuild install
+
+pushd "$INSTALL_TEMPORARY_FOLDER"
+
+rsync --archive --delete \
+    Frameworks/MasKit.framework \
+    "$PREFIX/Frameworks/"
+
+cp -f \
+    bin/mas \
+    "$PREFIX/bin/"
+
+popd

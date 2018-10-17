@@ -31,7 +31,6 @@ class Mas < Formula
                "OBJROOT=#{buildpath.realpath}",
                "SYMROOT=#{buildpath.realpath}"
 
-    system "script/package"
     system "script/install"
 
     bash_completion.install "contrib/completion/mas-completion.bash" => "mas"
