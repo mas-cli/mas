@@ -4,5 +4,5 @@ PREFIX=/usr/local
 
 echo "==> 🔥 Installing mas"
 
-rm -rf /usr/local/Frameworks/MasKit.framework/
+rm -rf /usr/local/Frameworks/MasKit.framework
 rm -f /usr/local/bin/mas
