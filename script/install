@@ -3,6 +3,10 @@
 PREFIX=/usr/local
 INSTALL_TEMPORARY_FOLDER=/tmp/mas-cli.dst
 
+if test -n "$1"; then
+    PREFIX="$1"
+fi
+
 echo "==> 📲 Installing mas to $PREFIX"
 
 xcodebuild install
