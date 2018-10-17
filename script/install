@@ -9,11 +9,13 @@ xcodebuild install
 
 pushd "$INSTALL_TEMPORARY_FOLDER"
 
-rsync --archive --delete \
+mkdir -p "$PREFIX/Frameworks/"
+
+mv -v \
     Frameworks/MasKit.framework \
     "$PREFIX/Frameworks/"
 
-cp -f \
+mv -f \
     bin/mas \
     "$PREFIX/bin/"
 
