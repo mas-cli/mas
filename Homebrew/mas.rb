@@ -2,8 +2,9 @@ class Mas < Formula
   desc "Mac App Store command-line interface"
   homepage "https://github.com/mas-cli/mas"
   url "https://github.com/mas-cli/mas.git",
-    :tag => "v1.4.2",
-    :revision => "966872b32820c014a9004691f5da47f170702236",
+    :branch => "release-1.4.3",
+    # :tag => "v1.4.2",
+    # :revision => "966872b32820c014a9004691f5da47f170702236",
     :shallow => true
   head "https://github.com/mas-cli/mas.git", :shallow => true
 
@@ -14,16 +15,24 @@ class Mas < Formula
   end
 
   depends_on :xcode => ["10.0", :build]
+  depends_on "carthage" => :build
 
   def install
+    # Prevent build failures from warnings
+    xcconfig = buildpath/"Overrides.xcconfig"
+    File.open(xcconfig, 'w') { |file| file.write("GCC_TREAT_WARNINGS_AS_ERRORS = NO") }
+    ENV["XCODE_XCCONFIG_FILE"] = xcconfig
+
+    system "carthage", "bootstrap", "--platform", "macOS"
 
     xcodebuild "-project", "mas-cli.xcodeproj",
                "-scheme", "mas-cli Release",
-               "-configuration," "Release",
+               "-configuration",🛠️ "Release",
+               "OBJROOT=#{buildpath.realpath}",
                "SYMROOT=#{buildpath.realpath}"
 
-    bin.install buildpath/"build/mas"
-    # TODO: Move MasKit.frameworks to prefix/Frameworks
+    system "script/package"
+    system "script/install"
 
     bash_completion.install "contrib/completion/mas-completion.bash" => "mas"
   end
