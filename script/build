@@ -14,12 +14,6 @@ main() {
     --configuration "$CONFIG"
 
   archive
-
-  # If this is a tagged build we are going to release
-#   TEMP: Generate archive on all builds
-#   if [[ ! -z $TRAVIS_TAG ]]; then
-    # archive
-#   fi
 }
 
 # OBJROOT - Intermediate Build Files Path

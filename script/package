@@ -1,8 +1,6 @@
 #!/bin/bash -ex
 
-set -o pipefail && \
-    xcodebuild install \
-    | bundle exec xcpretty --color
+xcodebuild install
 
 pushd build
 
