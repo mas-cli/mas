@@ -1,4 +1,4 @@
-#!/bin/bash -ex
+#!/bin/bash -e
 #
 # script/package
 # mas
@@ -10,16 +10,18 @@
 # TODO: Make VERSION_STRING dynamic
 VERSION_STRING=1.4.3
 
-xcodebuild install
-
-echo "==> 📦 Assemble an installer package"
 IDENTIFIER=com.mphys.mas-cli
-COMPONENTS_PLIST=Homebrew/Components.plist
-DISTRIBUTION_PLIST=Homebrew/Distribution.plist
+COMPONENTS_PLIST=../Homebrew/Components.plist
+DISTRIBUTION_PLIST=../Homebrew/Distribution.plist
 INSTALL_TEMPORARY_FOLDER=/tmp/mas-cli.dst
 INTERNAL_PACKAGE=mas_temp.pkg
 OUTPUT_PACKAGE=mas.pkg
 
+xcodebuild install
+
+pushd build
+
+echo "==> 📦 Assemble an installer package"
 # Assemble pkg. Using /usr/local prefix to avoid the following errors with "/"
 #   - installer: The install failed (The Installer encountered an error that caused the installation to fail. Contact the software manufacturer for assistance.)
 #   - GUI warning: This package is incompatible with this version of macOS and may fail to install. (may damage your system... )
@@ -40,3 +42,5 @@ productbuild \
 
 echo "==> 🔢 Files Hashes"
 shasum -a 256 mas.pkg
+
+popd
