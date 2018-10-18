@@ -57,12 +57,12 @@ jobs:
     script:
     - |
       if test -n "$TRAVIS_TAG"; then
-        echo "Deploying from tag $TRAVIS_TAG"
+        echo "🚀 Deploying from tag $TRAVIS_TAG"
       else
         if test -n "$TRAVIS_PULL_REQUEST"; then
-          echo "Skipping deployment as build is from PR $TRAVIS_PULL_REQUEST_SLUG/$TRAVIS_PULL_REQUEST_BRANCH -> $TRAVIS_BRANCH"
+          echo "🛑 Skipping deployment as build is from a PR -> $TRAVIS_PULL_REQUEST_SLUG/$TRAVIS_PULL_REQUEST_BRANCH -> $TRAVIS_BRANCH"
         else
-          echo "Skipping deployment as build is from branch $TRAVIS_BRANCH"
+          echo "🛑 Skipping deployment as build is from branch -> $TRAVIS_BRANCH"
         fi
       fi
 
