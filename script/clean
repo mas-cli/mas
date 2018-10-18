@@ -1,9 +1,11 @@
 #!/bin/bash -e
 
 BUILD_DIR=build
+INSTALL_DIR=/tmp/mas-cli.dst
 
 main() {
-  rm -rf $BUILD_DIR/
+  rm -rf ${BUILD_DIR:?}
+  rm -rf ${INSTALL_DIR:?}
 }
 
 main

@@ -1,17 +1,35 @@
-#!/bin/bash -e
+#!/bin/bash -ex
 
-pushd build
+# TODO: Make VERSION_STRING dynamic
+VERSION_STRING=1.4.3
 
-echo "==> 🗜️ Compressing mas.xcarchive"
-zip -r mas.xcarchive.zip mas.xcarchive
+xcodebuild install
 
-echo "==> ️🗜️ Compressing binary and framework"
-pushd mas.xcarchive/Products/build
-zip -r mas-cli.zip mas MasKit.framework
-mv mas-cli.zip ../../../
-popd
+echo "==> 📦 Assemble an installer package"
+IDENTIFIER=com.mphys.mas-cli
+COMPONENTS_PLIST=Homebrew/Components.plist
+DISTRIBUTION_PLIST=Homebrew/Distribution.plist
+INSTALL_TEMPORARY_FOLDER=/tmp/mas-cli.dst
+INTERNAL_PACKAGE=mas_temp.pkg
+OUTPUT_PACKAGE=mas.pkg
 
-echo -n "==> 🔢 SHA256: "
-shasum -a 256 mas-cli.zip
+# Assemble pkg. Using /usr/local prefix to avoid the following errors with "/"
+#   - installer: The install failed (The Installer encountered an error that caused the installation to fail. Contact the software manufacturer for assistance.)
+#   - GUI warning: This package is incompatible with this version of macOS and may fail to install. (may damage your system... )
+pkgbuild \
+    --component-plist "$COMPONENTS_PLIST" \
+    --identifier "$IDENTIFIER" \
+    --install-location "/usr/local" \
+    --root "$INSTALL_TEMPORARY_FOLDER" \
+    --version "$VERSION_STRING" \
+    "$INTERNAL_PACKAGE"
 
-popd
+# Build 2nd pkg from 1st. Not sure why, but this is how Carthage does it.
+# https://github.com/Carthage/Carthage/blob/master/Makefile#L87
+productbuild \
+    --distribution "$DISTRIBUTION_PLIST" \
+    --package-path "$INTERNAL_PACKAGE" \
+    "$OUTPUT_PACKAGE"
+
+echo "==> 🔢 Files Hashes"
+shasum -a 256 mas.pkg
