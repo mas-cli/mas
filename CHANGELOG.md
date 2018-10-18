@@ -7,15 +7,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [v1.4.3] - 2018-10-16
+
+
+## [v1.4.3] 📦🏛️ MasKit & Carthage - 2018-10-17
+
+Big project restructure to fix issues building for Homebrew.
+The `mas` binary now depends on the separate `MasKit.framework`.
+Use the `mas.pkg` package to install manually.
 
 - 🧰 MasKit Framework #175
 - 📦 Added installer package #178
 - 🛠 Xcode 10 & Swift 4.2 #173
-- ♻️ Use Carthage rather than CocoaPods to manage dependencies #169
+- ♻️ Use Carthage rather than CocoaPods to manage dependencies #169  
+  thanks @tonyarnold!
 - ⬆️ danger (5.7.0) #176
 
-## [v1.4.2] Sign-In Disabled - 2018-08-12
+## [v1.4.2] 🚏📥🙅🏻‍♀️ Sign-In Disabled - 2018-08-12
 
 > Version 1.4.2 was never [released](https://github.com/Homebrew/homebrew-core/pull/31058) through Homebrew.
 
@@ -33,11 +40,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - 🛠 Xcode 9.3 #141
 - 👷🏻‍♀️⚠️ Re-enabled Danger #137
 
-## [v1.4.1] Stop Littering - 2018-02-18
+## [v1.4.1] 🚯 Stop Littering - 2018-02-18
 
 - 🐛 Prevent `default.profraw` from getting created #135
 
-## [v1.4.0] It's Alive! 🧟‍♂️ - 2018-02-16
+## [v1.4.0] 🧟‍♂️ It's Alive! - 2018-02-16
 
 ### ✨ Enhancements
 - ℹ️ Info command #26, #55
@@ -115,7 +122,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [v1.0.0] - 2015-09-20
 - Initial Release
 
-[Unreleased]: https://github.com/mas-cli/mas/compare/v1.4.2...HEAD
+[Unreleased]: https://github.com/mas-cli/mas/compare/v1.4.3...HEAD
+[v1.4.3]: https://github.com/mas-cli/mas/compare/v1.4.2...v1.4.3
 [v1.4.2]: https://github.com/mas-cli/mas/compare/v1.4.1...v1.4.2
 [v1.4.1]: https://github.com/mas-cli/mas/compare/v1.4.0...v1.4.1
 [v1.4.0]: https://github.com/mas-cli/mas/compare/v1.3.1...v1.4.0
