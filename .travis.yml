@@ -10,6 +10,10 @@
 os: osx
 osx_image: xcode10         # macOS 10.13
 
+git:
+  depth: 1
+  submodules: false
+
 env:
   global:
   - LANG=en_US.UTF-8
