@@ -35,6 +35,10 @@ env:
 install:
 - script/bootstrap
 
+stages:
+- Assemble
+- Deploy
+
 jobs:
   include:
   # Assemble stage
