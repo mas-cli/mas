@@ -9,7 +9,12 @@
 
 PREFIX=/usr/local
 
-echo "==> 🔥 Installing mas"
+# Override default prefix path with optional 1st arg
+if test -n "$1"; then
+    PREFIX="$1"
+fi
 
-rm -rf /usr/local/Frameworks/MasKit.framework
-rm -f /usr/local/bin/mas
+echo "==> 🔥 Uninstalling mas from $PREFIX"
+
+rm -fr "$PREFIX/Frameworks/MasKit.framework"
+rm -f "$PREFIX/bin/mas"
