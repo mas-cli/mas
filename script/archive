@@ -1,4 +1,10 @@
 #!/bin/bash -ex
+#
+# script/archive
+# mas
+#
+# Compresses artifacts so the can be archived more easily.
+#
 
 pushd build
 

@@ -1,4 +1,12 @@
 #!/bin/bash -e
+#
+# script/install
+# mas
+#
+# Copies the mas binary and MasKit.framework bundle into their correct positions under PREFIX.
+# Linker paths are updated on the mas binary so it can find MasKit under PREFIX.
+# Called by the Homebrew formula so this script has no non-system dependencies other than Xcode.
+#
 
 PREFIX=/usr/local
 INSTALL_TEMPORARY_FOLDER=/tmp/mas-cli.dst

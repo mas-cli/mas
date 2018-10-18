@@ -1,4 +1,10 @@
 #!/bin/bash -ex
+#
+# script/package_install
+# mas
+#
+# Runs the installer command using sudo to install the mas package.
+#
 
 IDENTIFIER=com.mphys.mas-cli
 

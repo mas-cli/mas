@@ -3,7 +3,7 @@
 # script/clean
 # mas
 #
-# Deletes the build directory.
+# Deletes the build and temp installdirectories.
 #
 
 BUILD_DIR=build
