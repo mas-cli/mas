@@ -9,6 +9,9 @@
 mkdir -p build
 pushd build
 
+brew uninstall \
+    --force mas
+
 brew install \
     --build-bottle \
     --force \
@@ -19,5 +22,19 @@ brew bottle \
     --no-rebuild \
     --root-url=https://dl.bintray.com/phatblat/mas-bottles \
     mas
+
+# Need to parse bottle command output to grab bottle dsl block
+# ==> Bottling mas--1.4.1.mojave.bottle.tar.gz...
+# tar cf /Volumes/ThunderBay/Users/phatblat/dev/macos/mas/build/mas--1.4.1.mojave.bottle.tar mas/1.4.1
+# gzip -f mas-bottle.tar
+# ==> Detecting if mas--1.4.1.mojave.bottle.tar.gz is relocatable...
+# ./mas--1.4.1.mojave.bottle.tar.gz
+# bottle do
+#     root_url "https://dl.bintray.com/phatblat/mas-bottles"
+#     cellar :any_skip_relocation
+#     sha256 "4625af81ccde47c61ecc7940e3560a78cd860714619cc48617afe1477211aa45" => :mojave
+# end
+
+# Bottle will have name like mas--1.4.1.mojave.bottle.tar.gz
 
 popd build
