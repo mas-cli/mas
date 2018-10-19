@@ -33,9 +33,3 @@ brew bump-formula-pr \
     --strict \
     --verbose \
     mas
-
-brew bottle \
-    --verbose \
-    --no-rebuild \
-    --root-url=https://dl.bintray.com/phatblat/mas-bottles \
-    mas
