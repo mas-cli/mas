@@ -86,3 +86,7 @@ jobs:
         repo: mas-cli/mas
         tags: true
       # TODO: add name, body content to release https://docs.travis-ci.com/user/deployment/releases/#advanced-options
+
+    after_deploy:
+    - script/formulate
+    - script/bottle
