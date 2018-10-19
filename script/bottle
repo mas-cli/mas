@@ -12,6 +12,7 @@ pushd build
 brew uninstall \
     --force mas
 
+# FIXME: Linker errors stop the script
 brew install \
     --build-bottle \
     --force \
@@ -23,7 +24,7 @@ brew bottle \
     --root-url=https://dl.bintray.com/phatblat/mas-bottles \
     mas
 
-# Need to parse bottle command output to grab bottle dsl block
+# bottle command output
 # ==> Bottling mas--1.4.1.mojave.bottle.tar.gz...
 # tar cf /Volumes/ThunderBay/Users/phatblat/dev/macos/mas/build/mas--1.4.1.mojave.bottle.tar mas/1.4.1
 # gzip -f mas-bottle.tar
@@ -36,5 +37,17 @@ brew bottle \
 # end
 
 # Bottle will have name like mas--1.4.1.mojave.bottle.tar.gz
+bottle_name=$(ls -1 mas--*.bottle.tar.gz)
+ls -l "$bottle_name"
+
+cp "$bottle_name" "${bottle_name/mojave/high_sierra}"
+cp "$bottle_name" "${bottle_name/mojave/sierra}"
+cp "$bottle_name" "${bottle_name/mojave/el_capitan}"
+cp "$bottle_name" "${bottle_name/mojave/yosemite}"
+
+sha=$(shasum --algorithm 256 "$bottle_name" | cut -d' ' -f1)
+echo "Bottle hash: $sha"
+
+# TODO: Write bottle dsl block to formula
 
 popd build
