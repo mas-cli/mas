@@ -6,5 +6,18 @@
 # Builds bottles of Homebrew formula.
 #
 
-brew install --build-bottle mas
-brew bottle --verbose --no-rebuild --root-url=https://dl.bintray.com/phatblat/mas-bottles mas
+mkdir -p build
+pushd build
+
+brew install \
+    --build-bottle \
+    --force \
+    mas
+
+brew bottle \
+    --verbose \
+    --no-rebuild \
+    --root-url=https://dl.bintray.com/phatblat/mas-bottles \
+    mas
+
+popd build
