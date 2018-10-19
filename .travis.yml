@@ -85,7 +85,10 @@ jobs:
       on:
         repo: mas-cli/mas
         tags: true
-      # TODO: add name, body content to release https://docs.travis-ci.com/user/deployment/releases/#advanced-options
+      # OctoKit options https://docs.travis-ci.com/user/deployment/releases/#advanced-options
+      name: $TRAVIS_TAG
+      body: Test release from tag $TRAVIS_TAG
+      draft: true
 
     after_deploy:
     - script/formulate
