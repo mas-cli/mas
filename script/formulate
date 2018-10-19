@@ -1,0 +1,41 @@
+#!/bin/bash -e
+#
+# script/formulate
+# mas
+#
+# Update Homebrew formula.
+#
+
+# Typically, the tag will be provided to travis
+TAG=$TRAVIS_TAG
+
+# For testing, specify tag as 1st arg to script
+if test -n "$1"; then
+    TAG="$1"
+else
+    echo "Tag must be specified via TRAVIS_TAG or 1st arg to script" 1>&2
+    exit 1
+fi
+
+REVISION=1
+
+# Optional 2nd arg to script
+if test -n "$2"; then
+    REVISION="$2"
+fi
+
+    # --url=https://github.com/mas-cli/mas/archive/v1.4.3.tar.gz \
+    # --sha256=217fdc46b2c14c634a492cdb1826be2c64b632e4cd3dcac1e057951db4492f7e \
+
+brew bump-formula-pr \
+    --tag="$TAG" \
+    --revision="$REVISION" \
+    --strict \
+    --verbose \
+    mas
+
+brew bottle \
+    --verbose \
+    --no-rebuild \
+    --root-url=https://dl.bintray.com/phatblat/mas-bottles \
+    mas
