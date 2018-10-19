@@ -46,6 +46,7 @@ jobs:
 
     script:
     - script/build
+    - script/archive
     - script/package
     - bundle exec danger
 
@@ -69,7 +70,7 @@ jobs:
     before_deploy:
     - bundle exec script/travis_download.rb $S3_BUCKET $TRAVIS_BUILD_NUMBER
 
-    # travis setup releases
+    # GitHub Releases
     deploy:
       provider: releases
       api_key:
