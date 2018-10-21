@@ -20,7 +20,10 @@ class Mas < Formula
     # Prevent warnings from causing build failures
     # Prevent linker errors by telling all lib builds to use max size install names
     xcconfig = buildpath/"Overrides.xcconfig"
-    xcconfig.write("GCC_TREAT_WARNINGS_AS_ERRORS = NO\nOTHER_LDFLAGS = -headerpad_max_install_names")
+    xcconfig.write <<~EOS
+      GCC_TREAT_WARNINGS_AS_ERRORS = NO
+      OTHER_LDFLAGS = -headerpad_max_install_names
+    EOS
     ENV["XCODE_XCCONFIG_FILE"] = xcconfig
 
     system "carthage", "bootstrap", "--platform", "macOS"
