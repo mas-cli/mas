@@ -71,11 +71,15 @@ public struct SearchCommand: CommandProtocol {
         return .success(())
     }
 
+    
+    /// Builds a URL to search the MAS for an app
+    ///
+    /// - Parameter appName: Name of the app to find.
+    /// - Returns: String URL for app search or nil if the app name could not be encoded.
     func searchURLString(_ appName: String) -> String? {
-        if let urlEncodedAppName = appName.URLEncodedString {
-            return "https://itunes.apple.com/search?entity=macSoftware&term=\(urlEncodedAppName)&attribute=allTrackTerm"
-        }
-        return nil
+        guard let urlEncodedAppName = appName.URLEncodedString else { return nil }
+        
+        return "https://itunes.apple.com/search?entity=macSoftware&term=\(urlEncodedAppName)&attribute=allTrackTerm"
     }
 }
 
