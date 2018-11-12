@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B5552928219A1BB900ACB4CA /* CommerceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83213A62173EF75008BA8A0 /* CommerceKit.framework */; };
+		B5552929219A1BC700ACB4CA /* StoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83213A52173EF75008BA8A0 /* StoreFoundation.framework */; };
 		ED031A7C1B5127C00097692E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED031A7B1B5127C00097692E /* main.swift */; };
 		F83213892173D3E1008BA8A0 /* CKAccountStore.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB719B20F2EC4500F56FDC /* CKAccountStore.h */; };
 		F832138A2173D3E1008BA8A0 /* CKDownloadQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB719C20F2EC4500F56FDC /* CKDownloadQueue.h */; };
@@ -63,8 +65,6 @@
 		F8FB717C20F2B4DD00F56FDC /* NSURLSession+Synchronous.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A989A1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift */; };
 		F8FB717D20F2B4DD00F56FDC /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDCBF9541D89CFC7000039C6 /* Utilities.swift */; };
 		F8FB717E20F2B4E600F56FDC /* MASErrorTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F865880A2030F6DE0093DE57 /* MASErrorTestCase.swift */; };
-		F8FB719620F2B5FF00F56FDC /* CommerceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDEAA17C1B5C579100F2FC3F /* CommerceKit.framework */; };
-		F8FB719720F2B60400F56FDC /* StoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDEAA0BF1B51CE6200F2FC3F /* StoreFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -146,16 +146,13 @@
 		EDCBF9541D89CFC7000039C6 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		EDD3B3621C34709400B56B88 /* Upgrade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Upgrade.swift; sourceTree = "<group>"; };
 		EDE296521C700F4300554778 /* SignOut.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignOut.swift; sourceTree = "<group>"; };
-		EDEAA0BF1B51CE6200F2FC3F /* StoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreFoundation.framework; path = /System/Library/PrivateFrameworks/StoreFoundation.framework; sourceTree = "<absolute>"; };
 		EDEAA12C1B51CF8000F2FC3F /* mas-cli-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "mas-cli-Bridging-Header.h"; sourceTree = "<group>"; };
-		EDEAA17C1B5C579100F2FC3F /* CommerceKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CommerceKit.framework; path = /System/Library/PrivateFrameworks/CommerceKit.framework; sourceTree = "<absolute>"; };
 		F8233C8B201EBDF100268278 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F8242D8020746A510026DF35 /* StoreAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreAccount.swift; sourceTree = "<group>"; };
 		F83213A42173EF75008BA8A0 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F83213A52173EF75008BA8A0 /* StoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreFoundation.framework; path = ../../../../../../../System/Library/PrivateFrameworks/StoreFoundation.framework; sourceTree = "<group>"; };
 		F83213A62173EF75008BA8A0 /* CommerceKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CommerceKit.framework; path = ../../../../../../../System/Library/PrivateFrameworks/CommerceKit.framework; sourceTree = "<group>"; };
 		F865880A2030F6DE0093DE57 /* MASErrorTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MASErrorTestCase.swift; sourceTree = "<group>"; };
-		F876BB4A20ED717800EB9FD1 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F8FB715220F2B41400F56FDC /* MasKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MasKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8FB715420F2B41400F56FDC /* MasKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasKit.h; sourceTree = "<group>"; };
 		F8FB715520F2B41400F56FDC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -205,9 +202,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F83213A22173DC13008BA8A0 /* Commandant.framework in Frameworks */,
-				F8FB719620F2B5FF00F56FDC /* CommerceKit.framework in Frameworks */,
+				B5552928219A1BB900ACB4CA /* CommerceKit.framework in Frameworks */,
 				F83213A32173DC18008BA8A0 /* Result.framework in Frameworks */,
-				F8FB719720F2B60400F56FDC /* StoreFoundation.framework in Frameworks */,
+				B5552929219A1BC700ACB4CA /* StoreFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,11 +334,8 @@
 		F8FB715E20F2B41400F56FDC /* MasKitTests */ = {
 			isa = PBXGroup;
 			children = (
-				F876BB4A20ED717800EB9FD1 /* Cocoa.framework */,
-				EDEAA17C1B5C579100F2FC3F /* CommerceKit.framework */,
 				F8FB716120F2B41400F56FDC /* Info.plist */,
 				F8FB715F20F2B41400F56FDC /* MasKitTests.swift */,
-				EDEAA0BF1B51CE6200F2FC3F /* StoreFoundation.framework */,
 			);
 			path = MasKitTests;
 			sourceTree = "<group>";
