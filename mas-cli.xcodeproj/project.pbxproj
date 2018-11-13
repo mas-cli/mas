@@ -228,8 +228,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8FB715B20F2B41400F56FDC /* MasKit.framework in Frameworks */,
-				B555292E219A218E00ACB4CA /* Quick.framework in Frameworks */,
 				B555292F219A219100ACB4CA /* Nimble.framework in Frameworks */,
+				B555292E219A218E00ACB4CA /* Quick.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -605,8 +605,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B555292D219A1FE700ACB4CA /* SearchSpec.swift in Sources */,
 				B555292B219A1CB200ACB4CA /* MASErrorTestCase.swift in Sources */,
+				B555292D219A1FE700ACB4CA /* SearchSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
