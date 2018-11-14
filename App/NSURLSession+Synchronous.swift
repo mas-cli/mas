@@ -13,7 +13,6 @@ import Foundation
 /// NSURLSession synchronous behavior
 /// Particularly for playground sessions that need to run sequentially
 public extension URLSession {
-    
     /// Return data from synchronous URL request
     public static func requestSynchronousData(_ request: URLRequest) -> Data? {
         var data: Data? = nil
@@ -28,20 +27,20 @@ public extension URLSession {
         let _ = semaphore.wait(timeout: .distantFuture)
         return data
     }
-    
+
     /// Return data synchronous from specified endpoint
     public static func requestSynchronousDataWithURLString(_ requestString: String) -> Data? {
         guard let url = URL(string:requestString) else {return nil}
         let request = URLRequest(url: url)
         return URLSession.requestSynchronousData(request)
     }
-    
+
     /// Return JSON synchronous from URL request
     public static func requestSynchronousJSON(_ request: URLRequest) -> Any? {
         guard let data = URLSession.requestSynchronousData(request) else {return nil}
         return try! JSONSerialization.jsonObject(with: data, options: [])
     }
-    
+
     /// Return JSON synchronous from specified endpoint
     public static func requestSynchronousJSONWithURLString(_ requestString: String) -> Any? {
         guard let url = URL(string: requestString) else {return nil}
@@ -53,10 +52,8 @@ public extension URLSession {
 }
 
 public extension String {
-    
     /// Return an URL encoded string
     var URLEncodedString: String? {
         return addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
     }
 }
-
