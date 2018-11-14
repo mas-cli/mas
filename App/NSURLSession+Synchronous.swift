@@ -14,6 +14,7 @@ import Foundation
 /// Particularly for playground sessions that need to run sequentially
 public extension URLSession {
     /// Return data from synchronous URL request
+    // TODO: Unused, remove
     public static func requestSynchronousData(_ request: URLRequest) -> Data? {
         var data: Data? = nil
         let semaphore = DispatchSemaphore(value: 0)
@@ -29,6 +30,7 @@ public extension URLSession {
     }
 
     /// Return data synchronous from specified endpoint
+    // TODO: Unused, remove
     public static func requestSynchronousDataWithURLString(_ requestString: String) -> Data? {
         guard let url = URL(string:requestString) else {return nil}
         let request = URLRequest(url: url)
@@ -36,13 +38,14 @@ public extension URLSession {
     }
 
     /// Return JSON synchronous from URL request
+    // TODO: Unused, remove
     public static func requestSynchronousJSON(_ request: URLRequest) -> Any? {
         guard let data = URLSession.requestSynchronousData(request) else {return nil}
         return try! JSONSerialization.jsonObject(with: data, options: [])
     }
 
     /// Return JSON synchronous from specified endpoint
-    public static func requestSynchronousJSONWithURLString(_ requestString: String) -> Any? {
+    public func requestSynchronousJSONWithURLString(_ requestString: String) -> Any? {
         guard let url = URL(string: requestString) else {return nil}
         var request = URLRequest(url:url)
         request.httpMethod = "GET"

@@ -16,12 +16,16 @@ public struct LuckyCommand: CommandProtocol {
     public let verb = "lucky"
     public let function = "Install the first result from the Mac App Store"
 
-    public init() {}
+    private let urlSession: URLSession
+
+    public init(urlSession: URLSession = URLSession.shared) {
+        self.urlSession = urlSession
+    }
 
     public func run(_ options: Options) -> Result<(), MASError> {
 
         guard let searchURLString = searchURLString(options.appName),
-              let searchJson = URLSession.requestSynchronousJSONWithURLString(searchURLString) as? [String: Any] else {
+              let searchJson = urlSession.requestSynchronousJSONWithURLString(searchURLString) as? [String: Any] else {
             return .failure(.searchFailed)
         }
 
