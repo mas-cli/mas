@@ -23,21 +23,24 @@ public struct SearchCommand: CommandProtocol {
     public let verb = "search"
     public let function = "Search for apps from the Mac App Store"
 
-    public init() {}
-    
+    private let urlSession: URLSession
+
+    public init(urlSession: URLSession = URLSession.shared) {
+        self.urlSession = urlSession
+    }
+
     public func run(_ options: Options) -> Result<(), MASError> {
-        
         guard let searchURLString = searchURLString(options.appName),
-              let searchJson = URLSession.requestSynchronousJSONWithURLString(searchURLString) as? [String: Any] else {
+              let searchJson = urlSession.requestSynchronousJSONWithURLString(searchURLString) as? [String: Any] else {
             return .failure(.searchFailed)
         }
-        
+
         guard let resultCount = searchJson[ResultKeys.ResultCount] as? Int, resultCount > 0,
               let results = searchJson[ResultKeys.Results] as? [[String: Any]] else {
             print("No results found")
             return .failure(.noSearchResultsFound)
         }
-        
+
         // find out longest appName for formatting
         var appNameMaxLength = 0
         for result in results {
@@ -50,7 +53,7 @@ public struct SearchCommand: CommandProtocol {
         if appNameMaxLength > 50 {
             appNameMaxLength = 50
         }
-        
+
         for result in results {
             if let appName = result[ResultKeys.TrackName] as? String,
                 let appVersion = result[ResultKeys.Version] as? String,
@@ -67,15 +70,19 @@ public struct SearchCommand: CommandProtocol {
                 }
             }
         }
-        
+
         return .success(())
     }
+
     
+    /// Builds a URL to search the MAS for an app
+    ///
+    /// - Parameter appName: Name of the app to find.
+    /// - Returns: String URL for app search or nil if the app name could not be encoded.
     func searchURLString(_ appName: String) -> String? {
-        if let urlEncodedAppName = appName.URLEncodedString {
-            return "https://itunes.apple.com/search?entity=macSoftware&term=\(urlEncodedAppName)&attribute=allTrackTerm"
-        }
-        return nil
+        guard let urlEncodedAppName = appName.URLEncodedString else { return nil }
+        
+        return "https://itunes.apple.com/search?entity=macSoftware&term=\(urlEncodedAppName)&attribute=allTrackTerm"
     }
 }
 

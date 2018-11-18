@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum MASError: Error, CustomStringConvertible {
+public enum MASError: Error, CustomStringConvertible, Equatable {
     case notSignedIn
     case signInDisabled
     case signInFailed(error: NSError?)

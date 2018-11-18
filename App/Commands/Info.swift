@@ -14,11 +14,15 @@ public struct InfoCommand: CommandProtocol {
     public let verb = "info"
     public let function = "Display app information from the Mac App Store"
 
-    public init() {}
+    private let urlSession: URLSession
+    
+    public init(urlSession: URLSession = URLSession.shared) {
+        self.urlSession = urlSession
+    }
 
     public func run(_ options: InfoOptions) -> Result<(), MASError> {
         guard let infoURLString = infoURLString(options.appId),
-            let searchJson = URLSession.requestSynchronousJSONWithURLString(infoURLString) as? [String: Any] else {
+            let searchJson = urlSession.requestSynchronousJSONWithURLString(infoURLString) as? [String: Any] else {
                 return .failure(.searchFailed)
         }
 
