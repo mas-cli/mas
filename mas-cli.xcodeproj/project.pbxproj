@@ -7,6 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B537017321A0F85700538F78 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB4069213F4DDD0044E445 /* Result.framework */; };
+		B537017421A0F85B00538F78 /* Commandant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406B213F4DDD0044E445 /* Commandant.framework */; };
+		B537017521A0F94000538F78 /* Result.framework in Copy Carthage Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB4069213F4DDD0044E445 /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B537017621A0F94200538F78 /* Commandant.framework in Copy Carthage Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406B213F4DDD0044E445 /* Commandant.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5552928219A1BB900ACB4CA /* CommerceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83213A62173EF75008BA8A0 /* CommerceKit.framework */; };
+		B5552929219A1BC700ACB4CA /* StoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83213A52173EF75008BA8A0 /* StoreFoundation.framework */; };
+		B555292B219A1CB200ACB4CA /* MASErrorTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B555292A219A1CB200ACB4CA /* MASErrorTestCase.swift */; };
+		B555292D219A1FE700ACB4CA /* SearchSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B555292C219A1FE700ACB4CA /* SearchSpec.swift */; };
+		B555292E219A218E00ACB4CA /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406A213F4DDD0044E445 /* Quick.framework */; };
+		B555292F219A219100ACB4CA /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406C213F4DDD0044E445 /* Nimble.framework */; };
+		B5552936219A23FF00ACB4CA /* Nimble.framework in Copy Carthage Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406C213F4DDD0044E445 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5552937219A23FF00ACB4CA /* Quick.framework in Copy Carthage Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406A213F4DDD0044E445 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5793E29219BDD4800135B39 /* JSON in Resources */ = {isa = PBXBuildFile; fileRef = B5793E28219BDD4800135B39 /* JSON */; };
+		B5793E2B219BE0CD00135B39 /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5793E2A219BE0CD00135B39 /* MockURLSession.swift */; };
 		ED031A7C1B5127C00097692E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED031A7B1B5127C00097692E /* main.swift */; };
 		F83213892173D3E1008BA8A0 /* CKAccountStore.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB719B20F2EC4500F56FDC /* CKAccountStore.h */; };
 		F832138A2173D3E1008BA8A0 /* CKDownloadQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB719C20F2EC4500F56FDC /* CKDownloadQueue.h */; };
@@ -39,7 +53,6 @@
 		F83213A92173F5D0008BA8A0 /* Commandant.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406B213F4DDD0044E445 /* Commandant.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F83213AA2173F5D0008BA8A0 /* Result.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB4069213F4DDD0044E445 /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F8FB715B20F2B41400F56FDC /* MasKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8FB715220F2B41400F56FDC /* MasKit.framework */; };
-		F8FB716020F2B41400F56FDC /* MasKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FB715F20F2B41400F56FDC /* MasKitTests.swift */; };
 		F8FB716220F2B41400F56FDC /* MasKit.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB715420F2B41400F56FDC /* MasKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F8FB716920F2B4DD00F56FDC /* CKSoftwareMap+AppLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4913269A1F48921D0010EB86 /* CKSoftwareMap+AppLookup.swift */; };
 		F8FB716A20F2B4DD00F56FDC /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F238A1B87569C00AE40CD /* Downloader.swift */; };
@@ -62,9 +75,6 @@
 		F8FB717B20F2B4DD00F56FDC /* MASError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F238C1B8756E600AE40CD /* MASError.swift */; };
 		F8FB717C20F2B4DD00F56FDC /* NSURLSession+Synchronous.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A989A1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift */; };
 		F8FB717D20F2B4DD00F56FDC /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDCBF9541D89CFC7000039C6 /* Utilities.swift */; };
-		F8FB717E20F2B4E600F56FDC /* MASErrorTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F865880A2030F6DE0093DE57 /* MASErrorTestCase.swift */; };
-		F8FB719620F2B5FF00F56FDC /* CommerceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDEAA17C1B5C579100F2FC3F /* CommerceKit.framework */; };
-		F8FB719720F2B60400F56FDC /* StoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDEAA0BF1B51CE6200F2FC3F /* StoreFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +103,20 @@
 			files = (
 			);
 			name = "Copy Debugging Symbols";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B5552935219A23EE00ACB4CA /* Copy Carthage Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				B537017621A0F94200538F78 /* Commandant.framework in Copy Carthage Frameworks */,
+				B5552936219A23FF00ACB4CA /* Nimble.framework in Copy Carthage Frameworks */,
+				B5552937219A23FF00ACB4CA /* Quick.framework in Copy Carthage Frameworks */,
+				B537017521A0F94000538F78 /* Result.framework in Copy Carthage Frameworks */,
+			);
+			name = "Copy Carthage Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		ED031A761B5127C00097692E /* CopyFiles */ = {
@@ -128,6 +152,10 @@
 		90CB406A213F4DDD0044E445 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Quick.framework; sourceTree = "<group>"; };
 		90CB406B213F4DDD0044E445 /* Commandant.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Commandant.framework; sourceTree = "<group>"; };
 		90CB406C213F4DDD0044E445 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Nimble.framework; sourceTree = "<group>"; };
+		B555292A219A1CB200ACB4CA /* MASErrorTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MASErrorTestCase.swift; sourceTree = "<group>"; };
+		B555292C219A1FE700ACB4CA /* SearchSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSpec.swift; sourceTree = "<group>"; };
+		B5793E28219BDD4800135B39 /* JSON */ = {isa = PBXFileReference; lastKnownFileType = folder; path = JSON; sourceTree = "<group>"; };
+		B5793E2A219BE0CD00135B39 /* MockURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLSession.swift; sourceTree = "<group>"; };
 		ED031A781B5127C00097692E /* mas */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = mas; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED031A7B1B5127C00097692E /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		ED0F237E1B87522400AE40CD /* Install.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Install.swift; sourceTree = "<group>"; };
@@ -146,21 +174,15 @@
 		EDCBF9541D89CFC7000039C6 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		EDD3B3621C34709400B56B88 /* Upgrade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Upgrade.swift; sourceTree = "<group>"; };
 		EDE296521C700F4300554778 /* SignOut.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignOut.swift; sourceTree = "<group>"; };
-		EDEAA0BF1B51CE6200F2FC3F /* StoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreFoundation.framework; path = /System/Library/PrivateFrameworks/StoreFoundation.framework; sourceTree = "<absolute>"; };
 		EDEAA12C1B51CF8000F2FC3F /* mas-cli-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "mas-cli-Bridging-Header.h"; sourceTree = "<group>"; };
-		EDEAA17C1B5C579100F2FC3F /* CommerceKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CommerceKit.framework; path = /System/Library/PrivateFrameworks/CommerceKit.framework; sourceTree = "<absolute>"; };
-		F8233C8B201EBDF100268278 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F8242D8020746A510026DF35 /* StoreAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreAccount.swift; sourceTree = "<group>"; };
 		F83213A42173EF75008BA8A0 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F83213A52173EF75008BA8A0 /* StoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreFoundation.framework; path = ../../../../../../../System/Library/PrivateFrameworks/StoreFoundation.framework; sourceTree = "<group>"; };
 		F83213A62173EF75008BA8A0 /* CommerceKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CommerceKit.framework; path = ../../../../../../../System/Library/PrivateFrameworks/CommerceKit.framework; sourceTree = "<group>"; };
-		F865880A2030F6DE0093DE57 /* MASErrorTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MASErrorTestCase.swift; sourceTree = "<group>"; };
-		F876BB4A20ED717800EB9FD1 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F8FB715220F2B41400F56FDC /* MasKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MasKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8FB715420F2B41400F56FDC /* MasKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasKit.h; sourceTree = "<group>"; };
 		F8FB715520F2B41400F56FDC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F8FB715A20F2B41400F56FDC /* MasKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MasKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F8FB715F20F2B41400F56FDC /* MasKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasKitTests.swift; sourceTree = "<group>"; };
 		F8FB716120F2B41400F56FDC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F8FB719B20F2EC4500F56FDC /* CKAccountStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKAccountStore.h; sourceTree = "<group>"; };
 		F8FB719C20F2EC4500F56FDC /* CKDownloadQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKDownloadQueue.h; sourceTree = "<group>"; };
@@ -205,9 +227,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F83213A22173DC13008BA8A0 /* Commandant.framework in Frameworks */,
-				F8FB719620F2B5FF00F56FDC /* CommerceKit.framework in Frameworks */,
+				B5552928219A1BB900ACB4CA /* CommerceKit.framework in Frameworks */,
 				F83213A32173DC18008BA8A0 /* Result.framework in Frameworks */,
-				F8FB719720F2B60400F56FDC /* StoreFoundation.framework in Frameworks */,
+				B5552929219A1BC700ACB4CA /* StoreFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,6 +238,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8FB715B20F2B41400F56FDC /* MasKit.framework in Frameworks */,
+				B537017421A0F85B00538F78 /* Commandant.framework in Frameworks */,
+				B555292F219A219100ACB4CA /* Nimble.framework in Frameworks */,
+				B555292E219A218E00ACB4CA /* Quick.framework in Frameworks */,
+				B537017321A0F85700538F78 /* Result.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,7 +264,6 @@
 			isa = PBXGroup;
 			children = (
 				ED031A7A1B5127C00097692E /* App */,
-				F8233C88201EBDF100268278 /* AppTests */,
 				90CB4068213F4DDD0044E445 /* Carthage */,
 				EDFC76381B642A2E00D0DBD7 /* Frameworks */,
 				F8FB715320F2B41400F56FDC /* MasKit */,
@@ -316,15 +341,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		F8233C88201EBDF100268278 /* AppTests */ = {
-			isa = PBXGroup;
-			children = (
-				F8233C8B201EBDF100268278 /* Info.plist */,
-				F865880A2030F6DE0093DE57 /* MASErrorTestCase.swift */,
-			);
-			path = AppTests;
-			sourceTree = "<group>";
-		};
 		F8FB715320F2B41400F56FDC /* MasKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -337,11 +353,11 @@
 		F8FB715E20F2B41400F56FDC /* MasKitTests */ = {
 			isa = PBXGroup;
 			children = (
-				F876BB4A20ED717800EB9FD1 /* Cocoa.framework */,
-				EDEAA17C1B5C579100F2FC3F /* CommerceKit.framework */,
 				F8FB716120F2B41400F56FDC /* Info.plist */,
-				F8FB715F20F2B41400F56FDC /* MasKitTests.swift */,
-				EDEAA0BF1B51CE6200F2FC3F /* StoreFoundation.framework */,
+				B5793E28219BDD4800135B39 /* JSON */,
+				B555292A219A1CB200ACB4CA /* MASErrorTestCase.swift */,
+				B5793E2A219BE0CD00135B39 /* MockURLSession.swift */,
+				B555292C219A1FE700ACB4CA /* SearchSpec.swift */,
 			);
 			path = MasKitTests;
 			sourceTree = "<group>";
@@ -481,6 +497,7 @@
 				F8FB715620F2B41400F56FDC /* Sources */,
 				F8FB715720F2B41400F56FDC /* Frameworks */,
 				F8FB715820F2B41400F56FDC /* Resources */,
+				B5552935219A23EE00ACB4CA /* Copy Carthage Frameworks */,
 			);
 			buildRules = (
 			);
@@ -556,6 +573,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5793E29219BDD4800135B39 /* JSON in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -602,8 +620,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8FB717E20F2B4E600F56FDC /* MASErrorTestCase.swift in Sources */,
-				F8FB716020F2B41400F56FDC /* MasKitTests.swift in Sources */,
+				B5793E2B219BE0CD00135B39 /* MockURLSession.swift in Sources */,
+				B555292B219A1CB200ACB4CA /* MASErrorTestCase.swift in Sources */,
+				B555292D219A1FE700ACB4CA /* SearchSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -879,6 +898,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = MasKitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
@@ -906,6 +929,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = MasKitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
