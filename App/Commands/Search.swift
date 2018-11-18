@@ -30,7 +30,6 @@ public struct SearchCommand: CommandProtocol {
     }
 
     public func run(_ options: Options) -> Result<(), MASError> {
-
         guard let searchURLString = searchURLString(options.appName),
               let searchJson = urlSession.requestSynchronousJSONWithURLString(searchURLString) as? [String: Any] else {
             return .failure(.searchFailed)

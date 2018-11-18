@@ -45,7 +45,7 @@ public extension URLSession {
     }
 
     /// Return JSON synchronous from specified endpoint
-    public func requestSynchronousJSONWithURLString(_ requestString: String) -> Any? {
+    @objc public func requestSynchronousJSONWithURLString(_ requestString: String) -> Any? {
         guard let url = URL(string: requestString) else {return nil}
         var request = URLRequest(url:url)
         request.httpMethod = "GET"
