@@ -1,0 +1,37 @@
+#!/bin/bash -ex
+
+BUILD_DIR="$PWD/build"
+PROJECT="mas-cli.xcodeproj"
+SCHEME="mas-cli Debug"
+CONFIG="Debug"
+
+main() {
+  test
+}
+
+# OBJROOT - Intermediate Build Files Path
+# The path where intermediate files will be placed during a build. Intermediate files include generated sources, object
+# files, etc. Shell script build phases can place and access files here, as well. Typically this path is not set per
+# target, but is set per project or per user. By default, this is set to `$(PROJECT_DIR)/build`.
+
+# SHARED_PRECOMPS_DIR - Precompiled Headers Cache Path
+# The path where precompiled prefix header files are placed during a build. Defaults to `$(OBJROOT)/SharedPrecompiledHeaders`.
+# Using a common location allows precompiled headers to be shared between multiple projects.
+
+# SYMROOT - Build Procucts Path
+# The path at which all products will be placed when performing a build. Typically this path is not set per target,
+# but is set per-project or per-user. By default, this is set to `$(PROJECT_DIR)/build`.
+
+test() {
+  echo "==> 🏗️ Building"
+  set -o pipefail && \
+      xcodebuild -project "$PROJECT" \
+          -scheme "$SCHEME" \
+          -configuration "$CONFIG" \
+          OBJROOT="$BUILD_DIR" \
+          SYMROOT="$BUILD_DIR" \
+          test \
+      | bundle exec xcpretty --color
+}
+
+main
