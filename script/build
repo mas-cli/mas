@@ -4,6 +4,7 @@ BUILD_DIR="$PWD/build"
 PROJECT="mas-cli.xcodeproj"
 SCHEME="mas-cli Release"
 CONFIG="Release"
+VERSION=$(agvtool what-marketing-version -terse1)
 
 main() {
   script/clean
@@ -30,7 +31,7 @@ main() {
 # but is set per-project or per-user. By default, this is set to `$(PROJECT_DIR)/build`.
 
 build() {
-  echo "==> 🏗️ Building"
+  echo "==> 🏗️ Building mas ($VERSION)"
   set -o pipefail && \
       xcodebuild -project "$PROJECT" \
           -scheme "$SCHEME" \
@@ -42,7 +43,7 @@ build() {
 }
 
 archive() {
-  echo "==> 📦 Archiving"
+  echo "==> 📦 Archiving  ($VERSION)"
   set -o pipefail && \
       xcodebuild -project "$PROJECT" \
           -scheme "$SCHEME" \
