@@ -1,4 +1,9 @@
 #!/bin/bash -ex
+#
+# script/install
+# This script is called by the Homebrew formula, so should not
+# rely on any dependencies.
+#
 
 BUILD_DIR="$PWD/build"
 PROJECT="mas-cli.xcodeproj"
@@ -23,16 +28,14 @@ fi
 
 echo "==> 📲 Installing mas ($VERSION) to $PREFIX"
 
-set -o pipefail && \
-    xcodebuild \
-        -project "$PROJECT" \
-        -scheme "$SCHEME" \
-        -configuration "$CONFIG" \
-        OBJROOT="$BUILD_DIR" \
-        SYMROOT="$BUILD_DIR" \
-        DSTROOT="$INSTALL_TEMPORARY_FOLDER" \
-        install \
-    | bundle exec xcpretty --color
+xcodebuild \
+    -project "$PROJECT" \
+    -scheme "$SCHEME" \
+    -configuration "$CONFIG" \
+    OBJROOT="$BUILD_DIR" \
+    SYMROOT="$BUILD_DIR" \
+    DSTROOT="$INSTALL_TEMPORARY_FOLDER" \
+    install
 
 # Deep copy MasKit.framework
 ditto -v \
