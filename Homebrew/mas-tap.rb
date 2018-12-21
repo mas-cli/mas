@@ -21,8 +21,9 @@ class Mas < Formula
   depends_on :xcode => ["10.0", :build]
 
   def install
-    # Prevent warnings from causing build failures
-    # Prevent linker errors by telling all lib builds to use max size install names
+    # Working around build issues in dependencies
+    # - Prevent warnings from causing build failures
+    # - Prevent linker errors by telling all lib builds to use max size install names
     xcconfig = buildpath/"Overrides.xcconfig"
     xcconfig.write <<~EOS
       GCC_TREAT_WARNINGS_AS_ERRORS = NO
@@ -31,14 +32,6 @@ class Mas < Formula
     ENV["XCODE_XCCONFIG_FILE"] = xcconfig
 
     system "carthage", "bootstrap", "--platform", "macOS"
-
-    xcodebuild "install",
-                "-project", "mas-cli.xcodeproj",
-                "-scheme", "mas-cli Release",
-                "-configuration", "Release",
-                "OBJROOT=build",
-                "SYMROOT=build"
-
     system "script/install", prefix
 
     bash_completion.install "contrib/completion/mas-completion.bash" => "mas"
