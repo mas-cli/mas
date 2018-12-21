@@ -21,6 +21,7 @@ install:
 
 script:
   - script/build
+  - script/test
   - bundle exec danger
 
 before_deploy:

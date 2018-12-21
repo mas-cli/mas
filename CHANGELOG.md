@@ -7,7 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+
+
+## [v1.4.4] 🧹 Cleanup - 2018-12-19
+
 - ⬆️🛠️ Xcode 10.1 #186
+- 🐛 Prevent `default.profraw` from getting created (again) #186
+- 🚨 Change MasKit dylib version to minor.patch #186
 - ✅ Search tests #184
 
 ## [v1.4.3] 📦🏛️ MasKit & Carthage - 2018-10-17

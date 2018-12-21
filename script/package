@@ -1,17 +1,23 @@
 #!/bin/bash -ex
 
-# TODO: Make VERSION_STRING dynamic
-VERSION_STRING=1.4.3
+BUILD_DIR="$PWD/build"
+INTERNAL_PACKAGE="$BUILD_DIR/mas_temp.pkg"
+OUTPUT_PACKAGE="$BUILD_DIR/mas.pkg"
 
-xcodebuild install
+IDENTIFIER="com.mphys.mas-cli"
+COMPONENTS_PLIST="Homebrew/Components.plist"
+DISTRIBUTION_PLIST="Homebrew/Distribution.plist"
+
+# Destination for `xcodebuild install`
+# DSTROOT will be updated if unset.
+INSTALL_TEMPORARY_FOLDER=${DSTROOT:-build/distributions}
+
+VERSION=$(agvtool what-marketing-version -terse1)
+
+# Run Xcode's install process
+script/install
 
 echo "==> 📦 Assemble an installer package"
-IDENTIFIER=com.mphys.mas-cli
-COMPONENTS_PLIST=Homebrew/Components.plist
-DISTRIBUTION_PLIST=Homebrew/Distribution.plist
-INSTALL_TEMPORARY_FOLDER=/tmp/mas-cli.dst
-INTERNAL_PACKAGE=mas_temp.pkg
-OUTPUT_PACKAGE=mas.pkg
 
 # Assemble pkg. Using /usr/local prefix to avoid the following errors with "/"
 #   - installer: The install failed (The Installer encountered an error that caused the installation to fail. Contact the software manufacturer for assistance.)
@@ -21,7 +27,7 @@ pkgbuild \
     --identifier "$IDENTIFIER" \
     --install-location "/usr/local" \
     --root "$INSTALL_TEMPORARY_FOLDER" \
-    --version "$VERSION_STRING" \
+    --version "$VERSION" \
     "$INTERNAL_PACKAGE"
 
 # Build 2nd pkg from 1st. Not sure why, but this is how Carthage does it.

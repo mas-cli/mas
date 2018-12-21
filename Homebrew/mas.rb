@@ -2,8 +2,8 @@ class Mas < Formula
   desc "Mac App Store command-line interface"
   homepage "https://github.com/mas-cli/mas"
   url "https://github.com/mas-cli/mas.git",
-      :tag      => "v1.4.3",
-      :revision => "11a0e3e14e5a83aaaba193dfb6d18aa49a82b881"
+      :tag      => "v1.4.4",
+      :revision => "3660365dd334cd852dd83d42ee016e267821a5de"
   head "https://github.com/mas-cli/mas.git"
 
   bottle do
@@ -13,11 +13,12 @@ class Mas < Formula
   end
 
   depends_on "carthage" => :build
-  depends_on :xcode => ["10.0", :build]
+  depends_on :xcode => ["10.1", :build]
 
   def install
-    # Prevent warnings from causing build failures
-    # Prevent linker errors by telling all lib builds to use max size install names
+    # Working around build issues in dependencies
+    # - Prevent warnings from causing build failures
+    # - Prevent linker errors by telling all lib builds to use max size install names
     xcconfig = buildpath/"Overrides.xcconfig"
     xcconfig.write <<~EOS
       GCC_TREAT_WARNINGS_AS_ERRORS = NO
@@ -26,14 +27,6 @@ class Mas < Formula
     ENV["XCODE_XCCONFIG_FILE"] = xcconfig
 
     system "carthage", "bootstrap", "--platform", "macOS"
-
-    xcodebuild "install",
-               "-project", "mas-cli.xcodeproj",
-               "-scheme", "mas-cli Release",
-               "-configuration", "Release",
-               "OBJROOT=build",
-               "SYMROOT=build"
-
     system "script/install", prefix
 
     bash_completion.install "contrib/completion/mas-completion.bash" => "mas"
