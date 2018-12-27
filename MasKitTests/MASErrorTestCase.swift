@@ -98,4 +98,14 @@ class MASErrorTestCase: XCTestCase {
         error = .noSearchResultsFound
         XCTAssertEqual(error.description, "No results found")
     }
+
+    func testNotInstalled() {
+        error = .notInstalled
+        XCTAssertEqual(error.description, "Not installed")
+    }
+
+    func testUninstallFailed() {
+        error = .uninstallFailed
+        XCTAssertEqual(error.description, "Uninstall failed")
+    }
 }
