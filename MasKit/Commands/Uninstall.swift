@@ -9,6 +9,7 @@
 import Commandant
 import Result
 import CommerceKit
+import StoreFoundation
 
 /// Command which uninstalls apps managed by the Mac App Store. Relies on the "trash" command from Homebrew.
 /// Trash requires el_capitan or higher for core bottles:
@@ -18,16 +19,23 @@ public struct UninstallCommand: CommandProtocol {
     public let verb = "uninstall"
     public let function = "Uninstall app installed from the Mac App Store"
 
-    public init() {}
+    private let appLibrary: AppLibrary
 
-    /// Runs the uninstall command
+    /// Designated initializer.
+    ///
+    /// - Parameter appLibrary: <#appLibrary description#>
+    public init(appLibrary: AppLibrary = MasAppLibrary()) {
+        self.appLibrary = appLibrary
+    }
+
+    /// Runs the uninstall command.
     ///
     /// - Parameter options: UninstallOptions (arguments) for this command
     /// - Returns: Success or an error.
     public func run(_ options: Options) -> Result<(), MASError> {
         let appId = UInt64(options.appId)
 
-        guard let product = installedApp(appId: appId) else {
+        guard let product = appLibrary.installedApp(appId: appId) else {
             return .failure(.notInstalled)
         }
 
@@ -45,17 +53,6 @@ public struct UninstallCommand: CommandProtocol {
         } else {
             return .failure(.searchFailed)
         }
-    }
-
-    /// Finds an app by ID from the set of installed apps?
-    ///
-    /// - Parameter appId: MAS ID for app.
-    /// - Returns: Software Product of app if found; nil otherwise.
-    func installedApp(appId: UInt64) -> CKSoftwareProduct? {
-        let appId = NSNumber(value: appId)
-
-        let softwareMap = CKSoftwareMap.shared()
-        return softwareMap.allProducts()?.first { $0.itemIdentifier == appId }
     }
 
     /// Runs the trash command in another process.

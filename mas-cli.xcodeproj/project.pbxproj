@@ -23,6 +23,13 @@
 		B5793E2B219BE0CD00135B39 /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5793E2A219BE0CD00135B39 /* MockURLSession.swift */; };
 		B594B12021D53A8200F3AC59 /* Uninstall.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B11F21D53A8200F3AC59 /* Uninstall.swift */; };
 		B594B12221D5416100F3AC59 /* ListCommandSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B12121D5416100F3AC59 /* ListCommandSpec.swift */; };
+		B594B12521D580BB00F3AC59 /* UninstallCommandSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B12421D580BB00F3AC59 /* UninstallCommandSpec.swift */; };
+		B594B12721D5825800F3AC59 /* AppLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B12621D5825800F3AC59 /* AppLibrary.swift */; };
+		B594B12921D5831D00F3AC59 /* SoftwareProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B12821D5831D00F3AC59 /* SoftwareProduct.swift */; };
+		B594B12B21D5837200F3AC59 /* CKSoftwareProduct+SoftwareProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B12A21D5837200F3AC59 /* CKSoftwareProduct+SoftwareProduct.swift */; };
+		B594B12E21D5850700F3AC59 /* MockAppLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B12D21D5850700F3AC59 /* MockAppLibrary.swift */; };
+		B594B13021D5855D00F3AC59 /* MasAppLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B12F21D5855D00F3AC59 /* MasAppLibrary.swift */; };
+		B594B13221D5876200F3AC59 /* ResultPredicates.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B13121D5876200F3AC59 /* ResultPredicates.swift */; };
 		ED031A7C1B5127C00097692E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED031A7B1B5127C00097692E /* main.swift */; };
 		F83213892173D3E1008BA8A0 /* CKAccountStore.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB719B20F2EC4500F56FDC /* CKAccountStore.h */; };
 		F832138A2173D3E1008BA8A0 /* CKDownloadQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB719C20F2EC4500F56FDC /* CKDownloadQueue.h */; };
@@ -160,6 +167,13 @@
 		B5793E2A219BE0CD00135B39 /* MockURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLSession.swift; sourceTree = "<group>"; };
 		B594B11F21D53A8200F3AC59 /* Uninstall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Uninstall.swift; sourceTree = "<group>"; };
 		B594B12121D5416100F3AC59 /* ListCommandSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListCommandSpec.swift; sourceTree = "<group>"; };
+		B594B12421D580BB00F3AC59 /* UninstallCommandSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UninstallCommandSpec.swift; sourceTree = "<group>"; };
+		B594B12621D5825800F3AC59 /* AppLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLibrary.swift; sourceTree = "<group>"; };
+		B594B12821D5831D00F3AC59 /* SoftwareProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftwareProduct.swift; sourceTree = "<group>"; };
+		B594B12A21D5837200F3AC59 /* CKSoftwareProduct+SoftwareProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CKSoftwareProduct+SoftwareProduct.swift"; sourceTree = "<group>"; };
+		B594B12D21D5850700F3AC59 /* MockAppLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAppLibrary.swift; sourceTree = "<group>"; };
+		B594B12F21D5855D00F3AC59 /* MasAppLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasAppLibrary.swift; sourceTree = "<group>"; };
+		B594B13121D5876200F3AC59 /* ResultPredicates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultPredicates.swift; sourceTree = "<group>"; };
 		ED031A781B5127C00097692E /* mas */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = mas; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED031A7B1B5127C00097692E /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		ED0F237E1B87522400AE40CD /* Install.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Install.swift; sourceTree = "<group>"; };
@@ -267,9 +281,19 @@
 			isa = PBXGroup;
 			children = (
 				B594B12121D5416100F3AC59 /* ListCommandSpec.swift */,
+				B594B12421D580BB00F3AC59 /* UninstallCommandSpec.swift */,
 				B555292C219A1FE700ACB4CA /* SearchSpec.swift */,
 			);
 			path = Commands;
+			sourceTree = "<group>";
+		};
+		B594B12C21D584E800F3AC59 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				B594B12D21D5850700F3AC59 /* MockAppLibrary.swift */,
+				B5793E2A219BE0CD00135B39 /* MockURLSession.swift */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		ED031A6F1B5127C00097692E = {
@@ -328,6 +352,7 @@
 			isa = PBXGroup;
 			children = (
 				4913269A1F48921D0010EB86 /* CKSoftwareMap+AppLookup.swift */,
+				B594B12A21D5837200F3AC59 /* CKSoftwareProduct+SoftwareProduct.swift */,
 				ED0F238A1B87569C00AE40CD /* Downloader.swift */,
 				ED0F238F1B87A56F00AE40CD /* ISStoreAccount.swift */,
 				ED0F23881B87543D00AE40CD /* PurchaseDownloadObserver.swift */,
@@ -350,12 +375,15 @@
 		F8FB715320F2B41400F56FDC /* MasKit */ = {
 			isa = PBXGroup;
 			children = (
+				B594B12621D5825800F3AC59 /* AppLibrary.swift */,
 				ED0F238E1B87A54700AE40CD /* AppStore */,
 				ED0F23801B87524700AE40CD /* Commands */,
 				F8FB715520F2B41400F56FDC /* Info.plist */,
+				B594B12F21D5855D00F3AC59 /* MasAppLibrary.swift */,
 				ED0F238C1B8756E600AE40CD /* MASError.swift */,
 				F8FB715420F2B41400F56FDC /* MasKit.h */,
 				693A989A1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift */,
+				B594B12821D5831D00F3AC59 /* SoftwareProduct.swift */,
 				EDCBF9541D89CFC7000039C6 /* Utilities.swift */,
 			);
 			path = MasKit;
@@ -368,7 +396,8 @@
 				F8FB716120F2B41400F56FDC /* Info.plist */,
 				B5793E28219BDD4800135B39 /* JSON */,
 				B555292A219A1CB200ACB4CA /* MASErrorTestCase.swift */,
-				B5793E2A219BE0CD00135B39 /* MockURLSession.swift */,
+				B594B12C21D584E800F3AC59 /* Mocks */,
+				B594B13121D5876200F3AC59 /* ResultPredicates.swift */,
 			);
 			path = MasKitTests;
 			sourceTree = "<group>";
@@ -603,6 +632,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B594B12B21D5837200F3AC59 /* CKSoftwareProduct+SoftwareProduct.swift in Sources */,
 				F8FB716F20F2B4DD00F56FDC /* Account.swift in Sources */,
 				F8FB716920F2B4DD00F56FDC /* CKSoftwareMap+AppLookup.swift in Sources */,
 				F8FB716A20F2B4DD00F56FDC /* Downloader.swift in Sources */,
@@ -611,12 +641,15 @@
 				F8FB716B20F2B4DD00F56FDC /* ISStoreAccount.swift in Sources */,
 				F8FB717220F2B4DD00F56FDC /* List.swift in Sources */,
 				F8FB717320F2B4DD00F56FDC /* Lucky.swift in Sources */,
+				B594B12721D5825800F3AC59 /* AppLibrary.swift in Sources */,
 				F8FB717B20F2B4DD00F56FDC /* MASError.swift in Sources */,
 				F8FB717C20F2B4DD00F56FDC /* NSURLSession+Synchronous.swift in Sources */,
 				F8FB717420F2B4DD00F56FDC /* Outdated.swift in Sources */,
+				B594B12921D5831D00F3AC59 /* SoftwareProduct.swift in Sources */,
 				F8FB716C20F2B4DD00F56FDC /* PurchaseDownloadObserver.swift in Sources */,
 				F8FB717520F2B4DD00F56FDC /* Reset.swift in Sources */,
 				F8FB717620F2B4DD00F56FDC /* Search.swift in Sources */,
+				B594B13021D5855D00F3AC59 /* MasAppLibrary.swift in Sources */,
 				B594B12021D53A8200F3AC59 /* Uninstall.swift in Sources */,
 				F8FB717720F2B4DD00F56FDC /* SignIn.swift in Sources */,
 				F8FB717820F2B4DD00F56FDC /* SignOut.swift in Sources */,
@@ -635,7 +668,10 @@
 				B5793E2B219BE0CD00135B39 /* MockURLSession.swift in Sources */,
 				B555292B219A1CB200ACB4CA /* MASErrorTestCase.swift in Sources */,
 				B594B12221D5416100F3AC59 /* ListCommandSpec.swift in Sources */,
+				B594B12521D580BB00F3AC59 /* UninstallCommandSpec.swift in Sources */,
 				B555292D219A1FE700ACB4CA /* SearchSpec.swift in Sources */,
+				B594B12E21D5850700F3AC59 /* MockAppLibrary.swift in Sources */,
+				B594B13221D5876200F3AC59 /* ResultPredicates.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
