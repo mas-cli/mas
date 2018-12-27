@@ -263,6 +263,15 @@
 			path = Carthage/Build/Mac;
 			sourceTree = "<group>";
 		};
+		B594B12321D57FF300F3AC59 /* Commands */ = {
+			isa = PBXGroup;
+			children = (
+				B594B12121D5416100F3AC59 /* ListCommandSpec.swift */,
+				B555292C219A1FE700ACB4CA /* SearchSpec.swift */,
+			);
+			path = Commands;
+			sourceTree = "<group>";
+		};
 		ED031A6F1B5127C00097692E = {
 			isa = PBXGroup;
 			children = (
@@ -355,12 +364,11 @@
 		F8FB715E20F2B41400F56FDC /* MasKitTests */ = {
 			isa = PBXGroup;
 			children = (
+				B594B12321D57FF300F3AC59 /* Commands */,
 				F8FB716120F2B41400F56FDC /* Info.plist */,
 				B5793E28219BDD4800135B39 /* JSON */,
-				B594B12121D5416100F3AC59 /* ListCommandSpec.swift */,
 				B555292A219A1CB200ACB4CA /* MASErrorTestCase.swift */,
 				B5793E2A219BE0CD00135B39 /* MockURLSession.swift */,
-				B555292C219A1FE700ACB4CA /* SearchSpec.swift */,
 			);
 			path = MasKitTests;
 			sourceTree = "<group>";
