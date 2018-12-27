@@ -16,15 +16,15 @@ public struct InstallCommand: CommandProtocol {
     public let function = "Install from the Mac App Store"
 
     public init() {}
-    
+
     public func run(_ options: Options) -> Result<(), MASError> {
         // Try to download applications with given identifiers and collect results
         let downloadResults = options.appIds.compactMap { (appId) -> MASError? in
-            if let product = installedApp(appId) , !options.forceInstall {
+            if let product = installedApp(appId), !options.forceInstall {
                 printWarning("\(product.appName) is already installed")
                 return nil
             }
-            
+
             return download(appId)
         }
 
@@ -37,10 +37,10 @@ public struct InstallCommand: CommandProtocol {
             return .failure(.downloadFailed(error: nil))
         }
     }
-    
+
     fileprivate func installedApp(_ appId: UInt64) -> CKSoftwareProduct? {
         let appId = NSNumber(value: appId)
-        
+
         let softwareMap = CKSoftwareMap.shared()
         return softwareMap.allProducts()?.first { $0.itemIdentifier == appId }
     }

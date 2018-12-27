@@ -16,7 +16,7 @@ public struct ResetCommand: CommandProtocol {
     public let function = "Resets the Mac App Store"
 
     public init() {}
-    
+
     public func run(_ options: Options) -> Result<(), MASError> {
         /*
         The "Reset Application" command in the Mac App Store debug menu performs
@@ -26,7 +26,7 @@ public struct ResetCommand: CommandProtocol {
          - killall storeagent (storeagent no longer exists)
          - rm com.apple.appstore download directory
          - clear cookies (appears to be a no-op)
-         
+
         As storeagent no longer exists we will implement a slight variant and kill all
         App Store-associated processes
          - storeaccountd
@@ -35,7 +35,7 @@ public struct ResetCommand: CommandProtocol {
          - storeinstalld
          - storelegacy
         */
-        
+
         // Kill processes
         let killProcs = [
             "Dock",
@@ -45,24 +45,24 @@ public struct ResetCommand: CommandProtocol {
             "storeinstalld",
             "storelegacy",
         ]
-        
+
         let kill = Process()
         let stdout = Pipe()
         let stderr = Pipe()
-        
+
         kill.launchPath = "/usr/bin/killall"
         kill.arguments = killProcs
         kill.standardOutput = stdout
         kill.standardError = stderr
-        
+
         kill.launch()
         kill.waitUntilExit()
-        
+
         if kill.terminationStatus != 0 && options.debug {
             let output = stderr.fileHandleForReading.readDataToEndOfFile()
             printInfo("killall  failed:\r\n\(String(data: output, encoding: String.Encoding.utf8)!)")
         }
-        
+
         // Wipe Download Directory
         if let directory = CKDownloadDirectory(nil) {
             do {
