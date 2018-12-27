@@ -16,7 +16,7 @@ import CommerceKit
 public struct UninstallCommand: CommandProtocol {
     public typealias Options = UninstallOptions
     public let verb = "uninstall"
-    public let function = "Uninstall apps installed from the Mac App Store"
+    public let function = "Uninstall app installed from the Mac App Store"
 
     public init() {}
 
@@ -77,17 +77,13 @@ public struct UninstallCommand: CommandProtocol {
             do {
                 try process.run()
             } catch {
-                printInfo("Unable to launch trash command")
+                printError("Unable to launch trash command")
                 return false
             }
         } else {
             process.launchPath = binaryPath
             process.launch()
         }
-
-//        process.terminationHandler = { (process) in
-//            print("\ndidFinish: \(!process.isRunning)")
-//        }
 
         process.waitUntilExit()
 
@@ -96,7 +92,7 @@ public struct UninstallCommand: CommandProtocol {
         } else {
             let reason = process.terminationReason
             let output = stderr.fileHandleForReading.readDataToEndOfFile()
-            printInfo("Uninstall failed: \(reason)\n\(String(data: output, encoding: String.Encoding.utf8)!)")
+            printError("Uninstall failed: \(reason)\n\(String(data: output, encoding: String.Encoding.utf8)!)")
             return false
         }
     }
