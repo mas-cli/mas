@@ -18,6 +18,8 @@ struct ResultKeys {
     static let Price = "price"
 }
 
+/// Search the Mac App Store using the iTunes Search API:
+/// https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/
 public struct SearchCommand: CommandProtocol {
     public typealias Options = SearchOptions
     public let verb = "search"

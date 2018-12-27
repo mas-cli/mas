@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-
+- ✨🗑 `uninstall` command #81, #191
 
 ## [v1.4.4] 🧹 Cleanup - 2018-12-19
 

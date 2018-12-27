@@ -22,6 +22,9 @@ public enum MASError: Error, CustomStringConvertible, Equatable {
     case searchFailed
     case noSearchResultsFound
 
+    case notInstalled
+    case uninstallFailed
+
     public var description: String {
         switch self {
         case .notSignedIn:
@@ -67,7 +70,13 @@ public enum MASError: Error, CustomStringConvertible, Equatable {
             return "Search failed"
 
         case .noSearchResultsFound:
-            return "No results found"            
+            return "No results found"
+
+        case .notInstalled:
+            return "Not installed"
+
+        case .uninstallFailed:
+            return "Uninstall failed"
         }
     }
 }

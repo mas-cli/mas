@@ -8,7 +8,6 @@
 
 import Commandant
 import Result
-
 import CommerceKit
 
 public struct LuckyCommand: CommandProtocol {
