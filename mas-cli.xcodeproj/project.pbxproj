@@ -30,6 +30,7 @@
 		B594B12E21D5850700F3AC59 /* MockAppLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B12D21D5850700F3AC59 /* MockAppLibrary.swift */; };
 		B594B13021D5855D00F3AC59 /* MasAppLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B12F21D5855D00F3AC59 /* MasAppLibrary.swift */; };
 		B594B13221D5876200F3AC59 /* ResultPredicates.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B13121D5876200F3AC59 /* ResultPredicates.swift */; };
+		B594B13421D5897100F3AC59 /* MockSoftwareProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B13321D5897100F3AC59 /* MockSoftwareProduct.swift */; };
 		ED031A7C1B5127C00097692E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED031A7B1B5127C00097692E /* main.swift */; };
 		F83213892173D3E1008BA8A0 /* CKAccountStore.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB719B20F2EC4500F56FDC /* CKAccountStore.h */; };
 		F832138A2173D3E1008BA8A0 /* CKDownloadQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB719C20F2EC4500F56FDC /* CKDownloadQueue.h */; };
@@ -174,6 +175,7 @@
 		B594B12D21D5850700F3AC59 /* MockAppLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAppLibrary.swift; sourceTree = "<group>"; };
 		B594B12F21D5855D00F3AC59 /* MasAppLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasAppLibrary.swift; sourceTree = "<group>"; };
 		B594B13121D5876200F3AC59 /* ResultPredicates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultPredicates.swift; sourceTree = "<group>"; };
+		B594B13321D5897100F3AC59 /* MockSoftwareProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSoftwareProduct.swift; sourceTree = "<group>"; };
 		ED031A781B5127C00097692E /* mas */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = mas; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED031A7B1B5127C00097692E /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		ED0F237E1B87522400AE40CD /* Install.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Install.swift; sourceTree = "<group>"; };
@@ -291,6 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				B594B12D21D5850700F3AC59 /* MockAppLibrary.swift */,
+				B594B13321D5897100F3AC59 /* MockSoftwareProduct.swift */,
 				B5793E2A219BE0CD00135B39 /* MockURLSession.swift */,
 			);
 			path = Mocks;
@@ -667,6 +670,7 @@
 			files = (
 				B5793E2B219BE0CD00135B39 /* MockURLSession.swift in Sources */,
 				B555292B219A1CB200ACB4CA /* MASErrorTestCase.swift in Sources */,
+				B594B13421D5897100F3AC59 /* MockSoftwareProduct.swift in Sources */,
 				B594B12221D5416100F3AC59 /* ListCommandSpec.swift in Sources */,
 				B594B12521D580BB00F3AC59 /* UninstallCommandSpec.swift in Sources */,
 				B555292D219A1FE700ACB4CA /* SearchSpec.swift in Sources */,

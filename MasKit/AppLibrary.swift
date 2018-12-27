@@ -13,4 +13,10 @@ public protocol AppLibrary {
     /// - Parameter appId: MAS ID for app.
     /// - Returns: Software Product of app if found; nil otherwise.
     func installedApp(appId: UInt64) -> SoftwareProduct?
+
+    /// Uninstalls an app.
+    ///
+    /// - Parameter app: App to be removed.
+    /// - Throws: Error if there is a problem.
+    func uninstallApp(app: SoftwareProduct) throws
 }

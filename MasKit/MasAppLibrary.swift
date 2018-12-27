@@ -23,4 +23,56 @@ public class MasAppLibrary: AppLibrary {
         let appId = NSNumber(value: appId)
         return softwareMap.allProducts()?.first { $0.itemIdentifier == appId }
     }
+
+    /// Uninstalls an app.
+    ///
+    /// - Parameter app: App to be removed.
+    /// - Throws: Error if there is a problem.
+    public func uninstallApp(app: SoftwareProduct) throws {
+        let status = trash(path: app.bundlePath)
+        if !status {
+            throw MASError.uninstallFailed
+        }
+    }
+
+    /// Runs the trash command in another process. Relies on the "trash" command
+    /// from Homebrew. Trash requires el_capitan or higher for core bottles:
+    /// https://github.com/Homebrew/homebrew-core/blob/master/Formula/trash.rb
+    ///
+    /// - Parameter path: Absolute path to the application bundle to uninstall.
+    /// - Returns: true on success; fail on error
+    func trash(path: String) -> Bool {
+        let binaryPath = "/usr/local/bin/trash"
+        let process = Process()
+        let stdout = Pipe()
+        let stderr = Pipe()
+
+        process.standardOutput = stdout
+        process.standardError = stderr
+        process.arguments = [path]
+
+        if #available(OSX 10.13, *) {
+            process.executableURL = URL(fileURLWithPath: binaryPath)
+            do {
+                try process.run()
+            } catch {
+                printError("Unable to launch trash command")
+                return false
+            }
+        } else {
+            process.launchPath = binaryPath
+            process.launch()
+        }
+
+        process.waitUntilExit()
+
+        if process.terminationStatus == 0 {
+            return true
+        } else {
+            let reason = process.terminationReason
+            let output = stderr.fileHandleForReading.readDataToEndOfFile()
+            printError("Uninstall failed: \(reason)\n\(String(data: output, encoding: .utf8)!)")
+            return false
+        }
+    }
 }

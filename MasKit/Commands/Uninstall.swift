@@ -11,9 +11,7 @@ import Result
 import CommerceKit
 import StoreFoundation
 
-/// Command which uninstalls apps managed by the Mac App Store. Relies on the "trash" command from Homebrew.
-/// Trash requires el_capitan or higher for core bottles:
-/// https://github.com/Homebrew/homebrew-core/blob/master/Formula/trash.rb
+/// Command which uninstalls apps managed by the Mac App Store.
 public struct UninstallCommand: CommandProtocol {
     public typealias Options = UninstallOptions
     public let verb = "uninstall"
@@ -46,52 +44,14 @@ public struct UninstallCommand: CommandProtocol {
             return .success(())
         }
 
-        // Use the bundle path to delete the app
-        let status = trash(path: product.bundlePath)
-        if status {
-            return .success(())
-        } else {
-            return .failure(.searchFailed)
+        do {
+            try appLibrary.uninstallApp(app: product)
         }
-    }
-
-    /// Runs the trash command in another process.
-    ///
-    /// - Parameter path: Absolute path to the application bundle to uninstall.
-    /// - Returns: true on success; fail on error
-    func trash(path: String) -> Bool {
-        let binaryPath = "/usr/local/bin/trash"
-        let process = Process()
-        let stdout = Pipe()
-        let stderr = Pipe()
-
-        process.standardOutput = stdout
-        process.standardError = stderr
-        process.arguments = [path]
-
-        if #available(OSX 10.13, *) {
-            process.executableURL = URL(fileURLWithPath: binaryPath)
-            do {
-                try process.run()
-            } catch {
-                printError("Unable to launch trash command")
-                return false
-            }
-        } else {
-            process.launchPath = binaryPath
-            process.launch()
+        catch {
+            return .failure(.uninstallFailed)
         }
 
-        process.waitUntilExit()
-
-        if process.terminationStatus == 0 {
-            return true
-        } else {
-            let reason = process.terminationReason
-            let output = stderr.fileHandleForReading.readDataToEndOfFile()
-            printError("Uninstall failed: \(reason)\n\(String(data: output, encoding: String.Encoding.utf8)!)")
-            return false
-        }
+        return .success(())
     }
 }
 
