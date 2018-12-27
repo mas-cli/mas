@@ -13,10 +13,9 @@ class Mas < Formula
     sha256 "237fd7270cb8f0d68a33e7ce05671a2e5c269d05d736abb0f66b50215439084e" => :high_sierra
     sha256 "237fd7270cb8f0d68a33e7ce05671a2e5c269d05d736abb0f66b50215439084e" => :sierra
     sha256 "237fd7270cb8f0d68a33e7ce05671a2e5c269d05d736abb0f66b50215439084e" => :el_capitan
-    sha256 "237fd7270cb8f0d68a33e7ce05671a2e5c269d05d736abb0f66b50215439084e" => :yosemite
-    sha256 "237fd7270cb8f0d68a33e7ce05671a2e5c269d05d736abb0f66b50215439084e" => :mavericks
   end
 
+  depends_on "trash"
   depends_on "carthage" => :build
   depends_on :xcode => ["10.1", :build]
 

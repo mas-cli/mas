@@ -12,6 +12,7 @@ class Mas < Formula
     sha256 "fc6658113d785a660e3f4d2e4e134ad02fe003ffa7d69271a2c53f503aaae726" => :high_sierra
   end
 
+  depends_on "trash"
   depends_on "carthage" => :build
   depends_on :xcode => ["10.1", :build]
 
