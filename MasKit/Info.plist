@@ -15,9 +15,9 @@
 	<key>CFBundlePackageType</key>
 	<string>FMWK</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.4.4</string>
+	<string>1.5</string>
 	<key>CFBundleVersion</key>
-	<string>10404000</string>
+	<string>10500000</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2018 Andrew Naylor. All rights reserved.</string>
 </dict>

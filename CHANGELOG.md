@@ -1,4 +1,4 @@
-# Changelog
+# mas Changelog
 
 All notable changes to this project will be documented in this file.
 
@@ -7,7 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+
+
+## [v1.5.0] 🗑 Uninstall - 2018-12-27
+
 - ✨🗑 `uninstall` command #81, #191
+- ➕🍺 `trash` formula #191
+- 💥 Dropped support for Yosemite and Mavericks #192
 
 ## [v1.4.4] 🧹 Cleanup - 2018-12-19
 
@@ -129,7 +135,9 @@ Use the `mas.pkg` package to install manually.
 ## [v1.0.0] - 2015-09-20
 - Initial Release
 
-[Unreleased]: https://github.com/mas-cli/mas/compare/v1.4.3...HEAD
+[Unreleased]: https://github.com/mas-cli/mas/compare/v1.5.0...HEAD
+[v1.5.0]: https://github.com/mas-cli/mas/compare/v1.4.4...v1.5.0
+[v1.4.4]: https://github.com/mas-cli/mas/compare/v1.4.3...v1.4.4
 [v1.4.3]: https://github.com/mas-cli/mas/compare/v1.4.2...v1.4.3
 [v1.4.2]: https://github.com/mas-cli/mas/compare/v1.4.1...v1.4.2
 [v1.4.1]: https://github.com/mas-cli/mas/compare/v1.4.0...v1.4.1
