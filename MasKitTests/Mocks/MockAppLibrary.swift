@@ -9,14 +9,18 @@
 @testable import MasKit
 
 class MockAppLibrary: AppLibrary {
-    var apps = [SoftwareProduct]()
+    var installedApps = [SoftwareProduct]()
 
-    func installedApp(appId: UInt64) -> SoftwareProduct? {
-        return apps.first { $0.itemIdentifier == NSNumber(value: appId) }
+    /// Finds an app using a bundle identifier.
+    ///
+    /// - Parameter bundleId: Bundle identifier of app.
+    /// - Returns: Software Product of app if found; nil otherwise.
+    public func installedApp(forBundleId bundleId: String) -> SoftwareProduct? {
+        return nil
     }
 
     func uninstallApp(app: SoftwareProduct) throws {
-        if !apps.contains(where: { (product) -> Bool in
+        if !installedApps.contains(where: { (product) -> Bool in
             return app.itemIdentifier == product.itemIdentifier
         }) { throw MASError.notInstalled }
 
@@ -26,5 +30,13 @@ class MockAppLibrary: AppLibrary {
         }
 
         // Success is the default, watch out for false positives!
+    }
+}
+
+/// Members not part of the AppLibrary protocol that are only for test state managment.
+extension MockAppLibrary {
+    /// Clears out the list of installed apps.
+    func reset() {
+        installedApps = []
     }
 }

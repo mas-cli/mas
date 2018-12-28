@@ -33,7 +33,7 @@ public struct UninstallCommand: CommandProtocol {
     public func run(_ options: Options) -> Result<(), MASError> {
         let appId = UInt64(options.appId)
 
-        guard let product = appLibrary.installedApp(appId: appId) else {
+        guard let product = appLibrary.installedApp(forId: appId) else {
             return .failure(.notInstalled)
         }
 

@@ -64,7 +64,6 @@
 		F83213AA2173F5D0008BA8A0 /* Result.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB4069213F4DDD0044E445 /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F8FB715B20F2B41400F56FDC /* MasKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8FB715220F2B41400F56FDC /* MasKit.framework */; };
 		F8FB716220F2B41400F56FDC /* MasKit.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB715420F2B41400F56FDC /* MasKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F8FB716920F2B4DD00F56FDC /* CKSoftwareMap+AppLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4913269A1F48921D0010EB86 /* CKSoftwareMap+AppLookup.swift */; };
 		F8FB716A20F2B4DD00F56FDC /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F238A1B87569C00AE40CD /* Downloader.swift */; };
 		F8FB716B20F2B4DD00F56FDC /* ISStoreAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F238F1B87A56F00AE40CD /* ISStoreAccount.swift */; };
 		F8FB716C20F2B4DD00F56FDC /* PurchaseDownloadObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F23881B87543D00AE40CD /* PurchaseDownloadObserver.swift */; };
@@ -153,7 +152,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		4913269A1F48921D0010EB86 /* CKSoftwareMap+AppLookup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CKSoftwareMap+AppLookup.swift"; sourceTree = "<group>"; };
 		693A98981CBFFA760004D3B4 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		693A989A1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURLSession+Synchronous.swift"; sourceTree = "<group>"; };
 		8078FAA71EC4F2FB004B5B3F /* Lucky.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lucky.swift; sourceTree = "<group>"; };
@@ -354,7 +352,6 @@
 		ED0F238E1B87A54700AE40CD /* AppStore */ = {
 			isa = PBXGroup;
 			children = (
-				4913269A1F48921D0010EB86 /* CKSoftwareMap+AppLookup.swift */,
 				B594B12A21D5837200F3AC59 /* CKSoftwareProduct+SoftwareProduct.swift */,
 				ED0F238A1B87569C00AE40CD /* Downloader.swift */,
 				ED0F238F1B87A56F00AE40CD /* ISStoreAccount.swift */,
@@ -637,7 +634,6 @@
 			files = (
 				B594B12B21D5837200F3AC59 /* CKSoftwareProduct+SoftwareProduct.swift in Sources */,
 				F8FB716F20F2B4DD00F56FDC /* Account.swift in Sources */,
-				F8FB716920F2B4DD00F56FDC /* CKSoftwareMap+AppLookup.swift in Sources */,
 				F8FB716A20F2B4DD00F56FDC /* Downloader.swift in Sources */,
 				F8FB717020F2B4DD00F56FDC /* Info.swift in Sources */,
 				F8FB717120F2B4DD00F56FDC /* Install.swift in Sources */,

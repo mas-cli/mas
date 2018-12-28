@@ -10,5 +10,6 @@
 public protocol SoftwareProduct {
     var appName: String { get }
     var bundlePath: String { get set }
+    var bundleVersion: String { get set }
     var itemIdentifier: NSNumber { get set }
 }

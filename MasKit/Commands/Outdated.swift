@@ -10,19 +10,28 @@ import Commandant
 import Result
 import CommerceKit
 
+/// Command which displays a list of installed apps which have available updates
+/// ready to be installed from the Mac App Store.
 public struct OutdatedCommand: CommandProtocol {
     public typealias Options = NoOptions<MASError>
     public let verb = "outdated"
     public let function = "Lists pending updates from the Mac App Store"
 
-    public init() {}
-    
+    private let appLibrary: AppLibrary
+
+    /// Designated initializer.
+    ///
+    /// - Parameter appLibrary: AppLibrary manager.
+    public init(appLibrary: AppLibrary = MasAppLibrary()) {
+        self.appLibrary = appLibrary
+    }
+
     public func run(_ options: Options) -> Result<(), MASError> {
         let updateController = CKUpdateController.shared()
         let updates = updateController?.availableUpdates()
-        let softwareMap = CKSoftwareMap.shared()
         for update in updates! {
-            if let installed = softwareMap.product(forBundleIdentifier: update.bundleID) {
+            if let installed = appLibrary.installedApp(forBundleId: update.bundleID) {
+                // Display version of installed app compared to available update.
                 print("\(update.itemIdentifier) \(update.title) (\(installed.bundleVersion) -> \(update.bundleVersion))")
             } else {
                 print("\(update.itemIdentifier) \(update.title) (unknown -> \(update.bundleVersion))")
