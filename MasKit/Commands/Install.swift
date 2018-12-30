@@ -10,17 +10,25 @@ import Commandant
 import Result
 import CommerceKit
 
+/// Installs previously purchased apps from the Mac App Store.
 public struct InstallCommand: CommandProtocol {
     public typealias Options = InstallOptions
     public let verb = "install"
     public let function = "Install from the Mac App Store"
 
-    public init() {}
+    private let appLibrary: AppLibrary
+
+    /// Designated initializer.
+    ///
+    /// - Parameter appLibrary: AppLibrary manager.
+    public init(appLibrary: AppLibrary = MasAppLibrary()) {
+        self.appLibrary = appLibrary
+    }
 
     public func run(_ options: Options) -> Result<(), MASError> {
         // Try to download applications with given identifiers and collect results
         let downloadResults = options.appIds.compactMap { (appId) -> MASError? in
-            if let product = installedApp(appId), !options.forceInstall {
+            if let product = appLibrary.installedApp(forId: appId), !options.forceInstall {
                 printWarning("\(product.appName) is already installed")
                 return nil
             }
@@ -36,13 +44,6 @@ public struct InstallCommand: CommandProtocol {
         default:
             return .failure(.downloadFailed(error: nil))
         }
-    }
-
-    fileprivate func installedApp(_ appId: UInt64) -> CKSoftwareProduct? {
-        let appId = NSNumber(value: appId)
-
-        let softwareMap = CKSoftwareMap.shared()
-        return softwareMap.allProducts()?.first { $0.itemIdentifier == appId }
     }
 }
 

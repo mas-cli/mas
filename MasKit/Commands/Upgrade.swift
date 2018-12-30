@@ -10,37 +10,40 @@ import Commandant
 import Result
 import CommerceKit
 
+/// Command which upgrades apps with new versions available in the Mac App Store.
 public struct UpgradeCommand: CommandProtocol {
     public typealias Options = UpgradeOptions
     public let verb = "upgrade"
     public let function = "Upgrade outdated apps from the Mac App Store"
 
-    public init() {}
+    private let appLibrary: AppLibrary
+
+    /// Designated initializer.
+    ///
+    /// - Parameter appLibrary: <#appLibrary description#>
+    public init(appLibrary: AppLibrary = MasAppLibrary()) {
+        self.appLibrary = appLibrary
+    }
 
     public func run(_ options: Options) -> Result<(), MASError> {
         let updateController = CKUpdateController.shared()
-
         let updates: [CKUpdate]
         let apps = options.apps
         if apps.count > 0 {
-            let softwareMap = CKSoftwareMap.shared()
-
             // convert input into a list of appId's
-
             let appIds: [UInt64]
 
             appIds = apps.compactMap {
                 if let appId = UInt64($0) {
                     return appId
                 }
-                if let appId = softwareMap.appIdWithProductName($0) {
+                if let appId = appLibrary.appIdsByName[$0] {
                     return appId
                 }
                 return nil
             }
 
             // check each of those for updates
-
             updates = appIds.compactMap {
                 updateController?.availableUpdate(withItemIdentifier: $0)
             }

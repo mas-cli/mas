@@ -8,18 +8,25 @@
 
 import Commandant
 import Result
-import CommerceKit
 
+/// Command which lists all installed apps.
 public struct ListCommand: CommandProtocol {
     public typealias Options = NoOptions<MASError>
     public let verb = "list"
     public let function = "Lists apps from the Mac App Store which are currently installed"
 
-    public init() {}
+    private let appLibrary: AppLibrary
+
+    /// Designated initializer.
+    ///
+    /// - Parameter appLibrary: AppLibrary manager.
+    public init(appLibrary: AppLibrary = MasAppLibrary()) {
+        self.appLibrary = appLibrary
+    }
 
     public func run(_ options: Options) -> Result<(), MASError> {
-        let softwareMap = CKSoftwareMap.shared()
-        guard let products = softwareMap.allProducts() else {
+        let products = appLibrary.installedApps
+        if products.isEmpty {
             print("No installed apps found")
             return .success(())
         }

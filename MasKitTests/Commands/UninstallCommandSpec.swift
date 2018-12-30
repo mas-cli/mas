@@ -18,6 +18,7 @@ class UninstallCommandSpec: QuickSpec {
             let app = MockSoftwareProduct(
                 appName: "Some App",
                 bundlePath: "/tmp/Some.app",
+                bundleVersion: "1.0",
                 itemIdentifier: NSNumber(value: appId)
             )
             let mockLibrary = MockAppLibrary()
@@ -26,16 +27,17 @@ class UninstallCommandSpec: QuickSpec {
             context("dry run") {
                 let options = UninstallCommand.Options(appId: appId, dryRun: true)
 
+                beforeEach {
+                    mockLibrary.reset()
+                }
                 it("can't remove a missing app") {
-                    mockLibrary.apps = []
-
                     let result = uninstall.run(options)
                     expect(result).to(beFailure { error in
                         expect(error) == .notInstalled
                     })
                 }
                 it("finds an app") {
-                    mockLibrary.apps.append(app)
+                    mockLibrary.installedApps.append(app)
 
                     let result = uninstall.run(options)
                     expect(result).to(beSuccess())
@@ -44,25 +46,25 @@ class UninstallCommandSpec: QuickSpec {
             context("wet run") {
                 let options = UninstallCommand.Options(appId: appId, dryRun: false)
 
+                beforeEach {
+                    mockLibrary.reset()
+                }
                 it("can't remove a missing app") {
-                    mockLibrary.apps = []
-
                     let result = uninstall.run(options)
                     expect(result).to(beFailure { error in
                         expect(error) == .notInstalled
                     })
                 }
                 it("removes an app") {
-                    mockLibrary.apps.append(app)
+                    mockLibrary.installedApps.append(app)
 
                     let result = uninstall.run(options)
                     expect(result).to(beSuccess())
                 }
                 it("fails if there is a problem with the trash command") {
-                    mockLibrary.apps = []
                     var brokenUninstall = app // make mutable copy
                     brokenUninstall.bundlePath = "/dev/null"
-                    mockLibrary.apps.append(brokenUninstall)
+                    mockLibrary.installedApps.append(brokenUninstall)
 
                     let result = uninstall.run(options)
                     expect(result).to(beFailure { error in

@@ -13,15 +13,23 @@ public class MasAppLibrary: AppLibrary {
     /// CommerceKit's singleton manager of installed software.
     private let softwareMap = CKSoftwareMap.shared()
 
+    /// Array of installed software products.
+    public lazy var installedApps: [SoftwareProduct] = {
+        var appList = [SoftwareProduct]()
+        guard let products = softwareMap.allProducts()
+            else { return appList }
+        appList.append(contentsOf: products)
+        return products
+    }()
+
     public init() {}
 
-    /// Finds an app by ID from the set of installed apps
+    /// Finds an app using a bundle identifier.
     ///
-    /// - Parameter appId: MAS ID for app.
+    /// - Parameter bundleId: Bundle identifier of app.
     /// - Returns: Software Product of app if found; nil otherwise.
-    public func installedApp(appId: UInt64) -> SoftwareProduct? {
-        let appId = NSNumber(value: appId)
-        return softwareMap.allProducts()?.first { $0.itemIdentifier == appId }
+    public func installedApp(forBundleId bundleId: String) -> SoftwareProduct? {
+        return softwareMap.product(forBundleIdentifier: bundleId)
     }
 
     /// Uninstalls an app.
