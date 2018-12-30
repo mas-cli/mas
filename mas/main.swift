@@ -18,7 +18,9 @@ public struct StderrOutputStream: TextOutputStream {
 
 let registry = CommandRegistry<MASError>()
 let helpCommand = HelpCommand(registry: registry)
+
 registry.register(AccountCommand())
+registry.register(HomeCommand())
 registry.register(InfoCommand())
 registry.register(InstallCommand())
 registry.register(ListCommand())

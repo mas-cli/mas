@@ -14,8 +14,7 @@ import Foundation
 /// Particularly for playground sessions that need to run sequentially
 public extension URLSession {
     /// Return data from synchronous URL request
-    // TODO: Unused, remove
-    public static func requestSynchronousData(_ request: URLRequest) -> Data? {
+    public func requestSynchronousData(_ request: URLRequest) -> Data? {
         var data: Data? = nil
         let semaphore = DispatchSemaphore(value: 0)
         let task = URLSession.shared.dataTask(with: request) {
@@ -30,17 +29,15 @@ public extension URLSession {
     }
 
     /// Return data synchronous from specified endpoint
-    // TODO: Unused, remove
-    public static func requestSynchronousDataWithURLString(_ requestString: String) -> Data? {
+    public func requestSynchronousDataWithURLString(_ requestString: String) -> Data? {
         guard let url = URL(string:requestString) else {return nil}
         let request = URLRequest(url: url)
-        return URLSession.requestSynchronousData(request)
+        return requestSynchronousData(request)
     }
 
     /// Return JSON synchronous from URL request
-    // TODO: Unused, remove
-    public static func requestSynchronousJSON(_ request: URLRequest) -> Any? {
-        guard let data = URLSession.requestSynchronousData(request) else {return nil}
+    public func requestSynchronousJSON(_ request: URLRequest) -> Any? {
+        guard let data = requestSynchronousData(request) else {return nil}
         return try! JSONSerialization.jsonObject(with: data, options: [])
     }
 
@@ -50,7 +47,7 @@ public extension URLSession {
         var request = URLRequest(url:url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        return URLSession.requestSynchronousJSON(request)
+        return requestSynchronousJSON(request)
     }
 }
 
