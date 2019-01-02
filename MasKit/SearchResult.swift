@@ -6,13 +6,13 @@
 //  Copyright © 2018 mas-cli. All rights reserved.
 //
 
-struct SearchResult: Decodable {
-    var bundleId: String
-    var price: Double
-    var sellerName: String
-    var sellerUrl: String
-    var trackId: Int
-    var trackName: String
-    var trackViewUrl: String
-    var version: String
+public struct SearchResult: Decodable {
+    public var bundleId: String
+    public var price: Double
+    public var sellerName: String
+    public var sellerUrl: String
+    public var trackId: Int
+    public var trackName: String
+    public var trackViewUrl: String
+    public var version: String
 }

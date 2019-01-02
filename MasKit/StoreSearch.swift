@@ -9,4 +9,5 @@
 /// Protocol for searching the MAS catalog.
 public protocol StoreSearch {
     func lookupURLString(forApp: String) -> String?
+    func lookup(app appId: String) throws -> SearchResult?
 }

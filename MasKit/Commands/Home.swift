@@ -17,33 +17,26 @@ public struct HomeCommand: CommandProtocol {
     public let function = "Opens MAS Preview app page in a browser"
 
     private let storeSearch: StoreSearch
-    private let urlSession: URLSession
 
     /// Designated initializer.
-    public init(storeSearch: StoreSearch = MasStoreSearch(),
-                urlSession: URLSession = URLSession.shared) {
+    public init(storeSearch: StoreSearch = MasStoreSearch()) {
         self.storeSearch = storeSearch
-        self.urlSession = urlSession
     }
 
     /// Runs the command.
     public func run(_ options: HomeOptions) -> Result<(), MASError> {
-        guard let homeURLString = storeSearch.lookupURLString(forApp: options.appId),
-            let jsonData = urlSession.requestSynchronousDataWithURLString(homeURLString)
-            else {
-                return .failure(.searchFailed)
-        }
+        do {
+            guard let result = try storeSearch.lookup(app: options.appId)
+                else {
+                    print("No results found")
+                    return .failure(.noSearchResultsFound)
+            }
 
-        guard let results = try? JSONDecoder().decode(SearchResultList.self, from: jsonData),
-            results.resultCount > 0
-        else {
-            print("No results found")
-            return .failure(.noSearchResultsFound)
+            dump(result)
         }
-
-        dump(results.resultCount)
-        let first = results.results.first!
-        dump(first)
+        catch {
+            return .failure(.searchFailed)
+        }
 
         return .success(())
     }
