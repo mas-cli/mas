@@ -13,18 +13,23 @@ import Foundation
 /// Opens app page on MAS Preview. Uses the iTunes Lookup API:
 /// https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/#lookup
 public struct HomeCommand: CommandProtocol {
+    public typealias Options = HomeOptions
+
     public let verb = "home"
     public let function = "Opens MAS Preview app page in a browser"
 
     private let storeSearch: StoreSearch
+    private var openCommand: ExternalCommand
 
     /// Designated initializer.
-    public init(storeSearch: StoreSearch = MasStoreSearch()) {
+    public init(storeSearch: StoreSearch = MasStoreSearch(),
+                openCommand: ExternalCommand = OpenCommand()) {
         self.storeSearch = storeSearch
+        self.openCommand = openCommand
     }
 
     /// Runs the command.
-    public func run(_ options: HomeOptions) -> Result<(), MASError> {
+    public mutating func run(_ options: HomeOptions) -> Result<(), MASError> {
         do {
             guard let result = try storeSearch.lookup(app: options.appId)
                 else {
@@ -33,6 +38,20 @@ public struct HomeCommand: CommandProtocol {
             }
 
             dump(result)
+
+            let url = result.trackViewUrl
+            openCommand.arguments = [url]
+            do {
+                try openCommand.run()
+            } catch {
+                printError("Unable to launch open command")
+                return .failure(.searchFailed)
+            }
+            if openCommand.failed {
+                let reason = openCommand.process.terminationReason
+                printError("Open failed: (\(reason)) \(openCommand.stderr)")
+                return .failure(.searchFailed)
+            }
         }
         catch {
             return .failure(.searchFailed)
