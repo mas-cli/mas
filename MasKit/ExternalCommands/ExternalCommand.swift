@@ -13,8 +13,8 @@ public protocol ExternalCommand {
 
     var process: Process { get }
 
-    var stdout: String? { get }
-    var stderr: String? { get }
+    var stdout: String { get }
+    var stderr: String { get }
     var stdoutPipe: Pipe { get }
     var stderrPipe: Pipe { get }
 
@@ -23,19 +23,19 @@ public protocol ExternalCommand {
     var failed: Bool { get }
 
     /// Runs the command.
-    mutating func run() throws
+    func run() throws
 }
 
 /// Common implementation
 extension ExternalCommand {
-    public var stdout: String? { get {
+    public var stdout: String { get {
         let data = stdoutPipe.fileHandleForReading.readDataToEndOfFile()
-        return String(data: data, encoding: .utf8)
+        return String(data: data, encoding: .utf8) ?? ""
     }}
 
-    public var stderr: String? { get {
+    public var stderr: String { get {
         let data = stderrPipe.fileHandleForReading.readDataToEndOfFile()
-        return String(data: data, encoding: .utf8)
+        return String(data: data, encoding: .utf8) ?? ""
     }}
 
     public var exitCode: Int? { get {
@@ -51,7 +51,7 @@ extension ExternalCommand {
     }}
 
     /// Runs the command.
-    public mutating func run() throws {
+    public func run() throws {
         process.standardOutput = stdoutPipe
         process.standardError = stderrPipe
         process.arguments = arguments

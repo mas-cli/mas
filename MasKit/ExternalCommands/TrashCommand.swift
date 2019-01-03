@@ -6,7 +6,9 @@
 //  Copyright © 2019 mas-cli. All rights reserved.
 //
 
-/// CLI command
+/// Wrapper for the external trash command. Relies on the "trash" command
+/// from Homebrew. Trash requires el_capitan or higher for core bottles:
+/// https://github.com/Homebrew/homebrew-core/blob/master/Formula/trash.rb
 public struct TrashCommand: ExternalCommand {
     public var binaryPath: String
     public var arguments: [String]
