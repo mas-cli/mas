@@ -22,7 +22,11 @@ public class MasAppLibrary: AppLibrary {
         return products
     }()
 
-    public init() {}
+    private let trashCommand: ExternalCommand
+
+    public init(trashCommand: ExternalCommand = TrashCommand()) {
+        self.trashCommand = trashCommand
+    }
 
     /// Finds an app using a bundle identifier.
     ///

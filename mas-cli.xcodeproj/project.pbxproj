@@ -21,6 +21,8 @@
 		B5552937219A23FF00ACB4CA /* Quick.framework in Copy Carthage Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406A213F4DDD0044E445 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B5793E29219BDD4800135B39 /* JSON in Resources */ = {isa = PBXBuildFile; fileRef = B5793E28219BDD4800135B39 /* JSON */; };
 		B5793E2B219BE0CD00135B39 /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5793E2A219BE0CD00135B39 /* MockURLSession.swift */; };
+		B588CE0221DC89490047D305 /* ExternalCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B588CE0121DC89490047D305 /* ExternalCommand.swift */; };
+		B588CE0421DC8AFB0047D305 /* TrashCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B588CE0321DC8AFB0047D305 /* TrashCommand.swift */; };
 		B594B12021D53A8200F3AC59 /* Uninstall.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B11F21D53A8200F3AC59 /* Uninstall.swift */; };
 		B594B12221D5416100F3AC59 /* ListCommandSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B12121D5416100F3AC59 /* ListCommandSpec.swift */; };
 		B594B12521D580BB00F3AC59 /* UninstallCommandSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B12421D580BB00F3AC59 /* UninstallCommandSpec.swift */; };
@@ -181,6 +183,8 @@
 		B555292C219A1FE700ACB4CA /* SearchSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSpec.swift; sourceTree = "<group>"; };
 		B5793E28219BDD4800135B39 /* JSON */ = {isa = PBXFileReference; lastKnownFileType = folder; path = JSON; sourceTree = "<group>"; };
 		B5793E2A219BE0CD00135B39 /* MockURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLSession.swift; sourceTree = "<group>"; };
+		B588CE0121DC89490047D305 /* ExternalCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalCommand.swift; sourceTree = "<group>"; };
+		B588CE0321DC8AFB0047D305 /* TrashCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrashCommand.swift; sourceTree = "<group>"; };
 		B594B11F21D53A8200F3AC59 /* Uninstall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Uninstall.swift; sourceTree = "<group>"; };
 		B594B12121D5416100F3AC59 /* ListCommandSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListCommandSpec.swift; sourceTree = "<group>"; };
 		B594B12421D580BB00F3AC59 /* UninstallCommandSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UninstallCommandSpec.swift; sourceTree = "<group>"; };
@@ -311,6 +315,15 @@
 			path = Carthage/Build/Mac;
 			sourceTree = "<group>";
 		};
+		B588CE0021DC89250047D305 /* ExternalCommands */ = {
+			isa = PBXGroup;
+			children = (
+				B588CE0121DC89490047D305 /* ExternalCommand.swift */,
+				B588CE0321DC8AFB0047D305 /* TrashCommand.swift */,
+			);
+			path = ExternalCommands;
+			sourceTree = "<group>";
+		};
 		B594B12321D57FF300F3AC59 /* Commands */ = {
 			isa = PBXGroup;
 			children = (
@@ -425,6 +438,7 @@
 				B594B12621D5825800F3AC59 /* AppLibrary.swift */,
 				ED0F238E1B87A54700AE40CD /* AppStore */,
 				ED0F23801B87524700AE40CD /* Commands */,
+				B588CE0021DC89250047D305 /* ExternalCommands */,
 				F8FB715520F2B41400F56FDC /* Info.plist */,
 				B594B12F21D5855D00F3AC59 /* MasAppLibrary.swift */,
 				ED0F238C1B8756E600AE40CD /* MASError.swift */,
@@ -696,6 +710,8 @@
 				B594B15621D89F5200F3AC59 /* SearchResultList.swift in Sources */,
 				B594B12721D5825800F3AC59 /* AppLibrary.swift in Sources */,
 				F8FB717B20F2B4DD00F56FDC /* MASError.swift in Sources */,
+				B588CE0221DC89490047D305 /* ExternalCommand.swift in Sources */,
+				B588CE0421DC8AFB0047D305 /* TrashCommand.swift in Sources */,
 				F8FB717C20F2B4DD00F56FDC /* NSURLSession+Synchronous.swift in Sources */,
 				F8FB717420F2B4DD00F56FDC /* Outdated.swift in Sources */,
 				B594B12921D5831D00F3AC59 /* SoftwareProduct.swift in Sources */,
