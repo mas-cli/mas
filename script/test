@@ -23,7 +23,7 @@ main() {
 # but is set per-project or per-user. By default, this is set to `$(PROJECT_DIR)/build`.
 
 test() {
-  echo "==> 🏗️ Building"
+  echo "==> ✅ Testing"
   set -o pipefail && \
       xcodebuild -project "$PROJECT" \
           -scheme "$SCHEME" \

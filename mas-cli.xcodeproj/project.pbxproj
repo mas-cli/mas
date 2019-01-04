@@ -31,6 +31,17 @@
 		B594B13021D5855D00F3AC59 /* MasAppLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B12F21D5855D00F3AC59 /* MasAppLibrary.swift */; };
 		B594B13221D5876200F3AC59 /* ResultPredicates.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B13121D5876200F3AC59 /* ResultPredicates.swift */; };
 		B594B13421D5897100F3AC59 /* MockSoftwareProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B13321D5897100F3AC59 /* MockSoftwareProduct.swift */; };
+		B594B13621D6D68600F3AC59 /* VersionCommandSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B13521D6D68600F3AC59 /* VersionCommandSpec.swift */; };
+		B594B13821D6D6C100F3AC59 /* UpgradeCommandSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B13721D6D6C100F3AC59 /* UpgradeCommandSpec.swift */; };
+		B594B13A21D6D70400F3AC59 /* SignOutCommandSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B13921D6D70400F3AC59 /* SignOutCommandSpec.swift */; };
+		B594B13C21D6D72E00F3AC59 /* SignInCommandSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B13B21D6D72E00F3AC59 /* SignInCommandSpec.swift */; };
+		B594B13E21D6D78900F3AC59 /* SearchCommandSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B13D21D6D78900F3AC59 /* SearchCommandSpec.swift */; };
+		B594B14021D6D8BF00F3AC59 /* ResetCommandSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B13F21D6D8BF00F3AC59 /* ResetCommandSpec.swift */; };
+		B594B14221D6D8EC00F3AC59 /* OutdatedCommandSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B14121D6D8EC00F3AC59 /* OutdatedCommandSpec.swift */; };
+		B594B14421D6D91800F3AC59 /* LuckyCommandSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B14321D6D91800F3AC59 /* LuckyCommandSpec.swift */; };
+		B594B14621D6D95700F3AC59 /* InstallCommandSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B14521D6D95700F3AC59 /* InstallCommandSpec.swift */; };
+		B594B14821D6D98400F3AC59 /* InfoCommandSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B14721D6D98400F3AC59 /* InfoCommandSpec.swift */; };
+		B594B14A21D6D9AE00F3AC59 /* AccountCommandSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B14921D6D9AE00F3AC59 /* AccountCommandSpec.swift */; };
 		ED031A7C1B5127C00097692E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED031A7B1B5127C00097692E /* main.swift */; };
 		F83213892173D3E1008BA8A0 /* CKAccountStore.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB719B20F2EC4500F56FDC /* CKAccountStore.h */; };
 		F832138A2173D3E1008BA8A0 /* CKDownloadQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB719C20F2EC4500F56FDC /* CKDownloadQueue.h */; };
@@ -64,7 +75,6 @@
 		F83213AA2173F5D0008BA8A0 /* Result.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB4069213F4DDD0044E445 /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F8FB715B20F2B41400F56FDC /* MasKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8FB715220F2B41400F56FDC /* MasKit.framework */; };
 		F8FB716220F2B41400F56FDC /* MasKit.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB715420F2B41400F56FDC /* MasKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F8FB716920F2B4DD00F56FDC /* CKSoftwareMap+AppLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4913269A1F48921D0010EB86 /* CKSoftwareMap+AppLookup.swift */; };
 		F8FB716A20F2B4DD00F56FDC /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F238A1B87569C00AE40CD /* Downloader.swift */; };
 		F8FB716B20F2B4DD00F56FDC /* ISStoreAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F238F1B87A56F00AE40CD /* ISStoreAccount.swift */; };
 		F8FB716C20F2B4DD00F56FDC /* PurchaseDownloadObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F23881B87543D00AE40CD /* PurchaseDownloadObserver.swift */; };
@@ -153,7 +163,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		4913269A1F48921D0010EB86 /* CKSoftwareMap+AppLookup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CKSoftwareMap+AppLookup.swift"; sourceTree = "<group>"; };
 		693A98981CBFFA760004D3B4 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		693A989A1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURLSession+Synchronous.swift"; sourceTree = "<group>"; };
 		8078FAA71EC4F2FB004B5B3F /* Lucky.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lucky.swift; sourceTree = "<group>"; };
@@ -176,6 +185,17 @@
 		B594B12F21D5855D00F3AC59 /* MasAppLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasAppLibrary.swift; sourceTree = "<group>"; };
 		B594B13121D5876200F3AC59 /* ResultPredicates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultPredicates.swift; sourceTree = "<group>"; };
 		B594B13321D5897100F3AC59 /* MockSoftwareProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSoftwareProduct.swift; sourceTree = "<group>"; };
+		B594B13521D6D68600F3AC59 /* VersionCommandSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionCommandSpec.swift; sourceTree = "<group>"; };
+		B594B13721D6D6C100F3AC59 /* UpgradeCommandSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradeCommandSpec.swift; sourceTree = "<group>"; };
+		B594B13921D6D70400F3AC59 /* SignOutCommandSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignOutCommandSpec.swift; sourceTree = "<group>"; };
+		B594B13B21D6D72E00F3AC59 /* SignInCommandSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInCommandSpec.swift; sourceTree = "<group>"; };
+		B594B13D21D6D78900F3AC59 /* SearchCommandSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCommandSpec.swift; sourceTree = "<group>"; };
+		B594B13F21D6D8BF00F3AC59 /* ResetCommandSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetCommandSpec.swift; sourceTree = "<group>"; };
+		B594B14121D6D8EC00F3AC59 /* OutdatedCommandSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutdatedCommandSpec.swift; sourceTree = "<group>"; };
+		B594B14321D6D91800F3AC59 /* LuckyCommandSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LuckyCommandSpec.swift; sourceTree = "<group>"; };
+		B594B14521D6D95700F3AC59 /* InstallCommandSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstallCommandSpec.swift; sourceTree = "<group>"; };
+		B594B14721D6D98400F3AC59 /* InfoCommandSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoCommandSpec.swift; sourceTree = "<group>"; };
+		B594B14921D6D9AE00F3AC59 /* AccountCommandSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountCommandSpec.swift; sourceTree = "<group>"; };
 		ED031A781B5127C00097692E /* mas */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = mas; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED031A7B1B5127C00097692E /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		ED0F237E1B87522400AE40CD /* Install.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Install.swift; sourceTree = "<group>"; };
@@ -282,9 +302,20 @@
 		B594B12321D57FF300F3AC59 /* Commands */ = {
 			isa = PBXGroup;
 			children = (
+				B594B14921D6D9AE00F3AC59 /* AccountCommandSpec.swift */,
+				B594B14721D6D98400F3AC59 /* InfoCommandSpec.swift */,
+				B594B14521D6D95700F3AC59 /* InstallCommandSpec.swift */,
 				B594B12121D5416100F3AC59 /* ListCommandSpec.swift */,
+				B594B14321D6D91800F3AC59 /* LuckyCommandSpec.swift */,
+				B594B14121D6D8EC00F3AC59 /* OutdatedCommandSpec.swift */,
+				B594B13F21D6D8BF00F3AC59 /* ResetCommandSpec.swift */,
+				B594B13D21D6D78900F3AC59 /* SearchCommandSpec.swift */,
 				B555292C219A1FE700ACB4CA /* SearchSpec.swift */,
+				B594B13B21D6D72E00F3AC59 /* SignInCommandSpec.swift */,
+				B594B13921D6D70400F3AC59 /* SignOutCommandSpec.swift */,
 				B594B12421D580BB00F3AC59 /* UninstallCommandSpec.swift */,
+				B594B13721D6D6C100F3AC59 /* UpgradeCommandSpec.swift */,
+				B594B13521D6D68600F3AC59 /* VersionCommandSpec.swift */,
 			);
 			path = Commands;
 			sourceTree = "<group>";
@@ -354,7 +385,6 @@
 		ED0F238E1B87A54700AE40CD /* AppStore */ = {
 			isa = PBXGroup;
 			children = (
-				4913269A1F48921D0010EB86 /* CKSoftwareMap+AppLookup.swift */,
 				B594B12A21D5837200F3AC59 /* CKSoftwareProduct+SoftwareProduct.swift */,
 				ED0F238A1B87569C00AE40CD /* Downloader.swift */,
 				ED0F238F1B87A56F00AE40CD /* ISStoreAccount.swift */,
@@ -668,14 +698,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B594B12221D5416100F3AC59 /* ListCommandSpec.swift in Sources */,
-				B555292B219A1CB200ACB4CA /* MASErrorTestCase.swift in Sources */,
-				B594B12E21D5850700F3AC59 /* MockAppLibrary.swift in Sources */,
-				B594B13421D5897100F3AC59 /* MockSoftwareProduct.swift in Sources */,
 				B5793E2B219BE0CD00135B39 /* MockURLSession.swift in Sources */,
-				B594B13221D5876200F3AC59 /* ResultPredicates.swift in Sources */,
-				B555292D219A1FE700ACB4CA /* SearchSpec.swift in Sources */,
+				B555292B219A1CB200ACB4CA /* MASErrorTestCase.swift in Sources */,
+				B594B13421D5897100F3AC59 /* MockSoftwareProduct.swift in Sources */,
+				B594B14421D6D91800F3AC59 /* LuckyCommandSpec.swift in Sources */,
+				B594B12221D5416100F3AC59 /* ListCommandSpec.swift in Sources */,
+				B594B13C21D6D72E00F3AC59 /* SignInCommandSpec.swift in Sources */,
+				B594B13A21D6D70400F3AC59 /* SignOutCommandSpec.swift in Sources */,
 				B594B12521D580BB00F3AC59 /* UninstallCommandSpec.swift in Sources */,
+				B594B13E21D6D78900F3AC59 /* SearchCommandSpec.swift in Sources */,
+				B594B13821D6D6C100F3AC59 /* UpgradeCommandSpec.swift in Sources */,
+				B594B14821D6D98400F3AC59 /* InfoCommandSpec.swift in Sources */,
+				B555292D219A1FE700ACB4CA /* SearchSpec.swift in Sources */,
+				B594B14621D6D95700F3AC59 /* InstallCommandSpec.swift in Sources */,
+				B594B14021D6D8BF00F3AC59 /* ResetCommandSpec.swift in Sources */,
+				B594B12E21D5850700F3AC59 /* MockAppLibrary.swift in Sources */,
+				B594B14221D6D8EC00F3AC59 /* OutdatedCommandSpec.swift in Sources */,
+				B594B13221D5876200F3AC59 /* ResultPredicates.swift in Sources */,
+				B594B14A21D6D9AE00F3AC59 /* AccountCommandSpec.swift in Sources */,
+				B594B13621D6D68600F3AC59 /* VersionCommandSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -723,7 +764,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
-				CURRENT_PROJECT_VERSION = 10500000;
+				CURRENT_PROJECT_VERSION = 10501000;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -788,7 +829,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
-				CURRENT_PROJECT_VERSION = 10500000;
+				CURRENT_PROJECT_VERSION = 10501000;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -875,10 +916,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 10500000;
+				CURRENT_PROJECT_VERSION = 10501000;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 5.0;
-				DYLIB_CURRENT_VERSION = 5.0;
+				DYLIB_CURRENT_VERSION = 5.1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -913,10 +954,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 10500000;
+				CURRENT_PROJECT_VERSION = 10501000;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 5.0;
-				DYLIB_CURRENT_VERSION = 5.0;
+				DYLIB_CURRENT_VERSION = 5.1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

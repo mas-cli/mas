@@ -11,5 +11,6 @@
 struct MockSoftwareProduct: SoftwareProduct {
     var appName: String
     var bundlePath: String
+    var bundleVersion: String
     var itemIdentifier: NSNumber
 }
