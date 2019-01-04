@@ -33,6 +33,7 @@ registry.register(SignInCommand())
 registry.register(SignOutCommand())
 registry.register(UninstallCommand())
 registry.register(UpgradeCommand())
+registry.register(VendorCommand())
 registry.register(VersionCommand())
 registry.register(helpCommand)
 
