@@ -11,7 +11,6 @@
 /// https://github.com/Homebrew/homebrew-core/blob/master/Formula/trash.rb
 public struct TrashCommand: ExternalCommand {
     public var binaryPath: String
-    public var arguments: [String]
 
     public let process = Process()
 
@@ -19,10 +18,8 @@ public struct TrashCommand: ExternalCommand {
     public let stderrPipe = Pipe()
 
     public init(
-        binaryPath: String = "/usr/local/bin/trash",
-        arguments: [String] = []
+        binaryPath: String = "/usr/local/bin/trash"
     ) {
         self.binaryPath = binaryPath
-        self.arguments = arguments
     }
 }

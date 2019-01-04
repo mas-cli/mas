@@ -9,7 +9,6 @@
 /// CLI command
 public protocol ExternalCommand {
     var binaryPath: String { get set }
-    var arguments: [String] { get set }
 
     var process: Process { get }
 
@@ -23,7 +22,7 @@ public protocol ExternalCommand {
     var failed: Bool { get }
 
     /// Runs the command.
-    func run() throws
+    func run(arguments: String...) throws
 }
 
 /// Common implementation
@@ -51,7 +50,7 @@ extension ExternalCommand {
     }}
 
     /// Runs the command.
-    public func run() throws {
+    public func run(arguments: String...) throws {
         process.standardOutput = stdoutPipe
         process.standardError = stderrPipe
         process.arguments = arguments

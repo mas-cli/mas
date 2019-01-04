@@ -29,7 +29,7 @@ public struct HomeCommand: CommandProtocol {
     }
 
     /// Runs the command.
-    public mutating func run(_ options: HomeOptions) -> Result<(), MASError> {
+    public func run(_ options: HomeOptions) -> Result<(), MASError> {
         do {
             guard let result = try storeSearch.lookup(app: options.appId)
                 else {
@@ -39,10 +39,8 @@ public struct HomeCommand: CommandProtocol {
 
             dump(result)
 
-            let url = result.trackViewUrl
-            openCommand.arguments = [url]
             do {
-                try openCommand.run()
+                try openCommand.run(arguments: result.trackViewUrl)
             } catch {
                 printError("Unable to launch open command")
                 return .failure(.searchFailed)

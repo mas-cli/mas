@@ -10,7 +10,6 @@
 /// https://ss64.com/osx/open.html
 public struct OpenCommand: ExternalCommand {
     public var binaryPath: String
-    public var arguments: [String]
 
     public let process = Process()
 
@@ -18,10 +17,8 @@ public struct OpenCommand: ExternalCommand {
     public let stderrPipe = Pipe()
 
     public init(
-        binaryPath: String = "/usr/bin/open",
-        arguments: [String] = []
+        binaryPath: String = "/usr/bin/open"
     ) {
         self.binaryPath = binaryPath
-        self.arguments = arguments
     }
 }

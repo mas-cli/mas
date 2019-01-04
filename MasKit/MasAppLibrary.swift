@@ -42,9 +42,8 @@ public class MasAppLibrary: AppLibrary {
     /// - Parameter app: App to be removed.
     /// - Throws: Error if there is a problem.
     public func uninstallApp(app: SoftwareProduct) throws {
-        trashCommand.arguments = [app.bundlePath]
         do {
-            try trashCommand.run()
+            try trashCommand.run(arguments: app.bundlePath)
         } catch {
             printError("Unable to launch trash command")
             throw MASError.uninstallFailed
