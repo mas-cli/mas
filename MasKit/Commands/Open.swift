@@ -1,5 +1,5 @@
 //
-//  Home.swift
+//  Open.swift
 //  mas-cli
 //
 //  Created by Ben Chatelain on 2018-12-29.
@@ -10,26 +10,26 @@ import Commandant
 import Result
 import Foundation
 
-/// Opens app page on MAS Preview. Uses the iTunes Lookup API:
+/// Opens app page in MAS app. Uses the iTunes Lookup API:
 /// https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/#lookup
-public struct HomeCommand: CommandProtocol {
-    public typealias Options = HomeOptions
+public struct OpenCommand: CommandProtocol {
+    public typealias Options = OpenOptions
 
-    public let verb = "home"
-    public let function = "Opens MAS Preview app page in a browser"
+    public let verb = "open"
+    public let function = "Opens app page in AppStore.app"
 
     private let storeSearch: StoreSearch
-    private var openCommand: ExternalCommand
+    private var systemOpen: ExternalCommand
 
     /// Designated initializer.
     public init(storeSearch: StoreSearch = MasStoreSearch(),
                 openCommand: ExternalCommand = OpenSystemCommand()) {
         self.storeSearch = storeSearch
-        self.openCommand = openCommand
+        self.systemOpen = openCommand
     }
 
     /// Runs the command.
-    public func run(_ options: HomeOptions) -> Result<(), MASError> {
+    public func run(_ options: OpenOptions) -> Result<(), MASError> {
         do {
             guard let result = try storeSearch.lookup(app: options.appId)
                 else {
@@ -37,15 +37,21 @@ public struct HomeCommand: CommandProtocol {
                     return .failure(.noSearchResultsFound)
             }
 
+            guard var url = URLComponents(string: result.trackViewUrl)
+                else {
+                    return .failure(.searchFailed)
+            }
+            url.scheme = "macappstore"
+
             do {
-                try openCommand.run(arguments: result.trackViewUrl)
+                try systemOpen.run(arguments: url.string!)
             } catch {
                 printError("Unable to launch open command")
                 return .failure(.searchFailed)
             }
-            if openCommand.failed {
-                let reason = openCommand.process.terminationReason
-                printError("Open failed: (\(reason)) \(openCommand.stderr)")
+            if systemOpen.failed {
+                let reason = systemOpen.process.terminationReason
+                printError("Open failed: (\(reason)) \(systemOpen.stderr)")
                 return .failure(.searchFailed)
             }
         }
@@ -57,15 +63,15 @@ public struct HomeCommand: CommandProtocol {
     }
 }
 
-public struct HomeOptions: OptionsProtocol {
+public struct OpenOptions: OptionsProtocol {
     let appId: String
 
-    static func create(_ appId: String) -> HomeOptions {
-        return HomeOptions(appId: appId)
+    static func create(_ appId: String) -> OpenOptions {
+        return OpenOptions(appId: appId)
     }
 
-    public static func evaluate(_ m: CommandMode) -> Result<HomeOptions, CommandantError<MASError>> {
+    public static func evaluate(_ m: CommandMode) -> Result<OpenOptions, CommandantError<MASError>> {
         return create
-            <*> m <| Argument(usage: "the app id to show Home")
+            <*> m <| Argument(usage: "the app id")
     }
 }

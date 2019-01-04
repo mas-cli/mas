@@ -1,5 +1,5 @@
 //
-//  OpenCommand.swift
+//  OpenSystemCommand.swift
 //  MasKit
 //
 //  Created by Ben Chatelain on 1/2/19.
@@ -8,7 +8,7 @@
 
 /// Wrapper for the external open system command.
 /// https://ss64.com/osx/open.html
-public struct OpenCommand: ExternalCommand {
+public struct OpenSystemCommand: ExternalCommand {
     public var binaryPath: String
 
     public let process = Process()
