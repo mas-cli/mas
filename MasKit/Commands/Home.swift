@@ -37,8 +37,6 @@ public struct HomeCommand: CommandProtocol {
                     return .failure(.noSearchResultsFound)
             }
 
-            dump(result)
-
             do {
                 try openCommand.run(arguments: result.trackViewUrl)
             } catch {
