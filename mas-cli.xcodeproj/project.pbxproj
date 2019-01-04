@@ -53,6 +53,8 @@
 		B5DBF80B21DDEE7A00F3B151 /* OpenSystemCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DBF80A21DDEE7A00F3B151 /* OpenSystemCommand.swift */; };
 		B5DBF80D21DEE4E600F3B151 /* Open.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DBF80C21DEE4E600F3B151 /* Open.swift */; };
 		B5DBF80F21DEEB7B00F3B151 /* Vendor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DBF80E21DEEB7B00F3B151 /* Vendor.swift */; };
+		B5DBF81121DEEC4200F3B151 /* VendorCommandSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DBF81021DEEC4200F3B151 /* VendorCommandSpec.swift */; };
+		B5DBF81321DEEC7C00F3B151 /* OpenCommandSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DBF81221DEEC7C00F3B151 /* OpenCommandSpec.swift */; };
 		ED031A7C1B5127C00097692E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED031A7B1B5127C00097692E /* main.swift */; };
 		F83213892173D3E1008BA8A0 /* CKAccountStore.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB719B20F2EC4500F56FDC /* CKAccountStore.h */; };
 		F832138A2173D3E1008BA8A0 /* CKDownloadQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB719C20F2EC4500F56FDC /* CKDownloadQueue.h */; };
@@ -218,6 +220,8 @@
 		B5DBF80A21DDEE7A00F3B151 /* OpenSystemCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenSystemCommand.swift; sourceTree = "<group>"; };
 		B5DBF80C21DEE4E600F3B151 /* Open.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Open.swift; sourceTree = "<group>"; };
 		B5DBF80E21DEEB7B00F3B151 /* Vendor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vendor.swift; sourceTree = "<group>"; };
+		B5DBF81021DEEC4200F3B151 /* VendorCommandSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VendorCommandSpec.swift; sourceTree = "<group>"; };
+		B5DBF81221DEEC7C00F3B151 /* OpenCommandSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenCommandSpec.swift; sourceTree = "<group>"; };
 		ED031A781B5127C00097692E /* mas */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = mas; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED031A7B1B5127C00097692E /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		ED0F237E1B87522400AE40CD /* Install.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Install.swift; sourceTree = "<group>"; };
@@ -340,6 +344,7 @@
 				B594B14521D6D95700F3AC59 /* InstallCommandSpec.swift */,
 				B594B12121D5416100F3AC59 /* ListCommandSpec.swift */,
 				B594B14321D6D91800F3AC59 /* LuckyCommandSpec.swift */,
+				B5DBF81221DEEC7C00F3B151 /* OpenCommandSpec.swift */,
 				B594B14121D6D8EC00F3AC59 /* OutdatedCommandSpec.swift */,
 				B594B13F21D6D8BF00F3AC59 /* ResetCommandSpec.swift */,
 				B594B13D21D6D78900F3AC59 /* SearchCommandSpec.swift */,
@@ -348,6 +353,7 @@
 				B594B13921D6D70400F3AC59 /* SignOutCommandSpec.swift */,
 				B594B12421D580BB00F3AC59 /* UninstallCommandSpec.swift */,
 				B594B13721D6D6C100F3AC59 /* UpgradeCommandSpec.swift */,
+				B5DBF81021DEEC4200F3B151 /* VendorCommandSpec.swift */,
 				B594B13521D6D68600F3AC59 /* VersionCommandSpec.swift */,
 			);
 			path = Commands;
@@ -756,11 +762,13 @@
 				B594B13C21D6D72E00F3AC59 /* SignInCommandSpec.swift in Sources */,
 				B594B13A21D6D70400F3AC59 /* SignOutCommandSpec.swift in Sources */,
 				B594B12521D580BB00F3AC59 /* UninstallCommandSpec.swift in Sources */,
+				B5DBF81121DEEC4200F3B151 /* VendorCommandSpec.swift in Sources */,
 				B594B13E21D6D78900F3AC59 /* SearchCommandSpec.swift in Sources */,
 				B594B13821D6D6C100F3AC59 /* UpgradeCommandSpec.swift in Sources */,
 				B594B14821D6D98400F3AC59 /* InfoCommandSpec.swift in Sources */,
 				B555292D219A1FE700ACB4CA /* SearchSpec.swift in Sources */,
 				B594B14621D6D95700F3AC59 /* InstallCommandSpec.swift in Sources */,
+				B5DBF81321DEEC7C00F3B151 /* OpenCommandSpec.swift in Sources */,
 				B594B14021D6D8BF00F3AC59 /* ResetCommandSpec.swift in Sources */,
 				B594B12E21D5850700F3AC59 /* MockAppLibrary.swift in Sources */,
 				B594B14221D6D8EC00F3AC59 /* OutdatedCommandSpec.swift in Sources */,
