@@ -31,21 +31,21 @@ public extension URLSession {
     }
 
     /// Return data synchronous from specified endpoint
-    public func requestSynchronousDataWithURLString(_ requestString: String) -> Data? {
-        guard let url = URL(string:requestString) else {return nil}
+    @objc public func requestSynchronousDataWithURLString(_ requestString: String) -> Data? {
+        guard let url = URL(string:requestString) else { return nil }
         let request = URLRequest(url: url)
         return requestSynchronousData(request)
     }
 
     /// Return JSON synchronous from URL request
     public func requestSynchronousJSON(_ request: URLRequest) -> Any? {
-        guard let data = requestSynchronousData(request) else {return nil}
+        guard let data = requestSynchronousData(request) else { return nil }
         return try! JSONSerialization.jsonObject(with: data, options: [])
     }
 
     /// Return JSON synchronous from specified endpoint
     @objc public func requestSynchronousJSONWithURLString(_ requestString: String) -> Any? {
-        guard let url = URL(string: requestString) else {return nil}
+        guard let url = URL(string: requestString) else { return nil }
         var request = URLRequest(url:url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")

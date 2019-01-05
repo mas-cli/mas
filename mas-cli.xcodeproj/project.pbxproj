@@ -363,6 +363,8 @@
 			isa = PBXGroup;
 			children = (
 				B576FE0B21E116590016B39D /* NetworkManagerTests.swift */,
+				B576FDFB21E10A610016B39D /* TestURLSessionConfiguration.swift */,
+				B576FDFD21E10B660016B39D /* TestURLSessionDelegate.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -525,8 +527,6 @@
 				B594B12C21D584E800F3AC59 /* Mocks */,
 				B576FE0A21E116470016B39D /* Network */,
 				B594B13121D5876200F3AC59 /* ResultPredicates.swift */,
-				B576FDFB21E10A610016B39D /* TestURLSessionConfiguration.swift */,
-				B576FDFD21E10B660016B39D /* TestURLSessionDelegate.swift */,
 			);
 			path = MasKitTests;
 			sourceTree = "<group>";

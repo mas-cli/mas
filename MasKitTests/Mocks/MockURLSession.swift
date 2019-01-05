@@ -52,16 +52,33 @@ class MockURLSession: URLSession {
         }
     }
 
-    /// Override which returns JSON contents from a file.
+    /// Override which returns Data from a file.
     ///
     /// - Parameter requestString: Ignored URL string
     /// - Returns: Contents of responseFile
-    @objc override func requestSynchronousJSONWithURLString(_ requestString: String) -> Any? {
+    @objc override func requestSynchronousDataWithURLString(_ requestString: String) -> Data? {
         guard let fileURL = Bundle.jsonResponse(fileName: responseFile)
             else { fatalError("Unable to load file \(responseFile)") }
 
         do {
             let data = try Data(contentsOf: fileURL, options: .mappedIfSafe)
+            return data
+        } catch {
+            print("Error opening file: \(error)")
+        }
+
+        return nil
+    }
+
+    /// Override which returns JSON contents from a file.
+    ///
+    /// - Parameter requestString: Ignored URL string
+    /// - Returns: Parsed contents of responseFile
+    @objc override func requestSynchronousJSONWithURLString(_ requestString: String) -> Any? {
+        guard let data = requestSynchronousDataWithURLString(requestString)
+            else { return nil }
+
+        do {
             let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
             if let jsonResult = jsonResult as? Dictionary<String, AnyObject> {
                 return jsonResult
