@@ -481,11 +481,12 @@
 			isa = PBXGroup;
 			children = (
 				B594B12321D57FF300F3AC59 /* Commands */,
-				F8FB716120F2B41400F56FDC /* Info.plist */,
 				B5793E28219BDD4800135B39 /* JSON */,
 				B555292A219A1CB200ACB4CA /* MASErrorTestCase.swift */,
 				B576FDF221E03B780016B39D /* MasStoreSearchSpec.swift */,
 				B594B12C21D584E800F3AC59 /* Mocks */,
+				F8FB716120F2B41400F56FDC /* Info.plist */,
+				B555292A219A1CB200ACB4CA /* MASErrorTestCase.swift */,
 				B594B13121D5876200F3AC59 /* ResultPredicates.swift */,
 			);
 			path = MasKitTests;
@@ -723,6 +724,7 @@
 			files = (
 				F8FB716F20F2B4DD00F56FDC /* Account.swift in Sources */,
 				B594B12721D5825800F3AC59 /* AppLibrary.swift in Sources */,
+				F8FB716920F2B4DD00F56FDC /* CKSoftwareMap+AppLookup.swift in Sources */,
 				B594B12B21D5837200F3AC59 /* CKSoftwareProduct+SoftwareProduct.swift in Sources */,
 				F8FB716A20F2B4DD00F56FDC /* Downloader.swift in Sources */,
 				B588CE0221DC89490047D305 /* ExternalCommand.swift in Sources */,
@@ -732,6 +734,7 @@
 				F8FB716B20F2B4DD00F56FDC /* ISStoreAccount.swift in Sources */,
 				F8FB717220F2B4DD00F56FDC /* List.swift in Sources */,
 				F8FB717320F2B4DD00F56FDC /* Lucky.swift in Sources */,
+				B594B15621D89F5200F3AC59 /* SearchResultList.swift in Sources */,
 				B594B13021D5855D00F3AC59 /* MasAppLibrary.swift in Sources */,
 				F8FB717B20F2B4DD00F56FDC /* MASError.swift in Sources */,
 				B594B15221D89A8B00F3AC59 /* MasStoreSearch.swift in Sources */,
@@ -751,6 +754,7 @@
 				F8FB716E20F2B4DD00F56FDC /* StoreAccount.swift in Sources */,
 				B594B15021D8998000F3AC59 /* StoreSearch.swift in Sources */,
 				B588CE0421DC8AFB0047D305 /* TrashCommand.swift in Sources */,
+				B5DBF80B21DDEE7A00F3B151 /* OpenSystemCommand.swift in Sources */,
 				B594B12021D53A8200F3AC59 /* Uninstall.swift in Sources */,
 				F8FB717920F2B4DD00F56FDC /* Upgrade.swift in Sources */,
 				F8FB717D20F2B4DD00F56FDC /* Utilities.swift in Sources */,
@@ -774,6 +778,7 @@
 				B5DBF81721E02E3400F3B151 /* MockOpenSystemCommand.swift in Sources */,
 				B594B13421D5897100F3AC59 /* MockSoftwareProduct.swift in Sources */,
 				B5DBF81521E02BA900F3B151 /* MockStoreSearch.swift in Sources */,
+				B594B13421D5897100F3AC59 /* MockSoftwareProduct.swift in Sources */,
 				B5793E2B219BE0CD00135B39 /* MockURLSession.swift in Sources */,
 				B5DBF81321DEEC7C00F3B151 /* OpenCommandSpec.swift in Sources */,
 				B594B14221D6D8EC00F3AC59 /* OutdatedCommandSpec.swift in Sources */,
