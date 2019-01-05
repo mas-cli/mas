@@ -276,8 +276,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8FB715B20F2B41400F56FDC /* MasKit.framework in Frameworks */,
 				B537017421A0F85B00538F78 /* Commandant.framework in Frameworks */,
+				F8FB715B20F2B41400F56FDC /* MasKit.framework in Frameworks */,
 				B555292F219A219100ACB4CA /* Nimble.framework in Frameworks */,
 				B555292E219A218E00ACB4CA /* Quick.framework in Frameworks */,
 				B537017321A0F85700538F78 /* Result.framework in Frameworks */,
@@ -408,9 +408,9 @@
 		F8FB715320F2B41400F56FDC /* MasKit */ = {
 			isa = PBXGroup;
 			children = (
-				B594B12621D5825800F3AC59 /* AppLibrary.swift */,
 				ED0F238E1B87A54700AE40CD /* AppStore */,
 				ED0F23801B87524700AE40CD /* Commands */,
+				B594B12621D5825800F3AC59 /* AppLibrary.swift */,
 				F8FB715520F2B41400F56FDC /* Info.plist */,
 				B594B12F21D5855D00F3AC59 /* MasAppLibrary.swift */,
 				ED0F238C1B8756E600AE40CD /* MASError.swift */,
@@ -426,10 +426,10 @@
 			isa = PBXGroup;
 			children = (
 				B594B12321D57FF300F3AC59 /* Commands */,
-				F8FB716120F2B41400F56FDC /* Info.plist */,
 				B5793E28219BDD4800135B39 /* JSON */,
-				B555292A219A1CB200ACB4CA /* MASErrorTestCase.swift */,
 				B594B12C21D584E800F3AC59 /* Mocks */,
+				F8FB716120F2B41400F56FDC /* Info.plist */,
+				B555292A219A1CB200ACB4CA /* MASErrorTestCase.swift */,
 				B594B13121D5876200F3AC59 /* ResultPredicates.swift */,
 			);
 			path = MasKitTests;
@@ -665,28 +665,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B594B12B21D5837200F3AC59 /* CKSoftwareProduct+SoftwareProduct.swift in Sources */,
 				F8FB716F20F2B4DD00F56FDC /* Account.swift in Sources */,
+				B594B12721D5825800F3AC59 /* AppLibrary.swift in Sources */,
+				F8FB716920F2B4DD00F56FDC /* CKSoftwareMap+AppLookup.swift in Sources */,
+				B594B12B21D5837200F3AC59 /* CKSoftwareProduct+SoftwareProduct.swift in Sources */,
 				F8FB716A20F2B4DD00F56FDC /* Downloader.swift in Sources */,
 				F8FB717020F2B4DD00F56FDC /* Info.swift in Sources */,
 				F8FB717120F2B4DD00F56FDC /* Install.swift in Sources */,
 				F8FB716B20F2B4DD00F56FDC /* ISStoreAccount.swift in Sources */,
 				F8FB717220F2B4DD00F56FDC /* List.swift in Sources */,
 				F8FB717320F2B4DD00F56FDC /* Lucky.swift in Sources */,
-				B594B12721D5825800F3AC59 /* AppLibrary.swift in Sources */,
+				B594B13021D5855D00F3AC59 /* MasAppLibrary.swift in Sources */,
 				F8FB717B20F2B4DD00F56FDC /* MASError.swift in Sources */,
 				F8FB717C20F2B4DD00F56FDC /* NSURLSession+Synchronous.swift in Sources */,
 				F8FB717420F2B4DD00F56FDC /* Outdated.swift in Sources */,
-				B594B12921D5831D00F3AC59 /* SoftwareProduct.swift in Sources */,
 				F8FB716C20F2B4DD00F56FDC /* PurchaseDownloadObserver.swift in Sources */,
 				F8FB717520F2B4DD00F56FDC /* Reset.swift in Sources */,
 				F8FB717620F2B4DD00F56FDC /* Search.swift in Sources */,
-				B594B13021D5855D00F3AC59 /* MasAppLibrary.swift in Sources */,
-				B594B12021D53A8200F3AC59 /* Uninstall.swift in Sources */,
 				F8FB717720F2B4DD00F56FDC /* SignIn.swift in Sources */,
 				F8FB717820F2B4DD00F56FDC /* SignOut.swift in Sources */,
+				B594B12921D5831D00F3AC59 /* SoftwareProduct.swift in Sources */,
 				F8FB716D20F2B4DD00F56FDC /* SSPurchase.swift in Sources */,
 				F8FB716E20F2B4DD00F56FDC /* StoreAccount.swift in Sources */,
+				B594B12021D53A8200F3AC59 /* Uninstall.swift in Sources */,
 				F8FB717920F2B4DD00F56FDC /* Upgrade.swift in Sources */,
 				F8FB717D20F2B4DD00F56FDC /* Utilities.swift in Sources */,
 				F8FB717A20F2B4DD00F56FDC /* Version.swift in Sources */,
@@ -697,24 +698,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5793E2B219BE0CD00135B39 /* MockURLSession.swift in Sources */,
-				B555292B219A1CB200ACB4CA /* MASErrorTestCase.swift in Sources */,
-				B594B13421D5897100F3AC59 /* MockSoftwareProduct.swift in Sources */,
-				B594B14421D6D91800F3AC59 /* LuckyCommandSpec.swift in Sources */,
+				B594B14A21D6D9AE00F3AC59 /* AccountCommandSpec.swift in Sources */,
+				B594B14821D6D98400F3AC59 /* InfoCommandSpec.swift in Sources */,
+				B594B14621D6D95700F3AC59 /* InstallCommandSpec.swift in Sources */,
 				B594B12221D5416100F3AC59 /* ListCommandSpec.swift in Sources */,
+				B594B14421D6D91800F3AC59 /* LuckyCommandSpec.swift in Sources */,
+				B555292B219A1CB200ACB4CA /* MASErrorTestCase.swift in Sources */,
+				B594B12E21D5850700F3AC59 /* MockAppLibrary.swift in Sources */,
+				B594B13421D5897100F3AC59 /* MockSoftwareProduct.swift in Sources */,
+				B5793E2B219BE0CD00135B39 /* MockURLSession.swift in Sources */,
+				B594B14221D6D8EC00F3AC59 /* OutdatedCommandSpec.swift in Sources */,
+				B594B14021D6D8BF00F3AC59 /* ResetCommandSpec.swift in Sources */,
+				B594B13221D5876200F3AC59 /* ResultPredicates.swift in Sources */,
+				B594B13E21D6D78900F3AC59 /* SearchCommandSpec.swift in Sources */,
+				B555292D219A1FE700ACB4CA /* SearchSpec.swift in Sources */,
 				B594B13C21D6D72E00F3AC59 /* SignInCommandSpec.swift in Sources */,
 				B594B13A21D6D70400F3AC59 /* SignOutCommandSpec.swift in Sources */,
 				B594B12521D580BB00F3AC59 /* UninstallCommandSpec.swift in Sources */,
-				B594B13E21D6D78900F3AC59 /* SearchCommandSpec.swift in Sources */,
 				B594B13821D6D6C100F3AC59 /* UpgradeCommandSpec.swift in Sources */,
-				B594B14821D6D98400F3AC59 /* InfoCommandSpec.swift in Sources */,
-				B555292D219A1FE700ACB4CA /* SearchSpec.swift in Sources */,
-				B594B14621D6D95700F3AC59 /* InstallCommandSpec.swift in Sources */,
-				B594B14021D6D8BF00F3AC59 /* ResetCommandSpec.swift in Sources */,
-				B594B12E21D5850700F3AC59 /* MockAppLibrary.swift in Sources */,
-				B594B14221D6D8EC00F3AC59 /* OutdatedCommandSpec.swift in Sources */,
-				B594B13221D5876200F3AC59 /* ResultPredicates.swift in Sources */,
-				B594B14A21D6D9AE00F3AC59 /* AccountCommandSpec.swift in Sources */,
 				B594B13621D6D68600F3AC59 /* VersionCommandSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

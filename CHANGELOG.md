@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+- 🐛📦 Fix paths building installer package #195
 - ♻️ AppLibrary refactor #193
 
 ## [v1.5.0] 🗑 Uninstall - 2018-12-27
