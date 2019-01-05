@@ -1,16 +1,22 @@
-#!/bin/bash -ex
+#!/bin/bash -e
 
 BUILD_DIR="$PWD/build"
-INTERNAL_PACKAGE="$BUILD_DIR/mas_temp.pkg"
-OUTPUT_PACKAGE="$BUILD_DIR/mas.pkg"
+COMPONENT_PACKAGE="$BUILD_DIR/mas_components.pkg"
+DISTRIBUTION_PACKAGE="$BUILD_DIR/mas.pkg"
 
 IDENTIFIER="com.mphys.mas-cli"
-COMPONENTS_PLIST="Homebrew/Components.plist"
-DISTRIBUTION_PLIST="Homebrew/Distribution.plist"
+
+# Component package definition
+COMPONENTS_PLIST="Package/Components.plist"
+
+# Distribution package definition
+# https://developer.apple.com/library/archive/documentation/DeveloperTools/Reference/DistributionDefinitionRef/Chapters/Distribution_XML_Ref.html
+DISTRIBUTION_PLIST="Package/Distribution.plist"
 
 # Destination for `xcodebuild install`
 # DSTROOT will be updated if unset.
 INSTALL_TEMPORARY_FOLDER=${DSTROOT:-build/distributions}
+mkdir -p $INSTALL_TEMPORARY_FOLDER
 
 VERSION=$(agvtool what-marketing-version -terse1)
 
@@ -19,23 +25,24 @@ script/install
 
 echo "==> 📦 Assemble an installer package"
 
-# Assemble pkg. Using /usr/local prefix to avoid the following errors with "/"
+# Assemble macOS installer component package (aka "product archive").
+# Using /usr/local prefix to avoid the following errors with "/"
 #   - installer: The install failed (The Installer encountered an error that caused the installation to fail. Contact the software manufacturer for assistance.)
 #   - GUI warning: This package is incompatible with this version of macOS and may fail to install. (may damage your system... )
 pkgbuild \
-    --component-plist "$COMPONENTS_PLIST" \
     --identifier "$IDENTIFIER" \
     --install-location "/usr/local" \
-    --root "$INSTALL_TEMPORARY_FOLDER" \
     --version "$VERSION" \
-    "$INTERNAL_PACKAGE"
+    --root "$INSTALL_TEMPORARY_FOLDER" \
+    --component-plist "$COMPONENTS_PLIST" \
+    "$COMPONENT_PACKAGE"
 
-# Build 2nd pkg from 1st. Not sure why, but this is how Carthage does it.
+# Build distribution package (aka "product archive"). Not sure why, but this is how Carthage does it.
 # https://github.com/Carthage/Carthage/blob/master/Makefile#L87
 productbuild \
     --distribution "$DISTRIBUTION_PLIST" \
-    --package-path "$INTERNAL_PACKAGE" \
-    "$OUTPUT_PACKAGE"
+    --package-path "$BUILD_DIR" \
+    "$DISTRIBUTION_PACKAGE"
 
 echo "==> 🔢 Files Hashes"
-shasum -a 256 mas.pkg
+shasum -a 256 "$DISTRIBUTION_PACKAGE"

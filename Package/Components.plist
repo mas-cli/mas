@@ -4,7 +4,7 @@
 <array>
 	<dict>
 		<key>BundleIsVersionChecked</key>
-		<false/>
+		<true/>
 		<key>BundleOverwriteAction</key>
 		<string>upgrade</string>
 		<key>ChildBundles</key>
@@ -13,13 +13,13 @@
 				<key>BundleOverwriteAction</key>
 				<string></string>
 				<key>RootRelativeBundlePath</key>
-				<string>Frameworks/MasKit.framework/Versions/A/Frameworks/Commandant.framework</string>
+				<string>Frameworks/MasKit.framework/Versions/A/Frameworks/Result.framework</string>
 			</dict>
 			<dict>
 				<key>BundleOverwriteAction</key>
 				<string></string>
 				<key>RootRelativeBundlePath</key>
-				<string>Frameworks/MasKit.framework/Versions/A/Frameworks/Result.framework</string>
+				<string>Frameworks/MasKit.framework/Versions/A/Frameworks/Commandant.framework</string>
 			</dict>
 		</array>
 		<key>RootRelativeBundlePath</key>
