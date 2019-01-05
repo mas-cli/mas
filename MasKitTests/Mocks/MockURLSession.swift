@@ -9,6 +9,13 @@
 @testable import MasKit
 
 /// Mock URLSession for testing.
+// FIXME: allow mock url session to operate offline
+//2019-01-04 17:20:41.741632-0800 xctest[76410:1817605] TIC TCP Conn Failed [3:0x100a67420]: 1:50 Err(50)
+//2019-01-04 17:20:41.741849-0800 xctest[76410:1817605] Task <0C05E774-1CDE-48FB-9408-AFFCD12F3F60>.<3> HTTP load failed (error code: -1009 [1:50])
+//2019-01-04 17:20:41.741903-0800 xctest[76410:1817605] Task <0C05E774-1CDE-48FB-9408-AFFCD12F3F60>.<3> finished with error - code: -1009
+//Error Domain=NSURLErrorDomain Code=-1009 "The Internet connection appears to be offline." UserInfo={NSUnderlyingError=0x100a692f0 {Error Domain=kCFErrorDomainCFNetwork Code=-1009 "(null)" UserInfo={_kCFStreamErrorCodeKey=50, _kCFStreamErrorDomainKey=1}}, NSErrorFailingURLStringKey=https://itunes.apple.com/lookup?id=803453959, NSErrorFailingURLKey=https://itunes.apple.com/lookup?id=803453959, _kCFStreamErrorDomainKey=1, _kCFStreamErrorCodeKey=50, NSLocalizedDescription=The Internet connection appears to be offline.}
+//    Fatal error: 'try!' expression unexpectedly raised an error: Search failed: file /BuildRoot/Library/Caches/com.apple.xbs/Sources/swiftlang_Fall2018/swiftlang_Fall2018-1000.11.42/src/swift/stdlib/public/core/ErrorType.swift, line 184
+//    2019-01-04 17:20:41.818432-0800 xctest[76410:1817499] Fatal error: 'try!' expression unexpectedly raised an error: Search failed: file /BuildRoot/Library/Caches/com.apple.xbs/Sources/swiftlang_Fall2018/swiftlang_Fall2018-1000.11.42/src/swift/stdlib/public/core/ErrorType.swift, line 184
 class MockURLSession: URLSession {
     private let responseFile: String
 

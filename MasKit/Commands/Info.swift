@@ -10,6 +10,8 @@ import Commandant
 import Result
 import Foundation
 
+/// Displays app details. Uses the iTunes Lookup API:
+/// https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/#lookup
 public struct InfoCommand: CommandProtocol {
     public let verb = "info"
     public let function = "Display app information from the Mac App Store"

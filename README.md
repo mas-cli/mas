@@ -18,7 +18,7 @@ A simple command line interface for the Mac App Store. Designed for scripting an
 
 macOS 10.13 (High Sierra) is required to install mas from the core Homebrew formula.
 We provide a [custom Homebrew tap](https://github.com/mas-cli/homebrew-tap) with pre-built bottles
-for all macOS versions since 10.9.
+for all macOS versions since 10.11.
 
 #### 😴 TL;DR
 

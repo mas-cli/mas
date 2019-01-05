@@ -1,0 +1,72 @@
+{
+    "resultCount": 1,
+    "results": [
+        {
+            "screenshotUrls": [
+                "https://is1-ssl.mzstatic.com/image/thumb/Purple49/v4/9c/22/c9/9c22c974-9fe3-5a88-a7c7-d3c49ed91a82/source/800x500bb.jpg",
+                "https://is2-ssl.mzstatic.com/image/thumb/Purple49/v4/5e/9c/56/5e9c569d-0378-da5d-c5df-f340e3cf200b/source/800x500bb.jpg",
+                "https://is2-ssl.mzstatic.com/image/thumb/Purple69/v4/74/4c/ac/744cac64-f973-fb39-f222-6da5dfec6292/source/800x500bb.jpg",
+                "https://is5-ssl.mzstatic.com/image/thumb/Purple49/v4/03/cc/41/03cc413c-013d-48f5-0fa3-9c3d533dd20d/source/800x500bb.jpg",
+                "https://is4-ssl.mzstatic.com/image/thumb/Purple7/v4/da/2f/92/da2f92e7-5676-530b-c26c-7e81dc1ec067/source/800x500bb.jpg"
+            ],
+            "artworkUrl60": "https://is3-ssl.mzstatic.com/image/thumb/Purple128/v4/64/d0/80/64d0800e-8935-d266-7659-7b6e2b62745c/source/60x60bb.png",
+            "artworkUrl512": "https://is3-ssl.mzstatic.com/image/thumb/Purple128/v4/64/d0/80/64d0800e-8935-d266-7659-7b6e2b62745c/source/512x512bb.png",
+            "artworkUrl100": "https://is3-ssl.mzstatic.com/image/thumb/Purple128/v4/64/d0/80/64d0800e-8935-d266-7659-7b6e2b62745c/source/100x100bb.png",
+            "artistViewUrl": "https://itunes.apple.com/us/developer/ginger-labs/id318126112?mt=12&uo=4",
+            "kind": "mac-software",
+            "averageUserRatingForCurrentVersion": 3.5,
+            "trackCensoredName": "Notability",
+            "languageCodesISO2A": [
+                "NL",
+                "EN",
+                "FR",
+                "DE",
+                "IT",
+                "JA",
+                "KO",
+                "NB",
+                "PT",
+                "RU",
+                "ZH",
+                "ES",
+                "ZH",
+                "TR"
+            ],
+            "fileSizeBytes": "93178480",
+            "sellerUrl": "http://www.gingerlabs.com",
+            "contentAdvisoryRating": "4+",
+            "userRatingCountForCurrentVersion": 39,
+            "trackViewUrl": "https://itunes.apple.com/us/app/notability/id736189492?mt=12&uo=4",
+            "trackContentRating": "4+",
+            "trackId": 736189492,
+            "trackName": "Notability",
+            "formattedPrice": "$9.99",
+            "sellerName": "Ginger Labs, Inc.",
+            "currentVersionReleaseDate": "2018-11-26T16:55:36Z",
+            "releaseNotes": "*** What's new in 3.1 ***\nYou asked for these features and we listened! We've added powerful new features: custom colors, a color dropper to match any color in your note, increased note security using Apple's Touch ID, in-app file conversion, and dark mode.\n\nCustom Colors & Color Dropper\n• Custom colors have arrived - the rainbow is the limit! Expand your color palette by saving up to 32 additional custom colors. \n• Colors can be chosen with a color wheel or by entering a HEX value.\n• The color dropper easily allows you to select any color in your note and save that as one of your custom colors.\n\nNew Locking Feature \n• Our security just got amped with Touch ID to unlock subjects. \n\nIn-app File Conversion\n• Notability now converts Microsoft Office files to PDFs on your device for added privacy and security.\n• Quicker and more reliable conversion.\n\nDark Mode\n• Notability now supports the system wide dark mode introduced in Mojave.",
+            "releaseDate": "2014-08-28T01:47:26Z",
+            "primaryGenreName": "Productivity",
+            "genreIds": [
+                "12014",
+                "12003"
+            ],
+            "currency": "USD",
+            "wrapperType": "software",
+            "version": "3.1",
+            "minimumOsVersion": "10.12",
+            "artistId": 318126112,
+            "artistName": "Ginger Labs",
+            "genres": [
+                "Productivity",
+                "Education"
+            ],
+            "price": 9.99,
+            "description": "Welcome to Notability: powerful, yet wonderfully simple note-taking and annotation. Apple's Mac App of The Year! Apple Editors' Choice on iPad, iPhone, and Mac!\n\nStudents, teachers, and business professionals use Notability daily to enrich their lives. It is uniquely designed for each device to provide the best note-taking experience at school, home, and work.\n\nSTREAMLINE YOUR WORKFLOW\n• Become fully paper-free, in the classroom, office, and at home.\n• Complete, sign, and share documents in Notability.\n• Quickly create and edit notes by dragging and dropping documents, photos, or audio recordings from the desktop.\n• Get more done with keyboard shortcuts.\n• Secure and lock your notes using Touch ID.\n\nSEARCH AND CONVERT HANDWRITTEN NOTES\n• Search for handwritten words from the Library and in the note view in any of our 14 supported languages.\n• Convert handwriting to text.\n• It all happens on your device, so your information stays private.\n\nSAVE TIME WITH MULTI-NOTE\n• Multi-Note lets you open multiple notes at once in new windows.\n• Easily access your recently opened notes in the Recent Notes subject.\n\nESSENTIAL FEATURES\n• Notability includes full-featured, left-aligned typing with a wide range of fonts, sizes, and colors.\n• Create outlines, interactive checklists, and text boxes.\n• Fully express your artistic side with custom colors and match any color with the color dropper.\n• Handwriting has been fine-tuned to be smooth and expressive using a trackpad or mouse.\n• Ink can be scaled, transformed, rotated, nudged (with arrow keys), and restyled.\n\nIMPORT AND SHARE\n• Import PDFs, DOCs, PPTs, images, GIFs, and more - conversion to PDF happens on your device, so your information stays private.\n• Annotate imported pictures, lecture slides, and meeting agendas, or complete class assignments.\n• Share notes via email, AirDrop, Dropbox, Google Drive, Box, OneDrive, and more.\n\nRECORD AND PLAYBACK AUDIO\n• Get more out of your lectures and meetings when you record them.\n• Notes are automatically synced with audio recordings so during playback you can listen to what was happening as you wrote. \n\nAUTO-BACKUP AND ICLOUD SYNC\n• Use iCloud to automatically sync your notes to Notability on iPad, iPhone, and Mac, or to retrieve previous versions of your notes.\n• Use Auto-backup to send your notes to a cloud service for archiving or recovery. Dropbox, Google Drive, Box, and OneDrive are all supported! \n\niOS app sold separately.\n\nNotability is a registered trademark of Ginger Labs, Inc.",
+            "bundleId": "com.gingerlabs.NotabilityMac",
+            "isVppDeviceBasedLicensingEnabled": true,
+            "primaryGenreId": 12014,
+            "averageUserRating": 3.5,
+            "userRatingCount": 1840
+        }
+    ]
+}
