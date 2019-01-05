@@ -8,7 +8,6 @@
 
 import Commandant
 import Result
-import Foundation
 
 /// Opens vendor's app page in a browser. Uses the iTunes Lookup API:
 /// https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/#lookup
@@ -50,6 +49,10 @@ public struct VendorCommand: CommandProtocol {
             }
         }
         catch {
+            // Bubble up MASErrors
+            if let error = error as? MASError {
+                return .failure(error)
+            }
             return .failure(.searchFailed)
         }
 
