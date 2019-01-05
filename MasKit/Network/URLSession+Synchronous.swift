@@ -1,5 +1,5 @@
 //
-//  NSURLSession+Synchronous.swift
+//  URLSession+Synchronous.swift
 //  mas-cli
 //
 //  Created by Michael Schneider on 4/14/16.

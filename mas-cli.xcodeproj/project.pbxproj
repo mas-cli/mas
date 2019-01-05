@@ -117,7 +117,7 @@
 		F8FB717920F2B4DD00F56FDC /* Upgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B3621C34709400B56B88 /* Upgrade.swift */; };
 		F8FB717A20F2B4DD00F56FDC /* Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB6CE8B1BAEC3D400648B4D /* Version.swift */; };
 		F8FB717B20F2B4DD00F56FDC /* MASError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F238C1B8756E600AE40CD /* MASError.swift */; };
-		F8FB717C20F2B4DD00F56FDC /* NSURLSession+Synchronous.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A989A1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift */; };
+		F8FB717C20F2B4DD00F56FDC /* URLSession+Synchronous.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A989A1CBFFAAA0004D3B4 /* URLSession+Synchronous.swift */; };
 		F8FB717D20F2B4DD00F56FDC /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDCBF9541D89CFC7000039C6 /* Utilities.swift */; };
 /* End PBXBuildFile section */
 
@@ -188,7 +188,7 @@
 
 /* Begin PBXFileReference section */
 		693A98981CBFFA760004D3B4 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
-		693A989A1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURLSession+Synchronous.swift"; sourceTree = "<group>"; };
+		693A989A1CBFFAAA0004D3B4 /* URLSession+Synchronous.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLSession+Synchronous.swift"; sourceTree = "<group>"; };
 		8078FAA71EC4F2FB004B5B3F /* Lucky.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lucky.swift; sourceTree = "<group>"; };
 		900A1E801DBAC8CB0069B1A8 /* Info.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 		90CB4069213F4DDD0044E445 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Result.framework; sourceTree = "<group>"; };
@@ -353,8 +353,8 @@
 				B576FE0321E113E90016B39D /* NetworkManager.swift */,
 				B576FE0721E114A80016B39D /* NetworkResult.swift */,
 				B576FDFF21E113610016B39D /* NetworkSession.swift */,
-				693A989A1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift */,
 				B576FE0121E1139E0016B39D /* URLSession+NetworkSession.swift */,
+				693A989A1CBFFAAA0004D3B4 /* URLSession+Synchronous.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -778,7 +778,7 @@
 				B576FDF721E107AA0016B39D /* OpenSystemCommand.swift in Sources */,
 				F8FB717B20F2B4DD00F56FDC /* MASError.swift in Sources */,
 				B594B15221D89A8B00F3AC59 /* MasStoreSearch.swift in Sources */,
-				F8FB717C20F2B4DD00F56FDC /* NSURLSession+Synchronous.swift in Sources */,
+				F8FB717C20F2B4DD00F56FDC /* URLSession+Synchronous.swift in Sources */,
 				B5DBF80D21DEE4E600F3B151 /* Open.swift in Sources */,
 				F8FB717420F2B4DD00F56FDC /* Outdated.swift in Sources */,
 				F8FB716C20F2B4DD00F56FDC /* PurchaseDownloadObserver.swift in Sources */,
