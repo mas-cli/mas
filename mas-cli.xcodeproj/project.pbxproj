@@ -55,6 +55,8 @@
 		B5DBF80F21DEEB7B00F3B151 /* Vendor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DBF80E21DEEB7B00F3B151 /* Vendor.swift */; };
 		B5DBF81121DEEC4200F3B151 /* VendorCommandSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DBF81021DEEC4200F3B151 /* VendorCommandSpec.swift */; };
 		B5DBF81321DEEC7C00F3B151 /* OpenCommandSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DBF81221DEEC7C00F3B151 /* OpenCommandSpec.swift */; };
+		B5DBF81521E02BA900F3B151 /* MockStoreSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DBF81421E02BA900F3B151 /* MockStoreSearch.swift */; };
+		B5DBF81721E02E3400F3B151 /* MockOpenSystemCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DBF81621E02E3400F3B151 /* MockOpenSystemCommand.swift */; };
 		ED031A7C1B5127C00097692E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED031A7B1B5127C00097692E /* main.swift */; };
 		F83213892173D3E1008BA8A0 /* CKAccountStore.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB719B20F2EC4500F56FDC /* CKAccountStore.h */; };
 		F832138A2173D3E1008BA8A0 /* CKDownloadQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB719C20F2EC4500F56FDC /* CKDownloadQueue.h */; };
@@ -222,6 +224,8 @@
 		B5DBF80E21DEEB7B00F3B151 /* Vendor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vendor.swift; sourceTree = "<group>"; };
 		B5DBF81021DEEC4200F3B151 /* VendorCommandSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VendorCommandSpec.swift; sourceTree = "<group>"; };
 		B5DBF81221DEEC7C00F3B151 /* OpenCommandSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenCommandSpec.swift; sourceTree = "<group>"; };
+		B5DBF81421E02BA900F3B151 /* MockStoreSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStoreSearch.swift; sourceTree = "<group>"; };
+		B5DBF81621E02E3400F3B151 /* MockOpenSystemCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockOpenSystemCommand.swift; sourceTree = "<group>"; };
 		ED031A781B5127C00097692E /* mas */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = mas; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED031A7B1B5127C00097692E /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		ED0F237E1B87522400AE40CD /* Install.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Install.swift; sourceTree = "<group>"; };
@@ -363,7 +367,9 @@
 			isa = PBXGroup;
 			children = (
 				B594B12D21D5850700F3AC59 /* MockAppLibrary.swift */,
+				B5DBF81621E02E3400F3B151 /* MockOpenSystemCommand.swift */,
 				B594B13321D5897100F3AC59 /* MockSoftwareProduct.swift */,
+				B5DBF81421E02BA900F3B151 /* MockStoreSearch.swift */,
 				B5793E2A219BE0CD00135B39 /* MockURLSession.swift */,
 			);
 			path = Mocks;
@@ -768,6 +774,7 @@
 				B594B14821D6D98400F3AC59 /* InfoCommandSpec.swift in Sources */,
 				B555292D219A1FE700ACB4CA /* SearchSpec.swift in Sources */,
 				B594B14621D6D95700F3AC59 /* InstallCommandSpec.swift in Sources */,
+				B5DBF81721E02E3400F3B151 /* MockOpenSystemCommand.swift in Sources */,
 				B5DBF81321DEEC7C00F3B151 /* OpenCommandSpec.swift in Sources */,
 				B594B14021D6D8BF00F3AC59 /* ResetCommandSpec.swift in Sources */,
 				B594B12E21D5850700F3AC59 /* MockAppLibrary.swift in Sources */,
@@ -775,6 +782,7 @@
 				B594B13221D5876200F3AC59 /* ResultPredicates.swift in Sources */,
 				B594B14A21D6D9AE00F3AC59 /* AccountCommandSpec.swift in Sources */,
 				B594B13621D6D68600F3AC59 /* VersionCommandSpec.swift in Sources */,
+				B5DBF81521E02BA900F3B151 /* MockStoreSearch.swift in Sources */,
 				B594B14E21D8984500F3AC59 /* HomeCommandSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

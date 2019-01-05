@@ -50,6 +50,10 @@ public struct HomeCommand: CommandProtocol {
             }
         }
         catch {
+            // Bubble up MASErrors
+            if let error = error as? MASError {
+                return .failure(error)
+            }
             return .failure(.searchFailed)
         }
 
@@ -66,6 +70,6 @@ public struct HomeOptions: OptionsProtocol {
 
     public static func evaluate(_ m: CommandMode) -> Result<HomeOptions, CommandantError<MASError>> {
         return create
-            <*> m <| Argument(usage: "the app id to show Home")
+            <*> m <| Argument(usage: "ID of app to show on MAS Preview")
     }
 }
