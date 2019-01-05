@@ -17,6 +17,13 @@
 //    Fatal error: 'try!' expression unexpectedly raised an error: Search failed: file /BuildRoot/Library/Caches/com.apple.xbs/Sources/swiftlang_Fall2018/swiftlang_Fall2018-1000.11.42/src/swift/stdlib/public/core/ErrorType.swift, line 184
 //    2019-01-04 17:20:41.818432-0800 xctest[76410:1817499] Fatal error: 'try!' expression unexpectedly raised an error: Search failed: file /BuildRoot/Library/Caches/com.apple.xbs/Sources/swiftlang_Fall2018/swiftlang_Fall2018-1000.11.42/src/swift/stdlib/public/core/ErrorType.swift, line 184
 class MockURLSession: URLSession {
+    // The singleton URL session, configured to use our custom config and delegate.
+    static let session = URLSession(
+        configuration: URLSessionConfiguration.testSessionConfiguration(),
+        // Delegate is retained by the session.
+        delegate: TestURLSessionDelegate(),
+        delegateQueue: OperationQueue.main)
+
     private let responseFile: String
 
     /// Initializes a mock URL session with a file for the response.
@@ -24,6 +31,25 @@ class MockURLSession: URLSession {
     /// - Parameter responseFile: Name of file containing JSON response body.
     init(responseFile: String) {
         self.responseFile = responseFile
+    }
+
+    typealias CompletionHandler = (Data?, URLResponse?, Error?) -> Void
+
+    // Properties that enable us to set exactly what data or error
+    // we want our mocked URLSession to return for any request.
+    var data: Data?
+    var error: Error?
+
+    override func dataTask(
+        with url: URL,
+        completionHandler: @escaping CompletionHandler
+        ) -> URLSessionDataTask {
+        let data = self.data
+        let error = self.error
+
+        return URLSessionDataTaskMock {
+            completionHandler(data, nil, error)
+        }
     }
 
     /// Override which returns JSON contents from a file.

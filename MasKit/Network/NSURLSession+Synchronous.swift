@@ -18,9 +18,11 @@ public extension URLSession {
         var data: Data? = nil
         let semaphore = DispatchSemaphore(value: 0)
         let task = URLSession.shared.dataTask(with: request) {
-            taskData, _, error -> () in
+                (taskData, _, error) -> Void in
             data = taskData
-            if data == nil, let error = error {print(error)}
+            if data == nil, let error = error {
+                print(error)
+            }
             semaphore.signal()
         }
         task.resume()

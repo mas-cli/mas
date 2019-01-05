@@ -23,6 +23,14 @@
 		B576FDF721E107AA0016B39D /* OpenSystemCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FDF621E107AA0016B39D /* OpenSystemCommand.swift */; };
 		B576FDF921E107CA0016B39D /* MockSoftwareProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FDF821E107CA0016B39D /* MockSoftwareProduct.swift */; };
 		B576FDFA21E1081C0016B39D /* SearchResultList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B15521D89F5200F3AC59 /* SearchResultList.swift */; };
+		B576FDFC21E10A610016B39D /* TestURLSessionConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FDFB21E10A610016B39D /* TestURLSessionConfiguration.swift */; };
+		B576FDFE21E10B660016B39D /* TestURLSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FDFD21E10B660016B39D /* TestURLSessionDelegate.swift */; };
+		B576FE0021E113610016B39D /* NetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FDFF21E113610016B39D /* NetworkSession.swift */; };
+		B576FE0221E1139E0016B39D /* URLSession+NetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE0121E1139E0016B39D /* URLSession+NetworkSession.swift */; };
+		B576FE0421E113E90016B39D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE0321E113E90016B39D /* NetworkManager.swift */; };
+		B576FE0621E114470016B39D /* MockURLSessionDataTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE0521E114470016B39D /* MockURLSessionDataTask.swift */; };
+		B576FE0821E114A80016B39D /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE0721E114A80016B39D /* NetworkResult.swift */; };
+		B576FE0C21E116590016B39D /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE0B21E116590016B39D /* NetworkManagerTests.swift */; };
 		B5793E29219BDD4800135B39 /* JSON in Resources */ = {isa = PBXBuildFile; fileRef = B5793E28219BDD4800135B39 /* JSON */; };
 		B5793E2B219BE0CD00135B39 /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5793E2A219BE0CD00135B39 /* MockURLSession.swift */; };
 		B588CE0221DC89490047D305 /* ExternalCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B588CE0121DC89490047D305 /* ExternalCommand.swift */; };
@@ -192,6 +200,14 @@
 		B576FDF421E1078F0016B39D /* MASErrorTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MASErrorTestCase.swift; sourceTree = "<group>"; };
 		B576FDF621E107AA0016B39D /* OpenSystemCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenSystemCommand.swift; sourceTree = "<group>"; };
 		B576FDF821E107CA0016B39D /* MockSoftwareProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSoftwareProduct.swift; sourceTree = "<group>"; };
+		B576FDFB21E10A610016B39D /* TestURLSessionConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestURLSessionConfiguration.swift; sourceTree = "<group>"; };
+		B576FDFD21E10B660016B39D /* TestURLSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestURLSessionDelegate.swift; sourceTree = "<group>"; };
+		B576FDFF21E113610016B39D /* NetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSession.swift; sourceTree = "<group>"; };
+		B576FE0121E1139E0016B39D /* URLSession+NetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+NetworkSession.swift"; sourceTree = "<group>"; };
+		B576FE0321E113E90016B39D /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		B576FE0521E114470016B39D /* MockURLSessionDataTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLSessionDataTask.swift; sourceTree = "<group>"; };
+		B576FE0721E114A80016B39D /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
+		B576FE0B21E116590016B39D /* NetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
 		B5793E28219BDD4800135B39 /* JSON */ = {isa = PBXFileReference; lastKnownFileType = folder; path = JSON; sourceTree = "<group>"; };
 		B5793E2A219BE0CD00135B39 /* MockURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLSession.swift; sourceTree = "<group>"; };
 		B588CE0121DC89490047D305 /* ExternalCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalCommand.swift; sourceTree = "<group>"; };
@@ -331,6 +347,26 @@
 			path = Carthage/Build/Mac;
 			sourceTree = "<group>";
 		};
+		B576FE0921E114BD0016B39D /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				B576FE0321E113E90016B39D /* NetworkManager.swift */,
+				B576FE0721E114A80016B39D /* NetworkResult.swift */,
+				B576FDFF21E113610016B39D /* NetworkSession.swift */,
+				693A989A1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift */,
+				B576FE0121E1139E0016B39D /* URLSession+NetworkSession.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		B576FE0A21E116470016B39D /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				B576FE0B21E116590016B39D /* NetworkManagerTests.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		B588CE0021DC89250047D305 /* ExternalCommands */ = {
 			isa = PBXGroup;
 			children = (
@@ -373,6 +409,7 @@
 				B576FDF821E107CA0016B39D /* MockSoftwareProduct.swift */,
 				B5DBF81421E02BA900F3B151 /* MockStoreSearch.swift */,
 				B5793E2A219BE0CD00135B39 /* MockURLSession.swift */,
+				B576FE0521E114470016B39D /* MockURLSessionDataTask.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -458,16 +495,16 @@
 		F8FB715320F2B41400F56FDC /* MasKit */ = {
 			isa = PBXGroup;
 			children = (
+				B594B12621D5825800F3AC59 /* AppLibrary.swift */,
 				ED0F238E1B87A54700AE40CD /* AppStore */,
 				ED0F23801B87524700AE40CD /* Commands */,
 				B588CE0021DC89250047D305 /* ExternalCommands */,
-				B594B12621D5825800F3AC59 /* AppLibrary.swift */,
 				F8FB715520F2B41400F56FDC /* Info.plist */,
 				B594B12F21D5855D00F3AC59 /* MasAppLibrary.swift */,
 				ED0F238C1B8756E600AE40CD /* MASError.swift */,
 				F8FB715420F2B41400F56FDC /* MasKit.h */,
 				B594B15121D89A8B00F3AC59 /* MasStoreSearch.swift */,
-				693A989A1CBFFAAA0004D3B4 /* NSURLSession+Synchronous.swift */,
+				B576FE0921E114BD0016B39D /* Network */,
 				B594B15321D89DF400F3AC59 /* SearchResult.swift */,
 				B594B15521D89F5200F3AC59 /* SearchResultList.swift */,
 				B594B12821D5831D00F3AC59 /* SoftwareProduct.swift */,
@@ -486,7 +523,10 @@
 				B576FDF421E1078F0016B39D /* MASErrorTestCase.swift */,
 				B576FDF221E03B780016B39D /* MasStoreSearchSpec.swift */,
 				B594B12C21D584E800F3AC59 /* Mocks */,
+				B576FE0A21E116470016B39D /* Network */,
 				B594B13121D5876200F3AC59 /* ResultPredicates.swift */,
+				B576FDFB21E10A610016B39D /* TestURLSessionConfiguration.swift */,
+				B576FDFD21E10B660016B39D /* TestURLSessionDelegate.swift */,
 			);
 			path = MasKitTests;
 			sourceTree = "<group>";
@@ -721,11 +761,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B576FE0421E113E90016B39D /* NetworkManager.swift in Sources */,
 				F8FB716F20F2B4DD00F56FDC /* Account.swift in Sources */,
 				B594B12721D5825800F3AC59 /* AppLibrary.swift in Sources */,
 				B594B12B21D5837200F3AC59 /* CKSoftwareProduct+SoftwareProduct.swift in Sources */,
 				F8FB716A20F2B4DD00F56FDC /* Downloader.swift in Sources */,
 				B588CE0221DC89490047D305 /* ExternalCommand.swift in Sources */,
+				B576FE0821E114A80016B39D /* NetworkResult.swift in Sources */,
 				B594B14C21D8983700F3AC59 /* Home.swift in Sources */,
 				F8FB717020F2B4DD00F56FDC /* Info.swift in Sources */,
 				F8FB717120F2B4DD00F56FDC /* Install.swift in Sources */,
@@ -742,9 +784,11 @@
 				F8FB716C20F2B4DD00F56FDC /* PurchaseDownloadObserver.swift in Sources */,
 				F8FB717520F2B4DD00F56FDC /* Reset.swift in Sources */,
 				F8FB717620F2B4DD00F56FDC /* Search.swift in Sources */,
+				B576FE0021E113610016B39D /* NetworkSession.swift in Sources */,
 				B594B15421D89DF400F3AC59 /* SearchResult.swift in Sources */,
 				B576FDFA21E1081C0016B39D /* SearchResultList.swift in Sources */,
 				F8FB717720F2B4DD00F56FDC /* SignIn.swift in Sources */,
+				B576FE0221E1139E0016B39D /* URLSession+NetworkSession.swift in Sources */,
 				F8FB717820F2B4DD00F56FDC /* SignOut.swift in Sources */,
 				B594B12921D5831D00F3AC59 /* SoftwareProduct.swift in Sources */,
 				F8FB716D20F2B4DD00F56FDC /* SSPurchase.swift in Sources */,
@@ -776,8 +820,10 @@
 				B5793E2B219BE0CD00135B39 /* MockURLSession.swift in Sources */,
 				B5DBF81321DEEC7C00F3B151 /* OpenCommandSpec.swift in Sources */,
 				B594B14221D6D8EC00F3AC59 /* OutdatedCommandSpec.swift in Sources */,
+				B576FE0621E114470016B39D /* MockURLSessionDataTask.swift in Sources */,
 				B594B14021D6D8BF00F3AC59 /* ResetCommandSpec.swift in Sources */,
 				B576FDF921E107CA0016B39D /* MockSoftwareProduct.swift in Sources */,
+				B576FE0C21E116590016B39D /* NetworkManagerTests.swift in Sources */,
 				B594B13221D5876200F3AC59 /* ResultPredicates.swift in Sources */,
 				B594B13E21D6D78900F3AC59 /* SearchCommandSpec.swift in Sources */,
 				B555292D219A1FE700ACB4CA /* SearchSpec.swift in Sources */,
@@ -785,9 +831,11 @@
 				B594B13A21D6D70400F3AC59 /* SignOutCommandSpec.swift in Sources */,
 				B594B12521D580BB00F3AC59 /* UninstallCommandSpec.swift in Sources */,
 				B594B13821D6D6C100F3AC59 /* UpgradeCommandSpec.swift in Sources */,
+				B576FDFE21E10B660016B39D /* TestURLSessionDelegate.swift in Sources */,
 				B5DBF81121DEEC4200F3B151 /* VendorCommandSpec.swift in Sources */,
 				B576FDF521E1078F0016B39D /* MASErrorTestCase.swift in Sources */,
 				B594B13621D6D68600F3AC59 /* VersionCommandSpec.swift in Sources */,
+				B576FDFC21E10A610016B39D /* TestURLSessionConfiguration.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
