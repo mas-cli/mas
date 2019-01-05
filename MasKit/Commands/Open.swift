@@ -8,7 +8,6 @@
 
 import Commandant
 import Result
-import Foundation
 
 /// Opens app page in MAS app. Uses the iTunes Lookup API:
 /// https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/#lookup
@@ -56,6 +55,10 @@ public struct OpenCommand: CommandProtocol {
             }
         }
         catch {
+            // Bubble up MASErrors
+            if let error = error as? MASError {
+                return .failure(error)
+            }
             return .failure(.searchFailed)
         }
 
