@@ -647,7 +647,7 @@
 				DefaultBuildSystemTypeForWorkspace = Latest;
 				LastSwiftMigration = 0730;
 				LastSwiftUpdateCheck = 1000;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "mas-cli";
 				TargetAttributes = {
 					ED031A771B5127C00097692E = {
