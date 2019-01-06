@@ -34,7 +34,7 @@ pipeline {
                 sh 'script/bootstrap'
                 sh 'script/build'
                 sh 'script/archive'
-                sh 'script/package'
+                sh 'script/package build/distribution-tmp'
             }
         }
         stage('Test') {

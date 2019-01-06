@@ -20,8 +20,16 @@ mkdir -p $INSTALL_TEMPORARY_FOLDER
 
 VERSION=$(agvtool what-marketing-version -terse1)
 
+# Final destination.
+PREFIX=/usr/local
+
+# Override default prefix path with optional 1st arg
+if test -n "$1"; then
+    PREFIX="$1"
+fi
+
 # Run Xcode's install process
-script/install
+script/install "$PREFIX"
 
 echo "==> 📦 Assemble an installer package"
 
