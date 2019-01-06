@@ -31,26 +31,34 @@ pipeline {
     stages {
         stage('Assemble') {
             steps {
-                sh 'script/bootstrap'
-                sh 'script/build'
-                sh 'script/archive'
-                sh 'script/package build/distribution-tmp'
+                ansiColor('xterm') {
+                    sh 'script/bootstrap'
+                    sh 'script/build'
+                    sh 'script/archive'
+                    sh 'script/package build/distribution-tmp'
+                }
             }
         }
         stage('Test') {
             steps {
-                sh 'script/test'
+                ansiColor('xterm') {
+                    sh 'script/test'
+                }
             }
         }
         stage('Lint') {
             steps {
-                echo 'Not implemented'
+                ansiColor('xterm') {
+                    echo 'Not implemented'
+                }
             }
         }
         stage('Danger') {
             steps {
-                // sh 'bundle install --verbose'
-                sh 'bundle exec danger --verbose'
+                ansiColor('xterm') {
+                    // sh 'bundle install --verbose'
+                    sh 'bundle exec danger --verbose'
+                }
             }
         }
     }
