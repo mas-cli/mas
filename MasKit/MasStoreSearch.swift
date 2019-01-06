@@ -8,11 +8,11 @@
 
 /// Manages searching the MAS catalog through the iTunes Search and Lookup APIs.
 public class MasStoreSearch: StoreSearch {
-    private let urlSession: URLSession
+    private let networkManager: NetworkManager
 
     /// Designated initializer.
-    public init(urlSession: URLSession = URLSession.shared) {
-        self.urlSession = urlSession
+    public init(networkManager: NetworkManager = NetworkManager()) {
+        self.networkManager = networkManager
     }
 
     /// Looks up app details.
@@ -21,22 +21,29 @@ public class MasStoreSearch: StoreSearch {
     /// - Returns: Search result record of app or nil if no apps match the ID.
     /// - Throws: Error if there is a problem with the network request.
     public func lookup(app appId: String) throws -> SearchResult? {
-        guard let lookupURLString = lookupURLString(forApp: appId),
-            let jsonData = urlSession.requestSynchronousDataWithURLString(lookupURLString)
+        guard let url = lookupURL(forApp: appId)
+            else { throw MASError.searchFailed }
+
+        let result = networkManager.loadDataSync(from: url)
+
+        // Unwrap network result
+        guard case let .success(data) = result
             else {
-                // network error
+                if case let .failure(error) = result {
+                    throw error
+                }
                 throw MASError.searchFailed
         }
 
-        guard let results = try? JSONDecoder().decode(SearchResultList.self, from: jsonData)
+        guard let results = try? JSONDecoder().decode(SearchResultList.self, from: data)
             else {
                 // parse error
                 throw MASError.searchFailed
         }
 
-        guard let result = results.results.first
+        guard let searchResult = results.results.first
             else { return nil }
 
-        return result
+        return searchResult
     }
 }

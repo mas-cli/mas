@@ -12,7 +12,7 @@ import XCTest
 class NetworkManagerTests: XCTestCase {
     func testSuccessfulAsyncResponse() {
         // Setup our objects
-        let session = MockURLSession(responseFile: "")
+        let session = MockNetworkSession()
         let manager = NetworkManager(session: session)
 
         // Create data and tell the session to always return it
@@ -30,7 +30,7 @@ class NetworkManagerTests: XCTestCase {
 
     func testSuccessfulSyncResponse() {
         // Setup our objects
-        let session = MockURLSession(responseFile: "")
+        let session = MockNetworkSession()
         let manager = NetworkManager(session: session)
 
         // Create data and tell the session to always return it
@@ -47,7 +47,7 @@ class NetworkManagerTests: XCTestCase {
 
     func testFailureAsyncResponse() {
         // Setup our objects
-        let session = MockURLSession(responseFile: "")
+        let session = MockNetworkSession()
         let manager = NetworkManager(session: session)
 
         session.error = NetworkManager.NetworkError.timeout
@@ -63,7 +63,7 @@ class NetworkManagerTests: XCTestCase {
 
     func testFailureSyncResponse() {
         // Setup our objects
-        let session = MockURLSession(responseFile: "")
+        let session = MockNetworkSession()
         let manager = NetworkManager(session: session)
 
         session.error = NetworkManager.NetworkError.timeout

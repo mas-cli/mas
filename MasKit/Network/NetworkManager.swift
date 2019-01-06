@@ -9,7 +9,7 @@
 import Foundation
 
 /// Network abstraction 
-class NetworkManager {
+public class NetworkManager {
     enum NetworkError: Error {
         case timeout
     }
@@ -18,8 +18,8 @@ class NetworkManager {
 
     /// Designated initializer
     ///
-    /// - Parameter session: <#session description#>
-    init(session: NetworkSession = URLSession.shared) {
+    /// - Parameter session: A networking session.
+    public init(session: NetworkSession = URLSession.shared) {
         self.session = session
     }
 
@@ -30,8 +30,9 @@ class NetworkManager {
     ///   - completionHandler: Closure where result is delivered.
     func loadData(from url: URL, completionHandler: @escaping (NetworkResult) -> Void) {
         session.loadData(from: url) { (data: Data?, error: Error?) in
-            let result: NetworkResult = data != nil ? .success(data!) : .failure(error!)
-//            let result = data.map(NetworkResult.success) ?? .failure(error)
+            let result: NetworkResult = data != nil
+                ? .success(data!)
+                : .failure(error!)
             completionHandler(result)
         }
     }

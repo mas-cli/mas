@@ -16,7 +16,7 @@ class SearchSpec: QuickSpec {
         describe("search") {
             context("for slack") {
                 it("succeeds") {
-                    let search = SearchCommand(urlSession: MockURLSession(responseFile: "search/slack.json"))
+                    let search = SearchCommand(networkSession: MockNetworkSessionFromFile(responseFile: "search/slack.json"))
                     let searchOptions = SearchOptions(appName: "slack", price: false)
                     let result = search.run(searchOptions)
                     expect(result).to(beSuccess())
@@ -24,7 +24,7 @@ class SearchSpec: QuickSpec {
             }
             context("for nonexistent") {
                 it("fails") {
-                    let search = SearchCommand(urlSession: MockURLSession(responseFile: "search/nonexistent.json"))
+                    let search = SearchCommand(networkSession: MockNetworkSessionFromFile(responseFile: "search/nonexistent.json"))
                     let searchOptions = SearchOptions(appName: "nonexistent", price: false)
                     let result = search.run(searchOptions)
                     expect(result).to(beFailure { error in

@@ -25,15 +25,15 @@ public struct SearchCommand: CommandProtocol {
     public let verb = "search"
     public let function = "Search for apps from the Mac App Store"
 
-    private let urlSession: URLSession
+    private let networkSession: NetworkSession
 
-    public init(urlSession: URLSession = URLSession.shared) {
-        self.urlSession = urlSession
+    public init(networkSession: NetworkSession = URLSession.shared) {
+        self.networkSession = networkSession
     }
 
     public func run(_ options: Options) -> Result<(), MASError> {
         guard let searchURLString = searchURLString(options.appName),
-              let searchJson = urlSession.requestSynchronousJSONWithURLString(searchURLString) as? [String: Any] else {
+              let searchJson = networkSession.requestSynchronousJSONWithURLString(searchURLString) as? [String: Any] else {
             return .failure(.searchFailed)
         }
 

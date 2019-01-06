@@ -14,8 +14,9 @@ import Nimble
 class MasStoreSearchSpec: QuickSpec {
     override func spec() {
         let appId = 803453959
-        let urlSession = MockURLSession(responseFile: "lookup/slack.json")
-        let storeSearch = MasStoreSearch(urlSession: urlSession)
+        let urlSession = MockNetworkSessionFromFile(responseFile: "lookup/slack.json")
+        let storeSearch = MasStoreSearch(networkManager: NetworkManager(session: urlSession))
+
         describe("store search") {
             it("can find slack") {
                 let result = try! storeSearch.lookup(app: appId.description)

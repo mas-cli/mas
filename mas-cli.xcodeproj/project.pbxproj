@@ -31,8 +31,12 @@
 		B576FE0621E114470016B39D /* MockURLSessionDataTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE0521E114470016B39D /* MockURLSessionDataTask.swift */; };
 		B576FE0821E114A80016B39D /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE0721E114A80016B39D /* NetworkResult.swift */; };
 		B576FE0C21E116590016B39D /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE0B21E116590016B39D /* NetworkManagerTests.swift */; };
+		B576FE0E21E1D6310016B39D /* String+PercentEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE0D21E1D6310016B39D /* String+PercentEncoding.swift */; };
+		B576FE1221E1D82D0016B39D /* MockNetworkSessionFromFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE1121E1D82D0016B39D /* MockNetworkSessionFromFile.swift */; };
+		B576FE1421E1D8A90016B39D /* Bundle+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE1321E1D8A90016B39D /* Bundle+JSON.swift */; };
+		B576FE1621E1D8CB0016B39D /* String+FileExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE1521E1D8CB0016B39D /* String+FileExtension.swift */; };
 		B5793E29219BDD4800135B39 /* JSON in Resources */ = {isa = PBXBuildFile; fileRef = B5793E28219BDD4800135B39 /* JSON */; };
-		B5793E2B219BE0CD00135B39 /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5793E2A219BE0CD00135B39 /* MockURLSession.swift */; };
+		B5793E2B219BE0CD00135B39 /* MockNetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5793E2A219BE0CD00135B39 /* MockNetworkSession.swift */; };
 		B588CE0221DC89490047D305 /* ExternalCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B588CE0121DC89490047D305 /* ExternalCommand.swift */; };
 		B588CE0421DC8AFB0047D305 /* TrashCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B588CE0321DC8AFB0047D305 /* TrashCommand.swift */; };
 		B594B12021D53A8200F3AC59 /* Uninstall.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B11F21D53A8200F3AC59 /* Uninstall.swift */; };
@@ -117,7 +121,6 @@
 		F8FB717920F2B4DD00F56FDC /* Upgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B3621C34709400B56B88 /* Upgrade.swift */; };
 		F8FB717A20F2B4DD00F56FDC /* Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB6CE8B1BAEC3D400648B4D /* Version.swift */; };
 		F8FB717B20F2B4DD00F56FDC /* MASError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F238C1B8756E600AE40CD /* MASError.swift */; };
-		F8FB717C20F2B4DD00F56FDC /* URLSession+Synchronous.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A989A1CBFFAAA0004D3B4 /* URLSession+Synchronous.swift */; };
 		F8FB717D20F2B4DD00F56FDC /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDCBF9541D89CFC7000039C6 /* Utilities.swift */; };
 /* End PBXBuildFile section */
 
@@ -188,7 +191,6 @@
 
 /* Begin PBXFileReference section */
 		693A98981CBFFA760004D3B4 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
-		693A989A1CBFFAAA0004D3B4 /* URLSession+Synchronous.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLSession+Synchronous.swift"; sourceTree = "<group>"; };
 		8078FAA71EC4F2FB004B5B3F /* Lucky.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lucky.swift; sourceTree = "<group>"; };
 		900A1E801DBAC8CB0069B1A8 /* Info.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 		90CB4069213F4DDD0044E445 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Result.framework; sourceTree = "<group>"; };
@@ -208,8 +210,12 @@
 		B576FE0521E114470016B39D /* MockURLSessionDataTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLSessionDataTask.swift; sourceTree = "<group>"; };
 		B576FE0721E114A80016B39D /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		B576FE0B21E116590016B39D /* NetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
+		B576FE0D21E1D6310016B39D /* String+PercentEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+PercentEncoding.swift"; sourceTree = "<group>"; };
+		B576FE1121E1D82D0016B39D /* MockNetworkSessionFromFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockNetworkSessionFromFile.swift; sourceTree = "<group>"; };
+		B576FE1321E1D8A90016B39D /* Bundle+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+JSON.swift"; sourceTree = "<group>"; };
+		B576FE1521E1D8CB0016B39D /* String+FileExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+FileExtension.swift"; sourceTree = "<group>"; };
 		B5793E28219BDD4800135B39 /* JSON */ = {isa = PBXFileReference; lastKnownFileType = folder; path = JSON; sourceTree = "<group>"; };
-		B5793E2A219BE0CD00135B39 /* MockURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLSession.swift; sourceTree = "<group>"; };
+		B5793E2A219BE0CD00135B39 /* MockNetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkSession.swift; sourceTree = "<group>"; };
 		B588CE0121DC89490047D305 /* ExternalCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalCommand.swift; sourceTree = "<group>"; };
 		B588CE0321DC8AFB0047D305 /* TrashCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrashCommand.swift; sourceTree = "<group>"; };
 		B594B11F21D53A8200F3AC59 /* Uninstall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Uninstall.swift; sourceTree = "<group>"; };
@@ -354,7 +360,6 @@
 				B576FE0721E114A80016B39D /* NetworkResult.swift */,
 				B576FDFF21E113610016B39D /* NetworkSession.swift */,
 				B576FE0121E1139E0016B39D /* URLSession+NetworkSession.swift */,
-				693A989A1CBFFAAA0004D3B4 /* URLSession+Synchronous.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -362,6 +367,9 @@
 		B576FE0A21E116470016B39D /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				B5793E2A219BE0CD00135B39 /* MockNetworkSession.swift */,
+				B576FE1121E1D82D0016B39D /* MockNetworkSessionFromFile.swift */,
+				B576FE0521E114470016B39D /* MockURLSessionDataTask.swift */,
 				B576FE0B21E116590016B39D /* NetworkManagerTests.swift */,
 				B576FDFB21E10A610016B39D /* TestURLSessionConfiguration.swift */,
 				B576FDFD21E10B660016B39D /* TestURLSessionDelegate.swift */,
@@ -410,8 +418,6 @@
 				B5DBF81621E02E3400F3B151 /* MockOpenSystemCommand.swift */,
 				B576FDF821E107CA0016B39D /* MockSoftwareProduct.swift */,
 				B5DBF81421E02BA900F3B151 /* MockStoreSearch.swift */,
-				B5793E2A219BE0CD00135B39 /* MockURLSession.swift */,
-				B576FE0521E114470016B39D /* MockURLSessionDataTask.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -511,6 +517,7 @@
 				B594B15521D89F5200F3AC59 /* SearchResultList.swift */,
 				B594B12821D5831D00F3AC59 /* SoftwareProduct.swift */,
 				B594B14F21D8998000F3AC59 /* StoreSearch.swift */,
+				B576FE0D21E1D6310016B39D /* String+PercentEncoding.swift */,
 				EDCBF9541D89CFC7000039C6 /* Utilities.swift */,
 			);
 			path = MasKit;
@@ -519,6 +526,7 @@
 		F8FB715E20F2B41400F56FDC /* MasKitTests */ = {
 			isa = PBXGroup;
 			children = (
+				B576FE1321E1D8A90016B39D /* Bundle+JSON.swift */,
 				B594B12321D57FF300F3AC59 /* Commands */,
 				F8FB716120F2B41400F56FDC /* Info.plist */,
 				B5793E28219BDD4800135B39 /* JSON */,
@@ -527,6 +535,7 @@
 				B594B12C21D584E800F3AC59 /* Mocks */,
 				B576FE0A21E116470016B39D /* Network */,
 				B594B13121D5876200F3AC59 /* ResultPredicates.swift */,
+				B576FE1521E1D8CB0016B39D /* String+FileExtension.swift */,
 			);
 			path = MasKitTests;
 			sourceTree = "<group>";
@@ -778,7 +787,6 @@
 				B576FDF721E107AA0016B39D /* OpenSystemCommand.swift in Sources */,
 				F8FB717B20F2B4DD00F56FDC /* MASError.swift in Sources */,
 				B594B15221D89A8B00F3AC59 /* MasStoreSearch.swift in Sources */,
-				F8FB717C20F2B4DD00F56FDC /* URLSession+Synchronous.swift in Sources */,
 				B5DBF80D21DEE4E600F3B151 /* Open.swift in Sources */,
 				F8FB717420F2B4DD00F56FDC /* Outdated.swift in Sources */,
 				F8FB716C20F2B4DD00F56FDC /* PurchaseDownloadObserver.swift in Sources */,
@@ -786,6 +794,7 @@
 				F8FB717620F2B4DD00F56FDC /* Search.swift in Sources */,
 				B576FE0021E113610016B39D /* NetworkSession.swift in Sources */,
 				B594B15421D89DF400F3AC59 /* SearchResult.swift in Sources */,
+				B576FE0E21E1D6310016B39D /* String+PercentEncoding.swift in Sources */,
 				B576FDFA21E1081C0016B39D /* SearchResultList.swift in Sources */,
 				F8FB717720F2B4DD00F56FDC /* SignIn.swift in Sources */,
 				B576FE0221E1139E0016B39D /* URLSession+NetworkSession.swift in Sources */,
@@ -817,15 +826,17 @@
 				B594B12E21D5850700F3AC59 /* MockAppLibrary.swift in Sources */,
 				B5DBF81721E02E3400F3B151 /* MockOpenSystemCommand.swift in Sources */,
 				B5DBF81521E02BA900F3B151 /* MockStoreSearch.swift in Sources */,
-				B5793E2B219BE0CD00135B39 /* MockURLSession.swift in Sources */,
+				B5793E2B219BE0CD00135B39 /* MockNetworkSession.swift in Sources */,
 				B5DBF81321DEEC7C00F3B151 /* OpenCommandSpec.swift in Sources */,
 				B594B14221D6D8EC00F3AC59 /* OutdatedCommandSpec.swift in Sources */,
 				B576FE0621E114470016B39D /* MockURLSessionDataTask.swift in Sources */,
 				B594B14021D6D8BF00F3AC59 /* ResetCommandSpec.swift in Sources */,
+				B576FE1421E1D8A90016B39D /* Bundle+JSON.swift in Sources */,
 				B576FDF921E107CA0016B39D /* MockSoftwareProduct.swift in Sources */,
 				B576FE0C21E116590016B39D /* NetworkManagerTests.swift in Sources */,
 				B594B13221D5876200F3AC59 /* ResultPredicates.swift in Sources */,
 				B594B13E21D6D78900F3AC59 /* SearchCommandSpec.swift in Sources */,
+				B576FE1621E1D8CB0016B39D /* String+FileExtension.swift in Sources */,
 				B555292D219A1FE700ACB4CA /* SearchSpec.swift in Sources */,
 				B594B13C21D6D72E00F3AC59 /* SignInCommandSpec.swift in Sources */,
 				B594B13A21D6D70400F3AC59 /* SignOutCommandSpec.swift in Sources */,
@@ -833,6 +844,7 @@
 				B594B13821D6D6C100F3AC59 /* UpgradeCommandSpec.swift in Sources */,
 				B576FDFE21E10B660016B39D /* TestURLSessionDelegate.swift in Sources */,
 				B5DBF81121DEEC4200F3B151 /* VendorCommandSpec.swift in Sources */,
+				B576FE1221E1D82D0016B39D /* MockNetworkSessionFromFile.swift in Sources */,
 				B576FDF521E1078F0016B39D /* MASErrorTestCase.swift in Sources */,
 				B594B13621D6D68600F3AC59 /* VersionCommandSpec.swift in Sources */,
 				B576FDFC21E10A610016B39D /* TestURLSessionConfiguration.swift in Sources */,

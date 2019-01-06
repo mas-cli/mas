@@ -9,7 +9,7 @@
 import Foundation
 
 // Partial mock subclassing the original class
-class URLSessionDataTaskMock: URLSessionDataTask {
+class MockURLSessionDataTask: URLSessionDataTask {
     private let closure: () -> Void
 
     init(closure: @escaping () -> Void) {
