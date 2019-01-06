@@ -1,5 +1,5 @@
 //
-//  MockAppLibrary.swift
+//  AppLibraryMock.swift
 //  MasKitTests
 //
 //  Created by Ben Chatelain on 12/27/18.
@@ -8,7 +8,7 @@
 
 @testable import MasKit
 
-class MockAppLibrary: AppLibrary {
+class AppLibraryMock: AppLibrary {
     var installedApps = [SoftwareProduct]()
 
     /// Finds an app using a bundle identifier.
@@ -34,7 +34,7 @@ class MockAppLibrary: AppLibrary {
 }
 
 /// Members not part of the AppLibrary protocol that are only for test state managment.
-extension MockAppLibrary {
+extension AppLibraryMock {
     /// Clears out the list of installed apps.
     func reset() {
         installedApps = []

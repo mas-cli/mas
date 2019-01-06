@@ -15,13 +15,13 @@ class UninstallCommandSpec: QuickSpec {
     override func spec() {
         describe("uninstall command") {
             let appId = 12345
-            let app = MockSoftwareProduct(
+            let app = SoftwareProductMock(
                 appName: "Some App",
                 bundlePath: "/tmp/Some.app",
                 bundleVersion: "1.0",
                 itemIdentifier: NSNumber(value: appId)
             )
-            let mockLibrary = MockAppLibrary()
+            let mockLibrary = AppLibraryMock()
             let uninstall = UninstallCommand(appLibrary: mockLibrary)
 
             context("dry run") {

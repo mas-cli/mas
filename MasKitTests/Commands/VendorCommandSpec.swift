@@ -23,8 +23,8 @@ class VendorCommandSpec: QuickSpec {
             trackViewUrl: "https://awesome.app",
             version: "0.0"
         )
-        let storeSearch = MockStoreSearch()
-        let openCommand = MockOpenSystemCommand()
+        let storeSearch = StoreSearchMock()
+        let openCommand = OpenSystemCommandMock()
         let cmd = VendorCommand(storeSearch: storeSearch, openCommand: openCommand)
 
         describe("vendor command") {

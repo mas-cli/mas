@@ -23,8 +23,8 @@ class OpenCommandSpec: QuickSpec {
             trackViewUrl: "fakescheme://some/url",
             version: "0.0"
         )
-        let storeSearch = MockStoreSearch()
-        let openCommand = MockOpenSystemCommand()
+        let storeSearch = StoreSearchMock()
+        let openCommand = OpenSystemCommandMock()
         let cmd = OpenCommand(storeSearch: storeSearch, openCommand: openCommand)
 
         describe("open command") {

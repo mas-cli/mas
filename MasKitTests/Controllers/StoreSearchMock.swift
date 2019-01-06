@@ -1,5 +1,5 @@
 //
-//  MockStoreSearch.swift
+//  StoreSearchMock.swift
 //  MasKitTests
 //
 //  Created by Ben Chatelain on 1/4/19.
@@ -8,7 +8,7 @@
 
 @testable import MasKit
 
-class MockStoreSearch: StoreSearch {
+class StoreSearchMock: StoreSearch {
     var apps: [Int: SearchResult] = [:]
 
     func lookup(app appId: String) throws -> SearchResult? {

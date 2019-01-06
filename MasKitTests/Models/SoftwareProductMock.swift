@@ -1,5 +1,5 @@
 //
-//  MockSoftwareProduct.swift
+//  SoftwareProductMock.swift
 //  MasKitTests
 //
 //  Created by Ben Chatelain on 12/27/18.
@@ -8,7 +8,7 @@
 
 @testable import MasKit
 
-struct MockSoftwareProduct: SoftwareProduct {
+struct SoftwareProductMock: SoftwareProduct {
     var appName: String
     var bundlePath: String
     var bundleVersion: String

@@ -23,8 +23,8 @@ class HomeCommandSpec: QuickSpec {
             trackViewUrl: "mas preview url",
             version: "0.0"
         )
-        let storeSearch = MockStoreSearch()
-        let openCommand = MockOpenSystemCommand()
+        let storeSearch = StoreSearchMock()
+        let openCommand = OpenSystemCommandMock()
         let cmd = HomeCommand(storeSearch: storeSearch, openCommand: openCommand)
 
         describe("home command") {

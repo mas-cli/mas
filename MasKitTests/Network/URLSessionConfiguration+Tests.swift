@@ -1,5 +1,5 @@
 //
-//  TestURLSessionConfiguration.swift
+//  URLSessionConfiguration+Test.swift
 //  MasKitTests
 //
 //  Created by Ben Chatelain on 1/5/19.

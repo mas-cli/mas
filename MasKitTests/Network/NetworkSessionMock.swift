@@ -1,5 +1,5 @@
 //
-//  MockURLSession.swift
+//  NetworkSessionMock
 //  MasKitTests
 //
 //  Created by Ben Chatelain on 11/13/18.
@@ -8,8 +8,8 @@
 
 import MasKit
 
-/// Mock URLSession for testing.
-class MockNetworkSession: NetworkSession {
+/// Mock NetworkSession for testing.
+class NetworkSessionMock: NetworkSession {
     typealias CompletionHandler = (Data?, URLResponse?, Error?) -> Void
 
     // Properties that enable us to set exactly what data or error
@@ -27,7 +27,7 @@ class MockNetworkSession: NetworkSession {
         let data = self.data
         let error = self.error
 
-        return MockURLSessionDataTask {
+        return URLSessionDataTaskMock {
             completionHandler(data, nil, error)
         }
     }

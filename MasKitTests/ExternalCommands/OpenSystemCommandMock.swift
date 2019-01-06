@@ -1,5 +1,5 @@
 //
-//  MockOpenSystemCommand.swift
+//  OpenSystemCommandMock.swift
 //  MasKitTests
 //
 //  Created by Ben Chatelain on 1/4/19.
@@ -8,7 +8,7 @@
 
 @testable import MasKit
 
-class MockOpenSystemCommand: ExternalCommand {
+class OpenSystemCommandMock: ExternalCommand {
     // Stub out protocol logic
     var succeeded = true
     var arguments: [String]?

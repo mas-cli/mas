@@ -1,5 +1,5 @@
 //
-//  MockURLSession.swift
+//  NetworkSessionMockFromFile.swift
 //  MasKitTests
 //
 //  Created by Ben Chatelain on 2019-01-05.
@@ -8,8 +8,9 @@
 
 import MasKit
 
-/// Mock URLSession for testing.
-class MockNetworkSessionFromFile: MockNetworkSession {
+/// Mock NetworkSession for testing with saved JSON response payload files.
+class NetworkSessionMockFromFile: NetworkSessionMock {
+    /// Path to response payload file relative to test bundle.
     private let responseFile: String
 
     /// Initializes a mock URL session with a file for the response.

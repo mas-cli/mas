@@ -1,5 +1,5 @@
 //
-//  MockURLSessionDataTask.swift
+//  URLSessionDataTaskMock  .swift
 //  MasKitTests
 //
 //  Created by Ben Chatelain on 1/5/19.
@@ -9,7 +9,7 @@
 import Foundation
 
 // Partial mock subclassing the original class
-class MockURLSessionDataTask: URLSessionDataTask {
+class URLSessionDataTaskMock: URLSessionDataTask {
     private let closure: () -> Void
 
     init(closure: @escaping () -> Void) {
