@@ -40,10 +40,7 @@ class MockURLSession: URLSession {
     var data: Data?
     var error: Error?
 
-    override func dataTask(
-        with url: URL,
-        completionHandler: @escaping CompletionHandler
-        ) -> URLSessionDataTask {
+    override func dataTask(with url: URL, completionHandler: @escaping CompletionHandler) -> URLSessionDataTask {
         let data = self.data
         let error = self.error
 

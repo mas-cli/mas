@@ -26,7 +26,7 @@ public extension URLSession {
             semaphore.signal()
         }
         task.resume()
-        let _ = semaphore.wait(timeout: .distantFuture)
+        _ = semaphore.wait(timeout: .distantFuture)
         return data
     }
 
