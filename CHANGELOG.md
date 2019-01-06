@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+- 👷🏻‍♀️ Jenkins Pipeline #197
 - ✨ New `home`, `open` and `vendor` commands #196
 - 🐛📦 Fix paths building installer package #195
 - ♻️ AppLibrary refactor #193
