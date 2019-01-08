@@ -14,17 +14,7 @@ import Nimble
 class OpenCommandSpec: QuickSpec {
     override func spec() {
         let result = SearchResult(
-            bundleId: "",
-            currentVersionReleaseDate: "",
-            fileSizeBytes: "",
-            formattedPrice: "",
-            minimumOsVersion: "",
-            price: 0.0,
-            sellerName: "",
-            sellerUrl: "",
             trackId: 1111,
-            trackCensoredName: "",
-            trackName: "",
             trackViewUrl: "fakescheme://some/url",
             version: "0.0"
         )

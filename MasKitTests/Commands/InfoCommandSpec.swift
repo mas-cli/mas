@@ -14,16 +14,12 @@ import Nimble
 class InfoCommandSpec: QuickSpec {
     override func spec() {
         let result = SearchResult(
-            bundleId: "",
             currentVersionReleaseDate: "2019-01-07T18:53:13Z",
             fileSizeBytes: "1024",
-            formattedPrice: "",
             minimumOsVersion: "10.14",
             price: 2.0,
             sellerName: "Awesome Dev",
-            sellerUrl: "",
             trackId: 1111,
-            trackCensoredName: "",
             trackName: "Awesome App",
             trackViewUrl: "https://awesome.app",
             version: "1.0"
