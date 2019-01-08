@@ -60,11 +60,11 @@ class InfoCommandSpec: QuickSpec {
                 let result = cmd.run(InfoCommand.Options(appId: result.trackId.description))
 
                 expect(result).to(beSuccess())
-                waitUntil { done in
-                    print(output.contents)
-                    expect(output.contents) == expectedOutput
-                    done()
-                }
+                // output is async so need to wait for contents to be updated
+                expect(output.contents).toNotEventually(beEmpty())
+                expect(output.contents) == expectedOutput
+
+                output.closeConsolePipe()
             }
         }
     }
