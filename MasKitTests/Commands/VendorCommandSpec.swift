@@ -15,10 +15,15 @@ class VendorCommandSpec: QuickSpec {
     override func spec() {
         let result = SearchResult(
             bundleId: "",
+            currentVersionReleaseDate: "",
+            fileSizeBytes: "",
+            formattedPrice: "",
+            minimumOsVersion: "",
             price: 0.0,
             sellerName: "",
             sellerUrl: "",
             trackId: 1111,
+            trackCensoredName: "",
             trackName: "",
             trackViewUrl: "https://awesome.app",
             version: "0.0"
