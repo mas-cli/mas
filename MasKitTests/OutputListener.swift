@@ -6,7 +6,6 @@
 //  Copyright © 2019 mas-cli. All rights reserved.
 //
 
-import XCTest
 import Foundation
 
 /// Test helper for monitoring strings written to stdout. Modified from:
@@ -21,25 +20,29 @@ class OutputListener {
     /// Buffers strings written to stdout
     var contents = ""
 
+    init() {
+        // Set up a read handler which fires when data is written to our inputPipe
+        inputPipe.fileHandleForReading.readabilityHandler = { [weak self] fileHandle in
+            strongify(self) { context in
+                let data = fileHandle.availableData
+                if let string = String(data: data, encoding: String.Encoding.utf8) {
+                    context.contents += string
+                }
+
+                // Write input back to stdout
+                context.outputPipe.fileHandleForWriting.write(data)
+            }
+        }
+    }
+}
+
+extension OutputListener {
     /// Sets up the "tee" of piped output, intercepting stdout then passing it through.
     ///
     /// ## [dup2 documentation](https://linux.die.net/man/2/dup2)
     /// `int dup2(int oldfd, int newfd);`
     /// `dup2()` makes `newfd` be the copy of `oldfd`, closing `newfd` first if necessary.
     func openConsolePipe() {
-        // Set up a read handler which fires when data is written to our inputPipe
-        inputPipe.fileHandleForReading.readabilityHandler = { [weak self] fileHandle in
-            guard let strongSelf = self else { return }
-
-            let data = fileHandle.availableData
-            if let string = String(data: data, encoding: String.Encoding.utf8) {
-                strongSelf.contents += string
-            }
-
-            // Write input back to stdout
-            strongSelf.outputPipe.fileHandleForWriting.write(data)
-        }
-
         var dupStatus: Int32
 
         // Copy STDOUT file descriptor to outputPipe for writing strings back to STDOUT
