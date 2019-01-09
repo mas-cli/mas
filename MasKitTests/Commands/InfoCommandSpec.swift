@@ -61,7 +61,7 @@ class InfoCommandSpec: QuickSpec {
 
                 expect(result).to(beSuccess())
                 // output is async so need to wait for contents to be updated
-                expect(output.contents).toNotEventually(beEmpty())
+                expect(output.contents).toEventuallyNot(beEmpty())
                 expect(output.contents) == expectedOutput
 
                 output.closeConsolePipe()
