@@ -49,7 +49,7 @@ pipeline {
         stage('Lint') {
             steps {
                 ansiColor('xterm') {
-                    echo 'Not implemented'
+                    sh 'script/lint'
                 }
             }
         }
