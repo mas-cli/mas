@@ -34,7 +34,7 @@ class StoreSearchSpec: QuickSpec {
                 expect(urlString) ==
                 "https://itunes.apple.com/search?entity=macSoftware&term=\(appNameEncoded)&attribute=allTrackTerm"
             }
-            // FIXME: Find a character that causes addingPercentEncoding(withAllowedCharacters to return nil
+            // Find a character that causes addingPercentEncoding(withAllowedCharacters to return nil
             xit("is nil when app name cannot be url encoded") {
                 let appName = "`~!@#$%^&*()_+ 💩"
                 let urlString = storeSearch.searchURLString(forApp: appName)
