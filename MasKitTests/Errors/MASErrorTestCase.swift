@@ -99,6 +99,11 @@ class MASErrorTestCase: XCTestCase {
         XCTAssertEqual(error.description, "No results found")
     }
 
+    func testNoVendorWebsite() {
+        error = .noVendorWebsite
+        XCTAssertEqual(error.description, "App does not have a vendor website")
+    }
+
     func testNotInstalled() {
         error = .notInstalled
         XCTAssertEqual(error.description, "Not installed")

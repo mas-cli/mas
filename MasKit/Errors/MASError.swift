@@ -21,6 +21,7 @@ public enum MASError: Error, CustomStringConvertible, Equatable {
 
     case searchFailed
     case noSearchResultsFound
+    case noVendorWebsite
 
     case notInstalled
     case uninstallFailed
@@ -71,6 +72,9 @@ public enum MASError: Error, CustomStringConvertible, Equatable {
 
         case .noSearchResultsFound:
             return "No results found"
+
+        case .noVendorWebsite:
+            return "App does not have a vendor website"
 
         case .notInstalled:
             return "Not installed"

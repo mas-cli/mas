@@ -36,8 +36,11 @@ public struct VendorCommand: CommandProtocol {
                     return .failure(.noSearchResultsFound)
             }
 
+            guard let vendorWebsite = result.sellerUrl
+                else { throw MASError.noVendorWebsite }
+
             do {
-                try openCommand.run(arguments: result.sellerUrl)
+                try openCommand.run(arguments: vendorWebsite)
             } catch {
                 printError("Unable to launch open command")
                 return .failure(.searchFailed)

@@ -14,7 +14,7 @@ public struct SearchResult: Decodable {
     public var minimumOsVersion: String
     public var price: Double
     public var sellerName: String
-    public var sellerUrl: String
+    public var sellerUrl: String?
     public var trackId: Int
     public var trackCensoredName: String
     public var trackName: String
