@@ -24,6 +24,7 @@ public struct ListCommand: CommandProtocol {
         self.appLibrary = appLibrary
     }
 
+    /// Runs the command.
     public func run(_ options: Options) -> Result<(), MASError> {
         let products = appLibrary.installedApps
         if products.isEmpty {

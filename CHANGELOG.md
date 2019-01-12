@@ -7,10 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+- ♻️🌐 Network refactor #198
 - 👷🏻‍♀️ Jenkins Pipeline #197
 - ✨ New `home`, `open` and `vendor` commands #196
 - 🐛📦 Fix paths building installer package #195
-- ♻️ AppLibrary refactor #193
+- ♻️📚 AppLibrary refactor #193
 
 ## [v1.5.0] 🗑 Uninstall - 2018-12-27
 

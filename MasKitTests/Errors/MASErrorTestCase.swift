@@ -99,6 +99,11 @@ class MASErrorTestCase: XCTestCase {
         XCTAssertEqual(error.description, "No results found")
     }
 
+    func testNoVendorWebsite() {
+        error = .noVendorWebsite
+        XCTAssertEqual(error.description, "App does not have a vendor website")
+    }
+
     func testNotInstalled() {
         error = .notInstalled
         XCTAssertEqual(error.description, "Not installed")
@@ -107,5 +112,20 @@ class MASErrorTestCase: XCTestCase {
     func testUninstallFailed() {
         error = .uninstallFailed
         XCTAssertEqual(error.description, "Uninstall failed")
+    }
+
+    func testUrlEncoding() {
+        error = .urlEncoding
+        XCTAssertEqual(error.description, "Unable to encode service URL")
+    }
+
+    func testNoData() {
+        error = .noData
+        XCTAssertEqual(error.description, "Service did not return data")
+    }
+
+    func testJsonParsing() {
+        error = .jsonParsing(error: nil)
+        XCTAssertEqual(error.description, "Unable to parse response JSON")
     }
 }

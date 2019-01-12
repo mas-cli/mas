@@ -1,0 +1,9 @@
+#
+# .hound.yml
+# mas
+#
+# http://help.houndci.com/configuration/swiftlint
+#
+---
+swiftlint:
+  config_file: .swiftlint.yml

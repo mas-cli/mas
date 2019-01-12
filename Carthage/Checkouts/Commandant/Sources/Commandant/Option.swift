@@ -27,12 +27,12 @@ import Result
 ///				return { outputFilename in { shouldDelete in { logName in LogOptions(verbosity: verbosity, outputFilename: outputFilename, shouldDelete: shouldDelete, logName: logName) } } }
 ///			}
 ///
-///			static func evaluate(_ m: CommandMode) -> Result<LogOptions, CommandantError<YourErrorType>> {
+///			static func evaluate(_ mode: CommandMode) -> Result<LogOptions, CommandantError<YourErrorType>> {
 ///				return create
-///					<*> m <| Option(key: "verbose", defaultValue: 0, usage: "the verbosity level with which to read the logs")
-///					<*> m <| Option(key: "outputFilename", defaultValue: "", usage: "a file to print output to, instead of stdout")
-///					<*> m <| Switch(flag: "d", key: "delete", usage: "delete the logs when finished")
-///					<*> m <| Argument(usage: "the log to read")
+///					<*> mode <| Option(key: "verbose", defaultValue: 0, usage: "the verbosity level with which to read the logs")
+///					<*> mode <| Option(key: "outputFilename", defaultValue: "", usage: "a file to print output to, instead of stdout")
+///					<*> mode <| Switch(flag: "d", key: "delete", usage: "delete the logs when finished")
+///					<*> mode <| Argument(usage: "the log to read")
 ///			}
 ///		}
 public protocol OptionsProtocol {
@@ -41,14 +41,14 @@ public protocol OptionsProtocol {
 	/// Evaluates this set of options in the given mode.
 	///
 	/// Returns the parsed options or a `UsageError`.
-	static func evaluate(_ m: CommandMode) -> Result<Self, CommandantError<ClientError>>
+	static func evaluate(_ mode: CommandMode) -> Result<Self, CommandantError<ClientError>>
 }
 
 /// An `OptionsProtocol` that has no options.
 public struct NoOptions<ClientError: Error>: OptionsProtocol {
 	public init() {}
 	
-	public static func evaluate(_ m: CommandMode) -> Result<NoOptions, CommandantError<ClientError>> {
+	public static func evaluate(_ mode: CommandMode) -> Result<NoOptions, CommandantError<ClientError>> {
 		return .success(NoOptions())
 	}
 }

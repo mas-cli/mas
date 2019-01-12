@@ -13,12 +13,33 @@ import Nimble
 
 class SearchCommandSpec: QuickSpec {
     override func spec() {
+        let result = SearchResult(
+            trackId: 1111,
+            trackName: "slack",
+            trackViewUrl: "mas preview url",
+            version: "0.0"
+        )
+        let storeSearch = StoreSearchMock()
+
         describe("search command") {
-            it("updates stuff") {
-                let cmd = SearchCommand()
-                let result = cmd.run(SearchCommand.Options(appName: "", price: false))
-                print(result)
-//                expect(result).to(beSuccess())
+            beforeEach {
+                storeSearch.reset()
+            }
+            it("can find slack") {
+                storeSearch.apps[result.trackId] = result
+
+                let search = SearchCommand(storeSearch: storeSearch)
+                let searchOptions = SearchOptions(appName: "slack", price: false)
+                let result = search.run(searchOptions)
+                expect(result).to(beSuccess())
+            }
+            it("fails when searching for nonexistent app") {
+                let search = SearchCommand(storeSearch: storeSearch)
+                let searchOptions = SearchOptions(appName: "nonexistent", price: false)
+                let result = search.run(searchOptions)
+                expect(result).to(beFailure { error in
+                    expect(error) == .noSearchResultsFound
+                })
             }
         }
     }

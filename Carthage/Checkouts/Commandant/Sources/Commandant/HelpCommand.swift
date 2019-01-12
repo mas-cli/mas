@@ -69,8 +69,8 @@ public struct HelpOptions<ClientError: Error>: OptionsProtocol {
 		return self.init(verb: (verb == "" ? nil : verb))
 	}
 
-	public static func evaluate(_ m: CommandMode) -> Result<HelpOptions, CommandantError<ClientError>> {
+	public static func evaluate(_ mode: CommandMode) -> Result<HelpOptions, CommandantError<ClientError>> {
 		return create
-			<*> m <| Argument(defaultValue: "", usage: "the command to display help for")
+			<*> mode <| Argument(defaultValue: "", usage: "the command to display help for")
 	}
 }

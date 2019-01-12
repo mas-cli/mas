@@ -20,11 +20,12 @@ public struct UpgradeCommand: CommandProtocol {
 
     /// Designated initializer.
     ///
-    /// - Parameter appLibrary: <#appLibrary description#>
+    /// - Parameter appLibrary: Instance of the app library.
     public init(appLibrary: AppLibrary = MasAppLibrary()) {
         self.appLibrary = appLibrary
     }
 
+    /// Runs the command.
     public func run(_ options: Options) -> Result<(), MASError> {
         let updateController = CKUpdateController.shared()
         let updates: [CKUpdate]
@@ -47,7 +48,7 @@ public struct UpgradeCommand: CommandProtocol {
             updates = appIds.compactMap {
                 updateController?.availableUpdate(withItemIdentifier: $0)
             }
-            
+
             guard updates.count > 0 else {
                 printWarning("Nothing found to upgrade")
                 return .success(())
@@ -61,10 +62,10 @@ public struct UpgradeCommand: CommandProtocol {
                 return .success(())
             }
         }
-        
+
         print("Upgrading \(updates.count) outdated application\(updates.count > 1 ? "s" : ""):")
         print(updates.map({ "\($0.title) (\($0.bundleVersion))" }).joined(separator: ", "))
-        
+
         let updateResults = updates.compactMap {
             download($0.itemIdentifier.uint64Value)
         }
@@ -82,13 +83,13 @@ public struct UpgradeCommand: CommandProtocol {
 
 public struct UpgradeOptions: OptionsProtocol {
     let apps: [String]
-    
+
     static func create(_ apps: [String]) -> UpgradeOptions {
         return UpgradeOptions(apps: apps)
     }
-    
-    public static func evaluate(_ m: CommandMode) -> Result<UpgradeOptions, CommandantError<MASError>> {
+
+    public static func evaluate(_ mode: CommandMode) -> Result<UpgradeOptions, CommandantError<MASError>> {
         return create
-            <*> m <| Argument(defaultValue: [], usage: "app(s) to upgrade")
+            <*> mode <| Argument(defaultValue: [], usage: "app(s) to upgrade")
     }
 }

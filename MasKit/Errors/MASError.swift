@@ -21,9 +21,14 @@ public enum MASError: Error, CustomStringConvertible, Equatable {
 
     case searchFailed
     case noSearchResultsFound
+    case noVendorWebsite
 
     case notInstalled
     case uninstallFailed
+
+    case urlEncoding
+    case noData
+    case jsonParsing(error: NSError?)
 
     public var description: String {
         switch self {
@@ -72,11 +77,23 @@ public enum MASError: Error, CustomStringConvertible, Equatable {
         case .noSearchResultsFound:
             return "No results found"
 
+        case .noVendorWebsite:
+            return "App does not have a vendor website"
+
         case .notInstalled:
             return "Not installed"
 
         case .uninstallFailed:
             return "Uninstall failed"
+
+        case .urlEncoding:
+            return "Unable to encode service URL"
+
+        case .noData:
+            return "Service did not return data"
+
+        case .jsonParsing:
+            return "Unable to parse response JSON"
         }
     }
 }

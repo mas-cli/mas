@@ -14,17 +14,12 @@ import Nimble
 class VendorCommandSpec: QuickSpec {
     override func spec() {
         let result = SearchResult(
-            bundleId: "",
-            price: 0.0,
-            sellerName: "",
-            sellerUrl: "",
             trackId: 1111,
-            trackName: "",
             trackViewUrl: "https://awesome.app",
             version: "0.0"
         )
-        let storeSearch = MockStoreSearch()
-        let openCommand = MockOpenSystemCommand()
+        let storeSearch = StoreSearchMock()
+        let openCommand = OpenSystemCommandMock()
         let cmd = VendorCommand(storeSearch: storeSearch, openCommand: openCommand)
 
         describe("vendor command") {

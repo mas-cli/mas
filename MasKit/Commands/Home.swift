@@ -47,8 +47,7 @@ public struct HomeCommand: CommandProtocol {
                 printError("Open failed: (\(reason)) \(openCommand.stderr)")
                 return .failure(.searchFailed)
             }
-        }
-        catch {
+        } catch {
             // Bubble up MASErrors
             if let error = error as? MASError {
                 return .failure(error)
@@ -67,8 +66,8 @@ public struct HomeOptions: OptionsProtocol {
         return HomeOptions(appId: appId)
     }
 
-    public static func evaluate(_ m: CommandMode) -> Result<HomeOptions, CommandantError<MASError>> {
+    public static func evaluate(_ mode: CommandMode) -> Result<HomeOptions, CommandantError<MASError>> {
         return create
-            <*> m <| Argument(usage: "ID of app to show on MAS Preview")
+            <*> mode <| Argument(usage: "ID of app to show on MAS Preview")
     }
 }

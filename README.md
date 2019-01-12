@@ -4,6 +4,10 @@
 
 A simple command line interface for the Mac App Store. Designed for scripting and automation.
 
+[![Software License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/mas-cli/mas/blob/master/LICENSE)
+[![Swift 4.2](https://img.shields.io/badge/Language-Swift_4.2-orange.svg)](https://swift.org)
+[![GitHub Release](https://img.shields.io/github/release/mas-cli/mas.svg)](https://github.com/mas-cli/mas/releases)
+[![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 [![Pipeline Status](https://jenkins.log-g.co/buildStatus/icon?job=mas-cli/mas/master)](https://jenkins.log-g.co/job/mas-cli/job/mas/job/master/)
 
 ## 📲 Install

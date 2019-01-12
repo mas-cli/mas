@@ -26,13 +26,16 @@ public struct OutdatedCommand: CommandProtocol {
         self.appLibrary = appLibrary
     }
 
+    /// Runs the command.
     public func run(_ options: Options) -> Result<(), MASError> {
         let updateController = CKUpdateController.shared()
         let updates = updateController?.availableUpdates()
         for update in updates! {
             if let installed = appLibrary.installedApp(forBundleId: update.bundleID) {
                 // Display version of installed app compared to available update.
-                print("\(update.itemIdentifier) \(update.title) (\(installed.bundleVersion) -> \(update.bundleVersion))")
+                print("""
+                    \(update.itemIdentifier) \(update.title) (\(installed.bundleVersion) -> \(update.bundleVersion))
+                    """)
             } else {
                 print("\(update.itemIdentifier) \(update.title) (unknown -> \(update.bundleVersion))")
             }

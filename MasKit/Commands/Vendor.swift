@@ -36,8 +36,11 @@ public struct VendorCommand: CommandProtocol {
                     return .failure(.noSearchResultsFound)
             }
 
+            guard let vendorWebsite = result.sellerUrl
+                else { throw MASError.noVendorWebsite }
+
             do {
-                try openCommand.run(arguments: result.sellerUrl)
+                try openCommand.run(arguments: vendorWebsite)
             } catch {
                 printError("Unable to launch open command")
                 return .failure(.searchFailed)
@@ -47,8 +50,7 @@ public struct VendorCommand: CommandProtocol {
                 printError("Open failed: (\(reason)) \(openCommand.stderr)")
                 return .failure(.searchFailed)
             }
-        }
-        catch {
+        } catch {
             // Bubble up MASErrors
             if let error = error as? MASError {
                 return .failure(error)
@@ -67,8 +69,8 @@ public struct VendorOptions: OptionsProtocol {
         return VendorOptions(appId: appId)
     }
 
-    public static func evaluate(_ m: CommandMode) -> Result<VendorOptions, CommandantError<MASError>> {
+    public static func evaluate(_ mode: CommandMode) -> Result<VendorOptions, CommandantError<MASError>> {
         return create
-            <*> m <| Argument(usage: "the app id to show the vendor's website")
+            <*> mode <| Argument(usage: "the app id to show the vendor's website")
     }
 }

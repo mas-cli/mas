@@ -14,17 +14,12 @@ import Nimble
 class HomeCommandSpec: QuickSpec {
     override func spec() {
         let result = SearchResult(
-            bundleId: "",
-            price: 0.0,
-            sellerName: "",
-            sellerUrl: "",
             trackId: 1111,
-            trackName: "",
             trackViewUrl: "mas preview url",
             version: "0.0"
         )
-        let storeSearch = MockStoreSearch()
-        let openCommand = MockOpenSystemCommand()
+        let storeSearch = StoreSearchMock()
+        let openCommand = OpenSystemCommandMock()
         let cmd = HomeCommand(storeSearch: storeSearch, openCommand: openCommand)
 
         describe("home command") {

@@ -25,6 +25,7 @@ public struct InstallCommand: CommandProtocol {
         self.appLibrary = appLibrary
     }
 
+    /// Runs the command.
     public func run(_ options: Options) -> Result<(), MASError> {
         // Try to download applications with given identifiers and collect results
         let downloadResults = options.appIds.compactMap { (appId) -> MASError? in
@@ -53,13 +54,13 @@ public struct InstallOptions: OptionsProtocol {
 
     public static func create(_ appIds: [Int]) -> (_ forceInstall: Bool) -> InstallOptions {
         return { forceInstall in
-            return InstallOptions(appIds: appIds.map{UInt64($0)}, forceInstall: forceInstall)
+            return InstallOptions(appIds: appIds.map {UInt64($0)}, forceInstall: forceInstall)
         }
     }
 
-    public static func evaluate(_ m: CommandMode) -> Result<InstallOptions, CommandantError<MASError>> {
+    public static func evaluate(_ mode: CommandMode) -> Result<InstallOptions, CommandantError<MASError>> {
         return create
-            <*> m <| Argument(usage: "app ID(s) to install")
-            <*> m <| Switch(flag: nil, key: "force", usage: "force reinstall")
+            <*> mode <| Argument(usage: "app ID(s) to install")
+            <*> mode <| Switch(flag: nil, key: "force", usage: "force reinstall")
     }
 }

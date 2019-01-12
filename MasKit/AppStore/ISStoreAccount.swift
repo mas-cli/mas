@@ -38,8 +38,8 @@ extension ISStoreAccount: StoreAccount {
     }
 
     static func signIn(username: String, password: String, systemDialog: Bool = false) throws -> StoreAccount {
-        var account: ISStoreAccount? = nil
-        var error: MASError? = nil
+        var storeAccount: ISStoreAccount?
+        var maserror: MASError?
 
         let accountService: ISAccountService = ISServiceProxy.genericShared().accountService
         let client = ISStoreClient(storeClientType: 0)
@@ -61,11 +61,11 @@ extension ISStoreAccount: StoreAccount {
         group.enter()
 
         // Only works on macOS Sierra and below
-        accountService.signIn(with: context) { success, _account, _error in
+        accountService.signIn(with: context) { success, account, error in
             if success {
-                account = _account
+                storeAccount = account
             } else {
-                error = .signInFailed(error: _error as NSError?)
+                maserror = .signInFailed(error: error as NSError?)
             }
             group.leave()
         }
@@ -73,13 +73,13 @@ extension ISStoreAccount: StoreAccount {
         if systemDialog {
             group.wait()
         } else {
-            let _ = group.wait(timeout: .now() + 30)
+            _ = group.wait(timeout: .now() + 30)
         }
-        
-        if let account = account {
+
+        if let account = storeAccount {
             return account
         }
-        
-        throw error ?? MASError.signInFailed(error: nil)
+
+        throw maserror ?? MASError.signInFailed(error: nil)
     }
 }

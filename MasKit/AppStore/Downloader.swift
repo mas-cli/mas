@@ -9,18 +9,23 @@
 import CommerceKit
 import StoreFoundation
 
+/// Monitors app download progress.
+///
+/// - Parameter adamId: An app ID?
+/// - Returns: An error, if one occurred.
 func download(_ adamId: UInt64) -> MASError? {
-
     guard let account = ISStoreAccount.primaryAccount else {
         return .notSignedIn
     }
-    
-    let group = DispatchGroup()
-    let purchase = SSPurchase(adamId: adamId, account: account as! ISStoreAccount)
-    
+
+    guard let storeAccount = account as? ISStoreAccount
+        else { fatalError("Unable to cast StoreAccount to ISStoreAccount") }
+    let purchase = SSPurchase(adamId: adamId, account: storeAccount)
+
     var purchaseError: MASError?
-    var observerIdentifier: CKDownloadQueueObserver? = nil
-    
+    var observerIdentifier: CKDownloadQueueObserver?
+
+    let group = DispatchGroup()
     group.enter()
     purchase.perform { purchase, _, error, response in
         if let error = error {
@@ -28,7 +33,7 @@ func download(_ adamId: UInt64) -> MASError? {
             group.leave()
             return
         }
-        
+
         if let downloads = response?.downloads, downloads.count > 0, let purchase = purchase {
             let observer = PurchaseDownloadObserver(purchase: purchase)
 
@@ -36,27 +41,25 @@ func download(_ adamId: UInt64) -> MASError? {
                 purchaseError = error
                 group.leave()
             }
-            
+
             observer.completionHandler = {
                 group.leave()
             }
 
             let downloadQueue = CKDownloadQueue.shared()
             observerIdentifier = downloadQueue.add(observer)
-        }
-        else {
+        } else {
             print("No downloads")
             purchaseError = .noDownloads
             group.leave()
         }
     }
-    
-    let _ = group.wait(timeout: .distantFuture)
-    
+
+    _ = group.wait(timeout: .distantFuture)
+
     if let observerIdentifier = observerIdentifier {
         CKDownloadQueue.shared().remove(observerIdentifier)
     }
 
     return purchaseError
 }
-
