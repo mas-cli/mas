@@ -49,9 +49,7 @@ class OpenCommandSpec: QuickSpec {
                 expect(url?.scheme) == "macappstore"
             }
             it("just opens MAS if no app specified") {
-                storeSearch.apps[result.trackId] = result
-
-                let cmdResult = cmd.run(OpenCommand.Options(appId: nil))
+                let cmdResult = cmd.run(OpenCommand.Options(appId: "appstore"))
                 expect(cmdResult).to(beSuccess())
                 expect(openCommand.arguments).toNot(beNil())
                 let url = URL(string: openCommand.arguments!.first!)

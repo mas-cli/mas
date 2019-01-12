@@ -9,6 +9,9 @@
 import Commandant
 import Result
 
+private let markerValue = "appstore"
+private let masScheme = "macappstore"
+
 /// Opens app page in MAS app. Uses the iTunes Lookup API:
 /// https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/#lookup
 public struct OpenCommand: CommandProtocol {
@@ -19,7 +22,6 @@ public struct OpenCommand: CommandProtocol {
 
     private let storeSearch: StoreSearch
     private var systemOpen: ExternalCommand
-    private let macappstore = "macappstore"
 
     /// Designated initializer.
     public init(storeSearch: StoreSearch = MasStoreSearch(),
@@ -31,14 +33,13 @@ public struct OpenCommand: CommandProtocol {
     /// Runs the command.
     public func run(_ options: OpenOptions) -> Result<(), MASError> {
         do {
-            guard let appId = options.appId
-                else {
-                    // If no app ID is given, just open the MAS GUI app
-                    try systemOpen.run(arguments: macappstore + "://")
-                    return .success(())
+            if options.appId == markerValue {
+                // If no app ID is given, just open the MAS GUI app
+                try systemOpen.run(arguments: masScheme + "://")
+                return .success(())
             }
 
-            guard let result = try storeSearch.lookup(app: appId)
+            guard let result = try storeSearch.lookup(app: options.appId)
                 else {
                     print("No results found")
                     return .failure(.noSearchResultsFound)
@@ -48,7 +49,7 @@ public struct OpenCommand: CommandProtocol {
                 else {
                     return .failure(.searchFailed)
             }
-            url.scheme = macappstore
+            url.scheme = masScheme
 
             do {
                 try systemOpen.run(arguments: url.string!)
@@ -74,14 +75,14 @@ public struct OpenCommand: CommandProtocol {
 }
 
 public struct OpenOptions: OptionsProtocol {
-    let appId: String?
+    var appId: String
 
-    static func create(_ appId: String? = nil) -> OpenOptions {
+    static func create(_ appId: String) -> OpenOptions {
         return OpenOptions(appId: appId)
     }
 
     public static func evaluate(_ mode: CommandMode) -> Result<OpenOptions, CommandantError<MASError>> {
         return create
-            <*> mode <| Argument(defaultValue: nil, usage: "the app id")
+            <*> mode <| Argument(defaultValue: markerValue, usage: "the app id")
     }
 }
