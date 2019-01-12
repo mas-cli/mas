@@ -29,7 +29,7 @@ public struct SignInCommand: CommandProtocol {
 
         do {
             printInfo("Signing in to Apple ID: \(options.username)")
-            
+
             let password: String = {
                 if options.password == "" && !options.dialog {
                     return String(validatingUTF8: getpass("Password: "))!
@@ -37,11 +37,11 @@ public struct SignInCommand: CommandProtocol {
                 return options.password
             }()
 
-            let _ = try ISStoreAccount.signIn(username: options.username, password: password, systemDialog: options.dialog)
+            _ = try ISStoreAccount.signIn(username: options.username, password: password, systemDialog: options.dialog)
         } catch let error as NSError {
             return .failure(.signInFailed(error: error))
         }
-        
+
         return .success(())
     }
 }
@@ -60,10 +60,10 @@ public struct SignInOptions: OptionsProtocol {
         }}
     }
 
-    public static func evaluate(_ m: CommandMode) -> Result<SignInOptions, CommandantError<MASError>> {
+    public static func evaluate(_ mode: CommandMode) -> Result<SignInOptions, CommandantError<MASError>> {
         return create
-            <*> m <| Argument(usage: "Apple ID")
-            <*> m <| Argument(defaultValue: "", usage: "Password")
-            <*> m <| Option(key: "dialog", defaultValue: false, usage: "Complete login with graphical dialog")
+            <*> mode <| Argument(usage: "Apple ID")
+            <*> mode <| Argument(defaultValue: "", usage: "Password")
+            <*> mode <| Option(key: "dialog", defaultValue: false, usage: "Complete login with graphical dialog")
     }
 }

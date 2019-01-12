@@ -11,27 +11,26 @@ import StoreFoundation
 
 @objc class PurchaseDownloadObserver: NSObject, CKDownloadQueueObserver {
     let purchase: SSPurchase
-    var completionHandler: (() -> ())?
-    var errorHandler: ((MASError) -> ())?
-    
+    var completionHandler: (() -> Void)?
+    var errorHandler: ((MASError) -> Void)?
+
     init(purchase: SSPurchase) {
         self.purchase = purchase
     }
-    
+
     func downloadQueue(_ queue: CKDownloadQueue, statusChangedFor download: SSDownload) {
         guard download.metadata.itemIdentifier == purchase.itemIdentifier,
             let status = download.status else {
             return
         }
-        
+
         if status.isFailed || status.isCancelled {
             queue.removeDownload(withItemIdentifier: download.metadata.itemIdentifier)
-        }
-        else {
+        } else {
             progress(status.progressState)
         }
     }
-    
+
     func downloadQueue(_ queue: CKDownloadQueue, changedWithAddition download: SSDownload) {
         guard download.metadata.itemIdentifier == purchase.itemIdentifier else {
             return
@@ -39,21 +38,19 @@ import StoreFoundation
         clearLine()
         printInfo("Downloading \(download.metadata.title)")
     }
-    
+
     func downloadQueue(_ queue: CKDownloadQueue, changedWithRemoval download: SSDownload) {
         guard download.metadata.itemIdentifier == purchase.itemIdentifier,
               let status = download.status else {
             return
         }
-        
+
         clearLine()
         if status.isFailed {
             errorHandler?(.downloadFailed(error: status.error as NSError?))
-        }
-        else if status.isCancelled {
+        } else if status.isCancelled {
             errorHandler?(.cancelled)
-        }
-        else {
+        } else {
             printInfo("Installed \(download.metadata.title)")
             completionHandler?()
         }
@@ -63,7 +60,7 @@ import StoreFoundation
 struct ProgressState {
     let percentComplete: Float
     let phase: String
-    
+
     var percentage: String {
         return String(format: "%.1f%%", arguments: [floor(percentComplete * 100)])
     }
@@ -74,16 +71,15 @@ func progress(_ state: ProgressState) {
     guard isatty(fileno(stdout)) != 0 else {
         return
     }
-    
+
     let barLength = 60
-    
+
     let completeLength = Int(state.percentComplete * Float(barLength))
     var bar = ""
-    for i in 0..<barLength {
-        if i < completeLength {
+    for index in 0..<barLength {
+        if index < completeLength {
             bar += "#"
-        }
-        else {
+        } else {
             bar += "-"
         }
     }

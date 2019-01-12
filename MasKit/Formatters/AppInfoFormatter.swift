@@ -29,7 +29,7 @@ struct AppInfoFormatter {
         let headline = [
             "\(app.trackName)",
             "\(app.version)",
-            "[\(app.price)]",
+            "[\(app.price)]"
         ].joined(separator: " ")
 
         return [

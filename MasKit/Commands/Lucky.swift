@@ -42,8 +42,7 @@ public struct LuckyCommand: CommandProtocol {
             }
 
             appId = result.trackId
-        }
-        catch {
+        } catch {
             // Bubble up MASErrors
             if let error = error as? MASError {
                 return .failure(error)
@@ -51,9 +50,9 @@ public struct LuckyCommand: CommandProtocol {
             return .failure(.searchFailed)
         }
 
-        guard let id = appId else { fatalError() }
+        guard let identifier = appId else { fatalError() }
 
-        return install(UInt64(id), options: options)
+        return install(UInt64(identifier), options: options)
     }
 
     /// Installs an app.
@@ -94,9 +93,9 @@ public struct LuckyOptions: OptionsProtocol {
         }
     }
 
-    public static func evaluate(_ m: CommandMode) -> Result<LuckyOptions, CommandantError<MASError>> {
+    public static func evaluate(_ mode: CommandMode) -> Result<LuckyOptions, CommandantError<MASError>> {
         return create
-            <*> m <| Argument(usage: "the app name to install")
-            <*> m <| Switch(flag: nil, key: "force", usage: "force reinstall")
+            <*> mode <| Argument(usage: "the app name to install")
+            <*> mode <| Switch(flag: nil, key: "force", usage: "force reinstall")
     }
 }

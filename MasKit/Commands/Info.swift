@@ -33,8 +33,7 @@ public struct InfoCommand: CommandProtocol {
             }
 
             print(AppInfoFormatter.format(app: result))
-        }
-        catch {
+        } catch {
             // Bubble up MASErrors
             if let error = error as? MASError {
                 return .failure(error)
@@ -53,8 +52,8 @@ public struct InfoOptions: OptionsProtocol {
         return InfoOptions(appId: appId)
     }
 
-    public static func evaluate(_ m: CommandMode) -> Result<InfoOptions, CommandantError<MASError>> {
+    public static func evaluate(_ mode: CommandMode) -> Result<InfoOptions, CommandantError<MASError>> {
         return create
-            <*> m <| Argument(usage: "the app id to show info")
+            <*> mode <| Argument(usage: "the app id to show info")
     }
 }

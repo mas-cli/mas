@@ -16,12 +16,11 @@ public struct AccountCommand: CommandProtocol {
     public let function = "Prints the primary account Apple ID"
 
     public init() {}
-    
+
     public func run(_ options: Options) -> Result<(), MASError> {
         if let account = ISStoreAccount.primaryAccount {
             print(String(describing: account.identifier))
-        }
-        else {
+        } else {
             print("Not signed in")
             return .failure(.notSignedIn)
         }

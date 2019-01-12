@@ -43,7 +43,7 @@ public struct ResetCommand: CommandProtocol {
             "storeassetd",
             "storedownloadd",
             "storeinstalld",
-            "storelegacy",
+            "storelegacy"
         ]
 
         let kill = Process()
@@ -85,8 +85,8 @@ public struct ResetOptions: OptionsProtocol {
         return ResetOptions(debug: debug)
     }
 
-    public static func evaluate(_ m: CommandMode) -> Result<ResetOptions, CommandantError<MASError>> {
+    public static func evaluate(_ mode: CommandMode) -> Result<ResetOptions, CommandantError<MASError>> {
         return create
-            <*> m <| Switch(flag: nil, key: "debug", usage: "Enable debug mode")
+            <*> mode <| Switch(flag: nil, key: "debug", usage: "Enable debug mode")
     }
 }

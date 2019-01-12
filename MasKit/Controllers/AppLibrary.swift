@@ -43,21 +43,19 @@ public protocol AppLibrary {
 extension AppLibrary {
     /// Map of app name to ID.
     public var appIdsByName: [String: UInt64] {
-        get {
-            var destMap = [String: UInt64]()
-            for product in installedApps {
-                destMap[product.appName] = product.itemIdentifier.uint64Value
-            }
-            return destMap
+        var destMap = [String: UInt64]()
+        for product in installedApps {
+            destMap[product.appName] = product.itemIdentifier.uint64Value
         }
+        return destMap
     }
 
     /// Finds an app by name.
     ///
     /// - Parameter id: MAS ID for app.
     /// - Returns: Software Product of app if found; nil otherwise.
-    public func installedApp(forId id: UInt64) -> SoftwareProduct? {
-        let appId = NSNumber(value: id)
+    public func installedApp(forId identifier: UInt64) -> SoftwareProduct? {
+        let appId = NSNumber(value: identifier)
         return installedApps.first { $0.itemIdentifier == appId }
     }
 

@@ -33,7 +33,8 @@ public struct SearchCommand: CommandProtocol {
 
     public func run(_ options: Options) -> Result<(), MASError> {
         guard let searchURLString = searchURLString(options.appName),
-              let searchJson = networkSession.requestSynchronousJSONWithURLString(searchURLString) as? [String: Any] else {
+              let searchJson = networkSession.requestSynchronousJSONWithURLString(searchURLString)
+                as? [String: Any] else {
             return .failure(.searchFailed)
         }
 
@@ -61,14 +62,15 @@ public struct SearchCommand: CommandProtocol {
                 let appVersion = result[ResultKeys.Version] as? String,
                 let appId = result[ResultKeys.TrackId] as? Int,
                 let appPrice = result[ResultKeys.Price] as? Double {
-                
+
                 // add empty spaces to app name that every app name has the same length
-                let countedAppName = String((appName + String(repeating: " ", count: appNameMaxLength)).prefix(appNameMaxLength))
-                
+                let countedAppName = String((appName +
+                    String(repeating: " ", count: appNameMaxLength)).prefix(appNameMaxLength))
+
                 if options.price {
-                    print(String(format:"%12d  %@  $%5.2f  (%@)", appId, countedAppName, appPrice, appVersion))
+                    print(String(format: "%12d  %@  $%5.2f  (%@)", appId, countedAppName, appPrice, appVersion))
                 } else {
-                    print(String(format:"%12d  %@ (%@)", appId, countedAppName, appVersion))
+                    print(String(format: "%12d  %@ (%@)", appId, countedAppName, appVersion))
                 }
             }
         }
@@ -76,14 +78,13 @@ public struct SearchCommand: CommandProtocol {
         return .success(())
     }
 
-    
     /// Builds a URL to search the MAS for an app
     ///
     /// - Parameter appName: Name of the app to find.
     /// - Returns: String URL for app search or nil if the app name could not be encoded.
     func searchURLString(_ appName: String) -> String? {
         guard let urlEncodedAppName = appName.URLEncodedString else { return nil }
-        
+
         return "https://itunes.apple.com/search?entity=macSoftware&term=\(urlEncodedAppName)&attribute=allTrackTerm"
     }
 }
@@ -98,9 +99,9 @@ public struct SearchOptions: OptionsProtocol {
         }
     }
 
-    public static func evaluate(_ m: CommandMode) -> Result<SearchOptions, CommandantError<MASError>> {
+    public static func evaluate(_ mode: CommandMode) -> Result<SearchOptions, CommandantError<MASError>> {
         return create
-            <*> m <| Argument(usage: "the app name to search")
-            <*> m <| Option(key: "price", defaultValue: false, usage: "Show price of found apps")
+            <*> mode <| Argument(usage: "the app name to search")
+            <*> mode <| Option(key: "price", defaultValue: false, usage: "Show price of found apps")
     }
 }

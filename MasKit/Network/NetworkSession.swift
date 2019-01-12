@@ -14,7 +14,7 @@
 extension NetworkSession {
     /// Return data from synchronous URL request
     public func requestSynchronousData(_ request: URLRequest) -> Data? {
-        var data: Data? = nil
+        var data: Data?
         let semaphore = DispatchSemaphore(value: 0)
 
         let task = URLSession.shared.dataTask(with: request) { (taskData, _, error) -> Void in
@@ -40,14 +40,19 @@ extension NetworkSession {
     /// Return JSON synchronous from URL request
     public func requestSynchronousJSON(_ request: URLRequest) -> Any? {
         guard let data = requestSynchronousData(request) else { return nil }
-        return try! JSONSerialization.jsonObject(with: data, options: [])
+        do {
+            return try JSONSerialization.jsonObject(with: data, options: [])
+        } catch {
+            printError("\(error.localizedDescription)")
+            return nil
+        }
     }
 
     /// Return JSON synchronous from specified endpoint
     public func requestSynchronousJSONWithURLString(_ requestString: String) -> Any? {
         guard let url = URL(string: requestString) else { return nil }
 
-        var request = URLRequest(url:url)
+        var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 

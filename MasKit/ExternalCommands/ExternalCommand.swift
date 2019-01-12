@@ -27,27 +27,27 @@ public protocol ExternalCommand {
 
 /// Common implementation
 extension ExternalCommand {
-    public var stdout: String { get {
+    public var stdout: String {
         let data = stdoutPipe.fileHandleForReading.readDataToEndOfFile()
         return String(data: data, encoding: .utf8) ?? ""
-    }}
+    }
 
-    public var stderr: String { get {
+    public var stderr: String {
         let data = stderrPipe.fileHandleForReading.readDataToEndOfFile()
         return String(data: data, encoding: .utf8) ?? ""
-    }}
+    }
 
-    public var exitCode: Int? { get {
+    public var exitCode: Int? {
         return Int(process.terminationStatus)
-    }}
+    }
 
-    public var succeeded: Bool { get {
+    public var succeeded: Bool {
         return exitCode == 0
-    }}
+    }
 
-    public var failed: Bool { get {
+    public var failed: Bool {
         return !succeeded
-    }}
+    }
 
     /// Runs the command.
     public func run(arguments: String...) throws {

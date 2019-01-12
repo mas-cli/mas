@@ -42,7 +42,7 @@ extension StoreSearch {
         guard let urlString = lookupURLString(forApp: appId) else { return nil }
         return URL(string: urlString)
     }
-    
+
     /// Builds the lookup URL for an app.
     ///
     /// - Parameter appId: MAS app identifier.

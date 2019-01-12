@@ -46,8 +46,7 @@ public struct UninstallCommand: CommandProtocol {
 
         do {
             try appLibrary.uninstallApp(app: product)
-        }
-        catch {
+        } catch {
             return .failure(.uninstallFailed)
         }
 
@@ -69,9 +68,9 @@ public struct UninstallOptions: OptionsProtocol {
         }
     }
 
-    public static func evaluate(_ m: CommandMode) -> Result<UninstallOptions, CommandantError<MASError>> {
+    public static func evaluate(_ mode: CommandMode) -> Result<UninstallOptions, CommandantError<MASError>> {
         return create
-            <*> m <| Argument(usage: "ID of app to uninstall")
-            <*> m <| Switch(flag: nil, key: "dry-run", usage: "dry run")
+            <*> mode <| Argument(usage: "ID of app to uninstall")
+            <*> mode <| Switch(flag: nil, key: "dry-run", usage: "dry run")
     }
 }

@@ -50,8 +50,7 @@ public struct VendorCommand: CommandProtocol {
                 printError("Open failed: (\(reason)) \(openCommand.stderr)")
                 return .failure(.searchFailed)
             }
-        }
-        catch {
+        } catch {
             // Bubble up MASErrors
             if let error = error as? MASError {
                 return .failure(error)
@@ -70,8 +69,8 @@ public struct VendorOptions: OptionsProtocol {
         return VendorOptions(appId: appId)
     }
 
-    public static func evaluate(_ m: CommandMode) -> Result<VendorOptions, CommandantError<MASError>> {
+    public static func evaluate(_ mode: CommandMode) -> Result<VendorOptions, CommandantError<MASError>> {
         return create
-            <*> m <| Argument(usage: "the app id to show the vendor's website")
+            <*> mode <| Argument(usage: "the app id to show the vendor's website")
     }
 }
