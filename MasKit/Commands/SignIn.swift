@@ -17,8 +17,8 @@ public struct SignInCommand: CommandProtocol {
 
     public init() {}
 
+    /// Runs the command.
     public func run(_ options: Options) -> Result<(), MASError> {
-
         if #available(macOS 10.13, *) {
             return .failure(.signInDisabled)
         }

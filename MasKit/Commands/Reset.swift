@@ -10,6 +10,7 @@ import Commandant
 import Result
 import CommerceKit
 
+/// Kills several macOS processes as a means to reset the app store.
 public struct ResetCommand: CommandProtocol {
     public typealias Options = ResetOptions
     public let verb = "reset"
@@ -17,6 +18,7 @@ public struct ResetCommand: CommandProtocol {
 
     public init() {}
 
+    /// Runs the command.
     public func run(_ options: Options) -> Result<(), MASError> {
         /*
         The "Reset Application" command in the Mac App Store debug menu performs

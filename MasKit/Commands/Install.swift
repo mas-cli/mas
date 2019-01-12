@@ -25,6 +25,7 @@ public struct InstallCommand: CommandProtocol {
         self.appLibrary = appLibrary
     }
 
+    /// Runs the command.
     public func run(_ options: Options) -> Result<(), MASError> {
         // Try to download applications with given identifiers and collect results
         let downloadResults = options.appIds.compactMap { (appId) -> MASError? in

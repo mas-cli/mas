@@ -17,6 +17,7 @@ public struct VersionCommand: CommandProtocol {
 
     public init() {}
 
+    /// Runs the command.
     public func run(_ options: Options) -> Result<(), MASError> {
         let plist = Bundle.main.infoDictionary
         if let versionString = plist?["CFBundleShortVersionString"] {

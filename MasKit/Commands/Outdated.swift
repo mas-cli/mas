@@ -26,6 +26,7 @@ public struct OutdatedCommand: CommandProtocol {
         self.appLibrary = appLibrary
     }
 
+    /// Runs the command.
     public func run(_ options: Options) -> Result<(), MASError> {
         let updateController = CKUpdateController.shared()
         let updates = updateController?.availableUpdates()

@@ -17,6 +17,7 @@ public struct SignOutCommand: CommandProtocol {
 
     public init() {}
 
+    /// Runs the command.
     public func run(_ options: Options) -> Result<(), MASError> {
         if #available(macOS 10.13, *) {
             let accountService: ISAccountService = ISServiceProxy.genericShared().accountService

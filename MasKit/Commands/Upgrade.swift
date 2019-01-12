@@ -20,11 +20,12 @@ public struct UpgradeCommand: CommandProtocol {
 
     /// Designated initializer.
     ///
-    /// - Parameter appLibrary: <#appLibrary description#>
+    /// - Parameter appLibrary: Instance of the app library.
     public init(appLibrary: AppLibrary = MasAppLibrary()) {
         self.appLibrary = appLibrary
     }
 
+    /// Runs the command.
     public func run(_ options: Options) -> Result<(), MASError> {
         let updateController = CKUpdateController.shared()
         let updates: [CKUpdate]
