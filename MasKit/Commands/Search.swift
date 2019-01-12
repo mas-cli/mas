@@ -9,15 +9,6 @@
 import Commandant
 import Result
 
-struct ResultKeys {
-    static let ResultCount = "resultCount"
-    static let Results = "results"
-    static let TrackName = "trackName"
-    static let TrackId = "trackId"
-    static let Version = "version"
-    static let Price = "price"
-}
-
 /// Search the Mac App Store using the iTunes Search API:
 /// https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/
 public struct SearchCommand: CommandProtocol {
@@ -25,67 +16,34 @@ public struct SearchCommand: CommandProtocol {
     public let verb = "search"
     public let function = "Search for apps from the Mac App Store"
 
-    private let networkSession: NetworkSession
+    private let storeSearch: StoreSearch
 
-    public init(networkSession: NetworkSession = URLSession.shared) {
-        self.networkSession = networkSession
+    /// Designated initializer.
+    ///
+    /// - Parameter storeSearch: Search manager.
+    public init(storeSearch: StoreSearch = MasStoreSearch()) {
+        self.storeSearch = storeSearch
     }
 
     public func run(_ options: Options) -> Result<(), MASError> {
-        guard let searchURLString = searchURLString(options.appName),
-              let searchJson = networkSession.requestSynchronousJSONWithURLString(searchURLString)
-                as? [String: Any] else {
+        do {
+            let resultList = try storeSearch.search(for: options.appName)
+            if resultList.resultCount <= 0 || resultList.results.isEmpty {
+                print("No results found")
+                return .failure(.noSearchResultsFound)
+            }
+
+            let output = SearchResultFormatter.format(results: resultList.results, includePrice: options.price)
+            print(output)
+
+            return .success(())
+        } catch {
+            // Bubble up MASErrors
+            if let error = error as? MASError {
+                return .failure(error)
+            }
             return .failure(.searchFailed)
         }
-
-        guard let resultCount = searchJson[ResultKeys.ResultCount] as? Int, resultCount > 0,
-              let results = searchJson[ResultKeys.Results] as? [[String: Any]] else {
-            print("No results found")
-            return .failure(.noSearchResultsFound)
-        }
-
-        // find out longest appName for formatting
-        var appNameMaxLength = 0
-        for result in results {
-            if let appName = result[ResultKeys.TrackName] as? String {
-                if appName.count > appNameMaxLength {
-                    appNameMaxLength = appName.count
-                }
-            }
-        }
-        if appNameMaxLength > 50 {
-            appNameMaxLength = 50
-        }
-
-        for result in results {
-            if let appName = result[ResultKeys.TrackName] as? String,
-                let appVersion = result[ResultKeys.Version] as? String,
-                let appId = result[ResultKeys.TrackId] as? Int,
-                let appPrice = result[ResultKeys.Price] as? Double {
-
-                // add empty spaces to app name that every app name has the same length
-                let countedAppName = String((appName +
-                    String(repeating: " ", count: appNameMaxLength)).prefix(appNameMaxLength))
-
-                if options.price {
-                    print(String(format: "%12d  %@  $%5.2f  (%@)", appId, countedAppName, appPrice, appVersion))
-                } else {
-                    print(String(format: "%12d  %@ (%@)", appId, countedAppName, appVersion))
-                }
-            }
-        }
-
-        return .success(())
-    }
-
-    /// Builds a URL to search the MAS for an app
-    ///
-    /// - Parameter appName: Name of the app to find.
-    /// - Returns: String URL for app search or nil if the app name could not be encoded.
-    func searchURLString(_ appName: String) -> String? {
-        guard let urlEncodedAppName = appName.URLEncodedString else { return nil }
-
-        return "https://itunes.apple.com/search?entity=macSoftware&term=\(urlEncodedAppName)&attribute=allTrackTerm"
     }
 }
 

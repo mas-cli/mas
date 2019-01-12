@@ -13,51 +13,33 @@ import Nimble
 
 class SearchCommandSpec: QuickSpec {
     override func spec() {
-        describe("search command") {
-            context("for slack") {
-                it("succeeds") {
-                    let search = SearchCommand(networkSession:
-                        NetworkSessionMockFromFile(responseFile: "search/slack.json"))
-                    let searchOptions = SearchOptions(appName: "slack", price: false)
-                    let result = search.run(searchOptions)
-                    expect(result).to(beSuccess())
-                }
-            }
-            context("for nonexistent") {
-                it("fails") {
-                    let search = SearchCommand(networkSession:
-                        NetworkSessionMockFromFile(responseFile: "search/nonexistent.json"))
-                    let searchOptions = SearchOptions(appName: "nonexistent", price: false)
-                    let result = search.run(searchOptions)
-                    expect(result).to(beFailure { error in
-                        expect(error) == .noSearchResultsFound
-                    })
-                }
-            }
+        let result = SearchResult(
+            trackId: 1111,
+            trackName: "slack",
+            trackViewUrl: "mas preview url",
+            version: "0.0"
+        )
+        let storeSearch = StoreSearchMock()
 
-            describe("url string") {
-                it("contains the app name") {
-                    let appName = "myapp"
-                    let search = SearchCommand()
-                    let urlString = search.searchURLString(appName)
-                    expect(urlString) ==
-                    "https://itunes.apple.com/search?entity=macSoftware&term=\(appName)&attribute=allTrackTerm"
-                }
-                it("contains the encoded app name") {
-                    let appName = "My App"
-                    let appNameEncoded = "My%20App"
-                    let search = SearchCommand()
-                    let urlString = search.searchURLString(appName)
-                    expect(urlString) ==
-                    "https://itunes.apple.com/search?entity=macSoftware&term=\(appNameEncoded)&attribute=allTrackTerm"
-                }
-                // FIXME: Find a character that causes addingPercentEncoding(withAllowedCharacters to return nil
-                xit("is nil when app name cannot be url encoded") {
-                    let appName = "`~!@#$%^&*()_+ 💩"
-                    let search = SearchCommand()
-                    let urlString = search.searchURLString(appName)
-                    expect(urlString).to(beNil())
-                }
+        describe("search command") {
+            beforeEach {
+                storeSearch.reset()
+            }
+            it("can find slack") {
+                storeSearch.apps[result.trackId] = result
+
+                let search = SearchCommand(storeSearch: storeSearch)
+                let searchOptions = SearchOptions(appName: "slack", price: false)
+                let result = search.run(searchOptions)
+                expect(result).to(beSuccess())
+            }
+            it("fails when searching for nonexistent app") {
+                let search = SearchCommand(storeSearch: storeSearch)
+                let searchOptions = SearchOptions(appName: "nonexistent", price: false)
+                let result = search.run(searchOptions)
+                expect(result).to(beFailure { error in
+                    expect(error) == .noSearchResultsFound
+                })
             }
         }
     }

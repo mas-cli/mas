@@ -10,17 +10,6 @@ import Foundation
 
 /// Formats text output for the info command.
 struct AppInfoFormatter {
-    private enum Keys {
-        static let Name = "trackCensoredName"
-        static let Version = "version"
-        static let Price = "formattedPrice"
-        static let Seller = "sellerName"
-        static let VersionReleaseDate = "currentVersionReleaseDate"
-        static let MinimumOS = "minimumOsVersion"
-        static let FileSize = "fileSizeBytes"
-        static let AppStoreUrl = "trackViewUrl"
-    }
-
     /// Formats text output with app info.
     ///
     /// - Parameter app: Search result with app data.
