@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+- 👐🏻 Open AppStore.app with just `mas open` #200
 - ♻️🌐 Network refactor #198
 - 👷🏻‍♀️ Jenkins Pipeline #197
 - ✨ New `home`, `open` and `vendor` commands #196
