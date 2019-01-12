@@ -26,6 +26,10 @@ public enum MASError: Error, CustomStringConvertible, Equatable {
     case notInstalled
     case uninstallFailed
 
+    case urlEncoding
+    case noData
+    case jsonParsing(error: NSError?)
+
     public var description: String {
         switch self {
         case .notSignedIn:
@@ -81,6 +85,15 @@ public enum MASError: Error, CustomStringConvertible, Equatable {
 
         case .uninstallFailed:
             return "Uninstall failed"
+
+        case .urlEncoding:
+            return "Unable to encode service URL"
+
+        case .noData:
+            return "Service did not return data"
+
+        case .jsonParsing:
+            return "Unable to parse response JSON"
         }
     }
 }

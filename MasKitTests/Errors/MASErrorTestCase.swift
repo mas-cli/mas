@@ -113,4 +113,19 @@ class MASErrorTestCase: XCTestCase {
         error = .uninstallFailed
         XCTAssertEqual(error.description, "Uninstall failed")
     }
+
+    func testUrlEncoding() {
+        error = .urlEncoding
+        XCTAssertEqual(error.description, "Unable to encode service URL")
+    }
+
+    func testNoData() {
+        error = .noData
+        XCTAssertEqual(error.description, "Service did not return data")
+    }
+
+    func testJsonParsing() {
+        error = .jsonParsing(error: nil)
+        XCTAssertEqual(error.description, "Unable to parse response JSON")
+    }
 }
