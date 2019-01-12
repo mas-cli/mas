@@ -19,6 +19,7 @@ public struct OpenCommand: CommandProtocol {
 
     private let storeSearch: StoreSearch
     private var systemOpen: ExternalCommand
+    private let macappstore = "macappstore"
 
     /// Designated initializer.
     public init(storeSearch: StoreSearch = MasStoreSearch(),
@@ -30,7 +31,14 @@ public struct OpenCommand: CommandProtocol {
     /// Runs the command.
     public func run(_ options: OpenOptions) -> Result<(), MASError> {
         do {
-            guard let result = try storeSearch.lookup(app: options.appId)
+            guard let appId = options.appId
+                else {
+                    // If no app ID is given, just open the MAS GUI app
+                    try systemOpen.run(arguments: macappstore + "://")
+                    return .success(())
+            }
+
+            guard let result = try storeSearch.lookup(app: appId)
                 else {
                     print("No results found")
                     return .failure(.noSearchResultsFound)
@@ -40,7 +48,7 @@ public struct OpenCommand: CommandProtocol {
                 else {
                     return .failure(.searchFailed)
             }
-            url.scheme = "macappstore"
+            url.scheme = macappstore
 
             do {
                 try systemOpen.run(arguments: url.string!)
@@ -66,14 +74,14 @@ public struct OpenCommand: CommandProtocol {
 }
 
 public struct OpenOptions: OptionsProtocol {
-    let appId: String
+    let appId: String?
 
-    static func create(_ appId: String) -> OpenOptions {
+    static func create(_ appId: String? = nil) -> OpenOptions {
         return OpenOptions(appId: appId)
     }
 
     public static func evaluate(_ mode: CommandMode) -> Result<OpenOptions, CommandantError<MASError>> {
         return create
-            <*> mode <| Argument(usage: "the app id")
+            <*> mode <| Argument(defaultValue: nil, usage: "the app id")
     }
 }
