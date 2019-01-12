@@ -11,7 +11,6 @@ import Nimble
 
 class OutputListenerSpec: QuickSpec {
     override func spec() {
-        // FIXME: Re-using OutputListener in a 2nd test fails with no content
         xdescribe("output listener") {
             it("can intercept a single line written stdout") {
                 let output = OutputListener()

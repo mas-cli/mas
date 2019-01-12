@@ -14,7 +14,7 @@ import Nimble
 class MasStoreSearchSpec: QuickSpec {
     override func spec() {
         describe("store search") {
-            fit("can find slack") {
+            it("can find slack") {
                 let networkSession = NetworkSessionMockFromFile(responseFile: "search/slack.json")
                 let storeSearch = MasStoreSearch(networkManager: NetworkManager(session: networkSession))
 
@@ -37,7 +37,16 @@ class MasStoreSearchSpec: QuickSpec {
                 let networkSession = NetworkSessionMockFromFile(responseFile: "lookup/slack.json")
                 let storeSearch = MasStoreSearch(networkManager: NetworkManager(session: networkSession))
 
-                let lookup = try! storeSearch.lookup(app: appId.description)
+                var lookup: SearchResult?
+                do {
+                    lookup = try storeSearch.lookup(app: appId.description)
+                } catch {
+                    let maserror = error as! MASError
+                    if case .jsonParsing(let nserror) = maserror {
+                        fail("\(maserror) \(nserror!)")
+                    }
+                }
+
                 guard let result = lookup else { fatalError("lookup result was nil") }
 
                 expect(result.trackId) == appId

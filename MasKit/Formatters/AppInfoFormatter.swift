@@ -38,7 +38,7 @@ struct AppInfoFormatter {
             "Released: \(humanReadableDate(app.currentVersionReleaseDate))",
             "Minimum OS: \(app.minimumOsVersion)",
             "Size: \(humanReadableSize(app.fileSizeBytes))",
-            "From: \(app.trackViewUrl)",
+            "From: \(app.trackViewUrl)"
         ].joined(separator: "\n")
     }
 

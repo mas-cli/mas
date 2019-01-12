@@ -17,8 +17,7 @@ extension NetworkSession {
         var data: Data? = nil
         let semaphore = DispatchSemaphore(value: 0)
 
-        let task = URLSession.shared.dataTask(with: request) {
-            (taskData, _, error) -> Void in
+        let task = URLSession.shared.dataTask(with: request) { (taskData, _, error) -> Void in
             data = taskData
             if data == nil, let error = error {
                 print(error)
@@ -33,7 +32,7 @@ extension NetworkSession {
 
     /// Return data synchronous from specified endpoint
     public func requestSynchronousDataWithURLString(_ requestString: String) -> Data? {
-        guard let url = URL(string:requestString) else { return nil }
+        guard let url = URL(string: requestString) else { return nil }
         let request = URLRequest(url: url)
         return requestSynchronousData(request)
     }

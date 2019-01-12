@@ -11,9 +11,9 @@ import Foundation
 /// Delegate for network requests initiated from tests.
 class TestURLSessionDelegate: NSObject, URLSessionDelegate {
     func urlSession(_ session: URLSession,
-            didReceive challenge: URLAuthenticationChallenge,
-            completionHandler: (URLSession.AuthChallengeDisposition,
-            URLCredential?) -> Void) {
+                    didReceive challenge: URLAuthenticationChallenge,
+                    completionHandler: (URLSession.AuthChallengeDisposition,
+                    URLCredential?) -> Void) {
 
         // For example, you may want to override this to accept some self-signed certs here.
         if challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust &&

@@ -66,7 +66,7 @@ class NetworkSessionMockFromFile: NetworkSessionMock {
 
         do {
             let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
-            if let jsonResult = jsonResult as? Dictionary<String, AnyObject> {
+            if let jsonResult = jsonResult as? [String: AnyObject] {
                 return jsonResult
             }
         } catch {

@@ -51,7 +51,7 @@ extension OutputListener {
         assert(dupStatus == outputPipe.fileHandleForWriting.fileDescriptor)
 
         // Intercept STDOUT with inputPipe
-        // newFileDescriptor is the pipe's file descriptor and the old file descriptor is STDOUT_FILENO and STDERR_FILENO
+        // newFileDescriptor is the pipe's file descriptor and the old file descriptor is STDOUT_FILENO
         dupStatus = dup2(inputPipe.fileHandleForWriting.fileDescriptor, stdoutFileDescriptor)
         // Status should equal newfd
         assert(dupStatus == stdoutFileDescriptor)

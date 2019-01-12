@@ -41,4 +41,3 @@ class NetworkSessionMock: NetworkSession {
         completionHandler(data, error)
     }
 }
-
