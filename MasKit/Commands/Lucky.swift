@@ -18,34 +18,50 @@ public struct LuckyCommand: CommandProtocol {
     public let function = "Install the first result from the Mac App Store"
 
     private let appLibrary: AppLibrary
-    private let urlSession: URLSession
+    private let storeSearch: StoreSearch
 
     /// Designated initializer.
     ///
     /// - Parameter appLibrary: AppLibrary manager.
-    /// - Parameter urlSession: URL session for network communication.
-    public init(appLibrary: AppLibrary = MasAppLibrary(), urlSession: URLSession = URLSession.shared) {
+    /// - Parameter storeSearch: Search manager.
+    public init(appLibrary: AppLibrary = MasAppLibrary(),
+                storeSearch: StoreSearch = MasStoreSearch()) {
         self.appLibrary = appLibrary
-        self.urlSession = urlSession
+        self.storeSearch = storeSearch
     }
 
+    /// Runs the command.
     public func run(_ options: Options) -> Result<(), MASError> {
-        guard let searchURLString = searchURLString(options.appName),
-              let searchJson = urlSession.requestSynchronousJSONWithURLString(searchURLString) as? [String: Any] else {
+        var appId: Int?
+
+        do {
+            guard let result = try storeSearch.lookup(app: options.appName)
+                else {
+                    print("No results found")
+                    return .failure(.noSearchResultsFound)
+            }
+
+            appId = result.trackId
+        }
+        catch {
+            // Bubble up MASErrors
+            if let error = error as? MASError {
+                return .failure(error)
+            }
             return .failure(.searchFailed)
         }
 
-        guard let resultCount = searchJson[ResultKeys.ResultCount] as? Int, resultCount > 0,
-              let results = searchJson[ResultKeys.Results] as? [[String: Any]] else {
-            print("No results found")
-            return .failure(.noSearchResultsFound)
-        }
+        guard let id = appId else { fatalError() }
 
-        let appId = results[0][ResultKeys.TrackId] as! UInt64
-
-        return install(appId, options: options)
+        return install(UInt64(id), options: options)
     }
 
+    /// Installs an app.
+    ///
+    /// - Parameters:
+    ///   - appId: App identifier
+    ///   - options: command opetions.
+    /// - Returns: Result of the operation.
     fileprivate func install(_ appId: UInt64, options: Options) -> Result<(), MASError> {
         // Try to download applications with given identifiers and collect results
         let downloadResults = [appId].compactMap { (appId) -> MASError? in
@@ -65,13 +81,6 @@ public struct LuckyCommand: CommandProtocol {
         default:
             return .failure(.downloadFailed(error: nil))
         }
-    }
-
-    func searchURLString(_ appName: String) -> String? {
-        if let urlEncodedAppName = appName.URLEncodedString {
-            return "https://itunes.apple.com/search?entity=macSoftware&term=\(urlEncodedAppName)&attribute=allTrackTerm"
-        }
-        return nil
     }
 }
 

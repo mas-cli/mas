@@ -15,14 +15,14 @@ public class MasStoreSearch: StoreSearch {
         self.networkManager = networkManager
     }
 
-    /// Looks up app details.
+    /// Searches for an app.
     ///
-    /// - Parameter appId: MAS ID of app
-    /// - Returns: Search result record of app or nil if no apps match the ID.
+    /// - Parameter appName: MAS ID of app
+    /// - Returns: Search results list of app. List will have no records if there were no matches. Never nil.
     /// - Throws: Error if there is a problem with the network request.
-    public func lookup(app appId: String) throws -> SearchResult? {
-        guard let url = lookupURL(forApp: appId)
-            else { throw MASError.searchFailed }
+    public func search(for appName: String) throws -> SearchResultList {
+        guard let url = searchURL(for: appName)
+            else { throw MASError.urlEncoding }
 
         let result = networkManager.loadDataSync(from: url)
 
@@ -32,18 +32,46 @@ public class MasStoreSearch: StoreSearch {
                 if case let .failure(error) = result {
                     throw error
                 }
-                throw MASError.searchFailed
+                throw MASError.noData
         }
 
-        guard let results = try? JSONDecoder().decode(SearchResultList.self, from: data)
+        do {
+            let results = try JSONDecoder().decode(SearchResultList.self, from: data)
+            return results
+        } catch {
+            throw MASError.jsonParsing(error: error as NSError)
+        }
+    }
+
+    /// Looks up app details.
+    ///
+    /// - Parameter appId: MAS ID of app
+    /// - Returns: Search result record of app or nil if no apps match the ID.
+    /// - Throws: Error if there is a problem with the network request.
+    public func lookup(app appId: String) throws -> SearchResult? {
+        guard let url = lookupURL(forApp: appId)
+            else { throw MASError.urlEncoding }
+
+        let result = networkManager.loadDataSync(from: url)
+
+        // Unwrap network result
+        guard case let .success(data) = result
             else {
-                // parse error
-                throw MASError.searchFailed
+                if case let .failure(error) = result {
+                    throw error
+                }
+                throw MASError.noData
         }
 
-        guard let searchResult = results.results.first
-            else { return nil }
+        do {
+            let results = try JSONDecoder().decode(SearchResultList.self, from: data)
 
-        return searchResult
+            guard let searchResult = results.results.first
+                else { return nil }
+
+            return searchResult
+        } catch {
+            throw MASError.jsonParsing(error: error as NSError)
+        }
     }
 }

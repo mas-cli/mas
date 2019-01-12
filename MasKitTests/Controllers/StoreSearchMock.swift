@@ -11,6 +11,11 @@
 class StoreSearchMock: StoreSearch {
     var apps: [Int: SearchResult] = [:]
 
+    func search(for appName: String) throws -> SearchResultList {
+        let filtered = apps.filter { $1.trackName.contains(appName) }
+        return SearchResultList(resultCount: filtered.count, results: filtered.map { $1 })
+    }
+
     func lookup(app appId: String) throws -> SearchResult? {
         guard let number = Int(appId)
             else { throw MASError.searchFailed }

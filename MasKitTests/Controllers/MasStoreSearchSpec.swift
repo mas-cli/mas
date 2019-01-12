@@ -13,23 +13,33 @@ import Nimble
 
 class MasStoreSearchSpec: QuickSpec {
     override func spec() {
-        let appId = 803453959
-        let urlSession = NetworkSessionMockFromFile(responseFile: "lookup/slack.json")
-        let storeSearch = MasStoreSearch(networkManager: NetworkManager(session: urlSession))
-
         describe("store search") {
-            it("can find slack") {
-                let result = try! storeSearch.lookup(app: appId.description)
-                expect(result).toNot(beNil())
-                expect(result!.trackId) == appId
+            fit("can find slack") {
+                let networkSession = NetworkSessionMockFromFile(responseFile: "search/slack.json")
+                let storeSearch = MasStoreSearch(networkManager: NetworkManager(session: networkSession))
 
-                expect(result!.bundleId) == "com.tinyspeck.slackmacgap"
-                expect(result!.price) == 0
-                expect(result!.sellerName) == "Slack Technologies, Inc."
-                expect(result!.sellerUrl) == "https://slack.com"
-                expect(result!.trackName) == "Slack"
-                expect(result!.trackViewUrl) == "https://itunes.apple.com/us/app/slack/id803453959?mt=12&uo=4"
-                expect(result!.version) == "3.3.3"
+                let searchList = try! storeSearch.search(for: "slack")
+                expect(searchList.resultCount) == 6
+                expect(searchList.results.count) == 6
+            }
+        }
+        describe("store lookup") {
+            it("can find slack") {
+                let appId = 803453959
+                let networkSession = NetworkSessionMockFromFile(responseFile: "lookup/slack.json")
+                let storeSearch = MasStoreSearch(networkManager: NetworkManager(session: networkSession))
+
+                let lookup = try! storeSearch.lookup(app: appId.description)
+                guard let result = lookup else { fatalError("lookup result was nil") }
+
+                expect(result.trackId) == appId
+                expect(result.bundleId) == "com.tinyspeck.slackmacgap"
+                expect(result.price) == 0
+                expect(result.sellerName) == "Slack Technologies, Inc."
+                expect(result.sellerUrl) == "https://slack.com"
+                expect(result.trackName) == "Slack"
+                expect(result.trackViewUrl) == "https://itunes.apple.com/us/app/slack/id803453959?mt=12&uo=4"
+                expect(result.version) == "3.3.3"
             }
         }
     }
