@@ -1,1 +1,2 @@
 brew "carthage"
+brew "swiftlint"

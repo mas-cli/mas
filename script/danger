@@ -1,0 +1,9 @@
+#!/bin/bash -e
+#
+# script/danger
+# mas-cli
+#
+
+echo "==> ⚠️ Running danger"
+
+bundle exec danger --verbose
