@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+
+
+## [v1.6.0] 🔗 Links - 2019-01-12
+
 - 👐🏻 Open AppStore.app with just `mas open` #200
 - ♻️🌐 Network refactor #198
 - 👷🏻‍♀️ Jenkins Pipeline #197
@@ -140,7 +144,8 @@ Use the `mas.pkg` package to install manually.
 ## [v1.0.0] - 2015-09-20
 - Initial Release
 
-[Unreleased]: https://github.com/mas-cli/mas/compare/v1.5.0...HEAD
+[Unreleased]: https://github.com/mas-cli/mas/compare/v1.6.0...HEAD
+[v1.6.0]: https://github.com/mas-cli/mas/compare/v1.5.0...v1.6.0
 [v1.5.0]: https://github.com/mas-cli/mas/compare/v1.4.4...v1.5.0
 [v1.4.4]: https://github.com/mas-cli/mas/compare/v1.4.3...v1.4.4
 [v1.4.3]: https://github.com/mas-cli/mas/compare/v1.4.2...v1.4.3
