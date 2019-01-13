@@ -26,18 +26,39 @@ fi
 # Build the formula
 brew install --build-bottle mas
 
-# Generate bottle do block
-BOTTLE_BLOCK=$(brew bottle --verbose --no-rebuild --root-url=$ROOT_URL mas)
+# Generate bottle do block, dropping last 2 lines
+brew bottle --verbose --no-rebuild --root-url=$ROOT_URL mas
 SHA256=$(shasum --algorithm 256 "$OLD_FILENAME" | cut -f 1 -d ' ' -)
 
 mkdir -p "$BOTTLE_DIR"
+
+# Start of bottle block
+BOTTLE_BLOCK=$(cat <<-SETVAR
+  bottle do
+    root_url "$ROOT_URL"
+    cellar :any
+SETVAR
+)
 
 # Fix filename
 for os in ${OS_VERSIONS[*]}; do
     new_filename="mas-${VERSION}.${os}.bottle.tar.gz"
     cp "$OLD_FILENAME" "$BOTTLE_DIR/$new_filename"
-    BOTTLE_BLOCK="$BOTTLE_BLOCK\nsha256 \"$SHA256\" => :$os"
+
+    # Append each os
+    BOTTLE_BLOCK="$BOTTLE_BLOCK"$(cat <<-SETVAR
+
+    sha256 "$SHA256" => :$os
+SETVAR
+)
 done
+
+# End of bottle block
+BOTTLE_BLOCK="$BOTTLE_BLOCK"$(cat <<-SETVAR
+
+  end
+SETVAR
+)
 
 rm "$OLD_FILENAME"
 ls -l "$BOTTLE_DIR"
