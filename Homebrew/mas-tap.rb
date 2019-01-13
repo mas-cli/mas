@@ -7,9 +7,12 @@ class Mas < Formula
   head "https://github.com/mas-cli/mas.git"
 
   bottle do
+    root_url "https://dl.bintray.com/phatblat/mas-bottles"
     cellar :any
-    sha256 "64ecec172ad61356756cd5e57a0b762d209475b5c2ac0b98ee878213e0944e41" => :mojave
-    sha256 "6308bcd96847857d1a491dab79a22dcc964d0442fbe36bdd22d64ceb7813e664" => :high_sierra
+    sha256 "8abb404d968f2b6201b2afdb199eb3154403c242821dc9bb6fb71597c5b85738" => :mojave
+    sha256 "8abb404d968f2b6201b2afdb199eb3154403c242821dc9bb6fb71597c5b85738" => :high_sierra
+    sha256 "8abb404d968f2b6201b2afdb199eb3154403c242821dc9bb6fb71597c5b85738" => :sierra
+    sha256 "8abb404d968f2b6201b2afdb199eb3154403c242821dc9bb6fb71597c5b85738" => :el_capitan
   end
 
   depends_on "carthage" => :build
