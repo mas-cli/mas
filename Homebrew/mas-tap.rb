@@ -2,17 +2,14 @@ class Mas < Formula
   desc "Mac App Store command-line interface"
   homepage "https://github.com/mas-cli/mas"
   url "https://github.com/mas-cli/mas.git",
-      :tag      => "v1.5.0",
-      :revision => "ccaaa74c9593d04dc41fcff40af196fdad49f517"
+      :tag      => "v1.6.0",
+      :revision => "af1e9d4cb404164fbe4e8db73159e1e15c0b3184"
   head "https://github.com/mas-cli/mas.git"
 
   bottle do
-    root_url "https://dl.bintray.com/phatblat/mas-bottles"
     cellar :any
-    sha256 "237fd7270cb8f0d68a33e7ce05671a2e5c269d05d736abb0f66b50215439084e" => :mojave
-    sha256 "237fd7270cb8f0d68a33e7ce05671a2e5c269d05d736abb0f66b50215439084e" => :high_sierra
-    sha256 "237fd7270cb8f0d68a33e7ce05671a2e5c269d05d736abb0f66b50215439084e" => :sierra
-    sha256 "237fd7270cb8f0d68a33e7ce05671a2e5c269d05d736abb0f66b50215439084e" => :el_capitan
+    sha256 "64ecec172ad61356756cd5e57a0b762d209475b5c2ac0b98ee878213e0944e41" => :mojave
+    sha256 "6308bcd96847857d1a491dab79a22dcc964d0442fbe36bdd22d64ceb7813e664" => :high_sierra
   end
 
   depends_on "carthage" => :build
@@ -38,5 +35,6 @@ class Mas < Formula
 
   test do
     assert_equal version.to_s, shell_output("#{bin}/mas version").chomp
+    assert_include shell_output("#{bin}/mas info 497799835"), "Xcode"
   end
 end
