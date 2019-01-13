@@ -1,0 +1,25 @@
+#!/bin/bash -e
+#
+# script/bottle
+# mas
+#
+# Builds bottles of mas Homebrew formula.
+#
+
+set ROOT_URL=https://dl.bintray.com/phatblat/mas-bottles
+
+echo "==> 🍼 Bottling mas"
+
+# Ensure core formula isn't shadowed by custom tap
+brew tap --list-pinned | grep mas-cli/tap && brew tap-unpin mas-cli/tap
+
+# Uninstall if necessary
+if brew ls --versions mas > /dev/null; then
+    brew uninstall mas
+fi
+
+# Build the formula
+brew install --build-bottle mas
+
+# Generate bottle do block
+brew bottle --verbose --no-rebuild --root-url=$ROOT_URL mas
