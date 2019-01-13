@@ -4,7 +4,7 @@ BUILD_DIR="$PWD/build"
 PROJECT="mas-cli.xcodeproj"
 SCHEME="mas-cli Release"
 CONFIG="Release"
-VERSION=$(agvtool what-marketing-version -terse1)
+VERSION=$(script/version)
 
 main() {
   script/clean
