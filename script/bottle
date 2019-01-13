@@ -6,9 +6,14 @@
 # Builds bottles of mas Homebrew formula.
 #
 
-set ROOT_URL=https://dl.bintray.com/phatblat/mas-bottles
+BUILD_DIR="$PWD/build"
+BOTTLE_DIR="$BUILD_DIR/bottles"
+VERSION=$(script/version)
+ROOT_URL="https://dl.bintray.com/phatblat/mas-bottles"
+OS_VERSIONS=(mojave high_sierra sierra el_capitan)
+OLD_FILENAME="mas--${VERSION}.${OS_VERSIONS[0]}.bottle.tar.gz"
 
-echo "==> 🍼 Bottling mas"
+echo "==> 🍼 Bottling mas ${VERSION} for ${OS_VERSIONS[*]}"
 
 # Ensure core formula isn't shadowed by custom tap
 brew tap --list-pinned | grep mas-cli/tap && brew tap-unpin mas-cli/tap
@@ -22,4 +27,18 @@ fi
 brew install --build-bottle mas
 
 # Generate bottle do block
-brew bottle --verbose --no-rebuild --root-url=$ROOT_URL mas
+BOTTLE_BLOCK=$(brew bottle --verbose --no-rebuild --root-url=$ROOT_URL mas)
+SHA256=$(shasum --algorithm 256 "$OLD_FILENAME" | cut -f 1 -d ' ' -)
+
+mkdir -p "$BOTTLE_DIR"
+
+# Fix filename
+for os in ${OS_VERSIONS[*]}; do
+    new_filename="mas-${VERSION}.${os}.bottle.tar.gz"
+    cp "$OLD_FILENAME" "$BOTTLE_DIR/$new_filename"
+    BOTTLE_BLOCK="$BOTTLE_BLOCK\nsha256 \"$SHA256\" => :$os"
+done
+
+rm "$OLD_FILENAME"
+ls -l "$BOTTLE_DIR"
+echo "$BOTTLE_BLOCK"
