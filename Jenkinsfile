@@ -56,8 +56,7 @@ pipeline {
         stage('Danger') {
             steps {
                 ansiColor('xterm') {
-                    // sh 'bundle install --verbose'
-                    sh 'bundle exec danger --verbose'
+                    sh 'script/danger'
                 }
             }
         }
