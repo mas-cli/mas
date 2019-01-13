@@ -29,7 +29,7 @@ pipeline {
     }
 
     stages {
-        stage('Assemble') {
+        stage('🏗️ Assemble') {
             steps {
                 ansiColor('xterm') {
                     sh 'script/bootstrap'
@@ -39,21 +39,21 @@ pipeline {
                 }
             }
         }
-        stage('Test') {
+        stage('✅ Test') {
             steps {
                 ansiColor('xterm') {
                     sh 'script/test'
                 }
             }
         }
-        stage('Lint') {
+        stage('🚨 Lint') {
             steps {
                 ansiColor('xterm') {
                     sh 'script/lint'
                 }
             }
         }
-        stage('Danger') {
+        stage('⚠️ Danger') {
             steps {
                 ansiColor('xterm') {
                     sh 'script/danger'
