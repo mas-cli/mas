@@ -5,5 +5,8 @@
 # http://help.houndci.com/configuration/swiftlint
 #
 ---
+erblint:
+  enabled: false
+
 swiftlint:
   config_file: .swiftlint.yml
