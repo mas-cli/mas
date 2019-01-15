@@ -17,6 +17,7 @@
 		B555292F219A219100ACB4CA /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406C213F4DDD0044E445 /* Nimble.framework */; };
 		B5552936219A23FF00ACB4CA /* Nimble.framework in Copy Carthage Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406C213F4DDD0044E445 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B5552937219A23FF00ACB4CA /* Quick.framework in Copy Carthage Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406A213F4DDD0044E445 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B55B3D9221ED9B8C0009A1A5 /* SearchResultFormatterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55B3D9121ED9B8C0009A1A5 /* SearchResultFormatterSpec.swift */; };
 		B576FDF321E03B780016B39D /* MasStoreSearchSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FDF221E03B780016B39D /* MasStoreSearchSpec.swift */; };
 		B576FDF521E1078F0016B39D /* MASErrorTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FDF421E1078F0016B39D /* MASErrorTestCase.swift */; };
 		B576FDF721E107AA0016B39D /* OpenSystemCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FDF621E107AA0016B39D /* OpenSystemCommand.swift */; };
@@ -226,6 +227,7 @@
 		B55B3D8D21ED96FD0009A1A5 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		B55B3D8E21ED96FD0009A1A5 /* Package */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Package; sourceTree = "<group>"; };
 		B55B3D8F21ED96FD0009A1A5 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		B55B3D9121ED9B8C0009A1A5 /* SearchResultFormatterSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultFormatterSpec.swift; sourceTree = "<group>"; };
 		B576FDF221E03B780016B39D /* MasStoreSearchSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasStoreSearchSpec.swift; sourceTree = "<group>"; };
 		B576FDF421E1078F0016B39D /* MASErrorTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MASErrorTestCase.swift; sourceTree = "<group>"; };
 		B576FDF621E107AA0016B39D /* OpenSystemCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenSystemCommand.swift; sourceTree = "<group>"; };
@@ -416,6 +418,14 @@
 				B55B3D8521ED96FD0009A1A5 /* script */,
 			);
 			name = Project;
+			sourceTree = "<group>";
+		};
+		B55B3D9021ED9B6A0009A1A5 /* Formatters */ = {
+			isa = PBXGroup;
+			children = (
+				B55B3D9121ED9B8C0009A1A5 /* SearchResultFormatterSpec.swift */,
+			);
+			path = Formatters;
 			sourceTree = "<group>";
 		};
 		B576FE0921E114BD0016B39D /* Network */ = {
@@ -696,6 +706,7 @@
 				B576FE2421E29CE80016B39D /* Errors */,
 				B576FE1921E28E530016B39D /* Extensions */,
 				B576FE1721E28E1F0016B39D /* ExternalCommands */,
+				B55B3D9021ED9B6A0009A1A5 /* Formatters */,
 				B5793E28219BDD4800135B39 /* JSON */,
 				B594B12C21D584E800F3AC59 /* Models */,
 				B576FE0A21E116470016B39D /* Network */,
@@ -1021,6 +1032,7 @@
 				B576FDF321E03B780016B39D /* MasStoreSearchSpec.swift in Sources */,
 				B576FE0C21E116590016B39D /* NetworkManagerTests.swift in Sources */,
 				B576FE1B21E28E8A0016B39D /* NetworkSessionMock.swift in Sources */,
+				B55B3D9221ED9B8C0009A1A5 /* SearchResultFormatterSpec.swift in Sources */,
 				B576FE2C21E42A230016B39D /* OutputListener.swift in Sources */,
 				B576FE1221E1D82D0016B39D /* NetworkSessionMockFromFile.swift in Sources */,
 				B5DBF81321DEEC7C00F3B151 /* OpenCommandSpec.swift in Sources */,
