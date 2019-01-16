@@ -1,13 +1,22 @@
+#!/usr/bin/env ruby
+#
+# Dangerfile
+# mas-cli
+#
+# https://danger.systems/guides/dangerfile.html
+#
+
 # Sometimes it's a README fix, or something like that - which isn't relevant for
 # including in a project's CHANGELOG for example
-has_app_changes = !git.modified_files.grep(/App/).empty?
-# has_test_changes = !git.modified_files.grep(/AppTests/).empty?
+has_app_changes = !git.modified_files.grep(/MasKit/).empty?
+has_test_changes = !git.modified_files.grep(/MasKitTests/).empty?
 
 is_version_bump = git.modified_files.sort == [
-    "App/mas-cli-Info.plist",
-    "AppTests/Info.plist",
     "CHANGELOG.md",
-    "mas-cli.xcodeproj/project.pbxproj"
+    "mas/mas-Info.plist",
+    "mas-cli.xcodeproj/project.pbxproj",
+    "MasKit/SupportingFiles/Info.plist",
+    "MasKitTests/SupportingFiles/Info.plist"
 ].sort
 message(":bookmark: Version bump!") if is_version_bump
 
