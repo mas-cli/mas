@@ -1,4 +1,10 @@
 #!/bin/bash -e
+#
+# script/lint
+# mas-cli
+#
+# Linting checks for CI "Lint" stage.
+#
 
 echo "==> 🚨 Linting mas"
 

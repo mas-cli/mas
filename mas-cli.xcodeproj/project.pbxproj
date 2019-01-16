@@ -974,7 +974,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if test -n \"$JENKINS_URL\"\nthen\n    echo \"Skipping SwiftLint run script on CI, will run in Lint stage.\"\n    return\nfi\n\nif which -s swiftlint; then\n    swiftlint lint --quiet\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "script/swiftlint_runscript\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
