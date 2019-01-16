@@ -7,8 +7,8 @@ main() {
 }
 
 check_class_dump() {
-  which class-dump >/dev/null
-  if [ $? -ne 0 ]; then
+
+  if command --quiet --search class-dump; then
     echo "'class-dump' is not installed" >&2
     exit 1
   fi

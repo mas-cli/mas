@@ -5,8 +5,15 @@
 # http://help.houndci.com/configuration/swiftlint
 #
 ---
+fail_on_violations: false
+
 erblint:
   enabled: false
 
+shellcheck:
+  enabled: true
+  config_file: .shellcheck.yml
+
 swiftlint:
+  enabled: true
   config_file: .swiftlint.yml

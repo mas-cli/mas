@@ -1,0 +1,8 @@
+#
+# .shellcheck.yml
+# mas-cli
+#
+#
+---
+exclude:
+  - script/sort.pl

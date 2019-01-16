@@ -1,5 +1,20 @@
 #!/bin/bash -e
+#
+# script/lint
+# mas-cli
+#
+# Linting checks for CI "Lint" stage.
+#
 
 echo "==> 🚨 Linting mas"
 
+echo
+echo "--> 🕊️ Swift"
 swiftlint lint --strict
+
+echo
+echo "--> 📜 Bash"
+shopt -s extglob
+# Only lint files with no extension (skipping .pl)
+shellcheck --shell=bash script/!(*.*)
+shopt -u extglob
