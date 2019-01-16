@@ -9,7 +9,7 @@
 if test -n "$JENKINS_URL"
 then
     echo "Skipping SwiftLint run script on CI, will run in Lint stage."
-    return
+    exit
 fi
 
 # 😕 When run from Xcode, the command command doesn't support these options

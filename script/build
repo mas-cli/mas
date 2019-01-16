@@ -43,7 +43,7 @@ build() {
 }
 
 archive() {
-  echo "==> 📦 Archiving  ($VERSION)"
+  echo "==> 📦 Archiving mas ($VERSION)"
   set -o pipefail && \
       xcodebuild -project "$PROJECT" \
           -scheme "$SCHEME" \
