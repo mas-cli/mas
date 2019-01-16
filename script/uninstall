@@ -4,5 +4,5 @@ PREFIX=/usr/local
 
 echo "==> 🔥 Uninstalling mas"
 
-trash /usr/local/Frameworks/MasKit.framework
-trash /usr/local/bin/mas
+trash $PREFIX/Frameworks/MasKit.framework
+trash $PREFIX/bin/mas
