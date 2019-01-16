@@ -228,6 +228,14 @@
 		B55B3D8E21ED96FD0009A1A5 /* Package */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Package; sourceTree = "<group>"; };
 		B55B3D8F21ED96FD0009A1A5 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B55B3D9121ED9B8C0009A1A5 /* SearchResultFormatterSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultFormatterSpec.swift; sourceTree = "<group>"; };
+		B55B3D9321EEA6A90009A1A5 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		B55B3D9421EEA6A90009A1A5 /* .hound.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .hound.yml; sourceTree = "<group>"; };
+		B55B3D9521EEA6AA0009A1A5 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
+		B55B3D9621EEA6AA0009A1A5 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
+		B55B3D9721EEA6AA0009A1A5 /* .github */ = {isa = PBXFileReference; lastKnownFileType = folder; path = .github; sourceTree = "<group>"; };
+		B55B3D9821EEA6AA0009A1A5 /* .ruby-version */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".ruby-version"; sourceTree = "<group>"; };
+		B55B3D9921EEA6AA0009A1A5 /* .bundle */ = {isa = PBXFileReference; lastKnownFileType = folder; path = .bundle; sourceTree = "<group>"; };
+		B55B3D9A21EEA6AA0009A1A5 /* .editorconfig */ = {isa = PBXFileReference; lastKnownFileType = text; path = .editorconfig; sourceTree = "<group>"; };
 		B576FDF221E03B780016B39D /* MasStoreSearchSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasStoreSearchSpec.swift; sourceTree = "<group>"; };
 		B576FDF421E1078F0016B39D /* MASErrorTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MASErrorTestCase.swift; sourceTree = "<group>"; };
 		B576FDF621E107AA0016B39D /* OpenSystemCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenSystemCommand.swift; sourceTree = "<group>"; };
@@ -393,6 +401,14 @@
 		B55B3D7821ED96AA0009A1A5 /* Project */ = {
 			isa = PBXGroup;
 			children = (
+				B55B3D9921EEA6AA0009A1A5 /* .bundle */,
+				B55B3D9A21EEA6AA0009A1A5 /* .editorconfig */,
+				B55B3D9721EEA6AA0009A1A5 /* .github */,
+				B55B3D9321EEA6A90009A1A5 /* .gitignore */,
+				B55B3D9421EEA6A90009A1A5 /* .hound.yml */,
+				B55B3D9821EEA6AA0009A1A5 /* .ruby-version */,
+				B55B3D9521EEA6AA0009A1A5 /* .swiftlint.yml */,
+				B55B3D9621EEA6AA0009A1A5 /* .travis.yml */,
 				B55B3D8C21ED96FD0009A1A5 /* bin */,
 				B55B3D8B21ED96FD0009A1A5 /* Brewfile */,
 				B55B3D8721ED96FD0009A1A5 /* build */,
