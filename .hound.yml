@@ -5,13 +5,12 @@
 # http://help.houndci.com/configuration/swiftlint
 #
 ---
-excluded:
-- Carthage/
-- docs/
-- MasKitTests/
-
+fail_on_violations: true
 erblint:
   enabled: false
-
+shellcheck:
+  enabled: true
+  config_file: .shellcheck.yml
 swiftlint:
+  enabled: true
   config_file: .swiftlint.yml
