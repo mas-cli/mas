@@ -5,6 +5,11 @@
 # http://help.houndci.com/configuration/swiftlint
 #
 ---
+excluded:
+- Carthage/
+- docs/
+- MasKitTests/
+
 erblint:
   enabled: false
 
