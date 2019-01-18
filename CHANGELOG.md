@@ -7,7 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-- 🐛 Restore search table output #205
+- 🐛 Fix `lucky` command #207
+- 🐛 Restore `search` table output #205
 
 ## [v1.6.0] 🔗 Links - 2019-01-12
 
