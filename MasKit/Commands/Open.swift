@@ -39,7 +39,13 @@ public struct OpenCommand: CommandProtocol {
                 return .success(())
             }
 
-            guard let result = try storeSearch.lookup(app: options.appId)
+            guard let appId = Int(options.appId)
+                else {
+                    print("Invalid app ID")
+                    return .failure(.noSearchResultsFound)
+            }
+
+            guard let result = try storeSearch.lookup(app: appId)
                 else {
                     print("No results found")
                     return .failure(.noSearchResultsFound)
@@ -83,6 +89,6 @@ public struct OpenOptions: OptionsProtocol {
 
     public static func evaluate(_ mode: CommandMode) -> Result<OpenOptions, CommandantError<MASError>> {
         return create
-            <*> mode <| Argument(defaultValue: markerValue, usage: "the app id")
+            <*> mode <| Argument(defaultValue: markerValue, usage: "the app ID")
     }
 }

@@ -63,14 +63,14 @@ public struct VendorCommand: CommandProtocol {
 }
 
 public struct VendorOptions: OptionsProtocol {
-    let appId: String
+    let appId: Int
 
-    static func create(_ appId: String) -> VendorOptions {
+    static func create(_ appId: Int) -> VendorOptions {
         return VendorOptions(appId: appId)
     }
 
     public static func evaluate(_ mode: CommandMode) -> Result<VendorOptions, CommandantError<MASError>> {
         return create
-            <*> mode <| Argument(usage: "the app id to show the vendor's website")
+            <*> mode <| Argument(usage: "the app ID to show the vendor's website")
     }
 }

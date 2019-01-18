@@ -16,16 +16,13 @@ class StoreSearchMock: StoreSearch {
         return SearchResultList(resultCount: filtered.count, results: filtered.map { $1 })
     }
 
-    func lookup(app appId: String) throws -> SearchResult? {
-        guard let number = Int(appId)
-            else { throw MASError.searchFailed }
-
+    func lookup(app appId: Int) throws -> SearchResult? {
         // Negative numbers are invalid
-        if number <= 0 {
+        if appId <= 0 {
             throw MASError.searchFailed
         }
 
-        guard let result = apps[number]
+        guard let result = apps[appId]
             else { throw MASError.noSearchResultsFound }
 
         return result

@@ -48,7 +48,7 @@ public class MasStoreSearch: StoreSearch {
     /// - Parameter appId: MAS ID of app
     /// - Returns: Search result record of app or nil if no apps match the ID.
     /// - Throws: Error if there is a problem with the network request.
-    public func lookup(app appId: String) throws -> SearchResult? {
+    public func lookup(app appId: Int) throws -> SearchResult? {
         guard let url = lookupURL(forApp: appId)
             else { throw MASError.urlEncoding }
 
