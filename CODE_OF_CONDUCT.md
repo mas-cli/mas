@@ -1,44 +1,76 @@
-# mas-cli Code of Conduct
+# Contributor Covenant Code of Conduct
 
-mas-cli strongly values contributors from anywhere, regardless of gender, sexual orientation, disability, physical appearance, body size, race, or religion. As a result, the mas-cli team has agreed to and enforces this code of conduct in order to provide a harassment-free experience for everyone who participates in the development of mas-cli.
+## Our Pledge
 
-### Summary
+In the interest of fostering an open and welcoming environment, we as
+contributors and maintainers pledge to making participation in our project and
+our community a harassment-free experience for everyone, regardless of age, body
+size, disability, ethnicity, sex characteristics, gender identity and expression,
+level of experience, education, socio-economic status, nationality, personal
+appearance, race, religion, or sexual identity and orientation.
 
-Harassment in code and discussion or violation of physical boundaries is completely unacceptable anywhere in mas-cli’s codebases, issue trackers, Slack, Campfire, mailing lists, meetups, and other events. Violators will be warned and then blocked or banned by the core team at or before the 3rd violation.
+## Our Standards
 
-### In detail
+Examples of behavior that contributes to creating a positive environment
+include:
 
-Harassment includes offensive verbal comments related to gender, sexual orientation, disability, physical appearance, body size, race, ethnicity, religion, sexual images, deliberate intimidation, stalking, sustained disruption, and unwelcome sexual attention.
+* Using welcoming and inclusive language
+* Being respectful of differing viewpoints and experiences
+* Gracefully accepting constructive criticism
+* Focusing on what is best for the community
+* Showing empathy towards other community members
 
-Individuals asked to stop any harassing behavior are expected to comply immediately.
+Examples of unacceptable behavior by participants include:
 
-Maintainers, including the core team, are also subject to the anti-harassment policy.
+* The use of sexualized language or imagery and unwelcome sexual attention or
+ advances
+* Trolling, insulting/derogatory comments, and personal or political attacks
+* Public or private harassment
+* Publishing others' private information, such as a physical or electronic
+ address, without explicit permission
+* Other conduct which could reasonably be considered inappropriate in a
+ professional setting
 
-If anyone engages in harassing behavior, including maintainers, we may take appropriate action, up to and including warning the offender, deletion of comments, removal from the project’s codebase and communication systems, and escalation to GitHub support.
+## Our Responsibilities
 
-If you are being harassed, notice that someone else is being harassed, or have any other concerns, please contact a member of [@mas-cli/admins](https://github.com/orgs/mas-cli/teams/admins) immediately.
+Project maintainers are responsible for clarifying the standards of acceptable
+behavior and are expected to take appropriate and fair corrective action in
+response to any instances of unacceptable behavior.
 
-We expect everyone to follow these rules anywhere in the mas-cli project’s codebases, issue trackers, IRC channel, group chat, and mailing lists.
+Project maintainers have the right and responsibility to remove, edit, or
+reject comments, commits, code, wiki edits, issues, and other contributions
+that are not aligned to this Code of Conduct, or to ban temporarily or
+permanently any contributor for other behaviors that they deem inappropriate,
+threatening, offensive, or harmful.
 
-This code of conduct applies both within project spaces and in public spaces when an individual is actively representing the project or its community. Due to their strong association with the project, core contributors are always seen as actively representing it.
+## Scope
 
-Finally, don't forget that it is human to make mistakes! We all do. Let’s work together to help each other, resolve issues, and learn from the mistakes that we will all inevitably make from time to time.
+This Code of Conduct applies both within project spaces and in public spaces
+when an individual is representing the project or its community. Examples of
+representing a project or community include using an official project e-mail
+address, posting via an official social media account, or acting as an appointed
+representative at an online or offline event. Representation of a project may be
+further defined and clarified by project maintainers.
 
-### Thanks
+## Enforcement
 
-Thanks to the [CocoaPods Code of Contact](https://github.com/CocoaPods/CocoaPods/blob/master/CODE_OF_CONDUCT.md),
-[Bundler Code of Conduct](https://github.com/bundler/bundler/blob/e3ce14f5ecd9b729338435c8689553ef209d83aa/CODE_OF_CONDUCT.md),
-[JSConf Code of Conduct](http://jsconf.com/codeofconduct.html),
-[Fedora Code of Conduct](http://fedoraproject.org/code-of-conduct), and
-[Contributor Covenant](http://contributor-covenant.org), version 1.2.0 for inspiration and ideas.
+Instances of abusive, harassing, or otherwise unacceptable behavior may be
+reported by contacting the project team at @mas-cli/admins. All
+complaints will be reviewed and investigated and will result in a response that
+is deemed necessary and appropriate to the circumstances. The project team is
+obligated to maintain confidentiality with regard to the reporter of an incident.
+Further details of specific enforcement policies may be posted separately.
 
-### License
+Project maintainers who do not follow or enforce the Code of Conduct in good
+faith may face temporary or permanent repercussions as determined by other
+members of the project's leadership.
 
-<p class="license" xmlns:dct="http://purl.org/dc/terms/" xmlns:vcard="http://www.w3.org/2001/vcard-rdf/3.0#">
-  To the extent possible under law, <a rel="dct:publisher" href="https://mas-cli.org/about">The mas-cli Team</a> has waived all copyright and related or neighboring rights to the <span property="dct:title">mas-cli Code of Conduct</span>. This work is published from the <span property="vcard:Country" datatype="dct:ISO3166" content="US" about="https://mas-cli.org">United States.</span>
-  <br>
-  <br>
-  <a rel="license" href="http://creativecommons.org/publicdomain/zero/1.0/">
-    <img src="http://i.creativecommons.org/p/zero/1.0/88x31.png" style="border-style: none;" alt="CC0">
-  </a>
-</p>
+## Attribution
+
+This Code of Conduct is adapted from the [Contributor Covenant][homepage], version 1.4,
+available at https://www.contributor-covenant.org/version/1/4/code-of-conduct.html
+
+[homepage]: https://www.contributor-covenant.org
+
+For answers to common questions about this code of conduct, see
+https://www.contributor-covenant.org/faq
