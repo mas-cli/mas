@@ -35,7 +35,8 @@ pipeline {
                     sh 'script/bootstrap'
                     sh 'script/build'
                     sh 'script/archive'
-                    sh 'script/package build/distribution-tmp'
+                    sh 'script/install build/distribution-tmp'
+                    sh 'script/package'
                 }
             }
         }
