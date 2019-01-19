@@ -1,4 +1,10 @@
 #!/bin/bash -e
+#
+# script/package_install
+# mas
+#
+# Installs the mas distribution package. Requires sudo access.
+#
 
 IDENTIFIER=com.mphys.mas-cli
 

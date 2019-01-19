@@ -3,7 +3,8 @@
 # script/bottle
 # mas
 #
-# Builds bottles of mas Homebrew formula.
+# Builds bottles of mas Homebrew formula for custom tap:
+# https://github.com/mas-cli/homebrew-tap
 #
 
 BUILD_DIR="$PWD/build"

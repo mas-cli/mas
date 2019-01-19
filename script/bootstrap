@@ -1,4 +1,11 @@
 #!/bin/bash -e
+#
+# script/bootstrap
+# mas
+#
+# Installs gem tools, installs Swift dependencies via CocoaPods and sorts
+# the Xcode project file references.
+#
 
 main() {
   echo "==> 👢 Bootstrapping"

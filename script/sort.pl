@@ -1,4 +1,10 @@
 #!/usr/bin/perl -w
+#
+# script/sort.pl
+# mas
+#
+# Sorts "children" and "files" sections in Xcode project.pbxproj files.
+#
 
 # Copyright (C) 2007, 2008, 2009, 2010 Apple Inc.  All rights reserved.
 #

@@ -1,4 +1,10 @@
 #!/bin/bash -e
+#
+# script/clean
+# mas
+#
+# Deletes the build and temp install directories.
+#
 
 BUILD_DIR=build
 INSTALL_DIR=/tmp/mas-cli.dst

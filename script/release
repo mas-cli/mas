@@ -1,4 +1,11 @@
 #!/bin/bash -e
+#
+# script/release
+# mas
+#
+# Updates app version in Info.plist file and tags release commit.
+# Not currently in use.
+#
 
 PLIST_FILE="$PWD/App/mas-cli-Info.plist"
 
@@ -29,7 +36,7 @@ update_version_number() {
 
   # Ask for the new one
   new_version_number=$(prompt "Enter version number [${version_number}]: ")
-  
+
   if [[ -z $new_version_number ]]; then
     echo "No version number specified"
     return 1
@@ -54,7 +61,7 @@ write_version_number() {
 }
 
 read_version_number() {
-  read_plist "CFBundleShortVersionString" 
+  read_plist "CFBundleShortVersionString"
 }
 
 read_plist() {

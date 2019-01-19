@@ -3,7 +3,8 @@
 # script/swiftlint_runscript
 # mas-cli
 #
-# SwiftLint invocation from inside Xcode. Minimal output.
+# Invokes SwiftLint from inside an Xcode run script build phase. Minimal output.
+# https://github.com/realm/SwiftLint
 #
 
 if test -n "$JENKINS_URL"
@@ -16,7 +17,6 @@ fi
 # command --quiet --search swiftlint
 # : command: --: invalid option
 # : command: usage: command [-pVv] command [arg ...]
-
 
 if command -v swiftlint > /dev/null; then
     swiftlint lint --quiet

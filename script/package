@@ -1,4 +1,10 @@
 #!/bin/bash -e
+#
+# script/package
+# mas
+#
+# Builds macOS installer component and distribution packages.
+#
 
 BUILD_DIR="$PWD/build"
 COMPONENT_PACKAGE="$BUILD_DIR/mas_components.pkg"
