@@ -12,7 +12,7 @@ import Nimble
 
 /// Protocol minimal implementation
 struct StoreSearchForTesting: StoreSearch {
-    func lookup(app appId: String) throws -> SearchResult? { return nil }
+    func lookup(app appId: Int) throws -> SearchResult? { return nil }
     func search(for appName: String) throws -> SearchResultList { return SearchResultList(resultCount: 0, results: []) }
 }
 

@@ -35,10 +35,10 @@ public struct LuckyCommand: CommandProtocol {
         var appId: Int?
 
         do {
-            guard let result = try storeSearch.lookup(app: options.appName)
-                else {
-                    print("No results found")
-                    return .failure(.noSearchResultsFound)
+            let results = try storeSearch.search(for: options.appName)
+            guard let result = results.results.first else {
+                print("No results found")
+                return .failure(.noSearchResultsFound)
             }
 
             appId = result.trackId

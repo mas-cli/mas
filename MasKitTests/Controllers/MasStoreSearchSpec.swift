@@ -39,7 +39,7 @@ class MasStoreSearchSpec: QuickSpec {
 
                 var lookup: SearchResult?
                 do {
-                    lookup = try storeSearch.lookup(app: appId.description)
+                    lookup = try storeSearch.lookup(app: appId)
                 } catch {
                     let maserror = error as! MASError
                     if case .jsonParsing(let nserror) = maserror {

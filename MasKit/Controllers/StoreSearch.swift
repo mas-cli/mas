@@ -8,7 +8,7 @@
 
 /// Protocol for searching the MAS catalog.
 public protocol StoreSearch {
-    func lookup(app appId: String) throws -> SearchResult?
+    func lookup(app appId: Int) throws -> SearchResult?
     func search(for appName: String) throws -> SearchResultList
 }
 
@@ -38,7 +38,7 @@ extension StoreSearch {
     ///
     /// - Parameter appId: MAS app identifier.
     /// - Returns: URL for the lookup service or nil if appId can't be encoded.
-    public func lookupURL(forApp appId: String) -> URL? {
+    public func lookupURL(forApp appId: Int) -> URL? {
         guard let urlString = lookupURLString(forApp: appId) else { return nil }
         return URL(string: urlString)
     }
@@ -46,9 +46,8 @@ extension StoreSearch {
     /// Builds the lookup URL for an app.
     ///
     /// - Parameter appId: MAS app identifier.
-    /// - Returns: String URL for the lookup service or nil if appId can't be encoded.
-    func lookupURLString(forApp appId: String) -> String? {
-        guard let urlEncodedAppId = appId.URLEncodedString else { return nil }
-        return "https://itunes.apple.com/lookup?id=\(urlEncodedAppId)"
+    /// - Returns: String URL for the lookup service.
+    func lookupURLString(forApp appId: Int) -> String? {
+        return "https://itunes.apple.com/lookup?id=\(appId)"
     }
 }

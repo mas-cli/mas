@@ -27,13 +27,13 @@ class HomeCommandSpec: QuickSpec {
                 storeSearch.reset()
             }
             it("fails to open app with invalid ID") {
-                let result = cmd.run(HomeCommand.Options(appId: "-999"))
+                let result = cmd.run(HomeCommand.Options(appId: -999))
                 expect(result).to(beFailure { error in
                     expect(error) == .searchFailed
                 })
             }
             it("can't find app with unknown ID") {
-                let result = cmd.run(HomeCommand.Options(appId: "999"))
+                let result = cmd.run(HomeCommand.Options(appId: 999))
                 expect(result).to(beFailure { error in
                     expect(error) == .noSearchResultsFound
                 })
@@ -41,7 +41,7 @@ class HomeCommandSpec: QuickSpec {
             it("opens app on MAS Preview") {
                 storeSearch.apps[result.trackId] = result
 
-                let cmdResult = cmd.run(HomeCommand.Options(appId: result.trackId.description))
+                let cmdResult = cmd.run(HomeCommand.Options(appId: result.trackId))
                 expect(cmdResult).to(beSuccess())
                 expect(openCommand.arguments).toNot(beNil())
                 expect(openCommand.arguments!.first!) == result.trackViewUrl
