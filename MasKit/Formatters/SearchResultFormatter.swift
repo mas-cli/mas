@@ -28,12 +28,12 @@ struct SearchResultFormatter {
             let price = result.price
 
             if includePrice {
-                output += String(format: "%12d  %@  $%5.2f  (%@)", appId, appName, price, version)
+                output += String(format: "%12d  %@  $%5.2f  (%@)\n", appId, appName, price, version)
             } else {
-                output += String(format: "%12d  %@ (%@)", appId, appName, version)
+                output += String(format: "%12d  %@ (%@)\n", appId, appName, version)
             }
         }
 
-        return output
+        return output.trimmingCharacters(in: .newlines)
     }
 }

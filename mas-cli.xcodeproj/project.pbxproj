@@ -17,6 +17,7 @@
 		B555292F219A219100ACB4CA /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406C213F4DDD0044E445 /* Nimble.framework */; };
 		B5552936219A23FF00ACB4CA /* Nimble.framework in Copy Carthage Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406C213F4DDD0044E445 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B5552937219A23FF00ACB4CA /* Quick.framework in Copy Carthage Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406A213F4DDD0044E445 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B55B3D9221ED9B8C0009A1A5 /* SearchResultFormatterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55B3D9121ED9B8C0009A1A5 /* SearchResultFormatterSpec.swift */; };
 		B576FDF321E03B780016B39D /* MasStoreSearchSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FDF221E03B780016B39D /* MasStoreSearchSpec.swift */; };
 		B576FDF521E1078F0016B39D /* MASErrorTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FDF421E1078F0016B39D /* MASErrorTestCase.swift */; };
 		B576FDF721E107AA0016B39D /* OpenSystemCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FDF621E107AA0016B39D /* OpenSystemCommand.swift */; };
@@ -203,6 +204,40 @@
 		90CB406A213F4DDD0044E445 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Quick.framework; sourceTree = "<group>"; };
 		90CB406B213F4DDD0044E445 /* Commandant.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Commandant.framework; sourceTree = "<group>"; };
 		90CB406C213F4DDD0044E445 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Nimble.framework; sourceTree = "<group>"; };
+		B55B3D7921ED96FC0009A1A5 /* Cartfile.resolved */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile.resolved; sourceTree = "<group>"; };
+		B55B3D7A21ED96FC0009A1A5 /* CODE_OF_CONDUCT.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CODE_OF_CONDUCT.md; sourceTree = "<group>"; };
+		B55B3D7B21ED96FC0009A1A5 /* Dangerfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Dangerfile; sourceTree = "<group>"; };
+		B55B3D7C21ED96FC0009A1A5 /* Cartfile.private */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile.private; sourceTree = "<group>"; };
+		B55B3D7D21ED96FC0009A1A5 /* releases */ = {isa = PBXFileReference; lastKnownFileType = folder; path = releases; sourceTree = "<group>"; };
+		B55B3D7E21ED96FD0009A1A5 /* docs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = docs; sourceTree = "<group>"; };
+		B55B3D7F21ED96FD0009A1A5 /* Gemfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Gemfile; sourceTree = "<group>"; };
+		B55B3D8021ED96FD0009A1A5 /* Carthage */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Carthage; sourceTree = "<group>"; };
+		B55B3D8121ED96FD0009A1A5 /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
+		B55B3D8221ED96FD0009A1A5 /* Gemfile.lock */ = {isa = PBXFileReference; lastKnownFileType = text; path = Gemfile.lock; sourceTree = "<group>"; };
+		B55B3D8321ED96FD0009A1A5 /* contrib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = contrib; sourceTree = "<group>"; };
+		B55B3D8421ED96FD0009A1A5 /* Homebrew */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Homebrew; sourceTree = "<group>"; };
+		B55B3D8521ED96FD0009A1A5 /* script */ = {isa = PBXFileReference; lastKnownFileType = folder; path = script; sourceTree = "<group>"; };
+		B55B3D8621ED96FD0009A1A5 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		B55B3D8721ED96FD0009A1A5 /* build */ = {isa = PBXFileReference; lastKnownFileType = folder; path = build; sourceTree = "<group>"; };
+		B55B3D8821ED96FD0009A1A5 /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
+		B55B3D8921ED96FD0009A1A5 /* Jenkinsfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Jenkinsfile; sourceTree = "<group>"; };
+		B55B3D8A21ED96FD0009A1A5 /* mas-cli.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mas-cli.png"; sourceTree = "<group>"; };
+		B55B3D8B21ED96FD0009A1A5 /* Brewfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Brewfile; sourceTree = "<group>"; };
+		B55B3D8C21ED96FD0009A1A5 /* bin */ = {isa = PBXFileReference; lastKnownFileType = folder; path = bin; sourceTree = "<group>"; };
+		B55B3D8D21ED96FD0009A1A5 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
+		B55B3D8E21ED96FD0009A1A5 /* Package */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Package; sourceTree = "<group>"; };
+		B55B3D8F21ED96FD0009A1A5 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		B55B3D9121ED9B8C0009A1A5 /* SearchResultFormatterSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultFormatterSpec.swift; sourceTree = "<group>"; };
+		B55B3D9321EEA6A90009A1A5 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		B55B3D9421EEA6A90009A1A5 /* .hound.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .hound.yml; sourceTree = "<group>"; };
+		B55B3D9521EEA6AA0009A1A5 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
+		B55B3D9621EEA6AA0009A1A5 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
+		B55B3D9721EEA6AA0009A1A5 /* .github */ = {isa = PBXFileReference; lastKnownFileType = folder; path = .github; sourceTree = "<group>"; };
+		B55B3D9821EEA6AA0009A1A5 /* .ruby-version */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".ruby-version"; sourceTree = "<group>"; };
+		B55B3D9921EEA6AA0009A1A5 /* .bundle */ = {isa = PBXFileReference; lastKnownFileType = folder; path = .bundle; sourceTree = "<group>"; };
+		B55B3D9A21EEA6AA0009A1A5 /* .editorconfig */ = {isa = PBXFileReference; lastKnownFileType = text; path = .editorconfig; sourceTree = "<group>"; };
+		B55B3D9B21EEBD6E0009A1A5 /* .shellcheck.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .shellcheck.yml; sourceTree = "<group>"; };
+		B55B3D9D21EEBD7D0009A1A5 /* .envrc */ = {isa = PBXFileReference; lastKnownFileType = text; path = .envrc; sourceTree = "<group>"; };
 		B576FDF221E03B780016B39D /* MasStoreSearchSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasStoreSearchSpec.swift; sourceTree = "<group>"; };
 		B576FDF421E1078F0016B39D /* MASErrorTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MASErrorTestCase.swift; sourceTree = "<group>"; };
 		B576FDF621E107AA0016B39D /* OpenSystemCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenSystemCommand.swift; sourceTree = "<group>"; };
@@ -363,6 +398,54 @@
 			);
 			name = Carthage;
 			path = Carthage/Build/Mac;
+			sourceTree = "<group>";
+		};
+		B55B3D7821ED96AA0009A1A5 /* Project */ = {
+			isa = PBXGroup;
+			children = (
+				B55B3D9921EEA6AA0009A1A5 /* .bundle */,
+				B55B3D9A21EEA6AA0009A1A5 /* .editorconfig */,
+				B55B3D9D21EEBD7D0009A1A5 /* .envrc */,
+				B55B3D9721EEA6AA0009A1A5 /* .github */,
+				B55B3D9321EEA6A90009A1A5 /* .gitignore */,
+				B55B3D9421EEA6A90009A1A5 /* .hound.yml */,
+				B55B3D9821EEA6AA0009A1A5 /* .ruby-version */,
+				B55B3D9B21EEBD6E0009A1A5 /* .shellcheck.yml */,
+				B55B3D9521EEA6AA0009A1A5 /* .swiftlint.yml */,
+				B55B3D9621EEA6AA0009A1A5 /* .travis.yml */,
+				B55B3D8C21ED96FD0009A1A5 /* bin */,
+				B55B3D8B21ED96FD0009A1A5 /* Brewfile */,
+				B55B3D8721ED96FD0009A1A5 /* build */,
+				B55B3D8121ED96FD0009A1A5 /* Cartfile */,
+				B55B3D7C21ED96FC0009A1A5 /* Cartfile.private */,
+				B55B3D7921ED96FC0009A1A5 /* Cartfile.resolved */,
+				B55B3D8021ED96FD0009A1A5 /* Carthage */,
+				B55B3D8D21ED96FD0009A1A5 /* CHANGELOG.md */,
+				B55B3D7A21ED96FC0009A1A5 /* CODE_OF_CONDUCT.md */,
+				B55B3D8321ED96FD0009A1A5 /* contrib */,
+				B55B3D8821ED96FD0009A1A5 /* CONTRIBUTING.md */,
+				B55B3D7B21ED96FC0009A1A5 /* Dangerfile */,
+				B55B3D7E21ED96FD0009A1A5 /* docs */,
+				B55B3D7F21ED96FD0009A1A5 /* Gemfile */,
+				B55B3D8221ED96FD0009A1A5 /* Gemfile.lock */,
+				B55B3D8421ED96FD0009A1A5 /* Homebrew */,
+				B55B3D8921ED96FD0009A1A5 /* Jenkinsfile */,
+				B55B3D8621ED96FD0009A1A5 /* LICENSE */,
+				B55B3D8A21ED96FD0009A1A5 /* mas-cli.png */,
+				B55B3D8E21ED96FD0009A1A5 /* Package */,
+				B55B3D8F21ED96FD0009A1A5 /* README.md */,
+				B55B3D7D21ED96FC0009A1A5 /* releases */,
+				B55B3D8521ED96FD0009A1A5 /* script */,
+			);
+			name = Project;
+			sourceTree = "<group>";
+		};
+		B55B3D9021ED9B6A0009A1A5 /* Formatters */ = {
+			isa = PBXGroup;
+			children = (
+				B55B3D9121ED9B8C0009A1A5 /* SearchResultFormatterSpec.swift */,
+			);
+			path = Formatters;
 			sourceTree = "<group>";
 		};
 		B576FE0921E114BD0016B39D /* Network */ = {
@@ -549,6 +632,7 @@
 				F8FB715E20F2B41400F56FDC /* MasKitTests */,
 				F8FB719920F2EC4500F56FDC /* PrivateFrameworks */,
 				ED031A791B5127C00097692E /* Products */,
+				B55B3D7821ED96AA0009A1A5 /* Project */,
 			);
 			sourceTree = "<group>";
 		};
@@ -642,6 +726,7 @@
 				B576FE2421E29CE80016B39D /* Errors */,
 				B576FE1921E28E530016B39D /* Extensions */,
 				B576FE1721E28E1F0016B39D /* ExternalCommands */,
+				B55B3D9021ED9B6A0009A1A5 /* Formatters */,
 				B5793E28219BDD4800135B39 /* JSON */,
 				B594B12C21D584E800F3AC59 /* Models */,
 				B576FE0A21E116470016B39D /* Network */,
@@ -889,7 +974,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which -s swiftlint; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "script/swiftlint_runscript\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -967,6 +1052,7 @@
 				B576FDF321E03B780016B39D /* MasStoreSearchSpec.swift in Sources */,
 				B576FE0C21E116590016B39D /* NetworkManagerTests.swift in Sources */,
 				B576FE1B21E28E8A0016B39D /* NetworkSessionMock.swift in Sources */,
+				B55B3D9221ED9B8C0009A1A5 /* SearchResultFormatterSpec.swift in Sources */,
 				B576FE2C21E42A230016B39D /* OutputListener.swift in Sources */,
 				B576FE1221E1D82D0016B39D /* NetworkSessionMockFromFile.swift in Sources */,
 				B5DBF81321DEEC7C00F3B151 /* OpenCommandSpec.swift in Sources */,
@@ -1037,7 +1123,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
-				CURRENT_PROJECT_VERSION = 10501000;
+				CURRENT_PROJECT_VERSION = 10601000;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -1102,7 +1188,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
-				CURRENT_PROJECT_VERSION = 10501000;
+				CURRENT_PROJECT_VERSION = 10601000;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1189,10 +1275,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 10501000;
+				CURRENT_PROJECT_VERSION = 10601000;
 				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 5.0;
-				DYLIB_CURRENT_VERSION = 5.1;
+				DYLIB_COMPATIBILITY_VERSION = 6.0;
+				DYLIB_CURRENT_VERSION = 6.1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1227,10 +1313,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 10501000;
+				CURRENT_PROJECT_VERSION = 10601000;
 				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 5.0;
-				DYLIB_CURRENT_VERSION = 5.1;
+				DYLIB_COMPATIBILITY_VERSION = 6.0;
+				DYLIB_CURRENT_VERSION = 6.1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

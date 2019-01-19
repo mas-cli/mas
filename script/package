@@ -16,9 +16,9 @@ DISTRIBUTION_PLIST="Package/Distribution.plist"
 # Destination for `xcodebuild install`
 # DSTROOT will be updated if unset.
 INSTALL_TEMPORARY_FOLDER=${DSTROOT:-build/distributions}
-mkdir -p $INSTALL_TEMPORARY_FOLDER
+mkdir -p "$INSTALL_TEMPORARY_FOLDER"
 
-VERSION=$(agvtool what-marketing-version -terse1)
+VERSION=$(script/version)
 
 # Final destination.
 PREFIX=/usr/local

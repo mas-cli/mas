@@ -2,7 +2,7 @@
 
 PREFIX=/usr/local
 
-echo "==> 🔥 Installing mas"
+echo "==> 🔥 Uninstalling mas"
 
-rm -rf /usr/local/Frameworks/MasKit.framework
-rm -f /usr/local/bin/mas
+trash $PREFIX/Frameworks/MasKit.framework
+trash $PREFIX/bin/mas

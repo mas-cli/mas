@@ -46,14 +46,14 @@ public struct InfoCommand: CommandProtocol {
 }
 
 public struct InfoOptions: OptionsProtocol {
-    let appId: String
+    let appId: Int
 
-    static func create(_ appId: String) -> InfoOptions {
+    static func create(_ appId: Int) -> InfoOptions {
         return InfoOptions(appId: appId)
     }
 
     public static func evaluate(_ mode: CommandMode) -> Result<InfoOptions, CommandantError<MASError>> {
         return create
-            <*> mode <| Argument(usage: "the app id to show info")
+            <*> mode <| Argument(usage: "ID of app to show info")
     }
 }

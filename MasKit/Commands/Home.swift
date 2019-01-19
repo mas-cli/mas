@@ -60,9 +60,9 @@ public struct HomeCommand: CommandProtocol {
 }
 
 public struct HomeOptions: OptionsProtocol {
-    let appId: String
+    let appId: Int
 
-    static func create(_ appId: String) -> HomeOptions {
+    static func create(_ appId: Int) -> HomeOptions {
         return HomeOptions(appId: appId)
     }
 

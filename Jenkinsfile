@@ -29,7 +29,7 @@ pipeline {
     }
 
     stages {
-        stage('Assemble') {
+        stage('🏗️ Assemble') {
             steps {
                 ansiColor('xterm') {
                     sh 'script/bootstrap'
@@ -39,25 +39,24 @@ pipeline {
                 }
             }
         }
-        stage('Test') {
+        stage('✅ Test') {
             steps {
                 ansiColor('xterm') {
                     sh 'script/test'
                 }
             }
         }
-        stage('Lint') {
+        stage('🚨 Lint') {
             steps {
                 ansiColor('xterm') {
-                    echo 'Not implemented'
+                    sh 'script/lint'
                 }
             }
         }
-        stage('Danger') {
+        stage('⚠️ Danger') {
             steps {
                 ansiColor('xterm') {
-                    // sh 'bundle install --verbose'
-                    sh 'bundle exec danger --verbose'
+                    sh 'script/danger'
                 }
             }
         }
