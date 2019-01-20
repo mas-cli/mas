@@ -1,4 +1,10 @@
-#!/bin/bash 
+#!/bin/bash
+#
+# script/update_headers
+# mas
+#
+# Runs class-dump to generate headers for Apple private frameworks.
+#
 
 main() {
   check_class_dump
@@ -7,7 +13,6 @@ main() {
 }
 
 check_class_dump() {
-
   if command --quiet --search class-dump; then
     echo "'class-dump' is not installed" >&2
     exit 1

@@ -1,7 +1,7 @@
 #!/bin/bash -e
 #
 # script/lint
-# mas-cli
+# mas
 #
 # Linting checks for CI "Lint" stage.
 #

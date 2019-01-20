@@ -1,8 +1,19 @@
 #!/bin/bash -e
+#
+# script/uninstall
+# mas
+#
+# Removes mas and MasKit from PREFIX.
+#
 
 PREFIX=/usr/local
 
-echo "==> 🔥 Uninstalling mas"
+# Override default prefix path with optional 1st arg
+if test -n "$1"; then
+    PREFIX="$1"
+fi
 
-trash $PREFIX/Frameworks/MasKit.framework
-trash $PREFIX/bin/mas
+echo "==> 🔥 Uninstalling mas from $PREFIX"
+
+trash "$PREFIX/Frameworks/MasKit.framework"
+trash "$PREFIX/bin/mas"

@@ -1,8 +1,18 @@
 #!/bin/bash -e
 #
 # script/install
-# This script is called by the Homebrew formula, so should not
-# rely on any dependencies.
+# mas
+#
+# Installs mas into PREFIX using the following steps:
+#
+# 1. Invokes the xcodebuild install action.
+# 2. Copies the mas binary and MasKit.framework bundle into their correct
+#    relative positions under PREFIX.
+# 3. Linker paths are updated on the mas binary so it can find MasKit under PREFIX.
+#
+# NOTE: This script is called by the mas Homebrew formula so it has only system
+# dependencies aside from xcodebuild.
+# https://github.com/Homebrew/homebrew-core/blob/master/Formula/mas.rb
 #
 
 BUILD_DIR="$PWD/build"

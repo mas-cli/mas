@@ -3,7 +3,7 @@
 # script/version
 # mas
 #
-# Displays the current marketing version of mas
+# Displays the current marketing version of mas.
 #
 
 agvtool what-marketing-version -terse1

@@ -1,4 +1,10 @@
 #!/bin/bash -e
+#
+# script/package
+# mas
+#
+# Builds macOS installer component and distribution packages.
+#
 
 BUILD_DIR="$PWD/build"
 COMPONENT_PACKAGE="$BUILD_DIR/mas_components.pkg"
@@ -19,17 +25,6 @@ INSTALL_TEMPORARY_FOLDER=${DSTROOT:-build/distributions}
 mkdir -p "$INSTALL_TEMPORARY_FOLDER"
 
 VERSION=$(script/version)
-
-# Final destination.
-PREFIX=/usr/local
-
-# Override default prefix path with optional 1st arg
-if test -n "$1"; then
-    PREFIX="$1"
-fi
-
-# Run Xcode's install process
-script/install "$PREFIX"
 
 echo "==> 📦 Assemble an installer package"
 

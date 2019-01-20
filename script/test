@@ -1,13 +1,15 @@
 #!/bin/bash -e
+#
+# script/test
+# mas
+#
+# Runs mas tests. Uses xcpretty gem to format output.
+#
 
 BUILD_DIR="$PWD/build"
 PROJECT="mas-cli.xcodeproj"
 SCHEME="mas-cli Debug"
 CONFIG="Debug"
-
-main() {
-  test
-}
 
 # OBJROOT - Intermediate Build Files Path
 # The path where intermediate files will be placed during a build. Intermediate files include generated sources, object
@@ -22,16 +24,13 @@ main() {
 # The path at which all products will be placed when performing a build. Typically this path is not set per target,
 # but is set per-project or per-user. By default, this is set to `$(PROJECT_DIR)/build`.
 
-test() {
-  echo "==> ✅ Testing"
-  set -o pipefail && \
-      xcodebuild -project "$PROJECT" \
-          -scheme "$SCHEME" \
-          -configuration "$CONFIG" \
-          OBJROOT="$BUILD_DIR" \
-          SYMROOT="$BUILD_DIR" \
-          test \
-      | bundle exec xcpretty --color
-}
+echo "==> ✅ Testing"
 
-main
+set -o pipefail && \
+    xcodebuild -project "$PROJECT" \
+        -scheme "$SCHEME" \
+        -configuration "$CONFIG" \
+        OBJROOT="$BUILD_DIR" \
+        SYMROOT="$BUILD_DIR" \
+        test \
+    | bundle exec xcpretty --color

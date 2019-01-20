@@ -4,6 +4,10 @@
  * mas-cli
  *
  * Declarative Jenkins pipeline script - https://jenkins.io/doc/book/pipeline/
+ *
+ * sh steps use "label:" argument, new in Pipeline: Nodes and Processes 2.28
+ * https://plugins.jenkins.io/workflow-durable-task-step
+ * https://jenkins.io/doc/pipeline/steps/workflow-durable-task-step/#sh-shell-script
  */
 
 pipeline {
@@ -32,31 +36,32 @@ pipeline {
         stage('🏗️ Assemble') {
             steps {
                 ansiColor('xterm') {
-                    sh 'script/bootstrap'
-                    sh 'script/build'
-                    sh 'script/archive'
-                    sh 'script/package build/distribution-tmp'
+                    sh script: 'script/bootstrap', label: "👢 Bootstrap"
+                    sh script: 'script/build', label: "🏗️ Build"
+                    sh script: 'script/archive', label: "🗜️ Archive"
+                    sh script: 'script/install build/distribution-tmp', label: "📲 Install"
+                    sh script: 'script/package', label: "📦 Package"
                 }
             }
         }
         stage('✅ Test') {
             steps {
                 ansiColor('xterm') {
-                    sh 'script/test'
+                    sh script: 'script/test', label: "✅ Test"
                 }
             }
         }
         stage('🚨 Lint') {
             steps {
                 ansiColor('xterm') {
-                    sh 'script/lint'
+                    sh script: 'script/lint', label: "🚨 Lint"
                 }
             }
         }
         stage('⚠️ Danger') {
             steps {
                 ansiColor('xterm') {
-                    sh 'script/danger'
+                    sh script: 'script/danger', label: "⚠️ Danger"
                 }
             }
         }
