@@ -38,6 +38,10 @@ public class MasAppLibrary: AppLibrary {
     /// - Parameter app: App to be removed.
     /// - Throws: Error if there is a problem.
     public func uninstallApp(app: SoftwareProduct) throws {
+        if !userIsRoot() {
+            printWarning("Apps installed from the Mac App Store require root permission to remove.")
+        }
+
         let fileManager = FileManager()
         let appUrl = URL(fileURLWithPath: app.bundlePath)
 
@@ -57,5 +61,12 @@ public class MasAppLibrary: AppLibrary {
             printError("Unable to move app to trash.")
             throw MASError.uninstallFailed
         }
+    }
+
+    /// Detects whether the current user is root.
+    ///
+    /// - Returns: true if the current user is root; false otherwise
+    private func userIsRoot() -> Bool {
+        return NSUserName() == "root"
     }
 }
