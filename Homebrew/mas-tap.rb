@@ -17,7 +17,6 @@ class Mas < Formula
 
   depends_on "carthage" => :build
   depends_on :xcode => ["10.1", :build]
-  depends_on "trash"
 
   def install
     # Working around build issues in dependencies
