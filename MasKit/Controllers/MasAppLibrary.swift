@@ -42,7 +42,17 @@ public class MasAppLibrary: AppLibrary {
         let appUrl = URL(fileURLWithPath: app.bundlePath)
 
         do {
-            try fileManager.trashItem(at: appUrl, resultingItemURL: nil)
+            var trashUrl: NSURL?
+            try withUnsafeMutablePointer(to: &trashUrl) { (mutablePointer: UnsafeMutablePointer<NSURL?>) in
+                let pointer = AutoreleasingUnsafeMutablePointer<NSURL?>(mutablePointer)
+
+                // Move item to trash
+                try fileManager.trashItem(at: appUrl, resultingItemURL: pointer)
+
+                if let url = pointer.pointee, let path = url.path {
+                    printInfo("App moved to trash: \(path)")
+                }
+            }
         } catch {
             printError("Unable to move app to trash.")
             throw MASError.uninstallFailed
