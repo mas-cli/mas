@@ -22,12 +22,8 @@ public class MasAppLibrary: AppLibrary {
         return products
     }()
 
-    private var trashCommand: ExternalCommand
-
     /// Designated initializer
-    public init(trashCommand: ExternalCommand = TrashCommand()) {
-        self.trashCommand = trashCommand
-    }
+    public init() {}
 
     /// Finds an app using a bundle identifier.
     ///
@@ -42,15 +38,13 @@ public class MasAppLibrary: AppLibrary {
     /// - Parameter app: App to be removed.
     /// - Throws: Error if there is a problem.
     public func uninstallApp(app: SoftwareProduct) throws {
+        let fileManager = FileManager()
+        let appUrl = URL(fileURLWithPath: app.bundlePath)
+
         do {
-            try trashCommand.run(arguments: app.bundlePath)
+            try fileManager.trashItem(at: appUrl, resultingItemURL: nil)
         } catch {
-            printError("Unable to launch trash command")
-            throw MASError.uninstallFailed
-        }
-        if trashCommand.failed {
-            let reason = trashCommand.process.terminationReason
-            printError("Uninstall failed: (\(reason)) \(trashCommand.stderr)")
+            printError("Unable to move app to trash.")
             throw MASError.uninstallFailed
         }
     }

@@ -45,7 +45,6 @@
 		B576FE3521E98AAE0016B39D /* StoreSearchSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE3421E98AAE0016B39D /* StoreSearchSpec.swift */; };
 		B5793E29219BDD4800135B39 /* JSON in Resources */ = {isa = PBXBuildFile; fileRef = B5793E28219BDD4800135B39 /* JSON */; };
 		B588CE0221DC89490047D305 /* ExternalCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B588CE0121DC89490047D305 /* ExternalCommand.swift */; };
-		B588CE0421DC8AFB0047D305 /* TrashCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B588CE0321DC8AFB0047D305 /* TrashCommand.swift */; };
 		B594B12021D53A8200F3AC59 /* Uninstall.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B11F21D53A8200F3AC59 /* Uninstall.swift */; };
 		B594B12221D5416100F3AC59 /* ListCommandSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B12121D5416100F3AC59 /* ListCommandSpec.swift */; };
 		B594B12521D580BB00F3AC59 /* UninstallCommandSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B12421D580BB00F3AC59 /* UninstallCommandSpec.swift */; };
@@ -264,7 +263,6 @@
 		B576FE3421E98AAE0016B39D /* StoreSearchSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreSearchSpec.swift; sourceTree = "<group>"; };
 		B5793E28219BDD4800135B39 /* JSON */ = {isa = PBXFileReference; lastKnownFileType = folder; path = JSON; sourceTree = "<group>"; };
 		B588CE0121DC89490047D305 /* ExternalCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalCommand.swift; sourceTree = "<group>"; };
-		B588CE0321DC8AFB0047D305 /* TrashCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrashCommand.swift; sourceTree = "<group>"; };
 		B594B11F21D53A8200F3AC59 /* Uninstall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Uninstall.swift; sourceTree = "<group>"; };
 		B594B12121D5416100F3AC59 /* ListCommandSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListCommandSpec.swift; sourceTree = "<group>"; };
 		B594B12421D580BB00F3AC59 /* UninstallCommandSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UninstallCommandSpec.swift; sourceTree = "<group>"; };
@@ -586,7 +584,6 @@
 			children = (
 				B588CE0121DC89490047D305 /* ExternalCommand.swift */,
 				B576FDF621E107AA0016B39D /* OpenSystemCommand.swift */,
-				B588CE0321DC8AFB0047D305 /* TrashCommand.swift */,
 			);
 			path = ExternalCommands;
 			sourceTree = "<group>";
@@ -1026,7 +1023,6 @@
 				F8FB716E20F2B4DD00F56FDC /* StoreAccount.swift in Sources */,
 				B594B15021D8998000F3AC59 /* StoreSearch.swift in Sources */,
 				B576FE0E21E1D6310016B39D /* String+PercentEncoding.swift in Sources */,
-				B588CE0421DC8AFB0047D305 /* TrashCommand.swift in Sources */,
 				B594B12021D53A8200F3AC59 /* Uninstall.swift in Sources */,
 				F8FB717920F2B4DD00F56FDC /* Upgrade.swift in Sources */,
 				B576FE0221E1139E0016B39D /* URLSession+NetworkSession.swift in Sources */,
