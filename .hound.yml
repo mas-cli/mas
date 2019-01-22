@@ -10,6 +10,9 @@ fail_on_violations: false
 erblint:
   enabled: false
 
+rubocop:
+  enabled: false
+
 shellcheck:
   enabled: true
   config_file: .shellcheck.yml
