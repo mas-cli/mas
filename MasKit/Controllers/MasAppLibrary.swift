@@ -22,12 +22,8 @@ public class MasAppLibrary: AppLibrary {
         return products
     }()
 
-    private var trashCommand: ExternalCommand
-
     /// Designated initializer
-    public init(trashCommand: ExternalCommand = TrashCommand()) {
-        self.trashCommand = trashCommand
-    }
+    public init() {}
 
     /// Finds an app using a bundle identifier.
     ///
@@ -42,16 +38,35 @@ public class MasAppLibrary: AppLibrary {
     /// - Parameter app: App to be removed.
     /// - Throws: Error if there is a problem.
     public func uninstallApp(app: SoftwareProduct) throws {
+        if !userIsRoot() {
+            printWarning("Apps installed from the Mac App Store require root permission to remove.")
+        }
+
+        let fileManager = FileManager()
+        let appUrl = URL(fileURLWithPath: app.bundlePath)
+
         do {
-            try trashCommand.run(arguments: app.bundlePath)
+            var trashUrl: NSURL?
+            try withUnsafeMutablePointer(to: &trashUrl) { (mutablePointer: UnsafeMutablePointer<NSURL?>) in
+                let pointer = AutoreleasingUnsafeMutablePointer<NSURL?>(mutablePointer)
+
+                // Move item to trash
+                try fileManager.trashItem(at: appUrl, resultingItemURL: pointer)
+
+                if let url = pointer.pointee, let path = url.path {
+                    printInfo("App moved to trash: \(path)")
+                }
+            }
         } catch {
-            printError("Unable to launch trash command")
+            printError("Unable to move app to trash.")
             throw MASError.uninstallFailed
         }
-        if trashCommand.failed {
-            let reason = trashCommand.process.terminationReason
-            printError("Uninstall failed: (\(reason)) \(trashCommand.stderr)")
-            throw MASError.uninstallFailed
-        }
+    }
+
+    /// Detects whether the current user is root.
+    ///
+    /// - Returns: true if the current user is root; false otherwise
+    private func userIsRoot() -> Bool {
+        return NSUserName() == "root"
     }
 }
