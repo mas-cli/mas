@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+
+
+## [v1.6.2] 🗑 Trashy - 2019-01-21
+
 - 🗑🐛 Remove external trash command dependency #210
 
 ## [v1.6.1] 🍀 Lucky Again - 2019-01-18
