@@ -14,12 +14,13 @@ import StoreFoundation
 public struct OsCommand: CommandProtocol {
     public typealias Options = NoOptions<MASError>
     public let verb = "os"
-    public let function = "Manages macOS installer"
+    public let function = "Manages macOS installer app"
 
     public init() {}
 
     /// Runs the command.
     public func run(_ options: Options) -> Result<(), MASError> {
+        printInfo("Available macOS Installers:")
         for installer in MacOS.allCases {
             print("  - \(installer)")
         }
