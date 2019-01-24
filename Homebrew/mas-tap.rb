@@ -2,17 +2,17 @@ class Mas < Formula
   desc "Mac App Store command-line interface"
   homepage "https://github.com/mas-cli/mas"
   url "https://github.com/mas-cli/mas.git",
-      :tag      => "v1.6.1",
-      :revision => "153c40868b7e1a4f5c587f998209f60740ecc26c"
+      :tag      => "v1.6.2",
+      :revision => "b3197cf3caa797aa8689cd15da3518cc7149d2ad"
   head "https://github.com/mas-cli/mas.git"
 
   bottle do
     root_url "https://dl.bintray.com/phatblat/mas-bottles"
     cellar :any
-    sha256 "9388aef5d3035366e4d032984979600907dd838c325076aafe288de77c841784" => :mojave
-    sha256 "9388aef5d3035366e4d032984979600907dd838c325076aafe288de77c841784" => :high_sierra
-    sha256 "9388aef5d3035366e4d032984979600907dd838c325076aafe288de77c841784" => :sierra
-    sha256 "9388aef5d3035366e4d032984979600907dd838c325076aafe288de77c841784" => :el_capitan
+    sha256 "451db10c91387ea9eb052b15331960508a94cc828a45e7fc62035e9793eabc04" => :mojave
+    sha256 "451db10c91387ea9eb052b15331960508a94cc828a45e7fc62035e9793eabc04" => :high_sierra
+    sha256 "451db10c91387ea9eb052b15331960508a94cc828a45e7fc62035e9793eabc04" => :sierra
+    sha256 "451db10c91387ea9eb052b15331960508a94cc828a45e7fc62035e9793eabc04" => :el_capitan
   end
 
   depends_on "carthage" => :build
