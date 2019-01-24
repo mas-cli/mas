@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		60D8CF3624262F92005B4004 /* PurchaseCommandSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D8CF3524262F92005B4004 /* PurchaseCommandSpec.swift */; };
 		75FB3E761F9F7841005B6F20 /* Purchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FB3E751F9F7841005B6F20 /* Purchase.swift */; };
+		B50AD42421F9831B0057AA87 /* Os.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50AD42321F9831B0057AA87 /* Os.swift */; };
+		B50AD42621F988740057AA87 /* MacOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50AD42521F988740057AA87 /* MacOS.swift */; };
+		B537017321A0F85700538F78 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB4069213F4DDD0044E445 /* Result.framework */; };
 		B537017421A0F85B00538F78 /* Commandant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406B213F4DDD0044E445 /* Commandant.framework */; };
 		B537017621A0F94200538F78 /* Commandant.framework in Copy Carthage Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406B213F4DDD0044E445 /* Commandant.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B5552928219A1BB900ACB4CA /* CommerceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83213A62173EF75008BA8A0 /* CommerceKit.framework */; };
@@ -206,6 +209,8 @@
 		90CB406A213F4DDD0044E445 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Quick.framework; sourceTree = "<group>"; };
 		90CB406B213F4DDD0044E445 /* Commandant.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Commandant.framework; sourceTree = "<group>"; };
 		90CB406C213F4DDD0044E445 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Nimble.framework; sourceTree = "<group>"; };
+		B50AD42321F9831B0057AA87 /* Os.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Os.swift; sourceTree = "<group>"; };
+		B50AD42521F988740057AA87 /* MacOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOS.swift; sourceTree = "<group>"; };
 		B55B3D7921ED96FC0009A1A5 /* Cartfile.resolved */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile.resolved; sourceTree = "<group>"; };
 		B55B3D7A21ED96FC0009A1A5 /* CODE_OF_CONDUCT.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CODE_OF_CONDUCT.md; sourceTree = "<group>"; };
 		B55B3D7B21ED96FC0009A1A5 /* Dangerfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Dangerfile; sourceTree = "<group>"; };
@@ -507,6 +512,7 @@
 		B576FE1E21E2904E0016B39D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				B50AD42521F988740057AA87 /* MacOS.swift */,
 				B594B15321D89DF400F3AC59 /* SearchResult.swift */,
 				B594B15521D89F5200F3AC59 /* SearchResultList.swift */,
 				B594B12821D5831D00F3AC59 /* SoftwareProduct.swift */,
@@ -674,6 +680,7 @@
 				ED0F23821B87533A00AE40CD /* List.swift */,
 				8078FAA71EC4F2FB004B5B3F /* Lucky.swift */,
 				B5DBF80C21DEE4E600F3B151 /* Open.swift */,
+				B50AD42321F9831B0057AA87 /* Os.swift */,
 				ED0F23841B87536A00AE40CD /* Outdated.swift */,
 				75FB3E751F9F7841005B6F20 /* Purchase.swift */,
 				EDCBF9521D89AC6F000039C6 /* Reset.swift */,
@@ -1021,6 +1028,7 @@
 				F8FB716B20F2B4DD00F56FDC /* ISStoreAccount.swift in Sources */,
 				F8FB717220F2B4DD00F56FDC /* List.swift in Sources */,
 				F8FB717320F2B4DD00F56FDC /* Lucky.swift in Sources */,
+				B50AD42421F9831B0057AA87 /* Os.swift in Sources */,
 				B594B13021D5855D00F3AC59 /* MasAppLibrary.swift in Sources */,
 				F8FB717B20F2B4DD00F56FDC /* MASError.swift in Sources */,
 				B594B15221D89A8B00F3AC59 /* MasStoreSearch.swift in Sources */,
@@ -1051,6 +1059,8 @@
 				F8FB717D20F2B4DD00F56FDC /* Utilities.swift in Sources */,
 				B5DBF80F21DEEB7B00F3B151 /* Vendor.swift in Sources */,
 				F8FB717A20F2B4DD00F56FDC /* Version.swift in Sources */,
+				75FB3E761F9F7841005B6F20 /* Purchase.swift in Sources */,
+				B50AD42621F988740057AA87 /* MacOS.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
