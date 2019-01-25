@@ -6,6 +6,6 @@
 #
 ---
 excluded:
-  - Carthage/
-  - docs/
-  - MasKitTests/
+- Carthage
+- docs
+- MasKitTests
