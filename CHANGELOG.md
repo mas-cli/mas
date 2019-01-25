@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-
+- ⬆️ Nimble (7.3.2) #213
+- ⬆️ Quick (1.3.2) #213
+- ⬆️ Result (4.1.0) #213
 
 ## [v1.6.2] 🗑 Trashy - 2019-01-21
 
