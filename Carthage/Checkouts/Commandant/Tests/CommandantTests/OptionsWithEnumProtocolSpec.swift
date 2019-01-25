@@ -132,16 +132,16 @@ struct TestEnumOptions: OptionsProtocol, Equatable {
 			} } } } } } }
 	}
 	
-	static func evaluate(_ mode: CommandMode) -> Result<TestEnumOptions, CommandantError<NoError>> {
+	static func evaluate(_ m: CommandMode) -> Result<TestEnumOptions, CommandantError<NoError>> {
 		return create
-			<*> mode <| Option(key: "strictIntValue", defaultValue: .theAnswerToTheUltimateQuestionOfLifeTheUniverseAndEverything, usage: "`0` - zero, `255` - max, `3` - three, `5` - five or `42` - The Answer")
-			<*> mode <| Option(key: "strictStringValue", defaultValue: .foobar, usage: "`foobar`, `bazbuzzz`, `a`, `b`, `c`, `one`, `two`, `c`")
-			<*> mode <| Option<[StrictStringValue]>(key: "strictStringsArray", defaultValue: [], usage: "Some array of arguments")
-			<*> mode <| Option<[StrictStringValue]?>(key: "optionalStrictStringsArray", defaultValue: nil, usage: "Some array of arguments")
-			<*> mode <| Option<StrictStringValue?>(key: "optionalStrictStringValue", defaultValue: nil, usage: "Some string value")
-			<*> mode <| Argument(usage: "A name you're required to specify")
-			<*> mode <| Argument(defaultValue: .min, usage: "A number that you can optionally specify")
-			<*> mode <| Argument(defaultValue: [], usage: "An argument list that consumes the rest of positional arguments")
+			<*> m <| Option(key: "strictIntValue", defaultValue: .theAnswerToTheUltimateQuestionOfLifeTheUniverseAndEverything, usage: "`0` - zero, `255` - max, `3` - three, `5` - five or `42` - The Answer")
+			<*> m <| Option(key: "strictStringValue", defaultValue: .foobar, usage: "`foobar`, `bazbuzzz`, `a`, `b`, `c`, `one`, `two`, `c`")
+			<*> m <| Option<[StrictStringValue]>(key: "strictStringsArray", defaultValue: [], usage: "Some array of arguments")
+			<*> m <| Option<[StrictStringValue]?>(key: "optionalStrictStringsArray", defaultValue: nil, usage: "Some array of arguments")
+			<*> m <| Option<StrictStringValue?>(key: "optionalStrictStringValue", defaultValue: nil, usage: "Some string value")
+			<*> m <| Argument(usage: "A name you're required to specify")
+			<*> m <| Argument(defaultValue: .min, usage: "A number that you can optionally specify")
+			<*> m <| Argument(defaultValue: [], usage: "An argument list that consumes the rest of positional arguments")
 	}
 }
 

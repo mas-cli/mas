@@ -1081,9 +1081,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1F1A743F1940169200FFFC47 /* Build configuration list for PBXNativeTarget "Nimble-iOS" */;
 			buildPhases = (
+				1F1A74261940169200FFFC47 /* Headers */,
 				1F1A74241940169200FFFC47 /* Sources */,
 				1F1A74251940169200FFFC47 /* Frameworks */,
-				1F1A74261940169200FFFC47 /* Headers */,
 				1F1A74271940169200FFFC47 /* Resources */,
 			);
 			buildRules = (
@@ -1120,9 +1120,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1F5DF16A1BDCA0CE00C3A531 /* Build configuration list for PBXNativeTarget "Nimble-tvOS" */;
 			buildPhases = (
+				1F5DF1521BDCA0CE00C3A531 /* Headers */,
 				1F5DF1501BDCA0CE00C3A531 /* Sources */,
 				1F5DF1511BDCA0CE00C3A531 /* Frameworks */,
-				1F5DF1521BDCA0CE00C3A531 /* Headers */,
 				1F5DF1531BDCA0CE00C3A531 /* Resources */,
 			);
 			buildRules = (
@@ -1156,9 +1156,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1F925EC0195C0D6300ED456B /* Build configuration list for PBXNativeTarget "Nimble-macOS" */;
 			buildPhases = (
+				1F925EAA195C0D6300ED456B /* Headers */,
 				1F925EA8195C0D6300ED456B /* Sources */,
 				1F925EA9195C0D6300ED456B /* Frameworks */,
-				1F925EAA195C0D6300ED456B /* Headers */,
 				1F925EAB195C0D6300ED456B /* Resources */,
 			);
 			buildRules = (

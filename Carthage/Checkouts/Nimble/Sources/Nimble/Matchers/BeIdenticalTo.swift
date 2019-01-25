@@ -5,14 +5,38 @@ import Foundation
 public func beIdenticalTo(_ expected: Any?) -> Predicate<Any> {
     return Predicate.define { actualExpression in
         #if os(Linux)
-            let actual = try actualExpression.evaluate() as? AnyObject
+            #if swift(>=4.0)
+                #if !swift(>=4.1.50)
+                    let actual = try actualExpression.evaluate() as? AnyObject
+                #else
+                    let actual = try actualExpression.evaluate() as AnyObject?
+                #endif
+            #else
+                #if !swift(>=3.4)
+                    let actual = try actualExpression.evaluate() as? AnyObject
+                #else
+                    let actual = try actualExpression.evaluate() as AnyObject?
+                #endif
+            #endif
         #else
             let actual = try actualExpression.evaluate() as AnyObject?
         #endif
 
         let bool: Bool
         #if os(Linux)
-            bool = actual === (expected as? AnyObject) && actual !== nil
+            #if swift(>=4.0)
+                #if !swift(>=4.1.50)
+                    bool = actual === (expected as? AnyObject) && actual !== nil
+                #else
+                    bool = actual === (expected as AnyObject?) && actual !== nil
+                #endif
+            #else
+                #if !swift(>=3.4)
+                    bool = actual === (expected as? AnyObject) && actual !== nil
+                #else
+                    bool = actual === (expected as AnyObject?) && actual !== nil
+                #endif
+            #endif
         #else
             bool = actual === (expected as AnyObject?) && actual !== nil
         #endif

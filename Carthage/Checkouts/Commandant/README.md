@@ -28,11 +28,11 @@ struct LogOptions: OptionsProtocol {
 		return { verbose in { logName in LogOptions(lines: lines, verbose: verbose, logName: logName) } }
 	}
 
-	static func evaluate(_ mode: CommandMode) -> Result<LogOptions, CommandantError<YourErrorType>> {
+	static func evaluate(_ m: CommandMode) -> Result<LogOptions, CommandantError<YourErrorType>> {
 		return create
-			<*> mode <| Option(key: "lines", defaultValue: 0, usage: "the number of lines to read from the logs")
-			<*> mode <| Option(key: "verbose", defaultValue: false, usage: "show verbose output")
-			<*> mode <| Argument(usage: "the log to read")
+			<*> m <| Option(key: "lines", defaultValue: 0, usage: "the number of lines to read from the logs")
+			<*> m <| Option(key: "verbose", defaultValue: false, usage: "show verbose output")
+			<*> m <| Argument(usage: "the log to read")
 	}
 }
 ```

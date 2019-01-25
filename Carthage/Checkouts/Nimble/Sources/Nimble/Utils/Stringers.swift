@@ -3,7 +3,19 @@ import Foundation
 internal func identityAsString(_ value: Any?) -> String {
     let anyObject: AnyObject?
 #if os(Linux)
-    anyObject = value as? AnyObject
+    #if swift(>=4.0)
+        #if !swift(>=4.1.50)
+            anyObject = value as? AnyObject
+        #else
+            anyObject = value as AnyObject?
+        #endif
+    #else
+        #if !swift(>=3.4)
+            anyObject = value as? AnyObject
+        #else
+            anyObject = value as AnyObject?
+        #endif
+    #endif
 #else
     anyObject = value as AnyObject?
 #endif

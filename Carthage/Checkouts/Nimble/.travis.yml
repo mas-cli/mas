@@ -27,10 +27,16 @@ matrix:
       env: TYPE=macos
       osx_image: xcode9.4
     - os: osx
+      env: TYPE=macos
+      osx_image: xcode10.1
+    - os: osx
       env: TYPE=swiftpm
     - os: osx
       env: TYPE=swiftpm
       osx_image: xcode9
+    - os: osx
+      env: TYPE=swiftpm
+      osx_image: xcode10.1
     - os: linux
       dist: trusty
       sudo: required
@@ -42,9 +48,33 @@ matrix:
       sudo: required
       env:
         - TYPE=swiftpm
-        - SWIFT_VERSION=4.0.2
+        - SWIFT_VERSION=4.0.3
       install:
         - eval "$(curl -sL https://gist.githubusercontent.com/kylef/5c0475ff02b7c7671d2a/raw/9f442512a46d7a2af7b850d65a7e9bd31edfb09b/swiftenv-install.sh)"
+    - os: linux
+      dist: trusty
+      sudo: required
+      env:
+        - TYPE=swiftpm
+        - SWIFT_VERSION=4.1.3
+      install:
+        - eval "$(curl -sL https://gist.githubusercontent.com/kylef/5c0475ff02b7c7671d2a/raw/9f442512a46d7a2af7b850d65a7e9bd31edfb09b/swiftenv-install.sh)"
+    - os: linux
+      dist: trusty
+      sudo: required
+      env:
+        - TYPE=swiftpm
+        - SWIFT_VERSION=4.2.1
+      install:
+        - eval "$(curl -sL https://gist.githubusercontent.com/kylef/5c0475ff02b7c7671d2a/raw/9f442512a46d7a2af7b850d65a7e9bd31edfb09b/swiftenv-install.sh)"
+#     - os: linux
+#       dist: trusty
+#       sudo: required
+#       env:
+#         - TYPE=swiftpm
+#         - SWIFT_VERSION=5.0-DEVELOPMENT-SNAPSHOT-2019-01-13-a
+#       install:
+#         - eval "$(curl -sL https://gist.githubusercontent.com/kylef/5c0475ff02b7c7671d2a/raw/9f442512a46d7a2af7b850d65a7e9bd31edfb09b/swiftenv-install.sh)"
 install:
   - if [[ "$TYPE" == "podspec" ]]; then sudo gem install bundler; bundle install; fi
 script:
