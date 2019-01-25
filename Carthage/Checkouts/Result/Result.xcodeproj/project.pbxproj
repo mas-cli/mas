@@ -250,9 +250,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 57FCDE441BA280DC00130C48 /* Build configuration list for PBXNativeTarget "Result-tvOS" */;
 			buildPhases = (
+				57FCDE411BA280DC00130C48 /* Headers */,
 				57FCDE3D1BA280DC00130C48 /* Sources */,
 				57FCDE401BA280DC00130C48 /* Frameworks */,
-				57FCDE411BA280DC00130C48 /* Headers */,
 				57FCDE431BA280DC00130C48 /* Resources */,
 			);
 			buildRules = (
@@ -286,9 +286,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D03579A01B2B788F005D26AE /* Build configuration list for PBXNativeTarget "Result-watchOS" */;
 			buildPhases = (
+				D035799D1B2B788F005D26AE /* Headers */,
 				D035799A1B2B788F005D26AE /* Sources */,
 				D035799C1B2B788F005D26AE /* Frameworks */,
-				D035799D1B2B788F005D26AE /* Headers */,
 				D035799F1B2B788F005D26AE /* Resources */,
 			);
 			buildRules = (
@@ -304,9 +304,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D45480721A9572F5009D7229 /* Build configuration list for PBXNativeTarget "Result-Mac" */;
 			buildPhases = (
+				D45480541A9572F5009D7229 /* Headers */,
 				D45480521A9572F5009D7229 /* Sources */,
 				D45480531A9572F5009D7229 /* Frameworks */,
-				D45480541A9572F5009D7229 /* Headers */,
 				D45480551A9572F5009D7229 /* Resources */,
 			);
 			buildRules = (
@@ -340,9 +340,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D45480941A957362009D7229 /* Build configuration list for PBXNativeTarget "Result-iOS" */;
 			buildPhases = (
+				D454807A1A957361009D7229 /* Headers */,
 				D45480781A957361009D7229 /* Sources */,
 				D45480791A957361009D7229 /* Frameworks */,
-				D454807A1A957361009D7229 /* Headers */,
 				D454807B1A957361009D7229 /* Resources */,
 			);
 			buildRules = (
@@ -401,11 +401,11 @@
 					};
 					D454807C1A957361009D7229 = {
 						CreatedOnToolsVersion = 6.3;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 1000;
 					};
 					D45480861A957362009D7229 = {
 						CreatedOnToolsVersion = 6.3;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 1000;
 					};
 				};
 			};
@@ -764,7 +764,7 @@
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -820,7 +820,7 @@
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";

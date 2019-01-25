@@ -157,19 +157,19 @@ struct TestOptions: OptionsProtocol, Equatable {
 		} } } } } } } } } }
 	}
 
-	static func evaluate(_ mode: CommandMode) -> Result<TestOptions, CommandantError<NoError>> {
+	static func evaluate(_ m: CommandMode) -> Result<TestOptions, CommandantError<NoError>> {
 		return create
-			<*> mode <| Option(key: "intValue", defaultValue: 42, usage: "Some integer value")
-			<*> mode <| Option(key: "stringValue", defaultValue: "foobar", usage: "Some string value")
-			<*> mode <| Option<[String]>(key: "stringsArray", defaultValue: [], usage: "Some array of arguments")
-			<*> mode <| Option<[String]?>(key: "optionalStringsArray", defaultValue: nil, usage: "Some array of arguments")
-			<*> mode <| Option<String?>(key: "optionalStringValue", defaultValue: nil, usage: "Some string value")
-			<*> mode <| Argument(usage: "A name you're required to specify")
-			<*> mode <| Argument(defaultValue: "filename", usage: "A filename that you can optionally specify")
-			<*> mode <| Option(key: "enabled", defaultValue: false, usage: "Whether to be enabled")
-			<*> mode <| Switch(flag: "f", key: "force", usage: "Whether to force")
-			<*> mode <| Switch(flag: "g", key: "glob", usage: "Whether to glob")
-			<*> mode <| Argument(defaultValue: [], usage: "An argument list that consumes the rest of positional arguments")
+			<*> m <| Option(key: "intValue", defaultValue: 42, usage: "Some integer value")
+			<*> m <| Option(key: "stringValue", defaultValue: "foobar", usage: "Some string value")
+			<*> m <| Option<[String]>(key: "stringsArray", defaultValue: [], usage: "Some array of arguments")
+			<*> m <| Option<[String]?>(key: "optionalStringsArray", defaultValue: nil, usage: "Some array of arguments")
+			<*> m <| Option<String?>(key: "optionalStringValue", defaultValue: nil, usage: "Some string value")
+			<*> m <| Argument(usage: "A name you're required to specify")
+			<*> m <| Argument(defaultValue: "filename", usage: "A filename that you can optionally specify")
+			<*> m <| Option(key: "enabled", defaultValue: false, usage: "Whether to be enabled")
+			<*> m <| Switch(flag: "f", key: "force", usage: "Whether to force")
+			<*> m <| Switch(flag: "g", key: "glob", usage: "Whether to glob")
+			<*> m <| Argument(defaultValue: [], usage: "An argument list that consumes the rest of positional arguments")
 	}
 }
 
