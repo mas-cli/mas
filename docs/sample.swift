@@ -31,7 +31,7 @@ typealias CoolClosure = (Int) -> Bool
 
 // Use aliased parameter names when function parameters are ambiguous
 func yTown(some: Int, withCallback callback: CoolClosure) -> Bool {
-    return CoolClosure(some)
+    return callback(some)
 }
 
 // It's OK to use $ variable references if the closure is very short and
