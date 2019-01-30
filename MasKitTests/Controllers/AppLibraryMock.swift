@@ -15,13 +15,13 @@ class AppLibraryMock: AppLibrary {
     ///
     /// - Parameter bundleId: Bundle identifier of app.
     /// - Returns: Software Product of app if found; nil otherwise.
-    public func installedApp(forBundleId bundleId: String) -> SoftwareProduct? {
+    public func installedApp(forBundleId _: String) -> SoftwareProduct? {
         return nil
     }
 
     func uninstallApp(app: SoftwareProduct) throws {
         if !installedApps.contains(where: { (product) -> Bool in
-            return app.itemIdentifier == product.itemIdentifier
+            app.itemIdentifier == product.itemIdentifier
         }) { throw MASError.notInstalled }
 
         // Special case for testing where we pretend the trash command failed

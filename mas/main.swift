@@ -6,9 +6,9 @@
 //  Copyright © 2015 Andrew Naylor. All rights reserved.
 //
 
-import MasKit
 import Commandant
 import Foundation
+import MasKit
 
 public struct StderrOutputStream: TextOutputStream {
     public mutating func write(_ string: String) {

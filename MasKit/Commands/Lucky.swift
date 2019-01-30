@@ -7,8 +7,8 @@
 //
 
 import Commandant
-import Result
 import CommerceKit
+import Result
 
 /// Command which installs the first search result. This is handy as many MAS titles
 /// can be long with embedded keywords.
@@ -89,7 +89,7 @@ public struct LuckyOptions: OptionsProtocol {
 
     public static func create(_ appName: String) -> (_ forceInstall: Bool) -> LuckyOptions {
         return { forceInstall in
-            return LuckyOptions(appName: appName, forceInstall: forceInstall)
+            LuckyOptions(appName: appName, forceInstall: forceInstall)
         }
     }
 

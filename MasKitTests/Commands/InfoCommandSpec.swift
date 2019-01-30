@@ -7,9 +7,9 @@
 //
 
 @testable import MasKit
-import Result
-import Quick
 import Nimble
+import Quick
+import Result
 
 class InfoCommandSpec: QuickSpec {
     override func spec() {
@@ -27,14 +27,14 @@ class InfoCommandSpec: QuickSpec {
         let storeSearch = StoreSearchMock()
         let cmd = InfoCommand(storeSearch: storeSearch)
         let expectedOutput = """
-            Awesome App 1.0 [2.0]
-            By: Awesome Dev
-            Released: Jan 7, 2019
-            Minimum OS: 10.14
-            Size: 1 KB
-            From: https://awesome.app
+        Awesome App 1.0 [2.0]
+        By: Awesome Dev
+        Released: Jan 7, 2019
+        Minimum OS: 10.14
+        Size: 1 KB
+        From: https://awesome.app
 
-            """
+        """
 
         describe("Info command") {
             beforeEach {

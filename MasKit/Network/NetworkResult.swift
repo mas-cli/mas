@@ -14,10 +14,10 @@ enum NetworkResult {
 extension NetworkResult: Equatable {
     static func == (lhs: NetworkResult, rhs: NetworkResult) -> Bool {
         switch (lhs, rhs) {
-        case (let .success(data1), let .success(data2)):
+        case let (.success(data1), .success(data2)):
             return data1 == data2
 
-        case (let .failure(error1), let .failure(error2)):
+        case let (.failure(error1), .failure(error2)):
             return error1.localizedDescription == error2.localizedDescription
 
 //        case (.none, .none):

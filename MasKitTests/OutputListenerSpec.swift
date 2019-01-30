@@ -6,8 +6,8 @@
 //  Copyright © 2019 mas-cli. All rights reserved.
 //
 
-import Quick
 import Nimble
+import Quick
 
 class OutputListenerSpec: QuickSpec {
     override func spec() {
@@ -31,9 +31,9 @@ class OutputListenerSpec: QuickSpec {
                 output.openConsolePipe()
 
                 let expectedOutput = """
-                    hi there
+                hi there
 
-                    """
+                """
 
                 print("hi there")
 

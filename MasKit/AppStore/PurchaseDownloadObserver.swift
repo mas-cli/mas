@@ -31,7 +31,7 @@ import StoreFoundation
         }
     }
 
-    func downloadQueue(_ queue: CKDownloadQueue, changedWithAddition download: SSDownload) {
+    func downloadQueue(_: CKDownloadQueue, changedWithAddition download: SSDownload) {
         guard download.metadata.itemIdentifier == purchase.itemIdentifier else {
             return
         }
@@ -39,9 +39,9 @@ import StoreFoundation
         printInfo("Downloading \(download.metadata.title)")
     }
 
-    func downloadQueue(_ queue: CKDownloadQueue, changedWithRemoval download: SSDownload) {
+    func downloadQueue(_: CKDownloadQueue, changedWithRemoval download: SSDownload) {
         guard download.metadata.itemIdentifier == purchase.itemIdentifier,
-              let status = download.status else {
+            let status = download.status else {
             return
         }
 
@@ -76,7 +76,7 @@ func progress(_ state: ProgressState) {
 
     let completeLength = Int(state.percentComplete * Float(barLength))
     var bar = ""
-    for index in 0..<barLength {
+    for index in 0 ..< barLength {
         if index < completeLength {
             bar += "#"
         } else {

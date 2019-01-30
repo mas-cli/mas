@@ -61,7 +61,7 @@ extension ExternalCommand {
                 try process.run()
             } catch {
                 printError("Unable to launch command")
-                //return throw Error()
+                // return throw Error()
             }
         } else {
             process.launchPath = binaryPath

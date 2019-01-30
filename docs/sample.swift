@@ -40,7 +40,7 @@ let cool = yTown(5) { $0 == 6 }
 
 // Use full variable names when closures are more complex
 let cool = yTown(5) { foo in
-    if foo > 5 && foo < 0 {
+    if foo > 5, foo < 0 {
         return true
     } else {
         return false
@@ -81,7 +81,7 @@ case let .failure(error):
 
 // Group methods into specific extensions for each level of access control
 private extension MyClass {
-    func doSomethingPrivate() { }
+    func doSomethingPrivate() {}
 }
 
 // MARK: Breaking up long lines
@@ -94,7 +94,7 @@ guard statementThatShouldBeTrue else { return }
 // move else to next line
 guard let oneItem = somethingFailable(),
     let secondItem = somethingFailable2()
-    else { return }
+else { return }
 
 // If the return in else is long, move to next line
 guard let something = somethingFailable() else {

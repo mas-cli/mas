@@ -31,7 +31,7 @@ public struct SignInCommand: CommandProtocol {
             printInfo("Signing in to Apple ID: \(options.username)")
 
             let password: String = {
-                if options.password == "" && !options.dialog {
+                if options.password == "", !options.dialog {
                     return String(validatingUTF8: getpass("Password: "))!
                 }
                 return options.password
@@ -56,8 +56,8 @@ public struct SignInOptions: OptionsProtocol {
 
     static func create(username: String) -> (_ password: String) -> (_ dialog: Bool) -> SignInOptions {
         return { password in { dialog in
-            return SignInOptions(username: username, password: password, dialog: dialog)
-        }}
+            SignInOptions(username: username, password: password, dialog: dialog)
+        } }
     }
 
     public static func evaluate(_ mode: CommandMode) -> Result<SignInOptions, CommandantError<MASError>> {

@@ -15,11 +15,11 @@ typealias SSPurchaseCompletion =
 extension SSPurchase {
     convenience init(adamId: UInt64, account: ISStoreAccount) {
         self.init()
-        self.buyParameters =
+        buyParameters =
             "productType=C&price=0&salableAdamId=\(adamId)&pricingParameters=STDRDL&pg=default&appExtVrsId=0"
-        self.itemIdentifier = adamId
-        self.accountIdentifier = account.dsID
-        self.appleID = account.identifier
+        itemIdentifier = adamId
+        accountIdentifier = account.dsID
+        appleID = account.identifier
 
         let downloadMetadata = SSDownloadMetadata()
         downloadMetadata.kind = "software"

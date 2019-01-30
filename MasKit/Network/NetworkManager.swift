@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Network abstraction 
+/// Network abstraction
 public class NetworkManager {
     enum NetworkError: Error {
         case timeout

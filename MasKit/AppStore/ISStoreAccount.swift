@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Andrew Naylor. All rights reserved.
 //
 
-import StoreFoundation
 import CommerceKit
+import StoreFoundation
 
 extension ISStoreAccount: StoreAccount {
     static var primaryAccountIsPresentAndSignedIn: Bool {

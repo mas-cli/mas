@@ -14,7 +14,7 @@ extension URLSessionConfiguration {
     /// newly created session configuration object, customised
     /// from the default to your requirements.
     class func testSessionConfiguration() -> URLSessionConfiguration {
-        let config = self.default
+        let config = `default`
 
         // Eg we think 60s is too long a timeout time.
         config.timeoutIntervalForRequest = 20

@@ -7,8 +7,8 @@
 //
 
 import Commandant
-import Result
 import Foundation
+import Result
 
 /// Displays app details. Uses the iTunes Lookup API:
 /// https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/#lookup
@@ -27,9 +27,9 @@ public struct InfoCommand: CommandProtocol {
     public func run(_ options: InfoOptions) -> Result<(), MASError> {
         do {
             guard let result = try storeSearch.lookup(app: options.appId)
-                else {
-                    print("No results found")
-                    return .failure(.noSearchResultsFound)
+            else {
+                print("No results found")
+                return .failure(.noSearchResultsFound)
             }
 
             print(AppInfoFormatter.format(app: result))

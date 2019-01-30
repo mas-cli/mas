@@ -17,7 +17,7 @@ public class MasAppLibrary: AppLibrary {
     public lazy var installedApps: [SoftwareProduct] = {
         var appList = [SoftwareProduct]()
         guard let products = softwareMap.allProducts()
-            else { return appList }
+        else { return appList }
         appList.append(contentsOf: products)
         return products
     }()

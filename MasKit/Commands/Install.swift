@@ -7,8 +7,8 @@
 //
 
 import Commandant
-import Result
 import CommerceKit
+import Result
 
 /// Installs previously purchased apps from the Mac App Store.
 public struct InstallCommand: CommandProtocol {
@@ -54,7 +54,7 @@ public struct InstallOptions: OptionsProtocol {
 
     public static func create(_ appIds: [Int]) -> (_ forceInstall: Bool) -> InstallOptions {
         return { forceInstall in
-            return InstallOptions(appIds: appIds.map {UInt64($0)}, forceInstall: forceInstall)
+            InstallOptions(appIds: appIds.map { UInt64($0) }, forceInstall: forceInstall)
         }
     }
 
