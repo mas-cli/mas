@@ -263,6 +263,7 @@
 		B576FE3421E98AAE0016B39D /* StoreSearchSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreSearchSpec.swift; sourceTree = "<group>"; };
 		B5793E28219BDD4800135B39 /* JSON */ = {isa = PBXFileReference; lastKnownFileType = folder; path = JSON; sourceTree = "<group>"; };
 		B588CE0121DC89490047D305 /* ExternalCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalCommand.swift; sourceTree = "<group>"; };
+		B592D8522201702A00A9C970 /* .swiftformat */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftformat; sourceTree = "<group>"; };
 		B594B11F21D53A8200F3AC59 /* Uninstall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Uninstall.swift; sourceTree = "<group>"; };
 		B594B12121D5416100F3AC59 /* ListCommandSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListCommandSpec.swift; sourceTree = "<group>"; };
 		B594B12421D580BB00F3AC59 /* UninstallCommandSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UninstallCommandSpec.swift; sourceTree = "<group>"; };
@@ -409,6 +410,7 @@
 				B55B3D9421EEA6A90009A1A5 /* .hound.yml */,
 				B55B3D9821EEA6AA0009A1A5 /* .ruby-version */,
 				B55B3D9B21EEBD6E0009A1A5 /* .shellcheck.yml */,
+				B592D8522201702A00A9C970 /* .swiftformat */,
 				B55B3D9521EEA6AA0009A1A5 /* .swiftlint.yml */,
 				B55B3D9621EEA6AA0009A1A5 /* .travis.yml */,
 				B55B3D8C21ED96FD0009A1A5 /* bin */,

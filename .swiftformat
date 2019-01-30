@@ -1,0 +1,18 @@
+#
+# .swiftformat
+# mas-cli
+#
+# https://github.com/nicklockwood/SwiftFormat#config-file
+#
+
+--exclude Carthage/
+
+# Disabled rules
+--disable blankLinesAroundMark
+
+# Enabled rules (disabled by default)
+--enable trailingClosures
+
+# Rule options
+--commas inline
+--importgrouping testable-top
