@@ -7,8 +7,8 @@
 //
 
 import Commandant
-import Result
 import CommerceKit
+import Result
 import StoreFoundation
 
 /// Command which uninstalls apps managed by the Mac App Store.
@@ -64,7 +64,7 @@ public struct UninstallOptions: OptionsProtocol {
 
     static func create(_ appId: Int) -> (_ dryRun: Bool) -> UninstallOptions {
         return { dryRun in
-            return UninstallOptions(appId: appId, dryRun: dryRun)
+            UninstallOptions(appId: appId, dryRun: dryRun)
         }
     }
 

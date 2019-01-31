@@ -7,8 +7,8 @@
 //
 
 import Commandant
-import Result
 import CommerceKit
+import Result
 
 /// Command which upgrades apps with new versions available in the Mac App Store.
 public struct UpgradeCommand: CommandProtocol {

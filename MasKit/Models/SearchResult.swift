@@ -33,8 +33,7 @@ public struct SearchResult: Decodable {
          trackCensoredName: String = "",
          trackName: String = "",
          trackViewUrl: String = "",
-         version: String = ""
-    ) {
+         version: String = "") {
         self.bundleId = bundleId
         self.currentVersionReleaseDate = currentVersionReleaseDate
         self.fileSizeBytes = fileSizeBytes

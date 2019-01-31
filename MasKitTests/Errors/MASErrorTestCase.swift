@@ -7,8 +7,8 @@
 //
 
 @testable import MasKit
-import XCTest
 import Foundation
+import XCTest
 
 class MASErrorTestCase: XCTestCase {
     private let errorDomain = "MAS"
@@ -21,8 +21,8 @@ class MASErrorTestCase: XCTestCase {
     var localizedDescription: String {
         get { return "dummy value" }
         set {
-            NSError.setUserInfoValueProvider(forDomain: errorDomain) { (error: Error, userInfoKey: String) -> Any? in
-                return newValue
+            NSError.setUserInfoValueProvider(forDomain: errorDomain) { (_: Error, _: String) -> Any? in
+                newValue
             }
         }
     }

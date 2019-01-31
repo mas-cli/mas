@@ -23,7 +23,7 @@ class NetworkSessionMock: NetworkSession {
     ///   - url: unused
     ///   - completionHandler: Closure which is delivered both data and error properties (only one should be non-nil)
     /// - Returns: Mock data task
-    func dataTask(with url: URL, completionHandler: @escaping CompletionHandler) -> URLSessionDataTask {
+    func dataTask(with _: URL, completionHandler: @escaping CompletionHandler) -> URLSessionDataTask {
         let data = self.data
         let error = self.error
 
@@ -37,7 +37,7 @@ class NetworkSessionMock: NetworkSession {
     /// - Parameters:
     ///   - url: unused
     ///   - completionHandler: Closure which is delivered either data or an error.
-    @objc func loadData(from url: URL, completionHandler: @escaping (Data?, Error?) -> Void) {
+    @objc func loadData(from _: URL, completionHandler: @escaping (Data?, Error?) -> Void) {
         completionHandler(data, error)
     }
 }

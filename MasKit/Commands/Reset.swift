@@ -7,8 +7,8 @@
 //
 
 import Commandant
-import Result
 import CommerceKit
+import Result
 
 /// Kills several macOS processes as a means to reset the app store.
 public struct ResetCommand: CommandProtocol {
@@ -21,22 +21,22 @@ public struct ResetCommand: CommandProtocol {
     /// Runs the command.
     public func run(_ options: Options) -> Result<(), MASError> {
         /*
-        The "Reset Application" command in the Mac App Store debug menu performs
-        the following steps
- 
+         The "Reset Application" command in the Mac App Store debug menu performs
+         the following steps
+
          - killall Dock
          - killall storeagent (storeagent no longer exists)
          - rm com.apple.appstore download directory
          - clear cookies (appears to be a no-op)
 
-        As storeagent no longer exists we will implement a slight variant and kill all
-        App Store-associated processes
+         As storeagent no longer exists we will implement a slight variant and kill all
+         App Store-associated processes
          - storeaccountd
          - storeassetd
          - storedownloadd
          - storeinstalld
          - storelegacy
-        */
+         */
 
         // Kill processes
         let killProcs = [
@@ -60,7 +60,7 @@ public struct ResetCommand: CommandProtocol {
         kill.launch()
         kill.waitUntilExit()
 
-        if kill.terminationStatus != 0 && options.debug {
+        if kill.terminationStatus != 0, options.debug {
             let output = stderr.fileHandleForReading.readDataToEndOfFile()
             printInfo("killall  failed:\r\n\(String(data: output, encoding: String.Encoding.utf8)!)")
         }

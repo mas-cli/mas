@@ -7,9 +7,9 @@
 //
 
 @testable import MasKit
-import Result
-import Quick
 import Nimble
+import Quick
+import Result
 
 class MasStoreSearchSpec: QuickSpec {
     override func spec() {
@@ -25,7 +25,7 @@ class MasStoreSearchSpec: QuickSpec {
                     expect(searchList.results.count) == 6
                 } catch {
                     let maserror = error as! MASError
-                    if case .jsonParsing(let nserror) = maserror {
+                    if case let .jsonParsing(nserror) = maserror {
                         fail("\(maserror) \(nserror!)")
                     }
                 }
@@ -33,7 +33,7 @@ class MasStoreSearchSpec: QuickSpec {
         }
         describe("store lookup") {
             it("can find slack") {
-                let appId = 803453959
+                let appId = 803_453_959
                 let networkSession = NetworkSessionMockFromFile(responseFile: "lookup/slack.json")
                 let storeSearch = MasStoreSearch(networkManager: NetworkManager(session: networkSession))
 
@@ -42,7 +42,7 @@ class MasStoreSearchSpec: QuickSpec {
                     lookup = try storeSearch.lookup(app: appId)
                 } catch {
                     let maserror = error as! MASError
-                    if case .jsonParsing(let nserror) = maserror {
+                    if case let .jsonParsing(nserror) = maserror {
                         fail("\(maserror) \(nserror!)")
                     }
                 }

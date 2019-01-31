@@ -7,9 +7,9 @@
 //
 
 @testable import MasKit
-import Result
-import Quick
 import Nimble
+import Quick
+import Result
 
 class LuckyCommandSpec: QuickSpec {
     override func spec() {

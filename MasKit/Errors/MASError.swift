@@ -41,7 +41,7 @@ public enum MASError: Error, CustomStringConvertible, Equatable {
                 "\nFor more info see: " +
                 "https://github.com/mas-cli/mas/issues/164"
 
-        case .signInFailed(let error):
+        case let .signInFailed(error):
             if let error = error {
                 return "Sign in failed: \(error.localizedDescription)"
             } else {
@@ -51,14 +51,14 @@ public enum MASError: Error, CustomStringConvertible, Equatable {
         case .alreadySignedIn:
             return "Already signed in"
 
-        case .purchaseFailed(let error):
+        case let .purchaseFailed(error):
             if let error = error {
                 return "Download request failed: \(error.localizedDescription)"
             } else {
                 return "Download request failed"
             }
 
-        case .downloadFailed(let error):
+        case let .downloadFailed(error):
             if let error = error {
                 return "Download failed: \(error.localizedDescription)"
             } else {

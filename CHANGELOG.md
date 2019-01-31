@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+- 🎨 SwiftFormat #215
 - ⬆️ Nimble (7.3.2) #213
 - ⬆️ Quick (1.3.2) #213
 - ⬆️ Result (4.1.0) #213

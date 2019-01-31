@@ -6,14 +6,14 @@
 //  Copyright © 2019 mas-cli. All rights reserved.
 //
 @testable import MasKit
-import Result
-import Quick
 import Nimble
+import Quick
+import Result
 
 /// Protocol minimal implementation
 struct StoreSearchForTesting: StoreSearch {
-    func lookup(app appId: Int) throws -> SearchResult? { return nil }
-    func search(for appName: String) throws -> SearchResultList { return SearchResultList(resultCount: 0, results: []) }
+    func lookup(app _: Int) throws -> SearchResult? { return nil }
+    func search(for _: String) throws -> SearchResultList { return SearchResultList(resultCount: 0, results: []) }
 }
 
 class StoreSearchSpec: QuickSpec {
@@ -25,14 +25,14 @@ class StoreSearchSpec: QuickSpec {
                 let appName = "myapp"
                 let urlString = storeSearch.searchURLString(forApp: appName)
                 expect(urlString) ==
-                "https://itunes.apple.com/search?entity=macSoftware&term=\(appName)&attribute=allTrackTerm"
+                    "https://itunes.apple.com/search?entity=macSoftware&term=\(appName)&attribute=allTrackTerm"
             }
             it("contains the encoded app name") {
                 let appName = "My App"
                 let appNameEncoded = "My%20App"
                 let urlString = storeSearch.searchURLString(forApp: appName)
                 expect(urlString) ==
-                "https://itunes.apple.com/search?entity=macSoftware&term=\(appNameEncoded)&attribute=allTrackTerm"
+                    "https://itunes.apple.com/search?entity=macSoftware&term=\(appNameEncoded)&attribute=allTrackTerm"
             }
             // Find a character that causes addingPercentEncoding(withAllowedCharacters to return nil
             xit("is nil when app name cannot be url encoded") {
