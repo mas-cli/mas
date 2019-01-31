@@ -19,7 +19,7 @@ public struct OsCommand: CommandProtocol {
     public init() {}
 
     /// Runs the command.
-    public func run(_ options: Options) -> Result<(), MASError> {
+    public func run(_: Options) -> Result<(), MASError> {
         printInfo("Available macOS Installers:")
         for installer in MacOS.allCases {
             print("  - \(installer)")
