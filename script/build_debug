@@ -1,0 +1,13 @@
+#!/bin/bash -e
+#
+# script/build_debug
+# mas
+#
+# Builds the Xcode project using the Debug config and scheme.
+#
+
+# Overriding config/scheme of release build script
+export CONFIG="Debug"
+export SCHEME="mas-cli Debug"
+
+script/build

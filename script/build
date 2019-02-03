@@ -5,14 +5,12 @@
 #
 # Builds the Xcode project. Uses xcpretty gem to format output.
 #
-# If the TRAVIS_TAG env variable is present, it generates an archive.
-# https://docs.travis-ci.com/user/environment-variables/#default-environment-variables
-#
 
 BUILD_DIR="$PWD/build"
 PROJECT="mas-cli.xcodeproj"
-SCHEME="mas-cli Release"
-CONFIG="Release"
+# Config and scheme can be overridden, but have defaults
+CONFIG=${CONFIG:-"Release"}
+SCHEME=${SCHEME:-"mas-cli Release"}
 VERSION=$(script/version)
 
 main() {
@@ -41,7 +39,7 @@ main() {
 # but is set per-project or per-user. By default, this is set to `$(PROJECT_DIR)/build`.
 
 build() {
-  echo "==> 🏗️ Building mas ($VERSION)"
+  echo "==> 🏗️ Building mas ($VERSION) [$CONFIG, $SCHEME]"
   set -o pipefail && \
       xcodebuild -project "$PROJECT" \
           -scheme "$SCHEME" \
@@ -53,7 +51,7 @@ build() {
 }
 
 archive() {
-  echo "==> 📦 Archiving mas ($VERSION)"
+  echo "==> 📦 Archiving mas ($VERSION) [$CONFIG, $SCHEME]"
   set -o pipefail && \
       xcodebuild -project "$PROJECT" \
           -scheme "$SCHEME" \
