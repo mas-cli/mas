@@ -40,14 +40,14 @@ enum MacOS: CaseIterable {
     }
 
     /// Major.minor version of OS
-    var version: Double {
+    var version: String {
         switch self {
-        case .mojave: return 10.14
-        case .highSierra: return 10.13
-        case .sierra: return 10.12
-        case .elCapitan: return 10.11
-        case .yosemite: return 10.10
-        case .mavericks: return 10.9
+        case .mojave: return "10.14"
+        case .highSierra: return "10.13"
+        case .sierra: return "10.12"
+        case .elCapitan: return "10.11"
+        case .yosemite: return "10.10"
+        case .mavericks: return "10.9"
         }
     }
 }
