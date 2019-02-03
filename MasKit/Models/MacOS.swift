@@ -19,7 +19,7 @@ enum MacOS: CaseIterable {
     var identifier: Int {
         switch self {
         case .mojave: return 1_398_502_828
-        case .highSierra: return 124_628_474
+        case .highSierra: return 1_246_284_741
         case .sierra: return 1_127_487_414
         case .elCapitan: return 1_147_835_434
         case .yosemite: return 915_041_082
