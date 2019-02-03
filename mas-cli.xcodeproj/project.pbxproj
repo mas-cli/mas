@@ -11,6 +11,7 @@
 		75FB3E761F9F7841005B6F20 /* Purchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FB3E751F9F7841005B6F20 /* Purchase.swift */; };
 		B50AD42421F9831B0057AA87 /* Os.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50AD42321F9831B0057AA87 /* Os.swift */; };
 		B50AD42621F988740057AA87 /* MacOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50AD42521F988740057AA87 /* MacOS.swift */; };
+		B52E52A92206AA0D00267C59 /* MacOSSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52E52A82206AA0D00267C59 /* MacOSSpec.swift */; };
 		B537017321A0F85700538F78 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB4069213F4DDD0044E445 /* Result.framework */; };
 		B537017421A0F85B00538F78 /* Commandant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406B213F4DDD0044E445 /* Commandant.framework */; };
 		B537017621A0F94200538F78 /* Commandant.framework in Copy Carthage Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406B213F4DDD0044E445 /* Commandant.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -211,6 +212,7 @@
 		90CB406C213F4DDD0044E445 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Nimble.framework; sourceTree = "<group>"; };
 		B50AD42321F9831B0057AA87 /* Os.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Os.swift; sourceTree = "<group>"; };
 		B50AD42521F988740057AA87 /* MacOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOS.swift; sourceTree = "<group>"; };
+		B52E52A82206AA0D00267C59 /* MacOSSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSSpec.swift; sourceTree = "<group>"; };
 		B55B3D7921ED96FC0009A1A5 /* Cartfile.resolved */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile.resolved; sourceTree = "<group>"; };
 		B55B3D7A21ED96FC0009A1A5 /* CODE_OF_CONDUCT.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CODE_OF_CONDUCT.md; sourceTree = "<group>"; };
 		B55B3D7B21ED96FC0009A1A5 /* Dangerfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Dangerfile; sourceTree = "<group>"; };
@@ -632,6 +634,7 @@
 		B594B12C21D584E800F3AC59 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				B52E52A82206AA0D00267C59 /* MacOSSpec.swift */,
 				B576FDF821E107CA0016B39D /* SoftwareProductMock.swift */,
 			);
 			path = Models;
@@ -1091,6 +1094,8 @@
 				60D8CF3624262F92005B4004 /* PurchaseCommandSpec.swift in Sources */,
 				B594B14021D6D8BF00F3AC59 /* ResetCommandSpec.swift in Sources */,
 				B594B13221D5876200F3AC59 /* ResultPredicates.swift in Sources */,
+				60D8CF3624262F92005B4004 /* PurchaseCommandSpec.swift in Sources */,
+				B52E52A92206AA0D00267C59 /* MacOSSpec.swift in Sources */,
 				B594B13E21D6D78900F3AC59 /* SearchCommandSpec.swift in Sources */,
 				B55B3D9221ED9B8C0009A1A5 /* SearchResultFormatterSpec.swift in Sources */,
 				B594B13C21D6D72E00F3AC59 /* SignInCommandSpec.swift in Sources */,

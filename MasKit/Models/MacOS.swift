@@ -50,6 +50,17 @@ enum MacOS: CaseIterable {
         }
     }
 
+    var altTokens: [String] {
+        switch self {
+        case .mojave: return ["mojave"]
+        case .highSierra: return ["high-sierra", "highsierra"]
+        case .sierra: return ["sierra"]
+        case .elCapitan: return ["macos-el-capitan", "el-capitan", "elcapitan"]
+        case .yosemite: return ["macos-yosemite", "yosemite"]
+        case .mavericks: return ["macos-mavericks", "mavericks"]
+        }
+    }
+
     /// Major.minor version of OS
     var version: String {
         switch self {
@@ -73,6 +84,21 @@ enum MacOS: CaseIterable {
         default:
             return "https://itunes.apple.com/us/app/\(token)/id\(identifier)?mt=12"
         }
+    }
+}
+
+extension MacOS {
+    /// Finds an instance of macOS that has the token.
+    ///
+    /// - Parameter token: Short identifier for an OS.
+    /// - Returns: MacOS case matching the token or nil if there are none.
+    static func os(withToken token: String) -> MacOS? {
+        for macos in allCases {
+            if macos.token == token || macos.altTokens.contains(token) {
+                return macos
+            }
+        }
+        return nil
     }
 }
 
