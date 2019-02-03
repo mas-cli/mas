@@ -39,6 +39,17 @@ enum MacOS: CaseIterable {
         }
     }
 
+    var token: String {
+        switch self {
+        case .mojave: return "macos-mojave"
+        case .highSierra: return "macos-high-sierra"
+        case .sierra: return "macos-sierra"
+        case .elCapitan: return "os-x-el-capitan"
+        case .yosemite: return "os-x-yosemite"
+        case .mavericks: return "os-x-mavericks"
+        }
+    }
+
     /// Major.minor version of OS
     var version: String {
         switch self {
@@ -50,10 +61,25 @@ enum MacOS: CaseIterable {
         case .mavericks: return "10.9"
         }
     }
+
+    // "https://itunes.apple.com/us/app/macos-mojave/id1398502828?mt=12&ign-mpt=uo%3D4"
+    // "https://itunes.apple.com/de/app/macos-sierra/id1127487414?l=en&mt=12"
+    // https://itunes.apple.com/us/app/macos-high-sierra/id1246284741?ls=1&mt=12
+    // https://itunes.apple.com/app/os-x-el-capitan/id1147835434?ls=1&mt=12
+    var url: String? {
+        switch self {
+        case .yosemite, .mavericks:
+            return nil
+        default:
+            return "https://itunes.apple.com/us/app/\(token)/id\(identifier)?mt=12"
+        }
+    }
 }
 
 extension MacOS: CustomStringConvertible {
     var description: String {
-        return "\(name) \(version) (\(identifier))"
+        let output = "\(name) \(version) (\(identifier))"
+        guard let url = url else { return output }
+        return output + " \(url)"
     }
 }
