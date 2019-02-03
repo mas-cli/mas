@@ -16,7 +16,7 @@ enum MacOS: CaseIterable {
     case mavericks
 
     /// MAS identifier for the installer app.
-    var identifier: Int {
+    var identifier: UInt64 {
         switch self {
         case .mojave: return 1_398_502_828
         case .highSierra: return 1_246_284_741

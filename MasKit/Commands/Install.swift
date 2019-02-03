@@ -31,7 +31,15 @@ public struct InstallCommand: CommandProtocol {
     /// Runs the command.
     public func run(_ options: Options) -> Result<(), MASError> {
         // Try to download applications with given identifiers and collect results
-        let downloadResults = options.appIds.compactMap { (appId) -> MASError? in
+        let downloadResults = options.appIds.compactMap { appId -> MASError? in
+            if let macos = MacOS.os(withToken: appId) {
+                return download(macos.identifier)
+            }
+
+            guard let appId = UInt64(appId) else {
+                return .downloadFailed(error: nil)
+            }
+
             if let product = appLibrary.installedApp(forId: appId), !options.forceInstall {
                 printWarning("\(product.appName) is already installed")
                 return nil
@@ -52,12 +60,12 @@ public struct InstallCommand: CommandProtocol {
 }
 
 public struct InstallOptions: OptionsProtocol {
-    let appIds: [UInt64]
+    let appIds: [String]
     let forceInstall: Bool
 
-    public static func create(_ appIds: [Int]) -> (_ forceInstall: Bool) -> InstallOptions {
+    public static func create(_ appIds: [String]) -> (_ forceInstall: Bool) -> InstallOptions {
         return { forceInstall in
-            InstallOptions(appIds: appIds.map { UInt64($0) }, forceInstall: forceInstall)
+            InstallOptions(appIds: appIds, forceInstall: forceInstall)
         }
     }
 
