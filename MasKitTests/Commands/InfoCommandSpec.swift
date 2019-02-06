@@ -65,6 +65,42 @@ class InfoCommandSpec: QuickSpec {
 
                 output.closeConsolePipe()
             }
+            xit("displays os installer details") {
+                let mojaveId = 1_398_502_828
+                let searchResult = SearchResult(
+//                    currentVersionReleaseDate: "2019-01-07T18:53:13Z",
+//                    fileSizeBytes: "1024",
+//                    minimumOsVersion: "10.14",
+                    sellerName: "Apple Inc.",
+                    trackId: mojaveId,
+                    trackName: "Install macOS Mojave",
+                    trackViewUrl: "https://itunes.apple.com/us/app/macos-mojave/id1398502828?mt=12"
+//                    version: "1.0"
+                )
+
+                let expectedOutput = """
+                    Install macOS Mojave  [0.0]
+                    By: Apple Inc.
+                    Released:
+                    Minimum OS:
+                    Size: Zero KB
+                    From: https://itunes.apple.com/us/app/macos-mojave/id1398502828?mt=12
+
+                    """
+
+                storeSearch.apps[searchResult.trackId] = searchResult
+                let output = OutputListener()
+                output.openConsolePipe()
+
+                let result = cmd.run(InfoCommand.Options(appId: searchResult.trackId))
+
+                expect(result).to(beSuccess())
+                // output is async so need to wait for contents to be updated
+                expect(output.contents).toEventuallyNot(beEmpty())
+                expect(output.contents) == expectedOutput
+
+                output.closeConsolePipe()
+            }
         }
     }
 }

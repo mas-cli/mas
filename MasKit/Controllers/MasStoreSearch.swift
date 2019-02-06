@@ -49,6 +49,18 @@ public class MasStoreSearch: StoreSearch {
     /// - Returns: Search result record of app or nil if no apps match the ID.
     /// - Throws: Error if there is a problem with the network request.
     public func lookup(app appId: Int) throws -> SearchResult? {
+        // Since most macOS installers are not listed in the iTunes search API,
+        // do a quick check to see if they are looking for one.
+        if let installer = MacOS.os(withId: appId) {
+            var result = SearchResult()
+            result.trackName = installer.installerName
+            result.sellerName = "Apple Inc."
+            if let url = installer.url {
+                result.trackViewUrl = url
+            }
+            return result
+        }
+
         guard let url = lookupURL(forApp: appId)
             else { throw MASError.urlEncoding }
 

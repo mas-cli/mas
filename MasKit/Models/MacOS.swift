@@ -39,6 +39,14 @@ enum MacOS: CaseIterable {
         }
     }
 
+    /// Installer store name
+    var installerName: String {
+        switch self {
+        case .mojave, .highSierra, .sierra: return "Install macOS \(name)"
+        case .elCapitan, .yosemite, .mavericks: return "Install OS X \(name)"
+        }
+    }
+
     var token: String {
         switch self {
         case .mojave: return "macos-mojave"
@@ -88,6 +96,17 @@ enum MacOS: CaseIterable {
 }
 
 extension MacOS {
+    /// Finds an instance of macOS for a given identifier.
+    ///
+    /// - Parameter identifier: Numeric app identifier for the OS installer.
+    /// - Returns: MacOS case matching the identifier or nil if there are none.
+    static func os(withId identifier: Int) -> MacOS? {
+        for macos in allCases where macos.identifier == identifier {
+            return macos
+        }
+        return nil
+    }
+
     /// Finds an instance of macOS that has the token.
     ///
     /// - Parameter token: Short identifier for an OS.
@@ -103,8 +122,8 @@ extension MacOS {
 
     /// Look up OS based on store display name.
     ///
-    /// - Parameter appName: <#appName description#>
-    /// - Returns: <#return value description#>
+    /// - Parameter appName: Display name of the app in MAS
+    /// - Returns: MacOS enum case if one matches.
     static func os(fromAppName appName: String) -> MacOS? {
         let prefixes = ["Install macOS ", "Install OS X "]
         let startIndex = prefixes.compactMap { (prefix) -> String.Index? in
