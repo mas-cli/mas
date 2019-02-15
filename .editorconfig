@@ -14,3 +14,4 @@ trim_trailing_whitespace = false
 
 [*.rb]
 indent_size = 2
+
