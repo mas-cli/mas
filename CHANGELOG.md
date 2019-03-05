@@ -7,7 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-- 🐟 Command completions for fish shell #214
+- 🐟 Command completions for fish shell #214  
+  thanks, @ylectric!
 - 🎨 SwiftFormat #215
 - ⬆️ Nimble (7.3.2) #213
 - ⬆️ Quick (1.3.2) #213
@@ -54,7 +55,7 @@ Use the `mas.pkg` package to install manually.
 - 📦 Added installer package #178
 - 🛠 Xcode 10 & Swift 4.2 #173
 - ♻️ Use Carthage rather than CocoaPods to manage dependencies #169  
-  thanks @tonyarnold!
+  thanks, @tonyarnold!
 - ⬆️ danger (5.7.0) #176
 
 ## [v1.4.2] 🚏📥🙅🏻‍♀️ Sign-In Disabled - 2018-08-12
