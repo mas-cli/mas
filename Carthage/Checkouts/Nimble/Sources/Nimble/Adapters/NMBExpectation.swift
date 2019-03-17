@@ -1,6 +1,6 @@
 import Foundation
 
-#if (os(macOS) || os(iOS) || os(tvOS) || os(watchOS)) && !SWIFT_PACKAGE
+#if canImport(Darwin) && !SWIFT_PACKAGE
 
 private func from(objcPredicate: NMBPredicate) -> Predicate<NSObject> {
     return Predicate { actualExpression in
@@ -15,6 +15,7 @@ internal struct ObjCMatcherWrapper: Matcher {
 
     func matches(_ actualExpression: Expression<NSObject>, failureMessage: FailureMessage) -> Bool {
         return matcher.matches(
+            // swiftlint:disable:next force_try
             ({ try! actualExpression.evaluate() }),
             failureMessage: failureMessage,
             location: actualExpression.location)
@@ -22,6 +23,7 @@ internal struct ObjCMatcherWrapper: Matcher {
 
     func doesNotMatch(_ actualExpression: Expression<NSObject>, failureMessage: FailureMessage) -> Bool {
         return matcher.doesNotMatch(
+            // swiftlint:disable:next force_try
             ({ try! actualExpression.evaluate() }),
             failureMessage: failureMessage,
             location: actualExpression.location)
@@ -30,11 +32,13 @@ internal struct ObjCMatcherWrapper: Matcher {
 
 // Equivalent to Expectation, but for Nimble's Objective-C interface
 public class NMBExpectation: NSObject {
+    // swiftlint:disable identifier_name
     internal let _actualBlock: () -> NSObject?
     internal var _negative: Bool
     internal let _file: FileString
     internal let _line: UInt
     internal var _timeout: TimeInterval = 1.0
+    // swiftlint:enable identifier_name
 
     @objc public init(actualBlock: @escaping () -> NSObject?, negative: Bool, file: FileString, line: UInt) {
         self._actualBlock = actualBlock

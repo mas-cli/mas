@@ -29,12 +29,12 @@ public func <=<T: NMBComparable>(lhs: Expectation<T>, rhs: T) {
     lhs.to(beLessThanOrEqualTo(rhs))
 }
 
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+#if canImport(Darwin)
 extension NMBObjCMatcher {
-    @objc public class func beLessThanOrEqualToMatcher(_ expected: NMBComparable?) -> NMBObjCMatcher {
-        return NMBObjCMatcher(canMatchNil: false) { actualExpression, failureMessage in
+    @objc public class func beLessThanOrEqualToMatcher(_ expected: NMBComparable?) -> NMBMatcher {
+        return NMBPredicate { actualExpression in
             let expr = actualExpression.cast { $0 as? NMBComparable }
-            return try beLessThanOrEqualTo(expected).matches(expr, failureMessage: failureMessage)
+            return try beLessThanOrEqualTo(expected).satisfies(expr).toObjectiveC()
         }
     }
 }

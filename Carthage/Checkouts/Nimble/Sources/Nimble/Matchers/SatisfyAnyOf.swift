@@ -47,7 +47,7 @@ public func || <T>(left: MatcherFunc<T>, right: MatcherFunc<T>) -> Predicate<T> 
     return satisfyAnyOf(left, right)
 }
 
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+#if canImport(Darwin)
 extension NMBObjCMatcher {
     @objc public class func satisfyAnyOfMatcher(_ matchers: [NMBMatcher]) -> NMBPredicate {
         return NMBPredicate { actualExpression in
@@ -68,8 +68,12 @@ extension NMBObjCMatcher {
                         return predicate.satisfies({ try expression.evaluate() }, location: actualExpression.location).toSwift()
                     } else {
                         let failureMessage = FailureMessage()
-                        // swiftlint:disable:next line_length
-                        let success = matcher.matches({ try! expression.evaluate() }, failureMessage: failureMessage, location: actualExpression.location)
+                        let success = matcher.matches(
+                            // swiftlint:disable:next force_try
+                            { try! expression.evaluate() },
+                            failureMessage: failureMessage,
+                            location: actualExpression.location
+                        )
                         return PredicateResult(bool: success, message: failureMessage.toExpectationMessage())
                     }
                 }

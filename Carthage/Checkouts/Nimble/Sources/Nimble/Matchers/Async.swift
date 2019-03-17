@@ -42,8 +42,10 @@ private func async<T>(style: ExpectationStyle, predicate: Predicate<T>, timeout:
 }
 
 private let toEventuallyRequiresClosureError = FailureMessage(
-    // swiftlint:disable:next line_length
-    stringValue: "expect(...).toEventually(...) requires an explicit closure (eg - expect { ... }.toEventually(...) )\nSwift 1.2 @autoclosure behavior has changed in an incompatible way for Nimble to function"
+    stringValue: """
+        expect(...).toEventually(...) requires an explicit closure (eg - expect { ... }.toEventually(...) )
+        Swift 1.2 @autoclosure behavior has changed in an incompatible way for Nimble to function
+        """
 )
 
 extension Expectation {

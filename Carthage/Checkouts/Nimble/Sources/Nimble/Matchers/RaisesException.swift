@@ -1,7 +1,7 @@
 import Foundation
 
 // This matcher requires the Objective-C, and being built by Xcode rather than the Swift Package Manager 
-#if (os(macOS) || os(iOS) || os(tvOS) || os(watchOS)) && !SWIFT_PACKAGE
+#if canImport(Darwin) && !SWIFT_PACKAGE
 
 /// A Nimble matcher that succeeds when the actual expression raises an
 /// exception with the specified name, reason, and/or userInfo.
@@ -23,8 +23,12 @@ public func raiseException(
                 exception = e
             }), finally: nil)
 
-            capture.tryBlock {
-                _ = try! actualExpression.evaluate()
+            do {
+                try capture.tryBlockThrows {
+                    _ = try actualExpression.evaluate()
+                }
+            } catch {
+                return PredicateResult(status: .fail, message: .fail("unexpected error thrown: <\(error)>"))
             }
 
             let failureMessage = FailureMessage()
@@ -118,10 +122,12 @@ internal func exceptionMatchesNonNilFieldsOrClosure(
 }
 
 public class NMBObjCRaiseExceptionMatcher: NSObject, NMBMatcher {
+    // swiftlint:disable identifier_name
     internal var _name: String?
     internal var _reason: String?
     internal var _userInfo: NSDictionary?
     internal var _block: ((NSException) -> Void)?
+    // swiftlint:enable identifier_name
 
     internal init(name: String?, reason: String?, userInfo: NSDictionary?, block: ((NSException) -> Void)?) {
         _name = name

@@ -3,20 +3,6 @@ import XCTest
 import Nimble
 
 final class ContainElementSatisfyingTest: XCTestCase, XCTestCaseProvider {
-    static var allTests: [(String, (ContainElementSatisfyingTest) -> () throws -> Void)] {
-        return [
-            ("testContainElementSatisfying", testContainElementSatisfying),
-            ("testContainElementSatisfyingDefaultErrorMessage", testContainElementSatisfyingDefaultErrorMessage),
-            ("testContainElementSatisfyingSpecificErrorMessage", testContainElementSatisfyingSpecificErrorMessage),
-            ("testContainElementSatisfyingNegativeCase",
-             testContainElementSatisfyingNegativeCase),
-            ("testContainElementSatisfyingNegativeCaseDefaultErrorMessage",
-             testContainElementSatisfyingNegativeCaseDefaultErrorMessage),
-            ("testContainElementSatisfyingNegativeCaseSpecificErrorMessage",
-             testContainElementSatisfyingNegativeCaseSpecificErrorMessage),
-        ]
-    }
-
     func testContainElementSatisfying() {
         var orderIndifferentArray = [1, 2, 3]
         expect(orderIndifferentArray).to(containElementSatisfying({ number in

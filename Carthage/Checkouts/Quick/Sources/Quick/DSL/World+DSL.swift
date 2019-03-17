@@ -56,7 +56,7 @@ extension World {
         currentExampleGroup.hooks.appendBefore(closure)
     }
 
-#if (os(macOS) || os(iOS) || os(tvOS) || os(watchOS)) && !SWIFT_PACKAGE
+#if canImport(Darwin) && !SWIFT_PACKAGE
     @objc(beforeEachWithMetadata:)
     internal func beforeEach(closure: @escaping BeforeExampleWithMetadataClosure) {
         currentExampleGroup.hooks.appendBefore(closure)
@@ -74,7 +74,7 @@ extension World {
         currentExampleGroup.hooks.appendAfter(closure)
     }
 
-#if (os(macOS) || os(iOS) || os(tvOS) || os(watchOS)) && !SWIFT_PACKAGE
+#if canImport(Darwin) && !SWIFT_PACKAGE
     @objc(afterEachWithMetadata:)
     internal func afterEach(closure: @escaping AfterExampleWithMetadataClosure) {
         currentExampleGroup.hooks.appendAfter(closure)
@@ -172,7 +172,7 @@ extension World {
         self.itBehavesLike(behavior, context: context, flags: pendingFlags, file: file, line: line)
     }
 
-#if (os(macOS) || os(iOS) || os(tvOS) || os(watchOS)) && !SWIFT_PACKAGE
+#if canImport(Darwin) && !SWIFT_PACKAGE
     @objc(itWithDescription:flags:file:line:closure:)
     internal func objc_it(_ description: String, flags: FilterFlags, file: String, line: UInt, closure: @escaping () -> Void) {
         it(description, flags: flags, file: file, line: line, closure: closure)

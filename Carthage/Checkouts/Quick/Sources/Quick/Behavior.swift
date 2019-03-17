@@ -4,7 +4,7 @@
 
 open class Behavior<Context> {
 
-    open static var name: String { return String(describing: self) }
+    public static var name: String { return String(describing: self) }
     /**
      override this method in your behavior to define a set of reusable examples.
 

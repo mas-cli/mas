@@ -6,18 +6,7 @@ import Nimble
 
 private let error: Error = NSError(domain: "test", code: 0, userInfo: nil)
 
-final class ThrowAssertionTest: XCTestCase, XCTestCaseProvider {
-    static var allTests: [(String, (ThrowAssertionTest) -> () throws -> Void)] {
-        return [
-            ("testPositiveMatch", testPositiveMatch),
-            ("testErrorThrown", testErrorThrown),
-            ("testPostAssertionCodeNotRun", testPostAssertionCodeNotRun),
-            ("testNegativeMatch", testNegativeMatch),
-            ("testPositiveMessage", testPositiveMessage),
-            ("testNegativeMessage", testNegativeMessage),
-        ]
-    }
-
+final class ThrowAssertionTest: XCTestCase {
     func testPositiveMatch() {
         expect { () -> Void in fatalError() }.to(throwAssertion())
     }

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "Nimble"
-  s.version      = "7.1.3"
+  s.version      = "8.0.0"
   s.summary      = "A Matcher Framework for Swift and Objective-C"
   s.description  = <<-DESC
                    Use Nimble to express the expected outcomes of Swift or Objective-C expressions. Inspired by Cedar.
@@ -49,4 +49,7 @@ Pod::Spec.new do |s|
     'OTHER_SWIFT_FLAGS' => '$(inherited) -suppress-warnings',
     'FRAMEWORK_SEARCH_PATHS' => '$(inherited) "$(PLATFORM_DIR)/Developer/Library/Frameworks"',
   }
+
+  s.cocoapods_version = '>= 1.4.0'
+  s.swift_version = '4.2'
 end

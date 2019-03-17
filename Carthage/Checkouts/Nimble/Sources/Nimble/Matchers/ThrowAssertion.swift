@@ -2,7 +2,7 @@ import Foundation
 
 public func throwAssertion() -> Predicate<Void> {
     return Predicate { actualExpression in
-    #if arch(x86_64) && (os(macOS) || os(iOS) || os(tvOS) || os(watchOS)) && !SWIFT_PACKAGE
+    #if arch(x86_64) && canImport(Darwin) && !SWIFT_PACKAGE
         let message = ExpectationMessage.expectedTo("throw an assertion")
 
         var actualError: Error?
@@ -44,9 +44,8 @@ public func throwAssertion() -> Predicate<Void> {
             " conditional statement")
     #else
         fatalError("The throwAssertion Nimble matcher can only run on x86_64 platforms with " +
-            "Objective-C (e.g. Mac, iPhone 5s or later simulators). You can silence this error " +
-            "by placing the test case inside an #if arch(x86_64) or (os(macOS) || os(iOS) || os(tvOS) || os(watchOS)) conditional statement")
-        // swiftlint:disable:previous line_length
+            "Objective-C (e.g. macOS, iPhone 5s or later simulators). You can silence this error " +
+            "by placing the test case inside an #if arch(x86_64) or canImport(Darwin) conditional statement")
     #endif
     }
 }

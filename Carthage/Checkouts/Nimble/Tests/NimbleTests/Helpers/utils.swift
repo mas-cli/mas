@@ -8,7 +8,7 @@ func failsWithErrorMessage(_ messages: [String], file: FileString = #file, line:
     var lineNumber = line
 
     let recorder = AssertionRecorder()
-    withAssertionHandler(recorder, closure: closure)
+    withAssertionHandler(recorder, file: file, line: line, closure: closure)
 
     for msg in messages {
         var lastFailure: AssertionRecord?
@@ -37,7 +37,12 @@ func failsWithErrorMessage(_ messages: [String], file: FileString = #file, line:
         } else {
             let knownFailures = recorder.assertions.filter { !$0.success }.map { $0.message.stringValue }
             let knownFailuresJoined = knownFailures.joined(separator: ", ")
-            message = "Expected error message (\(msg)), got (\(knownFailuresJoined))\n\nAssertions Received:\n\(recorder.assertions)"
+            message = """
+                Expected error message (\(msg)), got (\(knownFailuresJoined))
+
+                Assertions Received:
+                \(recorder.assertions)
+                """
         }
         NimbleAssertionHandler.assert(false,
                                       message: FailureMessage(stringValue: message),

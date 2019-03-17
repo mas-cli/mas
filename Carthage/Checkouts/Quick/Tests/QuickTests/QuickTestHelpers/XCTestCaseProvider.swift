@@ -30,7 +30,7 @@ public extension XCTestCaseProvider where Self: XCTestCaseProviderStatic {
     }
 }
 
-#if os(macOS) || os(iOS) || os(watchOS) || os(tvOS)
+#if canImport(Darwin)
 
     extension XCTestCase {
         override open func tearDown() {

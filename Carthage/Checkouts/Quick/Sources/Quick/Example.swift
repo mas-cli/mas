@@ -3,15 +3,9 @@ import Foundation
 private var numberOfExamplesRun = 0
 private var numberOfIncludedExamples = 0
 
-// `#if swift(>=3.2) && (os(macOS) || os(iOS) || os(tvOS) || os(watchOS)) && !SWIFT_PACKAGE`
-// does not work as expected.
-#if swift(>=3.2)
-    #if (os(macOS) || os(iOS) || os(tvOS) || os(watchOS)) && !SWIFT_PACKAGE
-    @objcMembers
-    public class _ExampleBase: NSObject {}
-    #else
-    public class _ExampleBase: NSObject {}
-    #endif
+#if canImport(Darwin) && !SWIFT_PACKAGE
+@objcMembers
+public class _ExampleBase: NSObject {}
 #else
 public class _ExampleBase: NSObject {}
 #endif

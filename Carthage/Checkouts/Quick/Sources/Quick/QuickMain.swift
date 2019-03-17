@@ -3,7 +3,7 @@ import XCTest
 // NOTE: This file is not intended to be included in the Xcode project or CocoaPods.
 //       It is picked up by the Swift Package Manager during its build process.
 
-#if SWIFT_PACKAGE && os(Linux)
+#if SWIFT_PACKAGE && !canImport(Darwin)
 
 /// When using Quick with swift-corelibs-xctest, automatic discovery of specs and
 /// configurations is not available. Instead, you should create a standalone
@@ -32,7 +32,7 @@ public func QCKMain(_ specs: [QuickSpec.Type],
     }
     world.finalizeConfiguration()
 
-    XCTMain(specs.flatMap { testCase($0.allTests) } + testCases)
+    XCTMain(specs.compactMap { testCase($0.allTests) } + testCases)
 }
 
 #endif

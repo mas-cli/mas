@@ -32,12 +32,12 @@ public func >=<T: NMBComparable>(lhs: Expectation<T>, rhs: T) {
     lhs.to(beGreaterThanOrEqualTo(rhs))
 }
 
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+#if canImport(Darwin)
 extension NMBObjCMatcher {
-    @objc public class func beGreaterThanOrEqualToMatcher(_ expected: NMBComparable?) -> NMBObjCMatcher {
-        return NMBObjCMatcher(canMatchNil: false) { actualExpression, failureMessage in
+    @objc public class func beGreaterThanOrEqualToMatcher(_ expected: NMBComparable?) -> NMBMatcher {
+        return NMBPredicate { actualExpression in
             let expr = actualExpression.cast { $0 as? NMBComparable }
-            return try beGreaterThanOrEqualTo(expected).matches(expr, failureMessage: failureMessage)
+            return try beGreaterThanOrEqualTo(expected).satisfies(expr).toObjectiveC()
         }
     }
 }

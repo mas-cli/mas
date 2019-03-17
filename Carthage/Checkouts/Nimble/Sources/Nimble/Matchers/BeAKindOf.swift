@@ -29,7 +29,7 @@ public func beAKindOf<T>(_ expectedType: T.Type) -> Predicate<Any> {
     }
 }
 
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+#if canImport(Darwin)
 
 /// A Nimble matcher that succeeds when the actual value is an instance of the given class.
 /// @see beAnInstanceOf if you want to match against the exact class

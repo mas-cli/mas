@@ -3,25 +3,6 @@ import XCTest
 import Nimble
 
 final class SynchronousTest: XCTestCase, XCTestCaseProvider {
-    static var allTests: [(String, (SynchronousTest) -> () throws -> Void)] {
-        return [
-            ("testFailAlwaysFails", testFailAlwaysFails),
-            ("testUnexpectedErrorsThrownFails", testUnexpectedErrorsThrownFails),
-            ("testToMatchesIfMatcherReturnsTrue", testToMatchesIfMatcherReturnsTrue),
-            ("testToProvidesActualValueExpression", testToProvidesActualValueExpression),
-            ("testToProvidesAMemoizedActualValueExpression", testToProvidesActualValueExpression),
-            ("testToProvidesAMemoizedActualValueExpressionIsEvaluatedAtMatcherControl", testToProvidesAMemoizedActualValueExpressionIsEvaluatedAtMatcherControl),
-            ("testToMatchAgainstLazyProperties", testToMatchAgainstLazyProperties),
-            ("testToNotMatchesIfMatcherReturnsTrue", testToNotMatchesIfMatcherReturnsTrue),
-            ("testToNotProvidesActualValueExpression", testToNotProvidesActualValueExpression),
-            ("testToNotProvidesAMemoizedActualValueExpression", testToNotProvidesAMemoizedActualValueExpression),
-            ("testToNotProvidesAMemoizedActualValueExpressionIsEvaluatedAtMatcherControl", testToNotProvidesAMemoizedActualValueExpressionIsEvaluatedAtMatcherControl),
-            ("testToNegativeMatches", testToNegativeMatches),
-            ("testToNotNegativeMatches", testToNotNegativeMatches),
-            ("testNotToMatchesLikeToNot", testNotToMatchesLikeToNot),
-        ]
-    }
-
     class Error: Swift.Error {}
     let errorToThrow = Error()
 
