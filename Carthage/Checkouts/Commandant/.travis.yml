@@ -8,6 +8,7 @@ aliases:
   - &cocoapods
     script:
       - rm .swift-version
+      - gem update cocoapods
       - pod repo update master
       - pod lib lint --verbose
     os: osx
@@ -31,7 +32,7 @@ aliases:
     dist: trusty
     language: generic
     install:
-      - eval "$(curl -sL https://gist.githubusercontent.com/kylef/5c0475ff02b7c7671d2a/raw/02090c7ede5a637b76e6df1710e83cd0bbe7dcdf/swiftenv-install.sh)"
+      - eval "$(curl -sL https://swiftenv.fuller.li/install.sh)"
 
 branches:
   only:
@@ -40,28 +41,32 @@ branches:
 matrix:
   include:
     - <<: *xcode
-      osx_image: xcode9.2
-      env: JOB=Xcode9.2
+      name: Xcode 10.1 / Swift 4.2.1
+      osx_image: xcode10.1
+      env: JOB=Xcode10.1
     - <<: *xcode
-      osx_image: xcode9.4
-      env: JOB=Xcode9.4
+      name: Xcode 10.2 / Swift 5.0
+      osx_image: xcode10.2
+      env: JOB=Xcode10.2
     - <<: *cocoapods
-      osx_image: xcode9.4
+      name: CocoaPods Lint
+      osx_image: xcode10.1
     - <<: *swiftpm_darwin
-      osx_image: xcode9.2
+      name: SwiftPM / Swift 4.2.1
+      osx_image: xcode10.1
     - <<: *swiftpm_darwin
-      osx_image: xcode9.4
+      name: SwiftPM / Swift 5.0
+      osx_image: xcode10.2
     - <<: *swiftpm_linux
+      name: Linux / Swift 4.2.3
       env:
         - JOB=Linux
-        - SWIFT_VERSION=4.0.3
+        - SWIFT_VESION=4.2.3
     - <<: *swiftpm_linux
+      name: Linux / Swift 5.0 Development
       env:
         - JOB=Linux
-    - <<: *swiftpm_linux
-      env:
-        - JOB=Linux
-        - SWIFT_VERSION=4.2-DEVELOPMENT-SNAPSHOT-2018-07-05-a
+        - SWIFT_VERSION=5.0-DEVELOPMENT-SNAPSHOT-2019-02-28-a
 
 notifications:
   email: false
@@ -83,4 +88,4 @@ deploy:
   on:
     repo: Carthage/Commandant
     tags: true
-    condition: $JOB = Xcode9.4
+    condition: $JOB = Xcode10.1

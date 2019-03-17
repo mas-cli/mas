@@ -3,7 +3,7 @@ REMOTE_BRANCH=master
 POD_NAME=Quick
 PODSPEC=Quick.podspec
 
-POD=${COCOAPODS:-pod}
+POD=${COCOAPODS:-"bundle exec pod"}
 
 function help {
     echo "Usage: release VERSION RELEASE_NOTES [-f]"

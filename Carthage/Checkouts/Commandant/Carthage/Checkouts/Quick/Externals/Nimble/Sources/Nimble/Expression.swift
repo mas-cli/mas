@@ -24,8 +24,10 @@ internal func memoizedClosure<T>(_ closure: @escaping () throws -> T) -> (Bool) 
 /// This provides a common consumable API for matchers to utilize to allow
 /// Nimble to change internals to how the captured closure is managed.
 public struct Expression<T> {
+    // swiftlint:disable identifier_name
     internal let _expression: (Bool) throws -> T?
     internal let _withoutCaching: Bool
+    // swiftlint:enable identifier_name
     public let location: SourceLocation
     public let isClosure: Bool
 

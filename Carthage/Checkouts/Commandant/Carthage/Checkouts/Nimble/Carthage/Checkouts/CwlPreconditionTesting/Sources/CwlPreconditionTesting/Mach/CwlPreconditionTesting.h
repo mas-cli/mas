@@ -20,6 +20,8 @@
 
 #import <Foundation/Foundation.h>
 
+extern bool _swift_reportFatalErrorsToDebugger;
+
 //! Project version number for CwlUtils.
 FOUNDATION_EXPORT double CwlPreconditionTestingVersionNumber;
 

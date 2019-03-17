@@ -11,7 +11,7 @@ public protocol ResultProtocol {
 	var result: Result<Value, Error> { get }
 }
 
-public extension Result {
+extension Result {
 	/// Returns the value if self represents a success, `nil` otherwise.
 	public var value: Value? {
 		switch self {
@@ -69,7 +69,7 @@ public extension Result {
 	}
 }
 
-public extension Result {
+extension Result {
 
 	// MARK: Higher-order functions
 
@@ -92,7 +92,7 @@ public protocol ErrorConvertible: Swift.Error {
 	static func error(from error: Swift.Error) -> Self
 }
 
-public extension Result where Error: ErrorConvertible {
+extension Result where Result.Failure: ErrorConvertible {
 
 	/// Returns the result of applying `transform` to `Success`es’ values, or wrapping thrown errors.
 	public func tryMap<U>(_ transform: (Value) throws -> U) -> Result<U, Error> {
@@ -111,7 +111,7 @@ public extension Result where Error: ErrorConvertible {
 
 // MARK: - Operators
 
-extension Result where Value: Equatable, Error: Equatable {
+extension Result where Result.Success: Equatable, Result.Failure: Equatable {
 	/// Returns `true` if `left` and `right` are both `Success`es and their values are equal, or if `left` and `right` are both `Failure`s and their errors are equal.
 	public static func ==(left: Result<Value, Error>, right: Result<Value, Error>) -> Bool {
 		if let left = left.value, let right = right.value {
@@ -124,9 +124,9 @@ extension Result where Value: Equatable, Error: Equatable {
 }
 
 #if swift(>=4.1)
-	extension Result: Equatable where Value: Equatable, Error: Equatable { }
+	extension Result: Equatable where Result.Success: Equatable, Result.Failure: Equatable { }
 #else
-	extension Result where Value: Equatable, Error: Equatable {
+	extension Result where Result.Success: Equatable, Result.Failure: Equatable {
 		/// Returns `true` if `left` and `right` represent different cases, or if they represent the same case but different values.
 		public static func !=(left: Result<Value, Error>, right: Result<Value, Error>) -> Bool {
 			return !(left == right)

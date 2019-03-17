@@ -314,16 +314,16 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = Carthage;
 				TargetAttributes = {
 					D00CCDD81A20717400109F8C = {
 						CreatedOnToolsVersion = 6.1.1;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 1020;
 					};
 					D00CCDE31A20717400109F8C = {
 						CreatedOnToolsVersion = 6.1.1;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -405,6 +405,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D00CCDFA1A20719500109F8C /* Debug.xcconfig */;
 			buildSettings = {
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
@@ -416,7 +417,7 @@
 				ENABLE_TESTABILITY = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -426,6 +427,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D00CCDFC1A20719500109F8C /* Release.xcconfig */;
 			buildSettings = {
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
@@ -436,7 +438,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -484,6 +486,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = Tests/CommandantTests/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.carthage.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -498,6 +501,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = Tests/CommandantTests/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.carthage.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -507,6 +511,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D00CCDFB1A20719500109F8C /* Profile.xcconfig */;
 			buildSettings = {
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
@@ -516,7 +521,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -547,6 +552,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = Tests/CommandantTests/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.carthage.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -556,6 +562,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D00CCDFD1A20719500109F8C /* Test.xcconfig */;
 			buildSettings = {
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
@@ -565,7 +572,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -597,6 +604,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = Tests/CommandantTests/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.carthage.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

@@ -4,33 +4,11 @@ import Foundation
 /// provided in the variable list of matchers. 
 public func satisfyAnyOf<T, U>(_ matchers: U...) -> Predicate<T>
     where U: Matcher, U.ValueType == T {
-    return satisfyAnyOf(matchers)
-}
-
-/// Deprecated. Please use `satisfyAnyOf<T>(_) -> Predicate<T>` instead.
-internal func satisfyAnyOf<T, U>(_ matchers: [U]) -> Predicate<T>
-    where U: Matcher, U.ValueType == T {
-        return NonNilMatcherFunc<T> { actualExpression, failureMessage in
-            let postfixMessages = NSMutableArray()
-            var matches = false
-            for matcher in matchers {
-                if try matcher.matches(actualExpression, failureMessage: failureMessage) {
-                    matches = true
-                }
-                postfixMessages.add(NSString(string: "{\(failureMessage.postfixMessage)}"))
-            }
-
-            failureMessage.postfixMessage = "match one of: " + postfixMessages.componentsJoined(by: ", or ")
-            if let actualValue = try actualExpression.evaluate() {
-                failureMessage.actualValue = "\(actualValue)"
-            }
-
-            return matches
-        }.predicate
+        return satisfyAnyOf(matchers.map { $0.predicate })
 }
 
 internal func satisfyAnyOf<T>(_ predicates: [Predicate<T>]) -> Predicate<T> {
-        return Predicate { actualExpression in
+        return Predicate.define { actualExpression in
             var postfixMessages = [String]()
             var matches = false
             for predicate in predicates {
@@ -53,11 +31,8 @@ internal func satisfyAnyOf<T>(_ predicates: [Predicate<T>]) -> Predicate<T> {
                 )
             }
 
-            return PredicateResult(
-                status: PredicateStatus(bool: matches),
-                message: msg
-            )
-        }.requireNonNil
+            return PredicateResult(bool: matches, message: msg)
+        }
 }
 
 public func || <T>(left: Predicate<T>, right: Predicate<T>) -> Predicate<T> {
@@ -72,7 +47,7 @@ public func || <T>(left: MatcherFunc<T>, right: MatcherFunc<T>) -> Predicate<T> 
     return satisfyAnyOf(left, right)
 }
 
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+#if canImport(Darwin)
 extension NMBObjCMatcher {
     @objc public class func satisfyAnyOfMatcher(_ matchers: [NMBMatcher]) -> NMBPredicate {
         return NMBPredicate { actualExpression in
@@ -90,11 +65,15 @@ extension NMBObjCMatcher {
                 let elementEvaluator = Predicate<NSObject> { expression in
                     if let predicate = matcher as? NMBPredicate {
                         // swiftlint:disable:next line_length
-                        return predicate.satisfies({ try! expression.evaluate() }, location: actualExpression.location).toSwift()
+                        return predicate.satisfies({ try expression.evaluate() }, location: actualExpression.location).toSwift()
                     } else {
                         let failureMessage = FailureMessage()
-                        // swiftlint:disable:next line_length
-                        let success = matcher.matches({ try! expression.evaluate() }, failureMessage: failureMessage, location: actualExpression.location)
+                        let success = matcher.matches(
+                            // swiftlint:disable:next force_try
+                            { try! expression.evaluate() },
+                            failureMessage: failureMessage,
+                            location: actualExpression.location
+                        )
                         return PredicateResult(bool: success, message: failureMessage.toExpectationMessage())
                     }
                 }
@@ -102,7 +81,7 @@ extension NMBObjCMatcher {
                 elementEvaluators.append(elementEvaluator)
             }
 
-            return try! satisfyAnyOf(elementEvaluators).satisfies(actualExpression).toObjectiveC()
+            return try satisfyAnyOf(elementEvaluators).satisfies(actualExpression).toObjectiveC()
         }
     }
 }

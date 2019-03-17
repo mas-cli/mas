@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'Result'
-  s.version      = '4.0.0'
+  s.version      = '4.1.0'
   s.summary      = 'Swift type modelling the success/failure of arbitrary operations'
 
   s.homepage     = 'https://github.com/antitypical/Result'
@@ -14,6 +14,6 @@ Pod::Spec.new do |s|
   s.watchos.deployment_target = '2.0'
   s.tvos.deployment_target = '9.0'
   
-  s.swift_version = '4.0'
   s.cocoapods_version = '>= 1.4.0'
+  s.swift_version = '4.2'
 end

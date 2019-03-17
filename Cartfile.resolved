@@ -1,4 +1,4 @@
-github "Carthage/Commandant" "0.15.0"
+github "Carthage/Commandant" "191b3f7ba9c3c1ab148287af14345d0262748b1a"
 github "Quick/Nimble" "v8.0.1"
 github "Quick/Quick" "v2.0.0"
 github "antitypical/Result" "4.1.0"

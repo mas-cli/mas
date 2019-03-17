@@ -1,7 +1,7 @@
 import Foundation
 
 internal func raiseError(_ message: String) -> Never {
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+#if canImport(Darwin)
     NSException(name: .internalInconsistencyException, reason: message, userInfo: nil).raise()
 #endif
 

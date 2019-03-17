@@ -7,7 +7,7 @@
 - 동작이 동일하게 유지되더라도 응용 프로그램 코드가 변경되면 중단되는 테스트는 **취약한 테스트 (brittle tests)**입니다.
 
 우리가 `GorillaDB` 라는 바나나 데이터베이스를 가지고 있다고 가정합시다.
-`GorillaDB` 는 key-value로 바나나들을 저장하고 있습니다. 우리는 바바나를 다음과 같이 저장할 수 있습니다 :
+`GorillaDB` 는 key-value로 바나나들을 저장하고 있습니다. 우리는 바나나를 다음과 같이 저장할 수 있습니다 :
 
 ```swift
 let database = GorillaDB()

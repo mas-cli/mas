@@ -10,7 +10,7 @@ open class QuickConfiguration: NSObject {
     open class func configure(_ configuration: Configuration) {}
 }
 
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+#if canImport(Darwin)
 
 internal func qck_enumerateSubclasses<T: AnyObject>(_ klass: T.Type, block: (T.Type) -> Void) {
     var classesCount = objc_getClassList(nil, 0)

@@ -63,12 +63,12 @@ private func createPredicate<S>(_ elementMatcher: Predicate<S.Iterator.Element>)
         }
 }
 
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+#if canImport(Darwin)
 extension NMBObjCMatcher {
     @objc public class func allPassMatcher(_ matcher: NMBMatcher) -> NMBPredicate {
         return NMBPredicate { actualExpression in
             let location = actualExpression.location
-            let actualValue = try! actualExpression.evaluate()
+            let actualValue = try actualExpression.evaluate()
             var nsObjects = [NSObject]()
 
             var collectionIsUsable = true
@@ -99,10 +99,11 @@ extension NMBObjCMatcher {
             let expr = Expression(expression: ({ nsObjects }), location: location)
             let pred: Predicate<[NSObject]> = createPredicate(Predicate { expr in
                 if let predicate = matcher as? NMBPredicate {
-                    return predicate.satisfies(({ try! expr.evaluate() }), location: expr.location).toSwift()
+                    return predicate.satisfies(({ try expr.evaluate() }), location: expr.location).toSwift()
                 } else {
                     let failureMessage = FailureMessage()
                     let result = matcher.matches(
+                        // swiftlint:disable:next force_try
                         ({ try! expr.evaluate() }),
                         failureMessage: failureMessage,
                         location: expr.location
@@ -114,7 +115,7 @@ extension NMBObjCMatcher {
                     )
                 }
             })
-            return try! pred.satisfies(expr).toObjectiveC()
+            return try pred.satisfies(expr).toObjectiveC()
         }
     }
 }

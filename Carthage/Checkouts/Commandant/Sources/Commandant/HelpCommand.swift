@@ -22,14 +22,15 @@ public struct HelpCommand<ClientError: Error>: CommandProtocol {
 	public typealias Options = HelpOptions<ClientError>
 
 	public let verb = "help"
-	public let function = "Display general or command-specific help"
-
+	public let function: String
+	
 	private let registry: CommandRegistry<ClientError>
 
 	/// Initializes the command to provide help from the given registry of
 	/// commands.
-	public init(registry: CommandRegistry<ClientError>) {
+	public init(registry: CommandRegistry<ClientError>, function: String? = nil) {
 		self.registry = registry
+		self.function = function ?? "Display general or command-specific help"
 	}
 
 	public func run(_ options: Options) -> Result<(), ClientError> {

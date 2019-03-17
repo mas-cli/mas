@@ -23,92 +23,29 @@ private func async<T>(style: ExpectationStyle, predicate: Predicate<T>, timeout:
         }
         switch result {
         case .completed: return lastPredicateResult!
-        case .timedOut: return PredicateResult(status: .fail, message: lastPredicateResult!.message)
+        case .timedOut:
+            let message = lastPredicateResult?.message ?? .fail("timed out before returning a value")
+            return PredicateResult(status: .fail, message: message)
         case let .errorThrown(error):
             return PredicateResult(status: .fail, message: .fail("unexpected error thrown: <\(error)>"))
         case let .raisedException(exception):
             return PredicateResult(status: .fail, message: .fail("unexpected exception raised: \(exception)"))
         case .blockedRunLoop:
             // swiftlint:disable:next line_length
-            return PredicateResult(status: .fail, message: lastPredicateResult!.message.appended(message: " (timed out, but main thread was unresponsive)."))
+            let message = lastPredicateResult?.message.appended(message: " (timed out, but main run loop was unresponsive).") ??
+                .fail("main run loop was unresponsive")
+            return PredicateResult(status: .fail, message: message)
         case .incomplete:
-            internalError("Reached .incomplete state for toEventually(...).")
-        }
-    }
-}
-
-// Deprecated
-internal struct AsyncMatcherWrapper<T, U>: Matcher
-    where U: Matcher, U.ValueType == T {
-    let fullMatcher: U
-    let timeoutInterval: TimeInterval
-    let pollInterval: TimeInterval
-
-    init(fullMatcher: U, timeoutInterval: TimeInterval = AsyncDefaults.Timeout, pollInterval: TimeInterval = AsyncDefaults.PollInterval) {
-      self.fullMatcher = fullMatcher
-      self.timeoutInterval = timeoutInterval
-      self.pollInterval = pollInterval
-    }
-
-    func matches(_ actualExpression: Expression<T>, failureMessage: FailureMessage) -> Bool {
-        let uncachedExpression = actualExpression.withoutCaching()
-        let fnName = "expect(...).toEventually(...)"
-        let result = pollBlock(
-            pollInterval: pollInterval,
-            timeoutInterval: timeoutInterval,
-            file: actualExpression.location.file,
-            line: actualExpression.location.line,
-            fnName: fnName) {
-                try self.fullMatcher.matches(uncachedExpression, failureMessage: failureMessage)
-        }
-        switch result {
-        case let .completed(isSuccessful): return isSuccessful
-        case .timedOut: return false
-        case let .errorThrown(error):
-            failureMessage.stringValue = "an unexpected error thrown: <\(error)>"
-            return false
-        case let .raisedException(exception):
-            failureMessage.stringValue = "an unexpected exception thrown: <\(exception)>"
-            return false
-        case .blockedRunLoop:
-            failureMessage.postfixMessage += " (timed out, but main thread was unresponsive)."
-            return false
-        case .incomplete:
-            internalError("Reached .incomplete state for toEventually(...).")
-        }
-    }
-
-    func doesNotMatch(_ actualExpression: Expression<T>, failureMessage: FailureMessage) -> Bool {
-        let uncachedExpression = actualExpression.withoutCaching()
-        let result = pollBlock(
-            pollInterval: pollInterval,
-            timeoutInterval: timeoutInterval,
-            file: actualExpression.location.file,
-            line: actualExpression.location.line,
-            fnName: "expect(...).toEventuallyNot(...)") {
-                try self.fullMatcher.doesNotMatch(uncachedExpression, failureMessage: failureMessage)
-        }
-        switch result {
-        case let .completed(isSuccessful): return isSuccessful
-        case .timedOut: return false
-        case let .errorThrown(error):
-            failureMessage.stringValue = "an unexpected error thrown: <\(error)>"
-            return false
-        case let .raisedException(exception):
-            failureMessage.stringValue = "an unexpected exception thrown: <\(exception)>"
-            return false
-        case .blockedRunLoop:
-            failureMessage.postfixMessage += " (timed out, but main thread was unresponsive)."
-            return false
-        case .incomplete:
-            internalError("Reached .incomplete state for toEventuallyNot(...).")
+            internalError("Reached .incomplete state for \(fnName)(...).")
         }
     }
 }
 
 private let toEventuallyRequiresClosureError = FailureMessage(
-    // swiftlint:disable:next line_length
-    stringValue: "expect(...).toEventually(...) requires an explicit closure (eg - expect { ... }.toEventually(...) )\nSwift 1.2 @autoclosure behavior has changed in an incompatible way for Nimble to function"
+    stringValue: """
+        expect(...).toEventually(...) requires an explicit closure (eg - expect { ... }.toEventually(...) )
+        Swift 1.2 @autoclosure behavior has changed in an incompatible way for Nimble to function
+        """
 )
 
 extension Expectation {
@@ -182,14 +119,19 @@ extension Expectation {
     public func toEventually<U>(_ matcher: U, timeout: TimeInterval = AsyncDefaults.Timeout, pollInterval: TimeInterval = AsyncDefaults.PollInterval, description: String? = nil)
         where U: Matcher, U.ValueType == T {
         if expression.isClosure {
-            let (pass, msg) = expressionMatches(
+            let (pass, msg) = execute(
                 expression,
-                matcher: AsyncMatcherWrapper(
-                    fullMatcher: matcher,
-                    timeoutInterval: timeout,
-                    pollInterval: pollInterval),
+                .toMatch,
+                async(
+                    style: .toMatch,
+                    predicate: matcher.predicate,
+                    timeout: timeout,
+                    poll: pollInterval,
+                    fnName: "toEventually"
+                ),
                 to: "to eventually",
-                description: description
+                description: description,
+                captureExceptions: false
             )
             verify(pass, msg)
         } else {
@@ -208,10 +150,13 @@ extension Expectation {
         if expression.isClosure {
             let (pass, msg) = expressionDoesNotMatch(
                 expression,
-                matcher: AsyncMatcherWrapper(
-                    fullMatcher: matcher,
-                    timeoutInterval: timeout,
-                    pollInterval: pollInterval),
+                matcher: async(
+                    style: .toNotMatch,
+                    predicate: matcher.predicate,
+                    timeout: timeout,
+                    poll: pollInterval,
+                    fnName: "toEventuallyNot"
+                ),
                 toNot: "to eventually not",
                 description: description
             )

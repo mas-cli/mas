@@ -2,7 +2,6 @@
 
 #import "QCKSpecRunner.h"
 #import "XCTestObservationCenter+QCKSuspendObservation.h"
-#import "World.h"
 
 @interface XCTest (Redeclaration)
 - (XCTestRun *)run;

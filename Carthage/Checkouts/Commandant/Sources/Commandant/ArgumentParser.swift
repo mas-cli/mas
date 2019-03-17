@@ -22,24 +22,6 @@ private enum RawArgument: Equatable {
 	case flag(OrderedSet<Character>)
 }
 
-#if !swift(>=4.1)
-private func ==(lhs: RawArgument, rhs: RawArgument) -> Bool {
-	switch (lhs, rhs) {
-	case let (.key(left), .key(right)):
-		return left == right
-
-	case let (.value(left), .value(right)):
-		return left == right
-
-	case let (.flag(left), .flag(right)):
-		return left == right
-
-	default:
-		return false
-	}
-}
-#endif
-
 extension RawArgument: CustomStringConvertible {
 	fileprivate var description: String {
 		switch self {
