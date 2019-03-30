@@ -4,12 +4,9 @@
 //     class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
 //
 
-// #import "NSObject.h"
-// #import "NSSecureCoding.h"
+@import Foundation;
 
-#import "ISStoreAccount.h"
-
-@class NSArray, NSDictionary, NSString;
+@class ISStoreAccount, NSArray, NSDictionary, NSString;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -72,7 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(copy) NSString *identifier; // @synthesize identifier=_identifier;
 @property unsigned long long frameworkVersion; // @synthesize frameworkVersion=_frameworkVersion;
 
-// - (void).cxx_destruct;
+//- (void).cxx_destruct;
 
 - (id)callerIdentity;
 - (BOOL)isEqualToStoreClient:(id)arg1;

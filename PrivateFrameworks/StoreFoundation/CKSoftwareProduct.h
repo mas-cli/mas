@@ -5,11 +5,6 @@
 //
 
 @import Foundation;
-// #import <Foundation/NSZone.h>
-
-//#import "NSObject.h"
-//#import "NSCopying.h"
-//#import "NSSecureCoding.h"
 
 @class NSDate, NSNumber, NSString, NSValue;
 
@@ -23,8 +18,12 @@ NS_ASSUME_NONNULL_BEGIN
     BOOL _isMachineLicensed;
     BOOL _isLegacyApp;
     BOOL _metadataChangeIsExpected;
+    // Added 10.14.4
+    BOOL _metadataChangeHasAlreadyOccurred;
     NSString *_accountOpaqueDSID;
     NSString *_accountIdentifier;
+    // Added 10.14.4
+    NSString *_appName;
     NSString *_bundleIdentifier;
     NSString *_bundleVersion;
     NSString *_bundlePath;
@@ -51,6 +50,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(copy, nullable) NSNumber *expectedStoreVersion; // @synthesize expectedStoreVersion=_expectedStoreVersion;
 @property(copy, nullable) NSString *expectedBundleVersion; // @synthesize expectedBundleVersion=_expectedBundleVersion;
 
+// Added 10.14.4
+@property BOOL metadataChangeHasAlreadyOccurred; // @synthesize metadataChangeHasAlreadyOccurred=_metadataChangeHasAlreadyOccurred;
 @property BOOL metadataChangeIsExpected; // @synthesize metadataChangeIsExpected=_metadataChangeIsExpected;
 @property long long source; // @synthesize source=_source;
 @property BOOL isLegacyApp; // @synthesize isLegacyApp=_isLegacyApp;
@@ -64,7 +65,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL vppLicenseRevoked; // @synthesize vppLicenseRevoked=_vppLicenseRevoked;
 @property BOOL isVPPLicensed; // @synthesize isVPPLicensed=_isVPPLicensed;
 @property BOOL installed; // @synthesize installed=_installed;
-
 @property(retain) NSValue *mdItemRef; // @synthesize mdItemRef=_mdItemRef;
 @property(retain) NSDate *purchaseDate; // @synthesize purchaseDate=_purchaseDate;
 @property(retain) NSNumber *versionIdentifier; // @synthesize versionIdentifier=_versionIdentifier;
@@ -74,15 +74,17 @@ NS_ASSUME_NONNULL_BEGIN
 @property(retain) NSString *bundlePath; // @synthesize bundlePath=_bundlePath;
 @property(retain) NSString *bundleVersion; // @synthesize bundleVersion=_bundleVersion;
 @property(retain) NSString *bundleIdentifier; // @synthesize bundleIdentifier=_bundleIdentifier;
+
+@property(retain, nonnull) NSString *appName; // @synthesize appName=_appName;
+
 @property(retain) NSString *accountIdentifier; // @synthesize accountIdentifier=_accountIdentifier;
 @property(retain) NSString *accountOpaqueDSID; // @synthesize accountOpaqueDSID=_accountOpaqueDSID;
 
-// - (void).cxx_destruct;
+//- (void).cxx_destruct;
 
 - (instancetype)copyWithZone:(nullable NSZone *)zone;
 - (nullable instancetype)initWithCoder:(nonnull NSCoder *)coder;
 - (void)encodeWithCoder:(nonnull NSCoder *)coder;
-@property(readonly, nonnull) NSString *appName;
 - (nonnull NSString *)description;
 @property(readonly, nullable) NSString *sourceString;
 

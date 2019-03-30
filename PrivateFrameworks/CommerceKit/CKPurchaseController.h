@@ -5,12 +5,8 @@
 //
 
 #import "CKServiceInterface.h"
-//#import <StoreFoundation/SSPurchase.h>
-@import StoreFoundation;
 
 @class NSArray, NSMutableArray, NSNumber;
-
-@class SSPurchaseResponse;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,23 +19,27 @@ typedef void (^SSPurchaseCompletion)(SSPurchase * _Nullable purchase, BOOL compl
     NSArray *_adoptionEligibleItems;
     NSNumber *_adoptionServerStatus;
     NSNumber *_adoptionErrorNumber;
-//    CDUnknownBlockType _dialogHandler;
+
+    // CDUnknownBlockType _dialogHandler;
 }
 
 + (void)setNeedsSilentMachineAuthorization:(BOOL)arg1;
-+ (CKPurchaseController *)sharedPurchaseController;
+
++ (instancetype)sharedPurchaseController;
 
 //@property(copy) CDUnknownBlockType dialogHandler; // @synthesize dialogHandler=_dialogHandler;
 //- (void).cxx_destruct;
-//- (BOOL)adoptionCompletedForBundleID:(id)arg1;
-//- (void)_performVPPReceiptRenewal;
-//- (void)checkServerDownloadQueue;
-//- (id)purchaseInProgressForProductID:(id)arg1;
-//- (id)purchasesInProgress;
-//- (void)cancelPurchaseWithProductID:(id)arg1;
-//- (void)resumeDownloadForPurchasedProductID:(id)arg1;
-//- (void)startPurchases:(NSArray<SSPurchase *> *)purchases shouldStartDownloads:(BOOL)downloads eventHandler:(CDUnknownBlockType)arg3;
-//- (void)startPurchases:(NSArray<SSPurchase *> *)purchases withOptions:(unsigned long long)arg2 completionHandler:(CDUnknownBlockType)arg3;
+
+- (BOOL)adoptionCompletedForBundleID:(id)arg1;
+- (void)_performVPPReceiptRenewal;
+- (void)checkServerDownloadQueue;
+- (id)purchaseInProgressForProductID:(id)arg1;
+- (id)purchasesInProgress;
+- (void)cancelPurchaseWithProductID:(id)arg1;
+- (void)resumeDownloadForPurchasedProductID:(id)arg1;
+
+//- (void)startPurchases:(id)arg1 shouldStartDownloads:(BOOL)arg2 eventHandler:(CDUnknownBlockType)arg3;
+//- (void)startPurchases:(id)arg1 withOptions:(unsigned long long)arg2 completionHandler:(CDUnknownBlockType)arg3;
 
 - (void)performPurchase:(SSPurchase *)purchase withOptions:(unsigned long long)arg2 completionHandler:(SSPurchaseCompletion _Nullable)completionHandler;
 

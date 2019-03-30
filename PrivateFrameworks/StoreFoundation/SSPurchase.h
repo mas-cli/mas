@@ -4,10 +4,7 @@
 //     class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
 //
 
-// #import "NSObject.h"
-
-// #import "NSCopying.h"
-// #import "NSSecureCoding.h"
+@import Foundation;
 
 @class ISOperation, NSData, NSDictionary, NSNumber, NSString, SSDownloadMetadata;
 
@@ -68,7 +65,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(copy, nonatomic) NSString *buyParameters; // @synthesize buyParameters=_buyParameters;
 @property(retain, nonatomic) NSNumber *accountIdentifier; // @synthesize accountIdentifier=_accountIdentifier;
 
-// - (void).cxx_destruct;
+//- (void).cxx_destruct;
 
 - (BOOL)purchaseDSIDMatchesPrimaryAccount;
 @property(readonly) BOOL needsAuthentication; // @dynamic needsAuthentication;

@@ -4,12 +4,9 @@
 //     class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
 //
 
-// #import <CommerceKit/CKServiceInterface.h>
 #import "CKServiceInterface.h"
 
 @class CKUpdateControllerClient, NSMutableDictionary;
-
-@class CKUpdate;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -33,8 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(retain, nonatomic) NSMutableDictionary *availableUpdatesObservers; // @synthesize availableUpdatesObservers=_availableUpdatesObservers;
 @property BOOL shouldNotAttemptInstallationAfterFailureDialog; // @synthesize shouldNotAttemptInstallationAfterFailureDialog=_shouldNotAttemptInstallationAfterFailureDialog;
 
-// @property(copy) CDUnknownBlockType dialogHandler; // @synthesize dialogHandler=_dialogHandler;
-// - (void).cxx_destruct;
+//@property(copy) CDUnknownBlockType dialogHandler; // @synthesize dialogHandler=_dialogHandler;
+//- (void).cxx_destruct;
 
 - (void)didInteractivelyPurchaseItemIdentifier:(unsigned long long)arg1 success:(BOOL)arg2;
 - (BOOL)willInteractivelyPurchaseItemIdentifier:(unsigned long long)arg1;
@@ -73,18 +70,18 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)installAvailableUpdatesLaterWithMode:(long long)arg1;
 - (BOOL)shouldOfferDoItLater;
 
-// - (void)updatesWithTags:(id)arg1 completionHandler:(CDUnknownBlockType)arg2;
+//- (void)updatesWithTags:(id)arg1 completionHandler:(CDUnknownBlockType)arg2;
 
 - (void)installAllAvailableUpdates;
 
-// - (void)startAppInstallWithTags:(id)arg1 fallbackPurchase:(id)arg2 completionHandler:(CDUnknownBlockType)arg3;
-// - (void)startAppUpdates:(id)arg1 andOSUpdates:(id)arg2 withDelegate:(id)arg3 completionHandler:(CDUnknownBlockType)arg4;
-// - (void)_checkForBookUpdatesWithCompletionHandler:(CDUnknownBlockType)arg1;
-// - (void)checkForUpdatesWithUserHasSeenUpdates:(BOOL)arg1 completionHandler:(CDUnknownBlockType)arg2;
+//- (void)startAppInstallWithTags:(id)arg1 fallbackPurchase:(id)arg2 completionHandler:(CDUnknownBlockType)arg3;
+//- (void)startAppUpdates:(id)arg1 andOSUpdates:(id)arg2 withDelegate:(id)arg3 completionHandler:(CDUnknownBlockType)arg4;
+//- (void)_checkForBookUpdatesWithCompletionHandler:(CDUnknownBlockType)arg1;
+//- (void)checkForUpdatesWithUserHasSeenUpdates:(BOOL)arg1 completionHandler:(CDUnknownBlockType)arg2;
 
 - (void)removeAvailableUpdatesObserver:(id)arg1;
 
-// - (id)addAvailableUpdatesObserverWithBlock:(CDUnknownBlockType)arg1;
+//- (id)addAvailableUpdatesObserverWithBlock:(CDUnknownBlockType)arg1;
 
 - (unsigned long long)availableUpdatesBadgeCount;
 - (id)incompatibleUpdates;

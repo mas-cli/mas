@@ -6,8 +6,6 @@
 
 #import "CKServiceInterface.h"
 
-@import StoreFoundation;
-
 @class CKSoftwareMapObserver, NSMutableDictionary;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -19,12 +17,16 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 + (instancetype)sharedSoftwareMap;
-
 @property(retain, nonatomic) CKSoftwareMapObserver *sharedObserver; // @synthesize sharedObserver=_sharedObserver;
 @property(retain, nonatomic) NSMutableDictionary *productsObservers; // @synthesize productsObservers=_productsObservers;
 
-// - (void).cxx_destruct;
+//- (void).cxx_destruct;
 
+// Added 10.14.4
+//- (void)startAdoptionEligibilityCheckWithReplyBlock:(CDUnknownBlockType)arg1;
+
+// Added 10.14.4
+- (id)adopt:(id)arg1;
 - (id)adoptableBundleIdentifiers;
 
 - (BOOL)adoptionCompletedForBundleID:(id)arg1 adoptingDSID:(out _Nullable id * _Nullable)arg2 appleID:(out _Nullable id * _Nullable)arg3;
