@@ -52,29 +52,7 @@ public struct MacOSInstallerProduct: SoftwareProduct {
         installed = product.installed
         isLegacyApp = product.isLegacyApp
         isMachineLicensed = product.isMachineLicensed
-//        purchaseDate = product.purchaseDate
+        purchaseDate = product.purchaseDate
         storeFrontIdentifier = product.storeFrontIdentifier
-    }
-
-    /// Look up OS based on store display name.
-    ///
-    /// - Parameter appName: <#appName description#>
-    /// - Returns: <#return value description#>
-    private func osVersionFromAppName(_ appName: String) -> MacOS? {
-        let prefixes = ["Install macOS", "Install OS X"]
-        let startIndex = prefixes.compactMap { (prefix) -> String.Index? in
-            if appName.starts(with: prefix) {
-                return appName.index(appName.startIndex, offsetBy: prefix.count)
-            }
-            return nil
-        }.first
-
-        let name = appName[startIndex!...]
-
-        for macos in MacOS.allCases where macos.name == name {
-            return macos
-        }
-
-        return nil
     }
 }
