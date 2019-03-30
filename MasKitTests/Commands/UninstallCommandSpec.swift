@@ -17,6 +17,7 @@ class UninstallCommandSpec: QuickSpec {
             let appId = 12345
             let app = SoftwareProductMock(
                 appName: "Some App",
+                bundleIdentifier: "com.some.app",
                 bundlePath: "/tmp/Some.app",
                 bundleVersion: "1.0",
                 itemIdentifier: NSNumber(value: appId)

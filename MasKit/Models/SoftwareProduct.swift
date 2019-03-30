@@ -9,6 +9,7 @@
 /// Protocol describing the members of CKSoftwareProduct used throughout MasKit.
 public protocol SoftwareProduct {
     var appName: String { get }
+    var bundleIdentifier: String { get set }
     var bundlePath: String { get set }
     var bundleVersion: String { get set }
     var itemIdentifier: NSNumber { get set }

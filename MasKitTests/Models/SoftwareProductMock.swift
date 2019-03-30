@@ -10,6 +10,7 @@
 
 struct SoftwareProductMock: SoftwareProduct {
     var appName: String
+    var bundleIdentifier: String
     var bundlePath: String
     var bundleVersion: String
     var itemIdentifier: NSNumber
