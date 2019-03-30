@@ -13,8 +13,10 @@ main() {
 }
 
 check_class_dump() {
-  if ! which -s class-dump; then
-    echo "'class-dump' is not installed" >&2
+  # command: usage: command [-pVv] command [arg ...]
+  if ! command -v class-dump; then
+    echo "class-dump is not installed." >&2
+    echo "Download from http://stevenygard.com/projects/class-dump/" >&2
     exit 1
   fi
 }
