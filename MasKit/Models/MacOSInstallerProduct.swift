@@ -21,8 +21,8 @@ public struct MacOSInstallerProduct: SoftwareProduct {
     public var isLegacyApp: Bool
     public var isMachineLicensed: Bool
     public var itemIdentifier: NSNumber?
-//    public var purchaseDate: Date
-    public var storeFrontIdentifier: NSNumber
+    public var purchaseDate: Date?
+    public var storeFrontIdentifier: NSNumber?
 
     private let macOS: MacOS
 

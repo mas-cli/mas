@@ -66,9 +66,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL isVPPLicensed; // @synthesize isVPPLicensed=_isVPPLicensed;
 @property BOOL installed; // @synthesize installed=_installed;
 @property(retain, nullable) NSValue *mdItemRef; // @synthesize mdItemRef=_mdItemRef;
-@property(retain) NSDate *purchaseDate; // @synthesize purchaseDate=_purchaseDate;
+@property(retain, nullable) NSDate *purchaseDate; // @synthesize purchaseDate=_purchaseDate;
 @property(retain) NSNumber *versionIdentifier; // @synthesize versionIdentifier=_versionIdentifier;
-@property(retain) NSNumber *storeFrontIdentifier; // @synthesize storeFrontIdentifier=_storeFrontIdentifier;
+@property(retain, nullable) NSNumber *storeFrontIdentifier; // @synthesize storeFrontIdentifier=_storeFrontIdentifier;
 @property(retain, nullable) NSNumber *itemIdentifier; // @synthesize itemIdentifier=_itemIdentifier;
 @property(retain) NSString *receiptType; // @synthesize receiptType=_receiptType;
 @property(retain) NSString *bundlePath; // @synthesize bundlePath=_bundlePath;

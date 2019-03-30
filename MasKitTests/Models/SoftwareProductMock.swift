@@ -19,8 +19,8 @@ struct SoftwareProductMock: SoftwareProduct {
     var installed: Bool
     var isLegacyApp: Bool
     var isMachineLicensed: Bool
-    var purchaseDate: Date
-    var storeFrontIdentifier: NSNumber
+    var purchaseDate: Date?
+    var storeFrontIdentifier: NSNumber?
 
     var appName: String
     var bundleIdentifier: String
