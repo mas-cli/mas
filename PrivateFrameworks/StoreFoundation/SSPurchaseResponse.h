@@ -4,13 +4,9 @@
 //     class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
 //
 
-// #import "NSObject.h"
-
-// #import "NSSecureCoding.h"
+@import Foundation;
 
 @class NSArray, NSDictionary;
-
-@class SSDownload;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,7 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)supportsSecureCoding;
 @property(retain) NSDictionary *metrics; // @synthesize metrics=_metrics;
 @property(retain) NSArray<SSDownload*> *downloads; // @synthesize downloads=_downloads;
+
 //- (void).cxx_destruct;
+
 - (id)initWithCoder:(id)arg1;
 - (void)encodeWithCoder:(id)arg1;
 - (id)_newDownloadsFromItems:(id)arg1 withDSID:(id)arg2;

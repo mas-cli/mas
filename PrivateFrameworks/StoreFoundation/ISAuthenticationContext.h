@@ -4,9 +4,7 @@
 //     class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
 //
 
-// #import "NSObject.h"
-
-// #import "NSSecureCoding.h"
+@import Foundation;
 
 @class NSDictionary, NSNumber, NSString;
 
@@ -50,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(retain) NSDictionary *additionalQueryParameters; // @synthesize additionalQueryParameters=_additionalQueryParameters;
 @property(readonly) NSNumber *accountID; // @synthesize accountID=_accountID;
 
-// - (void).cxx_destruct;
+//- (void).cxx_destruct;
 
 - (void)encodeWithCoder:(id)arg1;
 - (id)initWithCoder:(id)arg1;

@@ -4,10 +4,6 @@
 //     class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
 //
 
-// #import "NSObject.h"
-
-// #import "NSSecureCoding.h"
-
 @class NSNumber, NSString;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -35,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readonly) NSString *accountIdentifier; // @synthesize accountIdentifier=_accountIdentifier;
 @property unsigned long long URLBagType; // @synthesize URLBagType=_URLBagType;
 
-// - (void).cxx_destruct;
+//- (void).cxx_destruct;
 
 - (BOOL)_loadFromDictionary:(id)arg1;
 - (id)initWithCoder:(id)arg1;

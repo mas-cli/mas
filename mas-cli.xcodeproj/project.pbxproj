@@ -43,6 +43,7 @@
 		B576FE3021E5BD130016B39D /* OutputListenerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE2F21E5BD130016B39D /* OutputListenerSpec.swift */; };
 		B576FE3321E985250016B39D /* SearchResultFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE3221E985250016B39D /* SearchResultFormatter.swift */; };
 		B576FE3521E98AAE0016B39D /* StoreSearchSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE3421E98AAE0016B39D /* StoreSearchSpec.swift */; };
+		B578F061224FB5BD00D2086A /* ISAuthenticationResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = B578F060224FB5BD00D2086A /* ISAuthenticationResponse.h */; };
 		B5793E29219BDD4800135B39 /* JSON in Resources */ = {isa = PBXBuildFile; fileRef = B5793E28219BDD4800135B39 /* JSON */; };
 		B588CE0221DC89490047D305 /* ExternalCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B588CE0121DC89490047D305 /* ExternalCommand.swift */; };
 		B594B12021D53A8200F3AC59 /* Uninstall.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B11F21D53A8200F3AC59 /* Uninstall.swift */; };
@@ -261,6 +262,7 @@
 		B576FE2F21E5BD130016B39D /* OutputListenerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputListenerSpec.swift; sourceTree = "<group>"; };
 		B576FE3221E985250016B39D /* SearchResultFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultFormatter.swift; sourceTree = "<group>"; };
 		B576FE3421E98AAE0016B39D /* StoreSearchSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreSearchSpec.swift; sourceTree = "<group>"; };
+		B578F060224FB5BD00D2086A /* ISAuthenticationResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISAuthenticationResponse.h; sourceTree = "<group>"; };
 		B5793E28219BDD4800135B39 /* JSON */ = {isa = PBXFileReference; lastKnownFileType = folder; path = JSON; sourceTree = "<group>"; };
 		B588CE0121DC89490047D305 /* ExternalCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalCommand.swift; sourceTree = "<group>"; };
 		B592D8522201702A00A9C970 /* .swiftformat */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftformat; sourceTree = "<group>"; };
@@ -402,6 +404,21 @@
 		B55B3D7821ED96AA0009A1A5 /* Project */ = {
 			isa = PBXGroup;
 			children = (
+				B55B3D8C21ED96FD0009A1A5 /* bin */,
+				B55B3D8B21ED96FD0009A1A5 /* Brewfile */,
+				B55B3D8721ED96FD0009A1A5 /* build */,
+				B55B3D8121ED96FD0009A1A5 /* Cartfile */,
+				B55B3D8021ED96FD0009A1A5 /* Carthage */,
+				B55B3D8321ED96FD0009A1A5 /* contrib */,
+				B55B3D7B21ED96FC0009A1A5 /* Dangerfile */,
+				B55B3D7E21ED96FD0009A1A5 /* docs */,
+				B55B3D7F21ED96FD0009A1A5 /* Gemfile */,
+				B55B3D8421ED96FD0009A1A5 /* Homebrew */,
+				B55B3D8921ED96FD0009A1A5 /* Jenkinsfile */,
+				B55B3D8621ED96FD0009A1A5 /* LICENSE */,
+				B55B3D8E21ED96FD0009A1A5 /* Package */,
+				B55B3D7D21ED96FC0009A1A5 /* releases */,
+				B55B3D8521ED96FD0009A1A5 /* script */,
 				B55B3D9921EEA6AA0009A1A5 /* .bundle */,
 				B55B3D9A21EEA6AA0009A1A5 /* .editorconfig */,
 				B55B3D9D21EEBD7D0009A1A5 /* .envrc */,
@@ -413,29 +430,14 @@
 				B592D8522201702A00A9C970 /* .swiftformat */,
 				B55B3D9521EEA6AA0009A1A5 /* .swiftlint.yml */,
 				B55B3D9621EEA6AA0009A1A5 /* .travis.yml */,
-				B55B3D8C21ED96FD0009A1A5 /* bin */,
-				B55B3D8B21ED96FD0009A1A5 /* Brewfile */,
-				B55B3D8721ED96FD0009A1A5 /* build */,
-				B55B3D8121ED96FD0009A1A5 /* Cartfile */,
 				B55B3D7C21ED96FC0009A1A5 /* Cartfile.private */,
 				B55B3D7921ED96FC0009A1A5 /* Cartfile.resolved */,
-				B55B3D8021ED96FD0009A1A5 /* Carthage */,
 				B55B3D8D21ED96FD0009A1A5 /* CHANGELOG.md */,
 				B55B3D7A21ED96FC0009A1A5 /* CODE_OF_CONDUCT.md */,
-				B55B3D8321ED96FD0009A1A5 /* contrib */,
 				B55B3D8821ED96FD0009A1A5 /* CONTRIBUTING.md */,
-				B55B3D7B21ED96FC0009A1A5 /* Dangerfile */,
-				B55B3D7E21ED96FD0009A1A5 /* docs */,
-				B55B3D7F21ED96FD0009A1A5 /* Gemfile */,
 				B55B3D8221ED96FD0009A1A5 /* Gemfile.lock */,
-				B55B3D8421ED96FD0009A1A5 /* Homebrew */,
-				B55B3D8921ED96FD0009A1A5 /* Jenkinsfile */,
-				B55B3D8621ED96FD0009A1A5 /* LICENSE */,
 				B55B3D8A21ED96FD0009A1A5 /* mas-cli.png */,
-				B55B3D8E21ED96FD0009A1A5 /* Package */,
 				B55B3D8F21ED96FD0009A1A5 /* README.md */,
-				B55B3D7D21ED96FC0009A1A5 /* releases */,
-				B55B3D8521ED96FD0009A1A5 /* script */,
 			);
 			name = Project;
 			sourceTree = "<group>";
@@ -730,10 +732,10 @@
 				B594B12C21D584E800F3AC59 /* Models */,
 				B576FE0A21E116470016B39D /* Network */,
 				B576FE1821E28E460016B39D /* Nimble */,
+				B576FE2621E29DD90016B39D /* SupportingFiles */,
 				B576FE2B21E42A230016B39D /* OutputListener.swift */,
 				B576FE2F21E5BD130016B39D /* OutputListenerSpec.swift */,
 				B576FE2D21E5A8010016B39D /* Strongify.swift */,
-				B576FE2621E29DD90016B39D /* SupportingFiles */,
 			);
 			path = MasKitTests;
 			sourceTree = "<group>";
@@ -771,6 +773,7 @@
 				F8FB71A420F2EC4500F56FDC /* CKUpdate.h */,
 				F8FB71A520F2EC4500F56FDC /* ISAccountService.h */,
 				F8FB71A620F2EC4500F56FDC /* ISAuthenticationContext.h */,
+				B578F060224FB5BD00D2086A /* ISAuthenticationResponse.h */,
 				F8FB71A720F2EC4500F56FDC /* ISOperationDelegate.h */,
 				F8FB71A820F2EC4500F56FDC /* ISServiceProxy.h */,
 				F8FB71A920F2EC4500F56FDC /* ISServiceRemoteObject.h */,
@@ -807,6 +810,7 @@
 				F832138F2173D3E1008BA8A0 /* CKUpdateController.h in Headers */,
 				F83213942173D5AB008BA8A0 /* ISAccountService.h in Headers */,
 				F83213952173D5AB008BA8A0 /* ISAuthenticationContext.h in Headers */,
+				B578F061224FB5BD00D2086A /* ISAuthenticationResponse.h in Headers */,
 				F83213962173D5AB008BA8A0 /* ISOperationDelegate.h in Headers */,
 				F83213972173D5AB008BA8A0 /* ISServiceProxy.h in Headers */,
 				F83213982173D5AB008BA8A0 /* ISServiceRemoteObject.h in Headers */,
@@ -991,8 +995,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8FB716F20F2B4DD00F56FDC /* Account.swift in Sources */,
+				B576FE2A21E4240B0016B39D /* AppInfoFormatter.swift in Sources */,
 				B594B12721D5825800F3AC59 /* AppLibrary.swift in Sources */,
 				B594B12B21D5837200F3AC59 /* CKSoftwareProduct+SoftwareProduct.swift in Sources */,
+				B576FE2821E423E60016B39D /* Dictionary+StringOrEmpty.swift in Sources */,
 				F8FB716A20F2B4DD00F56FDC /* Downloader.swift in Sources */,
 				B588CE0221DC89490047D305 /* ExternalCommand.swift in Sources */,
 				B594B14C21D8983700F3AC59 /* Home.swift in Sources */,
@@ -1010,16 +1016,14 @@
 				B5DBF80D21DEE4E600F3B151 /* Open.swift in Sources */,
 				B576FDF721E107AA0016B39D /* OpenSystemCommand.swift in Sources */,
 				F8FB717420F2B4DD00F56FDC /* Outdated.swift in Sources */,
-				B576FE2A21E4240B0016B39D /* AppInfoFormatter.swift in Sources */,
 				F8FB716C20F2B4DD00F56FDC /* PurchaseDownloadObserver.swift in Sources */,
 				F8FB717520F2B4DD00F56FDC /* Reset.swift in Sources */,
 				F8FB717620F2B4DD00F56FDC /* Search.swift in Sources */,
 				B594B15421D89DF400F3AC59 /* SearchResult.swift in Sources */,
+				B576FE3321E985250016B39D /* SearchResultFormatter.swift in Sources */,
 				B576FDFA21E1081C0016B39D /* SearchResultList.swift in Sources */,
-				B576FE2821E423E60016B39D /* Dictionary+StringOrEmpty.swift in Sources */,
 				F8FB717720F2B4DD00F56FDC /* SignIn.swift in Sources */,
 				F8FB717820F2B4DD00F56FDC /* SignOut.swift in Sources */,
-				B576FE3321E985250016B39D /* SearchResultFormatter.swift in Sources */,
 				B594B12921D5831D00F3AC59 /* SoftwareProduct.swift in Sources */,
 				F8FB716D20F2B4DD00F56FDC /* SSPurchase.swift in Sources */,
 				F8FB716E20F2B4DD00F56FDC /* StoreAccount.swift in Sources */,
@@ -1050,28 +1054,28 @@
 				B576FDF321E03B780016B39D /* MasStoreSearchSpec.swift in Sources */,
 				B576FE0C21E116590016B39D /* NetworkManagerTests.swift in Sources */,
 				B576FE1B21E28E8A0016B39D /* NetworkSessionMock.swift in Sources */,
-				B55B3D9221ED9B8C0009A1A5 /* SearchResultFormatterSpec.swift in Sources */,
-				B576FE2C21E42A230016B39D /* OutputListener.swift in Sources */,
 				B576FE1221E1D82D0016B39D /* NetworkSessionMockFromFile.swift in Sources */,
 				B5DBF81321DEEC7C00F3B151 /* OpenCommandSpec.swift in Sources */,
 				B5DBF81721E02E3400F3B151 /* OpenSystemCommandMock.swift in Sources */,
 				B594B14221D6D8EC00F3AC59 /* OutdatedCommandSpec.swift in Sources */,
+				B576FE2C21E42A230016B39D /* OutputListener.swift in Sources */,
+				B576FE3021E5BD130016B39D /* OutputListenerSpec.swift in Sources */,
 				B594B14021D6D8BF00F3AC59 /* ResetCommandSpec.swift in Sources */,
 				B594B13221D5876200F3AC59 /* ResultPredicates.swift in Sources */,
 				B594B13E21D6D78900F3AC59 /* SearchCommandSpec.swift in Sources */,
+				B55B3D9221ED9B8C0009A1A5 /* SearchResultFormatterSpec.swift in Sources */,
 				B594B13C21D6D72E00F3AC59 /* SignInCommandSpec.swift in Sources */,
 				B594B13A21D6D70400F3AC59 /* SignOutCommandSpec.swift in Sources */,
-				B576FE3021E5BD130016B39D /* OutputListenerSpec.swift in Sources */,
-				B576FE3521E98AAE0016B39D /* StoreSearchSpec.swift in Sources */,
 				B576FDF921E107CA0016B39D /* SoftwareProductMock.swift in Sources */,
 				B5DBF81521E02BA900F3B151 /* StoreSearchMock.swift in Sources */,
+				B576FE3521E98AAE0016B39D /* StoreSearchSpec.swift in Sources */,
 				B576FE1621E1D8CB0016B39D /* String+FileExtension.swift in Sources */,
+				B576FE2E21E5A8010016B39D /* Strongify.swift in Sources */,
 				B576FDFE21E10B660016B39D /* TestURLSessionDelegate.swift in Sources */,
 				B594B12521D580BB00F3AC59 /* UninstallCommandSpec.swift in Sources */,
 				B594B13821D6D6C100F3AC59 /* UpgradeCommandSpec.swift in Sources */,
 				B576FDFC21E10A610016B39D /* URLSessionConfiguration+Tests.swift in Sources */,
 				B576FE1D21E28EF70016B39D /* URLSessionDataTaskMock.swift in Sources */,
-				B576FE2E21E5A8010016B39D /* Strongify.swift in Sources */,
 				B5DBF81121DEEC4200F3B151 /* VendorCommandSpec.swift in Sources */,
 				B594B13621D6D68600F3AC59 /* VersionCommandSpec.swift in Sources */,
 			);

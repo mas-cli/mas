@@ -4,12 +4,7 @@
 //     class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
 //
 
-// #import "NSObject.h"
-
-// #import "NSCopying.h"
-// #import "NSSecureCoding.h"
-
-#import <Foundation/NSZone.h>
+@import Foundation;
 
 @class NSArray, NSData, NSDictionary, NSLock, NSMutableDictionary, NSNumber, NSString, NSURL;
 
@@ -91,11 +86,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property(retain, nullable) NSString *productType;
 @property(readonly, nullable) NSString *applicationIdentifier;
 
-- (id)copyWithZone:(nullable NSZone *)zone;
-- (nullable instancetype)initWithCoder:( NSCoder *)coder;
-- (void)encodeWithCoder:(NSCoder *)coder;
-- (nullable instancetype)initWithDictionary:(NSDictionary *)dictionary;
-- (nullable instancetype)initWithKind:(NSString *)kind;
+- (id)copyWithZone:(nullable struct _NSZone *)arg1;
+- (id)initWithCoder:(id)arg1;
+- (void)encodeWithCoder:(id)arg1;
+
+- (nullable instancetype)initWithDictionary:(id)arg1;
+- (nullable instancetype)initWithKind:(id)arg1;
 - (instancetype)init;
 
 @end

@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+- 🐛 Fix for list command on macOS 10.14.4 #228
 - 🐟 Command completions for fish shell #214  
   thanks, [@ylectric](https://github.com/ylectric)!
 - 🎨 SwiftFormat #215
