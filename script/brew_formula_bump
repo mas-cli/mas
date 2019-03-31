@@ -1,0 +1,52 @@
+#!/bin/bash -e
+#
+# script/brew_formula_bump
+# mas
+#
+# Updates mas Homebrew core formula:
+# https://github.com/Homebrew/homebrew-core/blob/master/Formula/mas.rb
+#
+
+# BUILD_DIR="$PWD/build"
+# OS_VERSIONS=(mojave high_sierra sierra el_capitan)
+
+function usage {
+    echo "Usage: brew_formula_bump [v1.0] [sha1_hash]"
+    echo "- version will be inferred using version script if not provided"
+    echo "- sha will be inferred from the curreent commit if not provided"
+    exit 1
+}
+
+# arg 1 - version tag
+if test -n "$1"; then
+    VERSION="$1"
+else
+    VERSION="v$(script/version)"
+fi
+
+# arg 2 - revision (commit hash)
+if test -n "$2"; then
+    REVISION="$2"
+else
+    REVISION=$(git rev-parse HEAD)
+fi
+
+echo "==> 🧪 Updating homebrew-core formula mas ($VERSION, $REVISION)"
+
+echo "Validating formula"
+brew bump-formula-pr \
+    --tag="$VERSION" \
+    --revision="$REVISION" \
+    --strict \
+    mas
+
+pushd "$(brew --prefix)/Homebrew/Library/Taps/homebrew/homebrew-core/Formula"
+
+echo "Updating formula"
+brew bump-formula-pr \
+    --tag="$VERSION" \
+    --revision="$REVISION" \
+    --strict \
+    --verbose \
+    --debug \
+    mas
