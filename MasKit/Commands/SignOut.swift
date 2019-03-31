@@ -9,6 +9,7 @@
 import Commandant
 import CommerceKit
 
+/// Command for signing out of the App Store.
 public struct SignOutCommand: CommandProtocol {
     public typealias Options = NoOptions<MASError>
     public let verb = "signout"

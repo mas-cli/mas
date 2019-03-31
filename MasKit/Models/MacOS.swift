@@ -53,12 +53,12 @@ enum MacOS: CaseIterable {
     /// Bundle identifier
     var bundleIdentifier: String {
         switch self {
-        case .mojave:       return "\(MacOS.bundleIdentifierBase).Mojave"
-        case .highSierra:   return "\(MacOS.bundleIdentifierBase).HighSierra"
-        case .sierra:       return "\(MacOS.bundleIdentifierBase).Sierra"     // UNCONFIRMED
-        case .elCapitan:    return "\(MacOS.bundleIdentifierBase).ElCapitan"  // UNCONFIRMED
-        case .yosemite:     return "\(MacOS.bundleIdentifierBase).Yosemite"
-        case .mavericks:    return "\(MacOS.bundleIdentifierBase).Mavericks"
+        case .mojave: return "\(MacOS.bundleIdentifierBase).Mojave"
+        case .highSierra: return "\(MacOS.bundleIdentifierBase).HighSierra"
+        case .sierra: return "\(MacOS.bundleIdentifierBase).Sierra" // UNCONFIRMED
+        case .elCapitan: return "\(MacOS.bundleIdentifierBase).ElCapitan" // UNCONFIRMED
+        case .yosemite: return "\(MacOS.bundleIdentifierBase).Yosemite"
+        case .mavericks: return "\(MacOS.bundleIdentifierBase).Mavericks"
         }
     }
 
@@ -142,7 +142,7 @@ extension MacOS {
     /// - Returns: MacOS enum case if one matches.
     static func os(fromBundleIdentifier bundleIdentifier: String) -> MacOS? {
         guard bundleIdentifier.starts(with: MacOS.bundleIdentifierBase)
-        else { return nil }
+            else { return nil }
 
         for macos in MacOS.allCases where macos.bundleIdentifier == bundleIdentifier {
             return macos

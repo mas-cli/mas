@@ -68,7 +68,7 @@ public struct UpgradeCommand: CommandProtocol {
         }
 
         print("Upgrading \(updates.count) outdated application\(updates.count > 1 ? "s" : ""):")
-        print(updates.map({ "\($0.title) (\($0.bundleVersion))" }).joined(separator: ", "))
+        print(updates.map { "\($0.title) (\($0.bundleVersion))" }.joined(separator: ", "))
 
         let updateResults = updates.compactMap {
             download($0.itemIdentifier.uint64Value)

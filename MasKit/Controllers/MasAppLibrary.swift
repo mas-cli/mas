@@ -15,11 +15,10 @@ public class MasAppLibrary: AppLibrary {
 
     /// Array of installed software products.
     public lazy var installedApps: [SoftwareProduct] = {
-        guard var products = softwareMap.allProducts()
-        else { return [] }
+        let products = softwareMap.allSoftwareProducts()
 
         // Filter the list to customize the OS installers
-        return products.map { (product: CKSoftwareProduct) -> SoftwareProduct in
+        return products.map { product -> SoftwareProduct in
             if product.isMacosInstaller {
                 let installer = MacOSInstallerProduct(fromProduct: product)
                 return installer
