@@ -7,8 +7,7 @@
 # https://github.com/Homebrew/homebrew-core/blob/master/Formula/mas.rb
 #
 
-# BUILD_DIR="$PWD/build"
-# OS_VERSIONS=(mojave high_sierra sierra el_capitan)
+BREW_CORE_PATH="$(brew --prefix)/Homebrew/Library/Taps/homebrew/homebrew-core/Formula"
 
 function usage {
     echo "Usage: brew_formula_bump [v1.0] [sha1_hash]"
@@ -31,6 +30,12 @@ else
     REVISION=$(git rev-parse HEAD)
 fi
 
+echo "Checking to see if this update can be a simple bump."
+if ! diff "Homebrew/mas.rb" "$BREW_CORE_PATH/mas.rb"; then
+    echo "There are changes in the local formula (Homebrew/mas.rb) that haven't been released yet."
+    exit 1
+fi
+
 echo "==> 🧪 Updating homebrew-core formula mas ($VERSION, $REVISION)"
 
 echo "Validating formula"
@@ -40,7 +45,7 @@ brew bump-formula-pr \
     --strict \
     mas
 
-pushd "$(brew --prefix)/Homebrew/Library/Taps/homebrew/homebrew-core/Formula"
+pushd "$BREW_CORE_PATH"
 
 echo "Updating formula"
 brew bump-formula-pr \
@@ -48,5 +53,4 @@ brew bump-formula-pr \
     --revision="$REVISION" \
     --strict \
     --verbose \
-    --debug \
     mas
