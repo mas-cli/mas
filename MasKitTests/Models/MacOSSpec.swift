@@ -40,8 +40,7 @@ class MacOSSpec: QuickSpec {
                 }
             }
             it("can be found by token") {
-                let os = MacOS.os(withToken: "mojave")
-                expect(os) == .mojave
+                expect(MacOS.os(withToken: "mojave")) == .mojave
             }
         }
     }
