@@ -1,6 +1,6 @@
 #!/bin/bash -e
 #
-# script/brew_formula_bump
+# script/brew_formula_update
 # mas
 #
 # Updates mas Homebrew core formula:
