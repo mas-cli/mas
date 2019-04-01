@@ -6,6 +6,8 @@
 # Updates mas Homebrew core formula:
 # https://github.com/Homebrew/homebrew-core/blob/master/Formula/mas.rb
 #
+# brew bump-formula-pr --help
+#
 
 BREW_CORE_PATH="$(brew --prefix)/Homebrew/Library/Taps/homebrew/homebrew-core/Formula"
 
@@ -31,9 +33,15 @@ else
 fi
 
 echo "Checking to see if this update can be a simple bump."
-if ! diff "Homebrew/mas.rb" "$BREW_CORE_PATH/mas.rb"; then
+diff "Homebrew/mas.rb" "$BREW_CORE_PATH/mas.rb"
+
+# diff exit status
+status=$?
+formula_revisions=0
+if test $status -ne 0; then
     echo "There are changes in the local formula (Homebrew/mas.rb) that haven't been released yet."
-    exit 1
+    #exit $status
+    formula_revisions=1
 fi
 
 echo "==> 🧪 Updating homebrew-core formula mas ($VERSION, $REVISION)"
@@ -45,12 +53,25 @@ brew bump-formula-pr \
     --strict \
     mas
 
+# brew exit status
+status=$?
+if test $status -ne 0; then
+    echo "Formula did not validate using brew bump-formula-pr"
+    exit $status
+fi
+
 pushd "$BREW_CORE_PATH"
 
 echo "Updating formula"
+if test $formula_revisions -eq 1; then
+    #
+    dry_run="--dry-run --write"
+fi
+
 brew bump-formula-pr \
     --tag="$VERSION" \
     --revision="$REVISION" \
     --strict \
     --verbose \
+    $dry_run \
     mas
