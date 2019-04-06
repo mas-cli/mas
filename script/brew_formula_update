@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash
 #
 # script/brew_formula_update
 # mas
@@ -56,15 +56,15 @@ brew bump-formula-pr \
 # brew exit status
 status=$?
 if test $status -ne 0; then
-    echo "Formula did not validate using brew bump-formula-pr"
+    echo "Formula did not validate using 'brew bump-formula-pr'"
     exit $status
 fi
 
-pushd "$BREW_CORE_PATH"
+pushd "$BREW_CORE_PATH" || exit 2
 
 echo "Updating formula"
 if test $formula_revisions -eq 1; then
-    #
+    # Options to
     dry_run="--dry-run --write"
 fi
 
@@ -73,5 +73,5 @@ brew bump-formula-pr \
     --revision="$REVISION" \
     --strict \
     --verbose \
-    $dry_run \
+    "$dry_run" \
     mas
