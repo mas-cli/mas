@@ -26,12 +26,10 @@ for all macOS versions since 10.11.
 
 #### 😴 TL;DR
 
-Just run these commands:
+Just run this command:
 
-```
-$ brew tap mas-cli/tap
-$ brew tap-pin mas-cli/tap
-$ brew install mas
+```bash
+brew install mas-cli/tap/mas
 ```
 
 ### 🐙 GitHub Releases
