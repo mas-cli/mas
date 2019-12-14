@@ -16,6 +16,11 @@ env:
     - LC_ALL=en_US.UTF-8
     - LANGUAGE=en_US.UTF-8
 
+# Bundler 2
+# https://docs.travis-ci.com/user/languages/ruby/#bundler-20
+before_install:
+  - gem install bundler
+
 install:
   - script/bootstrap
 
