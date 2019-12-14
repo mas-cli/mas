@@ -7,6 +7,9 @@
 # https://docs.travis-ci.com/user/languages/objective-c/
 #
 
+# https://docs.travis-ci.com/user/build-config-validation
+version: ~> 1.0
+
 os: osx
 osx_image: xcode11.2        # macOS 10.14
 
