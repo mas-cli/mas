@@ -27,7 +27,7 @@ class Mas < Formula
     ENV["XCODE_XCCONFIG_FILE"] = xcconfig
 
     # Only build necessary dependencies (Commandant, Result)
-    system "carthage", "bootstrap", "--platform", "macOS", "Commandant", "Result"
+    system "carthage", "bootstrap", "--platform", "macOS", "Commandant"
     system "script/install", prefix
 
     bash_completion.install "contrib/completion/mas-completion.bash" => "mas"
