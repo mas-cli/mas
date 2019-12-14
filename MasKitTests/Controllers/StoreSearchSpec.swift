@@ -8,7 +8,6 @@
 @testable import MasKit
 import Nimble
 import Quick
-import Result
 
 /// Protocol minimal implementation
 struct StoreSearchForTesting: StoreSearch {

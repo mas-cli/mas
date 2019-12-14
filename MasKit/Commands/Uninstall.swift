@@ -8,7 +8,6 @@
 
 import Commandant
 import CommerceKit
-import Result
 import StoreFoundation
 
 /// Command which uninstalls apps managed by the Mac App Store.

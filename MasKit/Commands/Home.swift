@@ -7,7 +7,6 @@
 //
 
 import Commandant
-import Result
 
 /// Opens app page on MAS Preview. Uses the iTunes Lookup API:
 /// https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/#lookup

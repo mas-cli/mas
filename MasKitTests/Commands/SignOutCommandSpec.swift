@@ -9,7 +9,6 @@
 @testable import MasKit
 import Nimble
 import Quick
-import Result
 
 class SignOutCommandSpec: QuickSpec {
     override func spec() {

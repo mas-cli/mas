@@ -7,9 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B537017321A0F85700538F78 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB4069213F4DDD0044E445 /* Result.framework */; };
 		B537017421A0F85B00538F78 /* Commandant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406B213F4DDD0044E445 /* Commandant.framework */; };
-		B537017521A0F94000538F78 /* Result.framework in Copy Carthage Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB4069213F4DDD0044E445 /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B537017621A0F94200538F78 /* Commandant.framework in Copy Carthage Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406B213F4DDD0044E445 /* Commandant.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B5552928219A1BB900ACB4CA /* CommerceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83213A62173EF75008BA8A0 /* CommerceKit.framework */; };
 		B5552929219A1BC700ACB4CA /* StoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83213A52173EF75008BA8A0 /* StoreFoundation.framework */; };
@@ -104,10 +102,8 @@
 		F83213A02173D5B2008BA8A0 /* SSPurchase.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71B120F2EC4500F56FDC /* SSPurchase.h */; };
 		F83213A12173D5B2008BA8A0 /* SSPurchaseResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71B220F2EC4500F56FDC /* SSPurchaseResponse.h */; };
 		F83213A22173DC13008BA8A0 /* Commandant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406B213F4DDD0044E445 /* Commandant.framework */; };
-		F83213A32173DC18008BA8A0 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB4069213F4DDD0044E445 /* Result.framework */; };
 		F83213A82173F5A7008BA8A0 /* MasKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8FB715220F2B41400F56FDC /* MasKit.framework */; };
 		F83213A92173F5D0008BA8A0 /* Commandant.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406B213F4DDD0044E445 /* Commandant.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		F83213AA2173F5D0008BA8A0 /* Result.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB4069213F4DDD0044E445 /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F8FB715B20F2B41400F56FDC /* MasKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8FB715220F2B41400F56FDC /* MasKit.framework */; };
 		F8FB716220F2B41400F56FDC /* MasKit.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB715420F2B41400F56FDC /* MasKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F8FB716A20F2B4DD00F56FDC /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F238A1B87569C00AE40CD /* Downloader.swift */; };
@@ -168,7 +164,6 @@
 				B537017621A0F94200538F78 /* Commandant.framework in Copy Carthage Frameworks */,
 				B5552936219A23FF00ACB4CA /* Nimble.framework in Copy Carthage Frameworks */,
 				B5552937219A23FF00ACB4CA /* Quick.framework in Copy Carthage Frameworks */,
-				B537017521A0F94000538F78 /* Result.framework in Copy Carthage Frameworks */,
 			);
 			name = "Copy Carthage Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -189,7 +184,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				F83213A92173F5D0008BA8A0 /* Commandant.framework in Copy Frameworks */,
-				F83213AA2173F5D0008BA8A0 /* Result.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -369,7 +363,6 @@
 			files = (
 				F83213A22173DC13008BA8A0 /* Commandant.framework in Frameworks */,
 				B5552928219A1BB900ACB4CA /* CommerceKit.framework in Frameworks */,
-				F83213A32173DC18008BA8A0 /* Result.framework in Frameworks */,
 				B5552929219A1BC700ACB4CA /* StoreFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -382,7 +375,6 @@
 				F8FB715B20F2B41400F56FDC /* MasKit.framework in Frameworks */,
 				B555292F219A219100ACB4CA /* Nimble.framework in Frameworks */,
 				B555292E219A218E00ACB4CA /* Quick.framework in Frameworks */,
-				B537017321A0F85700538F78 /* Result.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
