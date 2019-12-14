@@ -20,7 +20,7 @@ A simple command line interface for the Mac App Store. Designed for scripting an
 brew install mas
 ```
 
-⚠️ Note that macOS 10.13 (High Sierra) is required to install mas from the core Homebrew formula.
+⚠️ Note that macOS 10.14 (Mojave) is required to install mas from the core Homebrew formula.
 
 ### ☎️ Older macOS Versions
 
