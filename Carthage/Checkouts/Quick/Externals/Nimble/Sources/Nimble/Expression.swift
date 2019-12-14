@@ -4,12 +4,12 @@ import Foundation
 // closure once; even if repeat calls to the returned closure
 internal func memoizedClosure<T>(_ closure: @escaping () throws -> T) -> (Bool) throws -> T {
     var cache: T?
-    return ({ withoutCaching in
+    return { withoutCaching in
         if withoutCaching || cache == nil {
             cache = try closure()
         }
         return cache!
-    })
+    }
 }
 
 /// Expression represents the closure of the value inside expect(...).

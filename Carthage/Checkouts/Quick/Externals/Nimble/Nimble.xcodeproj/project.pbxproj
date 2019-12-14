@@ -380,6 +380,9 @@
 		CD79C9B51D2CC848004B6F9A /* ObjCUserDescriptionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 965B0D081B62B8ED0005AE66 /* ObjCUserDescriptionTest.m */; };
 		CD79C9B61D2CC848004B6F9A /* ObjCAllPassTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DDEFAEB31A93CBE6005CA37A /* ObjCAllPassTest.m */; };
 		CD79C9B71D2CC848004B6F9A /* ObjCSatisfyAnyOfTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5358C11C39155600A23FAA /* ObjCSatisfyAnyOfTest.m */; };
+		CD8D21BD2322BFC300C3996F /* CwlPreconditionTesting.h in Headers */ = {isa = PBXBuildFile; fileRef = CD8D21BC2322BFC300C3996F /* CwlPreconditionTesting.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD8D21BE2322BFC300C3996F /* CwlPreconditionTesting.h in Headers */ = {isa = PBXBuildFile; fileRef = CD8D21BC2322BFC300C3996F /* CwlPreconditionTesting.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD8D21BF2322BFC300C3996F /* CwlPreconditionTesting.h in Headers */ = {isa = PBXBuildFile; fileRef = CD8D21BC2322BFC300C3996F /* CwlPreconditionTesting.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDD80B831F2030790002CD65 /* MatcherProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD8CD1D1968AB07008ED995 /* MatcherProtocols.swift */; };
 		CDD80B841F20307A0002CD65 /* MatcherProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD8CD1D1968AB07008ED995 /* MatcherProtocols.swift */; };
 		CDD80B851F20307B0002CD65 /* MatcherProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD8CD1D1968AB07008ED995 /* MatcherProtocols.swift */; };
@@ -395,8 +398,6 @@
 		CDFB6A3C1F7E082500AD8CC7 /* CwlCatchBadInstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFB6A2B1F7E082400AD8CC7 /* CwlCatchBadInstruction.swift */; };
 		CDFB6A3F1F7E082500AD8CC7 /* CwlDarwinDefinitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFB6A2D1F7E082400AD8CC7 /* CwlDarwinDefinitions.swift */; };
 		CDFB6A401F7E082500AD8CC7 /* CwlDarwinDefinitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFB6A2D1F7E082400AD8CC7 /* CwlDarwinDefinitions.swift */; };
-		CDFB6A431F7E082500AD8CC7 /* CwlPreconditionTesting.h in Headers */ = {isa = PBXBuildFile; fileRef = CDFB6A301F7E082400AD8CC7 /* CwlPreconditionTesting.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CDFB6A441F7E082500AD8CC7 /* CwlPreconditionTesting.h in Headers */ = {isa = PBXBuildFile; fileRef = CDFB6A301F7E082400AD8CC7 /* CwlPreconditionTesting.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDFB6A471F7E082500AD8CC7 /* CwlMachBadInstructionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFB6A341F7E082400AD8CC7 /* CwlMachBadInstructionHandler.m */; };
 		CDFB6A481F7E082500AD8CC7 /* CwlMachBadInstructionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFB6A341F7E082400AD8CC7 /* CwlMachBadInstructionHandler.m */; };
 		CDFB6A491F7E082500AD8CC7 /* CwlMachBadInstructionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = CDFB6A361F7E082400AD8CC7 /* CwlMachBadInstructionHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -404,9 +405,8 @@
 		CDFB6A4B1F7E082500AD8CC7 /* mach_excServer.c in Sources */ = {isa = PBXBuildFile; fileRef = CDFB6A371F7E082400AD8CC7 /* mach_excServer.c */; };
 		CDFB6A4C1F7E082500AD8CC7 /* mach_excServer.c in Sources */ = {isa = PBXBuildFile; fileRef = CDFB6A371F7E082400AD8CC7 /* mach_excServer.c */; };
 		CDFB6A4F1F7E084600AD8CC7 /* CwlMachBadInstructionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFB6A341F7E082400AD8CC7 /* CwlMachBadInstructionHandler.m */; };
-		CDFB6A501F7E085600AD8CC7 /* CwlMachBadInstructionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = CDFB6A361F7E082400AD8CC7 /* CwlMachBadInstructionHandler.h */; };
+		CDFB6A501F7E085600AD8CC7 /* CwlMachBadInstructionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = CDFB6A361F7E082400AD8CC7 /* CwlMachBadInstructionHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDFB6A511F7E087500AD8CC7 /* CwlCatchBadInstructionPosix.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFB6A2C1F7E082400AD8CC7 /* CwlCatchBadInstructionPosix.swift */; };
-		CDFB6A521F7E089F00AD8CC7 /* CwlPreconditionTesting_POSIX.h in Headers */ = {isa = PBXBuildFile; fileRef = CDFB6A321F7E082400AD8CC7 /* CwlPreconditionTesting_POSIX.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DA9E8C821A414BB9002633C2 /* DSL+Wait.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9E8C811A414BB9002633C2 /* DSL+Wait.swift */; };
 		DA9E8C831A414BB9002633C2 /* DSL+Wait.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9E8C811A414BB9002633C2 /* DSL+Wait.swift */; };
 		DD72EC641A93874A002F7651 /* AllPassTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD72EC631A93874A002F7651 /* AllPassTest.swift */; };
@@ -622,6 +622,7 @@
 		B20058C020E92C7500C1264D /* ElementsEqual.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementsEqual.swift; sourceTree = "<group>"; };
 		B20058C420E92CE400C1264D /* ElementsEqualTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementsEqualTest.swift; sourceTree = "<group>"; };
 		CD037212207DCC580047AF28 /* XCTestManifests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCTestManifests.swift; sourceTree = "<group>"; };
+		CD8D21BC2322BFC300C3996F /* CwlPreconditionTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CwlPreconditionTesting.h; sourceTree = "<group>"; };
 		CDFB6A1E1F7E07C600AD8CC7 /* CwlCatchException.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CwlCatchException.swift; sourceTree = "<group>"; };
 		CDFB6A201F7E07C600AD8CC7 /* CwlCatchException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CwlCatchException.m; sourceTree = "<group>"; };
 		CDFB6A221F7E07C600AD8CC7 /* CwlCatchException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CwlCatchException.h; sourceTree = "<group>"; };
@@ -629,8 +630,6 @@
 		CDFB6A2B1F7E082400AD8CC7 /* CwlCatchBadInstruction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CwlCatchBadInstruction.swift; sourceTree = "<group>"; };
 		CDFB6A2C1F7E082400AD8CC7 /* CwlCatchBadInstructionPosix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CwlCatchBadInstructionPosix.swift; sourceTree = "<group>"; };
 		CDFB6A2D1F7E082400AD8CC7 /* CwlDarwinDefinitions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CwlDarwinDefinitions.swift; sourceTree = "<group>"; };
-		CDFB6A301F7E082400AD8CC7 /* CwlPreconditionTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CwlPreconditionTesting.h; sourceTree = "<group>"; };
-		CDFB6A321F7E082400AD8CC7 /* CwlPreconditionTesting_POSIX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CwlPreconditionTesting_POSIX.h; sourceTree = "<group>"; };
 		CDFB6A341F7E082400AD8CC7 /* CwlMachBadInstructionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CwlMachBadInstructionHandler.m; sourceTree = "<group>"; };
 		CDFB6A361F7E082400AD8CC7 /* CwlMachBadInstructionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CwlMachBadInstructionHandler.h; sourceTree = "<group>"; };
 		CDFB6A371F7E082400AD8CC7 /* mach_excServer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mach_excServer.c; sourceTree = "<group>"; };
@@ -940,6 +939,14 @@
 			path = objc;
 			sourceTree = "<group>";
 		};
+		CD8D21BB2322BFC300C3996F /* include */ = {
+			isa = PBXGroup;
+			children = (
+				CD8D21BC2322BFC300C3996F /* CwlPreconditionTesting.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
 		CDFB69521F7E06E600AD8CC7 /* Carthage-Checkouts */ = {
 			isa = PBXGroup;
 			children = (
@@ -957,7 +964,7 @@
 				CDFB6A1F1F7E07C600AD8CC7 /* CwlCatchExceptionSupport */,
 			);
 			name = CwlCatchException;
-			path = CwlCatchException/Sources;
+			path = CwlPreconditionTesting/Dependencies/CwlCatchException/Sources;
 			sourceTree = "<group>";
 		};
 		CDFB69741F7E076F00AD8CC7 /* CwlPreconditionTesting */ = {
@@ -998,30 +1005,13 @@
 		CDFB6A291F7E082400AD8CC7 /* CwlPreconditionTesting */ = {
 			isa = PBXGroup;
 			children = (
+				CD8D21BB2322BFC300C3996F /* include */,
 				CDFB6A2A1F7E082400AD8CC7 /* CwlBadInstructionException.swift */,
 				CDFB6A2B1F7E082400AD8CC7 /* CwlCatchBadInstruction.swift */,
 				CDFB6A2C1F7E082400AD8CC7 /* CwlCatchBadInstructionPosix.swift */,
 				CDFB6A2D1F7E082400AD8CC7 /* CwlDarwinDefinitions.swift */,
-				CDFB6A2F1F7E082400AD8CC7 /* Mach */,
-				CDFB6A311F7E082400AD8CC7 /* Posix */,
 			);
 			path = CwlPreconditionTesting;
-			sourceTree = "<group>";
-		};
-		CDFB6A2F1F7E082400AD8CC7 /* Mach */ = {
-			isa = PBXGroup;
-			children = (
-				CDFB6A301F7E082400AD8CC7 /* CwlPreconditionTesting.h */,
-			);
-			path = Mach;
-			sourceTree = "<group>";
-		};
-		CDFB6A311F7E082400AD8CC7 /* Posix */ = {
-			isa = PBXGroup;
-			children = (
-				CDFB6A321F7E082400AD8CC7 /* CwlPreconditionTesting_POSIX.h */,
-			);
-			path = Posix;
 			sourceTree = "<group>";
 		};
 		CDFB6A331F7E082400AD8CC7 /* CwlMachBadInstructionHandler */ = {
@@ -1050,9 +1040,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD8D21BE2322BFC300C3996F /* CwlPreconditionTesting.h in Headers */,
 				CDFB6A4A1F7E082500AD8CC7 /* CwlMachBadInstructionHandler.h in Headers */,
 				CDFB6A281F7E07C700AD8CC7 /* CwlCatchException.h in Headers */,
-				CDFB6A441F7E082500AD8CC7 /* CwlPreconditionTesting.h in Headers */,
 				1F1871C91CA89EDB00A34BF2 /* NMBStringify.h in Headers */,
 				1F1871C51CA89EDB00A34BF2 /* DSL.h in Headers */,
 				1F1871C71CA89EDB00A34BF2 /* NMBExceptionCapture.h in Headers */,
@@ -1064,8 +1054,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CDFB6A521F7E089F00AD8CC7 /* CwlPreconditionTesting_POSIX.h in Headers */,
 				1F1871E21CA89EF600A34BF2 /* NMBStringify.h in Headers */,
+				CD8D21BF2322BFC300C3996F /* CwlPreconditionTesting.h in Headers */,
 				1F1871E01CA89EF600A34BF2 /* DSL.h in Headers */,
 				1F1871E11CA89EF600A34BF2 /* NMBExceptionCapture.h in Headers */,
 				CDFB6A501F7E085600AD8CC7 /* CwlMachBadInstructionHandler.h in Headers */,
@@ -1077,10 +1067,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD8D21BD2322BFC300C3996F /* CwlPreconditionTesting.h in Headers */,
 				CDFB6A491F7E082500AD8CC7 /* CwlMachBadInstructionHandler.h in Headers */,
 				CDFB6A271F7E07C700AD8CC7 /* CwlCatchException.h in Headers */,
 				1F1871DF1CA89EF500A34BF2 /* NMBStringify.h in Headers */,
-				CDFB6A431F7E082500AD8CC7 /* CwlPreconditionTesting.h in Headers */,
 				1F1871DD1CA89EF500A34BF2 /* DSL.h in Headers */,
 				1F1871DE1CA89EF500A34BF2 /* NMBExceptionCapture.h in Headers */,
 				1F925EC7195C0DD100ED456B /* Nimble.h in Headers */,
@@ -1211,7 +1201,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Jeff Hui";
 				TargetAttributes = {
 					1F1A74281940169200FFFC47 = {
@@ -1248,10 +1238,11 @@
 			};
 			buildConfigurationList = 1F1A74231940169200FFFC47 /* Build configuration list for PBXProject "Nimble" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 1F1A741F1940169200FFFC47;
 			productRefGroup = 1F1A742A1940169200FFFC47 /* Products */;
@@ -1809,6 +1800,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1855,16 +1847,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				METAL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
+				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -1875,6 +1864,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1914,15 +1904,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				METAL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = iphoneos;
+				OTHER_SWIFT_FLAGS = "$(inherited) -suppress-warnings";
+				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1950,8 +1938,8 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = Sources/Nimble/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-weak_framework",
@@ -1963,8 +1951,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "net.jeffhui.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_MODULE_NAME = Nimble;
 				PRODUCT_NAME = Nimble;
+				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1988,6 +1978,7 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = Sources/Nimble/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -2000,8 +1991,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "net.jeffhui.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_MODULE_NAME = Nimble;
 				PRODUCT_NAME = Nimble;
+				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -2018,11 +2011,13 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = Tests/NimbleTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				METAL_ENABLE_DEBUG_INFO = YES;
 				OTHER_CODE_SIGN_FLAGS = "--verbose";
 				PRODUCT_BUNDLE_IDENTIFIER = "net.jeffhui.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = NimbleTests;
+				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -2036,11 +2031,13 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = Tests/NimbleTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				METAL_ENABLE_DEBUG_INFO = NO;
 				OTHER_CODE_SIGN_FLAGS = "--verbose";
 				PRODUCT_BUNDLE_IDENTIFIER = "net.jeffhui.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = NimbleTests;
+				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};
 			name = Release;
@@ -2082,6 +2079,7 @@
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Debug;
 		};
@@ -2123,6 +2121,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Release;
 		};
@@ -2143,6 +2142,7 @@
 				PRODUCT_NAME = NimbleTests;
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Debug;
 		};
@@ -2165,6 +2165,7 @@
 				SDKROOT = appletvos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Release;
 		};
@@ -2190,6 +2191,7 @@
 				INFOPLIST_FILE = Sources/Nimble/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				METAL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -2230,6 +2232,7 @@
 				INFOPLIST_FILE = Sources/Nimble/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				METAL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -2264,11 +2267,13 @@
 				);
 				INFOPLIST_FILE = Tests/NimbleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				METAL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "net.jeffhui.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = NimbleTests;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VALID_ARCHS = x86_64;
 			};
 			name = Debug;
 		};
@@ -2284,11 +2289,13 @@
 				);
 				INFOPLIST_FILE = Tests/NimbleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				METAL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "net.jeffhui.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = NimbleTests;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALID_ARCHS = x86_64;
 			};
 			name = Release;
 		};

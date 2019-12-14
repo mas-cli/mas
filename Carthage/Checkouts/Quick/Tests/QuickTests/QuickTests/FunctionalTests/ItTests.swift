@@ -16,8 +16,7 @@ class FunctionalTests_ItSpec: QuickSpec {
             expect(exampleMetadata!.example.name).to(equal(name))
         }
 
-#if canImport(Darwin) && !SWIFT_PACKAGE
-
+#if canImport(Darwin)
         describe("when an example has a unique name") {
             it("has a unique name") {}
 
@@ -53,6 +52,7 @@ class FunctionalTests_ItSpec: QuickSpec {
 
         }
 
+#if !SWIFT_PACKAGE
         describe("error handling when misusing ordering") {
             it("an it") {
                 expect {
@@ -103,6 +103,7 @@ class FunctionalTests_ItSpec: QuickSpec {
             }
         }
 #endif
+#endif
     }
 }
 
@@ -113,15 +114,16 @@ final class ItTests: XCTestCase, XCTestCaseProvider {
         ]
     }
 
-#if canImport(Darwin) && !SWIFT_PACKAGE
     func testAllExamplesAreExecuted() {
         let result = qck_runSpec(FunctionalTests_ItSpec.self)
+        #if canImport(Darwin)
+        #if SWIFT_PACKAGE
+        XCTAssertEqual(result?.executionCount, 7)
+        #else
         XCTAssertEqual(result?.executionCount, 10)
-    }
-#else
-    func testAllExamplesAreExecuted() {
-        let result = qck_runSpec(FunctionalTests_ItSpec.self)
+        #endif
+        #else
         XCTAssertEqual(result?.executionCount, 2)
+        #endif
     }
-#endif
 }

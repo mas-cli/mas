@@ -1,8 +1,12 @@
 import Foundation
 
+#if canImport(CwlPreconditionTesting)
+import CwlPreconditionTesting
+#endif
+
 public func throwAssertion() -> Predicate<Void> {
     return Predicate { actualExpression in
-    #if arch(x86_64) && canImport(Darwin) && !SWIFT_PACKAGE
+    #if arch(x86_64) && canImport(Darwin)
         let message = ExpectationMessage.expectedTo("throw an assertion")
 
         var actualError: Error?
@@ -38,10 +42,6 @@ public func throwAssertion() -> Predicate<Void> {
         } else {
             return PredicateResult(bool: caughtException != nil, message: message)
         }
-    #elseif SWIFT_PACKAGE
-        fatalError("The throwAssertion Nimble matcher does not currently support Swift CLI." +
-            " You can silence this error by placing the test case inside an #if !SWIFT_PACKAGE" +
-            " conditional statement")
     #else
         fatalError("The throwAssertion Nimble matcher can only run on x86_64 platforms with " +
             "Objective-C (e.g. macOS, iPhone 5s or later simulators). You can silence this error " +

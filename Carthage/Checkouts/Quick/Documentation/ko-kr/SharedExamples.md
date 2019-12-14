@@ -59,13 +59,13 @@ QuickConfigurationBegin(EdibleSharedExamplesConfiguration)
 
 + (void)configure:(Configuration *configuration) {
   sharedExamples(@"something edible", ^(QCKDSLSharedExampleContext exampleContext) {
-    it(@"makes dolphins happy") {
+    it(@"makes dolphins happy", ^{
       Dolphin *dolphin = [[Dolphin alloc] init];
       dolphin.happy = NO;
       id<Edible> edible = exampleContext()[@"edible"];
       [dolphin eat:edible];
       expect(dolphin.isHappy).to(beTruthy())
-    }
+    });
   });
 }
 

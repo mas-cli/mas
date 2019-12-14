@@ -10,7 +10,7 @@ final class ContainTest: XCTestCase, XCTestCaseProvider {
         expect([1, 2, 3] as [CInt]).toNot(contain(4 as CInt))
         expect(["foo", "bar", "baz"]).to(contain("baz"))
         expect(["foo", "bar", "baz"]).toNot(contain("ba"))
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+#if canImport(Darwin)
         expect(NSArray(array: ["a"])).to(contain(NSString(string: "a")))
         expect(NSArray(array: ["a"])).toNot(contain(NSString(string: "b")))
         expect(NSArray(object: 1) as NSArray?).to(contain(1))
@@ -47,6 +47,27 @@ final class ContainTest: XCTestCase, XCTestCaseProvider {
         }
         failsWithErrorMessageForNil("expected to not contain <1>, got <nil>") {
             expect(nil as TestOptionSet?).toNot(contain(.a))
+        }
+    }
+
+    func testContainSequenceAndSetAlgebra() {
+        let set = [1, 2, 3] as Set<Int>
+
+        expect(set).to(contain(1))
+        expect(set).toNot(contain(4))
+
+        failsWithErrorMessage("expected to contain <4>, got <\(set.debugDescription)>") {
+            expect(set).to(contain(4))
+        }
+        failsWithErrorMessage("expected to not contain <2>, got <\(set.debugDescription)>") {
+            expect(set).toNot(contain(2))
+        }
+
+        failsWithErrorMessageForNil("expected to contain <1>, got <nil>") {
+            expect(nil as Set<Int>?).to(contain(1))
+        }
+        failsWithErrorMessageForNil("expected to not contain <1>, got <nil>") {
+            expect(nil as Set<Int>?).toNot(contain(1))
         }
     }
 

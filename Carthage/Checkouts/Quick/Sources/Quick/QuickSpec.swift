@@ -5,7 +5,7 @@ import XCTest
 
 #if SWIFT_PACKAGE
 
-#if canImport(Darwin)
+#if canImport(QuickSpecBase)
 import QuickSpecBase
 
 public typealias QuickSpecBase = _QuickSpecBase
@@ -14,6 +14,16 @@ public typealias QuickSpecBase = XCTestCase
 #endif
 
 open class QuickSpec: QuickSpecBase {
+    /// Returns the currently executing spec. Use in specs that require XCTestCase
+    /// methods, e.g. expectation(description:).
+    public private(set) static var current: QuickSpec!
+
+    private var example: Example? {
+        didSet {
+            QuickSpec.current = self
+        }
+    }
+
     open func spec() {}
 
 #if !canImport(Darwin)
@@ -38,46 +48,33 @@ open class QuickSpec: QuickSpecBase {
     /// discovered powered by Objective-C runtime), so we needed the alternative
     /// way.
     override open class var defaultTestSuite: XCTestSuite {
-        configureDefaultTestSuite()
+        QuickConfiguration.configureSubclassesIfNeeded(world: World.sharedWorld)
+
+        // Let's gather examples for each spec classes. This has the same effect
+        // as listing spec classes in `LinuxMain.swift` on Linux.
+        gatherExamplesIfNeeded()
 
         return super.defaultTestSuite
     }
 
-    private static func configureDefaultTestSuite() {
-        let world = World.sharedWorld
-
-        if !world.isConfigurationFinalized {
-            // Perform all configurations (ensures that shared examples have been discovered)
-            world.configure { configuration in
-                qck_enumerateSubclasses(QuickConfiguration.self) { configurationClass in
-                    configurationClass.configure(configuration)
-                }
-            }
-            world.finalizeConfiguration()
-        }
-
-        // Let's gather examples for each spec classes. This has the same effect
-        // as listing spec classes in `LinuxMain.swift` on Linux.
-        _ = allTests
-    }
-
-    override open class func _qck_testMethodSelectors() -> [_QuickSelectorWrapper] {
-        let examples = World.sharedWorld.examples(self)
+    override open class func _qck_testMethodSelectors() -> [String] {
+        let examples = World.sharedWorld.examples(forSpecClass: self)
 
         var selectorNames = Set<String>()
         return examples.map { example in
             let selector = addInstanceMethod(for: example, classSelectorNames: &selectorNames)
-            return _QuickSelectorWrapper(selector: selector)
+            return NSStringFromSelector(selector)
         }
     }
 
     private static func addInstanceMethod(for example: Example, classSelectorNames selectorNames : inout Set<String>) -> Selector {
-        let block: @convention(block) (QuickSpec) -> Void = { _ in
+        let block: @convention(block) (QuickSpec) -> Void = { spec in
+            spec.example = example
             example.run()
         }
         let implementation = imp_implementationWithBlock(block as Any)
 
-        let originalName = example.name
+        let originalName = example.name.c99ExtendedIdentifier
         var selectorName = originalName
         var i: UInt = 2
 
@@ -95,30 +92,32 @@ open class QuickSpec: QuickSpecBase {
     }
 #endif
 
-    static var allTestsCache = [String: [(String, (XCTestCase) -> () throws -> Void)]]()
-
-    public class var allTests: [(String, (XCTestCase) -> () throws -> Void)] {
-        if let cached = allTestsCache[String(describing: self)] {
-            return cached
-        }
-
+#if !canImport(Darwin)
+    public class var allTests: [(String, (QuickSpec) -> () throws -> Void)] {
         gatherExamplesIfNeeded()
 
-        let examples = World.sharedWorld.examples(self)
-        let result = examples.map { example -> (String, (XCTestCase) -> () throws -> Void) in
-            return (example.name, { _ in { example.run() } })
+        let examples = World.sharedWorld.examples(forSpecClass: self)
+        let result = examples.map { example -> (String, (QuickSpec) -> () throws -> Void) in
+            return (example.name, { spec in
+                return {
+                    spec.example = example
+                    example.run()
+                }
+            })
         }
-        allTestsCache[String(describing: self)] = result
         return result
     }
+#endif
 
     internal static func gatherExamplesIfNeeded() {
         let world = World.sharedWorld
-        let rootExampleGroup = world.rootExampleGroupForSpecClass(self)
-        if rootExampleGroup.examples.isEmpty {
-            world.currentExampleGroup =  rootExampleGroup
+        let rootExampleGroup = world.rootExampleGroup(forSpecClass: self)
+        guard rootExampleGroup.examples.isEmpty else {
+            return
+        }
+
+        world.performWithCurrentExampleGroup(rootExampleGroup) {
             self.init().spec()
-            world.currentExampleGroup = nil
         }
     }
 }

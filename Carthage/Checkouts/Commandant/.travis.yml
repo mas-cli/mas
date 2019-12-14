@@ -41,32 +41,20 @@ branches:
 matrix:
   include:
     - <<: *xcode
-      name: Xcode 10.1 / Swift 4.2.1
-      osx_image: xcode10.1
-      env: JOB=Xcode10.1
-    - <<: *xcode
       name: Xcode 10.2 / Swift 5.0
       osx_image: xcode10.2
       env: JOB=Xcode10.2
     - <<: *cocoapods
       name: CocoaPods Lint
-      osx_image: xcode10.1
-    - <<: *swiftpm_darwin
-      name: SwiftPM / Swift 4.2.1
-      osx_image: xcode10.1
+      osx_image: xcode10.2
     - <<: *swiftpm_darwin
       name: SwiftPM / Swift 5.0
       osx_image: xcode10.2
     - <<: *swiftpm_linux
-      name: Linux / Swift 4.2.3
+      name: Linux / Swift 5.0
       env:
         - JOB=Linux
-        - SWIFT_VESION=4.2.3
-    - <<: *swiftpm_linux
-      name: Linux / Swift 5.0 Development
-      env:
-        - JOB=Linux
-        - SWIFT_VERSION=5.0-DEVELOPMENT-SNAPSHOT-2019-02-28-a
+        - SWIFT_VERSION=5.0
 
 notifications:
   email: false

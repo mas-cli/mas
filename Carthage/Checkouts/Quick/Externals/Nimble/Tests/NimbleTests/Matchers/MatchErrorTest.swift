@@ -19,7 +19,7 @@ final class MatchErrorTest: XCTestCase, XCTestCaseProvider {
     }
 
     func testMatchNSErrorPositive() {
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+#if canImport(Darwin)
         let error1 = NSError(domain: "err", code: 0, userInfo: nil)
         let error2 = NSError(domain: "err", code: 0, userInfo: nil)
 
@@ -45,7 +45,7 @@ final class MatchErrorTest: XCTestCase, XCTestCaseProvider {
             expect(CustomDebugStringConvertibleError.a).to(matchError(CustomDebugStringConvertibleError.b))
         }
 
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+#if canImport(Darwin)
         failsWithErrorMessage("expected to match error <Error Domain=err Code=1 \"(null)\">, got <Error Domain=err Code=0 \"(null)\">") {
             let error1 = NSError(domain: "err", code: 0, userInfo: nil)
             let error2 = NSError(domain: "err", code: 1, userInfo: nil)

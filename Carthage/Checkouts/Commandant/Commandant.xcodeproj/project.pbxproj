@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		680759651FC5A25D00D6CA70 /* OptionsWithEnumProtocolSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680759631FC5A1F600D6CA70 /* OptionsWithEnumProtocolSpec.swift */; };
+		7517D40F225772A90096873E /* Result+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7517D40E225772A90096873E /* Result+Additions.swift */; };
 		CD2ED3411C1E6C5D0076092B /* Argument.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2ED3401C1E6C5D0076092B /* Argument.swift */; };
 		CD2ED3431C1E6D540076092B /* ArgumentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2ED3421C1E6D540076092B /* ArgumentProtocol.swift */; };
 		CDCE78341FBAB047005A9F76 /* OrderedSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCE78331FBAB047005A9F76 /* OrderedSet.swift */; };
@@ -22,7 +23,6 @@
 		D00CCE2B1A20748500109F8C /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00CCE2A1A20748500109F8C /* Errors.swift */; };
 		D00CCE2D1A2075ED00109F8C /* ArgumentParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00CCE2C1A2075ED00109F8C /* ArgumentParser.swift */; };
 		D00CCE2F1A2075F700109F8C /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00CCE2E1A2075F700109F8C /* Option.swift */; };
-		D021309A1AF87D6E00B9EC20 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D02130981AF87D6E00B9EC20 /* Result.framework */; };
 		D0BF14FB1A4C8957003147BC /* HelpCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BF14FA1A4C8957003147BC /* HelpCommand.swift */; };
 		D8169D871ACB942D00923FB0 /* Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8169D861ACB942D00923FB0 /* Switch.swift */; };
 /* End PBXBuildFile section */
@@ -40,6 +40,7 @@
 /* Begin PBXFileReference section */
 		680759631FC5A1F600D6CA70 /* OptionsWithEnumProtocolSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsWithEnumProtocolSpec.swift; sourceTree = "<group>"; };
 		6CAD549C1D371A4E00A2D031 /* LinuxMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LinuxMain.swift; path = Tests/LinuxMain.swift; sourceTree = SOURCE_ROOT; };
+		7517D40E225772A90096873E /* Result+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+Additions.swift"; sourceTree = "<group>"; };
 		CD2ED3401C1E6C5D0076092B /* Argument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Argument.swift; sourceTree = "<group>"; };
 		CD2ED3421C1E6D540076092B /* ArgumentProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentProtocol.swift; sourceTree = "<group>"; };
 		CDCE78331FBAB047005A9F76 /* OrderedSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedSet.swift; sourceTree = "<group>"; };
@@ -75,7 +76,6 @@
 		D00CCE2A1A20748500109F8C /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		D00CCE2C1A2075ED00109F8C /* ArgumentParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentParser.swift; sourceTree = "<group>"; };
 		D00CCE2E1A2075F700109F8C /* Option.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Option.swift; sourceTree = "<group>"; };
-		D02130981AF87D6E00B9EC20 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Result.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0BF14FA1A4C8957003147BC /* HelpCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpCommand.swift; sourceTree = "<group>"; };
 		D8169D861ACB942D00923FB0 /* Switch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Switch.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -85,7 +85,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D021309A1AF87D6E00B9EC20 /* Result.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,7 +136,6 @@
 		D00CCDDC1A20717400109F8C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D02130981AF87D6E00B9EC20 /* Result.framework */,
 				D00CCDDD1A20717400109F8C /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -244,6 +242,7 @@
 				D00CCE2E1A2075F700109F8C /* Option.swift */,
 				CDCE78331FBAB047005A9F76 /* OrderedSet.swift */,
 				D8169D861ACB942D00923FB0 /* Switch.swift */,
+				7517D40E225772A90096873E /* Result+Additions.swift */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -332,6 +331,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = D00CCDCF1A20717400109F8C;
@@ -375,6 +375,7 @@
 				D00CCE2B1A20748500109F8C /* Errors.swift in Sources */,
 				D8169D871ACB942D00923FB0 /* Switch.swift in Sources */,
 				D00CCE271A20741300109F8C /* Command.swift in Sources */,
+				7517D40F225772A90096873E /* Result+Additions.swift in Sources */,
 				D00CCE2D1A2075ED00109F8C /* ArgumentParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -417,7 +418,7 @@
 				ENABLE_TESTABILITY = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -438,7 +439,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -521,7 +522,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -572,7 +573,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};

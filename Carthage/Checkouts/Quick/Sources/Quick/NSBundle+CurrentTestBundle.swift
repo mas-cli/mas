@@ -17,7 +17,7 @@ extension Bundle {
      Module name has to be a valid "C99 extended identifier".
      */
     internal var moduleName: String {
-        let fileName = bundleURL.fileName as NSString
+        let fileName = bundleURL.fileName
         return fileName.c99ExtendedIdentifier
     }
 }

@@ -49,7 +49,7 @@ final class BeAKindOfSwiftTest: XCTestCase, XCTestCaseProvider {
 
 final class BeAKindOfObjCTest: XCTestCase, XCTestCaseProvider {
     func testPositiveMatch() {
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+#if canImport(Darwin)
         expect(TestNull()).to(beAKindOf(NSNull.self))
         expect(NSObject()).to(beAKindOf(NSObject.self))
         expect(NSNumber(value: 1)).toNot(beAKindOf(NSDate.self))
@@ -57,7 +57,7 @@ final class BeAKindOfObjCTest: XCTestCase, XCTestCaseProvider {
     }
 
     func testFailureMessages() {
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+#if canImport(Darwin)
         failsWithErrorMessageForNil("expected to not be a kind of NSNull, got <nil>") {
             expect(nil as NSNull?).toNot(beAKindOf(NSNull.self))
         }

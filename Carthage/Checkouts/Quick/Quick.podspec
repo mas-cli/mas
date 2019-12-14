@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "Quick"
-  s.version      = "2.0.0"
+  s.version      = "2.2.0"
   s.summary      = "The Swift (and Objective-C) testing framework."
 
   s.description  = <<-DESC
@@ -26,7 +26,6 @@ Pod::Spec.new do |s|
   ]
 
   s.exclude_files = [
-    'Sources/Quick/Configuration/QuickConfiguration.swift',
     'Sources/Quick/QuickSpec.swift',
     'Sources/Quick/QuickMain.swift',
   ]
@@ -41,5 +40,9 @@ Pod::Spec.new do |s|
   }
   
   s.cocoapods_version = '>= 1.4.0'
-  s.swift_version = '4.2'
+  if s.respond_to?(:swift_versions) then
+    s.swift_versions = ['4.2', '5.0']
+  else
+    s.swift_version = '4.2'
+  end
 end

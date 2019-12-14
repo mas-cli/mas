@@ -4,11 +4,10 @@ import Foundation
 /// means the are no items in that collection. For strings, it is an empty string.
 public func beEmpty<S: Sequence>() -> Predicate<S> {
     return Predicate.simple("be empty") { actualExpression in
-        let actualSeq = try actualExpression.evaluate()
-        if actualSeq == nil {
+        guard let actual = try actualExpression.evaluate() else {
             return .fail
         }
-        var generator = actualSeq!.makeIterator()
+        var generator = actual.makeIterator()
         return PredicateStatus(bool: generator.next() == nil)
     }
 }
@@ -16,6 +15,17 @@ public func beEmpty<S: Sequence>() -> Predicate<S> {
 /// A Nimble matcher that succeeds when a value is "empty". For collections, this
 /// means the are no items in that collection. For strings, it is an empty string.
 public func beEmpty<S: SetAlgebra>() -> Predicate<S> {
+    return Predicate.simple("be empty") { actualExpression in
+        guard let actual = try actualExpression.evaluate() else {
+            return .fail
+        }
+        return PredicateStatus(bool: actual.isEmpty)
+    }
+}
+
+/// A Nimble matcher that succeeds when a value is "empty". For collections, this
+/// means the are no items in that collection. For strings, it is an empty string.
+public func beEmpty<S: Sequence & SetAlgebra>() -> Predicate<S> {
     return Predicate.simple("be empty") { actualExpression in
         guard let actual = try actualExpression.evaluate() else {
             return .fail

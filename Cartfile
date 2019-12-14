@@ -1,2 +1,1 @@
-github "Carthage/Commandant" "master"
-github "antitypical/Result"
+github "Carthage/Commandant"

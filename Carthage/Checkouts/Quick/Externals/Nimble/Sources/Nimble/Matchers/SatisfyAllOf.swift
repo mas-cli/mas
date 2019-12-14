@@ -2,6 +2,12 @@ import Foundation
 
 /// A Nimble matcher that succeeds when the actual value matches with all of the matchers
 /// provided in the variable list of matchers.
+public func satisfyAllOf<T>(_ predicates: Predicate<T>...) -> Predicate<T> {
+    return satisfyAllOf(predicates)
+}
+
+/// A Nimble matcher that succeeds when the actual value matches with all of the matchers
+/// provided in the variable list of matchers.
 public func satisfyAllOf<T, U>(_ matchers: U...) -> Predicate<T>
     where U: Matcher, U.ValueType == T {
         return satisfyAllOf(matchers.map { $0.predicate })

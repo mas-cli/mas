@@ -10,15 +10,14 @@
 import Foundation
 import Nimble
 import Quick
-import Result
 
 class OptionsWithEnumProtocolSpec: QuickSpec {
 	override func spec() {
 		describe("CommandMode.Arguments") {
-			func tryArguments(_ arguments: String...) -> Result<TestEnumOptions, CommandantError<NoError>> {
+			func tryArguments(_ arguments: String...) -> Result<TestEnumOptions, CommandantError<Never>> {
 				return TestEnumOptions.evaluate(.arguments(ArgumentParser(arguments)))
 			}
-			
+
 			it("should fail if a required argument is missing") {
 				expect(tryArguments().value).to(beNil())
 			}
@@ -30,78 +29,78 @@ class OptionsWithEnumProtocolSpec: QuickSpec {
 			it("should fail if an option is missing a value") {
 				expect(tryArguments("required", "--strictStringValue", "drop").value).to(beNil())
 			}
-			
+
 			it("should fail if an optional strict int parameter is wrong") {
 				expect(tryArguments("required", "256").value).to(beNil())
 			}
-			
+
 			it("should succeed without optional string arguments") {
 				let value = tryArguments("required").value
 				let expected = TestEnumOptions(strictIntValue: .theAnswerToTheUltimateQuestionOfLifeTheUniverseAndEverything, strictStringValue: .foobar, strictStringsArray: [], optionalStrictStringsArray: nil, optionalStrictStringValue: nil, optionalStrictInt: .min, requiredName: "required", arguments: [])
 				expect(value).to(equal(expected))
 			}
-			
+
 			it("should succeed without optional strict int value") {
 				let value = tryArguments("required", "5").value
 				let expected = TestEnumOptions(strictIntValue: .theAnswerToTheUltimateQuestionOfLifeTheUniverseAndEverything, strictStringValue: .foobar, strictStringsArray: [], optionalStrictStringsArray: nil, optionalStrictStringValue: nil, optionalStrictInt: .giveFive, requiredName: "required", arguments: [])
 				expect(value).to(equal(expected))
 			}
-			
+
 			it("should succeed with some strings array arguments separated by comma") {
 				let value = tryArguments("required", "--strictIntValue", "3", "--optionalStrictStringValue", "baz", "255", "--strictStringsArray", "a,b,c").value
 				let expected = TestEnumOptions(strictIntValue: .three, strictStringValue: .foobar, strictStringsArray: [.a, .b, .c], optionalStrictStringsArray: nil, optionalStrictStringValue: .baz, optionalStrictInt: .max, requiredName: "required", arguments: [])
 				expect(value).to(equal(expected))
 			}
-			
+
 			it("should succeed with some strings array arguments separated by space") {
 				let value = tryArguments("required", "--strictIntValue", "3", "--optionalStrictStringValue", "baz", "--strictStringsArray", "a b c", "255").value
 				let expected = TestEnumOptions(strictIntValue: .three, strictStringValue: .foobar, strictStringsArray: [.a, .b, .c], optionalStrictStringsArray: nil, optionalStrictStringValue: .baz, optionalStrictInt: .max, requiredName: "required", arguments: [])
 				expect(value).to(equal(expected))
 			}
-			
+
 			it("should succeed with some strings array arguments separated by comma and space") {
 				let value = tryArguments("required", "--strictIntValue", "3", "--optionalStrictStringValue", "baz", "--strictStringsArray", "a, b, c", "255").value
 				let expected = TestEnumOptions(strictIntValue: .three, strictStringValue: .foobar, strictStringsArray: [.a, .b, .c], optionalStrictStringsArray: nil, optionalStrictStringValue: .baz, optionalStrictInt: .max, requiredName: "required", arguments: [])
 				expect(value).to(equal(expected))
 			}
-			
+
 			it("should succeed with some optional string arguments") {
 				let value = tryArguments("required", "--strictIntValue", "3", "--optionalStrictStringValue", "baz", "255").value
 				let expected = TestEnumOptions(strictIntValue: .three, strictStringValue: .foobar, strictStringsArray: [], optionalStrictStringsArray: nil, optionalStrictStringValue: .baz, optionalStrictInt: .max, requiredName: "required", arguments: [])
 				expect(value).to(equal(expected))
 			}
-			
+
 			it("should succeed without optional array arguments") {
 				let value = tryArguments("required").value
 				let expected = TestEnumOptions(strictIntValue: .theAnswerToTheUltimateQuestionOfLifeTheUniverseAndEverything, strictStringValue: .foobar, strictStringsArray: [], optionalStrictStringsArray: nil, optionalStrictStringValue: nil, optionalStrictInt: .min, requiredName: "required", arguments: [])
 				expect(value).to(equal(expected))
 			}
-			
+
 			it("should succeed with some optional array arguments") {
 				let value = tryArguments("required", "--strictIntValue", "3", "--optionalStrictStringsArray", "one, two", "255").value
 				let expected = TestEnumOptions(strictIntValue: .three, strictStringValue: .foobar, strictStringsArray: [], optionalStrictStringsArray: [.one, .two], optionalStrictStringValue: nil, optionalStrictInt: .max, requiredName: "required", arguments: [])
 				expect(value).to(equal(expected))
 			}
-			
+
 			it("should override previous optional arguments") {
 				let value = tryArguments("required", "--strictIntValue", "3", "--strictStringValue", "fuzzbuzz", "--strictIntValue", "5", "--strictStringValue", "bazbuzz").value
 				let expected = TestEnumOptions(strictIntValue: .giveFive, strictStringValue: .bazbuzz, strictStringsArray: [], optionalStrictStringsArray: nil, optionalStrictStringValue: nil, optionalStrictInt: .min, requiredName: "required", arguments: [])
 				expect(value).to(equal(expected))
 			}
-			
+
 			it("should consume the rest of positional arguments") {
 				let value = tryArguments("required", "255", "value1", "value2").value
 				let expected = TestEnumOptions(strictIntValue: .theAnswerToTheUltimateQuestionOfLifeTheUniverseAndEverything, strictStringValue: .foobar, strictStringsArray: [], optionalStrictStringsArray: nil, optionalStrictStringValue: nil, optionalStrictInt: .max, requiredName: "required", arguments: [ "value1", "value2" ])
 				expect(value).to(equal(expected))
 			}
-			
+
 			it("should treat -- as the end of valued options") {
 				let value = tryArguments("--", "--strictIntValue").value
 				let expected = TestEnumOptions(strictIntValue: .theAnswerToTheUltimateQuestionOfLifeTheUniverseAndEverything, strictStringValue: .foobar, strictStringsArray: [], optionalStrictStringsArray: nil, optionalStrictStringValue: nil, optionalStrictInt: .min, requiredName: "--strictIntValue", arguments: [])
 				expect(value).to(equal(expected))
 			}
 		}
-		
+
 		describe("CommandMode.Usage") {
 			it("should return an error containing usage information") {
 				let error = TestEnumOptions.evaluate(.usage).error
@@ -123,16 +122,16 @@ struct TestEnumOptions: OptionsProtocol, Equatable {
 	let optionalStrictInt: StrictIntValue
 	let requiredName: String
 	let arguments: [String]
-	
-	typealias ClientError = NoError
-	
+
+	typealias ClientError = Never
+
 	static func create(_ a: StrictIntValue) -> (StrictStringValue) -> ([StrictStringValue]) -> ([StrictStringValue]?) -> (StrictStringValue?) -> (String) -> (StrictIntValue) -> ([String]) -> TestEnumOptions {
 		return { b in { c in { d in { e in { f in { g in { h in
 			return self.init(strictIntValue: a, strictStringValue: b, strictStringsArray: c, optionalStrictStringsArray: d, optionalStrictStringValue: e, optionalStrictInt: g, requiredName: f, arguments: h)
 			} } } } } } }
 	}
-	
-	static func evaluate(_ m: CommandMode) -> Result<TestEnumOptions, CommandantError<NoError>> {
+
+	static func evaluate(_ m: CommandMode) -> Result<TestEnumOptions, CommandantError<Never>> {
 		return create
 			<*> m <| Option(key: "strictIntValue", defaultValue: .theAnswerToTheUltimateQuestionOfLifeTheUniverseAndEverything, usage: "`0` - zero, `255` - max, `3` - three, `5` - five or `42` - The Answer")
 			<*> m <| Option(key: "strictStringValue", defaultValue: .foobar, usage: "`foobar`, `bazbuzzz`, `a`, `b`, `c`, `one`, `two`, `c`")
@@ -157,7 +156,7 @@ extension TestEnumOptions: CustomStringConvertible {
 
 enum StrictStringValue: String, ArgumentProtocol {
 	static var name: String = "Strict string value: `foobar`, `bazbuzz`, `one`, `two`, `baz`, `a`, `b` or `c`"
-	
+
 	case foobar
 	case bazbuzz
 	case one
@@ -170,7 +169,7 @@ enum StrictStringValue: String, ArgumentProtocol {
 
 enum StrictIntValue: UInt8, ArgumentProtocol {
 	static var name: String = "Strict int value: `3`, `5`, `42`, `0`, `255`"
-	
+
 	case min = 0
 	case three = 3
 	case giveFive = 5

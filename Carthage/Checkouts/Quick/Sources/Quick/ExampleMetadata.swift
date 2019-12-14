@@ -1,6 +1,6 @@
 import Foundation
 
-#if canImport(Darwin) && !SWIFT_PACKAGE
+#if canImport(Darwin)
 @objcMembers
 public class _ExampleMetadataBase: NSObject {}
 #else

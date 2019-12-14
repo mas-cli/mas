@@ -32,11 +32,7 @@ internal class AssertionWaitLock: WaitLock {
 
     func acquireWaitingLock(_ fnName: String, file: FileString, line: UInt) {
         let info = WaitingInfo(name: fnName, file: file, lineNumber: line)
-        #if canImport(Darwin)
-            let isMainThread = Thread.isMainThread
-        #else
-            let isMainThread = _CFIsMainThread()
-        #endif
+        let isMainThread = Thread.isMainThread
         nimblePrecondition(
             isMainThread,
             "InvalidNimbleAPIUsage",

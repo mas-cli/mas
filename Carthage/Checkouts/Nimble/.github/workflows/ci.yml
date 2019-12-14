@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  cocoapods:
+    name: CocoaPods Lint
+    runs-on: macOS-10.14
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-ruby@v1
+      with:
+        ruby-version: '2.x'
+    - run: sudo xcode-select -s '/Applications/Xcode_10.3.app'
+    - run: bundle install --jobs=8
+    - run: ./test podspec
+
+  xcode:
+    name: Xcode ${{ matrix.xcode }}
+    runs-on: macOS-10.14
+    strategy:
+      matrix:
+        xcode: [10.1, 10.3, 11]
+    steps:
+    - uses: actions/checkout@v1
+    - run: sudo xcode-select -s '/Applications/Xcode_${{ matrix.xcode }}.app'
+    - run: ./test macos
+    - run: ./test ios
+    - run: ./test tvos
+
+  swiftpm_darwin:
+    name: SwiftPM, Darwin, Xcode ${{ matrix.xcode }}
+    runs-on: macOS-10.14
+    strategy:
+      matrix:
+        xcode: [10.1, 10.3, 11]
+    steps:
+    - uses: actions/checkout@v1
+    - run: sudo xcode-select -s '/Applications/Xcode_${{ matrix.xcode }}.app'
+    - run: ./test swiftpm

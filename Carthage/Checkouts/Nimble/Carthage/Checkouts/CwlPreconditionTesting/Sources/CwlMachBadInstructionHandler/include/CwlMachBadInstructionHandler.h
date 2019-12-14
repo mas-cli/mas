@@ -3,7 +3,7 @@
 //  CwlPreconditionTesting
 //
 //  Created by Matt Gallagher on 2016/01/10.
-//  Copyright © 2016 Matt Gallagher ( http://cocoawithlove.com ). All rights reserved.
+//  Copyright © 2016 Matt Gallagher ( https://www.cocoawithlove.com ). All rights reserved.
 //
 //  Permission to use, copy, modify, and/or distribute this software for any
 //  purpose with or without fee is hereby granted, provided that the above
@@ -19,7 +19,13 @@
 //
 
 #import <Foundation/Foundation.h>
+
+#if TARGET_OS_OSX || TARGET_OS_IOS
+
 #import <mach/mach.h>
+
+extern bool _swift_disableExclusivityChecking;
+extern bool _swift_reportFatalErrorsToDebugger;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -68,3 +74,5 @@ typedef struct
 } bad_instruction_exception_reply_t;
 
 NS_ASSUME_NONNULL_END
+
+#endif

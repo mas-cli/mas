@@ -61,12 +61,12 @@ final class AsyncTest: XCTestCase, XCTestCaseProvider {
     }
 
     func testWaitUntilWithCustomDefaultsTimeout() {
-        AsyncDefaults.Timeout = 5
+        AsyncDefaults.Timeout = 3
         defer {
             AsyncDefaults.Timeout = 1
         }
         waitUntil { done in
-            Thread.sleep(forTimeInterval: 4.8)
+            Thread.sleep(forTimeInterval: 2.8)
             done()
         }
     }
@@ -121,7 +121,7 @@ final class AsyncTest: XCTestCase, XCTestCaseProvider {
         let msg = "-waitUntil() timed out but was unable to run the timeout handler because the main thread is unresponsive (0.5 seconds is allow after the wait times out). Conditions that may cause this include processing blocking IO on the main thread, calls to sleep(), deadlocks, and synchronous IPC. Nimble forcefully stopped run loop which may cause future failures in test run."
         failsWithErrorMessage(msg) {
             waitUntil(timeout: 1) { done in
-                Thread.sleep(forTimeInterval: 5.0)
+                Thread.sleep(forTimeInterval: 3.0)
                 done()
             }
         }

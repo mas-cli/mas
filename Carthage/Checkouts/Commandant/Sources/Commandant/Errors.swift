@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Result
 
 /// Possible errors that can originate from Commandant.
 ///

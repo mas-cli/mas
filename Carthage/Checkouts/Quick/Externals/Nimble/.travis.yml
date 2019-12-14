@@ -1,49 +1,29 @@
-osx_image: xcode10.1
+branches:
+  only:
+    - master
+
 language: generic
 matrix:
   include:
-    - os: osx
-      sudo: required
-      env: TYPE=podspec
-      install: bundle install
-      name: CocoaPods Lint
-    - os: osx
-      env: TYPE=ios
-      name: iOS / Swift 4.2.1
-    - os: osx
-      env: TYPE=tvos
-      name: tvOS / Swift 4.2.1
-    - os: osx
-      env: TYPE=macos
-      name: macOS / Swift 4.2.1
-    - os: osx
-      env: TYPE=macos
-      osx_image: xcode10.2
-      name: macOS / Swift 5.0
-    - os: osx
-      env:
-        - TYPE=swiftpm
-    - os: osx
-      env:
-        - TYPE=swiftpm
-      osx_image: xcode10.2
-    - &linux
-      name: Linux / Swift 4.2.1
+    - &swiftpm_linux
+      name: SwiftPM / Linux / Swift 4.2.4
       os: linux
       dist: trusty
       sudo: required
       env:
-        - TYPE=swiftpm
-        - SWIFT_VERSION=4.2.1
+        - SWIFT_VERSION=4.2.4
       install:
-        - eval "$(curl -sL https://gist.githubusercontent.com/kylef/5c0475ff02b7c7671d2a/raw/9f442512a46d7a2af7b850d65a7e9bd31edfb09b/swiftenv-install.sh)"
-    - <<: *linux
-      name: Linux / Swift 5.0 Development
+        - eval "$(curl -sL https://swiftenv.fuller.li/install.sh)"
+      script:
+        - ./test swiftpm
+    - <<: *swiftpm_linux
+      name: SwiftPM / Linux / Swift 5.0.3
       env:
-        - TYPE=swiftpm
-        - SWIFT_VERSION=5.0-DEVELOPMENT-SNAPSHOT-2019-02-28-a
-      install:
-        - eval "$(curl -sL https://gist.githubusercontent.com/kylef/5c0475ff02b7c7671d2a/raw/9f442512a46d7a2af7b850d65a7e9bd31edfb09b/swiftenv-install.sh)"
+        - SWIFT_VERSION=5.0.3
+    - <<: *swiftpm_linux
+      name: SwiftPM / Linux / Swift 5.1 Development
+      env:
+        - SWIFT_VERSION=5.1-DEVELOPMENT-SNAPSHOT-2019-09-05-a
 install: true
 script:
   - ./test $TYPE

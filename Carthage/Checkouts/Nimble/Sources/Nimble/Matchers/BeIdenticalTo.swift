@@ -4,18 +4,9 @@ import Foundation
 /// as the expected instance.
 public func beIdenticalTo(_ expected: Any?) -> Predicate<Any> {
     return Predicate.define { actualExpression in
-        #if os(Linux) && !swift(>=4.1.50)
-            let actual = try actualExpression.evaluate() as? AnyObject
-        #else
-            let actual = try actualExpression.evaluate() as AnyObject?
-        #endif
+        let actual = try actualExpression.evaluate() as AnyObject?
 
-        let bool: Bool
-        #if os(Linux) && !swift(>=4.1.50)
-            bool = actual === (expected as? AnyObject) && actual !== nil
-        #else
-            bool = actual === (expected as AnyObject?) && actual !== nil
-        #endif
+        let bool = actual === (expected as AnyObject?) && actual !== nil
         return PredicateResult(
             bool: bool,
             message: .expectedCustomValueTo(

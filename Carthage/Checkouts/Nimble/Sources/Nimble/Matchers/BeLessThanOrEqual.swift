@@ -11,6 +11,11 @@ public func beLessThanOrEqualTo<T: Comparable>(_ expectedValue: T?) -> Predicate
     }
 }
 
+public func <=<T: Comparable>(lhs: Expectation<T>, rhs: T) {
+    lhs.to(beLessThanOrEqualTo(rhs))
+}
+
+#if canImport(Darwin) || !compiler(>=5.1)
 /// A Nimble matcher that succeeds when the actual value is less than
 /// or equal to the expected value.
 public func beLessThanOrEqualTo<T: NMBComparable>(_ expectedValue: T?) -> Predicate<T> {
@@ -21,13 +26,10 @@ public func beLessThanOrEqualTo<T: NMBComparable>(_ expectedValue: T?) -> Predic
     }
 }
 
-public func <=<T: Comparable>(lhs: Expectation<T>, rhs: T) {
-    lhs.to(beLessThanOrEqualTo(rhs))
-}
-
 public func <=<T: NMBComparable>(lhs: Expectation<T>, rhs: T) {
     lhs.to(beLessThanOrEqualTo(rhs))
 }
+#endif
 
 #if canImport(Darwin)
 extension NMBObjCMatcher {

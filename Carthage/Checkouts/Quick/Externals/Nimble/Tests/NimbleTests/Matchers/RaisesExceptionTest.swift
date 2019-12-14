@@ -1,7 +1,7 @@
 import XCTest
 import Nimble
 
-#if (os(macOS) || os(iOS) || os(tvOS) || os(watchOS)) && !SWIFT_PACKAGE
+#if canImport(Darwin) && !SWIFT_PACKAGE
 
 final class RaisesExceptionTest: XCTestCase {
     var anException = NSException(name: NSExceptionName("laugh"), reason: "Lulz", userInfo: ["key": "value"])

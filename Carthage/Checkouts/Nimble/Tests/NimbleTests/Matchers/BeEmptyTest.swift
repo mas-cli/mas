@@ -13,7 +13,7 @@ final class BeEmptyTest: XCTestCase, XCTestCaseProvider {
         expect([] as Set<Int>).to(beEmpty())
         expect([1] as Set<Int>).toNot(beEmpty())
 
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+#if canImport(Darwin)
         expect(NSDictionary() as? [Int: Int]).to(beEmpty())
         expect(NSDictionary(object: 1, forKey: 1 as NSNumber) as? [Int: Int]).toNot(beEmpty())
 #endif
@@ -21,7 +21,7 @@ final class BeEmptyTest: XCTestCase, XCTestCaseProvider {
         expect([Int: Int]()).to(beEmpty())
         expect(["hi": 1]).toNot(beEmpty())
 
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+#if canImport(Darwin)
         expect(NSArray() as? [Int]).to(beEmpty())
         expect(NSArray(array: [1]) as? [Int]).toNot(beEmpty())
 #endif
@@ -57,7 +57,7 @@ final class BeEmptyTest: XCTestCase, XCTestCaseProvider {
             expect([1] as Set<Int>).to(beEmpty())
         }
 
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+#if canImport(Darwin)
         failsWithErrorMessage("expected to not be empty, got <{()}>") {
             expect(NSSet()).toNot(beEmpty())
         }

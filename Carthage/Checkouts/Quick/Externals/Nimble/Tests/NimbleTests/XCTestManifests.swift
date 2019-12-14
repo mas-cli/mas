@@ -202,6 +202,7 @@ extension ContainTest {
         ("testCollectionArguments", testCollectionArguments),
         ("testContainObjCSubstring", testContainObjCSubstring),
         ("testContainSequence", testContainSequence),
+        ("testContainSequenceAndSetAlgebra", testContainSequenceAndSetAlgebra),
         ("testContainSetAlgebra", testContainSetAlgebra),
         ("testContainSubstring", testContainSubstring),
         ("testVariadicArguments", testVariadicArguments),

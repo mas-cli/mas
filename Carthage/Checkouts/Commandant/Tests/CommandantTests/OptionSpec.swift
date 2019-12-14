@@ -10,12 +10,11 @@
 import Foundation
 import Nimble
 import Quick
-import Result
 
 class OptionsProtocolSpec: QuickSpec {
 	override func spec() {
 		describe("CommandMode.Arguments") {
-			func tryArguments(_ arguments: String...) -> Result<TestOptions, CommandantError<NoError>> {
+			func tryArguments(_ arguments: String...) -> Result<TestOptions, CommandantError<Never>> {
 				return TestOptions.evaluate(.arguments(ArgumentParser(arguments)))
 			}
 
@@ -35,34 +34,34 @@ class OptionsProtocolSpec: QuickSpec {
 
 			it("should succeed with some strings array arguments separated by comma") {
 				let value = tryArguments("required", "--intValue", "3", "--optionalStringValue", "baz", "fuzzbuzz", "--stringsArray", "a,b,c").value
-				let expected = TestOptions(intValue: 3, stringValue: "foobar", stringsArray: ["a","b","c"], optionalStringsArray: nil, optionalStringValue: "baz", optionalFilename: "fuzzbuzz", requiredName: "required", enabled: false, force: false, glob: false, arguments: [])
+				let expected = TestOptions(intValue: 3, stringValue: "foobar", stringsArray: ["a", "b", "c"], optionalStringsArray: nil, optionalStringValue: "baz", optionalFilename: "fuzzbuzz", requiredName: "required", enabled: false, force: false, glob: false, arguments: [])
 				expect(value).to(equal(expected))
 			}
-			
+
 			it("should succeed with some strings array arguments separated by space") {
 				let value = tryArguments("required", "--intValue", "3", "--optionalStringValue", "baz", "--stringsArray", "a b c", "fuzzbuzz").value
 				let expected = TestOptions(intValue: 3, stringValue: "foobar", stringsArray: ["a", "b", "c"], optionalStringsArray: nil, optionalStringValue: "baz", optionalFilename: "fuzzbuzz", requiredName: "required", enabled: false, force: false, glob: false, arguments: [])
 				expect(value).to(equal(expected))
 			}
-			
+
 			it("should succeed with some strings array arguments separated by comma and space") {
 				let value = tryArguments("required", "--intValue", "3", "--optionalStringValue", "baz", "--stringsArray", "a, b, c", "fuzzbuzz").value
 				let expected = TestOptions(intValue: 3, stringValue: "foobar", stringsArray: ["a", "b", "c"], optionalStringsArray: nil, optionalStringValue: "baz", optionalFilename: "fuzzbuzz", requiredName: "required", enabled: false, force: false, glob: false, arguments: [])
 				expect(value).to(equal(expected))
 			}
-			
+
 			it("should succeed with some optional string arguments") {
 				let value = tryArguments("required", "--intValue", "3", "--optionalStringValue", "baz", "fuzzbuzz").value
 				let expected = TestOptions(intValue: 3, stringValue: "foobar", stringsArray: [], optionalStringsArray: nil, optionalStringValue: "baz", optionalFilename: "fuzzbuzz", requiredName: "required", enabled: false, force: false, glob: false, arguments: [])
 				expect(value).to(equal(expected))
 			}
-			
+
 			it("should succeed without optional array arguments") {
 				let value = tryArguments("required").value
 				let expected = TestOptions(intValue: 42, stringValue: "foobar", stringsArray: [], optionalStringsArray: nil, optionalStringValue: nil, optionalFilename: "filename", requiredName: "required", enabled: false, force: false, glob: false, arguments: [])
 				expect(value).to(equal(expected))
 			}
-			
+
 			it("should succeed with some optional array arguments") {
 				let value = tryArguments("required", "--intValue", "3", "--optionalStringsArray", "one, two", "fuzzbuzz").value
 				let expected = TestOptions(intValue: 3, stringValue: "foobar", stringsArray: [], optionalStringsArray: ["one", "two"], optionalStringValue: nil, optionalFilename: "fuzzbuzz", requiredName: "required", enabled: false, force: false, glob: false, arguments: [])
@@ -149,7 +148,7 @@ struct TestOptions: OptionsProtocol, Equatable {
 	let glob: Bool
 	let arguments: [String]
 
-	typealias ClientError = NoError
+	typealias ClientError = Never
 
 	static func create(_ a: Int) -> (String) -> ([String]) -> ([String]?) -> (String?) -> (String) -> (String) -> (Bool) -> (Bool) -> (Bool) -> ([String]) -> TestOptions {
 		return { b in { c in { d in { e in { f in { g in { h in { i in { j in { k in
@@ -157,7 +156,7 @@ struct TestOptions: OptionsProtocol, Equatable {
 		} } } } } } } } } }
 	}
 
-	static func evaluate(_ m: CommandMode) -> Result<TestOptions, CommandantError<NoError>> {
+	static func evaluate(_ m: CommandMode) -> Result<TestOptions, CommandantError<Never>> {
 		return create
 			<*> m <| Option(key: "intValue", defaultValue: 42, usage: "Some integer value")
 			<*> m <| Option(key: "stringValue", defaultValue: "foobar", usage: "Some string value")
@@ -178,7 +177,7 @@ func ==(lhs: TestOptions, rhs: TestOptions) -> Bool {
 }
 
 func ==<T: Equatable>(lhs: [T]?, rhs: [T]?) -> Bool {
-	switch (lhs,rhs) {
+	switch (lhs, rhs) {
 	case let (lhs?, rhs?):
 		return lhs == rhs
 	case (nil, nil):

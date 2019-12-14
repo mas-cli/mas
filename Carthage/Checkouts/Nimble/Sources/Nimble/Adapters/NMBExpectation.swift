@@ -54,49 +54,49 @@ public class NMBExpectation: NSObject {
     }
 
     @objc public var withTimeout: (TimeInterval) -> NMBExpectation {
-        return ({ timeout in self._timeout = timeout
+        return { timeout in self._timeout = timeout
             return self
-        })
+        }
     }
 
     @objc public var to: (NMBMatcher) -> Void {
-        return ({ matcher in
+        return { matcher in
             if let pred = matcher as? NMBPredicate {
                 self.expectValue.to(from(objcPredicate: pred))
             } else {
                 self.expectValue.to(ObjCMatcherWrapper(matcher: matcher))
             }
-        })
+        }
     }
 
     @objc public var toWithDescription: (NMBMatcher, String) -> Void {
-        return ({ matcher, description in
+        return { matcher, description in
             if let pred = matcher as? NMBPredicate {
                 self.expectValue.to(from(objcPredicate: pred), description: description)
             } else {
                 self.expectValue.to(ObjCMatcherWrapper(matcher: matcher), description: description)
             }
-        })
+        }
     }
 
     @objc public var toNot: (NMBMatcher) -> Void {
-        return ({ matcher in
+        return { matcher in
             if let pred = matcher as? NMBPredicate {
                 self.expectValue.toNot(from(objcPredicate: pred))
             } else {
                 self.expectValue.toNot(ObjCMatcherWrapper(matcher: matcher))
             }
-        })
+        }
     }
 
     @objc public var toNotWithDescription: (NMBMatcher, String) -> Void {
-        return ({ matcher, description in
+        return { matcher, description in
             if let pred = matcher as? NMBPredicate {
                 self.expectValue.toNot(from(objcPredicate: pred), description: description)
             } else {
                 self.expectValue.toNot(ObjCMatcherWrapper(matcher: matcher), description: description)
             }
-        })
+        }
     }
 
     @objc public var notTo: (NMBMatcher) -> Void { return toNot }
@@ -104,7 +104,7 @@ public class NMBExpectation: NSObject {
     @objc public var notToWithDescription: (NMBMatcher, String) -> Void { return toNotWithDescription }
 
     @objc public var toEventually: (NMBMatcher) -> Void {
-        return ({ matcher in
+        return { matcher in
             if let pred = matcher as? NMBPredicate {
                 self.expectValue.toEventually(
                     from(objcPredicate: pred),
@@ -118,11 +118,11 @@ public class NMBExpectation: NSObject {
                     description: nil
                 )
             }
-        })
+        }
     }
 
     @objc public var toEventuallyWithDescription: (NMBMatcher, String) -> Void {
-        return ({ matcher, description in
+        return { matcher, description in
             if let pred = matcher as? NMBPredicate {
                 self.expectValue.toEventually(
                     from(objcPredicate: pred),
@@ -136,11 +136,11 @@ public class NMBExpectation: NSObject {
                     description: description
                 )
             }
-        })
+        }
     }
 
     @objc public var toEventuallyNot: (NMBMatcher) -> Void {
-        return ({ matcher in
+        return { matcher in
             if let pred = matcher as? NMBPredicate {
                 self.expectValue.toEventuallyNot(
                     from(objcPredicate: pred),
@@ -154,11 +154,11 @@ public class NMBExpectation: NSObject {
                     description: nil
                 )
             }
-        })
+        }
     }
 
     @objc public var toEventuallyNotWithDescription: (NMBMatcher, String) -> Void {
-        return ({ matcher, description in
+        return { matcher, description in
             if let pred = matcher as? NMBPredicate {
                 self.expectValue.toEventuallyNot(
                     from(objcPredicate: pred),
@@ -172,7 +172,7 @@ public class NMBExpectation: NSObject {
                     description: description
                 )
             }
-        })
+        }
     }
 
     @objc public var toNotEventually: (NMBMatcher) -> Void {

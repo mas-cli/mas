@@ -10,7 +10,7 @@ final class ContainTest: XCTestCase, XCTestCaseProvider {
         expect([1, 2, 3] as [CInt]).toNot(contain(4 as CInt))
         expect(["foo", "bar", "baz"]).to(contain("baz"))
         expect(["foo", "bar", "baz"]).toNot(contain("ba"))
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+#if canImport(Darwin)
         expect(NSArray(array: ["a"])).to(contain(NSString(string: "a")))
         expect(NSArray(array: ["a"])).toNot(contain(NSString(string: "b")))
         expect(NSArray(object: 1) as NSArray?).to(contain(1))

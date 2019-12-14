@@ -40,7 +40,7 @@ final class BeAnInstanceOfTest: XCTestCase, XCTestCaseProvider {
         failsWithErrorMessageForNil("expected to be an instance of NSString, got <nil>") {
             expect(nil as NSString?).to(beAnInstanceOf(NSString.self))
         }
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+#if canImport(Darwin)
         let numberTypeName = "__NSCFNumber"
 #else
         let numberTypeName = "NSNumber"
