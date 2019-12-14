@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+- 🕊 Swift 5 #255
+  - ⚒️ Xcode 10.2 and macOS 10.14 required to build
+- ⬆️ Commandant (0.17.0) #255
+- ⬆️ Nimble (8.0.4) #255
+- ⬆️ Quick (2.2.0) #255
+- ➖ Result #255
+
 ## [v1.6.3] 🗒️ List Fix - 2019-03-31
 
 - 🐛 Fix for list command on macOS 10.14.4 #228
