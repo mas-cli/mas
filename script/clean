@@ -1,10 +1,17 @@
 #!/bin/bash -e
+#
+# script/clean
+# mas
+#
+# Deletes the build and temp install directories.
+#
+
+BUILD_DIR=build
+INSTALL_DIR=/tmp/mas-cli.dst
 
 main() {
-  rm -rf build/
-  rm -rf mas.xcarchive
-  rm -f mas.xcarchive.zip
-  rm -f mas-cli.zip
+  rm -rf ${BUILD_DIR:?}
+  rm -rf ${INSTALL_DIR:?}
 }
 
 main

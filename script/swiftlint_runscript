@@ -1,0 +1,25 @@
+#!/bin/bash -e
+#
+# script/swiftlint_runscript
+# mas-cli
+#
+# Invokes SwiftLint from inside an Xcode run script build phase. Minimal output.
+# https://github.com/realm/SwiftLint
+#
+
+if test -n "$JENKINS_URL"
+then
+    echo "Skipping SwiftLint run script on CI, will run in Lint stage."
+    exit
+fi
+
+# 😕 When run from Xcode, the command command doesn't support these options
+# command --quiet --search swiftlint
+# : command: --: invalid option
+# : command: usage: command [-pVv] command [arg ...]
+
+if command -v swiftlint > /dev/null; then
+    swiftlint lint --quiet
+else
+    echo "warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint"
+fi

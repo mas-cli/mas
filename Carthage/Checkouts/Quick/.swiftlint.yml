@@ -1,0 +1,8 @@
+disabled_rules:
+  - line_length
+  - type_name
+  - function_body_length
+  - identifier_name
+included:
+  - Sources
+  - Tests

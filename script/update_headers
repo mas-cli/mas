@@ -1,4 +1,10 @@
-#!/bin/bash 
+#!/bin/bash
+#
+# script/update_headers
+# mas
+#
+# Runs class-dump to generate headers for Apple private frameworks.
+#
 
 main() {
   check_class_dump
@@ -7,16 +13,17 @@ main() {
 }
 
 check_class_dump() {
-  which class-dump >/dev/null
-  if [ $? -ne 0 ]; then
-    echo "'class-dump' is not installed" >&2
+  # command: usage: command [-pVv] command [arg ...]
+  if ! command -v class-dump; then
+    echo "class-dump is not installed." >&2
+    echo "Download from http://stevenygard.com/projects/class-dump/" >&2
     exit 1
   fi
 }
 
 extract_private_framework_headers() {
   local framework_name="$1"; shift
-  local directory="mas-cli/PrivateHeaders/${framework_name}"
+  local directory="PrivateFrameworks/${framework_name}"
   mkdir -p "$directory"
   class-dump -Ho "$directory" "/System/Library/PrivateFrameworks/${framework_name}.framework"
 }

@@ -1,0 +1,19 @@
+disabled_rules:
+  - todo
+  - variable_name
+  - force_try
+  - force_cast
+
+included:
+  - Sources
+  - Tests
+
+excluded:
+  - Carthage/Checkouts
+
+trailing_comma:
+  mandatory_comma: true
+
+line_length:
+  ignores_comments: true
+  ignores_function_declarations: true

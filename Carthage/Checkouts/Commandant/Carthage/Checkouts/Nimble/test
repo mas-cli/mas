@@ -1,0 +1,156 @@
+#!/bin/bash
+
+GREEN="\033[0;32m"
+CLEAR="\033[0m"
+
+if which xcodebuild > /dev/null; then
+    echo -e "Gathering ${GREEN}xcodebuild sdk versions${CLEAR}..."
+    BUILD_DIR=`pwd`/build
+    LATEST_IOS_SDK_VERSION=`xcodebuild -showsdks | grep iphonesimulator | cut -d ' ' -f 4 | ruby -e 'puts STDIN.read.chomp.split("\n").last'`
+    LATEST_TVOS_SDK_VERSION=`xcodebuild -showsdks | grep appletvsimulator | cut -d ' ' -f 4 | ruby -e 'puts STDIN.read.chomp.split("\n").last'`
+    LATEST_MACOS_SDK_VERSION=`xcodebuild -showsdks | grep 'macosx' | cut -d ' ' -f 3 | ruby -e 'puts STDIN.read.chomp.split("\n").last'`
+    BUILD_IOS_SDK_VERSION=${NIMBLE_BUILD_IOS_SDK_VERSION:-$LATEST_IOS_SDK_VERSION}
+    RUNTIME_IOS_SDK_VERSION=${NIMBLE_RUNTIME_IOS_SDK_VERSION:-$LATEST_IOS_SDK_VERSION}
+    BUILD_TVOS_SDK_VERSION=${NIMBLE_BUILD_TVOS_SDK_VERSION:-$LATEST_TVOS_SDK_VERSION}
+    RUNTIME_TVOS_SDK_VERSION=${NIMBLE_RUNTIME_TVOS_SDK_VERSION:-$LATEST_TVOS_SDK_VERSION}
+    BUILD_MACOS_SDK_VERSION=${NIMBLE_BUILD_MACOS_SDK_VERSION:-$LATEST_MACOS_SDK_VERSION}
+fi
+
+set -e
+
+function color_if_overridden {
+    local actual=$1
+    local env_var=$2
+    if [ -z "$env_var" ]; then
+        printf "$actual"
+    else
+        printf "$GREEN$actual$CLEAR"
+    fi
+}
+
+function print_env {
+    echo "=== Environment ==="
+    echo " iOS:"
+    echo "   Latest iOS SDK: $LATEST_IOS_SDK_VERSION"
+    echo "   Building with iOS SDK: `color_if_overridden $BUILD_IOS_SDK_VERSION $NIMBLE_BUILD_IOS_SDK_VERSION`"
+    echo "   Running with iOS SDK: `color_if_overridden $RUNTIME_IOS_SDK_VERSION $NIMBLE_RUNTIME_IOS_SDK_VERSION`"
+    echo
+    echo " tvOS:"
+    echo "   Latest tvOS SDK: $LATEST_TVOS_SDK_VERSION"
+    echo "   Building with tvOS SDK: `color_if_overridden $BUILD_TVOS_SDK_VERSION $NIMBLE_BUILD_TVOS_SDK_VERSION`"
+    echo "   Running with tvOS SDK: `color_if_overridden $RUNTIME_TVOS_SDK_VERSION $NIMBLE_RUNTIME_TVOS_SDK_VERSION`"
+    echo
+    echo " macOS:"
+    echo "   Latest macOS SDK: $LATEST_MACOS_SDK_VERSION"
+    echo "   Building with macOS SDK: `color_if_overridden $BUILD_MACOS_SDK_VERSION $NIMBLE_BUILD_MACOS_SDK_VERSION`"
+    echo
+    echo "======= END ======="
+    echo
+}
+
+function run {
+    echo -e "$GREEN==>$CLEAR $@"
+    "$@"
+}
+
+function test_ios {
+    run osascript -e 'tell app "Simulator" to quit'
+    run xcodebuild -project Nimble.xcodeproj -scheme "Nimble-iOS" -configuration "Debug" -sdk "iphonesimulator$BUILD_IOS_SDK_VERSION" -destination "name=iPad Air,OS=$RUNTIME_IOS_SDK_VERSION" build-for-testing test-without-building
+
+    run osascript -e 'tell app "Simulator" to quit'
+    run xcodebuild -project Nimble.xcodeproj -scheme "Nimble-iOS" -configuration "Debug" -sdk "iphonesimulator$BUILD_IOS_SDK_VERSION" -destination "name=iPhone 5s,OS=$RUNTIME_IOS_SDK_VERSION" build-for-testing test-without-building
+}
+
+function test_tvos {
+    run osascript -e 'tell app "Simulator" to quit'
+    run xcodebuild -project Nimble.xcodeproj -scheme "Nimble-tvOS" -configuration "Debug" -sdk "appletvsimulator$BUILD_TVOS_SDK_VERSION" -destination "name=Apple TV 1080p,OS=$RUNTIME_TVOS_SDK_VERSION" build-for-testing test-without-building
+}
+
+function test_macos {
+    run xcodebuild -project Nimble.xcodeproj -scheme "Nimble-macOS" -configuration "Debug" -sdk "macosx$BUILD_MACOS_SDK_VERSION" build-for-testing test-without-building
+}
+
+function test_podspec {
+    echo "Gathering CocoaPods installation information..."
+    run bundle exec pod --version
+    echo "Linting podspec..."
+    # Note: remove `--allow-warnings` once old Matcher API has been removed
+    run bundle exec pod lib lint Nimble.podspec --allow-warnings
+}
+
+function test_swiftpm {
+    if [ -d .build ]; then
+        run swift build --clean
+    fi
+    run swift build && swift test
+}
+
+function test_swiftpm_docker {
+    run docker build -t nimble-tests -f Dockerfile.test --no-cache .
+    run docker run -it --privileged=true nimble-tests
+}
+
+function test() {
+    test_ios
+    test_tvos
+    test_macos
+
+    if which swift-test; then
+        test_swiftpm
+    else
+        echo "Not testing with the Swift Package Manager because swift-test is not installed"
+    fi
+
+    if which docker; then
+        test_swiftpm_docker
+    else
+        echo "Not testing linux in docker container since docker is not in PATH!"
+    fi
+}
+
+function clean {
+    run rm -rf ~/Library/Developer/Xcode/DerivedData\; true
+}
+
+function help {
+    echo "Usage: $0 COMMANDS"
+    echo
+    echo "COMMANDS:"
+    echo " all             - Runs the all tests of macos, ios and tvos"
+    echo " clean           - Cleans the derived data directory of Xcode. Assumes default location"
+    echo " help            - Displays this help"
+    echo " ios             - Runs the tests as an iOS device"
+    echo " macos           - Runs the tests on macOS 10.10 (Yosemite and newer only)"
+    echo " podspec         - Runs pod lib lint against the podspec to detect breaking changes"
+    echo " swiftpm         - Runs the tests built by the Swift Package Manager"
+    echo " swiftpm_docker  - Runs the tests built by the Swift Package Manager in a docker linux container"
+    echo " tvos            - Runs the tests as an tvOS device"
+    echo
+    exit 1
+}
+
+function main {
+    print_env
+    for arg in $@
+    do
+        case "$arg" in
+            clean) clean ;;
+            ios) test_ios ;;
+            tvos) test_tvos ;;
+            macos) test_macos ;;
+            podspec) test_podspec ;;
+            test) test ;;
+            all) test ;;
+            swiftpm) test_swiftpm ;;
+            swiftpm_docker) test_swiftpm_docker ;;
+            help) help ;;
+        esac
+    done
+
+    if [ $# -eq 0 ]; then
+        clean
+        test
+    fi
+}
+
+main $@

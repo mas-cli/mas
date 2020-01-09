@@ -1,0 +1,12 @@
+#!/bin/bash -e
+#
+# script/danger
+# mas
+#
+# Invokes the danger gem through bundler for automated PR review.
+# https://danger.systems/
+#
+
+echo "==> ⚠️ Running danger"
+
+bundle exec danger --verbose

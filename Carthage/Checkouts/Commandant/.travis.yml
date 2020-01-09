@@ -1,0 +1,86 @@
+aliases:
+  - &xcode
+    script: set -o pipefail && xcodebuild -workspace "$TRAVIS_XCODE_WORKSPACE" -scheme "$TRAVIS_XCODE_SCHEME" test | xcpretty
+    xcode_workspace: Commandant.xcworkspace
+    xcode_scheme: Commandant
+    os: osx
+    language: objective-c
+  - &cocoapods
+    script:
+      - rm .swift-version
+      - pod repo update master
+      - pod lib lint --verbose
+    os: osx
+    language: objective-c
+    env: JOB=CocoaPods
+  - &swiftpm
+    script:
+      - swift --version
+      - swift build
+      - swift test
+    git:
+      submodules: false
+  - &swiftpm_darwin
+    <<: *swiftpm
+    os: osx
+    language: objective-c
+    env: JOB=SPM
+  - &swiftpm_linux
+    <<: *swiftpm
+    sudo: required
+    dist: trusty
+    language: generic
+    install:
+      - eval "$(curl -sL https://gist.githubusercontent.com/kylef/5c0475ff02b7c7671d2a/raw/02090c7ede5a637b76e6df1710e83cd0bbe7dcdf/swiftenv-install.sh)"
+
+branches:
+  only:
+    - master
+
+matrix:
+  include:
+    - <<: *xcode
+      osx_image: xcode9.2
+      env: JOB=Xcode9.2
+    - <<: *xcode
+      osx_image: xcode9.4
+      env: JOB=Xcode9.4
+    - <<: *cocoapods
+      osx_image: xcode9.4
+    - <<: *swiftpm_darwin
+      osx_image: xcode9.2
+    - <<: *swiftpm_darwin
+      osx_image: xcode9.4
+    - <<: *swiftpm_linux
+      env:
+        - JOB=Linux
+        - SWIFT_VERSION=4.0.3
+    - <<: *swiftpm_linux
+      env:
+        - JOB=Linux
+    - <<: *swiftpm_linux
+      env:
+        - JOB=Linux
+        - SWIFT_VERSION=4.2-DEVELOPMENT-SNAPSHOT-2018-07-05-a
+
+notifications:
+  email: false
+  slack:
+    secure: DBDJCDEfXVb4g1/vziIYpjwCE5dh75SwBGZAcqbk6wOl6KFS9lA+fk/PtAbuXAEkRNr5qv56aQ+NPRnjSdqmhKB9bwywxUI7LA1JlvxAk6HUya0XWLLH0dvkRJG1o6QWiOnZ79gjWvl/VuN/YH9X7SgwdTTA4xush8ogP+ku8YE=
+
+before_deploy:
+  - brew update
+  - brew outdated carthage || brew upgrade carthage
+  - carthage build --no-skip-current --platform mac
+  - carthage archive Commandant
+
+deploy:
+  provider: releases
+  api_key:
+    secure: C5x9Hj0fip8nfrke4AhGNDsmpQsjiB/Mbu6yKwW0MFn46cys64uPajKMDmwcK0512h4eW1HxkmKkaiqfv42gN3Qq+iDmmC7+DNSXgZQ/bj2h5O/t85L6Y+JQGhqbZ6XwAoEcyzFvmkbczR+Xtd0RwQR4WUhqIRElmlCfHe20ST8=
+  file: Commandant.framework.zip
+  skip_cleanup: true
+  on:
+    repo: Carthage/Commandant
+    tags: true
+    condition: $JOB = Xcode9.4

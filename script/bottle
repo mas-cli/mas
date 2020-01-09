@@ -1,0 +1,76 @@
+#!/bin/bash -e
+#
+# script/bottle
+# mas
+#
+# Builds bottles of mas Homebrew formula for custom tap:
+# https://github.com/mas-cli/homebrew-tap
+#
+
+BUILD_DIR="$PWD/build"
+BOTTLE_DIR="$BUILD_DIR/bottles"
+VERSION=$(script/version)
+ROOT_URL="https://dl.bintray.com/phatblat/mas-bottles"
+OS_VERSIONS=(mojave high_sierra sierra el_capitan)
+OLD_FILENAME="mas--${VERSION}.${OS_VERSIONS[0]}.bottle.tar.gz"
+
+echo "==> 🍼 Bottling mas ${VERSION} for ${OS_VERSIONS[*]}"
+
+# Ensure core formula isn't shadowed by custom tap
+brew tap --list-pinned | grep mas-cli/tap && brew tap-unpin mas-cli/tap
+
+# Uninstall if necessary
+if brew ls --versions mas > /dev/null; then
+    brew uninstall mas
+fi
+
+# Uninstall if still found on path
+if command -v mas > /dev/null; then
+    script/uninstall
+fi
+
+# Purge the Carthage cache to avoid this error from Homebrew sandboxing:
+# A shell task (/usr/bin/env git checkout --quiet --force 0.15.0 (launched in /Users/ben/Library/Caches/org.carthage.CarthageKit/dependencies/Commandant)) failed with exit code 128:
+# fatal: Unable to create '/Users/ben/Library/Caches/org.carthage.CarthageKit/dependencies/Commandant/./index.lock': Operation not permitted
+rm -rf ~/Library/Caches/org.carthage.CarthageKit
+
+# Build the formula
+brew install --build-bottle mas
+
+# Generate bottle do block, dropping last 2 lines
+brew bottle --verbose --no-rebuild --root-url=$ROOT_URL mas
+SHA256=$(shasum --algorithm 256 "$OLD_FILENAME" | cut -f 1 -d ' ' -)
+
+mkdir -p "$BOTTLE_DIR"
+
+# Start of bottle block
+BOTTLE_BLOCK=$(cat <<-SETVAR
+  bottle do
+    root_url "$ROOT_URL"
+    cellar :any
+SETVAR
+)
+
+# Fix filename
+for os in ${OS_VERSIONS[*]}; do
+    new_filename="mas-${VERSION}.${os}.bottle.tar.gz"
+    cp "$OLD_FILENAME" "$BOTTLE_DIR/$new_filename"
+
+    # Append each os
+    BOTTLE_BLOCK="$BOTTLE_BLOCK"$(cat <<-SETVAR
+
+    sha256 "$SHA256" => :$os
+SETVAR
+)
+done
+
+# End of bottle block
+BOTTLE_BLOCK="$BOTTLE_BLOCK"$(cat <<-SETVAR
+
+  end
+SETVAR
+)
+
+rm "$OLD_FILENAME"
+ls -l "$BOTTLE_DIR"
+echo "$BOTTLE_BLOCK"

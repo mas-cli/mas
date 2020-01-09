@@ -1,0 +1,89 @@
+#!/bin/bash -e
+#
+# script/install
+# mas
+#
+# Installs mas into PREFIX using the following steps:
+#
+# 1. Invokes the xcodebuild install action.
+# 2. Copies the mas binary and MasKit.framework bundle into their correct
+#    relative positions under PREFIX.
+# 3. Linker paths are updated on the mas binary so it can find MasKit under PREFIX.
+#
+# NOTE: This script is called by the mas Homebrew formula so it has only system
+# dependencies aside from xcodebuild.
+# https://github.com/Homebrew/homebrew-core/blob/master/Formula/mas.rb
+#
+
+BUILD_DIR="$PWD/build"
+PROJECT="mas-cli.xcodeproj"
+SCHEME="mas-cli Release"
+CONFIG="Release"
+VERSION=$(script/version)
+
+# Destination for `xcodebuild install`
+INSTALL_TEMPORARY_FOLDER=${DSTROOT:-build/distributions}
+
+# Final destination.
+PREFIX=/usr/local
+
+# Artifacts to copy.
+FRAMEWORK_NAME=MasKit.framework
+BINARY_NAME=mas
+
+# Override default prefix path with optional 1st arg
+if test -n "$1"; then
+    PREFIX="$1"
+fi
+
+echo "==> 📲 Installing mas ($VERSION) to $PREFIX"
+
+xcodebuild \
+    -project "$PROJECT" \
+    -scheme "$SCHEME" \
+    -configuration "$CONFIG" \
+    OBJROOT="$BUILD_DIR" \
+    SYMROOT="$BUILD_DIR" \
+    DSTROOT="$INSTALL_TEMPORARY_FOLDER" \
+    install
+
+# Deep copy MasKit.framework
+ditto -v \
+    "$INSTALL_TEMPORARY_FOLDER/Frameworks" \
+    "$PREFIX/Frameworks"
+
+# Copy mas binary
+ditto -v \
+    "$INSTALL_TEMPORARY_FOLDER/bin" \
+    "$PREFIX/bin"
+
+# Homebrew wants to fix install linkage...
+#
+# Error: Failed changing dylib ID of /usr/local/Cellar/mas/1.4.3/Frameworks/MasKit.framework/Versions/A/Frameworks/Result.framework/Versions/A/Result
+#   from @rpath/Result.framework/Versions/A/Result
+#     to /usr/local/opt/mas/Frameworks/MasKit.framework/Versions/A/Frameworks/Result.framework/Versions/A/Result
+# Error: Failed to fix install linkage
+# The formula built, but you may encounter issues using it or linking other
+# formula against it.
+#
+# Setting the rpath to use @executable_path appears to suppress this behavior.
+
+echo "==> 🔗 Update dylib load paths"
+
+# install_name_tool
+#   -rpath old new
+#         Changes the rpath path name old to new in the specified Mach-O binary.
+#         More than one of these options can be specified. If the Mach-O binary does
+#         not contain the old rpath path name in a specified -rpath it is an error.
+
+install_name_tool \
+    -rpath \
+        "/usr/local/Frameworks" \
+        "@executable_path/../Frameworks" \
+    "$PREFIX/bin/$BINARY_NAME"
+
+install_name_tool \
+    -rpath \
+        "/usr/local/Frameworks/$FRAMEWORK_NAME/Versions/Current/Frameworks" \
+        "@executable_path/../Frameworks/$FRAMEWORK_NAME/Versions/Current/Frameworks" \
+    "$PREFIX/bin/$BINARY_NAME"

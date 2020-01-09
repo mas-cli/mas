@@ -1,0 +1,29 @@
+.DS_Store
+**/xcuserdata/*
+**/*.xccheckout
+**/*.xcscmblueprint
+build/
+.idea
+DerivedData/
+Nimble.framework.zip
+
+# Carthage
+#
+# Add this line if you want to avoid checking in source code from Carthage dependencies.
+# Carthage/Checkouts
+Carthage/Checkouts/**/*.*
+Carthage/Checkouts/**/Cart*
+Carthage/Checkouts/**/Tests
+!Carthage/Checkouts/**/LICENSE.*
+!Carthage/Checkouts/**/*.md
+!Carthage/Checkouts/**/*.swift
+!Carthage/Checkouts/**/*.h
+!Carthage/Checkouts/**/*.m
+!Carthage/Checkouts/**/*.c
+Carthage/Build
+
+# Swift Package Manager
+#
+# Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
+# Packages/
+.build/

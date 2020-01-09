@@ -1,5 +1,9 @@
-# A sample Gemfile
+#
+# Gemfile
+# mas-cli
+#
+
 source "https://rubygems.org"
 
-gem "cocoaseeds"
+gem "danger"
 gem "xcpretty"

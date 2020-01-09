@@ -1,14 +1,51 @@
 #!/bin/bash -e
+#
+# script/package
+# mas
+#
+# Builds macOS installer component and distribution packages.
+#
 
-echo "==> Moving dSYM to xcarchive"
-mv build/mas.dSYM mas.xcarchive/dSYMs/
+BUILD_DIR="$PWD/build"
+COMPONENT_PACKAGE="$BUILD_DIR/mas_components.pkg"
+DISTRIBUTION_PACKAGE="$BUILD_DIR/mas.pkg"
 
-echo "==> Compressing mas.xcarchive"
-zip -r mas.xcarchive.zip mas.xcarchive
+IDENTIFIER="com.mphys.mas-cli"
 
-echo "==> Compressing binary"
-zip -j mas-cli.zip mas.xcarchive/Products/usr/local/bin/mas
+# Component package definition
+COMPONENTS_PLIST="Package/Components.plist"
 
-echo -n "==> SHA256: "
-shasum -a 256 mas-cli.zip
+# Distribution package definition
+# https://developer.apple.com/library/archive/documentation/DeveloperTools/Reference/DistributionDefinitionRef/Chapters/Distribution_XML_Ref.html
+DISTRIBUTION_PLIST="Package/Distribution.plist"
 
+# Destination for `xcodebuild install`
+# DSTROOT will be updated if unset.
+INSTALL_TEMPORARY_FOLDER=${DSTROOT:-build/distributions}
+mkdir -p "$INSTALL_TEMPORARY_FOLDER"
+
+VERSION=$(script/version)
+
+echo "==> 📦 Assemble an installer package"
+
+# Assemble macOS installer component package (aka "product archive").
+# Using /usr/local prefix to avoid the following errors with "/"
+#   - installer: The install failed (The Installer encountered an error that caused the installation to fail. Contact the software manufacturer for assistance.)
+#   - GUI warning: This package is incompatible with this version of macOS and may fail to install. (may damage your system... )
+pkgbuild \
+    --identifier "$IDENTIFIER" \
+    --install-location "/usr/local" \
+    --version "$VERSION" \
+    --root "$INSTALL_TEMPORARY_FOLDER" \
+    --component-plist "$COMPONENTS_PLIST" \
+    "$COMPONENT_PACKAGE"
+
+# Build distribution package (aka "product archive"). Not sure why, but this is how Carthage does it.
+# https://github.com/Carthage/Carthage/blob/master/Makefile#L87
+productbuild \
+    --distribution "$DISTRIBUTION_PLIST" \
+    --package-path "$BUILD_DIR" \
+    "$DISTRIBUTION_PACKAGE"
+
+echo "==> 🔢 Files Hashes"
+shasum -a 256 "$DISTRIBUTION_PACKAGE"
