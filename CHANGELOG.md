@@ -188,8 +188,10 @@ Use the `mas.pkg` package to install manually.
 
 - Initial Release
 
-[Unreleased]: https://github.com/mas-cli/mas/compare/v1.6.1...HEAD
-[v1.6.0]: https://github.com/mas-cli/mas/compare/v1.6.0...v1.6.1
+[Unreleased]: https://github.com/mas-cli/mas/compare/v1.6.3...HEAD
+[v1.6.3]: https://github.com/mas-cli/mas/compare/v1.6.2...v1.6.3
+[v1.6.2]: https://github.com/mas-cli/mas/compare/v1.6.1...v1.6.2
+[v1.6.1]: https://github.com/mas-cli/mas/compare/v1.6.0...v1.6.1
 [v1.6.0]: https://github.com/mas-cli/mas/compare/v1.5.0...v1.6.0
 [v1.5.0]: https://github.com/mas-cli/mas/compare/v1.4.4...v1.5.0
 [v1.4.4]: https://github.com/mas-cli/mas/compare/v1.4.3...v1.4.4
