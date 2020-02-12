@@ -1,39 +1,52 @@
-osx_image: xcode8.3
+osx_image: xcode10.1
 language: generic
 matrix:
   include:
     - os: osx
       sudo: required
       env: TYPE=podspec
+      install: bundle install
+      name: CocoaPods Lint
     - os: osx
-      env: TYPE=ios NIMBLE_RUNTIME_IOS_SDK_VERSION=10.0
+      env: TYPE=ios
+      name: iOS / Swift 4.2.1
     - os: osx
-      env: TYPE=tvos NIMBLE_RUNTIME_TVOS_SDK_VERSION=10.0
+      env: TYPE=tvos
+      name: tvOS / Swift 4.2.1
     - os: osx
       env: TYPE=macos
+      name: macOS / Swift 4.2.1
     - os: osx
       env: TYPE=macos
-      osx_image: xcode9
+      osx_image: xcode10.2
+      name: macOS / Swift 5.0
     - os: osx
-      env: TYPE=swiftpm
+      env:
+        - TYPE=swiftpm
     - os: osx
-      env: TYPE=swiftpm
-      osx_image: xcode9
-    - os: linux
-      dist: trusty
-      sudo: required
-      env: TYPE=swiftpm
-      install:
-        - eval "$(curl -sL https://gist.githubusercontent.com/kylef/5c0475ff02b7c7671d2a/raw/9f442512a46d7a2af7b850d65a7e9bd31edfb09b/swiftenv-install.sh)"
-    - os: linux
+      env:
+        - TYPE=swiftpm
+      osx_image: xcode10.2
+    - &linux
+      name: Linux / Swift 4.2.1
+      os: linux
       dist: trusty
       sudo: required
       env:
         - TYPE=swiftpm
-        - SWIFT_VERSION=4.0.2
+        - SWIFT_VERSION=4.2.1
       install:
         - eval "$(curl -sL https://gist.githubusercontent.com/kylef/5c0475ff02b7c7671d2a/raw/9f442512a46d7a2af7b850d65a7e9bd31edfb09b/swiftenv-install.sh)"
-install:
-  - if [[ "$TYPE" == "podspec" ]]; then sudo gem install bundler; bundle install; fi
+    - <<: *linux
+      name: Linux / Swift 5.0 Development
+      env:
+        - TYPE=swiftpm
+        - SWIFT_VERSION=5.0-DEVELOPMENT-SNAPSHOT-2019-02-28-a
+      install:
+        - eval "$(curl -sL https://gist.githubusercontent.com/kylef/5c0475ff02b7c7671d2a/raw/9f442512a46d7a2af7b850d65a7e9bd31edfb09b/swiftenv-install.sh)"
+install: true
 script:
   - ./test $TYPE
+
+notifications:
+  email: false

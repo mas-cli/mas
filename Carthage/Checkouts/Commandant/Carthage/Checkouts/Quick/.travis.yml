@@ -1,47 +1,48 @@
-osx_image: xcode8.3
 language: generic
 matrix:
   include:
-    - os: osx
+    - name: CocoaPods Lint & Danger
+      os: osx
+      osx_image: xcode10.1
+      language: ruby
+      script:
+        - PODSPEC=1 ./script/travis-script-macos
+        - bundle exec danger
+    - &xcode
+      name: Xcode 10.1 / Swift 4.2
+      os: osx
       env:
-        - PLATFORM=macos
         - XCODE_ACTION="build-for-testing test-without-building"
-    - os: osx
-      osx_image: xcode9.3
-      env:
-        - PLATFORM=macos
-        - XCODE_ACTION="build-for-testing test-without-building"
-    - os: osx
-      env:
-        - PLATFORM=ios
-        - XCODE_ACTION="build-for-testing test-without-building"
-    - os: osx
-      env:
-        - PLATFORM=tvos
-        - XCODE_ACTION="build-for-testing test-without-building"
-    - os: osx
-      env:
-        - PLATFORM=swiftpm
-    - os: osx
-      osx_image: xcode9.3
-      env:
-        - PLATFORM=swiftpm
-    - os: osx
-      env:
-        - PODSPEC=1
-    - os: linux
+      osx_image: xcode10.1
+      script:
+        - PLATFORM=macos ./script/travis-script-macos
+        - PLATFORM=macos_static ./script/travis-script-macos
+        - PLATFORM=ios ./script/travis-script-macos
+        - PLATFORM=tvos ./script/travis-script-macos
+    - <<: *xcode
+      name: Xcode 10.2 / Swift 5.0
+      osx_image: xcode10.2
+    - &swiftpm_darwin
+      name: SwiftPM / Darwin / Swift 4.2
+      os: osx
+      osx_image: xcode10.1
+      script: PLATFORM=swiftpm ./script/travis-script-macos
+    - <<: *swiftpm_darwin
+      name: SwiftPM / Darwin / Swift 5.0
+      osx_image: xcode10.2
+    - &swiftpm_linux
+      name: SwiftPM / Linux / Swift 4.2
+      os: linux
       sudo: required
       dist: trusty
-    - os: linux
-      sudo: required
-      dist: trusty
       env:
-        - SWIFT_VERSION=4.1
-install:
-  - if [[ "$TRAVIS_OS_NAME" == "osx"   ]]; then ./script/travis-install-macos; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ./script/travis-install-linux; fi
-  - if [[ "$PODSPEC" ]]; then gem install bundler; bundle install; fi
-script:
-  - if [[ "$TRAVIS_OS_NAME" == "osx"   ]]; then ./script/travis-script-macos; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ./script/travis-script-linux; fi
-  - if [[ "$PODSPEC" ]]; then danger; fi
+        - SWIFT_VERSION=4.2.1
+      install: ./script/travis-install-linux
+      script: ./script/travis-script-linux
+    - <<: *swiftpm_linux
+      name: SwiftPM / Linux / Swift 5.0 Development
+      env:
+        - SWIFT_VERSION=5.0-DEVELOPMENT-SNAPSHOT-2019-02-28-a
+
+notifications:
+  email: false

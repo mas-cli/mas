@@ -1,14 +1,8 @@
 import Foundation
 
-// `#if swift(>=3.2) && (os(macOS) || os(iOS) || os(tvOS) || os(watchOS)) && !SWIFT_PACKAGE`
-// does not work as expected.
-#if swift(>=3.2)
-    #if (os(macOS) || os(iOS) || os(tvOS) || os(watchOS)) && !SWIFT_PACKAGE
-    @objcMembers
-    public class _CallsiteBase: NSObject {}
-    #else
-    public class _CallsiteBase: NSObject {}
-    #endif
+#if canImport(Darwin) && !SWIFT_PACKAGE
+@objcMembers
+public class _CallsiteBase: NSObject {}
 #else
 public class _CallsiteBase: NSObject {}
 #endif

@@ -7,7 +7,7 @@ import Foundation
 
 /// A Nimble matcher that succeeds when the actual Collection's count equals
 /// the expected value
-public func haveCount<T: Collection>(_ expectedValue: T.IndexDistance) -> Predicate<T> {
+public func haveCount<T: Collection>(_ expectedValue: Int) -> Predicate<T> {
     return Predicate.define { actualExpression in
         if let actualValue = try actualExpression.evaluate() {
             let message = ExpectationMessage
@@ -45,20 +45,29 @@ public func haveCount(_ expectedValue: Int) -> Predicate<NMBCollection> {
     }
 }
 
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+#if canImport(Darwin)
 extension NMBObjCMatcher {
-    @objc public class func haveCountMatcher(_ expected: NSNumber) -> NMBObjCMatcher {
-        return NMBObjCMatcher(canMatchNil: false) { actualExpression, failureMessage in
+    @objc public class func haveCountMatcher(_ expected: NSNumber) -> NMBMatcher {
+        return NMBPredicate { actualExpression in
             let location = actualExpression.location
             let actualValue = try actualExpression.evaluate()
             if let value = actualValue as? NMBCollection {
                 let expr = Expression(expression: ({ value as NMBCollection}), location: location)
-                return try haveCount(expected.intValue).matches(expr, failureMessage: failureMessage)
-            } else if let actualValue = actualValue {
-                failureMessage.postfixMessage = "get type of NSArray, NSSet, NSDictionary, or NSHashTable"
-                failureMessage.actualValue = "\(String(describing: type(of: actualValue)))"
+                return try haveCount(expected.intValue).satisfies(expr).toObjectiveC()
             }
-            return false
+
+            let message: ExpectationMessage
+            if let actualValue = actualValue {
+                message = ExpectationMessage.expectedCustomValueTo(
+                    "get type of NSArray, NSSet, NSDictionary, or NSHashTable",
+                    "\(String(describing: type(of: actualValue)))"
+                )
+            } else {
+                message = ExpectationMessage
+                    .expectedActualValueTo("have a collection with count \(stringify(expected.intValue))")
+                    .appendedBeNilHint()
+            }
+            return NMBPredicateResult(status: .fail, message: message.toObjectiveC())
         }
     }
 }

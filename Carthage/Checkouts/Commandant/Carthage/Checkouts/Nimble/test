@@ -63,7 +63,7 @@ function test_ios {
 
 function test_tvos {
     run osascript -e 'tell app "Simulator" to quit'
-    run xcodebuild -project Nimble.xcodeproj -scheme "Nimble-tvOS" -configuration "Debug" -sdk "appletvsimulator$BUILD_TVOS_SDK_VERSION" -destination "name=Apple TV 1080p,OS=$RUNTIME_TVOS_SDK_VERSION" build-for-testing test-without-building
+    run xcodebuild -project Nimble.xcodeproj -scheme "Nimble-tvOS" -configuration "Debug" -sdk "appletvsimulator$BUILD_TVOS_SDK_VERSION" -destination "name=Apple TV,OS=$RUNTIME_TVOS_SDK_VERSION" build-for-testing test-without-building
 }
 
 function test_macos {
@@ -74,13 +74,17 @@ function test_podspec {
     echo "Gathering CocoaPods installation information..."
     run bundle exec pod --version
     echo "Linting podspec..."
+    # To work around the lint error: "ERROR | swift: Specification `Nimble` specifies an inconsistent `swift_version` (`4.0`) compared to the one present in your `.swift-version` file (`4.1`). Please remove the `.swift-version` file which is now deprecated and only use the `swift_version` attribute within your podspec."
+    # `.swift-version` is for swiftenv, not for CocoaPods, so we can't remove the file as suggested.
+    run mv .swift-version .swift-version.backup
     # Note: remove `--allow-warnings` once old Matcher API has been removed
-    run bundle exec pod lib lint Nimble.podspec --allow-warnings
+    run bundle exec pod lib lint Nimble.podspec --allow-warnings --skip-import-validation
+    run mv .swift-version.backup .swift-version
 }
 
 function test_swiftpm {
     if [ -d .build ]; then
-        run swift build --clean
+        run swift package clean
     fi
     run swift build && swift test
 }

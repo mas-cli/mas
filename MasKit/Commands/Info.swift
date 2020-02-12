@@ -8,7 +8,6 @@
 
 import Commandant
 import Foundation
-import Result
 
 /// Displays app details. Uses the iTunes Lookup API:
 /// https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/#lookup

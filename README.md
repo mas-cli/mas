@@ -20,19 +20,30 @@ A simple command line interface for the Mac App Store. Designed for scripting an
 brew install mas
 ```
 
+⚠️ Note that macOS 10.14 (Mojave) is required to install mas from the core Homebrew formula.
+
 ### ☎️ Older macOS Versions
 
-macOS 10.13 (High Sierra) is required to install mas from the core Homebrew formula.
 We provide a [custom Homebrew tap](https://github.com/mas-cli/homebrew-tap) with pre-built bottles
 for all macOS versions since 10.11.
 
-#### 😴 TL;DR
-
-Just run this command:
+To install mas from our tap:
 
 ```bash
 brew install mas-cli/tap/mas
 ```
+
+#### Known Installation Issues On macOS Before 10.14.4
+
+Starting with [mas 2.0.0](https://github.com/mas-cli/mas/releases/tag/v2.0.0), if you get
+an error similar to `dyld: Symbol not found: _$s11SubSequenceSlTl` when running mas,
+you'll need to install the [Swift 5 Runtime Support for Command Line Tools](https://support.apple.com/kb/DL1998).
+
+Alternatively, you can:
+
+- Update to macOS 10.14.4 or later
+- Install Xcode 10.2 or later at `/Applications/Xcode.app`
+- Rebuild mas from source using Xcode 10.0 or later
 
 ### 🐙 GitHub Releases
 

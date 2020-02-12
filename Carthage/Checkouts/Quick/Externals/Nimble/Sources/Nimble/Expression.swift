@@ -4,12 +4,12 @@ import Foundation
 // closure once; even if repeat calls to the returned closure
 internal func memoizedClosure<T>(_ closure: @escaping () throws -> T) -> (Bool) throws -> T {
     var cache: T?
-    return ({ withoutCaching in
+    return { withoutCaching in
         if withoutCaching || cache == nil {
             cache = try closure()
         }
         return cache!
-    })
+    }
 }
 
 /// Expression represents the closure of the value inside expect(...).
@@ -24,8 +24,10 @@ internal func memoizedClosure<T>(_ closure: @escaping () throws -> T) -> (Bool) 
 /// This provides a common consumable API for matchers to utilize to allow
 /// Nimble to change internals to how the captured closure is managed.
 public struct Expression<T> {
+    // swiftlint:disable identifier_name
     internal let _expression: (Bool) throws -> T?
     internal let _withoutCaching: Bool
+    // swiftlint:enable identifier_name
     public let location: SourceLocation
     public let isClosure: Bool
 

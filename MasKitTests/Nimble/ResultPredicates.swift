@@ -8,7 +8,6 @@
 
 @testable import MasKit
 import Nimble
-import Result
 
 /// Nimble predicate for result enum success case, no associated value
 func beSuccess() -> Predicate<Result<(), MASError>> {

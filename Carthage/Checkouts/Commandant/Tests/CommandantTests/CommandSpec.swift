@@ -9,7 +9,6 @@
 import Commandant
 import Nimble
 import Quick
-import Result
 
 class CommandWrapperSpec: QuickSpec {
 	override func spec() {

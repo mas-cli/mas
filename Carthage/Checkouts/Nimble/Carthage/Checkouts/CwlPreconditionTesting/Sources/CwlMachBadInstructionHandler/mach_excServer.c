@@ -5,13 +5,12 @@
  * OPTIONS: 
  */
 
-#if defined(__x86_64__)
-
 /* Module mach_exc */
 
 #define	__MIG_check__Request__mach_exc_subsystem__ 1
 
-#include "mach_excServer.h"
+#import "mach_excServer.h"
+#if TARGET_OS_OSX || TARGET_OS_IOS
 
 #ifndef	mig_internal
 #define	mig_internal	static __inline__
@@ -534,4 +533,4 @@ mig_external mig_routine_t mach_exc_server_routine
 	return catch_mach_exc_subsystem.routine[msgh_id].stub_routine;
 }
 
-#endif
+#endif /* TARGET_OS_OSX || TARGET_OS_IOS */

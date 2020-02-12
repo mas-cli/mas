@@ -1,47 +1,45 @@
-// swift-tools-version:3.1
+// swift-tools-version:5.0
 
-import Foundation
 import PackageDescription
 
-var isTesting: Bool {
-  guard let value = ProcessInfo.processInfo.environment["SWIFT_PACKAGE_TEST_Quick"] else { return false }
-  return NSString(string: value).boolValue
-}
-
-var package = Package(
+let package = Package(
     name: "Quick",
+    platforms: [
+        .macOS(.v10_10), .iOS(.v8), .tvOS(.v9)
+    ],
+    products: [
+        .library(name: "Quick", targets: ["Quick"]),
+    ],
+    dependencies: [
+        .package(url: "https://github.com/Quick/Nimble.git", from: "8.0.0"),
+    ],
     targets: {
+        var targets: [Target] = [
+            .testTarget(
+                name: "QuickTests",
+                dependencies: [ "Quick", "Nimble" ],
+                exclude: [
+                    "QuickAfterSuiteTests/AfterSuiteTests+ObjC.m",
+                    "QuickFocusedTests/FocusedTests+ObjC.m",
+                    "QuickTests/FunctionalTests/ObjC",
+                    "QuickTests/Helpers/QCKSpecRunner.h",
+                    "QuickTests/Helpers/QCKSpecRunner.m",
+                    "QuickTests/Helpers/QuickTestsBridgingHeader.h",
+                    "QuickTests/QuickConfigurationTests.m",
+                ]
+            ),
+        ]
 #if os(macOS)
-        return [
-            Target(name: "QuickSpecBase"),
-            Target(name: "Quick", dependencies: [ "QuickSpecBase" ]),
-            Target(name: "QuickTests", dependencies: [ "Quick" ]),
-        ]
+        targets.append(contentsOf: [
+            .target(name: "QuickSpecBase", dependencies: []),
+            .target(name: "Quick", dependencies: [ "QuickSpecBase" ]),
+        ])
 #else
-        return [
-            Target(name: "Quick"),
-            Target(name: "QuickTests", dependencies: [ "Quick" ]),
-        ]
+        targets.append(contentsOf: [
+            .target(name: "Quick", dependencies: []),
+        ])
 #endif
+        return targets
     }(),
-    exclude: {
-        var excludes = [
-            "Sources/QuickObjectiveC",
-            "Tests/QuickTests/QuickAfterSuiteTests/AfterSuiteTests+ObjC.m",
-            "Tests/QuickTests/QuickFocusedTests/FocusedTests+ObjC.m",
-            "Tests/QuickTests/QuickTests/FunctionalTests/ObjC",
-            "Tests/QuickTests/QuickTests/Helpers",
-            "Tests/QuickTests/QuickTests/QuickConfigurationTests.m",
-        ]
-#if !os(macOS)
-        excludes.append("Sources/QuickSpecBase")
-#endif
-        return excludes
-    }()
+    swiftLanguageVersions: [.v5]
 )
-
-if isTesting {
-  package.dependencies.append(contentsOf: [
-    .Package(url: "https://github.com/Quick/Nimble.git", majorVersion: 7),
-  ])
-}

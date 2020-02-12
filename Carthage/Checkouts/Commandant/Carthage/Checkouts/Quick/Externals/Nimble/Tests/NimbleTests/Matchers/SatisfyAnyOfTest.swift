@@ -3,13 +3,6 @@ import Nimble
 import Foundation
 
 final class SatisfyAnyOfTest: XCTestCase, XCTestCaseProvider {
-    static var allTests: [(String, (SatisfyAnyOfTest) -> () throws -> Void)] {
-        return [
-            ("testSatisfyAnyOf", testSatisfyAnyOf),
-            ("testOperatorOr", testOperatorOr),
-        ]
-    }
-
     func testSatisfyAnyOf() {
         expect(2).to(satisfyAnyOf(equal(2), equal(3)))
 #if SUPPORT_IMPLICIT_BRIDGING_CONVERSION

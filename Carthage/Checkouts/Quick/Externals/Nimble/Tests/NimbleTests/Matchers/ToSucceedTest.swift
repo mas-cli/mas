@@ -2,12 +2,6 @@ import XCTest
 import Nimble
 
 final class ToSucceedTest: XCTestCase, XCTestCaseProvider {
-    static var allTests: [(String, (ToSucceedTest) -> () throws -> Void)] {
-        return [
-            ("testToSucceed", testToSucceed),
-        ]
-    }
-
     func testToSucceed() {
         expect({
             return .succeeded

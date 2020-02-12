@@ -1,40 +1,9 @@
 import Foundation
 
-// A workaround to SR-6419.
-extension NotificationCenter {
-#if !(os(macOS) || os(iOS) || os(tvOS) || os(watchOS))
-    #if swift(>=4.0)
-        #if swift(>=4.0.2)
-        #else
-            func addObserver(forName name: Notification.Name?, object obj: Any?, queue: OperationQueue?, using block: @escaping (Notification) -> Void) -> NSObjectProtocol {
-                return addObserver(forName: name, object: obj, queue: queue, usingBlock: block)
-            }
-        #endif
-    #elseif swift(>=3.2)
-        #if swift(>=3.2.2)
-        #else
-            // swiftlint:disable:next line_length
-            func addObserver(forName name: Notification.Name?, object obj: Any?, queue: OperationQueue?, using block: @escaping (Notification) -> Void) -> NSObjectProtocol {
-                return addObserver(forName: name, object: obj, queue: queue, usingBlock: block)
-            }
-        #endif
-    #else
-        // swiftlint:disable:next line_length
-        func addObserver(forName name: Notification.Name?, object obj: Any?, queue: OperationQueue?, using block: @escaping (Notification) -> Void) -> NSObjectProtocol {
-            return addObserver(forName: name, object: obj, queue: queue, usingBlock: block)
-        }
-    #endif
-#endif
-}
-
 internal class NotificationCollector {
     private(set) var observedNotifications: [Notification]
     private let notificationCenter: NotificationCenter
-    #if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
-    private var token: AnyObject?
-    #else
     private var token: NSObjectProtocol?
-    #endif
 
     required init(notificationCenter: NotificationCenter) {
         self.notificationCenter = notificationCenter
@@ -43,26 +12,59 @@ internal class NotificationCollector {
 
     func startObserving() {
         // swiftlint:disable:next line_length
-        self.token = self.notificationCenter.addObserver(forName: nil, object: nil, queue: nil, using: { [weak self] n in
+        self.token = self.notificationCenter.addObserver(forName: nil, object: nil, queue: nil) { [weak self] notification in
             // linux-swift gets confused by .append(n)
-            self?.observedNotifications.append(n)
-        })
+            self?.observedNotifications.append(notification)
+        }
     }
 
     deinit {
-        #if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
-            if let token = self.token {
-                self.notificationCenter.removeObserver(token)
-            }
-        #else
-            if let token = self.token as? AnyObject {
-                self.notificationCenter.removeObserver(token)
-            }
-        #endif
+        if let token = self.token {
+            self.notificationCenter.removeObserver(token)
+        }
     }
 }
 
 private let mainThread = pthread_self()
+
+public func postNotifications(
+    _ predicate: Predicate<[Notification]>,
+    fromNotificationCenter center: NotificationCenter = .default
+) -> Predicate<Any> {
+    _ = mainThread // Force lazy-loading of this value
+    let collector = NotificationCollector(notificationCenter: center)
+    collector.startObserving()
+    var once: Bool = false
+
+    return Predicate { actualExpression in
+        let collectorNotificationsExpression = Expression(
+            memoizedExpression: { _ in
+                return collector.observedNotifications
+            },
+            location: actualExpression.location,
+            withoutCaching: true
+        )
+
+        assert(pthread_equal(mainThread, pthread_self()) != 0, "Only expecting closure to be evaluated on main thread.")
+        if !once {
+            once = true
+            _ = try actualExpression.evaluate()
+        }
+
+        let actualValue: String
+        if collector.observedNotifications.isEmpty {
+            actualValue = "no notifications"
+        } else {
+            actualValue = "<\(stringify(collector.observedNotifications))>"
+        }
+
+        var result = try predicate.satisfies(collectorNotificationsExpression)
+        result.message = result.message.replacedExpectation { message in
+            return .expectedCustomValueTo(message.expectedMessage, actualValue)
+        }
+        return result
+    }
+}
 
 public func postNotifications<T>(
     _ notificationsMatcher: T,
@@ -74,7 +76,8 @@ public func postNotifications<T>(
     let collector = NotificationCollector(notificationCenter: center)
     collector.startObserving()
     var once: Bool = false
-    return Predicate.fromDeprecatedClosure { actualExpression, failureMessage in
+
+    return Predicate { actualExpression in
         let collectorNotificationsExpression = Expression(memoizedExpression: { _ in
             return collector.observedNotifications
             }, location: actualExpression.location, withoutCaching: true)
@@ -85,12 +88,13 @@ public func postNotifications<T>(
             _ = try actualExpression.evaluate()
         }
 
+        let failureMessage = FailureMessage()
         let match = try notificationsMatcher.matches(collectorNotificationsExpression, failureMessage: failureMessage)
         if collector.observedNotifications.isEmpty {
             failureMessage.actualValue = "no notifications"
         } else {
             failureMessage.actualValue = "<\(stringify(collector.observedNotifications))>"
         }
-        return match
+        return PredicateResult(bool: match, message: failureMessage.toExpectationMessage())
     }
 }

@@ -10,21 +10,13 @@ internal struct OrderedSet<T: Hashable>: Equatable {
 
 	@discardableResult
 	mutating func remove(_ member: T) -> T? {
-		if let index = values.index(of: member) {
+		if let index = values.firstIndex(of: member) {
 			return values.remove(at: index)
 		} else {
 			return nil
 		}
 	}
 }
-
-#if !swift(>=4.1)
-extension OrderedSet {
-	static func == (_ lhs: OrderedSet, rhs: OrderedSet) -> Bool {
-		return lhs.values == rhs.values
-	}
-}
-#endif
 
 extension OrderedSet: Collection {
 	subscript(position: Int) -> T {

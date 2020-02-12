@@ -4,6 +4,7 @@
 [![CocoaPods](https://img.shields.io/cocoapods/v/Quick.svg)](https://cocoapods.org/pods/Quick)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Platforms](https://img.shields.io/cocoapods/p/Quick.svg)](https://cocoapods.org/pods/Quick)
+[![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 
 Quick is a behavior-driven development framework for Swift and Objective-C.
 Inspired by [RSpec](https://github.com/rspec/rspec), [Specta](https://github.com/specta/specta), and [Ginkgo](https://github.com/onsi/ginkgo).
@@ -44,7 +45,8 @@ Certain versions of Quick and Nimble only support certain versions of Swift. Dep
 
 |Swift version        |Quick version   |Nimble version |
 |:--------------------|:---------------|:--------------|
-|Swift 3              |v1.0.0 or later |v5.0.0 or later|
+|Swift 4.2            |v1.3.2 or later |v7.3.2 or later|
+|Swift 3 / Swift 4    |v1.0.0 or later |v5.0.0 or later|
 |Swift 2.2 / Swift 2.3|v0.9.3          |v4.1.0         |
 
 ## Documentation

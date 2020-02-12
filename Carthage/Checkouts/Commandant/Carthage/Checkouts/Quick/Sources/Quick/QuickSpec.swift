@@ -5,7 +5,7 @@ import XCTest
 
 #if SWIFT_PACKAGE
 
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+#if canImport(Darwin)
 import QuickSpecBase
 
 public typealias QuickSpecBase = _QuickSpecBase
@@ -16,7 +16,7 @@ public typealias QuickSpecBase = XCTestCase
 open class QuickSpec: QuickSpecBase {
     open func spec() {}
 
-#if !(os(macOS) || os(iOS) || os(tvOS) || os(watchOS))
+#if !canImport(Darwin)
     public required init() {
         super.init(name: "", testClosure: { _ in })
     }
@@ -37,19 +37,11 @@ open class QuickSpec: QuickSpecBase {
     /// SwiftPM on macOS does not have the mechanism (test cases are automatically
     /// discovered powered by Objective-C runtime), so we needed the alternative
     /// way.
-    #if swift(>=4)
     override open class var defaultTestSuite: XCTestSuite {
         configureDefaultTestSuite()
 
         return super.defaultTestSuite
     }
-    #else
-    override open class func defaultTestSuite() -> XCTestSuite {
-        configureDefaultTestSuite()
-
-        return super.defaultTestSuite()
-    }
-    #endif
 
     private static func configureDefaultTestSuite() {
         let world = World.sharedWorld

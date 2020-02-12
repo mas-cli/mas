@@ -50,17 +50,18 @@ public func endWith(_ endingSubstring: String) -> Predicate<String> {
     }
 }
 
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+#if canImport(Darwin)
 extension NMBObjCMatcher {
-    @objc public class func endWithMatcher(_ expected: Any) -> NMBObjCMatcher {
-        return NMBObjCMatcher(canMatchNil: false) { actualExpression, failureMessage in
+    @objc public class func endWithMatcher(_ expected: Any) -> NMBMatcher {
+        return NMBPredicate { actualExpression in
             let actual = try actualExpression.evaluate()
-            if (actual as? String) != nil {
+            if actual is String {
                 let expr = actualExpression.cast { $0 as? String }
-                return try endWith(expected as! String).matches(expr, failureMessage: failureMessage)
+                // swiftlint:disable:next force_cast
+                return try endWith(expected as! String).satisfies(expr).toObjectiveC()
             } else {
                 let expr = actualExpression.cast { $0 as? NMBOrderedCollection }
-                return try endWith(expected).matches(expr, failureMessage: failureMessage)
+                return try endWith(expected).satisfies(expr).toObjectiveC()
             }
         }
     }

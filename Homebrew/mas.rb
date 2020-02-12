@@ -13,7 +13,7 @@ class Mas < Formula
   end
 
   depends_on "carthage" => :build
-  depends_on :xcode => ["10.1", :build]
+  depends_on :xcode => ["10.2", :build]
 
   def install
     # Working around build issues in dependencies
@@ -27,7 +27,7 @@ class Mas < Formula
     ENV["XCODE_XCCONFIG_FILE"] = xcconfig
 
     # Only build necessary dependencies (Commandant, Result)
-    system "carthage", "bootstrap", "--platform", "macOS", "Commandant", "Result"
+    system "carthage", "bootstrap", "--platform", "macOS", "Commandant"
     system "script/install", prefix
 
     bash_completion.install "contrib/completion/mas-completion.bash" => "mas"

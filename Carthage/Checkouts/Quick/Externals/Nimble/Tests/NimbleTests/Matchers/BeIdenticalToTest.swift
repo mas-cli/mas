@@ -3,17 +3,6 @@ import XCTest
 @testable import Nimble
 
 final class BeIdenticalToTest: XCTestCase, XCTestCaseProvider {
-    static var allTests: [(String, (BeIdenticalToTest) -> () throws -> Void)] {
-        return [
-            ("testBeIdenticalToPositive", testBeIdenticalToPositive),
-            ("testBeIdenticalToNegative", testBeIdenticalToNegative),
-            ("testBeIdenticalToPositiveMessage", testBeIdenticalToPositiveMessage),
-            ("testBeIdenticalToNegativeMessage", testBeIdenticalToNegativeMessage),
-            ("testOperators", testOperators),
-            ("testBeAlias", testBeAlias),
-        ]
-    }
-
     func testBeIdenticalToPositive() {
         let value = NSDate()
         expect(value).to(beIdenticalTo(value))
@@ -52,7 +41,7 @@ final class BeIdenticalToTest: XCTestCase, XCTestCaseProvider {
         let value = NSDate()
         expect(value).to(be(value))
         expect(NSNumber(value: 1)).toNot(be(NSString(string: "turtles")))
-        #if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+        #if canImport(Darwin)
             expect([1]).toNot(be([1]))
         #else
             expect(NSArray(array: [NSNumber(value: 1)])).toNot(beIdenticalTo(NSArray(array: [NSNumber(value: 1)])))

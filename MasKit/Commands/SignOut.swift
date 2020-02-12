@@ -8,7 +8,6 @@
 
 import Commandant
 import CommerceKit
-import Result
 
 public struct SignOutCommand: CommandProtocol {
     public typealias Options = NoOptions<MASError>
