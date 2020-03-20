@@ -36,7 +36,7 @@ GEM
     multipart-post (2.1.1)
     nap (1.1.0)
     no_proxy_fix (0.1.2)
-    octokit (4.16.0)
+    octokit (4.17.0)
       faraday (>= 0.9)
       sawyer (~> 0.8.0, >= 0.5.3)
     open4 (1.3.4)
@@ -48,7 +48,7 @@ GEM
       faraday (> 0.8, < 2.0)
     terminal-table (1.8.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
-    unicode-display_width (1.6.1)
+    unicode-display_width (1.7.0)
     xcpretty (0.3.0)
       rouge (~> 2.0.7)
 
