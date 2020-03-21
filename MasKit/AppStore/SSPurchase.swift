@@ -16,14 +16,27 @@ extension SSPurchase {
     convenience init(adamId: UInt64, account: ISStoreAccount, isPurchase: Bool) {
         self.init()
 
+		var parameters: [String: Any] = [
+			"productType": "C",
+			"price": 0,
+			"salableAdamId": adamId,
+			"pg": "default",
+			"appExtVrsId": 0
+		]
+
         if isPurchase {
-            buyParameters =
-                "productType=C&price=0&salableAdamId=\(adamId)&pricingParameters=STDQ&pg=default&appExtVrsId=0&macappinstalledconfirmed=1"
+			parameters["macappinstalledconfirmed"] = 1
+			parameters["pricingParameters"] = "STDQ"
+
         } else {
             // is redownload, use existing functionality
-            buyParameters =
-                "productType=C&price=0&salableAdamId=\(adamId)&pricingParameters=STDRDL&pg=default&appExtVrsId=0"
+			parameters["pricingParameters"] = "STDRDL"
         }
+
+		buyParameters = parameters.map { key, value in
+			return "\(key)=\(value)"
+		}.joined(separator: "&")
+
         itemIdentifier = adamId
         accountIdentifier = account.dsID
         appleID = account.identifier
