@@ -4,24 +4,15 @@ import Nimble
 
 #if (os(macOS) || os(iOS) || os(tvOS) || os(watchOS)) && !SWIFT_PACKAGE
 
-final class ThrowAssertionTest: XCTestCase, XCTestCaseProvider {
-    static var allTests: [(String, (ThrowAssertionTest) -> () throws -> Void)] {
-        return [
-            ("testPositiveMatch", testPositiveMatch),
-            ("testErrorThrown", testErrorThrown),
-            ("testPostAssertionCodeNotRun", testPostAssertionCodeNotRun),
-            ("testNegativeMatch", testNegativeMatch),
-            ("testPositiveMessage", testPositiveMessage),
-            ("testNegativeMessage", testNegativeMessage),
-        ]
-    }
+private let error: Error = NSError(domain: "test", code: 0, userInfo: nil)
 
+final class ThrowAssertionTest: XCTestCase {
     func testPositiveMatch() {
         expect { () -> Void in fatalError() }.to(throwAssertion())
     }
 
     func testErrorThrown() {
-        expect { throw NSError(domain: "test", code: 0, userInfo: nil) }.toNot(throwAssertion())
+        expect { throw error }.toNot(throwAssertion())
     }
 
     func testPostAssertionCodeNotRun() {
@@ -49,6 +40,10 @@ final class ThrowAssertionTest: XCTestCase, XCTestCaseProvider {
     func testPositiveMessage() {
         failsWithErrorMessage("expected to throw an assertion") {
             expect { () -> Void? in return }.to(throwAssertion())
+        }
+
+        failsWithErrorMessage("expected to throw an assertion; threw error instead <\(error)>") {
+            expect { throw error }.to(throwAssertion())
         }
     }
 

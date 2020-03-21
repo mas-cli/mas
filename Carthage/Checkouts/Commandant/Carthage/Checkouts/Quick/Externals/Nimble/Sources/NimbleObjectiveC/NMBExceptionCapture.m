@@ -16,7 +16,7 @@
     return self;
 }
 
-- (void)tryBlock:(void(^ _Nonnull)(void))unsafeBlock {
+- (void)tryBlock:(__attribute__((noescape)) void(^ _Nonnull)(void))unsafeBlock {
     @try {
         unsafeBlock();
     }

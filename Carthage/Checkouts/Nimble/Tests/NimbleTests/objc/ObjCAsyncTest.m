@@ -29,6 +29,11 @@
     waitUntil(^(void (^done)(void)){
         done();
     });
+    waitUntil(^(void (^done)(void)){
+        dispatch_async(dispatch_get_main_queue(), ^{
+            done();
+        });
+    });
 
     expectFailureMessage(@"Waited more than 1.0 second", ^{
         waitUntil(^(void (^done)(void)){ /* ... */ });

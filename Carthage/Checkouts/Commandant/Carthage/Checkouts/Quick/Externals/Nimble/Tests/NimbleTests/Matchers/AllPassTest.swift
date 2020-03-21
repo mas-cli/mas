@@ -43,17 +43,6 @@ extension Optional where Wrapped: Comparable {
 }
 
 final class AllPassTest: XCTestCase, XCTestCaseProvider {
-    static var allTests: [(String, (AllPassTest) -> () throws -> Void)] {
-        return [
-            ("testAllPassArray", testAllPassArray),
-            ("testAllPassMatcher", testAllPassMatcher),
-            ("testAllPassCollectionsWithOptionalsDontWork", testAllPassCollectionsWithOptionalsDontWork),
-            ("testAllPassCollectionsWithOptionalsUnwrappingOneOptionalLayer", testAllPassCollectionsWithOptionalsUnwrappingOneOptionalLayer),
-            ("testAllPassSet", testAllPassSet),
-            ("testAllPassWithNilAsExpectedValue", testAllPassWithNilAsExpectedValue),
-        ]
-    }
-
     func testAllPassArray() {
         expect([1, 2, 3, 4]).to(allPass({$0 < 5}))
         expect([1, 2, 3, 4]).toNot(allPass({$0 > 5}))

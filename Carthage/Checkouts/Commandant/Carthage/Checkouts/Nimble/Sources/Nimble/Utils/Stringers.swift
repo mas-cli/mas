@@ -2,7 +2,7 @@ import Foundation
 
 internal func identityAsString(_ value: Any?) -> String {
     let anyObject: AnyObject?
-#if os(Linux)
+#if os(Linux) && !swift(>=4.1.50)
     anyObject = value as? AnyObject
 #else
     anyObject = value as AnyObject?
@@ -122,6 +122,7 @@ extension String: TestOutputStringConvertible {
 extension Data: TestOutputStringConvertible {
     public var testDescription: String {
         #if os(Linux)
+            // swiftlint:disable:next todo
             // FIXME: Swift on Linux triggers a segfault when calling NSData's hash() (last checked on 03-11-16)
             return "Data<length=\(count)>"
         #else
@@ -158,7 +159,7 @@ public func stringify<T>(_ value: T?) -> String {
     return String(describing: value)
 }
 
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+#if canImport(Darwin)
 @objc public class NMBStringer: NSObject {
     @objc public class func stringify(_ obj: Any?) -> String {
         return Nimble.stringify(obj)

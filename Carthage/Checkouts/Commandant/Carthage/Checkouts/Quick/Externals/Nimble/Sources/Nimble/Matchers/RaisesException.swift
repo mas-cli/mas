@@ -1,7 +1,7 @@
 import Foundation
 
 // This matcher requires the Objective-C, and being built by Xcode rather than the Swift Package Manager 
-#if (os(macOS) || os(iOS) || os(tvOS) || os(watchOS)) && !SWIFT_PACKAGE
+#if canImport(Darwin) && !SWIFT_PACKAGE
 
 /// A Nimble matcher that succeeds when the actual expression raises an
 /// exception with the specified name, reason, and/or userInfo.
@@ -17,18 +17,21 @@ public func raiseException(
     reason: String? = nil,
     userInfo: NSDictionary? = nil,
     closure: ((NSException) -> Void)? = nil) -> Predicate<Any> {
-        return Predicate.fromDeprecatedClosure { actualExpression, failureMessage in
-
+        return Predicate { actualExpression in
             var exception: NSException?
             let capture = NMBExceptionCapture(handler: ({ e in
                 exception = e
             }), finally: nil)
 
-            capture.tryBlock {
-                _ = try! actualExpression.evaluate()
-                return
+            do {
+                try capture.tryBlockThrows {
+                    _ = try actualExpression.evaluate()
+                }
+            } catch {
+                return PredicateResult(status: .fail, message: .fail("unexpected error thrown: <\(error)>"))
             }
 
+            let failureMessage = FailureMessage()
             setFailureMessageForException(
                 failureMessage,
                 exception: exception,
@@ -37,13 +40,15 @@ public func raiseException(
                 userInfo: userInfo,
                 closure: closure
             )
-            return exceptionMatchesNonNilFieldsOrClosure(
+
+            let matches = exceptionMatchesNonNilFieldsOrClosure(
                 exception,
                 named: named,
                 reason: reason,
                 userInfo: userInfo,
                 closure: closure
             )
+            return PredicateResult(bool: matches, message: failureMessage.toExpectationMessage())
         }
 }
 
@@ -117,10 +122,12 @@ internal func exceptionMatchesNonNilFieldsOrClosure(
 }
 
 public class NMBObjCRaiseExceptionMatcher: NSObject, NMBMatcher {
+    // swiftlint:disable identifier_name
     internal var _name: String?
     internal var _reason: String?
     internal var _userInfo: NSDictionary?
     internal var _block: ((NSException) -> Void)?
+    // swiftlint:enable identifier_name
 
     internal init(name: String?, reason: String?, userInfo: NSDictionary?, block: ((NSException) -> Void)?) {
         _name = name
@@ -129,19 +136,24 @@ public class NMBObjCRaiseExceptionMatcher: NSObject, NMBMatcher {
         _block = block
     }
 
-    @objc public func matches(_ actualBlock: @escaping () -> NSObject!, failureMessage: FailureMessage, location: SourceLocation) -> Bool {
+    @objc public func matches(_ actualBlock: @escaping () -> NSObject?, failureMessage: FailureMessage, location: SourceLocation) -> Bool {
         let block: () -> Any? = ({ _ = actualBlock(); return nil })
         let expr = Expression(expression: block, location: location)
 
-        return try! raiseException(
-            named: _name,
-            reason: _reason,
-            userInfo: _userInfo,
-            closure: _block
-        ).matches(expr, failureMessage: failureMessage)
+        do {
+            return try raiseException(
+                named: _name,
+                reason: _reason,
+                userInfo: _userInfo,
+                closure: _block
+            ).matches(expr, failureMessage: failureMessage)
+        } catch let error {
+            failureMessage.stringValue = "unexpected error thrown: <\(error)>"
+            return false
+        }
     }
 
-    @objc public func doesNotMatch(_ actualBlock: @escaping () -> NSObject!, failureMessage: FailureMessage, location: SourceLocation) -> Bool {
+    @objc public func doesNotMatch(_ actualBlock: @escaping () -> NSObject?, failureMessage: FailureMessage, location: SourceLocation) -> Bool {
         return !matches(actualBlock, failureMessage: failureMessage, location: location)
     }
 

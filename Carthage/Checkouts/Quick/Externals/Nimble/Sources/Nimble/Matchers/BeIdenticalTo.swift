@@ -4,18 +4,9 @@ import Foundation
 /// as the expected instance.
 public func beIdenticalTo(_ expected: Any?) -> Predicate<Any> {
     return Predicate.define { actualExpression in
-        #if os(Linux)
-            let actual = try actualExpression.evaluate() as? AnyObject
-        #else
-            let actual = try actualExpression.evaluate() as AnyObject?
-        #endif
+        let actual = try actualExpression.evaluate() as AnyObject?
 
-        let bool: Bool
-        #if os(Linux)
-            bool = actual === (expected as? AnyObject) && actual !== nil
-        #else
-            bool = actual === (expected as AnyObject?) && actual !== nil
-        #endif
+        let bool = actual === (expected as AnyObject?) && actual !== nil
         return PredicateResult(
             bool: bool,
             message: .expectedCustomValueTo(
@@ -41,12 +32,12 @@ public func be(_ expected: Any?) -> Predicate<Any> {
     return beIdenticalTo(expected)
 }
 
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+#if canImport(Darwin)
 extension NMBObjCMatcher {
-    @objc public class func beIdenticalToMatcher(_ expected: NSObject?) -> NMBObjCMatcher {
-        return NMBObjCMatcher(canMatchNil: false) { actualExpression, failureMessage in
+    @objc public class func beIdenticalToMatcher(_ expected: NSObject?) -> NMBMatcher {
+        return NMBPredicate { actualExpression in
             let aExpr = actualExpression.cast { $0 as Any? }
-            return try! beIdenticalTo(expected).matches(aExpr, failureMessage: failureMessage)
+            return try beIdenticalTo(expected).satisfies(aExpr).toObjectiveC()
         }
     }
 }

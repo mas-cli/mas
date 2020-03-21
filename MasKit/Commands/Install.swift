@@ -8,7 +8,6 @@
 
 import Commandant
 import CommerceKit
-import Result
 
 /// Installs previously purchased apps from the Mac App Store.
 public struct InstallCommand: CommandProtocol {

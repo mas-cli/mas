@@ -16,7 +16,7 @@ class NetworkManagerTests: XCTestCase {
         let manager = NetworkManager(session: session)
 
         // Create data and tell the session to always return it
-        let data = Data(bytes: [0, 1, 0, 1])
+        let data = Data([0, 1, 0, 1])
         session.data = data
 
         // Create a URL (using the file path API to avoid optionals)
@@ -34,7 +34,7 @@ class NetworkManagerTests: XCTestCase {
         let manager = NetworkManager(session: session)
 
         // Create data and tell the session to always return it
-        let data = Data(bytes: [0, 1, 0, 1])
+        let data = Data([0, 1, 0, 1])
         session.data = data
 
         // Create a URL (using the file path API to avoid optionals)

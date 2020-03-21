@@ -7,7 +7,6 @@
 //
 
 import Commandant
-import Result
 
 private let markerValue = "appstore"
 private let masScheme = "macappstore"

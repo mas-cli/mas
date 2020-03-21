@@ -1,8 +1,5 @@
 disabled_rules:
-  - todo
-  - variable_name
-  - force_try
-  - force_cast
+  - 
 
 included:
   - Sources
@@ -10,6 +7,8 @@ included:
 
 excluded:
   - Carthage/Checkouts
+  - Tests/NimbleTests/XCTestManifests.swift
+  - Tests/NimbleTests/Helpers/XCTestCaseProvider.swift
 
 trailing_comma:
   mandatory_comma: true
@@ -17,3 +16,16 @@ trailing_comma:
 line_length:
   ignores_comments: true
   ignores_function_declarations: true
+
+identifier_name:
+  max_length: 50
+  excluded:
+    - x
+    - l
+    - r
+    - e
+    - n1
+    - n2
+    - to
+  allowed_symbols:
+      - _

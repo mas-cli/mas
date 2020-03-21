@@ -1,9 +1,14 @@
+#ifdef __APPLE__
+#import "TargetConditionals.h"
+#if TARGET_OS_OSX || TARGET_OS_IOS
+
 #ifndef	_mach_exc_server_
 #define	_mach_exc_server_
 
 /* Module mach_exc */
 
 #include <string.h>
+
 #include <mach/ndr.h>
 #include <mach/boolean.h>
 #include <mach/kern_return.h>
@@ -319,3 +324,6 @@ __AfterMigServerHeader
 #endif /* __AfterMigServerHeader */
 
 #endif	 /* _mach_exc_server_ */
+
+#endif /* TARGET_OS_OSX || TARGET_OS_IOS */
+#endif /* __APPLE__ */

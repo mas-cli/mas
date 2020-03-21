@@ -30,8 +30,10 @@ func == (lhs: EquatableError, rhs: EquatableError) -> Bool {
 }
 
 enum CustomDebugStringConvertibleError: Error {
+    // swiftlint:disable identifier_name
     case a
     case b
+    // swiftlint:enable identifier_name
 }
 
 extension CustomDebugStringConvertibleError: CustomDebugStringConvertible {
@@ -41,18 +43,6 @@ extension CustomDebugStringConvertibleError: CustomDebugStringConvertible {
 }
 
 final class ThrowErrorTest: XCTestCase, XCTestCaseProvider {
-    static var allTests: [(String, (ThrowErrorTest) -> () throws -> Void)] {
-        return [
-            ("testPositiveMatches", testPositiveMatches),
-            ("testPositiveMatchesWithClosures", testPositiveMatchesWithClosures),
-            ("testNegativeMatches", testNegativeMatches),
-            ("testPositiveNegatedMatches", testPositiveNegatedMatches),
-            ("testNegativeNegatedMatches", testNegativeNegatedMatches),
-            ("testNegativeMatchesDoNotCallClosureWithoutError", testNegativeMatchesDoNotCallClosureWithoutError),
-            ("testNegativeMatchesWithClosure", testNegativeMatchesWithClosure),
-        ]
-    }
-
     func testPositiveMatches() {
         expect { throw NimbleError.laugh }.to(throwError())
         expect { throw NimbleError.laugh }.to(throwError(NimbleError.laugh))

@@ -2,6 +2,8 @@
 
 Commandant is a Swift framework for parsing command-line arguments, inspired by [Argo](https://github.com/thoughtbot/Argo) (which is, in turn, inspired by the Haskell library [Aeson](http://hackage.haskell.org/package/aeson)).
 
+[![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
+
 ## Example
 
 With Commandant, a command and its associated options could be defined as follows:

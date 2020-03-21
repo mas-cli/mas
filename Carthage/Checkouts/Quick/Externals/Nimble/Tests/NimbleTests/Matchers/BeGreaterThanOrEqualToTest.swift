@@ -3,22 +3,13 @@ import XCTest
 import Nimble
 
 final class BeGreaterThanOrEqualToTest: XCTestCase, XCTestCaseProvider {
-    static var allTests: [(String, (BeGreaterThanOrEqualToTest) -> () throws -> Void)] {
-        return [
-            ("testGreaterThanOrEqualTo", testGreaterThanOrEqualTo),
-            ("testGreaterThanOrEqualToOperator", testGreaterThanOrEqualToOperator),
-        ]
-    }
-
     func testGreaterThanOrEqualTo() {
         expect(10).to(beGreaterThanOrEqualTo(10))
         expect(10).to(beGreaterThanOrEqualTo(2))
         expect(1).toNot(beGreaterThanOrEqualTo(2))
         expect(NSNumber(value: 1)).toNot(beGreaterThanOrEqualTo(2))
         expect(NSNumber(value: 2)).to(beGreaterThanOrEqualTo(NSNumber(value: 2)))
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
         expect(1).to(beGreaterThanOrEqualTo(NSNumber(value: 0)))
-#endif
 
         failsWithErrorMessage("expected to be greater than or equal to <2>, got <0>") {
             expect(0).to(beGreaterThanOrEqualTo(2))

@@ -1,0 +1,13 @@
+included:
+  - Sources
+  - Tests
+
+disabled_rules:
+  - function_body_length
+  - identifier_name
+  - line_length
+  - opening_brace
+  - operator_whitespace
+
+trailing_comma:
+  mandatory_comma: true

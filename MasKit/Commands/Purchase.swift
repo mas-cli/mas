@@ -8,7 +8,6 @@
 
 import Commandant
 import CommerceKit
-import Result
 
 public struct PurchaseCommand: CommandProtocol {
 	public typealias Options = PurchaseOptions

@@ -11,7 +11,8 @@ There are three recommended ways of linking Quick to your tests:
 1. [Git Submodules](#git-submodules)
 2. [CocoaPods](#cocoapods)
 3. [Carthage](#carthage)
-4. [Swift Package Manager (experimental)](#swift-package-manager)
+4. [Accio](#accio)
+5. [Swift Package Manager (experimental)](#swift-package-manager)
 
 Choose one and follow the instructions below. Once you've completed them,
 you should be able to `import Quick` from within files in your test target.
@@ -139,6 +140,27 @@ to copy them to the target's Frameworks destination.
 
 This is not "the one and only way" to use Carthage to manage dependencies.
 For further reference check out the [Carthage documentation](https://github.com/Carthage/Carthage/blob/master/README.md).
+
+## [Accio](https://github.com/JamitLabs/Accio)
+
+Add the following to your Package.swift:
+
+```swift
+.package(url: "https://github.com/Quick/Quick.git", .upToNextMajor(from: "2.0.0")),
+```
+
+Next, add `Quick` to your App test targets dependencies like so:
+
+```swift
+.testTarget(
+    name: "AppTests",
+    dependencies: [
+        "Quick",
+    ]
+),
+```
+
+Then run `accio update`.
 
 ## [Swift Package Manager](https://github.com/apple/swift-package-manager)
 With the advent of the [swift.org](https://swift.org) open-source project, Swift now has an official, though nascent, package manager tool. Notably, this provides the possibility of using Quick on non-Apple platforms for the first time. Initial steps have been taken to allow using Quick to test projects using the Swift Package Manager, although frequent breakage is expected at this point since the tool is still under heavy development.

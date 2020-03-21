@@ -7,15 +7,6 @@ private class TestClassConformingToProtocol: TestProtocol {}
 private struct TestStructConformingToProtocol: TestProtocol {}
 
 final class BeAnInstanceOfTest: XCTestCase, XCTestCaseProvider {
-    static var allTests: [(String, (BeAnInstanceOfTest) -> () throws -> Void)] {
-        return [
-            ("testPositiveMatch", testPositiveMatch),
-            ("testPositiveMatchSwiftTypes", testPositiveMatchSwiftTypes),
-            ("testFailureMessages", testFailureMessages),
-            ("testFailureMessagesSwiftTypes", testFailureMessagesSwiftTypes),
-        ]
-    }
-
     func testPositiveMatch() {
         expect(NSNull()).to(beAnInstanceOf(NSNull.self))
         expect(NSNumber(value: 1)).toNot(beAnInstanceOf(NSDate.self))
@@ -49,7 +40,7 @@ final class BeAnInstanceOfTest: XCTestCase, XCTestCaseProvider {
         failsWithErrorMessageForNil("expected to be an instance of NSString, got <nil>") {
             expect(nil as NSString?).to(beAnInstanceOf(NSString.self))
         }
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+#if canImport(Darwin)
         let numberTypeName = "__NSCFNumber"
 #else
         let numberTypeName = "NSNumber"

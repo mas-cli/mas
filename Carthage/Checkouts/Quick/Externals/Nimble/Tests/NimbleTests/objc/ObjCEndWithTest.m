@@ -13,7 +13,6 @@
     expect(@"hello world!").toNot(endWith(@"hello"));
     expect(array).to(endWith(@2));
     expect(array).toNot(endWith(@1));
-    expect(@1).toNot(contain(@"foo"));
 }
 
 - (void)testNegativeMatches {

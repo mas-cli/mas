@@ -3,18 +3,6 @@ import XCTest
 import Nimble
 
 final class MatchErrorTest: XCTestCase, XCTestCaseProvider {
-    static var allTests: [(String, (MatchErrorTest) -> () throws -> Void)] {
-        return [
-            ("testMatchErrorPositive", testMatchErrorPositive),
-            ("testMatchErrorNegative", testMatchErrorNegative),
-            ("testMatchNSErrorPositive", testMatchNSErrorPositive),
-            ("testMatchNSErrorNegative", testMatchNSErrorNegative),
-            ("testMatchPositiveMessage", testMatchPositiveMessage),
-            ("testMatchNegativeMessage", testMatchNegativeMessage),
-            ("testDoesNotMatchNils", testDoesNotMatchNils),
-        ]
-    }
-
     func testMatchErrorPositive() {
         expect(NimbleError.laugh).to(matchError(NimbleError.laugh))
         expect(NimbleError.laugh).to(matchError(NimbleError.self))
@@ -31,10 +19,12 @@ final class MatchErrorTest: XCTestCase, XCTestCaseProvider {
     }
 
     func testMatchNSErrorPositive() {
+#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
         let error1 = NSError(domain: "err", code: 0, userInfo: nil)
         let error2 = NSError(domain: "err", code: 0, userInfo: nil)
 
         expect(error1).to(matchError(error2))
+#endif
     }
 
     func testMatchNSErrorNegative() {
@@ -45,7 +35,7 @@ final class MatchErrorTest: XCTestCase, XCTestCaseProvider {
     }
 
     func testMatchPositiveMessage() {
-        failsWithErrorMessage("expected to match error <parameterized(2)>, got <parameterized(1)>") {
+        failsWithErrorMessage("expected to match error <parameterized(x: 2)>, got <parameterized(x: 1)>") {
             expect(EquatableError.parameterized(x: 1)).to(matchError(EquatableError.parameterized(x: 2)))
         }
         failsWithErrorMessage("expected to match error <cry>, got <laugh>") {
@@ -55,11 +45,13 @@ final class MatchErrorTest: XCTestCase, XCTestCaseProvider {
             expect(CustomDebugStringConvertibleError.a).to(matchError(CustomDebugStringConvertibleError.b))
         }
 
+#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
         failsWithErrorMessage("expected to match error <Error Domain=err Code=1 \"(null)\">, got <Error Domain=err Code=0 \"(null)\">") {
             let error1 = NSError(domain: "err", code: 0, userInfo: nil)
             let error2 = NSError(domain: "err", code: 1, userInfo: nil)
             expect(error1).to(matchError(error2))
         }
+#endif
     }
 
     func testMatchNegativeMessage() {

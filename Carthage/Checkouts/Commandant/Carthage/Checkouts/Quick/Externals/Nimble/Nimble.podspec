@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "Nimble"
-  s.version      = "7.1.1"
+  s.version      = "8.0.0"
   s.summary      = "A Matcher Framework for Swift and Objective-C"
   s.description  = <<-DESC
                    Use Nimble to express the expected outcomes of Swift or Objective-C expressions. Inspired by Cedar.
@@ -38,16 +38,18 @@ Pod::Spec.new do |s|
     "Carthage/Checkouts/CwlCatchException/Sources/CwlCatchExceptionSupport/include/CwlCatchException.h",
   ]
 
-  s.private_header_files = "Sources/NimbleObjectiveC/CurrentTestCaseTracker.h"
-
   s.exclude_files = "Sources/Nimble/Adapters/NonObjectiveC/*.swift"
   s.weak_framework = "XCTest"
   s.requires_arc = true
   s.compiler_flags = '-DPRODUCT_NAME=Nimble/Nimble'
   s.pod_target_xcconfig = {
+    'APPLICATION_EXTENSION_API_ONLY' => 'YES',
     'ENABLE_BITCODE' => 'NO',
-    'OTHER_LDFLAGS' => '-weak-lswiftXCTest',
+    'OTHER_LDFLAGS' => '$(inherited) -weak-lswiftXCTest -Xlinker -no_application_extension',
     'OTHER_SWIFT_FLAGS' => '$(inherited) -suppress-warnings',
     'FRAMEWORK_SEARCH_PATHS' => '$(inherited) "$(PLATFORM_DIR)/Developer/Library/Frameworks"',
   }
+
+  s.cocoapods_version = '>= 1.4.0'
+  s.swift_version = '4.2'
 end
