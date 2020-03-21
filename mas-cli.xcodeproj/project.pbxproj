@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		60D8CF3624262F92005B4004 /* PurchaseCommandSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D8CF3524262F92005B4004 /* PurchaseCommandSpec.swift */; };
 		75FB3E761F9F7841005B6F20 /* Purchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FB3E751F9F7841005B6F20 /* Purchase.swift */; };
 		B537017421A0F85B00538F78 /* Commandant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406B213F4DDD0044E445 /* Commandant.framework */; };
 		B537017621A0F94200538F78 /* Commandant.framework in Copy Carthage Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406B213F4DDD0044E445 /* Commandant.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -192,6 +193,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		60D8CF3524262F92005B4004 /* PurchaseCommandSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseCommandSpec.swift; sourceTree = "<group>"; };
 		693A98981CBFFA760004D3B4 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		75FB3E751F9F7841005B6F20 /* Purchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Purchase.swift; sourceTree = "<group>"; };
 		8078FAA71EC4F2FB004B5B3F /* Lucky.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lucky.swift; sourceTree = "<group>"; };
@@ -597,6 +599,7 @@
 				B594B14321D6D91800F3AC59 /* LuckyCommandSpec.swift */,
 				B5DBF81221DEEC7C00F3B151 /* OpenCommandSpec.swift */,
 				B594B14121D6D8EC00F3AC59 /* OutdatedCommandSpec.swift */,
+				60D8CF3524262F92005B4004 /* PurchaseCommandSpec.swift */,
 				B594B13F21D6D8BF00F3AC59 /* ResetCommandSpec.swift */,
 				B594B13D21D6D78900F3AC59 /* SearchCommandSpec.swift */,
 				B594B13B21D6D72E00F3AC59 /* SignInCommandSpec.swift */,
@@ -1061,6 +1064,7 @@
 				B576FE3021E5BD130016B39D /* OutputListenerSpec.swift in Sources */,
 				B594B14021D6D8BF00F3AC59 /* ResetCommandSpec.swift in Sources */,
 				B594B13221D5876200F3AC59 /* ResultPredicates.swift in Sources */,
+				60D8CF3624262F92005B4004 /* PurchaseCommandSpec.swift in Sources */,
 				B594B13E21D6D78900F3AC59 /* SearchCommandSpec.swift in Sources */,
 				B55B3D9221ED9B8C0009A1A5 /* SearchResultFormatterSpec.swift in Sources */,
 				B594B13C21D6D72E00F3AC59 /* SignInCommandSpec.swift in Sources */,
