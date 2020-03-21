@@ -12,7 +12,7 @@ import CommerceKit
 public struct PurchaseCommand: CommandProtocol {
 	public typealias Options = PurchaseOptions
 	public let verb = "purchase"
-	public let function = "purchase and download free apps from the Mac App Store"
+	public let function = "Purchase and download free apps from the Mac App Store"
 
 	/// Designated initializer.
 	public init() {
