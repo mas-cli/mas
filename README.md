@@ -92,7 +92,16 @@ $ mas lucky twitter
 ```
 
 > Please note that this command will not allow you to install (or even purchase) an app for the first time:
-it must already be in the Purchased tab of the App Store.
+use the `purchase` command in that case.
+
+```bash
+$ mas purchase 768053424
+==> Downloading Gapplin
+==> Installed Gapplin
+```
+
+> Please note that you may have to re-authenticate yourself in the App Store to complete the purchase.
+This is the case if the application is not free or if you configured your account not to remember the credentials for free purchases.
 
 Use `mas outdated` to list all applications with pending updates.
 
