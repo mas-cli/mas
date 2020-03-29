@@ -11,26 +11,25 @@ import CommerceKit
 /// Utility for managing installed apps.
 public class MasAppLibrary: AppLibrary {
     /// CommerceKit's singleton manager of installed software.
-    private let softwareMap = CKSoftwareMap.shared()
+    private let softwareMap: SoftwareMap
 
     /// Array of installed software products.
     public lazy var installedApps: [SoftwareProduct] = {
-        var appList = [SoftwareProduct]()
-        guard let products = softwareMap.allProducts()
-        else { return appList }
-        appList.append(contentsOf: products)
-        return products
+        return softwareMap.allSoftwareProducts()
     }()
 
-    /// Designated initializer
-    public init() {}
+    /// Internal initializer for providing a mock software map.
+    /// - Parameter softwareMap: SoftwareMap to use
+    init(softwareMap: SoftwareMap = CKSoftwareMap.shared()) {
+        self.softwareMap = softwareMap
+    }
 
     /// Finds an app using a bundle identifier.
     ///
     /// - Parameter bundleId: Bundle identifier of app.
     /// - Returns: Software Product of app if found; nil otherwise.
     public func installedApp(forBundleId bundleId: String) -> SoftwareProduct? {
-        return softwareMap.product(forBundleIdentifier: bundleId)
+        return softwareMap.product(for: bundleId)
     }
 
     /// Uninstalls an app.
