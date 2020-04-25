@@ -12,8 +12,5 @@ insert_final_newline = true
 [*.md]
 trim_trailing_whitespace = false
 
-[*.rb]
-indent_size = 2
-
-[*.yml]
+[{script/*,*.rb,*.yml}]
 indent_size = 2

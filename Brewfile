@@ -1,4 +1,2 @@
-brew "carthage"
+brew "mint"
 brew "shellcheck"
-brew "swiftlint"
-brew "swiftformat"
