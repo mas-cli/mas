@@ -8,6 +8,8 @@
 #
 
 main() {
+  script/clean
+
   echo "==> 👢 Bootstrapping"
   bundle install
   brew bundle install --verbose
