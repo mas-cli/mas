@@ -11,6 +11,7 @@ main() {
   echo "==> 👢 Bootstrapping"
   bundle install
   brew bundle install --verbose
+  mint bootstrap --verbose
   carthage bootstrap --platform macOS --cache-builds
 
   script/sort
