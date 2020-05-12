@@ -11,6 +11,8 @@
 	<key>CFBundleName</key>
 	<string>mas-cli</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.6.3</string>
+	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleVersion</key>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 </dict>
 </plist>
