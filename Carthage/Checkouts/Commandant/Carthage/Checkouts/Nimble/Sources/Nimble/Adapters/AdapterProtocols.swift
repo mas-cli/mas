@@ -13,5 +13,6 @@ public protocol AssertionHandler {
 ///
 /// @see AssertionHandler
 public var NimbleAssertionHandler: AssertionHandler = { () -> AssertionHandler in
+    // swiftlint:disable:previous identifier_name
     return isXCTestAvailable() ? NimbleXCTestHandler() : NimbleXCTestUnavailableHandler()
 }()

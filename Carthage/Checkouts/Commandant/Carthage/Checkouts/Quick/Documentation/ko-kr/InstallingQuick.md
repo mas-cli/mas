@@ -72,7 +72,7 @@ Git 서브모듈에 대한 자세한 내용은  [여기](http://git-scm.com/book
 
 먼저, 코코아팟의 버전을 0.36.0 이상의 버전으로 업데이트하세요. Swift를 사용하여 코코아팟을 설치하는 데 필요합니다. 
 
-그리고, Quick과 Nimble을 Podfile 에 추가하세요. 또한, ```use_frameworks!```은 코코아팟에서 Swift를 사용하기 데 필요합니다:
+그리고, Quick과 Nimble을 Podfile 에 추가하세요. 또한, ```use_frameworks!```은 코코아팟에서 Swift를 사용하기에 필요합니다:
 
 ```rb
 

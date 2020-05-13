@@ -48,6 +48,10 @@ class _FunctionalTests_FocusedSpec_Unfocused: QuickSpec {
             beforeEach { assert(false) }
             it("has an example that fails, but is never run") { fail() }
         }
+
+        sharedExamples("empty shared example") { _ in
+            // https://github.com/Quick/Quick/pull/901#issuecomment-530816224
+        }
     }
 }
 

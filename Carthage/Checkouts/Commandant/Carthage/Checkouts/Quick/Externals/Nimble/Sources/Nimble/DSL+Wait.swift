@@ -14,7 +14,7 @@ internal class NMBWait: NSObject {
 // About these kind of lines, `@objc` attributes are only required for Objective-C
 // support, so that should be conditional on Darwin platforms and normal Xcode builds
 // (non-SwiftPM builds).
-#if (os(macOS) || os(iOS) || os(tvOS) || os(watchOS)) && !SWIFT_PACKAGE
+#if canImport(Darwin) && !SWIFT_PACKAGE
     @objc
     internal class func until(
         timeout: TimeInterval,
@@ -87,13 +87,19 @@ internal class NMBWait: NSObject {
             }
     }
 
-#if (os(macOS) || os(iOS) || os(tvOS) || os(watchOS)) && !SWIFT_PACKAGE
+#if canImport(Darwin) && !SWIFT_PACKAGE
     @objc(untilFile:line:action:)
-    internal class func until(_ file: FileString = #file, line: UInt = #line, action: @escaping (() -> Void) -> Void) {
+    internal class func until(
+        _ file: FileString = #file,
+        line: UInt = #line,
+        action: @escaping (@escaping () -> Void) -> Void) {
         until(timeout: 1, file: file, line: line, action: action)
     }
 #else
-    internal class func until(_ file: FileString = #file, line: UInt = #line, action: @escaping (() -> Void) -> Void) {
+    internal class func until(
+        _ file: FileString = #file,
+        line: UInt = #line,
+        action: @escaping (@escaping () -> Void) -> Void) {
         until(timeout: 1, file: file, line: line, action: action)
     }
 #endif

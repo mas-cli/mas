@@ -3,13 +3,6 @@ import XCTest
 import Nimble
 
 final class BeginWithTest: XCTestCase, XCTestCaseProvider {
-    static var allTests: [(String, (BeginWithTest) -> () throws -> Void)] {
-        return [
-            ("testPositiveMatches", testPositiveMatches),
-            ("testNegativeMatches", testNegativeMatches),
-        ]
-    }
-
     func testPositiveMatches() {
         expect([1, 2, 3]).to(beginWith(1))
         expect([1, 2, 3]).toNot(beginWith(2))
@@ -22,10 +15,8 @@ final class BeginWithTest: XCTestCase, XCTestCaseProvider {
         expect(NSString(string: "foobar").description).to(beginWith("foo"))
         expect(NSString(string: "foobar").description).toNot(beginWith("oo"))
 
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
         expect(NSArray(array: ["a", "b"])).to(beginWith("a"))
         expect(NSArray(array: ["a", "b"])).toNot(beginWith("b"))
-#endif
     }
 
     func testNegativeMatches() {

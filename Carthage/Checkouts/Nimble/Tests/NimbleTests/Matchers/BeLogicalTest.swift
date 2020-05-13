@@ -30,18 +30,6 @@ enum ConvertsToBool: ExpressibleByBooleanLiteral, CustomStringConvertible {
 }
 
 final class BeTruthyTest: XCTestCase, XCTestCaseProvider {
-    static var allTests: [(String, (BeTruthyTest) -> () throws -> Void)] {
-        return [
-            ("testShouldMatchNonNilTypes", testShouldMatchNonNilTypes),
-            ("testShouldMatchTrue", testShouldMatchTrue),
-            ("testShouldNotMatchNilTypes", testShouldNotMatchNilTypes),
-            ("testShouldNotMatchFalse", testShouldNotMatchFalse),
-            ("testShouldNotMatchNilBools", testShouldNotMatchNilBools),
-            ("testShouldMatchBoolConvertibleTypesThatConvertToTrue", testShouldMatchBoolConvertibleTypesThatConvertToTrue),
-            ("testShouldNotMatchBoolConvertibleTypesThatConvertToFalse", testShouldNotMatchBoolConvertibleTypesThatConvertToFalse),
-        ]
-    }
-
     func testShouldMatchNonNilTypes() {
         expect(true as Bool?).to(beTruthy())
 
@@ -123,14 +111,6 @@ final class BeTruthyTest: XCTestCase, XCTestCaseProvider {
 }
 
 final class BeTrueTest: XCTestCase, XCTestCaseProvider {
-    static var allTests: [(String, (BeTrueTest) -> () throws -> Void)] {
-        return [
-            ("testShouldMatchTrue", testShouldMatchTrue),
-            ("testShouldNotMatchFalse", testShouldNotMatchFalse),
-            ("testShouldNotMatchNilBools", testShouldNotMatchNilBools),
-        ]
-    }
-
     func testShouldMatchTrue() {
         expect(true).to(beTrue())
 
@@ -159,16 +139,6 @@ final class BeTrueTest: XCTestCase, XCTestCaseProvider {
 }
 
 final class BeFalsyTest: XCTestCase, XCTestCaseProvider {
-    static var allTests: [(String, (BeFalsyTest) -> () throws -> Void)] {
-        return [
-            ("testShouldMatchNilTypes", testShouldMatchNilTypes),
-            ("testShouldNotMatchTrue", testShouldNotMatchTrue),
-            ("testShouldNotMatchNonNilTypes", testShouldNotMatchNonNilTypes),
-            ("testShouldMatchFalse", testShouldMatchFalse),
-            ("testShouldMatchNilBools", testShouldMatchNilBools),
-        ]
-    }
-
     func testShouldMatchNilTypes() {
         expect(false as Bool?).to(beFalsy())
 
@@ -234,14 +204,6 @@ final class BeFalsyTest: XCTestCase, XCTestCaseProvider {
 }
 
 final class BeFalseTest: XCTestCase, XCTestCaseProvider {
-    static var allTests: [(String, (BeFalseTest) -> () throws -> Void)] {
-        return [
-            ("testShouldNotMatchTrue", testShouldNotMatchTrue),
-            ("testShouldMatchFalse", testShouldMatchFalse),
-            ("testShouldNotMatchNilBools", testShouldNotMatchNilBools),
-        ]
-    }
-
     func testShouldNotMatchTrue() {
         expect(true).toNot(beFalse())
 

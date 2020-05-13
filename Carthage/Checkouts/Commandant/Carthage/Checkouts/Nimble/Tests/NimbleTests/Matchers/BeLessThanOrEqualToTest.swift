@@ -3,13 +3,6 @@ import XCTest
 import Nimble
 
 final class BeLessThanOrEqualToTest: XCTestCase, XCTestCaseProvider {
-    static var allTests: [(String, (BeLessThanOrEqualToTest) -> () throws -> Void)] {
-        return [
-            ("testLessThanOrEqualTo", testLessThanOrEqualTo),
-            ("testLessThanOrEqualToOperator", testLessThanOrEqualToOperator),
-        ]
-    }
-
     func testLessThanOrEqualTo() {
         expect(10).to(beLessThanOrEqualTo(10))
         expect(2).to(beLessThanOrEqualTo(10))

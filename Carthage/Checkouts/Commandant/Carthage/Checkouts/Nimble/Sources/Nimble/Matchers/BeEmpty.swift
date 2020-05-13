@@ -15,6 +15,17 @@ public func beEmpty<S: Sequence>() -> Predicate<S> {
 
 /// A Nimble matcher that succeeds when a value is "empty". For collections, this
 /// means the are no items in that collection. For strings, it is an empty string.
+public func beEmpty<S: SetAlgebra>() -> Predicate<S> {
+    return Predicate.simple("be empty") { actualExpression in
+        guard let actual = try actualExpression.evaluate() else {
+            return .fail
+        }
+        return PredicateStatus(bool: actual.isEmpty)
+    }
+}
+
+/// A Nimble matcher that succeeds when a value is "empty". For collections, this
+/// means the are no items in that collection. For strings, it is an empty string.
 public func beEmpty() -> Predicate<String> {
     return Predicate.simple("be empty") { actualExpression in
         let actualString = try actualExpression.evaluate()
@@ -61,19 +72,19 @@ public func beEmpty() -> Predicate<NMBCollection> {
     }
 }
 
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+#if canImport(Darwin)
 extension NMBObjCMatcher {
     @objc public class func beEmptyMatcher() -> NMBPredicate {
         return NMBPredicate { actualExpression in
             let location = actualExpression.location
-            let actualValue = try! actualExpression.evaluate()
+            let actualValue = try actualExpression.evaluate()
 
             if let value = actualValue as? NMBCollection {
                 let expr = Expression(expression: ({ value as NMBCollection }), location: location)
-                return try! beEmpty().satisfies(expr).toObjectiveC()
+                return try beEmpty().satisfies(expr).toObjectiveC()
             } else if let value = actualValue as? NSString {
                 let expr = Expression(expression: ({ value as String }), location: location)
-                return try! beEmpty().satisfies(expr).toObjectiveC()
+                return try beEmpty().satisfies(expr).toObjectiveC()
             } else if let actualValue = actualValue {
                 // swiftlint:disable:next line_length
                 let badTypeErrorMsg = "be empty (only works for NSArrays, NSSets, NSIndexSets, NSDictionaries, NSHashTables, and NSStrings)"

@@ -8,13 +8,6 @@ private class TestClassConformingToProtocol: TestProtocol {}
 private struct TestStructConformingToProtocol: TestProtocol {}
 
 final class BeAKindOfSwiftTest: XCTestCase, XCTestCaseProvider {
-    static var allTests: [(String, (BeAKindOfSwiftTest) -> () throws -> Void)] {
-        return [
-            ("testPositiveMatch", testPositiveMatch),
-            ("testFailureMessages", testFailureMessages),
-        ]
-    }
-
     enum TestEnum {
         case one, two
     }
@@ -54,23 +47,17 @@ final class BeAKindOfSwiftTest: XCTestCase, XCTestCaseProvider {
     }
 }
 
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
-
 final class BeAKindOfObjCTest: XCTestCase, XCTestCaseProvider {
-    static var allTests: [(String, (BeAKindOfObjCTest) -> () throws -> Void)] {
-        return [
-            ("testPositiveMatch", testPositiveMatch),
-            ("testFailureMessages", testFailureMessages),
-        ]
-    }
-
     func testPositiveMatch() {
+#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
         expect(TestNull()).to(beAKindOf(NSNull.self))
         expect(NSObject()).to(beAKindOf(NSObject.self))
         expect(NSNumber(value: 1)).toNot(beAKindOf(NSDate.self))
+#endif
     }
 
     func testFailureMessages() {
+#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
         failsWithErrorMessageForNil("expected to not be a kind of NSNull, got <nil>") {
             expect(nil as NSNull?).toNot(beAKindOf(NSNull.self))
         }
@@ -83,7 +70,6 @@ final class BeAKindOfObjCTest: XCTestCase, XCTestCaseProvider {
         failsWithErrorMessage("expected to not be a kind of NSNumber, got <__NSCFNumber instance>") {
             expect(NSNumber(value: 1)).toNot(beAKindOf(NSNumber.self))
         }
+#endif
     }
 }
-
-#endif

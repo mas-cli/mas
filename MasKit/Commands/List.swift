@@ -7,7 +7,6 @@
 //
 
 import Commandant
-import Result
 
 /// Command which lists all installed apps.
 public struct ListCommand: CommandProtocol {

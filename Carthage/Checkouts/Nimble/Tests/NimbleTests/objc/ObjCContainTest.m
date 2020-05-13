@@ -64,4 +64,13 @@
     });
 }
 
+- (void)testUnsupportedTypes {
+    expectFailureMessage(@"expected to contain <foo> (only works for NSArrays, NSSets, NSHashTables, and NSStrings), got <1>", ^{
+        expect(@1).to(contain(@"foo"));
+    });
+    expectFailureMessage(@"expected to not contain <foo> (only works for NSArrays, NSSets, NSHashTables, and NSStrings), got <1>", ^{
+        expect(@1).toNot(contain(@"foo"));
+    });
+}
+
 @end

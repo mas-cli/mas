@@ -7,7 +7,6 @@
 //
 
 import Commandant
-import Result
 
 /// Opens vendor's app page in a browser. Uses the iTunes Lookup API:
 /// https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/#lookup

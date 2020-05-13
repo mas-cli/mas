@@ -4,9 +4,7 @@ import Foundation
 /// is equal to the expected value.
 public func endWith<S: Sequence, T: Equatable>(_ endingElement: T) -> Predicate<S>
     where S.Iterator.Element == T {
-    return Predicate.fromDeprecatedClosure { actualExpression, failureMessage in
-        failureMessage.postfixMessage = "end with <\(endingElement)>"
-
+    return Predicate.simple("end with <\(endingElement)>") { actualExpression in
         if let actualValue = try actualExpression.evaluate() {
             var actualGenerator = actualValue.makeIterator()
             var lastItem: T?
@@ -16,55 +14,54 @@ public func endWith<S: Sequence, T: Equatable>(_ endingElement: T) -> Predicate<
                 item = actualGenerator.next()
             } while(item != nil)
 
-            return lastItem == endingElement
+            return PredicateStatus(bool: lastItem == endingElement)
         }
-        return false
-    }.requireNonNil
+        return .fail
+    }
 }
 
 /// A Nimble matcher that succeeds when the actual collection's last element
 /// is equal to the expected object.
 public func endWith(_ endingElement: Any) -> Predicate<NMBOrderedCollection> {
-    return Predicate.fromDeprecatedClosure { actualExpression, failureMessage in
-        failureMessage.postfixMessage = "end with <\(endingElement)>"
-        guard let collection = try actualExpression.evaluate() else { return false }
-        guard collection.count > 0 else { return false }
+    return Predicate.simple("end with <\(endingElement)>") { actualExpression in
+        guard let collection = try actualExpression.evaluate() else { return .fail }
+        guard collection.count > 0 else { return PredicateStatus(bool: false) }
         #if os(Linux)
             guard let collectionValue = collection.object(at: collection.count - 1) as? NSObject else {
-                return false
+                return .fail
             }
         #else
             let collectionValue = collection.object(at: collection.count - 1) as AnyObject
         #endif
 
-        return collectionValue.isEqual(endingElement)
-    }.requireNonNil
+        return PredicateStatus(bool: collectionValue.isEqual(endingElement))
+    }
 }
 
 /// A Nimble matcher that succeeds when the actual string contains the expected substring
 /// where the expected substring's location is the actual string's length minus the
 /// expected substring's length.
 public func endWith(_ endingSubstring: String) -> Predicate<String> {
-    return Predicate.fromDeprecatedClosure { actualExpression, failureMessage in
-        failureMessage.postfixMessage = "end with <\(endingSubstring)>"
+    return Predicate.simple("end with <\(endingSubstring)>") { actualExpression in
         if let collection = try actualExpression.evaluate() {
-            return collection.hasSuffix(endingSubstring)
+            return PredicateStatus(bool: collection.hasSuffix(endingSubstring))
         }
-        return false
-    }.requireNonNil
+        return .fail
+    }
 }
 
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+#if canImport(Darwin)
 extension NMBObjCMatcher {
-    @objc public class func endWithMatcher(_ expected: Any) -> NMBObjCMatcher {
-        return NMBObjCMatcher(canMatchNil: false) { actualExpression, failureMessage in
-            let actual = try! actualExpression.evaluate()
-            if (actual as? String) != nil {
+    @objc public class func endWithMatcher(_ expected: Any) -> NMBMatcher {
+        return NMBPredicate { actualExpression in
+            let actual = try actualExpression.evaluate()
+            if actual is String {
                 let expr = actualExpression.cast { $0 as? String }
-                return try! endWith(expected as! String).matches(expr, failureMessage: failureMessage)
+                // swiftlint:disable:next force_cast
+                return try endWith(expected as! String).satisfies(expr).toObjectiveC()
             } else {
                 let expr = actualExpression.cast { $0 as? NMBOrderedCollection }
-                return try! endWith(expected).matches(expr, failureMessage: failureMessage)
+                return try endWith(expected).satisfies(expr).toObjectiveC()
             }
         }
     }

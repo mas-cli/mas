@@ -3,7 +3,9 @@
 [![Build Status](https://travis-ci.org/Quick/Nimble.svg?branch=master)](https://travis-ci.org/Quick/Nimble)
 [![CocoaPods](https://img.shields.io/cocoapods/v/Nimble.svg)](https://cocoapods.org/pods/Nimble)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Accio supported](https://img.shields.io/badge/Accio-supported-0A7CF5.svg?style=flat)](https://github.com/JamitLabs/Accio)
 [![Platforms](https://img.shields.io/cocoapods/p/Nimble.svg)](https://cocoapods.org/pods/Nimble)
+[![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 
 Use Nimble to express the expected outcomes of Swift
 or Objective-C expressions. Inspired by
@@ -69,6 +71,7 @@ expect(ocean.isClean).toEventually(beTruthy())
 - [Installing Nimble](#installing-nimble)
   - [Installing Nimble as a Submodule](#installing-nimble-as-a-submodule)
   - [Installing Nimble via CocoaPods](#installing-nimble-via-cocoapods)
+  - [Installing Nimble via Accio](#installing-nimble-via-accio)
   - [Using Nimble without XCTest](#using-nimble-without-xctest)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -306,20 +309,8 @@ In Nimble, it's easy to make expectations on values that are updated
 asynchronously. Just use `toEventually` or `toEventuallyNot`:
 
 ```swift
-// Swift 3.0 and later
-
+// Swift
 DispatchQueue.main.async {
-    ocean.add("dolphins")
-    ocean.add("whales")
-}
-expect(ocean).toEventually(contain("dolphins", "whales"))
-```
-
-
-```swift
-// Swift 2.3 and earlier
-
-dispatch_async(dispatch_get_main_queue()) {
     ocean.add("dolphins")
     ocean.add("whales")
 }
@@ -857,11 +848,7 @@ Notes:
 
 ## Swift Error Handling
 
-If you're using Swift 2.0 or newer, you can use the `throwError` matcher to check if an error is thrown.
-
-Note:
-The following code sample references the `Swift.Error` protocol. 
-This is `Swift.ErrorProtocol` in versions of Swift prior to version 3.0.
+You can use the `throwError` matcher to check if an error is thrown.
 
 ```swift
 // Swift
@@ -1277,7 +1264,7 @@ public func equal<T: Equatable>(expectedValue: T?) -> Predicate<T> {
     //   Predicate { actual in  ... }
     //
     // But shown with types here for clarity.
-    return Predicate { (actual: Expression<T>) throws -> PredicateResult in
+    return Predicate { (actualExpression: Expression<T>) throws -> PredicateResult in
         let msg = ExpectationMessage.expectedActualValueTo("equal <\(expectedValue)>")
         if let actualValue = try actualExpression.evaluate() {
             return PredicateResult(
@@ -1673,11 +1660,11 @@ backported.
 The deprecating plan is a 3 major versions removal. Which is as follows:
 
  1. Introduce new `Predicate` API, deprecation warning for old matcher APIs.
-    (Nimble `v7.x.x`)
+    (Nimble `v7.x.x` and `v8.x.x`)
  2. Introduce warnings on migration-path features (`.predicate`,
     `Predicate`-constructors with similar arguments to old API). (Nimble
-    `v8.x.x`)
- 3. Remove old API. (Nimble `v9.x.x`)
+    `v9.x.x`)
+ 3. Remove old API. (Nimble `v10.x.x`)
 
 
 # Installing Nimble
@@ -1725,6 +1712,27 @@ end
 ```
 
 Finally run `pod install`.
+
+## Installing Nimble via Accio
+
+Add the following to your Package.swift:
+
+```swift
+.package(url: "https://github.com/Quick/Nimble.git", .upToNextMajor(from: "8.0.1")),
+```
+
+Next, add `Nimble` to your App targets dependencies like so:
+
+```swift
+.testTarget(
+    name: "AppTests",
+    dependencies: [
+        "Nimble",
+    ]
+),
+```
+
+Then run `accio update`.
 
 ## Using Nimble without XCTest
 

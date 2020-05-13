@@ -3,13 +3,6 @@ import XCTest
 import Nimble
 
 final class BeGreaterThanTest: XCTestCase, XCTestCaseProvider {
-    static var allTests: [(String, (BeGreaterThanTest) -> () throws -> Void)] {
-        return [
-            ("testGreaterThan", testGreaterThan),
-            ("testGreaterThanOperator", testGreaterThanOperator),
-        ]
-    }
-
     func testGreaterThan() {
         expect(10).to(beGreaterThan(2))
         expect(1).toNot(beGreaterThan(2))

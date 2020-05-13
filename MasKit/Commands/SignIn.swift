@@ -7,7 +7,6 @@
 //
 
 import Commandant
-import Result
 import StoreFoundation
 
 public struct SignInCommand: CommandProtocol {

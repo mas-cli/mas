@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Result
 
 /// Represents an argument passed on the command line.
 private enum RawArgument: Equatable {
@@ -21,24 +20,6 @@ private enum RawArgument: Equatable {
 	/// One or more flag arguments (e.g 'r' and 'f' for `-rf`)
 	case flag(OrderedSet<Character>)
 }
-
-#if !swift(>=4.1)
-private func ==(lhs: RawArgument, rhs: RawArgument) -> Bool {
-	switch (lhs, rhs) {
-	case let (.key(left), .key(right)):
-		return left == right
-
-	case let (.value(left), .value(right)):
-		return left == right
-
-	case let (.flag(left), .flag(right)):
-		return left == right
-
-	default:
-		return false
-	}
-}
-#endif
 
 extension RawArgument: CustomStringConvertible {
 	fileprivate var description: String {
@@ -122,7 +103,7 @@ public final class ArgumentParser {
 	///
 	/// If a value is found, the key and the value are both removed from the
 	/// list of arguments remaining to be parsed.
-	internal func consumeValue(forKey key: String) -> Result<String?, CommandantError<NoError>> {
+	internal func consumeValue(forKey key: String) -> Result<String?, CommandantError<Never>> {
 		let oldArguments = rawArguments
 		rawArguments.removeAll()
 

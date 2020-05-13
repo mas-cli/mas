@@ -1,22 +1,43 @@
 import Foundation
 
-/// A Nimble matcher that succeeds when the actual sequence contains the expected value.
+/// A Nimble matcher that succeeds when the actual sequence contains the expected values.
 public func contain<S: Sequence, T: Equatable>(_ items: T...) -> Predicate<S>
-    where S.Iterator.Element == T {
+    where S.Element == T {
     return contain(items)
 }
 
+/// A Nimble matcher that succeeds when the actual sequence contains the expected values.
 public func contain<S: Sequence, T: Equatable>(_ items: [T]) -> Predicate<S>
-    where S.Iterator.Element == T {
-    return Predicate.fromDeprecatedClosure { actualExpression, failureMessage in
-        failureMessage.postfixMessage = "contain <\(arrayAsString(items))>"
+    where S.Element == T {
+    return Predicate.simple("contain <\(arrayAsString(items))>") { actualExpression in
         if let actual = try actualExpression.evaluate() {
-            return items.all {
+            let matches = items.allSatisfy {
                 return actual.contains($0)
             }
+            return PredicateStatus(bool: matches)
         }
-        return false
-    }.requireNonNil
+        return .fail
+    }
+}
+
+/// A Nimble matcher that succeeds when the actual set contains the expected values.
+public func contain<S: SetAlgebra, T: Equatable>(_ items: T...) -> Predicate<S>
+    where S.Element == T {
+        return contain(items)
+}
+
+/// A Nimble matcher that succeeds when the actual set contains the expected values.
+public func contain<S: SetAlgebra, T: Equatable>(_ items: [T]) -> Predicate<S>
+    where S.Element == T {
+        return Predicate.simple("contain <\(arrayAsString(items))>") { actualExpression in
+            if let actual = try actualExpression.evaluate() {
+                let matches = items.allSatisfy {
+                    return actual.contains($0)
+                }
+                return PredicateStatus(bool: matches)
+            }
+            return .fail
+        }
 }
 
 /// A Nimble matcher that succeeds when the actual string contains the expected substring.
@@ -25,16 +46,16 @@ public func contain(_ substrings: String...) -> Predicate<String> {
 }
 
 public func contain(_ substrings: [String]) -> Predicate<String> {
-    return Predicate.fromDeprecatedClosure { actualExpression, failureMessage in
-        failureMessage.postfixMessage = "contain <\(arrayAsString(substrings))>"
+    return Predicate.simple("contain <\(arrayAsString(substrings))>") { actualExpression in
         if let actual = try actualExpression.evaluate() {
-            return substrings.all {
+            let matches = substrings.allSatisfy {
                 let range = actual.range(of: $0)
                 return range != nil && !range!.isEmpty
             }
+            return PredicateStatus(bool: matches)
         }
-        return false
-    }.requireNonNil
+        return .fail
+    }
 }
 
 /// A Nimble matcher that succeeds when the actual string contains the expected substring.
@@ -43,13 +64,13 @@ public func contain(_ substrings: NSString...) -> Predicate<NSString> {
 }
 
 public func contain(_ substrings: [NSString]) -> Predicate<NSString> {
-    return Predicate.fromDeprecatedClosure { actualExpression, failureMessage in
-        failureMessage.postfixMessage = "contain <\(arrayAsString(substrings))>"
+    return Predicate.simple("contain <\(arrayAsString(substrings))>") { actualExpression in
         if let actual = try actualExpression.evaluate() {
-            return substrings.all { actual.range(of: $0.description).length != 0 }
+            let matches = substrings.allSatisfy { actual.range(of: $0.description).length != 0 }
+            return PredicateStatus(bool: matches)
         }
-        return false
-    }.requireNonNil
+        return .fail
+    }
 }
 
 /// A Nimble matcher that succeeds when the actual collection contains the expected object.
@@ -58,37 +79,45 @@ public func contain(_ items: Any?...) -> Predicate<NMBContainer> {
 }
 
 public func contain(_ items: [Any?]) -> Predicate<NMBContainer> {
-    return Predicate.fromDeprecatedClosure { actualExpression, failureMessage in
-        failureMessage.postfixMessage = "contain <\(arrayAsString(items))>"
-        guard let actual = try actualExpression.evaluate() else { return false }
-        return items.all { item in
-            return item != nil && actual.contains(item!)
+    return Predicate.simple("contain <\(arrayAsString(items))>") { actualExpression in
+        guard let actual = try actualExpression.evaluate() else { return .fail }
+        let matches = items.allSatisfy { item in
+            return item.map { actual.contains($0) } ?? false
         }
-    }.requireNonNil
+        return PredicateStatus(bool: matches)
+    }
 }
 
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+#if canImport(Darwin)
 extension NMBObjCMatcher {
-    @objc public class func containMatcher(_ expected: [NSObject]) -> NMBObjCMatcher {
-        return NMBObjCMatcher(canMatchNil: false) { actualExpression, failureMessage in
+    @objc public class func containMatcher(_ expected: [NSObject]) -> NMBMatcher {
+        return NMBPredicate { actualExpression in
             let location = actualExpression.location
-            let actualValue = try! actualExpression.evaluate()
+            let actualValue = try actualExpression.evaluate()
             if let value = actualValue as? NMBContainer {
                 let expr = Expression(expression: ({ value as NMBContainer }), location: location)
 
                 // A straightforward cast on the array causes this to crash, so we have to cast the individual items
                 let expectedOptionals: [Any?] = expected.map({ $0 as Any? })
-                return try! contain(expectedOptionals).matches(expr, failureMessage: failureMessage)
+                return try contain(expectedOptionals).satisfies(expr).toObjectiveC()
             } else if let value = actualValue as? NSString {
                 let expr = Expression(expression: ({ value as String }), location: location)
-                return try! contain(expected as! [String]).matches(expr, failureMessage: failureMessage)
-            } else if actualValue != nil {
-                // swiftlint:disable:next line_length
-                failureMessage.postfixMessage = "contain <\(arrayAsString(expected))> (only works for NSArrays, NSSets, NSHashTables, and NSStrings)"
-            } else {
-                failureMessage.postfixMessage = "contain <\(arrayAsString(expected))>"
+                // swiftlint:disable:next force_cast
+                return try contain(expected as! [String]).satisfies(expr).toObjectiveC()
             }
-            return false
+
+            let message: ExpectationMessage
+            if actualValue != nil {
+                message = ExpectationMessage.expectedActualValueTo(
+                    // swiftlint:disable:next line_length
+                    "contain <\(arrayAsString(expected))> (only works for NSArrays, NSSets, NSHashTables, and NSStrings)"
+                )
+            } else {
+                message = ExpectationMessage
+                    .expectedActualValueTo("contain <\(arrayAsString(expected))>")
+                    .appendedBeNilHint()
+            }
+            return NMBPredicateResult(status: .fail, message: message.toObjectiveC())
         }
     }
 }

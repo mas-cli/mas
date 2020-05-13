@@ -8,7 +8,6 @@
 
 import Commandant
 import CommerceKit
-import Result
 
 /// Command which installs the first search result. This is handy as many MAS titles
 /// can be long with embedded keywords.

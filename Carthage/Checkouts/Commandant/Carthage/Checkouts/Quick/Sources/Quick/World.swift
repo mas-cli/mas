@@ -12,15 +12,9 @@ public typealias SharedExampleContext = () -> [String: Any]
 */
 public typealias SharedExampleClosure = (@escaping SharedExampleContext) -> Void
 
-// `#if swift(>=3.2) && (os(macOS) || os(iOS) || os(tvOS) || os(watchOS)) && !SWIFT_PACKAGE`
-// does not work as expected.
-#if swift(>=3.2)
-    #if (os(macOS) || os(iOS) || os(tvOS) || os(watchOS)) && !SWIFT_PACKAGE
-    @objcMembers
-    internal class _WorldBase: NSObject {}
-    #else
-    internal class _WorldBase: NSObject {}
-    #endif
+#if canImport(Darwin) && !SWIFT_PACKAGE
+@objcMembers
+internal class _WorldBase: NSObject {}
 #else
 internal class _WorldBase: NSObject {}
 #endif
@@ -57,7 +51,7 @@ final internal class World: _WorldBase {
         within this test suite. This is only true within the context of Quick
         functional tests.
     */
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+#if canImport(Darwin)
     // Convention of generating Objective-C selector has been changed on Swift 3
     @objc(isRunningAdditionalSuites)
     internal var isRunningAdditionalSuites = false
@@ -158,9 +152,9 @@ final internal class World: _WorldBase {
         }
     }
 
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+#if canImport(Darwin)
     @objc(examplesForSpecClass:)
-    private func objc_examples(_ specClass: AnyClass) -> [Example] {
+    internal func objc_examples(_ specClass: AnyClass) -> [Example] {
         return examples(specClass)
     }
 #endif

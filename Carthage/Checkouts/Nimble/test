@@ -54,35 +54,43 @@ function run {
 }
 
 function test_ios {
-    run osascript -e 'tell app "Simulator" to quit'
-    run xcodebuild -project Nimble.xcodeproj -scheme "Nimble-iOS" -configuration "Debug" -sdk "iphonesimulator$BUILD_IOS_SDK_VERSION" -destination "name=iPad Air,OS=$RUNTIME_IOS_SDK_VERSION" build-for-testing test-without-building
+    run set -o pipefail && xcodebuild -project Nimble.xcodeproj -scheme "Nimble-iOS" -configuration "Debug" -destination "generic/platform=iOS" OTHER_SWIFT_FLAGS='$(inherited) -suppress-warnings' build | xcpretty
 
     run osascript -e 'tell app "Simulator" to quit'
-    run xcodebuild -project Nimble.xcodeproj -scheme "Nimble-iOS" -configuration "Debug" -sdk "iphonesimulator$BUILD_IOS_SDK_VERSION" -destination "name=iPhone 5s,OS=$RUNTIME_IOS_SDK_VERSION" build-for-testing test-without-building
+    run set -o pipefail && xcodebuild -project Nimble.xcodeproj -scheme "Nimble-iOS" -configuration "Debug" -sdk "iphonesimulator$BUILD_IOS_SDK_VERSION" -destination "name=iPad Pro (11-inch),OS=$RUNTIME_IOS_SDK_VERSION" OTHER_SWIFT_FLAGS='$(inherited) -suppress-warnings' build-for-testing test-without-building | xcpretty
+
+    run osascript -e 'tell app "Simulator" to quit'
+    run set -o pipefail && xcodebuild -project Nimble.xcodeproj -scheme "Nimble-iOS" -configuration "Debug" -sdk "iphonesimulator$BUILD_IOS_SDK_VERSION" -destination "name=iPhone 8,OS=$RUNTIME_IOS_SDK_VERSION" OTHER_SWIFT_FLAGS='$(inherited) -suppress-warnings' build-for-testing test-without-building | xcpretty
 }
 
 function test_tvos {
+    run set -o pipefail && xcodebuild -project Nimble.xcodeproj -scheme "Nimble-tvOS" -configuration "Debug" -destination "generic/platform=tvOS" OTHER_SWIFT_FLAGS='$(inherited) -suppress-warnings' build | xcpretty
+
     run osascript -e 'tell app "Simulator" to quit'
-    run xcodebuild -project Nimble.xcodeproj -scheme "Nimble-tvOS" -configuration "Debug" -sdk "appletvsimulator$BUILD_TVOS_SDK_VERSION" -destination "name=Apple TV 1080p,OS=$RUNTIME_TVOS_SDK_VERSION" build-for-testing test-without-building
+    run set -o pipefail && xcodebuild -project Nimble.xcodeproj -scheme "Nimble-tvOS" -configuration "Debug" -sdk "appletvsimulator$BUILD_TVOS_SDK_VERSION" -destination "name=Apple TV,OS=$RUNTIME_TVOS_SDK_VERSION" OTHER_SWIFT_FLAGS='$(inherited) -suppress-warnings' build-for-testing test-without-building | xcpretty
 }
 
 function test_macos {
-    run xcodebuild -project Nimble.xcodeproj -scheme "Nimble-macOS" -configuration "Debug" -sdk "macosx$BUILD_MACOS_SDK_VERSION" build-for-testing test-without-building
+    run set -o pipefail && xcodebuild -project Nimble.xcodeproj -scheme "Nimble-macOS" -configuration "Debug" -sdk "macosx$BUILD_MACOS_SDK_VERSION" OTHER_SWIFT_FLAGS='$(inherited) -suppress-warnings' build-for-testing test-without-building | xcpretty
 }
 
 function test_podspec {
     echo "Gathering CocoaPods installation information..."
     run bundle exec pod --version
     echo "Linting podspec..."
+    # To work around the lint error: "ERROR | swift: Specification `Nimble` specifies an inconsistent `swift_version` (`4.0`) compared to the one present in your `.swift-version` file (`4.1`). Please remove the `.swift-version` file which is now deprecated and only use the `swift_version` attribute within your podspec."
+    # `.swift-version` is for swiftenv, not for CocoaPods, so we can't remove the file as suggested.
+    run mv .swift-version .swift-version.backup
     # Note: remove `--allow-warnings` once old Matcher API has been removed
-    run bundle exec pod lib lint Nimble.podspec --allow-warnings
+    run bundle exec pod lib lint Nimble.podspec --allow-warnings --skip-import-validation
+    run mv .swift-version.backup .swift-version
 }
 
 function test_swiftpm {
     if [ -d .build ]; then
-        run swift build --clean || swift package clean
+        run swift package clean
     fi
-    run swift build && swift test
+    run swift build -Xswiftc -suppress-warnings && swift test -Xswiftc -suppress-warnings
 }
 
 function test_swiftpm_docker {

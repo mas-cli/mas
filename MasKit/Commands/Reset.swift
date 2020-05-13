@@ -8,7 +8,6 @@
 
 import Commandant
 import CommerceKit
-import Result
 
 /// Kills several macOS processes as a means to reset the app store.
 public struct ResetCommand: CommandProtocol {

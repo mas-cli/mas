@@ -9,7 +9,6 @@
 @testable import MasKit
 import Nimble
 import Quick
-import Result
 
 class SearchResultsFormatterSpec: QuickSpec {
     override func spec() {

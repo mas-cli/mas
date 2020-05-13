@@ -171,4 +171,13 @@
     });
 }
 
+- (void)testNilMatches {
+    expectNilFailureMessage(@"expected to have a collection with count 3, got <nil>", ^{
+        expect(nil).to(haveCount(3));
+    });
+    expectNilFailureMessage(@"expected to not have a collection with count 3, got <nil>", ^{
+        expect(nil).toNot(haveCount(3));
+    });
+}
+
 @end

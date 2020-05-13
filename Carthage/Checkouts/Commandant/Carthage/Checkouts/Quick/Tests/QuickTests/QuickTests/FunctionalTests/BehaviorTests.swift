@@ -17,7 +17,7 @@ class FunctionalTests_BehaviorTests_ContextSpec: QuickSpec {
     }
 }
 
-#if (os(macOS) || os(iOS) || os(tvOS) || os(watchOS)) && !SWIFT_PACKAGE
+#if canImport(Darwin) && !SWIFT_PACKAGE
 class FunctionalTests_BehaviorTests_ErrorSpec: QuickSpec {
     override func spec() {
         describe("error handling when misusing ordering") {
