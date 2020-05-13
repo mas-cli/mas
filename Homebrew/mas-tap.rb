@@ -3,7 +3,7 @@ class Mas < Formula
   homepage "https://github.com/mas-cli/mas"
   url "https://github.com/mas-cli/mas.git",
       :tag      => "v1.6.4",
-      :revision => "3858fe0761624bd31be458251cc8978f990b634c"
+      :revision => "4cfb3185b6c72ac4a67eaaf17f842cc1dacf27c7"
   head "https://github.com/mas-cli/mas.git"
 
   bottle do
