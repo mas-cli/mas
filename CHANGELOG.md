@@ -18,6 +18,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - 💡 Update readme with simpler tap usage #241
 - Added support for purchasing apps (#2, #145)
 
+## [v1.6.4] 🔎 Search Fix - 2020-05-11
+
+- 🐛 Fix search parameters #269
+
 ## [v1.6.3] 🗒️ List Fix - 2019-03-31
 
 - 🐛 Fix for list command on macOS 10.14.4 #228

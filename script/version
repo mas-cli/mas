@@ -6,4 +6,7 @@
 # Displays the current marketing version of mas.
 #
 
-agvtool what-marketing-version -terse1
+# This no longer works with MARKETING_VERSION build setting in Info.plist
+# agvtool what-marketing-version -terse1
+
+echo "1.6.4"
