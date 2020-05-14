@@ -12,18 +12,28 @@ import Quick
 
 class MasAppLibrarySpec: QuickSpec {
     override func spec() {
-        var library = MasAppLibrary()
+        let library = MasAppLibrary(softwareMap: SoftwareMapMock(products: apps))
+
         describe("mas app library") {
             it("contains all installed apps") {
-                expect(library.installedApps).to(equal(apps)) 
-//                expect(library.installedApps).to(contain(myApp))
+                expect(library.installedApps.count) == apps.count
+                expect(library.installedApps.first!.appName) == myApp.appName
+            }
+            it("can locate an app by bundle id") {
+                let app = library.installedApp(forBundleId: "com.example")!
+                expect(app.bundleIdentifier) == myApp.bundleIdentifier
             }
         }
     }
 }
 
 // MARK: - Test Data
-let myApp = SoftwareProductMock(appName: "MyApp", bundleIdentifier: "com.example", bundlePath: "", bundleVersion: "", itemIdentifier: 1234)
+let myApp = SoftwareProductMock(
+    appName: "MyApp",
+    bundleIdentifier: "com.example",
+    bundlePath: "",
+    bundleVersion: "",
+    itemIdentifier: 1234)
 
 var apps: [SoftwareProduct] = [
     myApp
