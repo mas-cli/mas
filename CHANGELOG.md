@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+- ♻️ SoftwareMap Protocol #271
 - 🕊 Swift 5 #255
   - ⚒️ Xcode 10.2 and macOS 10.14 required to build
 - ⬆️ Commandant (0.17.0) #255
