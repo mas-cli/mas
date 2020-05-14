@@ -18,10 +18,15 @@ public struct UninstallCommand: CommandProtocol {
 
     private let appLibrary: AppLibrary
 
-    /// Designated initializer.
-    ///
-    /// - Parameter appLibrary: <#appLibrary description#>
-    public init(appLibrary: AppLibrary = MasAppLibrary()) {
+    /// Public initializer.
+    /// - Parameter appLibrary: AppLibrary manager.
+    public init() {
+        self.init(appLibrary: MasAppLibrary())
+    }
+
+    /// Internal initializer.
+    /// - Parameter appLibrary: AppLibrary manager.
+    init(appLibrary: AppLibrary = MasAppLibrary()) {
         self.appLibrary = appLibrary
     }
 

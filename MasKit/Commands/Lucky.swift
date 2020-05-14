@@ -19,14 +19,19 @@ public struct LuckyCommand: CommandProtocol {
     private let appLibrary: AppLibrary
     private let storeSearch: StoreSearch
 
-    /// Designated initializer.
-    ///
+    /// Public initializer.
+    /// - Parameter storeSearch: Search manager.
+    public init(storeSearch: StoreSearch = MasStoreSearch()) {
+        self.init(appLibrary: MasAppLibrary(), storeSearch: storeSearch)
+    }
+
+    /// Internal initializer.
     /// - Parameter appLibrary: AppLibrary manager.
     /// - Parameter storeSearch: Search manager.
-    public init(appLibrary: AppLibrary = MasAppLibrary(),
-                storeSearch: StoreSearch = MasStoreSearch()) {
-        self.appLibrary = appLibrary
-        self.storeSearch = storeSearch
+    init(appLibrary: AppLibrary = MasAppLibrary(),
+         storeSearch: StoreSearch = MasStoreSearch()) {
+         self.appLibrary = appLibrary
+         self.storeSearch = storeSearch
     }
 
     /// Runs the command.

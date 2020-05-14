@@ -11,6 +11,7 @@ import StoreFoundation
 
 public struct SignInCommand: CommandProtocol {
     public typealias Options = SignInOptions
+
     public let verb = "signin"
     public let function = "Sign in to the Mac App Store"
 
@@ -46,12 +47,11 @@ public struct SignInCommand: CommandProtocol {
 }
 
 public struct SignInOptions: OptionsProtocol {
+    public typealias ClientError = MASError
+
     let username: String
     let password: String
-
     let dialog: Bool
-
-    public typealias ClientError = MASError
 
     static func create(username: String) -> (_ password: String) -> (_ dialog: Bool) -> SignInOptions {
         return { password in { dialog in

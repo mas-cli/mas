@@ -1,5 +1,5 @@
 //
-//  Error.swift
+//  MAError.swift
 //  mas-cli
 //
 //  Created by Andrew Naylor on 21/08/2015.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum MASError: Error, CustomStringConvertible, Equatable {
+public enum MASError: Error, Equatable {
     case notSignedIn
     case signInDisabled
     case signInFailed(error: NSError?)
@@ -29,7 +29,10 @@ public enum MASError: Error, CustomStringConvertible, Equatable {
     case urlEncoding
     case noData
     case jsonParsing(error: NSError?)
+}
 
+// MARK: - CustomStringConvertible
+extension MASError: CustomStringConvertible {
     public var description: String {
         switch self {
         case .notSignedIn:
