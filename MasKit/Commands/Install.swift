@@ -17,10 +17,15 @@ public struct InstallCommand: CommandProtocol {
 
     private let appLibrary: AppLibrary
 
-    /// Designated initializer.
-    ///
+    /// Public initializer.
     /// - Parameter appLibrary: AppLibrary manager.
-    public init(appLibrary: AppLibrary = MasAppLibrary()) {
+    public init() {
+        self.init(appLibrary: MasAppLibrary())
+    }
+
+    /// Internal initializer.
+    /// - Parameter appLibrary: AppLibrary manager.
+    init(appLibrary: AppLibrary = MasAppLibrary()) {
         self.appLibrary = appLibrary
     }
 

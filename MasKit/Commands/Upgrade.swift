@@ -17,10 +17,15 @@ public struct UpgradeCommand: CommandProtocol {
 
     private let appLibrary: AppLibrary
 
-    /// Designated initializer.
-    ///
-    /// - Parameter appLibrary: Instance of the app library.
-    public init(appLibrary: AppLibrary = MasAppLibrary()) {
+    /// Public initializer.
+    /// - Parameter appLibrary: AppLibrary manager.
+    public init() {
+        self.init(appLibrary: MasAppLibrary())
+    }
+
+    /// Internal initializer.
+    /// - Parameter appLibrary: AppLibrary manager.
+    init(appLibrary: AppLibrary = MasAppLibrary()) {
         self.appLibrary = appLibrary
     }
 

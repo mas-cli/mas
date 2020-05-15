@@ -14,3 +14,14 @@ public protocol SoftwareProduct {
     var bundleVersion: String { get set }
     var itemIdentifier: NSNumber { get set }
 }
+
+// MARK: - Equatable
+extension SoftwareProduct {
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        return lhs.appName == rhs.appName
+            && lhs.bundleIdentifier == rhs.bundleIdentifier
+            && lhs.bundlePath == rhs.bundlePath
+            && lhs.bundleVersion == rhs.bundleVersion
+            && lhs.itemIdentifier == rhs.itemIdentifier
+    }
+}

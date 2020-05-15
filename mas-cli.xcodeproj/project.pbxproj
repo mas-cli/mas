@@ -106,6 +106,9 @@
 		F83213A22173DC13008BA8A0 /* Commandant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406B213F4DDD0044E445 /* Commandant.framework */; };
 		F83213A82173F5A7008BA8A0 /* MasKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8FB715220F2B41400F56FDC /* MasKit.framework */; };
 		F83213A92173F5D0008BA8A0 /* Commandant.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406B213F4DDD0044E445 /* Commandant.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F85DA8AE240C313900FE5650 /* MasAppLibrarySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85DA8AD240C313900FE5650 /* MasAppLibrarySpec.swift */; };
+		F85DA8B0240C32FA00FE5650 /* SoftwareMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85DA8AF240C32FA00FE5650 /* SoftwareMap.swift */; };
+		F85DA8B2240CBAFE00FE5650 /* CKSoftwareMap+SoftwareMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85DA8B1240CBAFE00FE5650 /* CKSoftwareMap+SoftwareMap.swift */; };
 		F88CB8E12404DAAD00B691B5 /* OpenSystemCommandSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88CB8E02404DAAD00B691B5 /* OpenSystemCommandSpec.swift */; };
 		F8FB715B20F2B41400F56FDC /* MasKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8FB715220F2B41400F56FDC /* MasKit.framework */; };
 		F8FB716220F2B41400F56FDC /* MasKit.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB715420F2B41400F56FDC /* MasKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -319,6 +322,9 @@
 		F83213A42173EF75008BA8A0 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F83213A52173EF75008BA8A0 /* StoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreFoundation.framework; path = ../../../../../../../System/Library/PrivateFrameworks/StoreFoundation.framework; sourceTree = "<group>"; };
 		F83213A62173EF75008BA8A0 /* CommerceKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CommerceKit.framework; path = ../../../../../../../System/Library/PrivateFrameworks/CommerceKit.framework; sourceTree = "<group>"; };
+		F85DA8AD240C313900FE5650 /* MasAppLibrarySpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasAppLibrarySpec.swift; sourceTree = "<group>"; };
+		F85DA8AF240C32FA00FE5650 /* SoftwareMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftwareMap.swift; sourceTree = "<group>"; };
+		F85DA8B1240CBAFE00FE5650 /* CKSoftwareMap+SoftwareMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CKSoftwareMap+SoftwareMap.swift"; sourceTree = "<group>"; };
 		F88CB8E02404DAAD00B691B5 /* OpenSystemCommandSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSystemCommandSpec.swift; sourceTree = "<group>"; };
 		F8FB715220F2B41400F56FDC /* MasKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MasKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8FB715420F2B41400F56FDC /* MasKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasKit.h; sourceTree = "<group>"; };
@@ -533,6 +539,7 @@
 				B594B12621D5825800F3AC59 /* AppLibrary.swift */,
 				B594B12F21D5855D00F3AC59 /* MasAppLibrary.swift */,
 				B594B15121D89A8B00F3AC59 /* MasStoreSearch.swift */,
+				F85DA8AF240C32FA00FE5650 /* SoftwareMap.swift */,
 				B594B14F21D8998000F3AC59 /* StoreSearch.swift */,
 			);
 			path = Controllers;
@@ -542,6 +549,7 @@
 			isa = PBXGroup;
 			children = (
 				B594B12D21D5850700F3AC59 /* AppLibraryMock.swift */,
+				F85DA8AD240C313900FE5650 /* MasAppLibrarySpec.swift */,
 				B576FDF221E03B780016B39D /* MasStoreSearchSpec.swift */,
 				B5DBF81421E02BA900F3B151 /* StoreSearchMock.swift */,
 				B576FE3421E98AAE0016B39D /* StoreSearchSpec.swift */,
@@ -683,6 +691,7 @@
 		ED0F238E1B87A54700AE40CD /* AppStore */ = {
 			isa = PBXGroup;
 			children = (
+				F85DA8B1240CBAFE00FE5650 /* CKSoftwareMap+SoftwareMap.swift */,
 				B594B12A21D5837200F3AC59 /* CKSoftwareProduct+SoftwareProduct.swift */,
 				ED0F238A1B87569C00AE40CD /* Downloader.swift */,
 				ED0F238F1B87A56F00AE40CD /* ISStoreAccount.swift */,
@@ -858,10 +867,10 @@
 			buildPhases = (
 				F8FB714D20F2B41400F56FDC /* Headers */,
 				F8FB714E20F2B41400F56FDC /* Sources */,
+				B576FE3121E96E6C0016B39D /* 🚨 SwiftLint */,
 				F8FB714F20F2B41400F56FDC /* Frameworks */,
 				F83213A72173F58B008BA8A0 /* Copy Frameworks */,
 				F8FB715020F2B41400F56FDC /* Resources */,
-				B576FE3121E96E6C0016B39D /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -965,7 +974,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		B576FE3121E96E6C0016B39D /* SwiftLint */ = {
+		B576FE3121E96E6C0016B39D /* 🚨 SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -974,7 +983,7 @@
 			);
 			inputPaths = (
 			);
-			name = SwiftLint;
+			name = "🚨 SwiftLint";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -1001,6 +1010,7 @@
 				F8FB716F20F2B4DD00F56FDC /* Account.swift in Sources */,
 				B576FE2A21E4240B0016B39D /* AppInfoFormatter.swift in Sources */,
 				B594B12721D5825800F3AC59 /* AppLibrary.swift in Sources */,
+				F85DA8B2240CBAFE00FE5650 /* CKSoftwareMap+SoftwareMap.swift in Sources */,
 				B594B12B21D5837200F3AC59 /* CKSoftwareProduct+SoftwareProduct.swift in Sources */,
 				B576FE2821E423E60016B39D /* Dictionary+StringOrEmpty.swift in Sources */,
 				F8FB716A20F2B4DD00F56FDC /* Downloader.swift in Sources */,
@@ -1028,6 +1038,7 @@
 				B576FDFA21E1081C0016B39D /* SearchResultList.swift in Sources */,
 				F8FB717720F2B4DD00F56FDC /* SignIn.swift in Sources */,
 				F8FB717820F2B4DD00F56FDC /* SignOut.swift in Sources */,
+				F85DA8B0240C32FA00FE5650 /* SoftwareMap.swift in Sources */,
 				B594B12921D5831D00F3AC59 /* SoftwareProduct.swift in Sources */,
 				F8FB716D20F2B4DD00F56FDC /* SSPurchase.swift in Sources */,
 				F8FB716E20F2B4DD00F56FDC /* StoreAccount.swift in Sources */,
@@ -1055,6 +1066,7 @@
 				B594B14621D6D95700F3AC59 /* InstallCommandSpec.swift in Sources */,
 				B594B12221D5416100F3AC59 /* ListCommandSpec.swift in Sources */,
 				B594B14421D6D91800F3AC59 /* LuckyCommandSpec.swift in Sources */,
+				F85DA8AE240C313900FE5650 /* MasAppLibrarySpec.swift in Sources */,
 				B576FDF521E1078F0016B39D /* MASErrorTestCase.swift in Sources */,
 				B576FDF321E03B780016B39D /* MasStoreSearchSpec.swift in Sources */,
 				B576FE0C21E116590016B39D /* NetworkManagerTests.swift in Sources */,
@@ -1062,6 +1074,7 @@
 				B576FE1221E1D82D0016B39D /* NetworkSessionMockFromFile.swift in Sources */,
 				B5DBF81321DEEC7C00F3B151 /* OpenCommandSpec.swift in Sources */,
 				B5DBF81721E02E3400F3B151 /* OpenSystemCommandMock.swift in Sources */,
+				F88CB8E12404DAAD00B691B5 /* OpenSystemCommandSpec.swift in Sources */,
 				B594B14221D6D8EC00F3AC59 /* OutdatedCommandSpec.swift in Sources */,
 				B576FE2C21E42A230016B39D /* OutputListener.swift in Sources */,
 				B576FE3021E5BD130016B39D /* OutputListenerSpec.swift in Sources */,
@@ -1072,7 +1085,6 @@
 				B55B3D9221ED9B8C0009A1A5 /* SearchResultFormatterSpec.swift in Sources */,
 				B594B13C21D6D72E00F3AC59 /* SignInCommandSpec.swift in Sources */,
 				B594B13A21D6D70400F3AC59 /* SignOutCommandSpec.swift in Sources */,
-				F88CB8E12404DAAD00B691B5 /* OpenSystemCommandSpec.swift in Sources */,
 				B576FDF921E107CA0016B39D /* SoftwareProductMock.swift in Sources */,
 				B5DBF81521E02BA900F3B151 /* StoreSearchMock.swift in Sources */,
 				B576FE3521E98AAE0016B39D /* StoreSearchSpec.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  CKSoftwareProduct+SoftwareProduct.swift
 //  MasKit
 //
 //  Created by Ben Chatelain on 12/27/18.
