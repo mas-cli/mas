@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+- ✨ New `purchase` command for purchasing free apps #264 (resolves #2, #145)  
+  thanks, [@blochberger](https://github.com/blochberger)!
+- 🐟 Seriously more interactive fish completions #242  
+  thanks, [@lwolfsonkin](https://github.com/lwolfsonkin)!
 - ♻️ SoftwareMap Protocol #271
 - 🕊 Swift 5 #255
   - ⚒️ Xcode 10.2 and macOS 10.14 required to build
@@ -14,10 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - ⬆️ Nimble (8.0.4) #255
 - ⬆️ Quick (2.2.0) #255
 - ➖ Result #255
-- Seriously more interactive fish completions #242  
-  thanks, [@lwolfsonkin](https://github.com/lwolfsonkin)!
 - 💡 Update readme with simpler tap usage #241
-- Added support for purchasing apps (#2, #145)
 
 ## [v1.6.4] 🔎 Search Fix - 2020-05-11
 
