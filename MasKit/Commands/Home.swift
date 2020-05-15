@@ -29,8 +29,7 @@ public struct HomeCommand: CommandProtocol {
     /// Runs the command.
     public func run(_ options: HomeOptions) -> Result<(), MASError> {
         do {
-            guard let result = try storeSearch.lookup(app: options.appId)
-            else {
+            guard let result = try storeSearch.lookup(app: options.appId) else {
                 print("No results found")
                 return .failure(.noSearchResultsFound)
             }

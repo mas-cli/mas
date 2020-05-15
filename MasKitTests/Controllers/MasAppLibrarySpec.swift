@@ -48,15 +48,9 @@ struct SoftwareMapMock: SoftwareMap {
     }
 
     func product(for bundleIdentifier: String) -> SoftwareProduct? {
-        for product in products {
-            if product.bundleIdentifier == bundleIdentifier {
-                return product
-            }
+        for product in products where product.bundleIdentifier == bundleIdentifier {
+            return product
         }
         return nil
     }
 }
-
-//public func == (lhs: Expectation<[SoftwareProduct]>, rhs: [SoftwareProduct]) {
-//    lhs.to(beCloseTo(rhs))
-//}

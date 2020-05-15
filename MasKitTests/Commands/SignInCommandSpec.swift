@@ -17,7 +17,7 @@ class SignInCommandSpec: QuickSpec {
                 let cmd = SignInCommand()
                 let result = cmd.run(SignInCommand.Options(username: "", password: "", dialog: false))
                 print(result)
-//                expect(result).to(beSuccess())
+                //                expect(result).to(beSuccess())
             }
         }
     }

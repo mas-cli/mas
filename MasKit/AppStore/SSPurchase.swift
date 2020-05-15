@@ -13,36 +13,36 @@ typealias SSPurchaseCompletion =
     (_ purchase: SSPurchase?, _ completed: Bool, _ error: Error?, _ response: SSPurchaseResponse?) -> Void
 
 extension SSPurchase {
-    convenience init(adamId: UInt64, account: ISStoreAccount, isPurchase: Bool) {
+    convenience init(adamId: UInt64, account: ISStoreAccount, purchase: Bool = false) {
         self.init()
 
-		var parameters: [String: Any] = [
-			"productType": "C",
-			"price": 0,
-			"salableAdamId": adamId,
-			"pg": "default",
-			"appExtVrsId": 0
-		]
+        var parameters: [String: Any] = [
+            "productType": "C",
+            "price": 0,
+            "salableAdamId": adamId,
+            "pg": "default",
+            "appExtVrsId": 0
+        ]
 
-        if isPurchase {
-			parameters["macappinstalledconfirmed"] = 1
-			parameters["pricingParameters"] = "STDQ"
+        if purchase {
+            parameters["macappinstalledconfirmed"] = 1
+            parameters["pricingParameters"] = "STDQ"
 
         } else {
             // is redownload, use existing functionality
-			parameters["pricingParameters"] = "STDRDL"
+            parameters["pricingParameters"] = "STDRDL"
         }
 
-		buyParameters = parameters.map { key, value in
-			return "\(key)=\(value)"
-		}.joined(separator: "&")
+        buyParameters = parameters.map { key, value in
+            return "\(key)=\(value)"
+        }.joined(separator: "&")
 
         itemIdentifier = adamId
         accountIdentifier = account.dsID
         appleID = account.identifier
 
         // Not sure if this is needed, but lets use it here.
-        if isPurchase {
+        if purchase {
             isRedownload = false
         }
 

@@ -17,7 +17,7 @@ class SignOutCommandSpec: QuickSpec {
                 let cmd = SignOutCommand()
                 let result = cmd.run(SignOutCommand.Options())
                 print(result)
-//                expect(result).to(beSuccess())
+                //                expect(result).to(beSuccess())
             }
         }
     }

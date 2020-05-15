@@ -18,7 +18,6 @@ public struct InstallCommand: CommandProtocol {
     private let appLibrary: AppLibrary
 
     /// Public initializer.
-    /// - Parameter appLibrary: AppLibrary manager.
     public init() {
         self.init(appLibrary: MasAppLibrary())
     }
@@ -38,7 +37,7 @@ public struct InstallCommand: CommandProtocol {
                 return nil
             }
 
-            return download(appId, isPurchase: false)
+            return download(appId)
         }
 
         switch downloadResults.count {

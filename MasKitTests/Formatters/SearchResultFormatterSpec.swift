@@ -30,7 +30,7 @@ class SearchResultsFormatterSpec: QuickSpec {
                     trackId: 12345,
                     trackName: "Awesome App",
                     version: "19.2.1"
-                )]
+                    )]
                 let output = format(results, false)
                 expect(output) == "       12345  Awesome App (19.2.1)"
             }
@@ -40,7 +40,7 @@ class SearchResultsFormatterSpec: QuickSpec {
                     trackId: 12345,
                     trackName: "Awesome App",
                     version: "19.2.1"
-                )]
+                    )]
                 let output = format(results, true)
                 expect(output) == "       12345  Awesome App  $ 9.87  (19.2.1)"
             }
@@ -61,7 +61,7 @@ class SearchResultsFormatterSpec: QuickSpec {
                 ]
                 let output = format(results, false)
                 expect(output) ==
-                    "       12345  Awesome App     (19.2.1)\n       67890  Even Better App (1.2.0)"
+                "       12345  Awesome App     (19.2.1)\n       67890  Even Better App (1.2.0)"
             }
             it("can format a two results with prices") {
                 results = [
@@ -80,7 +80,7 @@ class SearchResultsFormatterSpec: QuickSpec {
                 ]
                 let output = format(results, true)
                 expect(output) ==
-                    "       12345  Awesome App      $ 9.87  (19.2.1)\n       67890  Even Better App  $ 0.01  (1.2.0)"
+                "       12345  Awesome App      $ 9.87  (19.2.1)\n       67890  Even Better App  $ 0.01  (1.2.0)"
             }
         }
     }

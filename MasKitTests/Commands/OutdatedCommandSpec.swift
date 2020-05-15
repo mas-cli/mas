@@ -17,7 +17,7 @@ class OutdatedCommandSpec: QuickSpec {
                 let cmd = OutdatedCommand()
                 let result = cmd.run(OutdatedCommand.Options())
                 print(result)
-//                expect(result).to(beSuccess())
+                //                expect(result).to(beSuccess())
             }
         }
     }

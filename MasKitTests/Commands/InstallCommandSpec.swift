@@ -17,7 +17,7 @@ class InstallCommandSpec: QuickSpec {
                 let cmd = InstallCommand()
                 let result = cmd.run(InstallCommand.Options(appIds: [], forceInstall: false))
                 print(result)
-//                expect(result).to(beSuccess())
+                //                expect(result).to(beSuccess())
             }
         }
     }

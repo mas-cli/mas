@@ -17,7 +17,7 @@ class VersionCommandSpec: QuickSpec {
                 let cmd = VersionCommand()
                 let result = cmd.run(VersionCommand.Options())
                 print(result)
-//                expect(result).to(beSuccess())
+                //                expect(result).to(beSuccess())
             }
         }
     }

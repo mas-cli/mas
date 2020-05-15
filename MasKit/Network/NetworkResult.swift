@@ -20,9 +20,6 @@ extension NetworkResult: Equatable {
         case let (.failure(error1), .failure(error2)):
             return error1.localizedDescription == error2.localizedDescription
 
-//        case (.none, .none):
-//            return true
-
         default:
             return false
         }
