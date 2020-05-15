@@ -14,7 +14,7 @@ class TestURLSessionDelegate: NSObject, URLSessionDelegate {
                     didReceive challenge: URLAuthenticationChallenge,
                     completionHandler: (URLSession.AuthChallengeDisposition,
         URLCredential?) -> Void) {
-        
+
         // For example, you may want to override this to accept some self-signed certs here.
         if challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust,
             Constants.selfSignedHosts.contains(challenge.protectionSpace.host) {
