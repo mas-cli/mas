@@ -18,7 +18,6 @@ public struct InstallCommand: CommandProtocol {
     private let appLibrary: AppLibrary
 
     /// Public initializer.
-    /// - Parameter appLibrary: AppLibrary manager.
     public init() {
         self.init(appLibrary: MasAppLibrary())
     }

@@ -14,15 +14,24 @@ public struct PurchaseCommand: CommandProtocol {
 	public let verb = "purchase"
 	public let function = "Purchase and download free apps from the Mac App Store"
 
-	/// Designated initializer.
+    private let appLibrary: AppLibrary
+
+    /// Public initializer.
 	public init() {
+        self.init(appLibrary: MasAppLibrary())
 	}
+
+    /// Internal initializer.
+    /// - Parameter appLibrary: AppLibrary manager.
+    init(appLibrary: AppLibrary = MasAppLibrary()) {
+        self.appLibrary = appLibrary
+    }
 
 	/// Runs the command.
 	public func run(_ options: Options) -> Result<(), MASError> {
 		// Try to download applications with given identifiers and collect results
 		let downloadResults = options.appIds.compactMap { (appId) -> MASError? in
-			if let product = installedApp(appId) {
+            if let product = appLibrary.installedApp(forId: appId) {
 				printWarning("\(product.appName) has already been purchased.")
 				return nil
 			}
@@ -38,13 +47,6 @@ public struct PurchaseCommand: CommandProtocol {
 		default:
 			return .failure(.downloadFailed(error: nil))
 		}
-	}
-
-	fileprivate func installedApp(_ appId: UInt64) -> CKSoftwareProduct? {
-		let appId = NSNumber(value: appId)
-
-		let softwareMap = CKSoftwareMap.shared()
-		return softwareMap.allProducts()?.first { $0.itemIdentifier == appId }
 	}
 }
 
