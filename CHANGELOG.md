@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Seriously more interactive fish completions #242  
   thanks, [@lwolfsonkin](https://github.com/lwolfsonkin)!
 - 💡 Update readme with simpler tap usage #241
+- Added support for purchasing apps (#2, #145)
 
 ## [v1.6.4] 🔎 Search Fix - 2020-05-11
 

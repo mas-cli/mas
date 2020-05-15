@@ -13,14 +13,14 @@ import StoreFoundation
 ///
 /// - Parameter adamId: An app ID?
 /// - Returns: An error, if one occurred.
-func download(_ adamId: UInt64) -> MASError? {
+func download(_ adamId: UInt64, isPurchase: Bool) -> MASError? {
     guard let account = ISStoreAccount.primaryAccount else {
         return .notSignedIn
     }
 
     guard let storeAccount = account as? ISStoreAccount
     else { fatalError("Unable to cast StoreAccount to ISStoreAccount") }
-    let purchase = SSPurchase(adamId: adamId, account: storeAccount)
+    let purchase = SSPurchase(adamId: adamId, account: storeAccount, isPurchase: isPurchase)
 
     var purchaseError: MASError?
     var observerIdentifier: CKDownloadQueueObserver?

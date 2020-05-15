@@ -71,7 +71,7 @@ public struct UpgradeCommand: CommandProtocol {
         print(updates.map({ "\($0.title) (\($0.bundleVersion))" }).joined(separator: ", "))
 
         let updateResults = updates.compactMap {
-            download($0.itemIdentifier.uint64Value)
+            download($0.itemIdentifier.uint64Value, isPurchase: false)
         }
 
         switch updateResults.count {
