@@ -17,7 +17,7 @@ class AccountCommandSpec: QuickSpec {
                 let cmd = AccountCommand()
                 let result = cmd.run(AccountCommand.Options())
                 print(result)
-//                expect(result).to(beSuccess())
+                //                expect(result).to(beSuccess())
             }
         }
     }

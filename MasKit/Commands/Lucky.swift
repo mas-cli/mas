@@ -30,8 +30,8 @@ public struct LuckyCommand: CommandProtocol {
     /// - Parameter storeSearch: Search manager.
     init(appLibrary: AppLibrary = MasAppLibrary(),
          storeSearch: StoreSearch = MasStoreSearch()) {
-         self.appLibrary = appLibrary
-         self.storeSearch = storeSearch
+        self.appLibrary = appLibrary
+        self.storeSearch = storeSearch
     }
 
     /// Runs the command.

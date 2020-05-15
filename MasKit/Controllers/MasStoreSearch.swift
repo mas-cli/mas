@@ -22,17 +22,17 @@ public class MasStoreSearch: StoreSearch {
     /// - Throws: Error if there is a problem with the network request.
     public func search(for appName: String) throws -> SearchResultList {
         guard let url = searchURL(for: appName)
-        else { throw MASError.urlEncoding }
+            else { throw MASError.urlEncoding }
 
         let result = networkManager.loadDataSync(from: url)
 
         // Unwrap network result
         guard case let .success(data) = result
-        else {
-            if case let .failure(error) = result {
-                throw error
-            }
-            throw MASError.noData
+            else {
+                if case let .failure(error) = result {
+                    throw error
+                }
+                throw MASError.noData
         }
 
         do {
@@ -50,24 +50,24 @@ public class MasStoreSearch: StoreSearch {
     /// - Throws: Error if there is a problem with the network request.
     public func lookup(app appId: Int) throws -> SearchResult? {
         guard let url = lookupURL(forApp: appId)
-        else { throw MASError.urlEncoding }
+            else { throw MASError.urlEncoding }
 
         let result = networkManager.loadDataSync(from: url)
 
         // Unwrap network result
         guard case let .success(data) = result
-        else {
-            if case let .failure(error) = result {
-                throw error
-            }
-            throw MASError.noData
+            else {
+                if case let .failure(error) = result {
+                    throw error
+                }
+                throw MASError.noData
         }
 
         do {
             let results = try JSONDecoder().decode(SearchResultList.self, from: data)
 
             guard let searchResult = results.results.first
-            else { return nil }
+                else { return nil }
 
             return searchResult
         } catch {

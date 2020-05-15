@@ -25,7 +25,7 @@ extension Bundle {
         guard let path = self.path(forResource: fileName.fileNameWithoutExtension,
                                    ofType: fileName.fileExtension,
                                    inDirectory: "JSON")
-        else { fatalError("Unable to load file \(fileName)") }
+            else { fatalError("Unable to load file \(fileName)") }
 
         return URL(fileURLWithPath: path)
     }

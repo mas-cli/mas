@@ -17,7 +17,7 @@ class ResetCommandSpec: QuickSpec {
                 let cmd = ResetCommand()
                 let result = cmd.run(ResetCommand.Options(debug: false))
                 print(result)
-//                expect(result).to(beSuccess())
+                //                expect(result).to(beSuccess())
             }
         }
     }

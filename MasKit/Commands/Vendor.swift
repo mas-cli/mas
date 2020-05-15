@@ -30,13 +30,13 @@ public struct VendorCommand: CommandProtocol {
     public func run(_ options: VendorOptions) -> Result<(), MASError> {
         do {
             guard let result = try storeSearch.lookup(app: options.appId)
-            else {
-                print("No results found")
-                return .failure(.noSearchResultsFound)
+                else {
+                    print("No results found")
+                    return .failure(.noSearchResultsFound)
             }
 
             guard let vendorWebsite = result.sellerUrl
-            else { throw MASError.noVendorWebsite }
+                else { throw MASError.noVendorWebsite }
 
             do {
                 try openCommand.run(arguments: vendorWebsite)

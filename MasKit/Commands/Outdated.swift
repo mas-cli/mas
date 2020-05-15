@@ -38,8 +38,8 @@ public struct OutdatedCommand: CommandProtocol {
             if let installed = appLibrary.installedApp(forBundleId: update.bundleID) {
                 // Display version of installed app compared to available update.
                 print("""
-                \(update.itemIdentifier) \(update.title) (\(installed.bundleVersion) -> \(update.bundleVersion))
-                """)
+                    \(update.itemIdentifier) \(update.title) (\(installed.bundleVersion) -> \(update.bundleVersion))
+                    """)
             } else {
                 print("\(update.itemIdentifier) \(update.title) (unknown -> \(update.bundleVersion))")
             }
