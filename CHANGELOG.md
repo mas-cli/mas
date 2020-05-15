@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   thanks, [@blochberger](https://github.com/blochberger)!
 - 🐟 Seriously more interactive fish completions #242  
   thanks, [@lwolfsonkin](https://github.com/lwolfsonkin)!
+- 🧹 Purchase cleanup #272
 - ♻️ SoftwareMap Protocol #271
 - 🕊 Swift 5 #255
   - ⚒️ Xcode 10.2 and macOS 10.14 required to build
