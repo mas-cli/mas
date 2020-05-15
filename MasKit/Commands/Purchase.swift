@@ -36,7 +36,7 @@ public struct PurchaseCommand: CommandProtocol {
 				return nil
 			}
 
-			return download(appId, isPurchase: true)
+			return download(appId, purchase: true)
 		}
 
 		switch downloadResults.count {

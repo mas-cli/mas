@@ -12,15 +12,17 @@ import StoreFoundation
 /// Monitors app download progress.
 ///
 /// - Parameter adamId: An app ID?
+/// - Parameter purchase: Flag indicating whether the app needs to be purchased.
+/// Only works for free apps. Defaults to false.
 /// - Returns: An error, if one occurred.
-func download(_ adamId: UInt64, isPurchase: Bool) -> MASError? {
+func download(_ adamId: UInt64, purchase: Bool = false) -> MASError? {
     guard let account = ISStoreAccount.primaryAccount else {
         return .notSignedIn
     }
 
     guard let storeAccount = account as? ISStoreAccount
     else { fatalError("Unable to cast StoreAccount to ISStoreAccount") }
-    let purchase = SSPurchase(adamId: adamId, account: storeAccount, isPurchase: isPurchase)
+    let purchase = SSPurchase(adamId: adamId, account: storeAccount, purchase: purchase)
 
     var purchaseError: MASError?
     var observerIdentifier: CKDownloadQueueObserver?

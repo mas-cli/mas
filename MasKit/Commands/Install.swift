@@ -37,7 +37,7 @@ public struct InstallCommand: CommandProtocol {
                 return nil
             }
 
-            return download(appId, isPurchase: false)
+            return download(appId)
         }
 
         switch downloadResults.count {
