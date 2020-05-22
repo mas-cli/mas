@@ -15,7 +15,7 @@ struct SoftwareProductMock: SoftwareProduct {
     var description: String
     var expectedBundleVersion: String?
     var expectedStoreVersion: NSNumber?
-//    var mdItemRef: NSValue
+    var mdItemRef: NSValue?
     var installed: Bool
     var isLegacyApp: Bool
     var isMachineLicensed: Bool
@@ -35,7 +35,7 @@ struct SoftwareProductMock: SoftwareProduct {
         description: String = "",
         expectedBundleVersion: String? = nil,
         expectedStoreVersion: NSNumber? = nil,
-//        mdItemRef: NSValue,
+        mdItemRef: NSValue? = nil,
         installed: Bool = false,
         isLegacyApp: Bool = false,
         isMachineLicensed: Bool = false,
@@ -53,7 +53,7 @@ struct SoftwareProductMock: SoftwareProduct {
         self.description = description
         self.expectedBundleVersion = expectedBundleVersion
         self.expectedStoreVersion = expectedStoreVersion
-//        self.mdItemRef = mdItemRef
+        self.mdItemRef = mdItemRef
         self.installed = installed
         self.isLegacyApp = isLegacyApp
         self.isMachineLicensed = isMachineLicensed

@@ -17,11 +17,12 @@ public protocol SoftwareProduct {
     var description: String { get }
     var expectedBundleVersion: String? { get set }
     var expectedStoreVersion: NSNumber? { get set }
-//    var mdItemRef: NSValue { get set }
+    var mdItemRef: NSValue? { get set }
     var installed: Bool { get set }
     var isLegacyApp: Bool { get set }
     var isMachineLicensed: Bool { get set }
     var itemIdentifier: NSNumber { get set }
+    /// Not populated for macOS installers.
     var purchaseDate: Date { get set }
     var storeFrontIdentifier: NSNumber { get set }
 }

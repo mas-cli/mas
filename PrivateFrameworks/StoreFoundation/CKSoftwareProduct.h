@@ -65,7 +65,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL vppLicenseRevoked; // @synthesize vppLicenseRevoked=_vppLicenseRevoked;
 @property BOOL isVPPLicensed; // @synthesize isVPPLicensed=_isVPPLicensed;
 @property BOOL installed; // @synthesize installed=_installed;
-@property(retain) NSValue *mdItemRef; // @synthesize mdItemRef=_mdItemRef;
+@property(retain, nullable) NSValue *mdItemRef; // @synthesize mdItemRef=_mdItemRef;
 @property(retain) NSDate *purchaseDate; // @synthesize purchaseDate=_purchaseDate;
 @property(retain) NSNumber *versionIdentifier; // @synthesize versionIdentifier=_versionIdentifier;
 @property(retain) NSNumber *storeFrontIdentifier; // @synthesize storeFrontIdentifier=_storeFrontIdentifier;
