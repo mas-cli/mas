@@ -42,4 +42,9 @@ extension SoftwareProduct {
             && lhs.bundleVersion == rhs.bundleVersion
             && lhs.itemIdentifier == rhs.itemIdentifier
     }
+
+    /// Determines whether this product is a macOS installer.
+    var isMacosInstaller: Bool {
+        return appName.starts(with: "Install macOS") || appName.starts(with: "Install OS X")
+    }
 }

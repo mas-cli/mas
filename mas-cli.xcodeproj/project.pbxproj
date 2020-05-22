@@ -49,6 +49,7 @@
 		B576FE3321E985250016B39D /* SearchResultFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE3221E985250016B39D /* SearchResultFormatter.swift */; };
 		B576FE3521E98AAE0016B39D /* StoreSearchSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE3421E98AAE0016B39D /* StoreSearchSpec.swift */; };
 		B578F061224FB5BD00D2086A /* ISAuthenticationResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = B578F060224FB5BD00D2086A /* ISAuthenticationResponse.h */; };
+		B578F063224FD4AA00D2086A /* SoftwareProductSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B578F062224FD4AA00D2086A /* SoftwareProductSpec.swift */; };
 		B5793E29219BDD4800135B39 /* JSON in Resources */ = {isa = PBXBuildFile; fileRef = B5793E28219BDD4800135B39 /* JSON */; };
 		B588CE0221DC89490047D305 /* ExternalCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B588CE0121DC89490047D305 /* ExternalCommand.swift */; };
 		B594B12021D53A8200F3AC59 /* Uninstall.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594B11F21D53A8200F3AC59 /* Uninstall.swift */; };
@@ -274,6 +275,7 @@
 		B576FE3221E985250016B39D /* SearchResultFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultFormatter.swift; sourceTree = "<group>"; };
 		B576FE3421E98AAE0016B39D /* StoreSearchSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreSearchSpec.swift; sourceTree = "<group>"; };
 		B578F060224FB5BD00D2086A /* ISAuthenticationResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISAuthenticationResponse.h; sourceTree = "<group>"; };
+		B578F062224FD4AA00D2086A /* SoftwareProductSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoftwareProductSpec.swift; sourceTree = "<group>"; };
 		B5793E28219BDD4800135B39 /* JSON */ = {isa = PBXFileReference; lastKnownFileType = folder; path = JSON; sourceTree = "<group>"; };
 		B588CE0121DC89490047D305 /* ExternalCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalCommand.swift; sourceTree = "<group>"; };
 		B592D8522201702A00A9C970 /* .swiftformat */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftformat; sourceTree = "<group>"; };
@@ -639,6 +641,7 @@
 			children = (
 				B52E52A82206AA0D00267C59 /* MacOSSpec.swift */,
 				B576FDF821E107CA0016B39D /* SoftwareProductMock.swift */,
+				B578F062224FD4AA00D2086A /* SoftwareProductSpec.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1089,6 +1092,7 @@
 				B576FE0C21E116590016B39D /* NetworkManagerTests.swift in Sources */,
 				B576FE1B21E28E8A0016B39D /* NetworkSessionMock.swift in Sources */,
 				B576FE1221E1D82D0016B39D /* NetworkSessionMockFromFile.swift in Sources */,
+				B578F063224FD4AA00D2086A /* SoftwareProductSpec.swift in Sources */,
 				B5DBF81321DEEC7C00F3B151 /* OpenCommandSpec.swift in Sources */,
 				B5DBF81721E02E3400F3B151 /* OpenSystemCommandMock.swift in Sources */,
 				F88CB8E12404DAAD00B691B5 /* OpenSystemCommandSpec.swift in Sources */,

@@ -19,10 +19,8 @@ public class MasAppLibrary: AppLibrary {
         else { return [] }
 
         // Filter the list to customize the OS installers
-        return products.map { (product: SoftwareProduct) -> SoftwareProduct in
-            if product.appName.starts(with: "Install macOS") ||
-                product.appName.starts(with: "Install OS X") {
-                // macOS installer
+        return products.map { (product: CKSoftwareProduct) -> SoftwareProduct in
+            if product.isMacosInstaller {
                 let installer = MacOSInstallerProduct(fromProduct: product)
                 return installer
             }
