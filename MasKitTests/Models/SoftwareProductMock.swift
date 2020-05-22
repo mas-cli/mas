@@ -9,9 +9,15 @@
 @testable import MasKit
 
 struct SoftwareProductMock: SoftwareProduct {
+    var appName: String
+    var bundleIdentifier: String
+    var bundlePath: String
+    var bundleVersion: String
+    var itemIdentifier: NSNumber
+
+    // Fields not currently in use
     var accountIdentifier: String
     var accountOpaqueDSID: String
-    var bundleIdentifier: String
     var description: String
     var expectedBundleVersion: String?
     var expectedStoreVersion: NSNumber?
@@ -22,16 +28,15 @@ struct SoftwareProductMock: SoftwareProduct {
     var purchaseDate: Date?
     var storeFrontIdentifier: NSNumber?
 
-    var appName: String
-    var bundleIdentifier: String
-    var bundlePath: String
-    var bundleVersion: String
-    var itemIdentifier: NSNumber
-
     init(
+        appName: String = "",
+        bundleIdentifier: String = "",
+        bundlePath: String = "",
+        bundleVersion: String = "",
+        itemIdentifier: NSNumber = 0,
+
         accountIdentifier: String = "",
         accountOpaqueDSID: String = "",
-        bundleIdentifier: String = "",
         description: String = "",
         expectedBundleVersion: String? = nil,
         expectedStoreVersion: NSNumber? = nil,
@@ -40,16 +45,16 @@ struct SoftwareProductMock: SoftwareProduct {
         isLegacyApp: Bool = false,
         isMachineLicensed: Bool = false,
         purchaseDate: Date = Date(),
-        storeFrontIdentifier: NSNumber = 0,
-
-        appName: String = "",
-        bundlePath: String = "",
-        bundleVersion: String = "",
-        itemIdentifier: NSNumber = 0
+        storeFrontIdentifier: NSNumber = 0
     ) {
+        self.appName = appName
+        self.bundleIdentifier = bundleIdentifier
+        self.bundlePath = bundlePath
+        self.bundleVersion = bundleVersion
+        self.itemIdentifier = itemIdentifier
+
         self.accountIdentifier = accountIdentifier
         self.accountOpaqueDSID = accountOpaqueDSID
-        self.bundleIdentifier = bundleIdentifier
         self.description = description
         self.expectedBundleVersion = expectedBundleVersion
         self.expectedStoreVersion = expectedStoreVersion
@@ -59,10 +64,5 @@ struct SoftwareProductMock: SoftwareProduct {
         self.isMachineLicensed = isMachineLicensed
         self.purchaseDate = purchaseDate
         self.storeFrontIdentifier = storeFrontIdentifier
-
-        self.appName = appName
-        self.bundlePath = bundlePath
-        self.bundleVersion = bundleVersion
-        self.itemIdentifier = itemIdentifier
     }
 }

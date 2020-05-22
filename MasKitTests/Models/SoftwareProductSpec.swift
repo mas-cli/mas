@@ -16,8 +16,8 @@ class SoftwareProductSpec: QuickSpec {
         describe("software product") {
             it("can be a macos installer") {
                 let product = SoftwareProductMock(
-                    bundleIdentifier: "com.apple.InstallAssistant.Mojave",
-                    appName: "Install macOS Mojave"
+                    appName: "Install macOS Mojave",
+                    bundleIdentifier: "com.apple.InstallAssistant.Mojave"
                 )
                 expect(product.isMacosInstaller) == true
             }
