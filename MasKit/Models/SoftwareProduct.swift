@@ -6,6 +6,8 @@
 //  Copyright © 2018 mas-cli. All rights reserved.
 //
 
+import Foundation
+
 /// Protocol describing the members of CKSoftwareProduct used throughout MasKit.
 public protocol SoftwareProduct {
     var accountIdentifier: String { get }
@@ -26,7 +28,7 @@ public protocol SoftwareProduct {
     var isMachineLicensed: Bool { get set }
 
     /// zero (or nil) for macOS installers
-    var itemIdentifier: NSNumber? { get set }
+    var itemIdentifier: NSNumber { get set }
 
     /// Not populated for macOS installers.
     var purchaseDate: Date? { get set }

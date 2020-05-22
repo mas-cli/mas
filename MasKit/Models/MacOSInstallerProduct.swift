@@ -20,7 +20,7 @@ public struct MacOSInstallerProduct: SoftwareProduct {
     public var installed: Bool
     public var isLegacyApp: Bool
     public var isMachineLicensed: Bool
-    public var itemIdentifier: NSNumber?
+    public var itemIdentifier: NSNumber
     public var purchaseDate: Date?
     public var storeFrontIdentifier: NSNumber?
 
@@ -31,11 +31,13 @@ public struct MacOSInstallerProduct: SoftwareProduct {
     /// - Parameter product: Software product to copy.
     init(fromProduct product: SoftwareProduct) {
         guard let macOS = MacOS.os(fromAppName: product.appName)
-        else { fatalError("Unknown macOS Installer \(product.appName)") }
+        else { fatalError("Unknown macOS Installer \(product.appName) \(product.bundleIdentifier) \(product.bundlePath)") }
 
         self.macOS = macOS
 
-        itemIdentifier = product.itemIdentifier ?? NSNumber(value: macOS.identifier)
+        itemIdentifier = product.itemIdentifier == 0
+            ? NSNumber(value: macOS.identifier)
+            : product.itemIdentifier
 
         accountIdentifier = product.accountIdentifier
         accountOpaqueDSID = product.accountOpaqueDSID
