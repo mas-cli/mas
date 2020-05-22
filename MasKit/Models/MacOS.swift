@@ -47,6 +47,22 @@ enum MacOS: CaseIterable {
         }
     }
 
+    /// Common base for all installer bundle identifiers.
+    static var bundleIdentifierBase: String { return "com.apple.InstallAssistant" }
+
+    /// Bundle identifier
+    var bundleIdentifier: String {
+        switch self {
+        case .mojave:       return "\(MacOS.bundleIdentifierBase).Mojave"
+        case .highSierra:   return "\(MacOS.bundleIdentifierBase).HighSierra"
+        case .sierra:       return "\(MacOS.bundleIdentifierBase).Sierra"     // UNCONFIRMED
+        case .elCapitan:    return "\(MacOS.bundleIdentifierBase).ElCapitan"  // UNCONFIRMED
+        case .yosemite:     return "\(MacOS.bundleIdentifierBase).Yosemite"
+        case .mavericks:    return "\(MacOS.bundleIdentifierBase).Mavericks"
+        }
+    }
+
+    /// Token for use with commands.
     var token: String {
         switch self {
         case .mojave: return "macos-mojave"
@@ -81,8 +97,8 @@ enum MacOS: CaseIterable {
         }
     }
 
-    // "https://itunes.apple.com/us/app/macos-mojave/id1398502828?mt=12&ign-mpt=uo%3D4"
-    // "https://itunes.apple.com/de/app/macos-sierra/id1127487414?l=en&mt=12"
+    // https://itunes.apple.com/us/app/macos-mojave/id1398502828?mt=12&ign-mpt=uo%3D4
+    // https://itunes.apple.com/de/app/macos-sierra/id1127487414?l=en&mt=12
     // https://itunes.apple.com/us/app/macos-high-sierra/id1246284741?ls=1&mt=12
     // https://itunes.apple.com/app/os-x-el-capitan/id1147835434?ls=1&mt=12
     var url: String? {
@@ -120,22 +136,15 @@ extension MacOS {
         return nil
     }
 
-    /// Look up OS based on store display name.
+    /// Look up OS based on bundle identifier.
     ///
-    /// - Parameter appName: Display name of the app in MAS
+    /// - Parameter bundleIdentifier: Bundle identifire of app.
     /// - Returns: MacOS enum case if one matches.
-    static func os(fromAppName appName: String) -> MacOS? {
-        let prefixes = ["Install macOS ", "Install OS X "]
-        let startIndex = prefixes.compactMap { (prefix) -> String.Index? in
-            if appName.starts(with: prefix) {
-                return appName.index(appName.startIndex, offsetBy: prefix.count)
-            }
-            return nil
-        }.first
+    static func os(fromBundleIdentifier bundleIdentifier: String) -> MacOS? {
+        guard bundleIdentifier.starts(with: MacOS.bundleIdentifierBase)
+        else { return nil }
 
-        let name = appName[startIndex!...]
-
-        for macos in MacOS.allCases where macos.name == name {
+        for macos in MacOS.allCases where macos.bundleIdentifier == bundleIdentifier {
             return macos
         }
 
@@ -144,6 +153,7 @@ extension MacOS {
 }
 
 extension MacOS: CustomStringConvertible {
+    /// Human-readable description.
     var description: String {
         let output = "\(name) \(version) (\(identifier))"
         guard let url = url else { return output }

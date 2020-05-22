@@ -30,7 +30,7 @@ public struct MacOSInstallerProduct: SoftwareProduct {
     ///
     /// - Parameter product: Software product to copy.
     init(fromProduct product: SoftwareProduct) {
-        guard let macOS = MacOS.os(fromAppName: product.appName)
+        guard let macOS = MacOS.os(fromBundleIdentifier: product.bundleIdentifier)
         else {
             fatalError("Unknown macOS Installer \(product.appName) \(product.bundleIdentifier) \(product.bundlePath)")
         }

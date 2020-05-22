@@ -47,6 +47,6 @@ extension SoftwareProduct {
 
     /// Determines whether this product is a macOS installer.
     var isMacosInstaller: Bool {
-        return appName.starts(with: "Install macOS") || appName.starts(with: "Install OS X")
+        return bundleIdentifier.starts(with: MacOS.bundleIdentifierBase)
     }
 }

@@ -15,7 +15,10 @@ class SoftwareProductSpec: QuickSpec {
     override func spec() {
         describe("software product") {
             it("can be a macos installer") {
-                let product = SoftwareProductMock(appName: "Install macOS Mojave")
+                let product = SoftwareProductMock(
+                    bundleIdentifier: "com.apple.InstallAssistant.Mojave",
+                    appName: "Install macOS Mojave"
+                )
                 expect(product.isMacosInstaller) == true
             }
             it("can be a normal app") {
