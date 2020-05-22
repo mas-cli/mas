@@ -69,7 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(retain) NSDate *purchaseDate; // @synthesize purchaseDate=_purchaseDate;
 @property(retain) NSNumber *versionIdentifier; // @synthesize versionIdentifier=_versionIdentifier;
 @property(retain) NSNumber *storeFrontIdentifier; // @synthesize storeFrontIdentifier=_storeFrontIdentifier;
-@property(retain) NSNumber *itemIdentifier; // @synthesize itemIdentifier=_itemIdentifier;
+@property(retain, nullable) NSNumber *itemIdentifier; // @synthesize itemIdentifier=_itemIdentifier;
 @property(retain) NSString *receiptType; // @synthesize receiptType=_receiptType;
 @property(retain) NSString *bundlePath; // @synthesize bundlePath=_bundlePath;
 @property(retain) NSString *bundleVersion; // @synthesize bundleVersion=_bundleVersion;

@@ -15,7 +15,19 @@ public class MasAppLibrary: AppLibrary {
 
     /// Array of installed software products.
     public lazy var installedApps: [SoftwareProduct] = {
-        return softwareMap.allSoftwareProducts()
+        guard var products = softwareMap.allProducts()
+        else { return [] }
+
+        // Filter the list to customize the OS installers
+        return products.map { (product: SoftwareProduct) -> SoftwareProduct in
+            if product.appName.starts(with: "Install macOS") ||
+                product.appName.starts(with: "Install OS X") {
+                // macOS installer
+                let installer = MacOSInstallerProduct(fromProduct: product)
+                return installer
+            }
+            return product
+        }
     }()
 
     /// Internal initializer for providing a mock software map.

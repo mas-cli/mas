@@ -45,7 +45,7 @@ extension AppLibrary {
     public var appIdsByName: [String: UInt64] {
         var destMap = [String: UInt64]()
         for product in installedApps {
-            destMap[product.appName] = product.itemIdentifier.uint64Value
+            destMap[product.appName] = product.itemIdentifier?.uint64Value
         }
         return destMap
     }

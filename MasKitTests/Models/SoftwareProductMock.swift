@@ -26,7 +26,7 @@ struct SoftwareProductMock: SoftwareProduct {
     var bundleIdentifier: String
     var bundlePath: String
     var bundleVersion: String
-    var itemIdentifier: NSNumber
+    var itemIdentifier: NSNumber?
 
     init(
         accountIdentifier: String = "",

@@ -12,6 +12,7 @@
 		B50AD42421F9831B0057AA87 /* Os.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50AD42321F9831B0057AA87 /* Os.swift */; };
 		B50AD42621F988740057AA87 /* MacOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50AD42521F988740057AA87 /* MacOS.swift */; };
 		B52E52A92206AA0D00267C59 /* MacOSSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52E52A82206AA0D00267C59 /* MacOSSpec.swift */; };
+		B52E52AB220A8B6200267C59 /* MacOSInstallerProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52E52AA220A8B6200267C59 /* MacOSInstallerProduct.swift */; };
 		B537017321A0F85700538F78 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB4069213F4DDD0044E445 /* Result.framework */; };
 		B537017421A0F85B00538F78 /* Commandant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406B213F4DDD0044E445 /* Commandant.framework */; };
 		B537017621A0F94200538F78 /* Commandant.framework in Copy Carthage Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406B213F4DDD0044E445 /* Commandant.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -213,6 +214,7 @@
 		B50AD42321F9831B0057AA87 /* Os.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Os.swift; sourceTree = "<group>"; };
 		B50AD42521F988740057AA87 /* MacOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOS.swift; sourceTree = "<group>"; };
 		B52E52A82206AA0D00267C59 /* MacOSSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSSpec.swift; sourceTree = "<group>"; };
+		B52E52AA220A8B6200267C59 /* MacOSInstallerProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSInstallerProduct.swift; sourceTree = "<group>"; };
 		B55B3D7921ED96FC0009A1A5 /* Cartfile.resolved */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile.resolved; sourceTree = "<group>"; };
 		B55B3D7A21ED96FC0009A1A5 /* CODE_OF_CONDUCT.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CODE_OF_CONDUCT.md; sourceTree = "<group>"; };
 		B55B3D7B21ED96FC0009A1A5 /* Dangerfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Dangerfile; sourceTree = "<group>"; };
@@ -515,6 +517,7 @@
 			isa = PBXGroup;
 			children = (
 				B50AD42521F988740057AA87 /* MacOS.swift */,
+				B52E52AA220A8B6200267C59 /* MacOSInstallerProduct.swift */,
 				B594B15321D89DF400F3AC59 /* SearchResult.swift */,
 				B594B15521D89F5200F3AC59 /* SearchResultList.swift */,
 				B594B12821D5831D00F3AC59 /* SoftwareProduct.swift */,
@@ -1060,6 +1063,7 @@
 				F8FB717920F2B4DD00F56FDC /* Upgrade.swift in Sources */,
 				B576FE0221E1139E0016B39D /* URLSession+NetworkSession.swift in Sources */,
 				F8FB717D20F2B4DD00F56FDC /* Utilities.swift in Sources */,
+				B52E52AB220A8B6200267C59 /* MacOSInstallerProduct.swift in Sources */,
 				B5DBF80F21DEEB7B00F3B151 /* Vendor.swift in Sources */,
 				F8FB717A20F2B4DD00F56FDC /* Version.swift in Sources */,
 				75FB3E761F9F7841005B6F20 /* Purchase.swift in Sources */,

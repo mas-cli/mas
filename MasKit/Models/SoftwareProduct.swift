@@ -21,9 +21,9 @@ public protocol SoftwareProduct {
     var installed: Bool { get set }
     var isLegacyApp: Bool { get set }
     var isMachineLicensed: Bool { get set }
-    var itemIdentifier: NSNumber { get set }
+    var itemIdentifier: NSNumber? { get set }
     /// Not populated for macOS installers.
-    var purchaseDate: Date { get set }
+//    var purchaseDate: Date { get set }
     var storeFrontIdentifier: NSNumber { get set }
 }
 
