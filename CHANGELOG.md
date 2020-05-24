@@ -7,11 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-- 🛠 Xcode 11.5 #273
+## [v1.7.0] 💵 Purchase Command - 2020-05-24
+
 - ✨ New `purchase` command for purchasing free apps #264 (resolves #2, #145)  
   thanks, [@blochberger](https://github.com/blochberger)!
 - 🐟 Seriously more interactive fish completions #242  
   thanks, [@lwolfsonkin](https://github.com/lwolfsonkin)!
+- ⬆️ Nimble (8.0.9) #274
+- 🛠 Xcode 11.5 #273
 - 🧹 Purchase cleanup #272
 - ♻️ SoftwareMap Protocol #271
 - 🕊 Swift 5 #255
@@ -197,7 +200,9 @@ Use the `mas.pkg` package to install manually.
 
 - Initial Release
 
-[Unreleased]: https://github.com/mas-cli/mas/compare/v1.6.3...HEAD
+[Unreleased]: https://github.com/mas-cli/mas/compare/v1.7.0...HEAD
+[v1.7.0]: https://github.com/mas-cli/mas/compare/v1.6.4...v1.7.0
+[v1.6.4]: https://github.com/mas-cli/mas/compare/v1.6.3...v1.6.4
 [v1.6.3]: https://github.com/mas-cli/mas/compare/v1.6.2...v1.6.3
 [v1.6.2]: https://github.com/mas-cli/mas/compare/v1.6.1...v1.6.2
 [v1.6.1]: https://github.com/mas-cli/mas/compare/v1.6.0...v1.6.1
