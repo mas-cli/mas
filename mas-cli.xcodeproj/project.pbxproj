@@ -9,11 +9,9 @@
 /* Begin PBXBuildFile section */
 		60D8CF3624262F92005B4004 /* PurchaseCommandSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D8CF3524262F92005B4004 /* PurchaseCommandSpec.swift */; };
 		75FB3E761F9F7841005B6F20 /* Purchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FB3E751F9F7841005B6F20 /* Purchase.swift */; };
-		B50AD42421F9831B0057AA87 /* Os.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50AD42321F9831B0057AA87 /* Os.swift */; };
 		B50AD42621F988740057AA87 /* MacOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50AD42521F988740057AA87 /* MacOS.swift */; };
 		B52E52A92206AA0D00267C59 /* MacOSSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52E52A82206AA0D00267C59 /* MacOSSpec.swift */; };
 		B52E52AB220A8B6200267C59 /* MacOSInstallerProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52E52AA220A8B6200267C59 /* MacOSInstallerProduct.swift */; };
-		B537017321A0F85700538F78 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB4069213F4DDD0044E445 /* Result.framework */; };
 		B537017421A0F85B00538F78 /* Commandant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406B213F4DDD0044E445 /* Commandant.framework */; };
 		B537017621A0F94200538F78 /* Commandant.framework in Copy Carthage Frameworks */ = {isa = PBXBuildFile; fileRef = 90CB406B213F4DDD0044E445 /* Commandant.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B5552928219A1BB900ACB4CA /* CommerceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83213A62173EF75008BA8A0 /* CommerceKit.framework */; };
@@ -84,6 +82,7 @@
 		B5DBF81521E02BA900F3B151 /* StoreSearchMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DBF81421E02BA900F3B151 /* StoreSearchMock.swift */; };
 		B5DBF81721E02E3400F3B151 /* OpenSystemCommandMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DBF81621E02E3400F3B151 /* OpenSystemCommandMock.swift */; };
 		ED031A7C1B5127C00097692E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED031A7B1B5127C00097692E /* main.swift */; };
+		F8295CD924778E3200D3991F /* Os.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8295CD824778E3200D3991F /* Os.swift */; };
 		F83213892173D3E1008BA8A0 /* CKAccountStore.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB719B20F2EC4500F56FDC /* CKAccountStore.h */; };
 		F832138A2173D3E1008BA8A0 /* CKDownloadQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB719C20F2EC4500F56FDC /* CKDownloadQueue.h */; };
 		F832138B2173D3E1008BA8A0 /* CKDownloadQueueObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71B520F2F7E000F56FDC /* CKDownloadQueueObserver.h */; };
@@ -212,7 +211,6 @@
 		90CB406A213F4DDD0044E445 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Quick.framework; sourceTree = "<group>"; };
 		90CB406B213F4DDD0044E445 /* Commandant.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Commandant.framework; sourceTree = "<group>"; };
 		90CB406C213F4DDD0044E445 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Nimble.framework; sourceTree = "<group>"; };
-		B50AD42321F9831B0057AA87 /* Os.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Os.swift; sourceTree = "<group>"; };
 		B50AD42521F988740057AA87 /* MacOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOS.swift; sourceTree = "<group>"; };
 		B52E52A82206AA0D00267C59 /* MacOSSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSSpec.swift; sourceTree = "<group>"; };
 		B52E52AA220A8B6200267C59 /* MacOSInstallerProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSInstallerProduct.swift; sourceTree = "<group>"; };
@@ -330,6 +328,7 @@
 		EDD3B3621C34709400B56B88 /* Upgrade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Upgrade.swift; sourceTree = "<group>"; };
 		EDE296521C700F4300554778 /* SignOut.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignOut.swift; sourceTree = "<group>"; };
 		F8242D8020746A510026DF35 /* StoreAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreAccount.swift; sourceTree = "<group>"; };
+		F8295CD824778E3200D3991F /* Os.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Os.swift; sourceTree = "<group>"; };
 		F83213A42173EF75008BA8A0 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F83213A52173EF75008BA8A0 /* StoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreFoundation.framework; path = ../../../../../../../System/Library/PrivateFrameworks/StoreFoundation.framework; sourceTree = "<group>"; };
 		F83213A62173EF75008BA8A0 /* CommerceKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CommerceKit.framework; path = ../../../../../../../System/Library/PrivateFrameworks/CommerceKit.framework; sourceTree = "<group>"; };
@@ -689,7 +688,7 @@
 				ED0F23821B87533A00AE40CD /* List.swift */,
 				8078FAA71EC4F2FB004B5B3F /* Lucky.swift */,
 				B5DBF80C21DEE4E600F3B151 /* Open.swift */,
-				B50AD42321F9831B0057AA87 /* Os.swift */,
+				F8295CD824778E3200D3991F /* Os.swift */,
 				ED0F23841B87536A00AE40CD /* Outdated.swift */,
 				75FB3E751F9F7841005B6F20 /* Purchase.swift */,
 				EDCBF9521D89AC6F000039C6 /* Reset.swift */,
@@ -1037,7 +1036,8 @@
 				F8FB716B20F2B4DD00F56FDC /* ISStoreAccount.swift in Sources */,
 				F8FB717220F2B4DD00F56FDC /* List.swift in Sources */,
 				F8FB717320F2B4DD00F56FDC /* Lucky.swift in Sources */,
-				B50AD42421F9831B0057AA87 /* Os.swift in Sources */,
+				B50AD42621F988740057AA87 /* MacOS.swift in Sources */,
+				B52E52AB220A8B6200267C59 /* MacOSInstallerProduct.swift in Sources */,
 				B594B13021D5855D00F3AC59 /* MasAppLibrary.swift in Sources */,
 				F8FB717B20F2B4DD00F56FDC /* MASError.swift in Sources */,
 				B594B15221D89A8B00F3AC59 /* MasStoreSearch.swift in Sources */,
@@ -1046,6 +1046,7 @@
 				B576FE0021E113610016B39D /* NetworkSession.swift in Sources */,
 				B5DBF80D21DEE4E600F3B151 /* Open.swift in Sources */,
 				B576FDF721E107AA0016B39D /* OpenSystemCommand.swift in Sources */,
+				F8295CD924778E3200D3991F /* Os.swift in Sources */,
 				F8FB717420F2B4DD00F56FDC /* Outdated.swift in Sources */,
 				75FB3E761F9F7841005B6F20 /* Purchase.swift in Sources */,
 				F8FB716C20F2B4DD00F56FDC /* PurchaseDownloadObserver.swift in Sources */,
@@ -1066,11 +1067,8 @@
 				F8FB717920F2B4DD00F56FDC /* Upgrade.swift in Sources */,
 				B576FE0221E1139E0016B39D /* URLSession+NetworkSession.swift in Sources */,
 				F8FB717D20F2B4DD00F56FDC /* Utilities.swift in Sources */,
-				B52E52AB220A8B6200267C59 /* MacOSInstallerProduct.swift in Sources */,
 				B5DBF80F21DEEB7B00F3B151 /* Vendor.swift in Sources */,
 				F8FB717A20F2B4DD00F56FDC /* Version.swift in Sources */,
-				75FB3E761F9F7841005B6F20 /* Purchase.swift in Sources */,
-				B50AD42621F988740057AA87 /* MacOS.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1086,13 +1084,13 @@
 				B594B14621D6D95700F3AC59 /* InstallCommandSpec.swift in Sources */,
 				B594B12221D5416100F3AC59 /* ListCommandSpec.swift in Sources */,
 				B594B14421D6D91800F3AC59 /* LuckyCommandSpec.swift in Sources */,
+				B52E52A92206AA0D00267C59 /* MacOSSpec.swift in Sources */,
 				F85DA8AE240C313900FE5650 /* MasAppLibrarySpec.swift in Sources */,
 				B576FDF521E1078F0016B39D /* MASErrorTestCase.swift in Sources */,
 				B576FDF321E03B780016B39D /* MasStoreSearchSpec.swift in Sources */,
 				B576FE0C21E116590016B39D /* NetworkManagerTests.swift in Sources */,
 				B576FE1B21E28E8A0016B39D /* NetworkSessionMock.swift in Sources */,
 				B576FE1221E1D82D0016B39D /* NetworkSessionMockFromFile.swift in Sources */,
-				B578F063224FD4AA00D2086A /* SoftwareProductSpec.swift in Sources */,
 				B5DBF81321DEEC7C00F3B151 /* OpenCommandSpec.swift in Sources */,
 				B5DBF81721E02E3400F3B151 /* OpenSystemCommandMock.swift in Sources */,
 				F88CB8E12404DAAD00B691B5 /* OpenSystemCommandSpec.swift in Sources */,
@@ -1102,13 +1100,12 @@
 				60D8CF3624262F92005B4004 /* PurchaseCommandSpec.swift in Sources */,
 				B594B14021D6D8BF00F3AC59 /* ResetCommandSpec.swift in Sources */,
 				B594B13221D5876200F3AC59 /* ResultPredicates.swift in Sources */,
-				60D8CF3624262F92005B4004 /* PurchaseCommandSpec.swift in Sources */,
-				B52E52A92206AA0D00267C59 /* MacOSSpec.swift in Sources */,
 				B594B13E21D6D78900F3AC59 /* SearchCommandSpec.swift in Sources */,
 				B55B3D9221ED9B8C0009A1A5 /* SearchResultFormatterSpec.swift in Sources */,
 				B594B13C21D6D72E00F3AC59 /* SignInCommandSpec.swift in Sources */,
 				B594B13A21D6D70400F3AC59 /* SignOutCommandSpec.swift in Sources */,
 				B576FDF921E107CA0016B39D /* SoftwareProductMock.swift in Sources */,
+				B578F063224FD4AA00D2086A /* SoftwareProductSpec.swift in Sources */,
 				B5DBF81521E02BA900F3B151 /* StoreSearchMock.swift in Sources */,
 				B576FE3521E98AAE0016B39D /* StoreSearchSpec.swift in Sources */,
 				B576FE1621E1D8CB0016B39D /* String+FileExtension.swift in Sources */,
@@ -1168,7 +1165,6 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
-				CURRENT_PROJECT_VERSION = 10604000;
 				CURRENT_PROJECT_VERSION = 10700000;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1236,7 +1232,6 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
-				CURRENT_PROJECT_VERSION = 10604000;
 				CURRENT_PROJECT_VERSION = 10700000;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
