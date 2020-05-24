@@ -44,11 +44,11 @@
   "system": {
     "macos": {
       "catalina": {
-        "HOMEBREW_VERSION": "2.2.16-46-g6b6efc5",
+        "HOMEBREW_VERSION": "2.2.17-96-g2e801c3",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "5326934c8388b0eee5ee9dc4807e79c156d19534",
-        "CLT": "11.4.1.0.1.1586360307",
-        "Xcode": "11.4.1",
+        "Homebrew/homebrew-core": "572fc56b93562aa2d07749e826f8b4ab6cc04090",
+        "CLT": "11.0.0.0.1.1567737322",
+        "Xcode": "11.5",
         "macOS": "10.15.4"
       }
     }
