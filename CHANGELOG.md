@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+- 🛠 Xcode 11.5 #273
 - ✨ New `purchase` command for purchasing free apps #264 (resolves #2, #145)  
   thanks, [@blochberger](https://github.com/blochberger)!
 - 🐟 Seriously more interactive fish completions #242  
