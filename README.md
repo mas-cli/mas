@@ -5,7 +5,7 @@
 A simple command line interface for the Mac App Store. Designed for scripting and automation.
 
 [![Software License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/mas-cli/mas/blob/master/LICENSE)
-[![Swift 4.2](https://img.shields.io/badge/Language-Swift_4.2-orange.svg)](https://swift.org)
+[![Swift 5](https://img.shields.io/badge/Language-Swift_5-orange.svg)](https://swift.org)
 [![GitHub Release](https://img.shields.io/github/release/mas-cli/mas.svg)](https://github.com/mas-cli/mas/releases)
 [![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 [![Pipeline Status](https://jenkins.log-g.co/buildStatus/icon?job=mas-cli/mas/master)](https://jenkins.log-g.co/job/mas-cli/job/mas/job/master/)
@@ -35,7 +35,7 @@ brew install mas-cli/tap/mas
 
 #### Known Installation Issues On macOS Before 10.14.4
 
-Starting with [mas 2.0.0](https://github.com/mas-cli/mas/releases/tag/v2.0.0), if you get
+Starting with [mas 1.7.0](https://github.com/mas-cli/mas/releases/tag/v1.7.0), if you get
 an error similar to `dyld: Symbol not found: _$s11SubSequenceSlTl` when running mas,
 you'll need to install the [Swift 5 Runtime Support for Command Line Tools](https://support.apple.com/kb/DL1998).
 
