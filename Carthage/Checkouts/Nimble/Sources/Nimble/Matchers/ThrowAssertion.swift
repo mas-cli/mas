@@ -1,7 +1,7 @@
 import Foundation
 
-#if canImport(CwlPreconditionTesting)
-import CwlPreconditionTesting
+#if canImport(NimbleCwlPreconditionTesting)
+import NimbleCwlPreconditionTesting
 #endif
 
 public func throwAssertion() -> Predicate<Void> {

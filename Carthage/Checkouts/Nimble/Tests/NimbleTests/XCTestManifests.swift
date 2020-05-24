@@ -20,6 +20,7 @@ extension AsyncTest {
         ("testToEventuallyPositiveMatches", testToEventuallyPositiveMatches),
         ("testToEventuallyWithCustomDefaultTimeout", testToEventuallyWithCustomDefaultTimeout),
         ("testWaitUntilDetectsStalledMainThreadActivity", testWaitUntilDetectsStalledMainThreadActivity),
+        ("testWaitUntilDoesNotCompleteBeforeRunLoopIsWaiting", testWaitUntilDoesNotCompleteBeforeRunLoopIsWaiting),
         ("testWaitUntilErrorsIfDoneIsCalledMultipleTimes", testWaitUntilErrorsIfDoneIsCalledMultipleTimes),
         ("testWaitUntilMustBeInMainThread", testWaitUntilMustBeInMainThread),
         ("testWaitUntilNegativeMatches", testWaitUntilNegativeMatches),

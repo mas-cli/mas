@@ -1,15 +1,39 @@
 branches:
   only:
     - master
+    - 8.x-branch
 
 language: generic
-matrix:
+jobs:
   include:
+    - &cocoapods
+      name: CocoaPods Lint
+      os: osx
+      osx_image: xcode10.3
+      install: bundle install
+      script: ./test podspec
+    - &xcode
+      name: Xcode 10.1 / Swift 4.2
+      os: osx
+      osx_image: xcode10.1
+      script:
+        - ./test macos
+        - ./test ios
+        - ./test tvos
+    - <<: *xcode
+      name: Xcode 10.3 / Swift 5.0
+      osx_image: xcode10.3
+    - &swiftpm_darwin
+      name: SwiftPM / Darwin / Swift 4.2
+      os: osx
+      osx_image: xcode10.1
+      script: ./test swiftpm
+    - <<: *swiftpm_darwin
+      name: SwiftPM / Darwin / Swift 5.0
+      osx_image: xcode10.3
     - &swiftpm_linux
       name: SwiftPM / Linux / Swift 4.2.4
       os: linux
-      dist: trusty
-      sudo: required
       env:
         - SWIFT_VERSION=4.2.4
       install:
@@ -21,9 +45,17 @@ matrix:
       env:
         - SWIFT_VERSION=5.0.3
     - <<: *swiftpm_linux
-      name: SwiftPM / Linux / Swift 5.1 Development
+      name: SwiftPM / Linux / Swift 5.1.5
       env:
-        - SWIFT_VERSION=5.1-DEVELOPMENT-SNAPSHOT-2019-09-05-a
+        - SWIFT_VERSION=5.1.5
+    - <<: *swiftpm_linux
+      name: SwiftPM / Linux / Swift 5.2.2
+      env:
+        - SWIFT_VERSION=5.2.2
+    - <<: *swiftpm_linux
+      name: SwiftPM / Linux / Swift Development
+      env:
+        - SWIFT_VERSION=DEVELOPMENT-SNAPSHOT-2020-04-17-a
 install: true
 script:
   - ./test $TYPE
