@@ -1030,6 +1030,7 @@
 				B5DBF80D21DEE4E600F3B151 /* Open.swift in Sources */,
 				B576FDF721E107AA0016B39D /* OpenSystemCommand.swift in Sources */,
 				F8FB717420F2B4DD00F56FDC /* Outdated.swift in Sources */,
+				75FB3E761F9F7841005B6F20 /* Purchase.swift in Sources */,
 				F8FB716C20F2B4DD00F56FDC /* PurchaseDownloadObserver.swift in Sources */,
 				F8FB717520F2B4DD00F56FDC /* Reset.swift in Sources */,
 				F8FB717620F2B4DD00F56FDC /* Search.swift in Sources */,
@@ -1050,7 +1051,6 @@
 				F8FB717D20F2B4DD00F56FDC /* Utilities.swift in Sources */,
 				B5DBF80F21DEEB7B00F3B151 /* Vendor.swift in Sources */,
 				F8FB717A20F2B4DD00F56FDC /* Version.swift in Sources */,
-				75FB3E761F9F7841005B6F20 /* Purchase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1078,9 +1078,9 @@
 				B594B14221D6D8EC00F3AC59 /* OutdatedCommandSpec.swift in Sources */,
 				B576FE2C21E42A230016B39D /* OutputListener.swift in Sources */,
 				B576FE3021E5BD130016B39D /* OutputListenerSpec.swift in Sources */,
+				60D8CF3624262F92005B4004 /* PurchaseCommandSpec.swift in Sources */,
 				B594B14021D6D8BF00F3AC59 /* ResetCommandSpec.swift in Sources */,
 				B594B13221D5876200F3AC59 /* ResultPredicates.swift in Sources */,
-				60D8CF3624262F92005B4004 /* PurchaseCommandSpec.swift in Sources */,
 				B594B13E21D6D78900F3AC59 /* SearchCommandSpec.swift in Sources */,
 				B55B3D9221ED9B8C0009A1A5 /* SearchResultFormatterSpec.swift in Sources */,
 				B594B13C21D6D72E00F3AC59 /* SignInCommandSpec.swift in Sources */,
