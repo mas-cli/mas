@@ -30,7 +30,7 @@ pipeline {
         LANG        = 'en_US.UTF-8'
         LANGUAGE    = 'en_US.UTF-8'
         LC_ALL      = 'en_US.UTF-8'
-        DEVELOPER_DIR = '/Applications/Xcode-11.4.1.app'
+        DEVELOPER_DIR = '/Applications/Xcode-11.5.app'
     }
 
     stages {
