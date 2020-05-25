@@ -9,11 +9,11 @@ class Mas < Formula
   bottle do
     root_url "https://dl.bintray.com/phatblat/mas-bottles"
     cellar :any
-    sha256 "5ef426109d9c5be43a43621ea52bab6130aac836f4bec75d0d127fbc5526c26f" => :catalina
-    sha256 "5ef426109d9c5be43a43621ea52bab6130aac836f4bec75d0d127fbc5526c26f" => :mojave
-    sha256 "5ef426109d9c5be43a43621ea52bab6130aac836f4bec75d0d127fbc5526c26f" => :high_sierra
-    sha256 "5ef426109d9c5be43a43621ea52bab6130aac836f4bec75d0d127fbc5526c26f" => :sierra
-    sha256 "5ef426109d9c5be43a43621ea52bab6130aac836f4bec75d0d127fbc5526c26f" => :el_capitan
+    sha256 "adc9a2206f9fb5e7665cab7accea8ef682c382f35a8dabd8dd0cbd7bfbc82729" => :catalina
+    sha256 "adc9a2206f9fb5e7665cab7accea8ef682c382f35a8dabd8dd0cbd7bfbc82729" => :mojave
+    sha256 "adc9a2206f9fb5e7665cab7accea8ef682c382f35a8dabd8dd0cbd7bfbc82729" => :high_sierra
+    sha256 "adc9a2206f9fb5e7665cab7accea8ef682c382f35a8dabd8dd0cbd7bfbc82729" => :sierra
+    sha256 "adc9a2206f9fb5e7665cab7accea8ef682c382f35a8dabd8dd0cbd7bfbc82729" => :el_capitan
   end
 
   depends_on "carthage" => :build
