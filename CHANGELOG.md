@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [v1.7.0] 💵 Purchase Command - 2020-05-24
+## [v1.7.0] 🛍 Purchase Command - 2020-05-24
 
 - ✨ New `purchase` command for purchasing free apps #264 (resolves #2, #145)  
   thanks, [@blochberger](https://github.com/blochberger)!
