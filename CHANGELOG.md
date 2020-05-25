@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   thanks, [@blochberger](https://github.com/blochberger)!
 - 🐟 Seriously more interactive fish completions #242  
   thanks, [@lwolfsonkin](https://github.com/lwolfsonkin)!
+  🍺Formula 1.7 #275
 - ⬆️ Nimble (8.0.9) #274
 - 🛠 Xcode 11.5 #273
 - 🧹 Purchase cleanup #272
