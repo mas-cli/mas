@@ -14,7 +14,7 @@ BREW_CORE_PATH="$(brew --prefix)/Homebrew/Library/Taps/homebrew/homebrew-core/Fo
 function usage {
     echo "Usage: brew_formula_bump [v1.0] [sha1_hash]"
     echo "- version will be inferred using version script if not provided"
-    echo "- sha will be inferred from the curreent commit if not provided"
+    echo "- sha will be inferred from the current commit if not provided"
     exit 1
 }
 
@@ -31,6 +31,11 @@ if test -n "$2"; then
 else
     REVISION=$(git rev-parse HEAD)
 fi
+
+# Purge the Carthage cache to avoid this error from Homebrew sandboxing:
+# A shell task (/usr/bin/env git checkout --quiet --force 0.15.0 (launched in /Users/ben/Library/Caches/org.carthage.CarthageKit/dependencies/Commandant)) failed with exit code 128:
+# fatal: Unable to create '/Users/ben/Library/Caches/org.carthage.CarthageKit/dependencies/Commandant/./index.lock': Operation not permitted
+rm -rf ~/Library/Caches/org.carthage.CarthageKit
 
 echo "Checking to see if this update can be a simple bump."
 diff "Homebrew/mas.rb" "$BREW_CORE_PATH/mas.rb"
