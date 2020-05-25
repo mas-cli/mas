@@ -35,7 +35,7 @@ extension SSPurchase {
 
         buyParameters = parameters.map { key, value in
             return "\(key)=\(value)"
-        }.joined(separator: "&")
+            }.joined(separator: "&")
 
         itemIdentifier = adamId
         accountIdentifier = account.dsID

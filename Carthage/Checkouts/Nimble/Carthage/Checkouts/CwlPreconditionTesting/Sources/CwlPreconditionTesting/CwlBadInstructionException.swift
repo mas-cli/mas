@@ -22,8 +22,8 @@
 
 import Foundation
 
-#if SWIFT_PACKAGE
-	import CwlMachBadInstructionHandler
+#if canImport(NimbleCwlMachBadInstructionHandler)
+import NimbleCwlMachBadInstructionHandler
 #endif
 
 private func raiseBadInstructionException() {

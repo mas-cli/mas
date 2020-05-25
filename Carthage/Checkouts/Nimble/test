@@ -82,7 +82,7 @@ function test_podspec {
     # `.swift-version` is for swiftenv, not for CocoaPods, so we can't remove the file as suggested.
     run mv .swift-version .swift-version.backup
     # Note: remove `--allow-warnings` once old Matcher API has been removed
-    run bundle exec pod lib lint Nimble.podspec --allow-warnings --skip-import-validation
+    run bundle exec pod lib lint Nimble.podspec --allow-warnings --skip-import-validation --verbose
     run mv .swift-version.backup .swift-version
 }
 

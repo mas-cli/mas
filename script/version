@@ -9,4 +9,4 @@
 # This no longer works with MARKETING_VERSION build setting in Info.plist
 # agvtool what-marketing-version -terse1
 
-echo "1.6.4"
+echo "1.7.0"

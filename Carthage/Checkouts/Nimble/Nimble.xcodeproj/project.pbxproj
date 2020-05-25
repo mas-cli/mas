@@ -1850,6 +1850,11 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				METAL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-Xlinker",
+					"-no_application_extension",
+				);
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
@@ -1906,6 +1911,11 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				METAL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-Xlinker",
+					"-no_application_extension",
+				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -suppress-warnings";
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -1945,8 +1955,6 @@
 					"-weak_framework",
 					XCTest,
 					"-weak-lswiftXCTest",
-					"-Xlinker",
-					"-no_application_extension",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "net.jeffhui.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_MODULE_NAME = Nimble;
@@ -1985,8 +1993,6 @@
 					"-weak_framework",
 					XCTest,
 					"-weak-lswiftXCTest",
-					"-Xlinker",
-					"-no_application_extension",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "net.jeffhui.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_MODULE_NAME = Nimble;
@@ -2070,8 +2076,6 @@
 					"-weak_framework",
 					XCTest,
 					"-weak-lswiftXCTest",
-					"-Xlinker",
-					"-no_application_extension",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "net.jeffhui.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_MODULE_NAME = Nimble;
@@ -2111,8 +2115,6 @@
 					"-weak_framework",
 					XCTest,
 					"-weak-lswiftXCTest",
-					"-Xlinker",
-					"-no_application_extension",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "net.jeffhui.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_MODULE_NAME = Nimble;
@@ -2198,8 +2200,6 @@
 					"-weak_framework",
 					XCTest,
 					"-weak-lswiftXCTest",
-					"-Xlinker",
-					"-no_application_extension",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "net.jeffhui.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_MODULE_NAME = Nimble;
@@ -2239,8 +2239,6 @@
 					"-weak_framework",
 					XCTest,
 					"-weak-lswiftXCTest",
-					"-Xlinker",
-					"-no_application_extension",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "net.jeffhui.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_MODULE_NAME = Nimble;
