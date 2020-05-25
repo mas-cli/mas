@@ -16,6 +16,7 @@ CONFIG="Release"
 VERSION=$(script/version)
 
 main() {
+  xcodebuild -version
   script/clean
 
   carthage build \
