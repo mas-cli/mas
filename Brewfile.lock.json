@@ -38,18 +38,39 @@
             }
           }
         }
+      },
+      "make": {
+        "version": "4.3",
+        "bottle": {
+          "cellar": "/usr/local/Cellar",
+          "prefix": "/usr/local",
+          "files": {
+            "catalina": {
+              "url": "https://homebrew.bintray.com/bottles/make-4.3.catalina.bottle.tar.gz",
+              "sha256": "b2cbb6b854495469de4d065825c94540ad3053a1ff7c1832f4eb7781ee6b8231"
+            },
+            "mojave": {
+              "url": "https://homebrew.bintray.com/bottles/make-4.3.mojave.bottle.tar.gz",
+              "sha256": "50ac9c7185e08349c35531d8ee30e755713aec340229cab2008ba1a2ceac15c9"
+            },
+            "high_sierra": {
+              "url": "https://homebrew.bintray.com/bottles/make-4.3.high_sierra.bottle.tar.gz",
+              "sha256": "e7f49884dbeaae3e7ccc9dc3a58fec587c2a594f50314dbc33cde44c6f807f53"
+            }
+          }
+        }
       }
     }
   },
   "system": {
     "macos": {
       "catalina": {
-        "HOMEBREW_VERSION": "2.2.17-98-ge6dda52",
+        "HOMEBREW_VERSION": "2.2.17-137-g43ae03d",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "ec60e3fbd262d27494278a6917509adf7c5ecab4",
-        "CLT": "11.5.0.0.1.1588476445",
+        "Homebrew/homebrew-core": "b17953d661faaf339a1e4978277f7bfaac67ca93",
+        "CLT": "1103.0.32.62",
         "Xcode": "11.5",
-        "macOS": "10.15.4"
+        "macOS": "10.15.5"
       }
     }
   }
