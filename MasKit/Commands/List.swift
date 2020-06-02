@@ -40,7 +40,7 @@ public struct ListCommand: CommandProtocol {
             if appName == "" {
                 appName = product.bundleIdentifier
             }
-            print("\(product.itemIdentifier) \(appName) (\(product.bundleVersion))")
+            print("\(product.itemIdentifier)\t\(appName)\t(\(product.bundleVersion))")
         }
         return .success(())
     }
