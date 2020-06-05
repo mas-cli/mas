@@ -11,6 +11,7 @@
 
 BUILD_DIR="$PWD/build"
 PROJECT="mas-cli.xcodeproj"
+WORKSPACE="mas.xcworkspace"
 SCHEME="mas-cli Release"
 CONFIG="Release"
 VERSION=$(script/version)
@@ -43,7 +44,8 @@ main() {
 build() {
   echo "==> 🏗️ Building mas ($VERSION)"
   set -o pipefail && \
-      xcodebuild -project "$PROJECT" \
+      xcodebuild \
+          -workspace "$WORKSPACE" \
           -scheme "$SCHEME" \
           -configuration "$CONFIG" \
           OBJROOT="$BUILD_DIR" \
@@ -55,7 +57,8 @@ build() {
 archive() {
   echo "==> 📦 Archiving mas ($VERSION)"
   set -o pipefail && \
-      xcodebuild -project "$PROJECT" \
+      xcodebuild \
+          -workspace "$WORKSPACE" \
           -scheme "$SCHEME" \
           -configuration "$CONFIG" \
           -archivePath "$BUILD_DIR/mas.xcarchive" \
