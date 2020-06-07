@@ -10,7 +10,6 @@
 #
 
 BUILD_DIR="$PWD/build"
-PROJECT="mas-cli.xcodeproj"
 WORKSPACE="mas.xcworkspace"
 SCHEME="mas-cli Release"
 CONFIG="Release"
