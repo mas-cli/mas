@@ -15,16 +15,9 @@ struct AppListFormatter {
     /// - Parameter products: List of sortware products app data.
     /// - Returns: Multiliune text outoutp.
     static func format(products: [SoftwareProduct]) -> String {
-
-        // TODO: Catch empty appNames
-        //        var appName = product.appName
-        //        if appName == "" {
-        //            appName = product.bundleIdentifier
-        //        }
-
-        let minWidth = 50
         // find longest appName for formatting, default 50
-        let maxLength = products.map { $0.appName }
+        let minWidth = 50
+        let maxLength = products.map { $0.appNameOrBbundleIdentifier }
             .max(by: { $1.count > $0.count })?.count
             ?? minWidth
 
@@ -32,7 +25,7 @@ struct AppListFormatter {
 
         for product in products {
             let appId = product.itemIdentifier.intValue
-            let appName = product.appName.padding(toLength: maxLength, withPad: " ", startingAt: 0)
+            let appName = product.appNameOrBbundleIdentifier.padding(toLength: maxLength, withPad: " ", startingAt: 0)
             let version = product.bundleVersion
 
             output += String(format: "%12d  %@  (%@)\n", appId, appName, version)
