@@ -110,6 +110,7 @@
 		F85DA8B0240C32FA00FE5650 /* SoftwareMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85DA8AF240C32FA00FE5650 /* SoftwareMap.swift */; };
 		F85DA8B2240CBAFE00FE5650 /* CKSoftwareMap+SoftwareMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85DA8B1240CBAFE00FE5650 /* CKSoftwareMap+SoftwareMap.swift */; };
 		F88CB8E12404DAAD00B691B5 /* OpenSystemCommandSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88CB8E02404DAAD00B691B5 /* OpenSystemCommandSpec.swift */; };
+		F8A41ECE248D76CB00D374CF /* AppListFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A41ECD248D76CB00D374CF /* AppListFormatter.swift */; };
 		F8FB715B20F2B41400F56FDC /* MasKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8FB715220F2B41400F56FDC /* MasKit.framework */; };
 		F8FB716220F2B41400F56FDC /* MasKit.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB715420F2B41400F56FDC /* MasKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F8FB716A20F2B4DD00F56FDC /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F238A1B87569C00AE40CD /* Downloader.swift */; };
@@ -326,6 +327,7 @@
 		F85DA8AF240C32FA00FE5650 /* SoftwareMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftwareMap.swift; sourceTree = "<group>"; };
 		F85DA8B1240CBAFE00FE5650 /* CKSoftwareMap+SoftwareMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CKSoftwareMap+SoftwareMap.swift"; sourceTree = "<group>"; };
 		F88CB8E02404DAAD00B691B5 /* OpenSystemCommandSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSystemCommandSpec.swift; sourceTree = "<group>"; };
+		F8A41ECD248D76CB00D374CF /* AppListFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppListFormatter.swift; sourceTree = "<group>"; };
 		F8FB715220F2B41400F56FDC /* MasKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MasKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8FB715420F2B41400F56FDC /* MasKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasKit.h; sourceTree = "<group>"; };
 		F8FB715520F2B41400F56FDC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -527,6 +529,7 @@
 			isa = PBXGroup;
 			children = (
 				B576FE2921E4240B0016B39D /* AppInfoFormatter.swift */,
+				F8A41ECD248D76CB00D374CF /* AppListFormatter.swift */,
 				B576FE3221E985250016B39D /* SearchResultFormatter.swift */,
 				EDCBF9541D89CFC7000039C6 /* Utilities.swift */,
 			);
@@ -1029,6 +1032,7 @@
 				B576FE0021E113610016B39D /* NetworkSession.swift in Sources */,
 				B5DBF80D21DEE4E600F3B151 /* Open.swift in Sources */,
 				B576FDF721E107AA0016B39D /* OpenSystemCommand.swift in Sources */,
+				F8A41ECE248D76CB00D374CF /* AppListFormatter.swift in Sources */,
 				F8FB717420F2B4DD00F56FDC /* Outdated.swift in Sources */,
 				75FB3E761F9F7841005B6F20 /* Purchase.swift in Sources */,
 				F8FB716C20F2B4DD00F56FDC /* PurchaseDownloadObserver.swift in Sources */,
