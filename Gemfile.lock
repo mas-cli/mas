@@ -30,7 +30,7 @@ GEM
       faraday (>= 0.8)
     git (1.7.0)
       rchardet (~> 1.8)
-    kramdown (2.2.1)
+    kramdown (2.3.0)
       rexml
     kramdown-parser-gfm (1.1.0)
       kramdown (~> 2.0)
