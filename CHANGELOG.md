@@ -7,8 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-- ✨ `Makefile` #277
 - 🎨 Improve `mas list` command output #278
+- 🐛 Fix alignment of 2nd column of list command output #298
+- ✨ `Makefile` #277
 
 ## [v1.7.0] 🛍 Purchase Command - 2020-05-24
 
