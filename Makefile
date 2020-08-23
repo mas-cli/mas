@@ -10,6 +10,7 @@
 
 CMD_NAME = mas
 SHELL = /bin/sh
+PREFIX ?= /usr/local
 
 # trunk
 # SWIFT_VERSION = swift-DEVELOPMENT-SNAPSHOT-2020-04-23-a
@@ -99,7 +100,7 @@ run: build
 
 .PHONY: install
 install:
-	script/install
+	script/install $(PREFIX)
 
 .PHONY: uninstall
 uninstall:
