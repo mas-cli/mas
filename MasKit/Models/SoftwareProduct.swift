@@ -24,4 +24,9 @@ extension SoftwareProduct {
             && lhs.bundleVersion == rhs.bundleVersion
             && lhs.itemIdentifier == rhs.itemIdentifier
     }
+
+    /// Returns bundleIdentifier if appName is empty string.
+    var appNameOrBbundleIdentifier: String {
+        appName == "" ? bundleIdentifier : appName
+    }
 }
