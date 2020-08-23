@@ -24,11 +24,11 @@ struct AppListFormatter {
         var output: String = ""
 
         for product in products {
-            let appId = product.itemIdentifier.intValue
+            let appId = product.itemIdentifier
             let appName = product.appNameOrBbundleIdentifier.padding(toLength: maxLength, withPad: " ", startingAt: 0)
             let version = product.bundleVersion
 
-            output += String(format: "%12d  %@  (%@)\n", appId, appName, version)
+            output += "\(appId)  \(appName)  (\(version))\n"
         }
 
         return output.trimmingCharacters(in: .newlines)
