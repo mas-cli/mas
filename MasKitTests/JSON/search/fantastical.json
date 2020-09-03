@@ -1,64 +1,65 @@
 {
     "resultCount": 1,
     "results": [
-        {
-            "screenshotUrls": [
-                "https://is4-ssl.mzstatic.com/image/thumb/Purple128/v4/57/10/c9/5710c972-cf82-9445-f377-5f25006d9eb2/source/800x500bb.jpg",
-                "https://is1-ssl.mzstatic.com/image/thumb/Purple122/v4/93/0a/17/930a17cc-dd94-861e-e815-76b18c6ff1f4/source/800x500bb.jpg",
-                "https://is1-ssl.mzstatic.com/image/thumb/Purple128/v4/7c/b4/5b/7cb45b6f-f91d-b4b2-3921-b0008192a689/source/800x500bb.jpg",
-                "https://is3-ssl.mzstatic.com/image/thumb/Purple118/v4/89/3e/de/893ede7d-d207-6199-6821-425fea169ae3/source/800x500bb.jpg",
-                "https://is5-ssl.mzstatic.com/image/thumb/Purple128/v4/c8/40/1f/c8401fba-7d29-4fcd-8405-daf31d3638c1/source/800x500bb.jpg"
-            ],
-            "artworkUrl60": "https://is4-ssl.mzstatic.com/image/thumb/Purple118/v4/2a/00/31/2a0031dc-bf1b-7528-ca6a-700321af8244/source/60x60bb.png",
-            "artworkUrl512": "https://is4-ssl.mzstatic.com/image/thumb/Purple118/v4/2a/00/31/2a0031dc-bf1b-7528-ca6a-700321af8244/source/512x512bb.png",
-            "artworkUrl100": "https://is4-ssl.mzstatic.com/image/thumb/Purple118/v4/2a/00/31/2a0031dc-bf1b-7528-ca6a-700321af8244/source/100x100bb.png",
-            "artistViewUrl": "https://itunes.apple.com/us/developer/flexibits-inc/id435003924?mt=12&uo=4",
-            "kind": "mac-software",
-            "trackCensoredName": "Fantastical 2",
-            "languageCodesISO2A": [
-                "EN",
-                "FR",
-                "DE",
-                "IT",
-                "JA",
-                "ES"
-            ],
-            "fileSizeBytes": "14768764",
-            "sellerUrl": "https://flexibits.com/fantastical?pk_campaign=macappstore&pk_kwd=website",
-            "contentAdvisoryRating": "4+",
-            "userRatingCountForCurrentVersion": 33,
-            "trackViewUrl": "https://itunes.apple.com/us/app/fantastical-2/id975937182?mt=12&uo=4",
-            "trackContentRating": "4+",
-            "averageUserRatingForCurrentVersion": 4.5,
-            "releaseNotes": "- Added support for Tabloid and Tabloid Oversize paper sizes when printing\n- Fixed control-clicking in the Day, Week, or Month view sometimes causing a mouse drag to begin\n- Fixed completed reminder checkbox appearing the wrong color in some situations\n- Various fixes and improvements\n\nBy the way, App Store reviews are very helpful to us. If you think Fantastical is worthy, would you mind taking a moment to write a nice review? We'd greatly appreciate it. Thanks for using Fantastical! :)",
-            "currentVersionReleaseDate": "2018-11-05T01:18:50Z",
-            "formattedPrice": "$24.99",
-            "sellerName": "Flexibits Inc.",
-            "isVppDeviceBasedLicensingEnabled": true,
-            "trackId": 975937182,
-            "trackName": "Fantastical 2",
-            "currency": "USD",
-            "wrapperType": "software",
-            "version": "2.5.6",
-            "releaseDate": "2015-03-25T12:11:28Z",
-            "minimumOsVersion": "10.11",
-            "primaryGenreName": "Productivity",
-            "genreIds": [
-                "12014",
-                "12001"
-            ],
-            "artistId": 435003924,
-            "artistName": "Flexibits Inc.",
-            "genres": [
-                "Productivity",
-                "Business"
-            ],
-            "price": 24.99,
-            "description": "Designed exclusively for macOS, Fantastical 2 includes powerful features such as an incredibly intuitive parsing engine, a full calendar window (with day, week, month, and year views), a quick access mini window, iCloud reminders support, time zone support, and much, much more.\n\n\"Fantastical 2 is the calendar app your Mac has been waiting for.\" - The Verge\n\"Terrific new version of one of my very favorite apps.\" - John Gruber (Daring Fireball)\n\"It's my favorite calendar app for OS X.\" - MacStories\n\"The calendar app you've been waiting for.\" - iMore\n\"Fantastical 2 is a crazy-powerful calendar app for your Mac.\" - Wired\n\nFantastical 2's natural language event and reminder creation, beautiful calendar views, and ultra-smart event list make it the best calendar and reminders app you'll ever use. Just type in that you have \"Lunch with John on Friday at 1pm\" and Fantastical 2 will schedule it! Or type in \"remind me to Buy Milk on Tuesday\" and Fantastical 2 will create a reminder with a due date! \n\nWHAT'S NEW IN FANTASTICAL 2\n\n• Beautiful, all-new design exclusively for macOS\n• Full calendar window with Day, Week, Month, and Year views\n• macOS Today Widget, Action Extension, and Share Extension\n• Handoff support between Fantastical 2 for Mac, Fantastical 2 for iPhone, and Fantastical 2 for iPad\n• Calendar sets - quickly toggle multiple calendars on or off with a simple click or automatically when you leave or arrive, based on location\n• Maps are now displayed for your locations\n• Improved iCloud reminders with a separate reminders list and support for geofenced location-based reminders\n• Multiple parser improvements including improved repeating event and reminder support, the ability to add alerts (like \"Meeting 3pm alert 1 hour\"), time zones, and many other improvements\n• Time zone support including floating time zone support\n• Dark and light themes\n• And much, much more!\n\nTHE EASIEST WAY TO ADD EVENTS AND REMINDERS\n\n• Open Fantastical 2 with a single click or keystroke\n• Type in your event or reminder details and press return\n• That's it! \n\nSTAY ON TOP OF YOUR DAY\n\n• The infinite scrolling event list and calendar let you easily locate and plan all of your events and reminders\n• Today's past events fade to gray so you can focus on your upcoming events\n• Add event notes, URLs, or locations to new or existing events\n• Use search to instantly locate your events\n\nWORKS THE WAY YOU DO\n\n• Works with your favorite calendar services with native CalDAV support including iCloud, Google, Yahoo, and more\n• Automatically add alarms to your new events\n• Fantastical 2 is fully localized in English, French, German, Italian, Spanish, and for the first time ever, Japanese\n• Start typing your event or reminder in any of these languages and Fantastical will automagically understand!\n\nFantastical 2 — the frustration of calendaring has been solved.",
-            "primaryGenreId": 12014,
-            "bundleId": "com.flexibits.fantastical2.mac",
-            "averageUserRating": 4,
-            "userRatingCount": 1342
-        }
+      {
+        "artistViewUrl": "https://apps.apple.com/us/developer/butleroy-gmbh/id1211182002?mt=12&uo=4",
+        "artworkUrl60": "https://is2-ssl.mzstatic.com/image/thumb/Purple124/v4/97/45/f3/9745f37a-62dc-9001-ee13-fbf273a2af47/source/60x60bb.png",
+        "screenshotUrls": [
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/fe/d5/89/fed5890c-9185-af44-353e-67179b6fb7b6/pr_source.jpg/800x500bb.jpg",
+          "https://is3-ssl.mzstatic.com/image/thumb/Purple113/v4/e3/67/96/e36796af-6618-d223-9c40-7b8b6f6e5a3a/pr_source.jpg/800x500bb.jpg",
+          "https://is4-ssl.mzstatic.com/image/thumb/Purple123/v4/d2/fc/c1/d2fcc169-93de-c963-8fb4-c84776f361bc/pr_source.jpg/800x500bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/18/59/e9/1859e9c8-db2b-2fe4-eb86-86e6ba6cf09c/pr_source.jpg/800x500bb.jpg",
+          "https://is2-ssl.mzstatic.com/image/thumb/Purple123/v4/dc/35/e1/dc35e11e-97f3-3939-01d1-b50052bb0e55/pr_source.jpg/800x500bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/37/31/81/37318183-04ab-2bd3-ca46-24b8ac882440/pr_source.jpg/800x500bb.jpg",
+          "https://is5-ssl.mzstatic.com/image/thumb/Purple123/v4/88/37/0a/88370aaf-ee2b-766f-fe56-6956101a64a4/pr_source.jpg/800x500bb.jpg"
+        ],
+        "artworkUrl512": "https://is2-ssl.mzstatic.com/image/thumb/Purple124/v4/97/45/f3/9745f37a-62dc-9001-ee13-fbf273a2af47/source/512x512bb.png",
+        "artworkUrl100": "https://is2-ssl.mzstatic.com/image/thumb/Purple124/v4/97/45/f3/9745f37a-62dc-9001-ee13-fbf273a2af47/source/100x100bb.png",
+        "kind": "mac-software",
+        "trackCensoredName": "Butleroy: Calendar & To-dos",
+        "languageCodesISO2A": [
+          "DA",
+          "EN",
+          "DE",
+          "PL",
+          "ES"
+        ],
+        "fileSizeBytes": "10567882",
+        "averageUserRating": 0,
+        "trackViewUrl": "https://apps.apple.com/us/app/butleroy-calendar-to-dos/id1479057646?mt=12&uo=4",
+        "trackContentRating": "4+",
+        "averageUserRatingForCurrentVersion": 0,
+        "formattedPrice": "$8.99",
+        "primaryGenreName": "Productivity",
+        "trackId": 1479057646,
+        "trackName": "Butleroy: Calendar & To-dos",
+        "currentVersionReleaseDate": "2020-07-19T20:58:21Z",
+        "releaseNotes": "You can now plan your day with ease. This update allows you to select all to-dos that you want to get done today and Roy plans them automatically.\n\nYou can also set a duration for Reminders now. They are saved into the notes of the reminder as well, so you can even see them in the original app.",
+        "isVppDeviceBasedLicensingEnabled": true,
+        "genreIds": [
+          "6007",
+          "6000"
+        ],
+        "userRatingCountForCurrentVersion": 0,
+        "releaseDate": "2019-10-30T07:00:00Z",
+        "sellerUrl": "https://butleroy.com",
+        "minimumOsVersion": "10.15",
+        "primaryGenreId": 6007,
+        "sellerName": "Butleroy GmbH",
+        "contentAdvisoryRating": "4+",
+        "currency": "USD",
+        "description": "Hi! I am Roy, your personal assistant.\n\nAt times, there are simply not enough hours in the day. This is the app that helps you in everyday life. Whether it’s to keep track of your to-dos, to find the best restaurants or to see all your calendars in one place. I am an artificial intelligence that helps to plan your daily life more efficiently, from to-do's to booking a restaurant, from calendars to events I have you covered.\n\nHere’s how I can help you to be your most productive self:\n\n** First smart to-do list **\n- Automatically scheduled to-dos at the best possible time. I'll consider things like your schedule, work hours, holidays, the weather and more.\n- Don't worry if you forget about a to-do. This sometimes happens. I'll make sure to reschedule it for you automatically.\n- Tag your to-dos to get even more organized.\n- Drag and drop your to-dos in the Eisenhower matrix and I will take care of the rest.\n- One step to-do creation.\n\n** Beautiful agenda and dark mode **\n- Butleroy supports the native iOS dark mode feature and comes in a beautiful dark color scheme (if you want)\n- Calendar marries to-do. It's 2019 and you can finally see your calendar events and to-dos in one place.\n- Powerful filter options, so you only see the right things at the right time.\n- Access to over 9.5 million calendars of sport teams, tv shows, moon phases, public holidays and more. From NFL to second league volleyball in Slovakia, we have them all.\n\n** Powerful integrations **\n- Combine your favourite calendars and other apps in one. \n- Integrate Google Calendar/Tasks, Microsoft To-Do and Outlook to see your tasks next to your events.\n- See your iOS Reminder so you have the best possible overview.\n- Hook up Todoist to make use of the intelligent scheduling and to see your to-dos right in your calendar.\n- Connect Trello \"cards\" so you can see everything that is going on today at a glance.\n- Wunderlist To-dos\n- Hubspot tasks\n\n** Smart personal assistant **\n- If you need an Uber or a Lyft to your next event or simply the directions, I have your back.\n- Parking near your appointments is shown whenever you need it.\n- Find the best restaurants in town from Google Places and Foursquare.\n- Citymapper shows you the best way to get to your appointment.\n- Message all event attendees at once with one click.\n- Siri shortcuts allow you to automate tasks, schedule your to-dos even quicker or get an overview of your appointments and to-dos. All controlled with your voice and Siri.\n\n** Interesting calendar subscription **\nShould you choose to integrate interesting calendars, payments will be charged to your iTunes account at confirmation of purchase. Your yearly subscription is $2.99 USD per year (price may vary by location). You may receive access to the subscription benefits at no charge for a specified trial period, after which you will be charged until you cancel your subscription.\n\nYour subscription renews automatically unless cancelled at least 24 hours prior to the end of the current period and cancellation of the current active subscription period is not allowed.\n\nAuto-renewal may be turned off in your Account Settings in iTunes after purchase.\n\nYou can read our privacy policy at https://butleroy.com/privacy-policy/\nYou can read our terms of service at https://butleroy.com/terms-and-conditions/\n\nIf you have any questions or requests, let us know. We appreciate your feedback a lot. You can either use the “Send feedback” option within the app or simply write to support@butleroy.com",
+        "artistId": 1211182002,
+        "artistName": "Butleroy GmbH",
+        "genres": [
+          "Productivity",
+          "Business"
+        ],
+        "price": 8.99,
+        "bundleId": "maccatalyst.io.myalfred.app.ios.myAlfred",
+        "version": "1.2.0",
+        "wrapperType": "software",
+        "userRatingCount": 0
+      }
     ]
-}
+  }
