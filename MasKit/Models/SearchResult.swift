@@ -9,10 +9,10 @@
 public struct SearchResult: Decodable {
     public var bundleId: String
     public var currentVersionReleaseDate: String
-    public var fileSizeBytes: String
-    public var formattedPrice: String
+    public var fileSizeBytes: String?
+    public var formattedPrice: String?
     public var minimumOsVersion: String
-    public var price: Double
+    public var price: Double?
     public var sellerName: String
     public var sellerUrl: String?
     public var trackId: Int
@@ -23,8 +23,8 @@ public struct SearchResult: Decodable {
 
     init(bundleId: String = "",
          currentVersionReleaseDate: String = "",
-         fileSizeBytes: String = "",
-         formattedPrice: String = "",
+         fileSizeBytes: String = "0",
+         formattedPrice: String = "Free",
          minimumOsVersion: String = "",
          price: Double = 0.0,
          sellerName: String = "",

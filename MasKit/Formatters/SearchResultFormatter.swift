@@ -25,7 +25,7 @@ struct SearchResultFormatter {
             let appId = result.trackId
             let appName = result.trackName.padding(toLength: maxLength, withPad: " ", startingAt: 0)
             let version = result.version
-            let price = result.price
+            let price = result.price ?? 0.0
 
             if includePrice {
                 output += String(format: "%12d  %@  $%5.2f  (%@)\n", appId, appName, price, version)
