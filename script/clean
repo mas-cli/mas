@@ -10,6 +10,7 @@ BUILD_DIR=build
 INSTALL_DIR=/tmp/mas-cli.dst
 
 main() {
+  rm -rf Carthage/Build
   rm -rf ${BUILD_DIR:?}
   rm -rf ${INSTALL_DIR:?}
 }
