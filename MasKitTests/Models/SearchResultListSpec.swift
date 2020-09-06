@@ -20,6 +20,13 @@ class SearchResultListSpec: QuickSpec {
 
                 expect(results.resultCount) == 1
             }
+            it("can parse things") {
+                let data = Data(from: "search/things.json")
+                let decoder = JSONDecoder()
+                let results = try! decoder.decode(SearchResultList.self, from: data)
+
+                expect(results.resultCount) == 50
+            }
         }
     }
 }
