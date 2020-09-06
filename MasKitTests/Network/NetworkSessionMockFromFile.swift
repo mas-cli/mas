@@ -26,8 +26,8 @@ class NetworkSessionMockFromFile: NetworkSessionMock {
     ///   - url: unused
     ///   - completionHandler: Closure which is delivered either data or an error.
     @objc override func loadData(from _: URL, completionHandler: @escaping (Data?, Error?) -> Void) {
-        guard let fileURL = Bundle.jsonResponse(fileName: responseFile)
-            else { fatalError("Unable to load file \(responseFile)") }
+        guard let fileURL = Bundle.url(for: responseFile)
+        else { fatalError("Unable to load file \(responseFile)") }
 
         do {
             let data = try Data(contentsOf: fileURL, options: .mappedIfSafe)

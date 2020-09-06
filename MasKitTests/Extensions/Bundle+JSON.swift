@@ -8,24 +8,34 @@
 
 import Foundation
 
+extension Data {
+    /// Unsafe initializer for loading data from string paths.
+    /// - Parameter file: Relative path within the JSON folder
+    init(from fileName: String) {
+        let fileURL = Bundle.url(for: fileName)!
+        print("fileURL: \(fileURL)")
+        try! self.init(contentsOf: fileURL, options: .mappedIfSafe)
+    }
+}
+
 extension Bundle {
     /// Locates a JSON response file from the test bundle.
     ///
     /// - Parameter fileName: Name of file to locate.
     /// - Returns: URL to file.
-    static func jsonResponse(fileName: String) -> URL? {
-        return Bundle(for: NetworkSessionMock.self).fileURL(fileName: fileName)
+    static func url(for fileName: String) -> URL? {
+        return Bundle(for: NetworkSessionMock.self).url(for: fileName)
     }
 
     /// Builds a URL for a file in the JSON directory of the current bundle.
     ///
     /// - Parameter fileName: Name of file to locate.
     /// - Returns: URL to file.
-    func fileURL(fileName: String) -> URL? {
+    func url(for fileName: String) -> URL? {
         guard let path = self.path(forResource: fileName.fileNameWithoutExtension,
                                    ofType: fileName.fileExtension,
                                    inDirectory: "JSON")
-            else { fatalError("Unable to load file \(fileName)") }
+        else { fatalError("Unable to load file \(fileName)") }
 
         return URL(fileURLWithPath: path)
     }
