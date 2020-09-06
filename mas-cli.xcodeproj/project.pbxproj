@@ -204,7 +204,6 @@
 		75FB3E751F9F7841005B6F20 /* Purchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Purchase.swift; sourceTree = "<group>"; };
 		8078FAA71EC4F2FB004B5B3F /* Lucky.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lucky.swift; sourceTree = "<group>"; };
 		900A1E801DBAC8CB0069B1A8 /* Info.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
-		90CB4069213F4DDD0044E445 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Result.framework; sourceTree = "<group>"; };
 		90CB406A213F4DDD0044E445 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Quick.framework; sourceTree = "<group>"; };
 		90CB406B213F4DDD0044E445 /* Commandant.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Commandant.framework; sourceTree = "<group>"; };
 		90CB406C213F4DDD0044E445 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Nimble.framework; sourceTree = "<group>"; };
@@ -403,7 +402,6 @@
 				90CB406B213F4DDD0044E445 /* Commandant.framework */,
 				90CB406C213F4DDD0044E445 /* Nimble.framework */,
 				90CB406A213F4DDD0044E445 /* Quick.framework */,
-				90CB4069213F4DDD0044E445 /* Result.framework */,
 			);
 			name = Carthage;
 			path = Carthage/Build/Mac;
