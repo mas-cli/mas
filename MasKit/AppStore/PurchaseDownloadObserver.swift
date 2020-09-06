@@ -20,8 +20,8 @@ import StoreFoundation
 
     func downloadQueue(_ queue: CKDownloadQueue, statusChangedFor download: SSDownload) {
         guard download.metadata.itemIdentifier == purchase.itemIdentifier,
-            let status = download.status else {
-                return
+              let status = download.status else {
+            return
         }
 
         if status.isFailed || status.isCancelled {
@@ -41,8 +41,8 @@ import StoreFoundation
 
     func downloadQueue(_: CKDownloadQueue, changedWithRemoval download: SSDownload) {
         guard download.metadata.itemIdentifier == purchase.itemIdentifier,
-            let status = download.status else {
-                return
+              let status = download.status else {
+            return
         }
 
         clearLine()

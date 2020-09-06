@@ -19,7 +19,7 @@ struct AppInfoFormatter {
             "\(app.trackName)",
             "\(app.version)",
             "[\(app.price)]"
-            ].joined(separator: " ")
+        ].joined(separator: " ")
 
         return [
             headline,
@@ -28,7 +28,7 @@ struct AppInfoFormatter {
             "Minimum OS: \(app.minimumOsVersion)",
             "Size: \(humanReadableSize(app.fileSizeBytes))",
             "From: \(app.trackViewUrl)"
-            ].joined(separator: "\n")
+        ].joined(separator: "\n")
     }
 
     /// Formats a file size.
