@@ -20,10 +20,4 @@
 
 #import <Foundation/Foundation.h>
 
-//! Project version number for CwlCatchException.
-FOUNDATION_EXPORT double CwlCatchExceptionVersionNumber;
-
-//! Project version string for CwlCatchException.
-FOUNDATION_EXPORT const unsigned char CwlCatchExceptionVersionString[];
-
 NSException* __nullable catchExceptionOfKind(Class __nonnull type, void (^ __nonnull inBlock)(void));

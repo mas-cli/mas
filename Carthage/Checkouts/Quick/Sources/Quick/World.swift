@@ -13,10 +13,12 @@ public typealias SharedExampleContext = () -> [String: Any]
 public typealias SharedExampleClosure = (@escaping SharedExampleContext) -> Void
 
 #if canImport(Darwin)
+// swiftlint:disable type_name
 @objcMembers
 internal class _WorldBase: NSObject {}
 #else
 internal class _WorldBase: NSObject {}
+// swiftlint:enable type_name
 #endif
 
 /**
@@ -96,8 +98,11 @@ final internal class World: _WorldBase {
                          be mutated to change Quick's behavior.
     */
     internal func configure(_ closure: QuickConfigurer) {
-        assert(!isConfigurationFinalized,
-               "Quick cannot be configured outside of a +[QuickConfiguration configure:] method. You should not call -[World configure:] directly. Instead, subclass QuickConfiguration and override the +[QuickConfiguration configure:] method.")
+        assert(
+            !isConfigurationFinalized,
+            // swiftlint:disable:next line_length
+            "Quick cannot be configured outside of a +[QuickConfiguration configure:] method. You should not call -[World configure:] directly. Instead, subclass QuickConfiguration and override the +[QuickConfiguration configure:] method."
+        )
         closure(configuration)
     }
 
@@ -107,6 +112,17 @@ final internal class World: _WorldBase {
     */
     internal func finalizeConfiguration() {
         isConfigurationFinalized = true
+    }
+
+    /**
+     Returns `true` if the root example group for the given spec class has been already initialized.
+
+     - parameter specClass: The QuickSpec class for which is checked for the existing root example group.
+     - returns: Whether the root example group for the given spec class has been already initialized or not.
+     */
+    internal func isRootExampleGroupInitialized(forSpecClass specClass: QuickSpec.Type) -> Bool {
+        let name = String(describing: specClass)
+        return specs.keys.contains(name)
     }
 
     /**

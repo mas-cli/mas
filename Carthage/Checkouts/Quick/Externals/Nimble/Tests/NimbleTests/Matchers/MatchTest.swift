@@ -1,7 +1,7 @@
 import XCTest
 import Nimble
 
-final class MatchTest: XCTestCase, XCTestCaseProvider {
+final class MatchTest: XCTestCase {
     func testMatchPositive() {
         expect("11:14").to(match("\\d{2}:\\d{2}"))
     }

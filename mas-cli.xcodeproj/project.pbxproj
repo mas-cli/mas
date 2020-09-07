@@ -110,6 +110,8 @@
 		F85DA8B0240C32FA00FE5650 /* SoftwareMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85DA8AF240C32FA00FE5650 /* SoftwareMap.swift */; };
 		F85DA8B2240CBAFE00FE5650 /* CKSoftwareMap+SoftwareMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85DA8B1240CBAFE00FE5650 /* CKSoftwareMap+SoftwareMap.swift */; };
 		F88CB8E12404DAAD00B691B5 /* OpenSystemCommandSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88CB8E02404DAAD00B691B5 /* OpenSystemCommandSpec.swift */; };
+		F8D095EA25009640000899E6 /* SearchResultSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D095E925009640000899E6 /* SearchResultSpec.swift */; };
+		F8D095EC250096A6000899E6 /* SearchResultListSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D095EB250096A6000899E6 /* SearchResultListSpec.swift */; };
 		F8FB715B20F2B41400F56FDC /* MasKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8FB715220F2B41400F56FDC /* MasKit.framework */; };
 		F8FB716220F2B41400F56FDC /* MasKit.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB715420F2B41400F56FDC /* MasKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F8FB716A20F2B4DD00F56FDC /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0F238A1B87569C00AE40CD /* Downloader.swift */; };
@@ -202,7 +204,6 @@
 		75FB3E751F9F7841005B6F20 /* Purchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Purchase.swift; sourceTree = "<group>"; };
 		8078FAA71EC4F2FB004B5B3F /* Lucky.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lucky.swift; sourceTree = "<group>"; };
 		900A1E801DBAC8CB0069B1A8 /* Info.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
-		90CB4069213F4DDD0044E445 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Result.framework; sourceTree = "<group>"; };
 		90CB406A213F4DDD0044E445 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Quick.framework; sourceTree = "<group>"; };
 		90CB406B213F4DDD0044E445 /* Commandant.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Commandant.framework; sourceTree = "<group>"; };
 		90CB406C213F4DDD0044E445 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Nimble.framework; sourceTree = "<group>"; };
@@ -326,6 +327,8 @@
 		F85DA8AF240C32FA00FE5650 /* SoftwareMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftwareMap.swift; sourceTree = "<group>"; };
 		F85DA8B1240CBAFE00FE5650 /* CKSoftwareMap+SoftwareMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CKSoftwareMap+SoftwareMap.swift"; sourceTree = "<group>"; };
 		F88CB8E02404DAAD00B691B5 /* OpenSystemCommandSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSystemCommandSpec.swift; sourceTree = "<group>"; };
+		F8D095E925009640000899E6 /* SearchResultSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultSpec.swift; sourceTree = "<group>"; };
+		F8D095EB250096A6000899E6 /* SearchResultListSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultListSpec.swift; sourceTree = "<group>"; };
 		F8FB715220F2B41400F56FDC /* MasKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MasKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8FB715420F2B41400F56FDC /* MasKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasKit.h; sourceTree = "<group>"; };
 		F8FB715520F2B41400F56FDC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -399,7 +402,6 @@
 				90CB406B213F4DDD0044E445 /* Commandant.framework */,
 				90CB406C213F4DDD0044E445 /* Nimble.framework */,
 				90CB406A213F4DDD0044E445 /* Quick.framework */,
-				90CB4069213F4DDD0044E445 /* Result.framework */,
 			);
 			name = Carthage;
 			path = Carthage/Build/Mac;
@@ -626,6 +628,8 @@
 		B594B12C21D584E800F3AC59 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F8D095EB250096A6000899E6 /* SearchResultListSpec.swift */,
+				F8D095E925009640000899E6 /* SearchResultSpec.swift */,
 				B576FDF821E107CA0016B39D /* SoftwareProductMock.swift */,
 			);
 			path = Models;
@@ -909,7 +913,7 @@
 				DefaultBuildSystemTypeForWorkspace = Latest;
 				LastSwiftMigration = 0730;
 				LastSwiftUpdateCheck = 1000;
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "mas-cli";
 				TargetAttributes = {
 					ED031A771B5127C00097692E = {
@@ -1083,6 +1087,8 @@
 				B594B13221D5876200F3AC59 /* ResultPredicates.swift in Sources */,
 				B594B13E21D6D78900F3AC59 /* SearchCommandSpec.swift in Sources */,
 				B55B3D9221ED9B8C0009A1A5 /* SearchResultFormatterSpec.swift in Sources */,
+				F8D095EC250096A6000899E6 /* SearchResultListSpec.swift in Sources */,
+				F8D095EA25009640000899E6 /* SearchResultSpec.swift in Sources */,
 				B594B13C21D6D72E00F3AC59 /* SignInCommandSpec.swift in Sources */,
 				B594B13A21D6D70400F3AC59 /* SignOutCommandSpec.swift in Sources */,
 				B576FDF921E107CA0016B39D /* SoftwareProductMock.swift in Sources */,
@@ -1139,6 +1145,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1206,6 +1213,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;

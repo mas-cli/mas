@@ -2,14 +2,10 @@ import XCTest
 import Nimble
 import Foundation
 
-final class SatisfyAnyOfTest: XCTestCase, XCTestCaseProvider {
+final class SatisfyAnyOfTest: XCTestCase {
     func testSatisfyAnyOf() {
         expect(2).to(satisfyAnyOf(equal(2), equal(3)))
-#if SUPPORT_IMPLICIT_BRIDGING_CONVERSION
-        expect(2).toNot(satisfyAnyOf(equal(3), equal("turtles")))
-#else
         expect(2 as NSNumber).toNot(satisfyAnyOf(equal(3 as NSNumber), equal("turtles" as NSString)))
-#endif
         expect([1, 2, 3]).to(satisfyAnyOf(equal([1, 2, 3]), allPass({$0 < 4}), haveCount(3)))
         expect("turtle").toNot(satisfyAnyOf(contain("a"), endWith("magic")))
         expect(82.0).toNot(satisfyAnyOf(beLessThan(10.5), beGreaterThan(100.75), beCloseTo(50.1)))
@@ -36,11 +32,7 @@ final class SatisfyAnyOfTest: XCTestCase, XCTestCaseProvider {
 
     func testOperatorOr() {
         expect(2).to(equal(2) || equal(3))
-#if SUPPORT_IMPLICIT_BRIDGING_CONVERSION
-        expect(2).toNot(equal(3) || equal("turtles"))
-#else
         expect(2 as NSNumber).toNot(equal(3 as NSNumber) || equal("turtles" as NSString))
-#endif
         expect("turtle").toNot(contain("a") || endWith("magic"))
         expect(82.0).toNot(beLessThan(10.5) || beGreaterThan(100.75))
         expect(false).to(beTrue() || beFalse())

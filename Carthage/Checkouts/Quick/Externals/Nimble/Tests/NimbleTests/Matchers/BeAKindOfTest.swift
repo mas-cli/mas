@@ -7,7 +7,7 @@ private protocol TestProtocol {}
 private class TestClassConformingToProtocol: TestProtocol {}
 private struct TestStructConformingToProtocol: TestProtocol {}
 
-final class BeAKindOfSwiftTest: XCTestCase, XCTestCaseProvider {
+final class BeAKindOfSwiftTest: XCTestCase {
     enum TestEnum {
         case one, two
     }
@@ -47,29 +47,31 @@ final class BeAKindOfSwiftTest: XCTestCase, XCTestCaseProvider {
     }
 }
 
-final class BeAKindOfObjCTest: XCTestCase, XCTestCaseProvider {
+final class BeAKindOfObjCTest: XCTestCase {
     func testPositiveMatch() {
-#if canImport(Darwin)
         expect(TestNull()).to(beAKindOf(NSNull.self))
         expect(NSObject()).to(beAKindOf(NSObject.self))
-        expect(NSNumber(value: 1)).toNot(beAKindOf(NSDate.self))
-#endif
+        expect(1 as NSNumber).toNot(beAKindOf(NSDate.self))
     }
 
     func testFailureMessages() {
-#if canImport(Darwin)
         failsWithErrorMessageForNil("expected to not be a kind of NSNull, got <nil>") {
             expect(nil as NSNull?).toNot(beAKindOf(NSNull.self))
         }
         failsWithErrorMessageForNil("expected to be a kind of NSString, got <nil>") {
             expect(nil as NSString?).to(beAKindOf(NSString.self))
         }
-        failsWithErrorMessage("expected to be a kind of NSString, got <__NSCFNumber instance>") {
-            expect(NSNumber(value: 1)).to(beAKindOf(NSString.self))
+
+        #if canImport(Darwin)
+        let numberTypeName = "__NSCFNumber"
+        #else
+        let numberTypeName = "NSNumber"
+        #endif
+        failsWithErrorMessage("expected to be a kind of NSString, got <\(numberTypeName) instance>") {
+            expect(1 as NSNumber).to(beAKindOf(NSString.self))
         }
-        failsWithErrorMessage("expected to not be a kind of NSNumber, got <__NSCFNumber instance>") {
-            expect(NSNumber(value: 1)).toNot(beAKindOf(NSNumber.self))
+        failsWithErrorMessage("expected to not be a kind of NSNumber, got <\(numberTypeName) instance>") {
+            expect(1 as NSNumber).toNot(beAKindOf(NSNumber.self))
         }
-#endif
     }
 }

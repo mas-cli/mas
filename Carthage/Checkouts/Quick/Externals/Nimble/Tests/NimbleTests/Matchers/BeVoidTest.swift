@@ -1,7 +1,7 @@
 import XCTest
 import Nimble
 
-final class BeVoidTest: XCTestCase, XCTestCaseProvider {
+final class BeVoidTest: XCTestCase {
     func testBeVoid() {
         expect(()).to(beVoid())
         expect(() as ()?).to(beVoid())

@@ -1,7 +1,7 @@
 import XCTest
 import Nimble
 
-final class HaveCountTest: XCTestCase, XCTestCaseProvider {
+final class HaveCountTest: XCTestCase {
     func testHaveCountForArray() {
         expect([1, 2, 3]).to(haveCount(3))
         expect([1, 2, 3]).notTo(haveCount(1))

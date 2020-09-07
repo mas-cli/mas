@@ -18,7 +18,7 @@ struct AppInfoFormatter {
         let headline = [
             "\(app.trackName)",
             "\(app.version)",
-            "[\(app.price)]"
+            "[\(app.price ?? 0)]"
             ].joined(separator: " ")
 
         return [
@@ -26,7 +26,7 @@ struct AppInfoFormatter {
             "By: \(app.sellerName)",
             "Released: \(humanReadableDate(app.currentVersionReleaseDate))",
             "Minimum OS: \(app.minimumOsVersion)",
-            "Size: \(humanReadableSize(app.fileSizeBytes))",
+            "Size: \(humanReadableSize(app.fileSizeBytes ?? "0"))",
             "From: \(app.trackViewUrl)"
             ].joined(separator: "\n")
     }

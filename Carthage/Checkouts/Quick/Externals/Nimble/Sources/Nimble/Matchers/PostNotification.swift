@@ -1,3 +1,4 @@
+#if canImport(Foundation)
 import Foundation
 
 internal class NotificationCollector {
@@ -60,18 +61,18 @@ public func postNotifications(
 
         var result = try predicate.satisfies(collectorNotificationsExpression)
         result.message = result.message.replacedExpectation { message in
-            return .expectedCustomValueTo(message.expectedMessage, actualValue)
+            return .expectedCustomValueTo(message.expectedMessage, actual: actualValue)
         }
         return result
     }
 }
 
+@available(*, deprecated, message: "Use Predicate instead")
 public func postNotifications<T>(
     _ notificationsMatcher: T,
     fromNotificationCenter center: NotificationCenter = .default)
     -> Predicate<Any>
-    where T: Matcher, T.ValueType == [Notification]
-{
+    where T: Matcher, T.ValueType == [Notification] {
     _ = mainThread // Force lazy-loading of this value
     let collector = NotificationCollector(notificationCenter: center)
     collector.startObserving()
@@ -98,3 +99,4 @@ public func postNotifications<T>(
         return PredicateResult(bool: match, message: failureMessage.toExpectationMessage())
     }
 }
+#endif

@@ -28,6 +28,18 @@ class FunctionalTests_PendingSpec: QuickSpec {
             beforeEach { onlyPendingExamplesBeforeEachExecutedCount += 1 }
             pending("an example that will not run") {}
         }
+        describe("a describe block with a disabled context that will not run") {
+            xcontext("these examples will not run") {
+               it("does not run") {
+                  fail()
+               }
+            }
+        }
+        xdescribe("a describe block that will not run") {
+            it("does not run") {
+               fail()
+            }
+        }
     }
 }
 
@@ -36,7 +48,7 @@ final class PendingTests: XCTestCase, XCTestCaseProvider {
         return [
             ("testAnOtherwiseFailingExampleWhenMarkedPendingDoesNotCauseTheSuiteToFail", testAnOtherwiseFailingExampleWhenMarkedPendingDoesNotCauseTheSuiteToFail),
             ("testBeforeEachOnlyRunForEnabledExamples", testBeforeEachOnlyRunForEnabledExamples),
-            ("testBeforeEachDoesNotRunForContextsWithOnlyPendingExamples", testBeforeEachDoesNotRunForContextsWithOnlyPendingExamples)
+            ("testBeforeEachDoesNotRunForContextsWithOnlyPendingExamples", testBeforeEachDoesNotRunForContextsWithOnlyPendingExamples),
         ]
     }
 

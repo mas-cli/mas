@@ -1,0 +1,64 @@
+{
+    "resultCount": 1,
+    "results": [
+      {
+        "screenshotUrls": [
+          "https://is4-ssl.mzstatic.com/image/thumb/Purple123/v4/d6/4f/1d/d64f1d4d-7317-be28-2622-1c0e0281bf10/pr_source.jpg/800x500bb.jpg",
+          "https://is3-ssl.mzstatic.com/image/thumb/Purple123/v4/6c/c3/6e/6cc36e59-bb9d-d1c8-8826-63d6fd9e3190/mzl.khdxvhmp.jpg/800x500bb.jpg",
+          "https://is3-ssl.mzstatic.com/image/thumb/Purple113/v4/b8/3c/d8/b83cd83c-bb37-7f2b-ac4b-ae2675e6ad4d/mzl.bnkikobm.jpg/800x500bb.jpg",
+          "https://is2-ssl.mzstatic.com/image/thumb/Purple113/v4/6c/f4/4a/6cf44a64-636b-beeb-fa4f-f2c36783a449/pr_source.jpg/800x500bb.jpg",
+          "https://is2-ssl.mzstatic.com/image/thumb/Purple113/v4/66/f6/44/66f6442b-c49d-179a-c3d3-7e6dde251137/pr_source.jpg/800x500bb.jpg",
+          "https://is3-ssl.mzstatic.com/image/thumb/Purple113/v4/9b/7a/52/9b7a5236-b568-3468-244b-81d16191341e/mzl.fhamemzv.jpg/800x500bb.jpg",
+          "https://is4-ssl.mzstatic.com/image/thumb/Purple123/v4/94/60/02/9460029f-0e79-e5e9-88db-55a11b732c40/mzl.avroidbj.jpg/800x500bb.jpg",
+          "https://is4-ssl.mzstatic.com/image/thumb/Purple123/v4/df/ef/3b/dfef3b25-1c8d-9671-ae41-3b15ded00137/mzl.mtktnwpr.jpg/800x500bb.jpg",
+          "https://is4-ssl.mzstatic.com/image/thumb/Purple113/v4/6e/1b/ea/6e1bea82-16be-a75d-21db-9c58db4fb605/mzl.oifmshpk.jpg/800x500bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/d5/47/b4/d547b4ba-bcb7-def3-fefc-e9f50529577e/mzl.ywkwmifv.jpg/800x500bb.jpg"
+        ],
+        "artworkUrl512": "https://is5-ssl.mzstatic.com/image/thumb/Purple114/v4/b9/5d/a8/b95da808-2eea-5edd-0715-b0e13fd43f44/source/512x512bb.png",
+        "artistViewUrl": "https://apps.apple.com/us/developer/bare-bones-software-inc/id396307685?mt=12&uo=4",
+        "artworkUrl60": "https://is5-ssl.mzstatic.com/image/thumb/Purple114/v4/b9/5d/a8/b95da808-2eea-5edd-0715-b0e13fd43f44/source/60x60bb.png",
+        "artworkUrl100": "https://is5-ssl.mzstatic.com/image/thumb/Purple114/v4/b9/5d/a8/b95da808-2eea-5edd-0715-b0e13fd43f44/source/100x100bb.png",
+        "kind": "mac-software",
+        "trackId": 404009241,
+        "trackName": "BBEdit",
+        "primaryGenreName": "Developer Tools",
+        "isVppDeviceBasedLicensingEnabled": true,
+        "genreIds": [
+          "6026",
+          "6007"
+        ],
+        "minimumOsVersion": "10.14",
+        "releaseNotes": "BBEdit 13.1.3 is a recommended update for all customers. This version includes an assortment of fixes for customer-reported issues, including a bug which caused the Search menu to display incorrect information or crash the application when pulled down. The full change notes are too long to include in the space allowed, but are available via the \"Support\" link on BBEdit's page in the App Store app.\n\nBBEdit 13.1 introduced significant feature additions and refinements, including (but not limited to): improved HTML previewing; advanced control over Markdown rendering; a new “Run Unix Command” command; significant improvements to its built-in CSS syntax coloring and navigation support; and built-in HTML Tidy commands.",
+        "releaseDate": "2011-01-05T08:23:40Z",
+        "formattedPrice": "Free",
+        "languageCodesISO2A": [
+          "EN"
+        ],
+        "fileSizeBytes": "15198547",
+        "sellerUrl": "https://www.barebones.com/products/bbedit/",
+        "averageUserRatingForCurrentVersion": 0,
+        "userRatingCountForCurrentVersion": 0,
+        "trackContentRating": "4+",
+        "currentVersionReleaseDate": "2020-07-30T12:53:37Z",
+        "trackCensoredName": "BBEdit",
+        "trackViewUrl": "https://apps.apple.com/us/app/bbedit/id404009241?mt=12&uo=4",
+        "contentAdvisoryRating": "4+",
+        "averageUserRating": 0,
+        "version": "13.1.3",
+        "wrapperType": "software",
+        "primaryGenreId": 6026,
+        "artistId": 396307685,
+        "artistName": "Bare Bones Software, Inc.",
+        "genres": [
+          "Developer Tools",
+          "Productivity"
+        ],
+        "price": 0.00,
+        "description": "BBEdit is the leading professional text, code, and markup editor for the Macintosh. \n\nAs the \"go to\" tool for web site designers, web application developers, writers, and software developers, this award-winning product provides an abundance of high-performance features for editing, searching, and manipulation of text, code, and HTML/XML markup.\n\nAs a replacement for TextWrangler, BBEdit is built by the same developers, using the same award-winning technology, and is identical to TextWrangler in every way you're used to. BBEdit is 64-bit and compatible with macOS Catalina.\n\nAn intelligent interface provides easy access to BBEdit’s best-of-class features, including: grep pattern matching; search and replace across multiple files; project definition tools; function navigation and syntax coloring for numerous source code languages; code folding; FTP and SFTP open and save; AppleScript and Automator support; Unix scripting support; text and code completion; a complete set of robust HTML tools; and more.\n\nBBEdit offers a 30-day evaluation period (beginning the first time you use it on your computer), during which its full feature set is available.\n\nDuring the evaluation period, BBEdit is fully functional. After the evaluation period has expired, you can continue to use BBEdit for free, forever, with no nag screens or unsolicited interruptions.\n\nIn “free mode”, BBEdit provides a modified set of features, which incorporates a powerful set of core features. Using BBEdit in free mode costs you nothing, while providing an upgrade path to advanced features and capabilities.\n\nTo enable BBEdit’s advanced features after the evaluation period is over, you will need to have an active BBEdit subscription. Subscriptions are available on either a monthly or annual basis.\n\nAn active subscription gives you access to all of BBEdit’s advanced features, including any new features that we introduce during updates or major upgrades, for as long as the subscription is in good standing.\n\nPlease see our comparison chart for a detailed listing of which advanced features are available with a subscription.\n\nSubscription terms and conditions:\n\nWe do not collect any data from your use of BBEdit, whether or not a subscription is in effect.\n\nYour interactions with BBEdit and with Bare Bones Software, Inc. are protected by our privacy policy.\n\nYour use of BBEdit is governed by the terms of its end-user license.\n\nWhen you purchase a subscription, payment will be charged to your iTunes Account upon confirmation of purchase.\n\nYour subscription will renew automatically, unless you cancel your subscription at least 24 hours prior to the end of the currently active subscription period. Your iTunes Account will be charged for the renewal within 24 hours prior to the end of the currently active subscription period, and your account history will reflect the cost of the renewal.\n\nYou can manage your subscription and cancel automatic renewal by going to your \"Manage my Subscriptions\" page after purchase.\n\nPurchasing a subscription will permanently end your evaluation period, and forfeits any unused portion of the evaluation period, if applicable.\n\nFor the full text of the BBEdit end user license for Mac App Store customers, please visit this page on our web site: https://www.barebones.com/products/bbedit/appstore/terms.html",
+        "sellerName": "Bare Bones Software, Inc.",
+        "currency": "USD",
+        "bundleId": "com.barebones.bbedit",
+        "userRatingCount": 0
+      }
+    ]
+  }
