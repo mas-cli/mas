@@ -9,8 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - 🎨 Improve `mas list` command output #278
 - 🐛 Fix alignment of 2nd column of list command output #298
-- 🐛 Account for missing JSON fields in search results #299
 - ✨ `Makefile` #277
+
+## [v1.7.1] 🐛 Search JSON Fix - 2020-09-06
+
+- 🐛 Account for missing JSON fields in search results #299
 
 ## [v1.7.0] 🛍 Purchase Command - 2020-05-24
 
@@ -206,7 +209,8 @@ Use the `mas.pkg` package to install manually.
 
 - Initial Release
 
-[Unreleased]: https://github.com/mas-cli/mas/compare/v1.7.0...HEAD
+[Unreleased]: https://github.com/mas-cli/mas/compare/v1.7.1...HEAD
+[v1.7.1]: https://github.com/mas-cli/mas/compare/v1.7.0...v1.7.1
 [v1.7.0]: https://github.com/mas-cli/mas/compare/v1.6.4...v1.7.0
 [v1.6.4]: https://github.com/mas-cli/mas/compare/v1.6.3...v1.6.4
 [v1.6.3]: https://github.com/mas-cli/mas/compare/v1.6.2...v1.6.3
