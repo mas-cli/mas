@@ -1,0 +1,5 @@
+disabled_rules:
+  - function_body_length
+  - identifier_name
+  - line_length
+  - type_name

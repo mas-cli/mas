@@ -1,4 +1,4 @@
-// swift-tools-version:5.0
+// swift-tools-version:5.2
 import PackageDescription
 
 let package = Package(
@@ -10,14 +10,17 @@ let package = Package(
         .library(name: "Nimble", targets: ["Nimble"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/mattgallagher/CwlPreconditionTesting.git", .exact("1.2.0")),
+        .package(url: "https://github.com/mattgallagher/CwlPreconditionTesting.git", .upToNextMajor(from: "2.0.0")),
     ],
     targets: [
         .target(
             name: "Nimble", 
             dependencies: {
                 #if os(macOS)
-                return ["CwlPreconditionTesting"]
+                return [
+                    "CwlPreconditionTesting",
+                    .product(name: "CwlPosixPreconditionTesting", package: "CwlPreconditionTesting")
+                ]
                 #else
                 return []
                 #endif

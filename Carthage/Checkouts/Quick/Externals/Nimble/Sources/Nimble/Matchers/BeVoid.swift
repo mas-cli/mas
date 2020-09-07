@@ -1,5 +1,3 @@
-import Foundation
-
 /// A Nimble matcher that succeeds when the actual value is Void.
 public func beVoid() -> Predicate<()> {
     return Predicate.simpleNilable("be void") { actualExpression in

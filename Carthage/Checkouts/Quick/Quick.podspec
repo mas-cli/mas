@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "Quick"
-  s.version      = "2.2.0"
+  s.version      = "3.0.0"
   s.summary      = "The Swift (and Objective-C) testing framework."
 
   s.description  = <<-DESC
@@ -35,14 +35,15 @@ Pod::Spec.new do |s|
   s.user_target_xcconfig = { 'FRAMEWORK_SEARCH_PATHS' => '$(PLATFORM_DIR)/Developer/Library/Frameworks' }
   s.pod_target_xcconfig = {
     'APPLICATION_EXTENSION_API_ONLY' => 'YES',
+    'DEFINES_MODULE' => 'YES',
     'ENABLE_BITCODE' => 'NO',
     'OTHER_LDFLAGS' => '$(inherited) -Xlinker -no_application_extension',
   }
   
   s.cocoapods_version = '>= 1.4.0'
   if s.respond_to?(:swift_versions) then
-    s.swift_versions = ['4.2', '5.0']
+    s.swift_versions = ['5.0']
   else
-    s.swift_version = '4.2'
+    s.swift_version = '5.0'
   end
 end

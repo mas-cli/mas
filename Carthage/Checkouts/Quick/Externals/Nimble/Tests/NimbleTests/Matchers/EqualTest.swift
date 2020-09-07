@@ -2,7 +2,7 @@ import Foundation
 import XCTest
 import Nimble
 
-final class EqualTest: XCTestCase, XCTestCaseProvider {
+final class EqualTest: XCTestCase {
     func testEquality() {
         expect(1 as CInt).to(equal(1 as CInt))
         expect(1 as CInt).to(equal(1))
@@ -33,7 +33,7 @@ final class EqualTest: XCTestCase, XCTestCaseProvider {
         expect(array1).to(equal([1, 2, 3]))
         expect(array1).toNot(equal([1, 2] as [Int]))
 
-        expect(NSArray(array: [1, 2, 3])).to(equal(NSArray(array: [1, 2, 3])))
+        expect([1, 2, 3] as NSArray).to(equal([1, 2, 3] as NSArray))
 
         failsWithErrorMessage("expected to equal <[1, 2]>, got <[1, 2, 3]>") {
             expect([1, 2, 3]).to(equal([1, 2]))
@@ -117,8 +117,8 @@ final class EqualTest: XCTestCase, XCTestCaseProvider {
         expect(actual).to(equal(expected))
         expect(actual).toNot(equal(unexpected))
 
-        expect(NSDictionary(object: "bar", forKey: "foo" as NSString)).to(equal(["foo": "bar"]))
-        expect(NSDictionary(object: "bar", forKey: "foo" as NSString) as? [String: String]).to(equal(expected))
+        expect(["foo": "bar"] as NSDictionary).to(equal(["foo": "bar"]))
+        expect((["foo": "bar"] as NSDictionary) as? [String: String]).to(equal(expected))
     }
 
     func testDataEquality() {
@@ -138,10 +138,10 @@ final class EqualTest: XCTestCase, XCTestCaseProvider {
     }
 
     func testNSObjectEquality() {
-        expect(NSNumber(value: 1)).to(equal(NSNumber(value: 1)))
-        expect(NSNumber(value: 1)) == NSNumber(value: 1)
-        expect(NSNumber(value: 1)) != NSNumber(value: 2)
-        expect { NSNumber(value: 1) }.to(equal(1))
+        expect(1 as NSNumber).to(equal(1 as NSNumber))
+        expect(1 as NSNumber) == 1 as NSNumber
+        expect(1 as NSNumber) != 2 as NSNumber
+        expect { 1 as NSNumber }.to(equal(1))
     }
 
     func testOperatorEquality() {

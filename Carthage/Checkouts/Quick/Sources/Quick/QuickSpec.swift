@@ -5,8 +5,8 @@ import XCTest
 
 #if SWIFT_PACKAGE
 
-#if canImport(QuickSpecBase)
-import QuickSpecBase
+#if canImport(QuickObjCRuntime)
+import QuickObjCRuntime
 
 public typealias QuickSpecBase = _QuickSpecBase
 #else
@@ -76,11 +76,11 @@ open class QuickSpec: QuickSpecBase {
 
         let originalName = example.name.c99ExtendedIdentifier
         var selectorName = originalName
-        var i: UInt = 2
+        var index: UInt = 2
 
         while selectorNames.contains(selectorName) {
-            selectorName = String(format: "%@_%tu", originalName, i)
-            i += 1
+            selectorName = String(format: "%@_%tu", originalName, index)
+            index += 1
         }
 
         selectorNames.insert(selectorName)
@@ -119,6 +119,32 @@ open class QuickSpec: QuickSpecBase {
         world.performWithCurrentExampleGroup(rootExampleGroup) {
             self.init().spec()
         }
+    }
+
+    // MARK: Delegation to `QuickSpec.current`.
+
+    override public func recordFailure(
+        withDescription description: String,
+        inFile filePath: String,
+        atLine lineNumber: Int,
+        expected: Bool
+    ) {
+        guard self === Self.current else {
+            Self.current.recordFailure(
+                withDescription: description,
+                inFile: filePath,
+                atLine: lineNumber,
+                expected: expected
+            )
+            return
+        }
+
+        super.recordFailure(
+            withDescription: description,
+            inFile: filePath,
+            atLine: lineNumber,
+            expected: expected
+        )
     }
 }
 

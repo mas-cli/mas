@@ -6,29 +6,41 @@ on:
       - master
   pull_request:
     branches:
-      - '*'
+      - "*"
 
 jobs:
+  cocoapods:
+    name: CocoaPods Lint
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: bundle install
+      - run: ./test podspec
+
   xcode:
     name: Xcode ${{ matrix.xcode }}
-    runs-on: macOS-latest
+    runs-on: macos-latest
     strategy:
       matrix:
-        xcode: [11, 11.1, 11.2]
+        xcode: [10.3, 11, 11.1, 11.2]
+      fail-fast: false
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_${{ matrix.xcode }}.app
     steps:
-    - uses: actions/checkout@v2
-    - run: sudo xcode-select -s '/Applications/Xcode_${{ matrix.xcode }}.app'
-    - run: ./test macos
-    - run: ./test ios
-    - run: ./test tvos
+      - uses: actions/checkout@v2
+      - run: ./test macos
+      - run: ./test ios
+      - run: ./test tvos
 
   swiftpm_darwin:
     name: SwiftPM, Darwin, Xcode ${{ matrix.xcode }}
-    runs-on: macOS-latest
+    runs-on: macos-latest
     strategy:
       matrix:
         xcode: [11, 11.1, 11.2]
+      fail-fast: false
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_${{ matrix.xcode }}.app
     steps:
-    - uses: actions/checkout@v2
-    - run: sudo xcode-select -s '/Applications/Xcode_${{ matrix.xcode }}.app'
-    - run: ./test swiftpm
+      - uses: actions/checkout@v2
+      - run: ./test swiftpm
