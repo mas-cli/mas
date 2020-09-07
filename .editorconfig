@@ -16,7 +16,7 @@ indent_size = 2
 indent_size = 2
 
 # Use 2 spaces for Ruby files
-[{Podfile,Rakefile,*.{rb,podspec}}]
+[{Podfile,Rakefile,script/*,*.{podspec,rb,yml}}]
 indent_size = 2
 indent_style = space
 max_line_length = 80
