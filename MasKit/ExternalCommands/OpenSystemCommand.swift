@@ -18,7 +18,7 @@ public struct OpenSystemCommand: ExternalCommand {
 
     public init(
         binaryPath: String = "/usr/bin/open"
-        ) {
+    ) {
         self.binaryPath = binaryPath
     }
 }

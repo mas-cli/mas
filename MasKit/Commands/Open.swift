@@ -39,20 +39,20 @@ public struct OpenCommand: CommandProtocol {
             }
 
             guard let appId = Int(options.appId)
-            else {
-                print("Invalid app ID")
-                return .failure(.noSearchResultsFound)
+                else {
+                    print("Invalid app ID")
+                    return .failure(.noSearchResultsFound)
             }
 
             guard let result = try storeSearch.lookup(app: appId)
-            else {
-                print("No results found")
-                return .failure(.noSearchResultsFound)
+                else {
+                    print("No results found")
+                    return .failure(.noSearchResultsFound)
             }
 
             guard var url = URLComponents(string: result.trackViewUrl)
-            else {
-                return .failure(.searchFailed)
+                else {
+                    return .failure(.searchFailed)
             }
             url.scheme = masScheme
 

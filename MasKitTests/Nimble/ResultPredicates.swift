@@ -13,7 +13,7 @@ import Nimble
 func beSuccess() -> Predicate<Result<(), MASError>> {
     return Predicate.define("be <success>") { expression, message in
         if let actual = try expression.evaluate(),
-           case .success = actual {
+            case .success = actual {
             return PredicateResult(status: .matches, message: message)
         }
         return PredicateResult(status: .fail, message: message)
@@ -24,7 +24,7 @@ func beSuccess() -> Predicate<Result<(), MASError>> {
 func beFailure(test: @escaping (MASError) -> Void = { _ in }) -> Predicate<Result<(), MASError>> {
     return Predicate.define("be <failure>") { expression, message in
         if let actual = try expression.evaluate(),
-           case let .failure(error) = actual {
+            case let .failure(error) = actual {
             test(error)
             return PredicateResult(status: .matches, message: message)
         }

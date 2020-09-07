@@ -21,7 +21,7 @@ func download(_ adamId: UInt64, purchase: Bool = false) -> MASError? {
     }
 
     guard let storeAccount = account as? ISStoreAccount
-    else { fatalError("Unable to cast StoreAccount to ISStoreAccount") }
+        else { fatalError("Unable to cast StoreAccount to ISStoreAccount") }
     let purchase = SSPurchase(adamId: adamId, account: storeAccount, purchase: purchase)
 
     var purchaseError: MASError?
