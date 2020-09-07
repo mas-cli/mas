@@ -35,10 +35,13 @@ public struct ListCommand: CommandProtocol {
             print("No installed apps found")
             return .success(())
         }
-
-        let output = AppListFormatter.format(products: products)
-        print(output)
-
+        for product in products {
+            var appName = product.appName
+            if appName == "" {
+                appName = product.bundleIdentifier
+            }
+            print("\(product.itemIdentifier) \(appName) (\(product.bundleVersion))")
+        }
         return .success(())
     }
 }
