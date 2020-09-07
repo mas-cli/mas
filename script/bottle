@@ -26,13 +26,18 @@ fi
 
 # Uninstall if still found on path
 if command -v mas > /dev/null; then
-    script/uninstall
+    script/uninstall || true # ignore failure
 fi
 
 # Purge the Carthage cache to avoid this error from Homebrew sandboxing:
 # A shell task (/usr/bin/env git checkout --quiet --force 0.15.0 (launched in /Users/ben/Library/Caches/org.carthage.CarthageKit/dependencies/Commandant)) failed with exit code 128:
 # fatal: Unable to create '/Users/ben/Library/Caches/org.carthage.CarthageKit/dependencies/Commandant/./index.lock': Operation not permitted
 rm -rf ~/Library/Caches/org.carthage.CarthageKit
+
+# Uninstall carthage via Mint
+if command -v mint > /dev/null; then
+    mint uninstall carthage
+fi
 
 # Build the formula
 brew install --build-bottle mas
