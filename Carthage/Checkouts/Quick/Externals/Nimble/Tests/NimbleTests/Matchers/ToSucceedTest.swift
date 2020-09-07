@@ -1,7 +1,7 @@
 import XCTest
 import Nimble
 
-final class ToSucceedTest: XCTestCase, XCTestCaseProvider {
+final class ToSucceedTest: XCTestCase {
     func testToSucceed() {
         expect({
             return .succeeded

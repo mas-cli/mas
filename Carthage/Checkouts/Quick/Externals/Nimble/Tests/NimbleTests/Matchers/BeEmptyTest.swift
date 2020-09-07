@@ -2,7 +2,7 @@ import Foundation
 import XCTest
 import Nimble
 
-final class BeEmptyTest: XCTestCase, XCTestCaseProvider {
+final class BeEmptyTest: XCTestCase {
     func testBeEmptyPositive() {
         expect([] as [Int]).to(beEmpty())
         expect([1]).toNot(beEmpty())
@@ -13,27 +13,23 @@ final class BeEmptyTest: XCTestCase, XCTestCaseProvider {
         expect([] as Set<Int>).to(beEmpty())
         expect([1] as Set<Int>).toNot(beEmpty())
 
-#if canImport(Darwin)
         expect(NSDictionary() as? [Int: Int]).to(beEmpty())
-        expect(NSDictionary(object: 1, forKey: 1 as NSNumber) as? [Int: Int]).toNot(beEmpty())
-#endif
+        expect(([1: 1] as NSDictionary) as? [Int: Int]).toNot(beEmpty())
 
         expect([Int: Int]()).to(beEmpty())
         expect(["hi": 1]).toNot(beEmpty())
 
-#if canImport(Darwin)
         expect(NSArray() as? [Int]).to(beEmpty())
-        expect(NSArray(array: [1]) as? [Int]).toNot(beEmpty())
-#endif
+        expect(([1] as NSArray) as? [Int]).toNot(beEmpty())
 
         expect(NSSet()).to(beEmpty())
-        expect(NSSet(array: [NSNumber(value: 1)])).toNot(beEmpty())
+        expect(NSSet(array: [1 as NSNumber])).toNot(beEmpty())
 
         expect(NSIndexSet()).to(beEmpty())
         expect(NSIndexSet(index: 1)).toNot(beEmpty())
 
         expect(NSString()).to(beEmpty())
-        expect(NSString(string: "hello")).toNot(beEmpty())
+        expect("hello" as NSString).toNot(beEmpty())
 
         expect("").to(beEmpty())
         expect("foo").toNot(beEmpty())
@@ -57,14 +53,12 @@ final class BeEmptyTest: XCTestCase, XCTestCaseProvider {
             expect([1] as Set<Int>).to(beEmpty())
         }
 
-#if canImport(Darwin)
         failsWithErrorMessage("expected to not be empty, got <{()}>") {
             expect(NSSet()).toNot(beEmpty())
         }
         failsWithErrorMessage("expected to be empty, got <{(1)}>") {
-            expect(NSSet(object: NSNumber(value: 1))).to(beEmpty())
+            expect(NSSet(object: 1 as NSNumber)).to(beEmpty())
         }
-#endif
 
         failsWithErrorMessage("expected to not be empty, got <()>") {
             expect(NSIndexSet()).toNot(beEmpty())
@@ -89,6 +83,13 @@ final class BeEmptyTest: XCTestCase, XCTestCaseProvider {
     }
 
     func testNilMatches() {
+        failsWithErrorMessageForNil("expected to be empty, got <nil>") {
+            expect(nil as String?).to(beEmpty())
+        }
+        failsWithErrorMessageForNil("expected to not be empty, got <nil>") {
+            expect(nil as String?).toNot(beEmpty())
+        }
+
         failsWithErrorMessageForNil("expected to be empty, got <nil>") {
             expect(nil as NSString?).to(beEmpty())
         }

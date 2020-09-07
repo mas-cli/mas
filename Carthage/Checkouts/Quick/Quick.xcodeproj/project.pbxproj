@@ -140,6 +140,9 @@
 		CD1F6506226398F600EBE9D8 /* XCTestObservationCenter+QCKSuspendObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1F6502226398F600EBE9D8 /* XCTestObservationCenter+QCKSuspendObservation.swift */; };
 		CD1F6507226398F600EBE9D8 /* XCTestObservationCenter+QCKSuspendObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1F6502226398F600EBE9D8 /* XCTestObservationCenter+QCKSuspendObservation.swift */; };
 		CD1F6508226398F600EBE9D8 /* XCTestObservationCenter+QCKSuspendObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1F6502226398F600EBE9D8 /* XCTestObservationCenter+QCKSuspendObservation.swift */; };
+		CD21A026247C1385002C4762 /* QuickTestObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD21A025247C1385002C4762 /* QuickTestObservation.swift */; };
+		CD21A027247C1385002C4762 /* QuickTestObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD21A025247C1385002C4762 /* QuickTestObservation.swift */; };
+		CD21A028247C1385002C4762 /* QuickTestObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD21A025247C1385002C4762 /* QuickTestObservation.swift */; };
 		CD264DBD1DDA147A0038B0EB /* AfterSuiteTests+ObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64076D241D6D80B500E2B499 /* AfterSuiteTests+ObjC.m */; };
 		CD582D6F2264B371008F7CE6 /* QuickSpec+MethodList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD582D6E2264B371008F7CE6 /* QuickSpec+MethodList.swift */; };
 		CD582D702264B371008F7CE6 /* QuickSpec+MethodList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD582D6E2264B371008F7CE6 /* QuickSpec+MethodList.swift */; };
@@ -150,9 +153,9 @@
 		CD582D762264C137008F7CE6 /* QuickSpecRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD582D722264C137008F7CE6 /* QuickSpecRunner.swift */; };
 		CD582D772264C137008F7CE6 /* QuickSpecRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD582D722264C137008F7CE6 /* QuickSpecRunner.swift */; };
 		CD582D782264C137008F7CE6 /* QuickSpecRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD582D722264C137008F7CE6 /* QuickSpecRunner.swift */; };
-		CDB2A957226B714400C0F199 /* SubclassOfSubclassWithStructPropertyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB2A956226B714400C0F199 /* SubclassOfSubclassWithStructPropertyTests.swift */; };
-		CDB2A958226B714400C0F199 /* SubclassOfSubclassWithStructPropertyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB2A956226B714400C0F199 /* SubclassOfSubclassWithStructPropertyTests.swift */; };
-		CDB2A959226B714400C0F199 /* SubclassOfSubclassWithStructPropertyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB2A956226B714400C0F199 /* SubclassOfSubclassWithStructPropertyTests.swift */; };
+		CD89D175247A673100C1F086 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8100E901A1E4447007595ED /* Nimble.framework */; };
+		CD89D176247A673100C1F086 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAEB6B8E1943873100289F44 /* Quick.framework */; };
+		CD89D17F247A68A100C1F086 /* SubclassOfSubclassWithStructPropertyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD89D17E247A68A000C1F086 /* SubclassOfSubclassWithStructPropertyTests.swift */; };
 		CDE5BDFD2268CE95006E2F66 /* QuickConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD261AC81DEC8B0000A8863C /* QuickConfiguration.swift */; };
 		CDE5BDFE2268CE96006E2F66 /* QuickConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD261AC81DEC8B0000A8863C /* QuickConfiguration.swift */; };
 		CDE5BDFF2268CE97006E2F66 /* QuickConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD261AC81DEC8B0000A8863C /* QuickConfiguration.swift */; };
@@ -261,139 +264,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		047655511949F4CB00B288BB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DAEB6B851943873100289F44 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DAEB6B8D1943873100289F44;
-			remoteInfo = Quick;
-		};
-		047655531949F4CB00B288BB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DAEB6B851943873100289F44 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DAEB6B8D1943873100289F44;
-			remoteInfo = Quick;
-		};
-		04765555194A327000B288BB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DAEB6B851943873100289F44 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DAEB6B8D1943873100289F44;
-			remoteInfo = Quick;
-		};
-		04DC97E4194B4A6000CE00B6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DAEB6B851943873100289F44 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DAEB6B8D1943873100289F44;
-			remoteInfo = Quick;
-		};
-		04DC97E6194B4A6000CE00B6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DAEB6B851943873100289F44 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DAEB6B8D1943873100289F44;
-			remoteInfo = Quick;
-		};
-		04DC97E8194B4B7E00CE00B6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DAEB6B851943873100289F44 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5A5D117B19473F2100F6D13D;
-			remoteInfo = "Quick-iOS";
-		};
-		04DC97EA194B4B9B00CE00B6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DAEB6B851943873100289F44 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5A5D117B19473F2100F6D13D;
-			remoteInfo = "Quick-iOS";
-		};
-		04DC97F0194B82DB00CE00B6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DAEB6B851943873100289F44 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DAEB6B8D1943873100289F44;
-			remoteInfo = Quick;
-		};
-		04DC97F2194B82DE00CE00B6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DAEB6B851943873100289F44 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5A5D117B19473F2100F6D13D;
-			remoteInfo = "Quick-iOS";
-		};
-		04DC97F6194B831200CE00B6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DAEB6B851943873100289F44 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5A5D117B19473F2100F6D13D;
-			remoteInfo = "Quick-iOS";
-		};
-		04DC97F8194B834000CE00B6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DAEB6B851943873100289F44 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DAEB6B8D1943873100289F44;
-			remoteInfo = Quick;
-		};
-		04DC97FA194B834100CE00B6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DAEB6B851943873100289F44 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5A5D117B19473F2100F6D13D;
-			remoteInfo = "Quick-iOS";
-		};
-		04DC97FC194B834B00CE00B6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DAEB6B851943873100289F44 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DAEB6B8D1943873100289F44;
-			remoteInfo = Quick;
-		};
-		04DC97FE194B835E00CE00B6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DAEB6B851943873100289F44 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5A5D117B19473F2100F6D13D;
-			remoteInfo = "Quick-iOS";
-		};
-		04DC9800194B836100CE00B6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DAEB6B851943873100289F44 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DAEB6B8D1943873100289F44;
-			remoteInfo = Quick;
-		};
-		04DC9802194B836300CE00B6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DAEB6B851943873100289F44 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5A5D117B19473F2100F6D13D;
-			remoteInfo = "Quick-iOS";
-		};
-		04DC9804194B838400CE00B6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DAEB6B851943873100289F44 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DAEB6B8D1943873100289F44;
-			remoteInfo = Quick;
-		};
-		04DC9806194B838700CE00B6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DAEB6B851943873100289F44 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5A5D117B19473F2100F6D13D;
-			remoteInfo = "Quick-iOS";
-		};
-		04DC9808194B838B00CE00B6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DAEB6B851943873100289F44 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DAEB6B8D1943873100289F44;
-			remoteInfo = Quick;
-		};
 		1F118CE01BDCA4AB005013A2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DAEB6B851943873100289F44 /* Project object */;
@@ -407,27 +277,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 1F118CD41BDCA4AB005013A2;
 			remoteInfo = "Quick-tvOS";
-		};
-		5A5D118819473F2100F6D13D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DAEB6B851943873100289F44 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5A5D117B19473F2100F6D13D;
-			remoteInfo = "Quick-iOS";
-		};
-		5A5D11EF194741B500F6D13D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DAEB6B851943873100289F44 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5A5D117B19473F2100F6D13D;
-			remoteInfo = "Quick-iOS";
-		};
-		5A5D11F1194741B500F6D13D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DAEB6B851943873100289F44 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5A5D117B19473F2100F6D13D;
-			remoteInfo = "Quick-iOS";
 		};
 		64076CE71D6D7C2000E2B499 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -450,12 +299,26 @@
 			remoteGlobalIDString = 1F118CD41BDCA4AB005013A2;
 			remoteInfo = "Quick-tvOS";
 		};
-		93625F381951DDC8006B1FE1 /* PBXContainerItemProxy */ = {
+		CD89D14824791ED000C1F086 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DAEB6B851943873100289F44 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = DAEB6B8D1943873100289F44;
-			remoteInfo = Quick;
+			remoteInfo = "Quick-macOS";
+		};
+		CD89D14A24791EDA00C1F086 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DAEB6B851943873100289F44 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5A5D117B19473F2100F6D13D;
+			remoteInfo = "Quick-iOS";
+		};
+		CD89D14E247A673100C1F086 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DAEB6B851943873100289F44 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DAEB6B8D1943873100289F44;
+			remoteInfo = "Quick-macOS";
 		};
 		DA5663EF1A4C8D8500193C88 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -470,13 +333,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 5A5D117B19473F2100F6D13D;
 			remoteInfo = "Quick-iOS";
-		};
-		DAEB6B9B1943873100289F44 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DAEB6B851943873100289F44 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DAEB6B8D1943873100289F44;
-			remoteInfo = Quick;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -514,13 +370,15 @@
 		8D010A561C11726F00633E2B /* DescribeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescribeTests.swift; sourceTree = "<group>"; };
 		AED9C8621CC8A7BD00432F62 /* CrossReferencingSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrossReferencingSpecs.swift; sourceTree = "<group>"; };
 		CD1F6502226398F600EBE9D8 /* XCTestObservationCenter+QCKSuspendObservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestObservationCenter+QCKSuspendObservation.swift"; sourceTree = "<group>"; };
+		CD21A025247C1385002C4762 /* QuickTestObservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickTestObservation.swift; sourceTree = "<group>"; };
 		CD261AC81DEC8B0000A8863C /* QuickConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickConfiguration.swift; sourceTree = "<group>"; };
 		CD3451461E4703D4000C8633 /* QuickMain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickMain.swift; sourceTree = "<group>"; };
 		CD3451471E4703D4000C8633 /* QuickSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickSpec.swift; sourceTree = "<group>"; };
 		CD582D6E2264B371008F7CE6 /* QuickSpec+MethodList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QuickSpec+MethodList.swift"; sourceTree = "<group>"; };
 		CD582D722264C137008F7CE6 /* QuickSpecRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickSpecRunner.swift; sourceTree = "<group>"; };
 		CD665CE0225A5BB9008F0AE6 /* LinuxMain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LinuxMain.swift; path = Tests/LinuxMain.swift; sourceTree = SOURCE_ROOT; };
-		CDB2A956226B714400C0F199 /* SubclassOfSubclassWithStructPropertyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubclassOfSubclassWithStructPropertyTests.swift; sourceTree = "<group>"; };
+		CD89D17B247A673100C1F086 /* QuickIssue853RegressionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuickIssue853RegressionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD89D17E247A68A000C1F086 /* SubclassOfSubclassWithStructPropertyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubclassOfSubclassWithStructPropertyTests.swift; sourceTree = "<group>"; };
 		CE175D4D1E8D6B4900EB5E84 /* Behavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Behavior.swift; sourceTree = "<group>"; };
 		CE4A57891EA5DC270063C0D4 /* BehaviorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BehaviorTests.swift; sourceTree = "<group>"; };
 		CE4A578D1EA7251C0063C0D4 /* FunctionalTests_BehaviorTests_Behaviors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionalTests_BehaviorTests_Behaviors.swift; sourceTree = "<group>"; };
@@ -644,6 +502,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CD89D174247A673100C1F086 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD89D175247A673100C1F086 /* Nimble.framework in Frameworks */,
+				CD89D176247A673100C1F086 /* Quick.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DA5663E51A4C8D8500193C88 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -732,6 +599,15 @@
 			path = DSL;
 			sourceTree = "<group>";
 		};
+		CD89D17D247A67BA00C1F086 /* QuickIssue853RegressionTests */ = {
+			isa = PBXGroup;
+			children = (
+				CD89D17E247A68A000C1F086 /* SubclassOfSubclassWithStructPropertyTests.swift */,
+			);
+			name = QuickIssue853RegressionTests;
+			path = Tests/QuickIssue853RegressionTests;
+			sourceTree = "<group>";
+		};
 		CDB2AA5E1D6C84CF005600C3 /* ObjC */ = {
 			isa = PBXGroup;
 			children = (
@@ -809,7 +685,6 @@
 				DED3037C1DF6CF140041394E /* BundleModuleNameTests.swift */,
 				CE4A57891EA5DC270063C0D4 /* BehaviorTests.swift */,
 				DA5CBB471EAFA55800297C9E /* CurrentSpecTests.swift */,
-				CDB2A956226B714400C0F199 /* SubclassOfSubclassWithStructPropertyTests.swift */,
 				79FE27DE22DC955400BA013D /* QuickSpec_SelectedTests.swift */,
 			);
 			path = FunctionalTests;
@@ -867,6 +742,7 @@
 				DAEB6B901943873100289F44 /* Quick */,
 				6C3983EE1D1E930D00637469 /* QuickObjectiveC */,
 				DAEB6B9D1943873100289F44 /* QuickTests */,
+				CD89D17D247A67BA00C1F086 /* QuickIssue853RegressionTests */,
 				DA9876BE1A4C87200004AA17 /* QuickFocusedTests */,
 				64076D1C1D6D7D0B00E2B499 /* QuickAfterSuiteTests */,
 				DAEB6B8F1943873100289F44 /* Products */,
@@ -891,6 +767,7 @@
 				64076CF51D6D7C2000E2B499 /* QuickAfterSuite - macOSTests.xctest */,
 				64076D081D6D7CD600E2B499 /* QuickAfterSuite - iOSTests.xctest */,
 				64076D1A1D6D7CEA00E2B499 /* QuickAfterSuite - tvOSTests.xctest */,
+				CD89D17B247A673100C1F086 /* QuickIssue853RegressionTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -903,6 +780,7 @@
 				DA408BDE19FF5599005DF92A /* Hooks */,
 				CD3451461E4703D4000C8633 /* QuickMain.swift */,
 				CD3451471E4703D4000C8633 /* QuickSpec.swift */,
+				CD21A025247C1385002C4762 /* QuickTestObservation.swift */,
 				34F375A619515CA700CE1B99 /* World.swift */,
 				34F3759E19515CA700CE1B99 /* Example.swift */,
 				DA02C91819A8073100093156 /* ExampleMetadata.swift */,
@@ -1092,17 +970,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				5A5D118919473F2100F6D13D /* PBXTargetDependency */,
-				5A5D11F0194741B500F6D13D /* PBXTargetDependency */,
-				5A5D11F2194741B500F6D13D /* PBXTargetDependency */,
-				04DC97E9194B4B7E00CE00B6 /* PBXTargetDependency */,
-				04DC97EB194B4B9B00CE00B6 /* PBXTargetDependency */,
-				04DC97F3194B82DE00CE00B6 /* PBXTargetDependency */,
-				04DC97F7194B831200CE00B6 /* PBXTargetDependency */,
-				04DC97FB194B834100CE00B6 /* PBXTargetDependency */,
-				04DC97FF194B835E00CE00B6 /* PBXTargetDependency */,
-				04DC9803194B836300CE00B6 /* PBXTargetDependency */,
-				04DC9807194B838700CE00B6 /* PBXTargetDependency */,
+				CD89D14B24791EDA00C1F086 /* PBXTargetDependency */,
 			);
 			name = "Quick - iOSTests";
 			productName = "Quick-iOSTests";
@@ -1161,6 +1029,24 @@
 			name = "QuickAfterSuite - tvOSTests";
 			productName = "QuickFocused-tvOSTests";
 			productReference = 64076D1A1D6D7CEA00E2B499 /* QuickAfterSuite - tvOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		CD89D14C247A673100C1F086 /* QuickIssue853RegressionTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CD89D178247A673100C1F086 /* Build configuration list for PBXNativeTarget "QuickIssue853RegressionTests" */;
+			buildPhases = (
+				CD89D14F247A673100C1F086 /* Sources */,
+				CD89D174247A673100C1F086 /* Frameworks */,
+				CD89D177247A673100C1F086 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CD89D14D247A673100C1F086 /* PBXTargetDependency */,
+			);
+			name = QuickIssue853RegressionTests;
+			productName = QuickTests;
+			productReference = CD89D17B247A673100C1F086 /* QuickIssue853RegressionTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		DA5663E71A4C8D8500193C88 /* QuickFocused - macOSTests */ = {
@@ -1228,19 +1114,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				DAEB6B9C1943873100289F44 /* PBXTargetDependency */,
-				047655521949F4CB00B288BB /* PBXTargetDependency */,
-				047655541949F4CB00B288BB /* PBXTargetDependency */,
-				04765556194A327000B288BB /* PBXTargetDependency */,
-				04DC97E5194B4A6000CE00B6 /* PBXTargetDependency */,
-				04DC97E7194B4A6000CE00B6 /* PBXTargetDependency */,
-				04DC97F1194B82DB00CE00B6 /* PBXTargetDependency */,
-				04DC97F9194B834000CE00B6 /* PBXTargetDependency */,
-				04DC97FD194B834B00CE00B6 /* PBXTargetDependency */,
-				04DC9801194B836100CE00B6 /* PBXTargetDependency */,
-				04DC9805194B838400CE00B6 /* PBXTargetDependency */,
-				04DC9809194B838B00CE00B6 /* PBXTargetDependency */,
-				93625F391951DDC8006B1FE1 /* PBXTargetDependency */,
+				CD89D14924791ED000C1F086 /* PBXTargetDependency */,
 			);
 			name = "Quick - macOSTests";
 			productName = QuickTests;
@@ -1316,6 +1190,7 @@
 			targets = (
 				DAEB6B8D1943873100289F44 /* Quick-macOS */,
 				DAEB6B981943873100289F44 /* Quick - macOSTests */,
+				CD89D14C247A673100C1F086 /* QuickIssue853RegressionTests */,
 				DA5663E71A4C8D8500193C88 /* QuickFocused - macOSTests */,
 				64076CE51D6D7C2000E2B499 /* QuickAfterSuite - macOSTests */,
 				5A5D117B19473F2100F6D13D /* Quick-iOS */,
@@ -1382,6 +1257,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		64076D161D6D7CEA00E2B499 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD89D177247A673100C1F086 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1462,6 +1344,7 @@
 				CE175D501E8D6B4900EB5E84 /* Behavior.swift in Sources */,
 				CE590E1F1C431FE400253D19 /* QuickTestSuite.swift in Sources */,
 				1F118D091BDCA536005013A2 /* QuickSpec.m in Sources */,
+				CD21A028247C1385002C4762 /* QuickTestObservation.swift in Sources */,
 				CDE5BDFF2268CE97006E2F66 /* QuickConfiguration.swift in Sources */,
 				1F118D011BDCA536005013A2 /* ExampleHooks.swift in Sources */,
 			);
@@ -1482,7 +1365,6 @@
 				CE4A57911EA7252E0063C0D4 /* FunctionalTests_BehaviorTests_Behaviors.swift in Sources */,
 				DED3037F1DF6CF140041394E /* BundleModuleNameTests.swift in Sources */,
 				1F118D0F1BDCA54B005013A2 /* FunctionalTests_SharedExamplesTests_SharedExamples.swift in Sources */,
-				CDB2A959226B714400C0F199 /* SubclassOfSubclassWithStructPropertyTests.swift in Sources */,
 				CD1F6507226398F600EBE9D8 /* XCTestObservationCenter+QCKSuspendObservation.swift in Sources */,
 				1F118D101BDCA556005013A2 /* Configuration+AfterEach.swift in Sources */,
 				1F118D1A1BDCA556005013A2 /* PendingTests.swift in Sources */,
@@ -1550,6 +1432,7 @@
 				CE175D4F1E8D6B4900EB5E84 /* Behavior.swift in Sources */,
 				CE590E1A1C431FE300253D19 /* QuickTestSuite.swift in Sources */,
 				DA3124E719FCAEE8002858A7 /* DSL.swift in Sources */,
+				CD21A027247C1385002C4762 /* QuickTestObservation.swift in Sources */,
 				CDE5BDFE2268CE96006E2F66 /* QuickConfiguration.swift in Sources */,
 				DA6B30191A4DB0D500FFB148 /* Filter.swift in Sources */,
 			);
@@ -1570,7 +1453,6 @@
 				DA05D61119F73A3800771050 /* AfterEachTests.swift in Sources */,
 				DAB0137019FC4315006AFBEE /* SharedExamples+BeforeEachTests.swift in Sources */,
 				DA8F91A619F3208B006F6675 /* BeforeSuiteTests.swift in Sources */,
-				CDB2A958226B714400C0F199 /* SubclassOfSubclassWithStructPropertyTests.swift in Sources */,
 				CD1F6505226398F600EBE9D8 /* XCTestObservationCenter+QCKSuspendObservation.swift in Sources */,
 				DA8C00221A01E4B900CE58A6 /* QuickConfigurationTests.m in Sources */,
 				CE4A578A1EA5DC270063C0D4 /* BehaviorTests.swift in Sources */,
@@ -1622,6 +1504,14 @@
 			files = (
 				64076D231D6D7E6B00E2B499 /* AfterSuiteTests.swift in Sources */,
 				64076D271D6D80B500E2B499 /* AfterSuiteTests+ObjC.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD89D14F247A673100C1F086 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD89D17F247A68A100C1F086 /* SubclassOfSubclassWithStructPropertyTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1678,6 +1568,7 @@
 				CE175D4E1E8D6B4900EB5E84 /* Behavior.swift in Sources */,
 				34F375AB19515CA700CE1B99 /* Example.swift in Sources */,
 				DA3124E619FCAEE8002858A7 /* DSL.swift in Sources */,
+				CD21A026247C1385002C4762 /* QuickTestObservation.swift in Sources */,
 				CDE5BDFD2268CE95006E2F66 /* QuickConfiguration.swift in Sources */,
 				DA6B30181A4DB0D500FFB148 /* Filter.swift in Sources */,
 			);
@@ -1698,7 +1589,6 @@
 				CE4A57921EA725300063C0D4 /* FunctionalTests_BehaviorTests_Behaviors.swift in Sources */,
 				DED3037D1DF6CF140041394E /* BundleModuleNameTests.swift in Sources */,
 				DA05D61019F73A3800771050 /* AfterEachTests.swift in Sources */,
-				CDB2A957226B714400C0F199 /* SubclassOfSubclassWithStructPropertyTests.swift in Sources */,
 				CD1F6503226398F600EBE9D8 /* XCTestObservationCenter+QCKSuspendObservation.swift in Sources */,
 				DAB0136F19FC4315006AFBEE /* SharedExamples+BeforeEachTests.swift in Sources */,
 				DA8F91A519F3208B006F6675 /* BeforeSuiteTests.swift in Sources */,
@@ -1729,101 +1619,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		047655521949F4CB00B288BB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DAEB6B8D1943873100289F44 /* Quick-macOS */;
-			targetProxy = 047655511949F4CB00B288BB /* PBXContainerItemProxy */;
-		};
-		047655541949F4CB00B288BB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DAEB6B8D1943873100289F44 /* Quick-macOS */;
-			targetProxy = 047655531949F4CB00B288BB /* PBXContainerItemProxy */;
-		};
-		04765556194A327000B288BB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DAEB6B8D1943873100289F44 /* Quick-macOS */;
-			targetProxy = 04765555194A327000B288BB /* PBXContainerItemProxy */;
-		};
-		04DC97E5194B4A6000CE00B6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DAEB6B8D1943873100289F44 /* Quick-macOS */;
-			targetProxy = 04DC97E4194B4A6000CE00B6 /* PBXContainerItemProxy */;
-		};
-		04DC97E7194B4A6000CE00B6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DAEB6B8D1943873100289F44 /* Quick-macOS */;
-			targetProxy = 04DC97E6194B4A6000CE00B6 /* PBXContainerItemProxy */;
-		};
-		04DC97E9194B4B7E00CE00B6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5A5D117B19473F2100F6D13D /* Quick-iOS */;
-			targetProxy = 04DC97E8194B4B7E00CE00B6 /* PBXContainerItemProxy */;
-		};
-		04DC97EB194B4B9B00CE00B6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5A5D117B19473F2100F6D13D /* Quick-iOS */;
-			targetProxy = 04DC97EA194B4B9B00CE00B6 /* PBXContainerItemProxy */;
-		};
-		04DC97F1194B82DB00CE00B6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DAEB6B8D1943873100289F44 /* Quick-macOS */;
-			targetProxy = 04DC97F0194B82DB00CE00B6 /* PBXContainerItemProxy */;
-		};
-		04DC97F3194B82DE00CE00B6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5A5D117B19473F2100F6D13D /* Quick-iOS */;
-			targetProxy = 04DC97F2194B82DE00CE00B6 /* PBXContainerItemProxy */;
-		};
-		04DC97F7194B831200CE00B6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5A5D117B19473F2100F6D13D /* Quick-iOS */;
-			targetProxy = 04DC97F6194B831200CE00B6 /* PBXContainerItemProxy */;
-		};
-		04DC97F9194B834000CE00B6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DAEB6B8D1943873100289F44 /* Quick-macOS */;
-			targetProxy = 04DC97F8194B834000CE00B6 /* PBXContainerItemProxy */;
-		};
-		04DC97FB194B834100CE00B6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5A5D117B19473F2100F6D13D /* Quick-iOS */;
-			targetProxy = 04DC97FA194B834100CE00B6 /* PBXContainerItemProxy */;
-		};
-		04DC97FD194B834B00CE00B6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DAEB6B8D1943873100289F44 /* Quick-macOS */;
-			targetProxy = 04DC97FC194B834B00CE00B6 /* PBXContainerItemProxy */;
-		};
-		04DC97FF194B835E00CE00B6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5A5D117B19473F2100F6D13D /* Quick-iOS */;
-			targetProxy = 04DC97FE194B835E00CE00B6 /* PBXContainerItemProxy */;
-		};
-		04DC9801194B836100CE00B6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DAEB6B8D1943873100289F44 /* Quick-macOS */;
-			targetProxy = 04DC9800194B836100CE00B6 /* PBXContainerItemProxy */;
-		};
-		04DC9803194B836300CE00B6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5A5D117B19473F2100F6D13D /* Quick-iOS */;
-			targetProxy = 04DC9802194B836300CE00B6 /* PBXContainerItemProxy */;
-		};
-		04DC9805194B838400CE00B6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DAEB6B8D1943873100289F44 /* Quick-macOS */;
-			targetProxy = 04DC9804194B838400CE00B6 /* PBXContainerItemProxy */;
-		};
-		04DC9807194B838700CE00B6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5A5D117B19473F2100F6D13D /* Quick-iOS */;
-			targetProxy = 04DC9806194B838700CE00B6 /* PBXContainerItemProxy */;
-		};
-		04DC9809194B838B00CE00B6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DAEB6B8D1943873100289F44 /* Quick-macOS */;
-			targetProxy = 04DC9808194B838B00CE00B6 /* PBXContainerItemProxy */;
-		};
 		1F118CE11BDCA4AB005013A2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 1F118CD41BDCA4AB005013A2 /* Quick-tvOS */;
@@ -1833,21 +1628,6 @@
 			isa = PBXTargetDependency;
 			target = 1F118CD41BDCA4AB005013A2 /* Quick-tvOS */;
 			targetProxy = 1F118CF61BDCA4BB005013A2 /* PBXContainerItemProxy */;
-		};
-		5A5D118919473F2100F6D13D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5A5D117B19473F2100F6D13D /* Quick-iOS */;
-			targetProxy = 5A5D118819473F2100F6D13D /* PBXContainerItemProxy */;
-		};
-		5A5D11F0194741B500F6D13D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5A5D117B19473F2100F6D13D /* Quick-iOS */;
-			targetProxy = 5A5D11EF194741B500F6D13D /* PBXContainerItemProxy */;
-		};
-		5A5D11F2194741B500F6D13D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5A5D117B19473F2100F6D13D /* Quick-iOS */;
-			targetProxy = 5A5D11F1194741B500F6D13D /* PBXContainerItemProxy */;
 		};
 		64076CE61D6D7C2000E2B499 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1864,10 +1644,20 @@
 			target = 1F118CD41BDCA4AB005013A2 /* Quick-tvOS */;
 			targetProxy = 64076D0C1D6D7CEA00E2B499 /* PBXContainerItemProxy */;
 		};
-		93625F391951DDC8006B1FE1 /* PBXTargetDependency */ = {
+		CD89D14924791ED000C1F086 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DAEB6B8D1943873100289F44 /* Quick-macOS */;
-			targetProxy = 93625F381951DDC8006B1FE1 /* PBXContainerItemProxy */;
+			targetProxy = CD89D14824791ED000C1F086 /* PBXContainerItemProxy */;
+		};
+		CD89D14B24791EDA00C1F086 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5A5D117B19473F2100F6D13D /* Quick-iOS */;
+			targetProxy = CD89D14A24791EDA00C1F086 /* PBXContainerItemProxy */;
+		};
+		CD89D14D247A673100C1F086 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DAEB6B8D1943873100289F44 /* Quick-macOS */;
+			targetProxy = CD89D14E247A673100C1F086 /* PBXContainerItemProxy */;
 		};
 		DA5663F01A4C8D8500193C88 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1879,11 +1669,6 @@
 			target = 5A5D117B19473F2100F6D13D /* Quick-iOS */;
 			targetProxy = DA9876B91A4C70EB0004AA17 /* PBXContainerItemProxy */;
 		};
-		DAEB6B9C1943873100289F44 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DAEB6B8D1943873100289F44 /* Quick-macOS */;
-			targetProxy = DAEB6B9B1943873100289F44 /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -1891,6 +1676,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1924,6 +1710,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				COPY_PHASE_STRIP = NO;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2047,6 +1834,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -2076,7 +1864,6 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Debug;
 		};
@@ -2084,6 +1871,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -2110,7 +1898,6 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -2313,6 +2100,52 @@
 			};
 			name = Release;
 		};
+		CD89D179247A673100C1F086 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = Tests/QuickTests/QuickTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				METAL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.quick.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = Tests/QuickTests/QuickTests/Helpers/QuickTestsBridgingHeader.h;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "QuickTests-Swift.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		CD89D17A247A673100C1F086 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = Tests/QuickTests/QuickTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				METAL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.quick.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = Tests/QuickTests/QuickTests/Helpers/QuickTestsBridgingHeader.h;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "QuickTests-Swift.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+			};
+			name = Release;
+		};
 		DA5663F11A4C8D8500193C88 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2462,7 +2295,7 @@
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -2517,7 +2350,7 @@
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -2527,6 +2360,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2559,6 +2393,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2714,6 +2549,15 @@
 			buildConfigurations = (
 				732D8D6B1E516780008558BD /* Debug */,
 				732D8D6C1E516780008558BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CD89D178247A673100C1F086 /* Build configuration list for PBXNativeTarget "QuickIssue853RegressionTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD89D179247A673100C1F086 /* Debug */,
+				CD89D17A247A673100C1F086 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

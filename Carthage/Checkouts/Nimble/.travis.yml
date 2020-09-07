@@ -6,12 +6,6 @@ branches:
 language: generic
 jobs:
   include:
-    - &cocoapods
-      name: CocoaPods Lint
-      os: osx
-      osx_image: xcode10.3
-      install: bundle install
-      script: ./test podspec
     - &xcode
       name: Xcode 10.1 / Swift 4.2
       os: osx
@@ -20,9 +14,6 @@ jobs:
         - ./test macos
         - ./test ios
         - ./test tvos
-    - <<: *xcode
-      name: Xcode 10.3 / Swift 5.0
-      osx_image: xcode10.3
     - &swiftpm_darwin
       name: SwiftPM / Darwin / Swift 4.2
       os: osx
@@ -49,13 +40,17 @@ jobs:
       env:
         - SWIFT_VERSION=5.1.5
     - <<: *swiftpm_linux
-      name: SwiftPM / Linux / Swift 5.2.2
+      name: SwiftPM / Linux / Swift 5.2.4
       env:
-        - SWIFT_VERSION=5.2.2
+        - SWIFT_VERSION=5.2.4
+    - <<: *swiftpm_linux
+      name: SwiftPM / Linux / Swift 5.3 Development
+      env:
+        - SWIFT_VERSION=5.3-DEVELOPMENT-SNAPSHOT-2020-05-19-a
     - <<: *swiftpm_linux
       name: SwiftPM / Linux / Swift Development
       env:
-        - SWIFT_VERSION=DEVELOPMENT-SNAPSHOT-2020-04-17-a
+        - SWIFT_VERSION=DEVELOPMENT-SNAPSHOT-2020-05-26-a
 install: true
 script:
   - ./test $TYPE

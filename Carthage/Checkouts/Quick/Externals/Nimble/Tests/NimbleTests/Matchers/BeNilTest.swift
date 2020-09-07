@@ -1,7 +1,7 @@
 import XCTest
 import Nimble
 
-final class BeNilTest: XCTestCase, XCTestCaseProvider {
+final class BeNilTest: XCTestCase {
     func producesNil() -> [Int]? {
         return nil
     }
