@@ -31,5 +31,6 @@ Pods/
 Temporary Items
 bin/
 build/
+default.profraw
 releases/
 xcuserdata
