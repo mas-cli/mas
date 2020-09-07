@@ -2,15 +2,14 @@ class Mas < Formula
   desc "Mac App Store command-line interface"
   homepage "https://github.com/mas-cli/mas"
   url "https://github.com/mas-cli/mas.git",
-      :tag      => "v1.6.4",
-      :revision => "4cfb3185b6c72ac4a67eaaf17f842cc1dacf27c7"
+      :tag      => "v1.7.0",
+      :revision => "35575ff962687cfd9a12f859668cf61d5ea819c2
   head "https://github.com/mas-cli/mas.git"
 
   bottle do
     cellar :any
-    sha256 "2069b8c1c1a64c2fb91cc1c25ab9c9890c61f2182224b9e0605a35a151bb85bd" => :catalina
-    sha256 "3dd5a50b551a37c164c31375cc8498ba870e29e50086bd5c4c294bc26708a6d2" => :mojave
-    sha256 "a0d1e45203448c08420c3eab2d40ef957fd22c8e40fbeb067bc7bffe4f08dfe2" => :high_sierra
+    sha256 "b985d100947063ee94961f7f1290f232786634b869d20d56bd553197cf91188b" => :catalina
+    sha256 "c7005c34a3cf38d23f98e9cc238a0deae61f50ea5dfbcf51a34cc689a9db315e" => :mojave
   end
 
   depends_on "carthage" => :build
