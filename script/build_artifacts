@@ -1,0 +1,17 @@
+#!/bin/bash -e
+#
+# script/build_artifacts
+# mas
+#
+# Runs all related scripts for generating all artifacts.
+#
+
+VERSION=$(script/version)
+
+echo "Building mas $VERSION artifacts"
+
+script/clean
+script/build
+script/archive
+script/install
+script/package
