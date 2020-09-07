@@ -28,7 +28,7 @@ class FunctionalTests_ItSpec: QuickSpec {
 
                 expect(allSelectors) == [
                     "when_an_example_has_a_unique_name__doesn_t_add_multiple_selectors_for_it",
-                    "when_an_example_has_a_unique_name__has_a_unique_name"
+                    "when_an_example_has_a_unique_name__has_a_unique_name",
                 ]
             }
         }
@@ -46,7 +46,7 @@ class FunctionalTests_ItSpec: QuickSpec {
                 expect(allSelectors) == [
                     "when_two_examples_have_the_exact_name__has_exactly_the_same_name",
                     "when_two_examples_have_the_exact_name__has_exactly_the_same_name_2",
-                    "when_two_examples_have_the_exact_name__makes_a_unique_name_for_each_of_the_above"
+                    "when_two_examples_have_the_exact_name__makes_a_unique_name_for_each_of_the_above",
                 ]
             }
 
@@ -59,7 +59,7 @@ class FunctionalTests_ItSpec: QuickSpec {
                     it("will throw an error when it is nested in another it") { }
                     }.to(raiseException { (exception: NSException) in
                         expect(exception.name).to(equal(NSExceptionName.internalInconsistencyException))
-                        expect(exception.reason).to(equal("'it' cannot be used inside 'it', 'it' may only be used inside 'context' or 'describe'. "))
+                        expect(exception.reason).to(equal("'it' cannot be used inside 'it', 'it' may only be used inside 'context' or 'describe'."))
                         })
             }
 
@@ -79,7 +79,7 @@ class FunctionalTests_ItSpec: QuickSpec {
 
                 it("should have thrown an exception with the correct error message") {
                     expect(exception).toNot(beNil())
-                    expect(exception!.reason).to(equal("'it' cannot be used inside 'beforeEach', 'it' may only be used inside 'context' or 'describe'. "))
+                    expect(exception!.reason).to(equal("'it' cannot be used inside 'beforeEach', 'it' may only be used inside 'context' or 'describe'."))
                 }
             }
 
@@ -90,7 +90,7 @@ class FunctionalTests_ItSpec: QuickSpec {
                     let capture = NMBExceptionCapture(handler: ({ e in
                         exception = e
                         expect(exception).toNot(beNil())
-                        expect(exception!.reason).to(equal("'it' cannot be used inside 'afterEach', 'it' may only be used inside 'context' or 'describe'. "))
+                        expect(exception!.reason).to(equal("'it' cannot be used inside 'afterEach', 'it' may only be used inside 'context' or 'describe'."))
                     }), finally: nil)
 
                     capture.tryBlock {
@@ -107,11 +107,50 @@ class FunctionalTests_ItSpec: QuickSpec {
     }
 }
 
+private var isRunningFunctionalTests = false
+
+class FunctionalTests_ImplicitErrorItSpec: QuickSpec {
+    override func spec() {
+        describe("implicit error handling") {
+            enum ExampleError: Error {
+                case error
+            }
+
+            func nonThrowingFunc() throws {}
+
+            func throwingFunc(shouldThrow: Bool) throws {
+                if shouldThrow {
+                    throw ExampleError.error
+                }
+            }
+
+            it("supports calling functions marked as throws") {
+                try nonThrowingFunc()
+            }
+
+            it("supports calling functions that actually throws") {
+                try throwingFunc(shouldThrow: isRunningFunctionalTests)
+            }
+        }
+    }
+}
+
 final class ItTests: XCTestCase, XCTestCaseProvider {
     static var allTests: [(String, (ItTests) -> () throws -> Void)] {
         return [
-            ("testAllExamplesAreExecuted", testAllExamplesAreExecuted)
+            ("testAllExamplesAreExecuted", testAllExamplesAreExecuted),
+            ("testImplicitErrorHandling", testImplicitErrorHandling),
         ]
+    }
+
+    override func setUp() {
+        super.setUp()
+        isRunningFunctionalTests = true
+    }
+
+    override func tearDown() {
+        isRunningFunctionalTests = false
+        super.tearDown()
     }
 
     func testAllExamplesAreExecuted() {
@@ -125,5 +164,14 @@ final class ItTests: XCTestCase, XCTestCaseProvider {
         #else
         XCTAssertEqual(result?.executionCount, 2)
         #endif
+    }
+
+    func testImplicitErrorHandling() {
+        let result = qck_runSpec(FunctionalTests_ImplicitErrorItSpec.self)!
+        XCTAssertFalse(result.hasSucceeded)
+        XCTAssertEqual(result.executionCount, 2)
+        XCTAssertEqual(result.failureCount, 0)
+        XCTAssertEqual(result.unexpectedExceptionCount, 1)
+        XCTAssertEqual(result.totalFailureCount, 1)
     }
 }

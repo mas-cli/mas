@@ -21,7 +21,7 @@ Quick をテストに組み込むには３つの方法があります。
 Git submodules を使って Quick と Nimble をリンクします。手順の流れとしては下記の通りです。
 
 1. Quick を submodule として追加.
-2. プロジェクトで`.xcworkspace`を使っていなければ作成してください。 ([こちらを参照](https://developer.apple.com/library/ios/recipes/xcode_help-structure_navigator/articles/Adding_an_Existing_Project_to_a_Workspace.html))
+2. プロジェクトで`.xcworkspace`を使っていなければ作成してください。 ([こちらを参照](https://help.apple.com/xcode/mac/11.4/#/devf5378fca9))
 3. `Quick.xcodeproj` をプロジェクトの`.xcworkspace`に追加してください。
 4. `Nimble.xcodeproj` をプロジェクトの`.xcworkspace`に追加してください。 `Nimble.xcodeproj` は `path/to/Quick/Externals/Nimble` にあります。 Quick が依存している Niimble を追加することで Quick のバージョンと Nimble のバージョンを合わせられます。
 

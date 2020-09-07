@@ -42,7 +42,7 @@ extension Optional where Wrapped: Comparable {
     }
 }
 
-final class AllPassTest: XCTestCase, XCTestCaseProvider {
+final class AllPassTest: XCTestCase {
     func testAllPassArray() {
         expect([1, 2, 3, 4]).to(allPass({$0 < 5}))
         expect([1, 2, 3, 4]).toNot(allPass({$0 > 5}))

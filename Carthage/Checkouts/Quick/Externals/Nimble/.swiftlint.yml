@@ -6,6 +6,7 @@ included:
   - Tests
 
 excluded:
+  - Package.swift
   - Carthage/Checkouts
   - Tests/NimbleTests/XCTestManifests.swift
   - Tests/NimbleTests/Helpers/XCTestCaseProvider.swift

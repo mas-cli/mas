@@ -2,7 +2,7 @@ import Foundation
 import XCTest
 import Nimble
 
-final class BeIdenticalToObjectTest: XCTestCase, XCTestCaseProvider {
+final class BeIdenticalToObjectTest: XCTestCase {
     private class BeIdenticalToObjectTester {}
     private let testObjectA = BeIdenticalToObjectTester()
     private let testObjectB = BeIdenticalToObjectTester()

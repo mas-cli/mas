@@ -2,16 +2,12 @@ import Foundation
 import XCTest
 import Nimble
 
-final class BeGreaterThanTest: XCTestCase, XCTestCaseProvider {
+final class BeGreaterThanTest: XCTestCase {
     func testGreaterThan() {
         expect(10).to(beGreaterThan(2))
         expect(1).toNot(beGreaterThan(2))
-#if SUPPORT_IMPLICIT_BRIDGING_CONVERSION
-        expect(NSNumber(value: 3)).to(beGreaterThan(2))
-#else
-        expect(NSNumber(value: 3)).to(beGreaterThan(2 as NSNumber))
-#endif
-        expect(NSNumber(value: 1)).toNot(beGreaterThan(NSNumber(value: 2)))
+        expect(3 as NSNumber).to(beGreaterThan(2 as NSNumber))
+        expect(1 as NSNumber).toNot(beGreaterThan(2 as NSNumber))
 
         failsWithErrorMessage("expected to be greater than <2>, got <0>") {
             expect(0).to(beGreaterThan(2))
@@ -29,12 +25,8 @@ final class BeGreaterThanTest: XCTestCase, XCTestCaseProvider {
 
     func testGreaterThanOperator() {
         expect(1) > 0
-        expect(NSNumber(value: 1)) > NSNumber(value: 0)
-#if SUPPORT_IMPLICIT_BRIDGING_CONVERSION
-        expect(NSNumber(value: 1)) > 0
-#else
-        expect(NSNumber(value: 1)) > 0 as NSNumber
-#endif
+        expect(1 as NSNumber) > 0 as NSNumber
+        expect(1 as NSNumber) > 0 as NSNumber
         expect(2.5) > 1.5
         expect(Float(2.5)) > Float(1.5)
 

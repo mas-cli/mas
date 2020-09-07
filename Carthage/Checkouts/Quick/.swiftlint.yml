@@ -1,8 +1,11 @@
 disabled_rules:
-  - line_length
-  - type_name
-  - function_body_length
-  - identifier_name
 included:
   - Sources
   - Tests
+
+line_length:
+  warning: 160
+  error: 240
+
+trailing_comma:
+  mandatory_comma: true

@@ -58,15 +58,22 @@ class _FunctionalTests_FocusedSpec_Unfocused: QuickSpec {
 final class FocusedTests: XCTestCase, XCTestCaseProvider {
     static var allTests: [(String, (FocusedTests) -> () throws -> Void)] {
         return [
-            ("testOnlyFocusedExamplesAreExecuted", testOnlyFocusedExamplesAreExecuted)
+            ("testOnlyFocusedExamplesAreExecuted", testOnlyFocusedExamplesAreExecuted),
         ]
     }
 
     func testOnlyFocusedExamplesAreExecuted() {
+        #if SWIFT_PACKAGE
         let result = qck_runSpecs([
             _FunctionalTests_FocusedSpec_Focused.self,
-            _FunctionalTests_FocusedSpec_Unfocused.self
+            _FunctionalTests_FocusedSpec_Unfocused.self,
         ])
+        #else
+        let result = qck_runSpecs([
+            _FunctionalTests_FocusedSpec_Unfocused.self,
+            _FunctionalTests_FocusedSpec_Focused.self,
+        ])
+        #endif
         XCTAssertEqual(result?.executionCount, 8)
     }
 }

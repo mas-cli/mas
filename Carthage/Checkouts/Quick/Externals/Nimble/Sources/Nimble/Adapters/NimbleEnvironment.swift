@@ -1,5 +1,6 @@
 import Dispatch
-import Foundation
+import class Foundation.NSObject
+import class Foundation.Thread
 
 /// "Global" state of Nimble is stored here. Only DSL functions should access / be aware of this
 /// class' existence

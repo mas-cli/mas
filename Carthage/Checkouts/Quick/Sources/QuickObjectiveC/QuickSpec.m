@@ -18,34 +18,12 @@ static QuickSpec *currentSpec = nil;
 #pragma mark - XCTestCase Overrides
 
 /**
- QuickSpec hooks into this event to compile the example groups for this spec subclass.
-
- If an exception occurs when compiling the examples, report it to the user. Chances are they
- included an expectation outside of a "it", "describe", or "context" block.
- */
-+ (XCTestSuite *)defaultTestSuite {
-    [self buildExamplesIfNeeded];
-
-    // Add instance methods for this class' examples.
-    NSArray *examples = [[World sharedWorld] examplesForSpecClass:[self class]];
-    NSMutableSet<NSString*> *selectorNames = [NSMutableSet set];
-
-    for (Example *example in examples) {
-        [self addInstanceMethodForExample:example classSelectorNames:selectorNames];
-    }
-
-    return [super defaultTestSuite];
-}
-
-/**
  Invocations for each test method in the test case. QuickSpec overrides this method to define a
  new method for each example defined in +[QuickSpec spec].
 
  @return An array of invocations that execute the newly defined example methods.
  */
 + (NSArray *)testInvocations {
-    [self buildExamplesIfNeeded];
-
     NSArray *examples = [[World sharedWorld] examplesForSpecClass:[self class]];
     NSMutableArray *invocations = [NSMutableArray arrayWithCapacity:[examples count]];
     
@@ -84,13 +62,12 @@ static QuickSpec *currentSpec = nil;
     [QuickConfiguration class];
     World *world = [World sharedWorld];
 
-    ExampleGroup *rootExampleGroup = [world rootExampleGroupForSpecClass:self];
-
-    if ([rootExampleGroup examples].count > 0) {
+    if ([world isRootExampleGroupInitializedForSpecClass:[self class]]) {
         // The examples fot this subclass have been already built. Skipping.
         return;
     }
 
+    ExampleGroup *rootExampleGroup = [world rootExampleGroupForSpecClass:[self class]];
     [world performWithCurrentExampleGroup:rootExampleGroup closure:^{
         QuickSpec *spec = [self new];
 
@@ -162,14 +139,29 @@ static QuickSpec *currentSpec = nil;
                               inFile:(NSString *)filePath
                               atLine:(NSUInteger)lineNumber
                             expected:(BOOL)expected {
+    if (self != [QuickSpec current]) {
+        [[QuickSpec current] recordFailureWithDescription:description
+                                                   inFile:filePath
+                                                   atLine:lineNumber
+                                                 expected:expected];
+        return;
+    }
+
     if (self.example.isSharedExample) {
         filePath = self.example.callsite.file;
         lineNumber = self.example.callsite.line;
     }
-    [currentSpec.testRun recordFailureWithDescription:description
-                                               inFile:filePath
-                                               atLine:lineNumber
-                                             expected:expected];
+    [super recordFailureWithDescription:description
+                                 inFile:filePath
+                                 atLine:lineNumber
+                               expected:expected];
 }
 
 @end
+
+#pragma mark - Test Observation
+
+__attribute__((constructor))
+static void registerQuickTestObservation(void) {
+    [[XCTestObservationCenter sharedTestObservationCenter] addTestObserver:[QuickTestObservation sharedInstance]];
+}
