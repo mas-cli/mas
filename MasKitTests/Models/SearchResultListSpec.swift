@@ -16,14 +16,14 @@ class SearchResultListSpec: QuickSpec {
             it("can parse bbedit") {
                 let data = Data(from: "search/bbedit.json")
                 let decoder = JSONDecoder()
-                let results = try! decoder.decode(SearchResultList.self, from: data)
+                let results = try decoder.decode(SearchResultList.self, from: data)
 
                 expect(results.resultCount) == 1
             }
             it("can parse things") {
                 let data = Data(from: "search/things.json")
                 let decoder = JSONDecoder()
-                let results = try! decoder.decode(SearchResultList.self, from: data)
+                let results = try decoder.decode(SearchResultList.self, from: data)
 
                 expect(results.resultCount) == 50
             }
