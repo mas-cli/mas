@@ -1268,7 +1268,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "mas/mas-Info.plist";
 				INSTALL_PATH = /bin;
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path/. @executable_path/MasKit.framework/Versions/Current/Frameworks /usr/local/Frameworks /usr/local/Frameworks/MasKit.framework/Versions/Current/Frameworks $(inherited)";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/. @executable_path/MasKit.framework/Versions/Current/Frameworks @executable_path/../Frameworks @executable_path/../Frameworks/MasKit.framework/Versions/Current/Frameworks $(inherited)";
 				MARKETING_VERSION = 1.7.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mphys.mas-cli";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1293,7 +1293,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "mas/mas-Info.plist";
 				INSTALL_PATH = /bin;
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path/. @executable_path/MasKit.framework/Versions/Current/Frameworks /usr/local/Frameworks /usr/local/Frameworks/MasKit.framework/Versions/Current/Frameworks $(inherited)";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/. @executable_path/MasKit.framework/Versions/Current/Frameworks @executable_path/../Frameworks @executable_path/../Frameworks/MasKit.framework/Versions/Current/Frameworks $(inherited)";
 				MARKETING_VERSION = 1.7.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mphys.mas-cli";
 				PRODUCT_NAME = "$(TARGET_NAME)";
