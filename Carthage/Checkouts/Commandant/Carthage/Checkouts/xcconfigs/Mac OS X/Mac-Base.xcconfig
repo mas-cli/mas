@@ -14,6 +14,3 @@ LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/../Frameworks @loader_pa
 // The base SDK to use (if no version is specified, the latest version is
 // assumed)
 SDKROOT = macosx
-
-// Supported build architectures
-VALID_ARCHS = x86_64
