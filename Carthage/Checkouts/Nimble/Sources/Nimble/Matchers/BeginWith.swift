@@ -2,14 +2,12 @@ import Foundation
 
 /// A Nimble matcher that succeeds when the actual sequence's first element
 /// is equal to the expected value.
-public func beginWith<S: Sequence, T: Equatable>(_ startingElement: T) -> Predicate<S>
-    where S.Iterator.Element == T {
+public func beginWith<S: Sequence>(_ startingElement: S.Element) -> Predicate<S> where S.Element: Equatable {
     return Predicate.simple("begin with <\(startingElement)>") { actualExpression in
-        if let actualValue = try actualExpression.evaluate() {
-            var actualGenerator = actualValue.makeIterator()
-            return PredicateStatus(bool: actualGenerator.next() == startingElement)
-        }
-        return .fail
+        guard let actualValue = try actualExpression.evaluate() else { return .fail }
+
+        var actualGenerator = actualValue.makeIterator()
+        return PredicateStatus(bool: actualGenerator.next() == startingElement)
     }
 }
 
@@ -34,16 +32,15 @@ public func beginWith(_ startingElement: Any) -> Predicate<NMBOrderedCollection>
 /// where the expected substring's location is zero.
 public func beginWith(_ startingSubstring: String) -> Predicate<String> {
     return Predicate.simple("begin with <\(startingSubstring)>") { actualExpression in
-        if let actual = try actualExpression.evaluate() {
-            return PredicateStatus(bool: actual.hasPrefix(startingSubstring))
-        }
-        return .fail
+        guard let actual = try actualExpression.evaluate() else { return .fail }
+
+        return PredicateStatus(bool: actual.hasPrefix(startingSubstring))
     }
 }
 
 #if canImport(Darwin)
-extension NMBObjCMatcher {
-    @objc public class func beginWithMatcher(_ expected: Any) -> NMBMatcher {
+extension NMBPredicate {
+    @objc public class func beginWithMatcher(_ expected: Any) -> NMBPredicate {
         return NMBPredicate { actualExpression in
             let actual = try actualExpression.evaluate()
             if actual is String {

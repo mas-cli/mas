@@ -1,7 +1,5 @@
-import Foundation
-
 /// Make an expectation on a given actual value. The value given is lazily evaluated.
-public func expect<T>(_ expression: @autoclosure @escaping () throws -> T?, file: FileString = #file, line: UInt = #line) -> Expectation<T> {
+public func expect<T>(file: FileString = #file, line: UInt = #line, _ expression: @autoclosure @escaping () throws -> T?) -> Expectation<T> {
     return Expectation(
         expression: Expression(
             expression: expression,
@@ -10,10 +8,28 @@ public func expect<T>(_ expression: @autoclosure @escaping () throws -> T?, file
 }
 
 /// Make an expectation on a given actual value. The closure is lazily invoked.
-public func expect<T>(_ file: FileString = #file, line: UInt = #line, expression: @escaping () throws -> T?) -> Expectation<T> {
+public func expect<T>(file: FileString = #file, line: UInt = #line, _ expression: @autoclosure () -> (() throws -> T)) -> Expectation<T> {
     return Expectation(
         expression: Expression(
-            expression: expression,
+            expression: expression(),
+            location: SourceLocation(file: file, line: line),
+            isClosure: true))
+}
+
+/// Make an expectation on a given actual value. The closure is lazily invoked.
+public func expect<T>(file: FileString = #file, line: UInt = #line, _ expression: @autoclosure () -> (() throws -> T?)) -> Expectation<T> {
+    return Expectation(
+        expression: Expression(
+            expression: expression(),
+            location: SourceLocation(file: file, line: line),
+            isClosure: true))
+}
+
+/// Make an expectation on a given actual value. The closure is lazily invoked.
+public func expect(file: FileString = #file, line: UInt = #line, _ expression: @autoclosure () -> (() throws -> Void)) -> Expectation<Void> {
+    return Expectation(
+        expression: Expression(
+            expression: expression(),
             location: SourceLocation(file: file, line: line),
             isClosure: true))
 }
@@ -36,24 +52,16 @@ public func fail(_ file: FileString = #file, line: UInt = #line) {
 
 /// Like Swift's precondition(), but raises NSExceptions instead of sigaborts
 internal func nimblePrecondition(
-    _ expr: @autoclosure() -> Bool,
-    _ name: @autoclosure() -> String,
-    _ message: @autoclosure() -> String,
+    _ expr: @autoclosure () -> Bool,
+    _ name: @autoclosure () -> String,
+    _ message: @autoclosure () -> String,
     file: StaticString = #file,
-    line: UInt = #line) {
-        let result = expr()
-        if !result {
-#if canImport(Darwin)
-            let exception = NSException(
-                name: NSExceptionName(name()),
-                reason: message(),
-                userInfo: nil
-            )
-            exception.raise()
-#else
-            preconditionFailure("\(name()) - \(message())", file: file, line: line)
-#endif
-        }
+    line: UInt = #line
+) {
+    let result = expr()
+    if !result {
+        _nimblePrecondition(name(), message(), file, line)
+    }
 }
 
 internal func internalError(_ msg: String, file: FileString = #file, line: UInt = #line) -> Never {
@@ -66,3 +74,31 @@ internal func internalError(_ msg: String, file: FileString = #file, line: UInt 
     )
     // swiftlint:enable line_length
 }
+
+#if canImport(Darwin)
+import class Foundation.NSException
+import struct Foundation.NSExceptionName
+
+private func _nimblePrecondition(
+    _ name: String,
+    _ message: String,
+    _ file: StaticString,
+    _ line: UInt
+) {
+    let exception = NSException(
+        name: NSExceptionName(name),
+        reason: message,
+        userInfo: nil
+    )
+    exception.raise()
+}
+#else
+private func _nimblePrecondition(
+    _ name: String,
+    _ message: String,
+    _ file: StaticString,
+    _ line: UInt
+) {
+    preconditionFailure("\(name) - \(message)", file: file, line: line)
+}
+#endif

@@ -2,7 +2,7 @@ import Foundation
 import XCTest
 import Nimble
 
-final class ContainTest: XCTestCase, XCTestCaseProvider {
+final class ContainTest: XCTestCase {
     func testContainSequence() {
         expect([1, 2, 3]).to(contain(1))
         expect([1, 2, 3]).toNot(contain(4))
@@ -11,9 +11,9 @@ final class ContainTest: XCTestCase, XCTestCaseProvider {
         expect(["foo", "bar", "baz"]).to(contain("baz"))
         expect(["foo", "bar", "baz"]).toNot(contain("ba"))
 #if canImport(Darwin)
-        expect(NSArray(array: ["a"])).to(contain(NSString(string: "a")))
-        expect(NSArray(array: ["a"])).toNot(contain(NSString(string: "b")))
-        expect(NSArray(object: 1) as NSArray?).to(contain(1))
+        expect(["a"] as NSArray).to(contain("a" as NSString))
+        expect(["a"] as NSArray).toNot(contain("b" as NSString))
+        expect([1] as NSArray?).to(contain(1))
 #endif
 
         failsWithErrorMessage("expected to contain <bar>, got <[a, b, c]>") {
@@ -85,12 +85,12 @@ final class ContainTest: XCTestCase, XCTestCaseProvider {
         }
     }
 
-    func testContainObjCSubstring() {
-        let str = NSString(string: "foo")
-        expect(str).to(contain(NSString(string: "o")))
-        expect(str).to(contain(NSString(string: "oo")))
-        expect(str).toNot(contain(NSString(string: "z")))
-        expect(str).toNot(contain(NSString(string: "zz")))
+    func testContainNSStringSubstring() {
+        let str = "foo" as NSString
+        expect(str).to(contain("o" as NSString))
+        expect(str).to(contain("oo" as NSString))
+        expect(str).toNot(contain("z" as NSString))
+        expect(str).toNot(contain("zz" as NSString))
     }
 
     func testVariadicArguments() {
