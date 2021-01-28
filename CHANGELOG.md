@@ -10,6 +10,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - 🎨 Improve `mas list` command output #278
 - 🐛 Fix alignment of 2nd column of list command output #298
 - ✨ `Makefile` #277
+- 🐛 Specify desired LD_RUNPATH_SEARCH_PATHS at link-time #310
+- ⬆️ Commandant (0.17.0) #310
+- ⬆️ Nimble (9.0.0) #310
+- ⬆️ Quick (3.0.0) #310
+- 🕊 Swift 5.2 #310
+  - ⚒️ Xcode 11.4 and macOS 10.15.2 required to build
+- ✨ Support for Apple Silicon (arm64) #310
+  - ⚒️ Xcode 12.2 and macOS 10.15.4 required to build
 
 ## [v1.7.1] 🐛 Search JSON Fix - 2020-09-06
 
