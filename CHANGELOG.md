@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   - ⚒️ Xcode 11.4 and macOS 10.15.2 required to build
 - ✨ Support for Apple Silicon (arm64) #310
   - ⚒️ Xcode 12.2 and macOS 10.15.4 required to build
+- 🐛 Default PREFIX to /opt/homebrew on Apple Silicon (arm64)
 
 ## [v1.7.1] 🐛 Search JSON Fix - 2020-09-06
 

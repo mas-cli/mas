@@ -24,11 +24,13 @@ VERSION=$(script/version)
 INSTALL_TEMPORARY_FOLDER=${DSTROOT:-build/distributions}
 
 # Final destination.
-PREFIX=/usr/local
-
 # Override default prefix path with optional 1st arg
 if test -n "$1"; then
     PREFIX="$1"
+elif [[ $(uname -m) == 'arm64' ]]; then
+    PREFIX=/opt/homebrew
+else
+    PREFIX=/usr/local
 fi
 
 echo "==> 📲 Installing mas ($VERSION) to $PREFIX"
