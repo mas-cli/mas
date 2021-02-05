@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - 🐛 Specify desired LD_RUNPATH_SEARCH_PATHS at link-time #310
 - ⬆️ Commandant (0.17.0) #310
 - ⬆️ Nimble (9.0.0) #310
-- ⬆️ Quick (3.0.1) #310
+- ⬆️ Quick (3.1.0) #310
 - 🕊 Swift 5.2 #310
   - ⚒️ Xcode 11.4 and macOS 10.15.2 required to build
 - ✨ Support for Apple Silicon (arm64) #310
