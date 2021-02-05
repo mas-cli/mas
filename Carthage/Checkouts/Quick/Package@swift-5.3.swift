@@ -1,11 +1,11 @@
-// swift-tools-version:5.2
+// swift-tools-version:5.3
 
 import PackageDescription
 
 let package = Package(
     name: "Quick",
     platforms: [
-        .macOS(.v10_10), .iOS(.v8), .tvOS(.v9)
+        .macOS(.v10_10), .iOS(.v9), .tvOS(.v9)
     ],
     products: [
         .library(name: "Quick", targets: ["Quick"]),
@@ -47,3 +47,4 @@ let package = Package(
     }(),
     swiftLanguageVersions: [.v5]
 )
+

@@ -19,10 +19,10 @@ jobs:
     #   osx_image: xcode10.3
     #   script: ./test swiftpm
     - &swiftpm_linux
-      name: SwiftPM / Linux / Swift 5.2.3
+      name: SwiftPM / Linux / Swift 5.2.5
       os: linux
       env:
-        - SWIFT_VERSION=5.2.3
+        - SWIFT_VERSION=5.2.5
       install:
         - eval "$(curl -sL https://swiftenv.fuller.li/install.sh)"
       script:
@@ -30,11 +30,11 @@ jobs:
     - <<: *swiftpm_linux
       name: SwiftPM / Linux / Swift 5.3 Development
       env:
-        - SWIFT_VERSION=5.3-DEVELOPMENT-SNAPSHOT-2020-05-11-a
+        - SWIFT_VERSION=5.3-DEVELOPMENT-SNAPSHOT-2020-09-04-a
     - <<: *swiftpm_linux
       name: SwiftPM / Linux / Swift Development
       env:
-        - SWIFT_VERSION=DEVELOPMENT-SNAPSHOT-2020-05-18-a
+        - SWIFT_VERSION=DEVELOPMENT-SNAPSHOT-2020-08-31-a
 install: true
 script:
   - ./test $TYPE

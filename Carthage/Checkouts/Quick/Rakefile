@@ -13,7 +13,7 @@ end
 namespace "podspec" do
   desc "Run lint for podspec"
   task :lint do
-    run "bundle exec pod lib lint"
+    run "bundle exec pod lib lint --allow-warnings"
   end
 end
 

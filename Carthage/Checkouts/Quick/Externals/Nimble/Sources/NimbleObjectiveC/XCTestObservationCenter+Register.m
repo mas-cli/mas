@@ -6,7 +6,12 @@
 #import <Nimble/Nimble-Swift.h>
 #endif
 
-__attribute__((constructor))
-static void registerCurrentTestCaseTracker(void) {
+#pragma mark - Private
+
+@implementation XCTestObservationCenter (Register)
+
++ (void)load {
     [[XCTestObservationCenter sharedTestObservationCenter] addTestObserver:[CurrentTestCaseTracker sharedInstance]];
 }
+
+@end

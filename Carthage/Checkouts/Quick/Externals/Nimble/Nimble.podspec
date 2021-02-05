@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "Nimble"
-  s.version      = "9.0.0-rc.1"
+  s.version      = "9.0.0"
   s.summary      = "A Matcher Framework for Swift and Objective-C"
   s.description  = <<-DESC
                    Use Nimble to express the expected outcomes of Swift or Objective-C expressions. Inspired by Cedar.
@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/Quick/Nimble"
   s.license      = { :type => "Apache 2.0", :file => "LICENSE" }
   s.author       = "Quick Contributors"
-  s.ios.deployment_target = "8.0"
+  s.ios.deployment_target = "9.0"
   s.osx.deployment_target = "10.10"
   s.tvos.deployment_target = "9.0"
   s.source       = { :git => "https://github.com/Quick/Nimble.git",
@@ -44,9 +44,9 @@ Pod::Spec.new do |s|
     'APPLICATION_EXTENSION_API_ONLY' => 'YES',
     'DEFINES_MODULE' => 'YES',
     'ENABLE_BITCODE' => 'NO',
+    'ENABLE_TESTING_SEARCH_PATHS' => 'YES',
     'OTHER_LDFLAGS' => '$(inherited) -weak-lswiftXCTest -Xlinker -no_application_extension',
     'OTHER_SWIFT_FLAGS' => '$(inherited) -suppress-warnings',
-    'FRAMEWORK_SEARCH_PATHS' => '$(inherited) "$(PLATFORM_DIR)/Developer/Library/Frameworks"',
   }
 
   s.cocoapods_version = '>= 1.4.0'

@@ -89,6 +89,13 @@ function test_xcode_spm_ios {
     run set -o pipefail && xcodebuild -scheme "Nimble" -configuration "Debug" -sdk "iphonesimulator$BUILD_IOS_SDK_VERSION" -destination "name=iPhone 8,OS=$RUNTIME_IOS_VERSION" OTHER_SWIFT_FLAGS='$(inherited) -suppress-warnings' build-for-testing test-without-building | xcpretty
 }
 
+function test_xcode_spm_tvos {
+    run osascript -e 'tell app "Simulator" to quit'
+    mv Nimble.xcodeproj Nimble.xcodeproj.bak
+    trap 'mv Nimble.xcodeproj.bak Nimble.xcodeproj' EXIT
+    run set -o pipefail && xcodebuild -scheme "Nimble" -configuration "Debug" -sdk "appletvsimulator$BUILD_TVOS_SDK_VERSION" -destination "name=Apple TV,OS=$RUNTIME_TVOS_VERSION" OTHER_SWIFT_FLAGS='$(inherited) -suppress-warnings' build-for-testing test-without-building | xcpretty
+}
+
 function test_podspec {
     echo "Gathering CocoaPods installation information..."
     run bundle exec pod --version
@@ -110,13 +117,14 @@ function test_swiftpm_docker {
 }
 
 function test() {
+    test_macos
     test_ios
     test_tvos
-    test_macos
 
     if xcodebuild --help 2>&1 | grep xcframework > /dev/null; then
-        test_xcode_spm_ios
         test_xcode_spm_macos
+        test_xcode_spm_ios
+        test_xcode_spm_tvos
     else
         echo "Not testing with Swift Package Manager version of Xcode because it requires at least Xcode 11"
     fi
@@ -150,6 +158,7 @@ function help {
     echo " ios             - Runs the tests as an iOS device"
     echo " ios_xcodespm    - Runs the tests as an iOS device using the Swift Package Manager version of Xcode"
     echo " tvos            - Runs the tests as an tvOS device"
+    echo " tvos_xcodespm   - Runs the tests as an tvOS device using the Swift Package Manager version of Xcode"
     echo " podspec         - Runs pod lib lint against the podspec to detect breaking changes"
     echo " swiftpm         - Runs the tests built by the Swift Package Manager"
     echo " swiftpm_docker  - Runs the tests built by the Swift Package Manager in a docker linux container"
@@ -166,6 +175,7 @@ function main {
             ios) test_ios ;;
             ios_xcodespm) test_xcode_spm_ios ;;
             tvos) test_tvos ;;
+            tvos_xcodespm) test_xcode_spm_tvos ;;
             macos) test_macos ;;
             macos_xcodespm) test_xcode_spm_macos ;;
             podspec) test_podspec ;;

@@ -21,14 +21,6 @@ public indirect enum ExpectationMessage {
     /// provides long-form multi-line explainations ("<expectation>\n\n<string>")
     case details(ExpectationMessage, String)
 
-    internal var sampleMessage: String {
-        let asStr = toString(actual: "<ACTUAL>", expected: "expected", to: "to")
-        let asFailureMessage = FailureMessage()
-        update(failureMessage: asFailureMessage)
-        // swiftlint:disable:next line_length
-        return "(toString(actual:expected:to:) -> \(asStr) || update(failureMessage:) -> \(asFailureMessage.stringValue))"
-    }
-
     /// Returns the smallest message after the "expected to" string that summarizes the error.
     ///
     /// Returns the message part from ExpectationMessage, ignoring all .appends and .details.
