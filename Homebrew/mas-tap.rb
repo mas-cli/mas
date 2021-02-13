@@ -9,16 +9,21 @@ class Mas < Formula
 
   bottle do
     root_url "https://dl.bintray.com/phatblat/mas-bottles"
-    cellar :any
-    sha256 "de5acfedda59b73fbd36e4a966120aa1aa7e5eea4c07c19e75c0b21819b0900d" => :catalina
-    sha256 "de5acfedda59b73fbd36e4a966120aa1aa7e5eea4c07c19e75c0b21819b0900d" => :mojave
-    sha256 "de5acfedda59b73fbd36e4a966120aa1aa7e5eea4c07c19e75c0b21819b0900d" => :high_sierra
-    sha256 "de5acfedda59b73fbd36e4a966120aa1aa7e5eea4c07c19e75c0b21819b0900d" => :sierra
-    sha256 "de5acfedda59b73fbd36e4a966120aa1aa7e5eea4c07c19e75c0b21819b0900d" => :el_capitan
+    sha256 cellar: :any, arm64_big_sur: "444796f43ad88de2cc6f8effcde699330867ace7d722b367dd446dd75e1db251"
+    sha256 cellar: :any, big_sur:       "444796f43ad88de2cc6f8effcde699330867ace7d722b367dd446dd75e1db251"
+    sha256 cellar: :any, catalina:      "444796f43ad88de2cc6f8effcde699330867ace7d722b367dd446dd75e1db251"
+    sha256 cellar: :any, mojave:        "444796f43ad88de2cc6f8effcde699330867ace7d722b367dd446dd75e1db251"
+    sha256 cellar: :any, high_sierra:   "444796f43ad88de2cc6f8effcde699330867ace7d722b367dd446dd75e1db251"
+    sha256 cellar: :any, sierra:        "444796f43ad88de2cc6f8effcde699330867ace7d722b367dd446dd75e1db251"
+    sha256 cellar: :any, el_capitan:    "444796f43ad88de2cc6f8effcde699330867ace7d722b367dd446dd75e1db251"
   end
 
   depends_on "carthage" => :build
-  depends_on xcode: ["11.4", :build]
+  if Hardware::CPU.arm?
+    depends_on xcode: ["12.2", :build]
+  else
+    depends_on xcode: ["11.4", :build]
+  end
 
   def install
     # Working around build issues in dependencies
