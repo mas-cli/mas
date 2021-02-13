@@ -15,6 +15,9 @@ GCC_OPTIMIZATION_LEVEL = 0
 // Preproccessor definitions to apply to each file compiled
 GCC_PREPROCESSOR_DEFINITIONS = DEBUG=1
 
+// Allow @testable imports
+ENABLE_TESTABILITY = YES
+
 // Whether to enable link-time optimizations (such as inlining across translation
 // units)
 LLVM_LTO = NO
@@ -32,12 +35,17 @@ OTHER_CFLAGS = -ftrapv
 // This enables conditional compilation with #if DEBUG
 OTHER_SWIFT_FLAGS = -D DEBUG
 
+// Xcode 8 introduced a new flag for conditional compilation
+//
+// This enables conditional compilation with #if DEBUG
+SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG
+
 // Whether to strip debugging symbols when copying the built product to its
 // final installation location
 STRIP_INSTALLED_PRODUCT = NO
 
-// The optimization level (-Onone, -O, -Ofast) for the produced Swift binary
+// The optimization level (-Onone, -O, -Osize) for the produced Swift binary
 SWIFT_OPTIMIZATION_LEVEL = -Onone
 
-// Disable Developer ID timestamping
-OTHER_CODE_SIGN_FLAGS = --timestamp=none
+// Use a faster hashing algorithm for signing and disable Developer ID timestamping
+OTHER_CODE_SIGN_FLAGS = --digest-algorithm=sha1 --timestamp=none

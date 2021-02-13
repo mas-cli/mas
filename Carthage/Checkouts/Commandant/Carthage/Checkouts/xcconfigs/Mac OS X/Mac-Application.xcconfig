@@ -1,15 +1,8 @@
 //
-// This file defines additional configuration options that are appropriate only
-// for an application on Mac OS X. This should be set at the target level for
-// each project configuration.
+// DEPRECATED: This configuration file is deprecated. Please use 'macOS/macOS-Application.xcconfig' instead.
 //
 
-// Import base application settings
-#include "../Base/Targets/Application.xcconfig"
+#include "../macOS/macOS-Application.xcconfig"
 
-// Apply common settings specific to Mac OS X
-#include "Mac-Base.xcconfig"
-
-// Whether function calls should be position-dependent (should always be
-// disabled for library code)
-GCC_DYNAMIC_NO_PIC = YES
+// The below #include is intended to fail, so that Xcode will include the deprecation notice in the error message shown to the user. 
+#include "This configuration file ('Mac OS X/Mac-Application.xcconfig') is deprecated. Please use 'macOS/macOS-Application.xcconfig' instead."

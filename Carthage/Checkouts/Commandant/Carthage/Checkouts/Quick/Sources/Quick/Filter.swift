@@ -1,10 +1,12 @@
 import Foundation
 
-#if canImport(Darwin) && !SWIFT_PACKAGE
+#if canImport(Darwin)
+// swiftlint:disable type_name
 @objcMembers
 public class _FilterBase: NSObject {}
 #else
 public class _FilterBase: NSObject {}
+// swiftlint:enable type_name
 #endif
 
 /**

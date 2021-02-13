@@ -29,7 +29,7 @@ enum ConvertsToBool: ExpressibleByBooleanLiteral, CustomStringConvertible {
     }
 }
 
-final class BeTruthyTest: XCTestCase, XCTestCaseProvider {
+final class BeTruthyTest: XCTestCase {
     func testShouldMatchNonNilTypes() {
         expect(true as Bool?).to(beTruthy())
 
@@ -110,7 +110,7 @@ final class BeTruthyTest: XCTestCase, XCTestCaseProvider {
     }
 }
 
-final class BeTrueTest: XCTestCase, XCTestCaseProvider {
+final class BeTrueTest: XCTestCase {
     func testShouldMatchTrue() {
         expect(true).to(beTrue())
 
@@ -138,7 +138,7 @@ final class BeTrueTest: XCTestCase, XCTestCaseProvider {
     }
 }
 
-final class BeFalsyTest: XCTestCase, XCTestCaseProvider {
+final class BeFalsyTest: XCTestCase {
     func testShouldMatchNilTypes() {
         expect(false as Bool?).to(beFalsy())
 
@@ -203,7 +203,7 @@ final class BeFalsyTest: XCTestCase, XCTestCaseProvider {
     }
 }
 
-final class BeFalseTest: XCTestCase, XCTestCaseProvider {
+final class BeFalseTest: XCTestCase {
     func testShouldNotMatchTrue() {
         expect(true).toNot(beFalse())
 

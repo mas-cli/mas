@@ -1,18 +1,8 @@
 //
-// This file defines additional configuration options that are appropriate only
-// for a dynamic library on Mac OS X. This should be set at the target level
-// for each project configuration.
+// DEPRECATED: This configuration file is deprecated. Please use 'macOS/macOS-DynamicLibrary.xcconfig' instead.
 //
 
-// Import common settings specific to Mac OS X
-#include "Mac-Base.xcconfig"
+#include "../macOS/macOS-DynamicLibrary.xcconfig"
 
-// Whether to strip out code that isn't called from anywhere
-DEAD_CODE_STRIPPING = NO
-
-// Whether function calls should be position-dependent (should always be
-// disabled for library code)
-GCC_DYNAMIC_NO_PIC = NO
-
-// Don't include in an xcarchive
-SKIP_INSTALL = YES
+// The below #include is intended to fail, so that Xcode will include the deprecation notice in the error message shown to the user. 
+#include "This configuration file ('Mac OS X/Mac-DynamicLibrary.xcconfig') is deprecated. Please use 'macOS/macOS-DynamicLibrary.xcconfig' instead."

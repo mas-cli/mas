@@ -1,7 +1,7 @@
 import XCTest
 import Nimble
 
-final class UserDescriptionTest: XCTestCase, XCTestCaseProvider {
+final class UserDescriptionTest: XCTestCase {
     func testToMatcher_CustomFailureMessage() {
         failsWithErrorMessage(
             """
@@ -9,7 +9,7 @@ final class UserDescriptionTest: XCTestCase, XCTestCaseProvider {
             expected to match, got <1>
             """
         ) {
-            expect(1).to(MatcherFunc { _, _ in false }, description: "These aren't equal!")
+            expect(1).to(Predicate.simple { _ in .doesNotMatch }, description: "These aren't equal!")
         }
     }
 
@@ -20,7 +20,7 @@ final class UserDescriptionTest: XCTestCase, XCTestCaseProvider {
             expected to not match, got <1>
             """
         ) {
-            expect(1).notTo(MatcherFunc { _, _ in true }, description: "These aren't equal!")
+            expect(1).notTo(Predicate.simple { _ in .matches }, description: "These aren't equal!")
         }
     }
 
@@ -31,7 +31,7 @@ final class UserDescriptionTest: XCTestCase, XCTestCaseProvider {
             expected to not match, got <1>
             """
         ) {
-            expect(1).toNot(MatcherFunc { _, _ in true }, description: "These aren't equal!")
+            expect(1).toNot(Predicate.simple { _ in .matches }, description: "These aren't equal!")
         }
     }
 

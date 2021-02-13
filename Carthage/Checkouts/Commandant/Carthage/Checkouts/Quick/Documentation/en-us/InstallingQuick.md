@@ -11,7 +11,8 @@ There are three recommended ways of linking Quick to your tests:
 1. [Git Submodules](#git-submodules)
 2. [CocoaPods](#cocoapods)
 3. [Carthage](#carthage)
-4. [Swift Package Manager (experimental)](#swift-package-manager)
+4. [Accio](#accio)
+5. [Swift Package Manager (experimental)](#swift-package-manager)
 
 Choose one and follow the instructions below. Once you've completed them,
 you should be able to `import Quick` from within files in your test target.
@@ -21,7 +22,7 @@ you should be able to `import Quick` from within files in your test target.
 To link Quick and Nimble using Git submodules:
 
 1. Add submodule for Quick.
-2. If you don't already have a `.xcworkspace` for your project, create one. ([Here's how](https://developer.apple.com/library/ios/recipes/xcode_help-structure_navigator/articles/Adding_an_Existing_Project_to_a_Workspace.html))
+2. If you don't already have a `.xcworkspace` for your project, create one. ([Here's how](https://help.apple.com/xcode/mac/11.4/#/devf5378fca9))
 3. Add `Quick.xcodeproj` to your project's `.xcworkspace`.
 4. Add `Nimble.xcodeproj` to your project's `.xcworkspace`. It exists in `path/to/Quick/Externals/Nimble`. By adding Nimble from Quick's dependencies (as opposed to adding directly as a submodule), you'll ensure that you're using the correct version of Nimble for whatever version of Quick you're using.
 5. Link `Quick.framework` and `Nimble.framework` in your test target's
@@ -139,6 +140,27 @@ to copy them to the target's Frameworks destination.
 
 This is not "the one and only way" to use Carthage to manage dependencies.
 For further reference check out the [Carthage documentation](https://github.com/Carthage/Carthage/blob/master/README.md).
+
+## [Accio](https://github.com/JamitLabs/Accio)
+
+Add the following to your Package.swift:
+
+```swift
+.package(url: "https://github.com/Quick/Quick.git", .upToNextMajor(from: "2.0.0")),
+```
+
+Next, add `Quick` to your App test targets dependencies like so:
+
+```swift
+.testTarget(
+    name: "AppTests",
+    dependencies: [
+        "Quick",
+    ]
+),
+```
+
+Then run `accio update`.
 
 ## [Swift Package Manager](https://github.com/apple/swift-package-manager)
 With the advent of the [swift.org](https://swift.org) open-source project, Swift now has an official, though nascent, package manager tool. Notably, this provides the possibility of using Quick on non-Apple platforms for the first time. Initial steps have been taken to allow using Quick to test projects using the Swift Package Manager, although frequent breakage is expected at this point since the tool is still under heavy development.

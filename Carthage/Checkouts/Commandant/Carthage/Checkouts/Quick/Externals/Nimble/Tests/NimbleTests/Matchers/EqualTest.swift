@@ -2,7 +2,7 @@ import Foundation
 import XCTest
 import Nimble
 
-final class EqualTest: XCTestCase, XCTestCaseProvider {
+final class EqualTest: XCTestCase {
     func testEquality() {
         expect(1 as CInt).to(equal(1 as CInt))
         expect(1 as CInt).to(equal(1))
@@ -33,9 +33,7 @@ final class EqualTest: XCTestCase, XCTestCaseProvider {
         expect(array1).to(equal([1, 2, 3]))
         expect(array1).toNot(equal([1, 2] as [Int]))
 
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
-        expect(NSArray(array: [1, 2, 3])).to(equal(NSArray(array: [1, 2, 3])))
-#endif
+        expect([1, 2, 3] as NSArray).to(equal([1, 2, 3] as NSArray))
 
         failsWithErrorMessage("expected to equal <[1, 2]>, got <[1, 2, 3]>") {
             expect([1, 2, 3]).to(equal([1, 2]))
@@ -119,10 +117,8 @@ final class EqualTest: XCTestCase, XCTestCaseProvider {
         expect(actual).to(equal(expected))
         expect(actual).toNot(equal(unexpected))
 
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
-        expect(NSDictionary(object: "bar", forKey: "foo" as NSString)).to(equal(["foo": "bar"]))
-        expect(NSDictionary(object: "bar", forKey: "foo" as NSString) as? [String: String]).to(equal(expected))
-#endif
+        expect(["foo": "bar"] as NSDictionary).to(equal(["foo": "bar"]))
+        expect((["foo": "bar"] as NSDictionary) as? [String: String]).to(equal(expected))
     }
 
     func testDataEquality() {
@@ -133,14 +129,8 @@ final class EqualTest: XCTestCase, XCTestCaseProvider {
         expect(actual).to(equal(expected))
         expect(actual).toNot(equal(unexpected))
 
-        #if os(Linux)
-            // swiftlint:disable:next todo
-            // FIXME: Swift on Linux triggers a segfault when calling NSData's hash() (last checked on 03-11)
-            let expectedErrorMessage = "expected to equal <Data<length=9>>, got <Data<length=6>>"
-        #else
-            let expectedErrorMessage = "expected to equal <Data<hash=92856895,length=9>>,"
+        let expectedErrorMessage = "expected to equal <Data<hash=92856895,length=9>>,"
                 + " got <Data<hash=114710658,length=6>>"
-        #endif
 
         failsWithErrorMessage(expectedErrorMessage) {
             expect(actual).to(equal(unexpected))
@@ -148,10 +138,10 @@ final class EqualTest: XCTestCase, XCTestCaseProvider {
     }
 
     func testNSObjectEquality() {
-        expect(NSNumber(value: 1)).to(equal(NSNumber(value: 1)))
-        expect(NSNumber(value: 1)) == NSNumber(value: 1)
-        expect(NSNumber(value: 1)) != NSNumber(value: 2)
-        expect { NSNumber(value: 1) }.to(equal(1))
+        expect(1 as NSNumber).to(equal(1 as NSNumber))
+        expect(1 as NSNumber) == 1 as NSNumber
+        expect(1 as NSNumber) != 2 as NSNumber
+        expect { 1 as NSNumber }.to(equal(1))
     }
 
     func testOperatorEquality() {

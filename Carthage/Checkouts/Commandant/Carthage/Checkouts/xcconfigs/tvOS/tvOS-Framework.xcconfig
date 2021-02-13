@@ -1,6 +1,6 @@
 //
 // This file defines additional configuration options that are appropriate only
-// for a framework on watchOS. This should be set at the target level for each
+// for a framework on tvOS. This should be set at the target level for each
 // project configuration.
 //
 

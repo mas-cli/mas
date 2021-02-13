@@ -1,11 +1,8 @@
 //
-// This file defines additional configuration options that are appropriate only
-// for a framework on OS X. This should be set at the target level for each
-// project configuration.
+// DEPRECATED: This configuration file is deprecated. Please use 'macOS/macOS-Framework.xcconfig' instead.
 //
 
-// Import base framework settings
-#include "../Base/Targets/Framework.xcconfig"
+#include "../macOS/macOS-Framework.xcconfig"
 
-// Import common settings specific to Mac OS X
-#include "Mac-Base.xcconfig"
+// The below #include is intended to fail, so that Xcode will include the deprecation notice in the error message shown to the user. 
+#include "This configuration file ('Mac OS X/Mac-Framework.xcconfig') is deprecated. Please use 'macOS/macOS-Framework.xcconfig' instead."

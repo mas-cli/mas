@@ -1,3 +1,5 @@
+// swiftlint:disable line_length
+
 /**
     Defines a closure to be run prior to any examples in the test suite.
     You may define an unlimited number of these closures, but there is no
@@ -127,7 +129,7 @@ public func afterEach(_ closure: @escaping AfterExampleWithMetadataClosure) {
     - parameter file: The absolute path to the file containing the example. A sensible default is provided.
     - parameter line: The line containing the example. A sensible default is provided.
 */
-public func it(_ description: String, flags: FilterFlags = [:], file: String = #file, line: UInt = #line, closure: @escaping () -> Void) {
+public func it(_ description: String, flags: FilterFlags = [:], file: FileString = #file, line: UInt = #line, closure: @escaping () throws -> Void) {
     World.sharedWorld.it(description, flags: flags, file: file, line: line, closure: closure)
 }
 
@@ -143,7 +145,7 @@ public func it(_ description: String, flags: FilterFlags = [:], file: String = #
     - parameter file: The absolute path to the file containing the current example group. A sensible default is provided.
     - parameter line: The line containing the current example group. A sensible default is provided.
 */
-public func itBehavesLike(_ name: String, flags: FilterFlags = [:], file: String = #file, line: UInt = #line) {
+public func itBehavesLike(_ name: String, flags: FilterFlags = [:], file: FileString = #file, line: UInt = #line) {
     itBehavesLike(name, flags: flags, file: file, line: line, sharedExampleContext: { return [:] })
 }
 
@@ -163,7 +165,7 @@ public func itBehavesLike(_ name: String, flags: FilterFlags = [:], file: String
     - parameter file: The absolute path to the file containing the current example group. A sensible default is provided.
     - parameter line: The line containing the current example group. A sensible default is provided.
 */
-public func itBehavesLike(_ name: String, flags: FilterFlags = [:], file: String = #file, line: UInt = #line, sharedExampleContext: @escaping SharedExampleContext) {
+public func itBehavesLike(_ name: String, flags: FilterFlags = [:], file: FileString = #file, line: UInt = #line, sharedExampleContext: @escaping SharedExampleContext) {
     World.sharedWorld.itBehavesLike(name, sharedExampleContext: sharedExampleContext, flags: flags, file: file, line: line)
 }
 
@@ -179,7 +181,7 @@ public func itBehavesLike(_ name: String, flags: FilterFlags = [:], file: String
     - parameter file: The absolute path to the file containing the current example group. A sensible default is provided.
     - parameter line: The line containing the current example group. A sensible default is provided.
  */
-public func itBehavesLike<C>(_ behavior: Behavior<C>.Type, flags: FilterFlags = [:], file: String = #file, line: UInt = #line, context: @escaping () -> C) {
+public func itBehavesLike<C>(_ behavior: Behavior<C>.Type, flags: FilterFlags = [:], file: FileString = #file, line: UInt = #line, context: @escaping () -> C) {
     World.sharedWorld.itBehavesLike(behavior, context: context, flags: flags, file: file, line: line)
 }
 
@@ -198,7 +200,7 @@ public func pending(_ description: String, closure: () -> Void) {
     Use this to quickly mark a `describe` closure as pending.
     This disables all examples within the closure.
 */
-public func xdescribe(_ description: String, flags: FilterFlags, closure: () -> Void) {
+public func xdescribe(_ description: String, flags: FilterFlags = [:], closure: () -> Void) {
     World.sharedWorld.xdescribe(description, flags: flags, closure: closure)
 }
 
@@ -206,7 +208,7 @@ public func xdescribe(_ description: String, flags: FilterFlags, closure: () -> 
     Use this to quickly mark a `context` closure as pending.
     This disables all examples within the closure.
 */
-public func xcontext(_ description: String, flags: FilterFlags, closure: () -> Void) {
+public func xcontext(_ description: String, flags: FilterFlags = [:], closure: () -> Void) {
     xdescribe(description, flags: flags, closure: closure)
 }
 
@@ -214,7 +216,7 @@ public func xcontext(_ description: String, flags: FilterFlags, closure: () -> V
     Use this to quickly mark an `it` closure as pending.
     This disables the example and ensures the code within the closure is never run.
 */
-public func xit(_ description: String, flags: FilterFlags = [:], file: String = #file, line: UInt = #line, closure: @escaping () -> Void) {
+public func xit(_ description: String, flags: FilterFlags = [:], file: FileString = #file, line: UInt = #line, closure: @escaping () throws -> Void) {
     World.sharedWorld.xit(description, flags: flags, file: file, line: line, closure: closure)
 }
 
@@ -222,7 +224,7 @@ public func xit(_ description: String, flags: FilterFlags = [:], file: String = 
     Use this to quicklu mark an `itBehavesLike` closure as pending.
     This disables the example group defined by this behavior and ensures the code within is never run.
 */
-public func xitBehavesLike<C>(_ behavior: Behavior<C>.Type, flags: FilterFlags = [:], file: String = #file, line: UInt = #line, context: @escaping () -> C) {
+public func xitBehavesLike<C>(_ behavior: Behavior<C>.Type, flags: FilterFlags = [:], file: FileString = #file, line: UInt = #line, context: @escaping () -> C) {
     World.sharedWorld.xitBehavesLike(behavior, context: context, flags: flags, file: file, line: line)
 }
 /**
@@ -245,27 +247,29 @@ public func fcontext(_ description: String, flags: FilterFlags = [:], closure: (
     Use this to quickly focus an `it` closure, focusing the example.
     If any examples in the test suite are focused, only those examples are executed.
 */
-public func fit(_ description: String, flags: FilterFlags = [:], file: String = #file, line: UInt = #line, closure: @escaping () -> Void) {
+public func fit(_ description: String, flags: FilterFlags = [:], file: FileString = #file, line: UInt = #line, closure: @escaping () throws -> Void) {
     World.sharedWorld.fit(description, flags: flags, file: file, line: line, closure: closure)
 }
 
 /**
     Use this to quickly focus an `itBehavesLike` closure.
 */
-public func fitBehavesLike(_ name: String, flags: FilterFlags = [:], file: String = #file, line: UInt = #line) {
+public func fitBehavesLike(_ name: String, flags: FilterFlags = [:], file: FileString = #file, line: UInt = #line) {
     fitBehavesLike(name, flags: flags, file: file, line: line, sharedExampleContext: { return [:] })
 }
 
 /**
     Use this to quickly focus an `itBehavesLike` closure.
 */
-public func fitBehavesLike(_ name: String, flags: FilterFlags = [:], file: String = #file, line: UInt = #line, sharedExampleContext: @escaping SharedExampleContext) {
+public func fitBehavesLike(_ name: String, flags: FilterFlags = [:], file: FileString = #file, line: UInt = #line, sharedExampleContext: @escaping SharedExampleContext) {
     World.sharedWorld.fitBehavesLike(name, sharedExampleContext: sharedExampleContext, flags: flags, file: file, line: line)
 }
 
 /**
  Use this to quickly focus on `itBehavesLike` closure.
  */
-public func fitBehavesLike<C>(_ behavior: Behavior<C>.Type, flags: FilterFlags = [:], file: String = #file, line: UInt = #line, context: @escaping () -> C) {
+public func fitBehavesLike<C>(_ behavior: Behavior<C>.Type, flags: FilterFlags = [:], file: FileString = #file, line: UInt = #line, context: @escaping () -> C) {
     World.sharedWorld.fitBehavesLike(behavior, context: context, flags: flags, file: file, line: line)
 }
+
+// swiftlint:enable line_length

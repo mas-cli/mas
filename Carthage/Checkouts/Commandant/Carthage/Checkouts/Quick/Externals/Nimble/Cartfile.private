@@ -1,1 +1,2 @@
-github "mattgallagher/CwlPreconditionTesting" "1e62a726d54c743f4585233f08fcaac7307319b5"
+github "mattgallagher/CwlCatchException" ~> 2.0
+github "mattgallagher/CwlPreconditionTesting" ~> 2.0

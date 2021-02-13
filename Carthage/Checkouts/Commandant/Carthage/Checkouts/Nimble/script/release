@@ -3,7 +3,7 @@ REMOTE_BRANCH=master
 POD_NAME=Nimble
 PODSPEC=Nimble.podspec
 
-POD=${COCOAPODS:-pod}
+POD=${COCOAPODS:-"bundle exec pod"}
 
 function help {
     echo "Usage: release VERSION RELEASE_NOTES [-f]"
@@ -173,7 +173,7 @@ echo
 echo "Pushing to pod trunk..."
 
 # NOTE: remove allow-warnings after v9.0.0 of Nimble
-$POD trunk push "$PODSPEC" --allow-warnings
+$POD trunk push "$PODSPEC" --allow-warnings --skip-import-validation
 
 echo
 echo "================ Finalizing the Release ================"

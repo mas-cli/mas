@@ -3,10 +3,9 @@
 #import "NMBStringify.h"
 #import "DSL.h"
 
-#if TARGET_OS_TV
-    #import "CwlPreconditionTesting_POSIX.h"
-#else
-    #import "CwlPreconditionTesting.h"
+#if TARGET_OS_OSX || TARGET_OS_IOS
+    #import "CwlMachBadInstructionHandler.h"
+    #import "CwlCatchException.h"
 #endif
 
 FOUNDATION_EXPORT double NimbleVersionNumber;

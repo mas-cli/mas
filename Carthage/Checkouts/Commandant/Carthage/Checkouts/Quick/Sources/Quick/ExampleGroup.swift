@@ -31,9 +31,16 @@ final public class ExampleGroup: NSObject {
         Returns a list of examples that belong to this example group,
         or to any of its descendant example groups.
     */
+    #if canImport(Darwin)
+    @objc
     public var examples: [Example] {
         return childExamples + childGroups.flatMap { $0.examples }
     }
+    #else
+    public var examples: [Example] {
+        return childExamples + childGroups.flatMap { $0.examples }
+    }
+    #endif
 
     internal var name: String? {
         guard let parent = parent else {

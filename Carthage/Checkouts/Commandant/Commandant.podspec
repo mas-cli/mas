@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "Commandant"
-  s.version      = "0.17.0"
+  s.version      = "0.18.0"
   s.summary      = "Type-safe command line argument handling"
   s.description  = <<-DESC
 Commandant is a Swift framework for parsing command-line arguments, inspired by Argo
@@ -26,5 +26,5 @@ Commandant is a Swift framework for parsing command-line arguments, inspired by 
   s.source_files  = "Sources/**/*.swift"
 
   s.cocoapods_version = ">= 1.4.0"
-  s.swift_version = "5.0"
+  s.swift_version = "5.2"
 end

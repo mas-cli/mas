@@ -3,7 +3,7 @@
 //  CwlCatchException
 //
 //  Created by Matt Gallagher on 2016/01/10.
-//  Copyright © 2016 Matt Gallagher ( http://cocoawithlove.com ). All rights reserved.
+//  Copyright © 2016 Matt Gallagher ( https://www.cocoawithlove.com ). All rights reserved.
 //
 //  Permission to use, copy, modify, and/or distribute this software for any
 //  purpose with or without fee is hereby granted, provided that the above
@@ -20,13 +20,4 @@
 
 #import <Foundation/Foundation.h>
 
-//! Project version number for CwlCatchException.
-FOUNDATION_EXPORT double CwlCatchExceptionVersionNumber;
-
-//! Project version string for CwlCatchException.
-FOUNDATION_EXPORT const unsigned char CwlCatchExceptionVersionString[];
-
-#if !SWIFT_PACKAGE && NON_SWIFT_PACKAGE
-__attribute__((visibility("hidden")))
-#endif
-NSException* __nullable catchExceptionOfKind(Class __nonnull type, __attribute__((noescape)) void (^ __nonnull inBlock)(void));
+NSException* __nullable catchExceptionOfKind(Class __nonnull type, void (^ __nonnull inBlock)(void));

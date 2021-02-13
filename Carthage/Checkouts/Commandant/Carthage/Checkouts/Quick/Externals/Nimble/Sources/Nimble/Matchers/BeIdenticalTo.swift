@@ -1,36 +1,28 @@
-import Foundation
-
 /// A Nimble matcher that succeeds when the actual value is the same instance
 /// as the expected instance.
 public func beIdenticalTo(_ expected: Any?) -> Predicate<Any> {
     return Predicate.define { actualExpression in
-        #if os(Linux) && !swift(>=4.1.50)
-            let actual = try actualExpression.evaluate() as? AnyObject
-        #else
-            let actual = try actualExpression.evaluate() as AnyObject?
-        #endif
+        let actual = try actualExpression.evaluate() as AnyObject?
 
-        let bool: Bool
-        #if os(Linux) && !swift(>=4.1.50)
-            bool = actual === (expected as? AnyObject) && actual !== nil
-        #else
-            bool = actual === (expected as AnyObject?) && actual !== nil
-        #endif
+        let bool = actual === (expected as AnyObject?) && actual !== nil
         return PredicateResult(
             bool: bool,
             message: .expectedCustomValueTo(
                 "be identical to \(identityAsString(expected))",
-                "\(identityAsString(actual))"
+                actual: "\(identityAsString(actual))"
             )
         )
     }
 }
 
-public func === (lhs: Expectation<Any>, rhs: Any?) {
-    lhs.to(beIdenticalTo(rhs))
-}
-public func !== (lhs: Expectation<Any>, rhs: Any?) {
-    lhs.toNot(beIdenticalTo(rhs))
+extension Expectation where T == Any {
+    public static func === (lhs: Expectation, rhs: Any?) {
+        lhs.to(beIdenticalTo(rhs))
+    }
+
+    public static func !== (lhs: Expectation, rhs: Any?) {
+        lhs.toNot(beIdenticalTo(rhs))
+    }
 }
 
 /// A Nimble matcher that succeeds when the actual value is the same instance
@@ -42,8 +34,10 @@ public func be(_ expected: Any?) -> Predicate<Any> {
 }
 
 #if canImport(Darwin)
-extension NMBObjCMatcher {
-    @objc public class func beIdenticalToMatcher(_ expected: NSObject?) -> NMBMatcher {
+import class Foundation.NSObject
+
+extension NMBPredicate {
+    @objc public class func beIdenticalToMatcher(_ expected: NSObject?) -> NMBPredicate {
         return NMBPredicate { actualExpression in
             let aExpr = actualExpression.cast { $0 as Any? }
             return try beIdenticalTo(expected).satisfies(aExpr).toObjectiveC()

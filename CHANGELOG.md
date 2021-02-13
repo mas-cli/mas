@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - 🐛 Fix alignment of 2nd column of list command output #298
 - ✨ `Makefile` #277
 - 🐛 Specify desired LD_RUNPATH_SEARCH_PATHS at link-time #310
-- ⬆️ Commandant (0.17.0) #310
+- ⬆️ Commandant (0.18.0) #310
 - ⬆️ Nimble (9.0.0) #310
 - ⬆️ Quick (3.1.0) #310
 - 🕊 Swift 5.2 #310

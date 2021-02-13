@@ -2,18 +2,16 @@ import Foundation
 import XCTest
 import Nimble
 
-final class BeLessThanOrEqualToTest: XCTestCase, XCTestCaseProvider {
+final class BeLessThanOrEqualToTest: XCTestCase {
     func testLessThanOrEqualTo() {
         expect(10).to(beLessThanOrEqualTo(10))
         expect(2).to(beLessThanOrEqualTo(10))
         expect(2).toNot(beLessThanOrEqualTo(1))
 
-        expect(NSNumber(value: 2)).to(beLessThanOrEqualTo(10))
-        expect(NSNumber(value: 2)).toNot(beLessThanOrEqualTo(1))
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
-        expect(2).to(beLessThanOrEqualTo(NSNumber(value: 10)))
-        expect(2).toNot(beLessThanOrEqualTo(NSNumber(value: 1)))
-#endif
+        expect(2 as NSNumber).to(beLessThanOrEqualTo(10))
+        expect(2 as NSNumber).toNot(beLessThanOrEqualTo(1))
+        expect(2).to(beLessThanOrEqualTo(10 as NSNumber))
+        expect(2).toNot(beLessThanOrEqualTo(1 as NSNumber))
 
         failsWithErrorMessage("expected to be less than or equal to <0>, got <2>") {
             expect(2).to(beLessThanOrEqualTo(0))

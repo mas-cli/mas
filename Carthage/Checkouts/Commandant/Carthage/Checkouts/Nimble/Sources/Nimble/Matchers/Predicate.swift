@@ -1,6 +1,5 @@
 // New Matcher API
 //
-import Foundation
 
 /// A Predicate is part of the new matcher API that provides assertions to expectations.
 ///
@@ -45,17 +44,17 @@ extension Predicate {
 
     /// Defines a predicate with a default message that can be returned in the closure
     /// Also ensures the predicate's actual value cannot pass with `nil` given.
-    public static func define(_ msg: String, matcher: @escaping (Expression<T>, ExpectationMessage) throws -> PredicateResult) -> Predicate<T> {
+    public static func define(_ message: String = "match", matcher: @escaping (Expression<T>, ExpectationMessage) throws -> PredicateResult) -> Predicate<T> {
         return Predicate<T> { actual in
-            return try matcher(actual, .expectedActualValueTo(msg))
+            return try matcher(actual, .expectedActualValueTo(message))
         }.requireNonNil
     }
 
     /// Defines a predicate with a default message that can be returned in the closure
     /// Unlike `define`, this allows nil values to succeed if the given closure chooses to.
-    public static func defineNilable(_ msg: String, matcher: @escaping (Expression<T>, ExpectationMessage) throws -> PredicateResult) -> Predicate<T> {
+    public static func defineNilable(_ message: String = "match", matcher: @escaping (Expression<T>, ExpectationMessage) throws -> PredicateResult) -> Predicate<T> {
         return Predicate<T> { actual in
-            return try matcher(actual, .expectedActualValueTo(msg))
+            return try matcher(actual, .expectedActualValueTo(message))
         }
     }
 }
@@ -65,9 +64,9 @@ extension Predicate {
     /// error message.
     ///
     /// Also ensures the predicate's actual value cannot pass with `nil` given.
-    public static func simple(_ msg: String, matcher: @escaping (Expression<T>) throws -> PredicateStatus) -> Predicate<T> {
+    public static func simple(_ message: String = "match", matcher: @escaping (Expression<T>) throws -> PredicateStatus) -> Predicate<T> {
         return Predicate<T> { actual in
-            return PredicateResult(status: try matcher(actual), message: .expectedActualValueTo(msg))
+            return PredicateResult(status: try matcher(actual), message: .expectedActualValueTo(message))
         }.requireNonNil
     }
 
@@ -75,9 +74,9 @@ extension Predicate {
     /// error message.
     ///
     /// Unlike `simple`, this allows nil values to succeed if the given closure chooses to.
-    public static func simpleNilable(_ msg: String, matcher: @escaping (Expression<T>) throws -> PredicateStatus) -> Predicate<T> {
+    public static func simpleNilable(_ message: String = "match", matcher: @escaping (Expression<T>) throws -> PredicateStatus) -> Predicate<T> {
         return Predicate<T> { actual in
-            return PredicateResult(status: try matcher(actual), message: .expectedActualValueTo(msg))
+            return PredicateResult(status: try matcher(actual), message: .expectedActualValueTo(message))
         }
     }
 }
@@ -166,7 +165,24 @@ public enum PredicateStatus {
     }
 }
 
+extension Predicate {
+    /// Compatibility layer for old Matcher API, deprecated.
+    /// Emulates the MatcherFunc API
+    internal static func _fromDeprecatedClosure(_ matcher: @escaping (Expression<T>, FailureMessage) throws -> Bool) -> Predicate {
+        // swiftlint:disable:previous identifier_name
+        return Predicate { actual in
+            let failureMessage = FailureMessage()
+            let result = try matcher(actual, failureMessage)
+            return PredicateResult(
+                status: PredicateStatus(bool: result),
+                message: failureMessage.toExpectationMessage()
+            )
+        }
+    }
+}
+
 // Backwards compatibility until Old Matcher API removal
+@available(*, deprecated, message: "Use Predicate directly instead")
 extension Predicate: Matcher {
     /// Compatibility layer for old Matcher API, deprecated
     public static func fromDeprecatedFullClosure(_ matcher: @escaping (Expression<T>, FailureMessage, Bool) throws -> Bool) -> Predicate {
@@ -183,15 +199,7 @@ extension Predicate: Matcher {
     /// Compatibility layer for old Matcher API, deprecated.
     /// Emulates the MatcherFunc API
     public static func fromDeprecatedClosure(_ matcher: @escaping (Expression<T>, FailureMessage) throws -> Bool) -> Predicate {
-        return Predicate { actual in
-            let failureMessage = FailureMessage()
-            let result = try matcher(actual, failureMessage)
-            return PredicateResult(
-                status: PredicateStatus(bool: result),
-                message: failureMessage.toExpectationMessage()
-            )
-        }
-
+        return _fromDeprecatedClosure(matcher)
     }
 
     /// Compatibility layer for old Matcher API, deprecated.
@@ -243,6 +251,8 @@ extension Predicate {
 }
 
 #if canImport(Darwin)
+import class Foundation.NSObject
+
 public typealias PredicateBlock = (_ actualExpression: Expression<NSObject>) throws -> NMBPredicateResult
 
 public class NMBPredicate: NSObject {

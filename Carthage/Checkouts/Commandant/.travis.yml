@@ -9,7 +9,7 @@ aliases:
     script:
       - rm .swift-version
       - gem update cocoapods
-      - pod repo update master
+      - pod setup
       - pod lib lint --verbose
     os: osx
     language: objective-c
@@ -29,7 +29,7 @@ aliases:
   - &swiftpm_linux
     <<: *swiftpm
     sudo: required
-    dist: trusty
+    dist: xenial
     language: generic
     install:
       - eval "$(curl -sL https://swiftenv.fuller.li/install.sh)"
@@ -41,20 +41,20 @@ branches:
 matrix:
   include:
     - <<: *xcode
-      name: Xcode 10.2 / Swift 5.0
-      osx_image: xcode10.2
-      env: JOB=Xcode10.2
+      name: Xcode 11.4 / Swift 5.2
+      osx_image: xcode11.4
+      env: JOB=Xcode11.4
     - <<: *cocoapods
       name: CocoaPods Lint
-      osx_image: xcode10.2
+      osx_image: xcode11.4
     - <<: *swiftpm_darwin
-      name: SwiftPM / Swift 5.0
-      osx_image: xcode10.2
+      name: SwiftPM / Swift 5.2
+      osx_image: xcode11.4
     - <<: *swiftpm_linux
-      name: Linux / Swift 5.0
+      name: Linux / Swift 5.2
       env:
         - JOB=Linux
-        - SWIFT_VERSION=5.0
+        - SWIFT_VERSION=5.2
 
 notifications:
   email: false
