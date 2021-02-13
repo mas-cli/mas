@@ -1,3 +1,4 @@
-Carthage/Carthage@0.34.0
-realm/SwiftLint@0.39.2
-nicklockwood/SwiftFormat@0.44.11
+Carthage/Carthage@0.37.0
+apple/swift-format@0.50300.0
+nicklockwood/SwiftFormat@0.47.11
+realm/SwiftLint@0.42.0

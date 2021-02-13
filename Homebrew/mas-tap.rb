@@ -2,35 +2,37 @@ class Mas < Formula
   desc "Mac App Store command-line interface"
   homepage "https://github.com/mas-cli/mas"
   url "https://github.com/mas-cli/mas.git",
-      tag:      "v1.7.1",
-      revision: "b8dcb4ce4b1d78ada7556565dd5c73e9913758d8"
+      tag:      "v1.8.0",
+      revision: "9eaf57a5de836ce5e5435a8df14da4aa1b7d7444"
   license "MIT"
   head "https://github.com/mas-cli/mas.git"
 
   bottle do
     root_url "https://dl.bintray.com/phatblat/mas-bottles"
-    cellar :any
-    sha256 "de5acfedda59b73fbd36e4a966120aa1aa7e5eea4c07c19e75c0b21819b0900d" => :catalina
-    sha256 "de5acfedda59b73fbd36e4a966120aa1aa7e5eea4c07c19e75c0b21819b0900d" => :mojave
-    sha256 "de5acfedda59b73fbd36e4a966120aa1aa7e5eea4c07c19e75c0b21819b0900d" => :high_sierra
-    sha256 "de5acfedda59b73fbd36e4a966120aa1aa7e5eea4c07c19e75c0b21819b0900d" => :sierra
-    sha256 "de5acfedda59b73fbd36e4a966120aa1aa7e5eea4c07c19e75c0b21819b0900d" => :el_capitan
+    sha256 cellar: :any, arm64_big_sur: "444796f43ad88de2cc6f8effcde699330867ace7d722b367dd446dd75e1db251"
+    sha256 cellar: :any, big_sur:       "444796f43ad88de2cc6f8effcde699330867ace7d722b367dd446dd75e1db251"
+    sha256 cellar: :any, catalina:      "444796f43ad88de2cc6f8effcde699330867ace7d722b367dd446dd75e1db251"
+    sha256 cellar: :any, mojave:        "444796f43ad88de2cc6f8effcde699330867ace7d722b367dd446dd75e1db251"
+    sha256 cellar: :any, high_sierra:   "444796f43ad88de2cc6f8effcde699330867ace7d722b367dd446dd75e1db251"
+    sha256 cellar: :any, sierra:        "444796f43ad88de2cc6f8effcde699330867ace7d722b367dd446dd75e1db251"
+    sha256 cellar: :any, el_capitan:    "444796f43ad88de2cc6f8effcde699330867ace7d722b367dd446dd75e1db251"
   end
 
   depends_on "carthage" => :build
-  depends_on xcode: ["10.2", :build]
+  if Hardware::CPU.arm?
+    depends_on xcode: ["12.2", :build]
+  else
+    depends_on xcode: ["11.4", :build]
+  end
 
   def install
     # Working around build issues in dependencies
     # - Prevent warnings from causing build failures
     # - Prevent linker errors by telling all lib builds to use max size install names
-    # - Ensure dependencies build for the current CPU; otherwise Commandant will
-    #   build for x86_64 when running arm64
     xcconfig = buildpath/"Overrides.xcconfig"
     xcconfig.write <<~EOS
       GCC_TREAT_WARNINGS_AS_ERRORS = NO
       OTHER_LDFLAGS = -headerpad_max_install_names
-      VALID_ARCHS = #{Hardware::CPU.arch}
     EOS
     ENV["XCODE_XCCONFIG_FILE"] = xcconfig
 
