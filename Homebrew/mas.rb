@@ -2,8 +2,8 @@ class Mas < Formula
   desc "Mac App Store command-line interface"
   homepage "https://github.com/mas-cli/mas"
   url "https://github.com/mas-cli/mas.git",
-      tag:      "v1.7.1",
-      revision: "b8dcb4ce4b1d78ada7556565dd5c73e9913758d8"
+      tag:      "v1.8.0",
+      revision: "e39884cbc8179d877dcf1f583ac144676f5f4531"
   license "MIT"
   head "https://github.com/mas-cli/mas.git"
 
