@@ -451,7 +451,6 @@
 		B55B3D9021ED9B6A0009A1A5 /* Formatters */ = {
 			isa = PBXGroup;
 			children = (
-				F88F258124F2FEEB00EC60D5 /* AppListFormatterSpec.swift */,
 				B55B3D9121ED9B8C0009A1A5 /* SearchResultFormatterSpec.swift */,
 			);
 			path = Formatters;
@@ -530,7 +529,6 @@
 			isa = PBXGroup;
 			children = (
 				B576FE2921E4240B0016B39D /* AppInfoFormatter.swift */,
-				F8A41ECD248D76CB00D374CF /* AppListFormatter.swift */,
 				B576FE3221E985250016B39D /* SearchResultFormatter.swift */,
 				EDCBF9541D89CFC7000039C6 /* Utilities.swift */,
 			);
@@ -1035,7 +1033,6 @@
 				B576FE0021E113610016B39D /* NetworkSession.swift in Sources */,
 				B5DBF80D21DEE4E600F3B151 /* Open.swift in Sources */,
 				B576FDF721E107AA0016B39D /* OpenSystemCommand.swift in Sources */,
-				F8A41ECE248D76CB00D374CF /* AppListFormatter.swift in Sources */,
 				F8FB717420F2B4DD00F56FDC /* Outdated.swift in Sources */,
 				75FB3E761F9F7841005B6F20 /* Purchase.swift in Sources */,
 				F8FB716C20F2B4DD00F56FDC /* PurchaseDownloadObserver.swift in Sources */,
@@ -1074,7 +1071,6 @@
 				B594B12221D5416100F3AC59 /* ListCommandSpec.swift in Sources */,
 				B594B14421D6D91800F3AC59 /* LuckyCommandSpec.swift in Sources */,
 				F85DA8AE240C313900FE5650 /* MasAppLibrarySpec.swift in Sources */,
-				F88F258224F2FEEB00EC60D5 /* AppListFormatterSpec.swift in Sources */,
 				B576FDF521E1078F0016B39D /* MASErrorTestCase.swift in Sources */,
 				B576FDF321E03B780016B39D /* MasStoreSearchSpec.swift in Sources */,
 				B576FE0C21E116590016B39D /* NetworkManagerTests.swift in Sources */,
