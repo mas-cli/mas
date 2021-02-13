@@ -11,7 +11,7 @@ BUILD_DIR="$PWD/build"
 BOTTLE_DIR="$BUILD_DIR/bottles"
 VERSION=$(script/version)
 ROOT_URL="https://dl.bintray.com/phatblat/mas-bottles"
-OS_VERSIONS=(catalina mojave high_sierra sierra el_capitan)
+OS_VERSIONS=(big_sur catalina mojave high_sierra sierra el_capitan)
 OLD_FILENAME="mas--${VERSION}.${OS_VERSIONS[0]}.bottle.tar.gz"
 
 echo "==> 🍼 Bottling mas ${VERSION} for ${OS_VERSIONS[*]}"
