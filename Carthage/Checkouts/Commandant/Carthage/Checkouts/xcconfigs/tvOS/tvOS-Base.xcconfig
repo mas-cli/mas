@@ -1,6 +1,6 @@
 //
 // This file defines additional configuration options that are appropriate only
-// for watchOS. This file is not standalone -- it is meant to be included into
+// for tvOS. This file is not standalone -- it is meant to be included into
 // a configuration file for a specific type of target.
 //
 

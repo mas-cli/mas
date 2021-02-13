@@ -1,0 +1,23 @@
+//
+// This file defines additional configuration options that are appropriate only
+// for an extension embedded within an application on iOS. This should be set at
+// the target level for each project configuration.
+//
+
+// Import base extension settings
+#include "../Base/Targets/Extension.xcconfig"
+
+// Apply common settings specific to iOS
+#include "iOS-Base.xcconfig"
+
+// Sets the @rpath for the application such that it can include frameworks in
+// the application bundle two levels up, inside the "Frameworks" folder.
+//
+// Does not search the frameworks folder at the same level as the extension
+// executable since extensions with their own embedded frameworks are rejected
+// with the following error:
+//
+// > Invalid Bundle. The bundle at 'App.app/PlugIns/Extension.appex' contains
+// > disallowed file 'Frameworks'
+//
+LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/../../Frameworks

@@ -23,9 +23,8 @@
 import Foundation
 import Swift
 
-#if canImport(NimbleCwlCatchException) && canImport(NimbleCwlMachBadInstructionHandler)
-import NimbleCwlCatchException
-import NimbleCwlMachBadInstructionHandler
+#if SWIFT_PACKAGE
+	import CwlMachBadInstructionHandler
 #endif
 
 private enum PthreadError: Error { case code(Int32) }

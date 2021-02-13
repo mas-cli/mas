@@ -21,7 +21,7 @@ Quick 提供了定义例子和例子群的语法。 Nimble 提供了如 `expect(
 通过以下步骤可以使用 Git 的子模块(submodules) 为项目添加 Quick 和 Nimble ：
 
 1. 添加子模块 Quick。
-2. 为你的项目新建一个 `.xcworkspace` 文件，如果原本已经有这个文件，则跳过此步骤。 ([如何添加请看这里](https://developer.apple.com/library/ios/recipes/xcode_help-structure_navigator/articles/Adding_an_Existing_Project_to_a_Workspace.html))
+2. 为你的项目新建一个 `.xcworkspace` 文件，如果原本已经有这个文件，则跳过此步骤。 ([如何添加请看这里](https://help.apple.com/xcode/mac/11.4/#/devf5378fca9))
 3. 把 `Quick.xcodeproj` 添加到项目的 `.xcworkspace`中。
 4. 把 `Nimble.xcodeproj` 添加到项目的 `.xcworkspace`中。它所在的目录是： `path/to/Quick/Externals/Nimble`。 通过从 Quick 的依赖库中添加 Nimble (而不是直接添加为子模块)，可以确保无论所用的 Quick 是什么版本，都能使用正确版本的 Nimble 。
 5. 把 `Quick.framework` 和 `Nimble.framework` 添加到项目 "build phase" 选项页的 "Link Binary with Libraries" 列表中。

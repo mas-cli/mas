@@ -9,7 +9,7 @@
 /// Use the Matcher protocol instead of this type to accept custom matchers as
 /// input parameters.
 /// @see allPass for an example that uses accepts other matchers as input.
-@available(*, deprecated, message: "Use to Predicate instead")
+@available(*, deprecated, message: "Use Predicate instead")
 public struct MatcherFunc<T>: Matcher {
     public let matcher: (Expression<T>, FailureMessage) throws -> Bool
 
@@ -28,6 +28,7 @@ public struct MatcherFunc<T>: Matcher {
     /// Compatibility layer to new Matcher API. Converts an old-style matcher to a new one.
     /// Note: You should definitely spend the time to convert to the new api as soon as possible
     /// since this struct type is deprecated.
+    @available(*, deprecated, message: "Use Predicate directly instead")
     public var predicate: Predicate<T> {
         return Predicate.fromDeprecatedMatcher(self)
     }
@@ -44,7 +45,7 @@ public struct MatcherFunc<T>: Matcher {
 /// Use the Matcher protocol instead of this type to accept custom matchers as
 /// input parameters.
 /// @see allPass for an example that uses accepts other matchers as input.
-@available(*, deprecated, message: "Use to Predicate instead")
+@available(*, deprecated, message: "Use Predicate instead")
 public struct NonNilMatcherFunc<T>: Matcher {
     public let matcher: (Expression<T>, FailureMessage) throws -> Bool
 
@@ -79,6 +80,7 @@ public struct NonNilMatcherFunc<T>: Matcher {
     /// Compatibility layer to new Matcher API. Converts an old-style matcher to a new one.
     /// Note: You should definitely spend the time to convert to the new api as soon as possible
     /// since this struct type is deprecated.
+    @available(*, deprecated, message: "Use Predicate directly instead")
     public var predicate: Predicate<T> {
         return Predicate.fromDeprecatedMatcher(self)
     }

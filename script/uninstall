@@ -6,11 +6,13 @@
 # Removes mas and MasKit from PREFIX.
 #
 
-PREFIX=/usr/local
-
 # Override default prefix path with optional 1st arg
 if test -n "$1"; then
     PREFIX="$1"
+elif [[ $(uname -m) == 'arm64' ]]; then
+    PREFIX=/opt/homebrew
+else
+    PREFIX=/usr/local
 fi
 
 echo "==> 🔥 Uninstalling mas from $PREFIX"

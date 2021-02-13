@@ -1,11 +1,8 @@
 //
-// This file defines additional configuration options that are appropriate only
-// for a static library on Mac OS X. This should be set at the target level for
-// each project configuration.
+// DEPRECATED: This configuration file is deprecated. Please use 'macOS/macOS-StaticLibrary.xcconfig' instead.
 //
 
-// Import base static library settings
-#include "../Base/Targets/StaticLibrary.xcconfig"
+#include "../macOS/macOS-StaticLibrary.xcconfig"
 
-// Apply common settings specific to Mac OS X
-#include "Mac-Base.xcconfig"
+// The below #include is intended to fail, so that Xcode will include the deprecation notice in the error message shown to the user. 
+#include "This configuration file ('Mac OS X/Mac-StaticLibrary.xcconfig') is deprecated. Please use 'macOS/macOS-StaticLibrary.xcconfig' instead."

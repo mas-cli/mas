@@ -53,7 +53,8 @@ final class BeCloseToTest: XCTestCase {
         expect(NSDate(dateTimeString: "2015-08-26 11:43:00")).to(beCloseTo(NSDate(dateTimeString: "2015-08-26 11:43:05"), within: 10))
 
         failsWithErrorMessage("expected to not be close to <2015-08-26 11:43:00.0050> (within 0.006), got <2015-08-26 11:43:00.0000>") {
-            let expectedDate = NSDate(dateTimeString: "2015-08-26 11:43:00").addingTimeInterval(0.005)
+            // Cast to NSDate is needed for Linux (swift-corelibs-foundation) compatibility.
+            let expectedDate = NSDate(dateTimeString: "2015-08-26 11:43:00").addingTimeInterval(0.005) as NSDate
             expect(NSDate(dateTimeString: "2015-08-26 11:43:00")).toNot(beCloseTo(expectedDate, within: 0.006))
         }
     }
@@ -138,5 +139,11 @@ final class BeCloseToTest: XCTestCase {
         failsWithErrorMessage("expected to be close to <[0.3, 1.3]> (each within 0.1), got <[0.1, 1.2]>") {
             expect([0.1, 1.2]).to(beCloseTo([0.3, 1.3], within: 0.1))
         }
+    }
+
+    // https://github.com/Quick/Nimble/issues/831
+    func testCombinationWithAllPass() {
+        let values: [NSNumber] = [0]
+        expect(values).to(allPass(beCloseTo(0)))
     }
 }

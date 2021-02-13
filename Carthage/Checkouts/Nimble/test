@@ -59,7 +59,7 @@ function test_ios {
     run set -o pipefail && xcodebuild -project Nimble.xcodeproj -scheme "Nimble-iOS" -configuration "Debug" -destination "generic/platform=iOS" OTHER_SWIFT_FLAGS='$(inherited) -suppress-warnings' build | xcpretty
 
     run osascript -e 'tell app "Simulator" to quit'
-    run set -o pipefail && xcodebuild -project Nimble.xcodeproj -scheme "Nimble-iOS" -configuration "Debug" -sdk "iphonesimulator$BUILD_IOS_SDK_VERSION" -destination "name=iPad Pro (11-inch),OS=$RUNTIME_IOS_VERSION" OTHER_SWIFT_FLAGS='$(inherited) -suppress-warnings' build-for-testing test-without-building | xcpretty
+    run set -o pipefail && xcodebuild -project Nimble.xcodeproj -scheme "Nimble-iOS" -configuration "Debug" -sdk "iphonesimulator$BUILD_IOS_SDK_VERSION" -destination "name=iPad Pro (9.7-inch),OS=$RUNTIME_IOS_VERSION" OTHER_SWIFT_FLAGS='$(inherited) -suppress-warnings' build-for-testing test-without-building | xcpretty
 
     run osascript -e 'tell app "Simulator" to quit'
     run set -o pipefail && xcodebuild -project Nimble.xcodeproj -scheme "Nimble-iOS" -configuration "Debug" -sdk "iphonesimulator$BUILD_IOS_SDK_VERSION" -destination "name=iPhone 8,OS=$RUNTIME_IOS_VERSION" OTHER_SWIFT_FLAGS='$(inherited) -suppress-warnings' build-for-testing test-without-building | xcpretty
@@ -76,23 +76,39 @@ function test_macos {
     run set -o pipefail && xcodebuild -project Nimble.xcodeproj -scheme "Nimble-macOS" -configuration "Debug" -sdk "macosx$BUILD_MACOS_SDK_VERSION" OTHER_SWIFT_FLAGS='$(inherited) -suppress-warnings' build-for-testing test-without-building | xcpretty
 }
 
+function test_xcode_spm_macos {
+    mv Nimble.xcodeproj Nimble.xcodeproj.bak    
+    trap 'mv Nimble.xcodeproj.bak Nimble.xcodeproj' EXIT
+    run set -o pipefail && xcodebuild -scheme "Nimble" -configuration "Debug" -sdk "macosx$BUILD_MACOS_SDK_VERSION" OTHER_SWIFT_FLAGS='$(inherited) -suppress-warnings' build-for-testing test-without-building | xcpretty
+}
+
+function test_xcode_spm_ios {
+    run osascript -e 'tell app "Simulator" to quit'
+    mv Nimble.xcodeproj Nimble.xcodeproj.bak
+    trap 'mv Nimble.xcodeproj.bak Nimble.xcodeproj' EXIT
+    run set -o pipefail && xcodebuild -scheme "Nimble" -configuration "Debug" -sdk "iphonesimulator$BUILD_IOS_SDK_VERSION" -destination "name=iPhone 8,OS=$RUNTIME_IOS_VERSION" OTHER_SWIFT_FLAGS='$(inherited) -suppress-warnings' build-for-testing test-without-building | xcpretty
+}
+
+function test_xcode_spm_tvos {
+    run osascript -e 'tell app "Simulator" to quit'
+    mv Nimble.xcodeproj Nimble.xcodeproj.bak
+    trap 'mv Nimble.xcodeproj.bak Nimble.xcodeproj' EXIT
+    run set -o pipefail && xcodebuild -scheme "Nimble" -configuration "Debug" -sdk "appletvsimulator$BUILD_TVOS_SDK_VERSION" -destination "name=Apple TV,OS=$RUNTIME_TVOS_VERSION" OTHER_SWIFT_FLAGS='$(inherited) -suppress-warnings' build-for-testing test-without-building | xcpretty
+}
+
 function test_podspec {
     echo "Gathering CocoaPods installation information..."
     run bundle exec pod --version
     echo "Linting podspec..."
-    # To work around the lint error: "ERROR | swift: Specification `Nimble` specifies an inconsistent `swift_version` (`4.0`) compared to the one present in your `.swift-version` file (`4.1`). Please remove the `.swift-version` file which is now deprecated and only use the `swift_version` attribute within your podspec."
-    # `.swift-version` is for swiftenv, not for CocoaPods, so we can't remove the file as suggested.
-    run mv .swift-version .swift-version.backup
     # Note: remove `--allow-warnings` once old Matcher API has been removed
     run bundle exec pod lib lint Nimble.podspec --allow-warnings --skip-import-validation --verbose
-    run mv .swift-version.backup .swift-version
 }
 
 function test_swiftpm {
     if [ -d .build ]; then
         run swift package clean
     fi
-    run swift build -Xswiftc -suppress-warnings && swift test -Xswiftc -suppress-warnings
+    run swift build -Xswiftc -suppress-warnings && swift test -Xswiftc -suppress-warnings --enable-test-discovery
 }
 
 function test_swiftpm_docker {
@@ -101,9 +117,17 @@ function test_swiftpm_docker {
 }
 
 function test() {
+    test_macos
     test_ios
     test_tvos
-    test_macos
+
+    if xcodebuild --help 2>&1 | grep xcframework > /dev/null; then
+        test_xcode_spm_macos
+        test_xcode_spm_ios
+        test_xcode_spm_tvos
+    else
+        echo "Not testing with Swift Package Manager version of Xcode because it requires at least Xcode 11"
+    fi
 
     if which swift-test; then
         test_swiftpm
@@ -129,12 +153,15 @@ function help {
     echo " all             - Runs the all tests of macos, ios and tvos"
     echo " clean           - Cleans the derived data directory of Xcode. Assumes default location"
     echo " help            - Displays this help"
-    echo " ios             - Runs the tests as an iOS device"
     echo " macos           - Runs the tests on macOS 10.10 (Yosemite and newer only)"
+    echo " macos_xcodespm  - Runs the tests on macOS using the Swift Package Manager version of Xcode"
+    echo " ios             - Runs the tests as an iOS device"
+    echo " ios_xcodespm    - Runs the tests as an iOS device using the Swift Package Manager version of Xcode"
+    echo " tvos            - Runs the tests as an tvOS device"
+    echo " tvos_xcodespm   - Runs the tests as an tvOS device using the Swift Package Manager version of Xcode"
     echo " podspec         - Runs pod lib lint against the podspec to detect breaking changes"
     echo " swiftpm         - Runs the tests built by the Swift Package Manager"
     echo " swiftpm_docker  - Runs the tests built by the Swift Package Manager in a docker linux container"
-    echo " tvos            - Runs the tests as an tvOS device"
     echo
     exit 1
 }
@@ -146,8 +173,11 @@ function main {
         case "$arg" in
             clean) clean ;;
             ios) test_ios ;;
+            ios_xcodespm) test_xcode_spm_ios ;;
             tvos) test_tvos ;;
+            tvos_xcodespm) test_xcode_spm_tvos ;;
             macos) test_macos ;;
+            macos_xcodespm) test_xcode_spm_macos ;;
             podspec) test_podspec ;;
             test) test ;;
             all) test ;;

@@ -24,7 +24,7 @@ List the software versions you're using:
 Please also mention which package manager you used and its version. Delete the
 other package managers in this list:
 
- - Cocoapods: *?.?.?* (Use `pod --version` in Terminal)
+ - CocoaPods: *?.?.?* (Use `pod --version` in Terminal)
  - Carthage: *?.?* (Use `carthage version` in Terminal)
  - Swift Package Manager *?.?.? (swiftpm-???)* (Use `swift build --version` in Terminal)
 

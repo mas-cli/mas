@@ -1,5 +1,3 @@
-import Foundation
-
 /// A data structure that stores information about an assertion when
 /// AssertionRecorder is set as the Nimble assertion handler.
 ///

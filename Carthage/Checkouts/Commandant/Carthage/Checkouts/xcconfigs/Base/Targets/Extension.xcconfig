@@ -1,0 +1,8 @@
+//
+// This file defines additional configuration options that are appropriate only
+// for an extension embedded within an application. Typically, you want to use a
+// platform-specific variant instead.
+//
+
+// Whether to strip out code that isn't called from anywhere
+DEAD_CODE_STRIPPING = NO

@@ -2,7 +2,7 @@ import Foundation
 import XCTest
 import Nimble
 
-final class EndWithTest: XCTestCase, XCTestCaseProvider {
+final class EndWithTest: XCTestCase {
     func testEndWithPositives() {
         expect([1, 2, 3]).to(endWith(3))
         expect([1, 2, 3]).toNot(endWith(2))
@@ -13,13 +13,13 @@ final class EndWithTest: XCTestCase, XCTestCaseProvider {
         expect("foobar").toNot(endWith("oo"))
         expect("foobarfoo").to(endWith("foo"))
 
-        expect(NSString(string: "foobar").description).to(endWith("bar"))
-        expect(NSString(string: "foobar").description).toNot(endWith("oo"))
+        expect(("foobar" as NSString).description).to(endWith("bar"))
+        expect(("foobar" as NSString).description).toNot(endWith("oo"))
 
-        expect(NSArray(array: ["a", "b"])).to(endWith("b"))
-        expect(NSArray(array: ["a", "b"])).toNot(endWith("a"))
-        expect(NSArray(array: [])).toNot(endWith("a"))
-        expect(NSArray(array: ["a", "b", "a"])).to(endWith("a"))
+        expect(["a", "b"] as NSArray).to(endWith("b"))
+        expect(["a", "b"] as NSArray).toNot(endWith("a"))
+        expect([] as NSArray).toNot(endWith("a"))
+        expect(["a", "b", "a"] as NSArray).to(endWith("a"))
     }
 
     func testEndWithNegatives() {

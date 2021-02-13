@@ -23,7 +23,7 @@ class FunctionalTests_BeforeSuite_Spec: QuickSpec {
 final class BeforeSuiteTests: XCTestCase, XCTestCaseProvider {
     static var allTests: [(String, (BeforeSuiteTests) -> () throws -> Void)] {
         return [
-            ("testBeforeSuiteIsExecutedBeforeAnyExamples", testBeforeSuiteIsExecutedBeforeAnyExamples)
+            ("testBeforeSuiteIsExecutedBeforeAnyExamples", testBeforeSuiteIsExecutedBeforeAnyExamples),
         ]
     }
 
@@ -31,8 +31,8 @@ final class BeforeSuiteTests: XCTestCase, XCTestCaseProvider {
         // Execute the spec with an assertion before the one with a beforeSuite
         let result = qck_runSpecs([
             FunctionalTests_BeforeSuite_Spec.self,
-            FunctionalTests_BeforeSuite_BeforeSuiteSpec.self
-            ])
+            FunctionalTests_BeforeSuite_BeforeSuiteSpec.self,
+        ])
 
         XCTAssert(result!.hasSucceeded)
     }

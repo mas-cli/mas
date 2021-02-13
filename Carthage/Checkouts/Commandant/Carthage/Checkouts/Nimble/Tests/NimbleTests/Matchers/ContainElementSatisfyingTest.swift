@@ -2,7 +2,7 @@ import Foundation
 import XCTest
 import Nimble
 
-final class ContainElementSatisfyingTest: XCTestCase, XCTestCaseProvider {
+final class ContainElementSatisfyingTest: XCTestCase {
     func testContainElementSatisfying() {
         var orderIndifferentArray = [1, 2, 3]
         expect(orderIndifferentArray).to(containElementSatisfying({ number in

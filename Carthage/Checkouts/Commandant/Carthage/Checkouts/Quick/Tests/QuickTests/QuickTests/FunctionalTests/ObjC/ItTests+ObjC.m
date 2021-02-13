@@ -2,8 +2,8 @@
 @import Quick;
 @import Nimble;
 
+#import "QuickTests-Swift.h"
 #import "QCKSpecRunner.h"
-#import "QuickSpec+QuickSpec_MethodList.h"
 
 QuickSpecBegin(FunctionalTests_ItSpec_ObjC)
 

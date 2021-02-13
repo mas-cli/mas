@@ -119,29 +119,29 @@ public func beFalsy<T: ExpressibleByBooleanLiteral & Equatable>() -> Predicate<T
 }
 
 #if canImport(Darwin)
-extension NMBObjCMatcher {
-    @objc public class func beTruthyMatcher() -> NMBMatcher {
+extension NMBPredicate {
+    @objc public class func beTruthyMatcher() -> NMBPredicate {
         return NMBPredicate { actualExpression in
             let expr = actualExpression.cast { ($0 as? NSNumber)?.boolValue ?? false }
             return try beTruthy().satisfies(expr).toObjectiveC()
         }
     }
 
-    @objc public class func beFalsyMatcher() -> NMBMatcher {
+    @objc public class func beFalsyMatcher() -> NMBPredicate {
         return NMBPredicate { actualExpression in
             let expr = actualExpression.cast { ($0 as? NSNumber)?.boolValue ?? false }
             return try beFalsy().satisfies(expr).toObjectiveC()
         }
     }
 
-    @objc public class func beTrueMatcher() -> NMBMatcher {
+    @objc public class func beTrueMatcher() -> NMBPredicate {
         return NMBPredicate { actualExpression in
             let expr = actualExpression.cast { ($0 as? NSNumber)?.boolValue ?? false }
             return try beTrue().satisfies(expr).toObjectiveC()
         }
     }
 
-    @objc public class func beFalseMatcher() -> NMBMatcher {
+    @objc public class func beFalseMatcher() -> NMBPredicate {
         return NMBPredicate { actualExpression in
             let expr = actualExpression.cast { value -> Bool? in
                 guard let value = value else { return nil }

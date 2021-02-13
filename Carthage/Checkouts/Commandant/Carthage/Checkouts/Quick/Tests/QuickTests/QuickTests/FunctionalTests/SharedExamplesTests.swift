@@ -24,7 +24,7 @@ class FunctionalTests_SharedExamples_ErrorSpec: QuickSpec {
                     itBehavesLike("a group of three shared examples")
                     }.to(raiseException { (exception: NSException) in
                         expect(exception.name).to(equal(NSExceptionName.internalInconsistencyException))
-                        expect(exception.reason).to(equal("'itBehavesLike' cannot be used inside 'it', 'itBehavesLike' may only be used inside 'context' or 'describe'. "))
+                        expect(exception.reason).to(equal("'itBehavesLike' cannot be used inside 'it', 'itBehavesLike' may only be used inside 'context' or 'describe'."))
                         })
             }
         }
@@ -37,7 +37,7 @@ final class SharedExamplesTests: XCTestCase, XCTestCaseProvider {
     static var allTests: [(String, (SharedExamplesTests) -> () throws -> Void)] {
         return [
             ("testAGroupOfThreeSharedExamplesExecutesThreeExamples", testAGroupOfThreeSharedExamplesExecutesThreeExamples),
-            ("testSharedExamplesWithContextPassContextToExamples", testSharedExamplesWithContextPassContextToExamples)
+            ("testSharedExamplesWithContextPassContextToExamples", testSharedExamplesWithContextPassContextToExamples),
         ]
     }
 

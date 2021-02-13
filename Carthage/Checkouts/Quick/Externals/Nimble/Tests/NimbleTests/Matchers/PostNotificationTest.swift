@@ -8,15 +8,14 @@ final class PostNotificationTest: XCTestCase {
     func testPassesWhenNoNotificationsArePosted() {
         expect {
             // no notifications here!
-            return nil
-        }.to(postNotifications(beEmpty(), fromNotificationCenter: notificationCenter))
+        }.to(postNotifications(beEmpty()))
     }
 
     func testPassesWhenExpectedNotificationIsPosted() {
         let testNotification = Notification(name: Notification.Name("Foo"), object: nil)
         expect {
             self.notificationCenter.post(testNotification)
-        }.to(postNotifications(equal([testNotification]), fromNotificationCenter: notificationCenter))
+        }.to(postNotifications(equal([testNotification]), from: notificationCenter))
     }
 
     func testPassesWhenAllExpectedNotificationsArePosted() {
@@ -27,8 +26,7 @@ final class PostNotificationTest: XCTestCase {
         expect {
             self.notificationCenter.post(n1)
             self.notificationCenter.post(n2)
-            return nil
-        }.to(postNotifications(equal([n1, n2]), fromNotificationCenter: notificationCenter))
+        }.to(postNotifications(equal([n1, n2]), from: notificationCenter))
     }
 
     func testFailsWhenNoNotificationsArePosted() {
@@ -36,8 +34,7 @@ final class PostNotificationTest: XCTestCase {
         failsWithErrorMessage("expected to equal <[\(testNotification)]>, got no notifications") {
             expect {
                 // no notifications here!
-                return nil
-            }.to(postNotifications(equal([testNotification]), fromNotificationCenter: self.notificationCenter))
+            }.to(postNotifications(equal([testNotification]), from: self.notificationCenter))
         }
     }
 
@@ -47,8 +44,7 @@ final class PostNotificationTest: XCTestCase {
         failsWithErrorMessage("expected to equal <[\(n1)]>, got <[\(n2)]>") {
             expect {
                 self.notificationCenter.post(n2)
-                return nil
-            }.to(postNotifications(equal([n1]), fromNotificationCenter: self.notificationCenter))
+            }.to(postNotifications(equal([n1]), from: self.notificationCenter))
         }
     }
 
@@ -58,8 +54,7 @@ final class PostNotificationTest: XCTestCase {
         failsWithErrorMessage("expected to equal <[\(n1)]>, got <[\(n2)]>") {
             expect {
                 self.notificationCenter.post(n2)
-                return nil
-            }.to(postNotifications(equal([n1]), fromNotificationCenter: self.notificationCenter))
+            }.to(postNotifications(equal([n1]), from: self.notificationCenter))
         }
     }
 
@@ -69,7 +64,18 @@ final class PostNotificationTest: XCTestCase {
             deferToMainQueue {
                 self.notificationCenter.post(testNotification)
             }
-            return nil
-        }.toEventually(postNotifications(equal([testNotification]), fromNotificationCenter: notificationCenter))
+        }.toEventually(postNotifications(equal([testNotification]), from: notificationCenter))
     }
+
+    #if os(macOS)
+    func testPassesWhenAllExpectedNotificationsarePostedInDistributedNotificationCenter() {
+        let center = DistributedNotificationCenter()
+        let n1 = Notification(name: Notification.Name("Foo"), object: "1")
+        let n2 = Notification(name: Notification.Name("Bar"), object: "2")
+        expect {
+            center.post(n1)
+            center.post(n2)
+        }.toEventually(postDistributedNotifications(equal([n1, n2]), from: center, names: [n1.name, n2.name]))
+    }
+    #endif
 }

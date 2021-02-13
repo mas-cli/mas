@@ -11,7 +11,7 @@ internal func isCloseTo(_ actualValue: NMBDoubleConvertible?,
         return PredicateResult(
             bool: actualValue != nil &&
                 abs(actualValue!.doubleValue - expectedValue.doubleValue) < delta,
-            message: .expectedCustomValueTo(errorMessage, "<\(stringify(actualValue))>")
+            message: .expectedCustomValueTo(errorMessage, actual: "<\(stringify(actualValue))>")
         )
 }
 
@@ -19,77 +19,44 @@ internal func isCloseTo(_ actualValue: NMBDoubleConvertible?,
 /// point values which can have imprecise results when doing arithmetic on them.
 ///
 /// @see equal
-public func beCloseTo(_ expectedValue: Double, within delta: Double = DefaultDelta) -> Predicate<Double> {
+public func beCloseTo<Value: NMBDoubleConvertible>(_ expectedValue: Value, within delta: Double = DefaultDelta) -> Predicate<Value> {
     return Predicate.define { actualExpression in
         return isCloseTo(try actualExpression.evaluate(), expectedValue: expectedValue, delta: delta)
     }
 }
 
-/// A Nimble matcher that succeeds when a value is close to another. This is used for floating
-/// point values which can have imprecise results when doing arithmetic on them.
-///
-/// @see equal
-public func beCloseTo(_ expectedValue: NMBDoubleConvertible, within delta: Double = DefaultDelta) -> Predicate<NMBDoubleConvertible> {
+private func beCloseTo(_ expectedValue: NMBDoubleConvertible, within delta: Double = DefaultDelta) -> Predicate<NMBDoubleConvertible> {
     return Predicate.define { actualExpression in
         return isCloseTo(try actualExpression.evaluate(), expectedValue: expectedValue, delta: delta)
     }
 }
 
 #if canImport(Darwin)
-public class NMBObjCBeCloseToMatcher: NSObject, NMBMatcher {
-    // swiftlint:disable identifier_name
-    var _expected: NSNumber
-    var _delta: CDouble
-    // swiftlint:enable identifier_name
-    init(expected: NSNumber, within: CDouble) {
+public class NMBObjCBeCloseToPredicate: NMBPredicate {
+    private let _expected: NSNumber
+
+    fileprivate init(expected: NSNumber, within: CDouble) {
         _expected = expected
-        _delta = within
-    }
 
-    @objc public func matches(_ actualExpression: @escaping () -> NSObject?, failureMessage: FailureMessage, location: SourceLocation) -> Bool {
-        let actualBlock: () -> NMBDoubleConvertible? = ({
-            return actualExpression() as? NMBDoubleConvertible
-        })
-        let expr = Expression(expression: actualBlock, location: location)
-        let predicate = beCloseTo(self._expected, within: self._delta)
-
-        do {
-            let result = try predicate.satisfies(expr)
-            result.message.update(failureMessage: failureMessage)
-            return result.toBoolean(expectation: .toMatch)
-        } catch let error {
-            failureMessage.stringValue = "unexpected error thrown: <\(error)>"
-            return false
+        let predicate = beCloseTo(expected, within: within)
+        let predicateBlock: PredicateBlock = { actualExpression in
+            let expr = actualExpression.cast { $0 as? NMBDoubleConvertible }
+            return try predicate.satisfies(expr).toObjectiveC()
         }
+        super.init(predicate: predicateBlock)
     }
 
-    @objc public func doesNotMatch(_ actualExpression: @escaping () -> NSObject?, failureMessage: FailureMessage, location: SourceLocation) -> Bool {
-        let actualBlock: () -> NMBDoubleConvertible? = ({
-            return actualExpression() as? NMBDoubleConvertible
-        })
-        let expr = Expression(expression: actualBlock, location: location)
-        let predicate = beCloseTo(self._expected, within: self._delta)
-
-        do {
-            let result = try predicate.satisfies(expr)
-            result.message.update(failureMessage: failureMessage)
-            return result.toBoolean(expectation: .toNotMatch)
-        } catch let error {
-            failureMessage.stringValue = "unexpected error thrown: <\(error)>"
-            return false
-        }
-    }
-
-    @objc public var within: (CDouble) -> NMBObjCBeCloseToMatcher {
+    @objc public var within: (CDouble) -> NMBObjCBeCloseToPredicate {
+        let expected = _expected
         return { delta in
-            return NMBObjCBeCloseToMatcher(expected: self._expected, within: delta)
+            return NMBObjCBeCloseToPredicate(expected: expected, within: delta)
         }
     }
 }
 
-extension NMBObjCMatcher {
-    @objc public class func beCloseToMatcher(_ expected: NSNumber, within: CDouble) -> NMBObjCBeCloseToMatcher {
-        return NMBObjCBeCloseToMatcher(expected: expected, within: within)
+extension NMBPredicate {
+    @objc public class func beCloseToMatcher(_ expected: NSNumber, within: CDouble) -> NMBObjCBeCloseToPredicate {
+        return NMBObjCBeCloseToPredicate(expected: expected, within: within)
     }
 }
 #endif
@@ -117,23 +84,27 @@ public func beCloseTo(_ expectedValues: [Double], within delta: Double = Default
 
 infix operator ≈ : ComparisonPrecedence
 
-// swiftlint:disable:next identifier_name
-public func ≈(lhs: Expectation<[Double]>, rhs: [Double]) {
-    lhs.to(beCloseTo(rhs))
+extension Expectation where T == [Double] {
+    // swiftlint:disable:next identifier_name
+    public static func ≈(lhs: Expectation, rhs: [Double]) {
+        lhs.to(beCloseTo(rhs))
+    }
 }
 
-// swiftlint:disable:next identifier_name
-public func ≈(lhs: Expectation<NMBDoubleConvertible>, rhs: NMBDoubleConvertible) {
-    lhs.to(beCloseTo(rhs))
-}
+extension Expectation where T == NMBDoubleConvertible {
+    // swiftlint:disable:next identifier_name
+    public static func ≈(lhs: Expectation, rhs: NMBDoubleConvertible) {
+        lhs.to(beCloseTo(rhs))
+    }
 
-// swiftlint:disable:next identifier_name
-public func ≈(lhs: Expectation<NMBDoubleConvertible>, rhs: (expected: NMBDoubleConvertible, delta: Double)) {
-    lhs.to(beCloseTo(rhs.expected, within: rhs.delta))
-}
+    // swiftlint:disable:next identifier_name
+    public static func ≈(lhs: Expectation, rhs: (expected: NMBDoubleConvertible, delta: Double)) {
+        lhs.to(beCloseTo(rhs.expected, within: rhs.delta))
+    }
 
-public func == (lhs: Expectation<NMBDoubleConvertible>, rhs: (expected: NMBDoubleConvertible, delta: Double)) {
-    lhs.to(beCloseTo(rhs.expected, within: rhs.delta))
+    public static func == (lhs: Expectation, rhs: (expected: NMBDoubleConvertible, delta: Double)) {
+        lhs.to(beCloseTo(rhs.expected, within: rhs.delta))
+    }
 }
 
 // make this higher precedence than exponents so the Doubles either end aren't pulled in

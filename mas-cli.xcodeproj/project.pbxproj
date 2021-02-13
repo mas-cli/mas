@@ -1189,7 +1189,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mphys.mas-cli";
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 5.2;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1249,7 +1249,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mphys.mas-cli";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 5.2;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -1268,13 +1268,13 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "mas/mas-Info.plist";
 				INSTALL_PATH = /bin;
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path/. @executable_path/MasKit.framework/Versions/Current/Frameworks /usr/local/Frameworks /usr/local/Frameworks/MasKit.framework/Versions/Current/Frameworks $(inherited)";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/. @executable_path/MasKit.framework/Versions/Current/Frameworks @executable_path/../Frameworks @executable_path/../Frameworks/MasKit.framework/Versions/Current/Frameworks $(inherited)";
 				MARKETING_VERSION = 1.7.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mphys.mas-cli";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
 				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 5.2;
 			};
 			name = Debug;
 		};
@@ -1293,14 +1293,14 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "mas/mas-Info.plist";
 				INSTALL_PATH = /bin;
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path/. @executable_path/MasKit.framework/Versions/Current/Frameworks /usr/local/Frameworks /usr/local/Frameworks/MasKit.framework/Versions/Current/Frameworks $(inherited)";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/. @executable_path/MasKit.framework/Versions/Current/Frameworks @executable_path/../Frameworks @executable_path/../Frameworks/MasKit.framework/Versions/Current/Frameworks $(inherited)";
 				MARKETING_VERSION = 1.7.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mphys.mas-cli";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
 				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 5.2;
 			};
 			name = Release;
 		};
@@ -1406,7 +1406,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = at.phatbl.MasKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 5.2;
 			};
 			name = Debug;
 		};
@@ -1435,7 +1435,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = at.phatbl.MasKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 5.2;
 			};
 			name = Release;
 		};

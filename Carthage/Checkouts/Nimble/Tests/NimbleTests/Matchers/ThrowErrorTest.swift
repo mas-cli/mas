@@ -6,7 +6,7 @@ enum NimbleError: Error {
     case cry
 }
 
-enum EquatableError: Error {
+enum EquatableError: Error, Equatable {
     case parameterized(x: Int)
 }
 
@@ -16,16 +16,6 @@ extension EquatableError: CustomDebugStringConvertible {
         case .parameterized(let x):
             return "parameterized(x: \(x))"
         }
-    }
-}
-
-extension EquatableError: Equatable {
-}
-
-func == (lhs: EquatableError, rhs: EquatableError) -> Bool {
-    switch (lhs, rhs) {
-    case (.parameterized(let l), .parameterized(let r)):
-        return l == r
     }
 }
 
@@ -42,7 +32,7 @@ extension CustomDebugStringConvertibleError: CustomDebugStringConvertible {
     }
 }
 
-final class ThrowErrorTest: XCTestCase, XCTestCaseProvider {
+final class ThrowErrorTest: XCTestCase {
     func testPositiveMatches() {
         expect { throw NimbleError.laugh }.to(throwError())
         expect { throw NimbleError.laugh }.to(throwError(NimbleError.laugh))
@@ -135,7 +125,7 @@ final class ThrowErrorTest: XCTestCase, XCTestCaseProvider {
     func testNegativeMatchesWithClosure() {
         let moduleName = "NimbleTests"
         let innerFailureMessage = "expected to equal <foo>, got <\(moduleName).NimbleError>"
-        let closure = { (error: Error) in
+        let closure = { (error: Error) -> Void in
             expect(error._domain).to(equal("foo"))
         }
 
@@ -150,5 +140,32 @@ final class ThrowErrorTest: XCTestCase, XCTestCaseProvider {
         failsWithErrorMessage([innerFailureMessage, "expected to throw error <laugh> that satisfies block, got <laugh>"]) {
             expect { throw NimbleError.laugh }.to(throwError(NimbleError.laugh, closure: closure))
         }
+    }
+
+    func testNonVoidClosure() {
+        expect { return 1 }.toNot(throwError())
+        expect { return 2 }.toNot(throwError(NimbleError.laugh))
+        expect { return 3 }.toNot(throwError(errorType: NimbleError.self))
+        expect { return 4 }.toNot(throwError(EquatableError.parameterized(x: 1)))
+        expect { return 5 }.toNot(throwError(EquatableError.parameterized(x: 2)))
+
+        // swiftlint:disable unused_closure_parameter
+
+        // Generic typed closure
+        expect { return "1" }.toNot(throwError { error in })
+        // Explicit typed closure
+        expect { return "2" }.toNot(throwError { (error: EquatableError) in })
+        // Typed closure over errorType argument
+        expect { return "3" }.toNot(throwError(errorType: EquatableError.self) { error in })
+        // Typed closure over error argument
+        expect { return "4" }.toNot(throwError(NimbleError.laugh) { (error: Error) in })
+        // Typed closure over error argument
+        expect { return "5" }.toNot(throwError(NimbleError.laugh) { (error: Error) in })
+
+        // swiftlint:enable unused_closure_parameter
+    }
+
+    func testChainOnThrowError() {
+        expect { () throws -> Int in return 5 }.toNot(throwError()).to(equal(5))
     }
 }

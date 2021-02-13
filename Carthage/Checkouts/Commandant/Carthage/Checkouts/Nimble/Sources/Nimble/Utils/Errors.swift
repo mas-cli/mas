@@ -1,33 +1,34 @@
-import Foundation
-
 // Generic
 
-internal func setFailureMessageForError<T: Error>(
-    _ failureMessage: FailureMessage,
+internal func messageForError<T: Error>(
     postfixMessageVerb: String = "throw",
     actualError: Error?,
     error: T? = nil,
     errorType: T.Type? = nil,
-    closure: ((T) -> Void)? = nil) {
-    failureMessage.postfixMessage = "\(postfixMessageVerb) error"
+    closure: ((T) -> Void)? = nil
+) -> ExpectationMessage {
+    var rawMessage = "\(postfixMessageVerb) error"
 
     if let error = error {
-        failureMessage.postfixMessage += " <\(error)>"
+        rawMessage += " <\(error)>"
     } else if errorType != nil || closure != nil {
-        failureMessage.postfixMessage += " from type <\(T.self)>"
+        rawMessage += " from type <\(T.self)>"
     }
     if closure != nil {
-        failureMessage.postfixMessage += " that satisfies block"
+        rawMessage += " that satisfies block"
     }
     if error == nil && errorType == nil && closure == nil {
-        failureMessage.postfixMessage = "\(postfixMessageVerb) any error"
+        rawMessage = "\(postfixMessageVerb) any error"
     }
 
+    let actual: String
     if let actualError = actualError {
-        failureMessage.actualValue = "<\(actualError)>"
+        actual = "<\(actualError)>"
     } else {
-        failureMessage.actualValue = "no error"
+        actual = "no error"
     }
+
+    return .expectedCustomValueTo(rawMessage, actual: actual)
 }
 
 internal func errorMatchesExpectedError<T: Error>(
@@ -39,21 +40,24 @@ internal func errorMatchesExpectedError<T: Error>(
 
 // Non-generic
 
-internal func setFailureMessageForError(
-    _ failureMessage: FailureMessage,
+internal func messageForError(
     actualError: Error?,
-    closure: ((Error) -> Void)?) {
-    failureMessage.postfixMessage = "throw error"
+    closure: ((Error) -> Void)?
+) -> ExpectationMessage {
+    var rawMessage = "throw error"
 
     if closure != nil {
-        failureMessage.postfixMessage += " that satisfies block"
+        rawMessage += " that satisfies block"
     } else {
-        failureMessage.postfixMessage = "throw any error"
+        rawMessage = "throw any error"
     }
 
+    let actual: String
     if let actualError = actualError {
-        failureMessage.actualValue = "<\(actualError)>"
+        actual = "<\(actualError)>"
     } else {
-        failureMessage.actualValue = "no error"
+        actual = "no error"
     }
+
+    return .expectedCustomValueTo(rawMessage, actual: actual)
 }

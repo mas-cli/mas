@@ -1,5 +1,3 @@
-import Foundation
-
 private func matcherMessage<T>(forType expectedType: T.Type) -> String {
     return "be a kind of \(String(describing: expectedType))"
 }
@@ -14,12 +12,12 @@ public func beAKindOf<T>(_ expectedType: T.Type) -> Predicate<Any> {
 
         let instance = try actualExpression.evaluate()
         guard let validInstance = instance else {
-            message = .expectedCustomValueTo(matcherMessage(forType: expectedType), "<nil>")
+            message = .expectedCustomValueTo(matcherMessage(forType: expectedType), actual: "<nil>")
             return PredicateResult(status: .fail, message: message)
         }
         message = .expectedCustomValueTo(
             "be a kind of \(String(describing: expectedType))",
-            "<\(String(describing: type(of: validInstance))) instance>"
+            actual: "<\(String(describing: type(of: validInstance))) instance>"
         )
 
         return PredicateResult(
@@ -30,6 +28,7 @@ public func beAKindOf<T>(_ expectedType: T.Type) -> Predicate<Any> {
 }
 
 #if canImport(Darwin)
+import class Foundation.NSObject
 
 /// A Nimble matcher that succeeds when the actual value is an instance of the given class.
 /// @see beAnInstanceOf if you want to match against the exact class
@@ -43,13 +42,13 @@ public func beAKindOf(_ expectedClass: AnyClass) -> Predicate<NSObject> {
             status = PredicateStatus(bool: instance != nil && instance!.isKind(of: expectedClass))
             message = .expectedCustomValueTo(
                 matcherMessage(forClass: expectedClass),
-                "<\(String(describing: type(of: validInstance))) instance>"
+                actual: "<\(String(describing: type(of: validInstance))) instance>"
             )
         } else {
             status = .fail
             message = .expectedCustomValueTo(
                 matcherMessage(forClass: expectedClass),
-                "<nil>"
+                actual: "<nil>"
             )
         }
 
@@ -57,8 +56,8 @@ public func beAKindOf(_ expectedClass: AnyClass) -> Predicate<NSObject> {
     }
 }
 
-extension NMBObjCMatcher {
-    @objc public class func beAKindOfMatcher(_ expected: AnyClass) -> NMBMatcher {
+extension NMBPredicate {
+    @objc public class func beAKindOfMatcher(_ expected: AnyClass) -> NMBPredicate {
         return NMBPredicate { actualExpression in
             return try beAKindOf(expected).satisfies(actualExpression).toObjectiveC()
         }

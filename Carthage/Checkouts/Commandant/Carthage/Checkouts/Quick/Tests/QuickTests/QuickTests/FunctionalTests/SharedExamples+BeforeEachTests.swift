@@ -28,7 +28,7 @@ final class SharedExamples_BeforeEachTests: XCTestCase, XCTestCaseProvider {
     static var allTests: [(String, (SharedExamples_BeforeEachTests) -> () throws -> Void)] {
         return [
             ("testBeforeEachOutsideOfSharedExamplesExecutedOnceBeforeEachExample", testBeforeEachOutsideOfSharedExamplesExecutedOnceBeforeEachExample),
-            ("testBeforeEachInSharedExamplesExecutedOnceBeforeEachSharedExample", testBeforeEachInSharedExamplesExecutedOnceBeforeEachSharedExample)
+            ("testBeforeEachInSharedExamplesExecutedOnceBeforeEachSharedExample", testBeforeEachInSharedExamplesExecutedOnceBeforeEachSharedExample),
         ]
     }
 

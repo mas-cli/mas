@@ -48,21 +48,32 @@ class _FunctionalTests_FocusedSpec_Unfocused: QuickSpec {
             beforeEach { assert(false) }
             it("has an example that fails, but is never run") { fail() }
         }
+
+        sharedExamples("empty shared example") { _ in
+            // https://github.com/Quick/Quick/pull/901#issuecomment-530816224
+        }
     }
 }
 
 final class FocusedTests: XCTestCase, XCTestCaseProvider {
     static var allTests: [(String, (FocusedTests) -> () throws -> Void)] {
         return [
-            ("testOnlyFocusedExamplesAreExecuted", testOnlyFocusedExamplesAreExecuted)
+            ("testOnlyFocusedExamplesAreExecuted", testOnlyFocusedExamplesAreExecuted),
         ]
     }
 
     func testOnlyFocusedExamplesAreExecuted() {
+        #if SWIFT_PACKAGE
         let result = qck_runSpecs([
             _FunctionalTests_FocusedSpec_Focused.self,
-            _FunctionalTests_FocusedSpec_Unfocused.self
+            _FunctionalTests_FocusedSpec_Unfocused.self,
         ])
+        #else
+        let result = qck_runSpecs([
+            _FunctionalTests_FocusedSpec_Unfocused.self,
+            _FunctionalTests_FocusedSpec_Focused.self,
+        ])
+        #endif
         XCTAssertEqual(result?.executionCount, 8)
     }
 }

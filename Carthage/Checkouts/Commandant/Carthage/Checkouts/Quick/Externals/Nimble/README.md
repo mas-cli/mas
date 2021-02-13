@@ -3,8 +3,8 @@
 [![Build Status](https://travis-ci.org/Quick/Nimble.svg?branch=master)](https://travis-ci.org/Quick/Nimble)
 [![CocoaPods](https://img.shields.io/cocoapods/v/Nimble.svg)](https://cocoapods.org/pods/Nimble)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Accio supported](https://img.shields.io/badge/Accio-supported-0A7CF5.svg?style=flat)](https://github.com/JamitLabs/Accio)
 [![Platforms](https://img.shields.io/cocoapods/p/Nimble.svg)](https://cocoapods.org/pods/Nimble)
-[![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 
 Use Nimble to express the expected outcomes of Swift
 or Objective-C expressions. Inspired by
@@ -70,6 +70,7 @@ expect(ocean.isClean).toEventually(beTruthy())
 - [Installing Nimble](#installing-nimble)
   - [Installing Nimble as a Submodule](#installing-nimble-as-a-submodule)
   - [Installing Nimble via CocoaPods](#installing-nimble-via-cocoapods)
+  - [Installing Nimble via Accio](#installing-nimble-via-accio)
   - [Using Nimble without XCTest](#using-nimble-without-xctest)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -344,10 +345,10 @@ cases, use the `timeout` parameter:
 // Swift
 
 // Waits three seconds for ocean to contain "starfish":
-expect(ocean).toEventually(contain("starfish"), timeout: 3)
+expect(ocean).toEventually(contain("starfish"), timeout: .seconds(3))
 
 // Evaluate someValue every 0.2 seconds repeatedly until it equals 100, or fails if it timeouts after 5.5 seconds.
-expect(someValue).toEventually(equal(100), timeout: 5.5, pollInterval: 0.2)
+expect(someValue).toEventually(equal(100), timeout: .milliseconds(5500), pollInterval: .milliseconds(200))
 ```
 
 ```objc
@@ -386,7 +387,7 @@ waitUntil(^(void (^done)(void)){
 ```swift
 // Swift
 
-waitUntil(timeout: 10) { done in
+waitUntil(timeout: .seconds(10)) { done in
     ocean.goFish { success in
         expect(success).to(beTrue())
         done()
@@ -418,10 +419,10 @@ the default timeout and poll interval values. This can be done as follows:
 // Swift
 
 // Increase the global timeout to 5 seconds:
-Nimble.AsyncDefaults.Timeout = 5
+Nimble.AsyncDefaults.timeout = .seconds(1)
 
 // Slow the polling interval to 0.1 seconds:
-Nimble.AsyncDefaults.PollInterval = 0.1
+Nimble.AsyncDefaults.pollInterval = .milliseconds(100)
 ```
 
 ## Objective-C Support
@@ -1171,20 +1172,31 @@ For Objective-C, the actual value must be one of the following classes, or their
 
 ```swift
 // Swift
-let testNotification = Notification(name: "Foo", object: nil)
+let testNotification = Notification(name: Notification.Name("Foo"), object: nil)
 
-// passes if the closure in expect { ... } posts a notification to the default
+// Passes if the closure in expect { ... } posts a notification to the default
 // notification center.
 expect {
-    NotificationCenter.default.postNotification(testNotification)
-}.to(postNotifications(equal([testNotification]))
+    NotificationCenter.default.post(testNotification)
+}.to(postNotifications(equal([testNotification])))
 
-// passes if the closure in expect { ... } posts a notification to a given
+// Passes if the closure in expect { ... } posts a notification to a given
 // notification center
 let notificationCenter = NotificationCenter()
 expect {
-    notificationCenter.postNotification(testNotification)
-}.to(postNotifications(equal([testNotification]), fromNotificationCenter: notificationCenter))
+    notificationCenter.post(testNotification)
+}.to(postNotifications(equal([testNotification]), from: notificationCenter))
+
+// Passes if the closure in expect { ... } posts a notification with the provided names to a given
+// notification center. Make sure to use this when running tests on Catalina, 
+// using DistributedNotificationCenter as there is currently no way 
+// of observing notifications without providing specific names.
+let distributedNotificationCenter = DistributedNotificationCenter()
+expect {
+    distributedNotificationCenter.post(testNotification)
+}.toEventually(postDistributedNotifications(equal([testNotification]),
+                                  from: distributedNotificationCenter,
+                                  names: [testNotification.name]))
 ```
 
 > This matcher is only available in Swift.
@@ -1503,19 +1515,17 @@ For a more comprehensive message that spans multiple lines, use
 ## Supporting Objective-C
 
 To use a custom matcher written in Swift from Objective-C, you'll have
-to extend the `NMBObjCMatcher` class, adding a new class method for your
+to extend the `NMBPredicate` class, adding a new class method for your
 custom matcher. The example below defines the class method
-`+[NMBObjCMatcher beNilMatcher]`:
+`+[NMBPredicate beNilMatcher]`:
 
 ```swift
 // Swift
 
-extension NMBObjCMatcher {
-    public class func beNilMatcher() -> NMBObjCMatcher {
-        return NMBObjCMatcher { actualBlock, failureMessage, location in
-            let block = ({ actualBlock() as NSObject? })
-            let expr = Expression(expression: block, location: location)
-            return beNil().matches(expr, failureMessage: failureMessage)
+extension NMBPredicate {
+    @objc public class func beNilMatcher() -> NMBPredicate {
+        return NMBPredicate { actualExpression in
+            return try beNil().satisfies(actualExpression).toObjectiveC()
         }
     }
 }
@@ -1526,7 +1536,7 @@ The above allows you to use the matcher from Objective-C:
 ```objc
 // Objective-C
 
-expect(actual).to([NMBObjCMatcher beNilMatcher]());
+expect(actual).to([NMBPredicate beNilMatcher]());
 ```
 
 To make the syntax easier to use, define a C function that calls the
@@ -1535,8 +1545,8 @@ class method:
 ```objc
 // Objective-C
 
-FOUNDATION_EXPORT id<NMBMatcher> beNil() {
-    return [NMBObjCMatcher beNilMatcher];
+FOUNDATION_EXPORT NMBPredicate *beNil() {
+    return [NMBPredicate beNilMatcher];
 }
 ```
 
@@ -1558,29 +1568,25 @@ expect(nil).to(equal(nil)); // fails
 expect(nil).to(beNil());    // passes
 ```
 
-If your matcher does not want to match with nil, you use `NonNilMatcherFunc`
-and the `canMatchNil` constructor on `NMBObjCMatcher`. Using both types will
-automatically generate expected value failure messages when they're nil.
+If your matcher does not want to match with nil, you use `Predicate.define` or `Predicate.simple`. 
+Using those factory methods will automatically generate expected value failure messages when they're nil.
 
 ```swift
+public func beginWith<S: Sequence>(_ startingElement: S.Element) -> Predicate<S> where S.Element: Equatable {
+    return Predicate.simple("begin with <\(startingElement)>") { actualExpression in
+        guard let actualValue = try actualExpression.evaluate() else { return .fail }
 
-public func beginWith<S: Sequence, T: Equatable where S.Iterator.Element == T>(startingElement: T) -> NonNilMatcherFunc<S> {
-    return NonNilMatcherFunc { actualExpression, failureMessage in
-        failureMessage.postfixMessage = "begin with <\(startingElement)>"
-        if let actualValue = actualExpression.evaluate() {
-            var actualGenerator = actualValue.makeIterator()
-            return actualGenerator.next() == startingElement
-        }
-        return false
+        var actualGenerator = actualValue.makeIterator()
+        return PredicateStatus(bool: actualGenerator.next() == startingElement)
     }
 }
 
-extension NMBObjCMatcher {
-    public class func beginWithMatcher(expected: AnyObject) -> NMBObjCMatcher {
-        return NMBObjCMatcher(canMatchNil: false) { actualExpression, failureMessage in
-            let actual = actualExpression.evaluate()
+extension NMBPredicate {
+    @objc public class func beginWithMatcher(_ expected: Any) -> NMBPredicate {
+        return NMBPredicate { actualExpression in
+            let actual = try actualExpression.evaluate()
             let expr = actualExpression.cast { $0 as? NMBOrderedCollection }
-            return beginWith(expected).matches(expr, failureMessage: failureMessage)
+            return try beginWith(expected).satisfies(expr).toObjectiveC()
         }
     }
 }
@@ -1605,7 +1611,7 @@ converts those types to the newer `Predicate`.
 
 ```swift
 // Swift
-public func beginWith<S: Sequence, T: Equatable where S.Iterator.Element == T>(startingElement: T) -> Predicate<S> {
+public func beginWith<S: Sequence>(_ startingElement: S.Element) -> Predicate<S> where S.Element: Equatable {
     return NonNilMatcherFunc { actualExpression, failureMessage in
         failureMessage.postfixMessage = "begin with <\(startingElement)>"
         if let actualValue = actualExpression.evaluate() {
@@ -1628,7 +1634,7 @@ matcher types.
 
 ```swift
 // Swift
-public func beginWith<S: Sequence, T: Equatable where S.Iterator.Element == T>(startingElement: T) -> Predicate<S> {
+public func beginWith<S: Sequence>(_ startingElement: S.Element) -> Predicate<S> where S.Element: Equatable {
     return Predicate.fromDeprecatedClosure { actualExpression, failureMessage in
         failureMessage.postfixMessage = "begin with <\(startingElement)>"
         if let actualValue = actualExpression.evaluate() {
@@ -1705,11 +1711,32 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 target 'YOUR_APP_NAME_HERE_Tests', :exclusive => true do
   use_frameworks!
-  pod 'Nimble', '~> 6.0.0'
+  pod 'Nimble'
 end
 ```
 
 Finally run `pod install`.
+
+## Installing Nimble via Accio
+
+Add the following to your Package.swift:
+
+```swift
+.package(url: "https://github.com/Quick/Nimble.git", .upToNextMajor(from: "8.0.1")),
+```
+
+Next, add `Nimble` to your App targets dependencies like so:
+
+```swift
+.testTarget(
+    name: "AppTests",
+    dependencies: [
+        "Nimble",
+    ]
+),
+```
+
+Then run `accio update`.
 
 ## Using Nimble without XCTest
 

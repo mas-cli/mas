@@ -10,6 +10,12 @@ ALWAYS_SEARCH_USER_PATHS = NO
 // Architectures to build
 ARCHS = $(ARCHS_STANDARD)
 
+// Check for Grand Central Dispatch idioms that may lead to poor performance.
+CLANG_ANALYZER_GCD_PERFORMANCE = YES
+
+// Warn when a number object, such as an instance of `NSNumber`, `CFNumberRef`, `OSNumber`, or `OSBoolean` is compared or converted to a primitive value instead of another object.
+CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE
+
 // Whether to warn when a floating-point value is used as a loop counter
 CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES
 
@@ -25,9 +31,24 @@ CLANG_ENABLE_MODULES = YES
 // Enable ARC
 CLANG_ENABLE_OBJC_ARC = YES
 
+// Warn when a source file does not end with a newline.
+GCC_WARN_ABOUT_MISSING_NEWLINE = YES
+
+// Warn about assigning integer constants to enum values that are out of the range of the enumerated type.
+CLANG_WARN_ASSIGN_ENUM = YES
+
+// Warns when an atomic is used with an implicitly sequentially-consistent memory order, instead of explicitly specifying memory order.
+CLANG_WARN_ATOMIC_IMPLICIT_SEQ_CST = YES
+
+// Warn about block captures of implicitly autoreleasing parameters.
+CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES
+
 // Warn about implicit conversions to boolean values that are suspicious.
 // For example, writing 'if (foo)' with 'foo' being the name a function will trigger a warning.
 CLANG_WARN_BOOL_CONVERSION = YES
+
+// Warn about suspicious uses of the comma operator.
+CLANG_WARN_COMMA = YES
 
 // Warn about implicit conversions of constant values that cause the constant value to change,
 // either through a loss of precision, or entirely in its meaning.
@@ -38,6 +59,9 @@ CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES
 
 // Warn about direct accesses to the Objective-C 'isa' pointer instead of using a runtime API.
 CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR
+
+// Warns about issues in documentation comments (`doxygen`-style) such as missing or incorrect documentation tags.
+CLANG_WARN_DOCUMENTATION_COMMENTS = YES
 
 // Warn about declaring the same method more than once within the same @interface.
 CLANG_WARN__DUPLICATE_METHOD_MATCH = YES
@@ -56,14 +80,47 @@ CLANG_WARN_IMPLICIT_SIGN_CONVERSION = NO
 // For example, this can catch issues when one incorrectly intermixes using NSNumbers and raw integers.
 CLANG_WARN_INT_CONVERSION = YES
 
+// Warn about non-literal expressions that evaluate to zero being treated as a null pointer.
+CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES
+
+// Warn about implicit capture of self (e.g. direct ivar access)
+CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES
+
+// Warn about implicit conversions from Objective-C literals to values of incompatible type.
+CLANG_WARN_OBJC_LITERAL_CONVERSION = YES
+
 // Don't warn about repeatedly using a weak reference without assigning the weak reference to a strong reference. Too many false positives.
 CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = NO
 
 // Warn about classes that unintentionally do not subclass a root class (such as NSObject).
 CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR
 
+// Warn about implicit ownership types on Objective-C object references as out parameters. For example, declaring a parameter with type `NSObject**` will produce a warning because the compiler will assume that the out parameter's ownership type is `__autoreleasing`
+CLANG_WARN_OBJC_EXPLICIT_OWNERSHIP_TYPE = YES
+
+// Warns when a quoted include is used instead of a framework style include in a framework header.
+CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES
+
+// Warn about ranged-based for loops.
+CLANG_WARN_RANGE_LOOP_ANALYSIS = YES
+
 // Whether to warn on suspicious implicit conversions
 CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES
+
+// Warn about non-prototype declarations.
+CLANG_WARN_STRICT_PROTOTYPES = YES
+
+// Warn if an API that is newer than the deployment target is used without "if (@available(...))" guards.
+CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE
+
+// Warn about incorrect uses of nullable values
+CLANG_WARN_NULLABLE_TO_NONNULL_CONVERSION = YES
+
+// Warn for missing nullability attributes
+CLANG_ANALYZER_NONNULL = YES
+
+// Warn when a non-localized string is passed to a user-interface method expecting a localized string
+CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES
 
 // Warn about potentially unreachable code
 CLANG_WARN_UNREACHABLE_CODE = YES
@@ -77,8 +134,8 @@ ENABLE_NS_ASSERTIONS = YES
 // Whether to require objc_msgSend to be cast before invocation
 ENABLE_STRICT_OBJC_MSGSEND = YES
 
-// Which C variant to use
-GCC_C_LANGUAGE_STANDARD = gnu99
+// Which C variant to use. gnu11 is the default value when creating a Xcode project with version 10.1 (10B61)
+GCC_C_LANGUAGE_STANDARD = gnu11
 
 // Whether to enable exceptions for Objective-C
 GCC_ENABLE_OBJC_EXCEPTIONS = YES
@@ -106,6 +163,7 @@ GCC_VERSION = com.apple.compilers.llvm.clang.1_0
 
 // Whether warnings are treated as errors
 GCC_TREAT_WARNINGS_AS_ERRORS = YES
+SWIFT_TREAT_WARNINGS_AS_ERRORS = YES
 
 // Whether to warn about 64-bit values being implicitly shortened to 32 bits
 GCC_WARN_64_TO_32_BIT_CONVERSION = YES
@@ -155,8 +213,8 @@ GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES
 // Warn if a "@selector(...)" expression referring to an undeclared selector is found
 GCC_WARN_UNDECLARED_SELECTOR = YES
 
-// Warn if a variable might be clobbered by a setjmp call or if an automatic variable is used without prior initialization.
-GCC_WARN_UNINITIALIZED_AUTOS = YES
+// Warn if a variable might be clobbered by a `setjmp` call or if an automatic variable is used without prior initialization.
+GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE
 
 // Whether to warn about static functions that are unused
 GCC_WARN_UNUSED_FUNCTION = YES
@@ -171,9 +229,17 @@ GCC_WARN_UNUSED_VARIABLE = YES
 RUN_CLANG_STATIC_ANALYZER = YES
 
 // Don't treat unknown warnings as errors, and disable GCC compatibility warnings and unused static const variable warnings
-WARNING_CFLAGS = -Wno-error=unknown-warning-option -Wno-gcc-compat -Wno-unused-const-variable -Wno-nullability-completeness
+WARNING_CFLAGS = -Wno-error=unknown-warning-option -Wno-gcc-compat -Wno-unused-const-variable
 
 // This setting is on for new projects as of Xcode ~6.3, though it is still not
 // the default. It warns if the same variable is declared in two binaries that
 // are linked together.
 GCC_NO_COMMON_BLOCKS = YES
+
+// This warnings detects when a function will recursively call itself on every
+// code path though that function. More information can be found here:
+// http://lists.llvm.org/pipermail/cfe-commits/Week-of-Mon-20131216/096004.html
+CLANG_WARN_INFINITE_RECURSION = YES
+
+// This warning detects suspicious uses of std::move.
+CLANG_WARN_SUSPICIOUS_MOVE = YES

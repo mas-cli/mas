@@ -51,7 +51,7 @@ Alternatively, you can:
 
 - Update to macOS 10.14.4 or later
 - Install Xcode 10.2 or later at `/Applications/Xcode.app`
-- Rebuild mas from source using Xcode 10.0 or later
+- Rebuild mas from source using Xcode 11.4 or later
 
 ### 🐙 GitHub Releases
 

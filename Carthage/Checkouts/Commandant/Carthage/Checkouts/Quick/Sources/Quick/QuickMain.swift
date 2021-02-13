@@ -22,15 +22,8 @@ import XCTest
 public func QCKMain(_ specs: [QuickSpec.Type],
                     configurations: [QuickConfiguration.Type] = [],
                     testCases: [XCTestCaseEntry] = []) -> Never {
-    let world = World.sharedWorld
-
     // Perform all configurations (ensures that shared examples have been discovered)
-    world.configure { configuration in
-        for configurationClass in configurations {
-            configurationClass.configure(configuration)
-        }
-    }
-    world.finalizeConfiguration()
+    QuickConfiguration.configureSubclassesIfNeeded(configurations, world: World.sharedWorld)
 
     XCTMain(specs.compactMap { testCase($0.allTests) } + testCases)
 }

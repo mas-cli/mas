@@ -19,17 +19,13 @@ internal func isCloseTo(_ actualValue: NMBDoubleConvertible?,
 /// point values which can have imprecise results when doing arithmetic on them.
 ///
 /// @see equal
-public func beCloseTo(_ expectedValue: Double, within delta: Double = DefaultDelta) -> Predicate<Double> {
+public func beCloseTo<Value: NMBDoubleConvertible>(_ expectedValue: Value, within delta: Double = DefaultDelta) -> Predicate<Value> {
     return Predicate.define { actualExpression in
         return isCloseTo(try actualExpression.evaluate(), expectedValue: expectedValue, delta: delta)
     }
 }
 
-/// A Nimble matcher that succeeds when a value is close to another. This is used for floating
-/// point values which can have imprecise results when doing arithmetic on them.
-///
-/// @see equal
-public func beCloseTo(_ expectedValue: NMBDoubleConvertible, within delta: Double = DefaultDelta) -> Predicate<NMBDoubleConvertible> {
+private func beCloseTo(_ expectedValue: NMBDoubleConvertible, within delta: Double = DefaultDelta) -> Predicate<NMBDoubleConvertible> {
     return Predicate.define { actualExpression in
         return isCloseTo(try actualExpression.evaluate(), expectedValue: expectedValue, delta: delta)
     }

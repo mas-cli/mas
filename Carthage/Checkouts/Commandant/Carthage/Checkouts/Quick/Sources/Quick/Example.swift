@@ -1,13 +1,12 @@
 import Foundation
 
-private var numberOfExamplesRun = 0
-private var numberOfIncludedExamples = 0
-
-#if canImport(Darwin) && !SWIFT_PACKAGE
+#if canImport(Darwin)
+// swiftlint:disable type_name
 @objcMembers
 public class _ExampleBase: NSObject {}
 #else
 public class _ExampleBase: NSObject {}
+// swiftlint:enable type_name
 #endif
 
 /**
@@ -31,10 +30,10 @@ final public class Example: _ExampleBase {
     weak internal var group: ExampleGroup?
 
     private let internalDescription: String
-    private let closure: () -> Void
+    private let closure: () throws -> Void
     private let flags: FilterFlags
 
-    internal init(description: String, callsite: Callsite, flags: FilterFlags, closure: @escaping () -> Void) {
+    internal init(description: String, callsite: Callsite, flags: FilterFlags, closure: @escaping () throws -> Void) {
         self.internalDescription = description
         self.closure = closure
         self.callsite = callsite
@@ -65,15 +64,11 @@ final public class Example: _ExampleBase {
     public func run() {
         let world = World.sharedWorld
 
-        if numberOfIncludedExamples == 0 {
-            numberOfIncludedExamples = world.includedExampleCount
-        }
-
-        if numberOfExamplesRun == 0 {
+        if world.numberOfExamplesRun == 0 {
             world.suiteHooks.executeBefores()
         }
 
-        let exampleMetadata = ExampleMetadata(example: self, exampleIndex: numberOfExamplesRun)
+        let exampleMetadata = ExampleMetadata(example: self, exampleIndex: world.numberOfExamplesRun)
         world.currentExampleMetadata = exampleMetadata
         defer {
             world.currentExampleMetadata = nil
@@ -86,7 +81,22 @@ final public class Example: _ExampleBase {
         }
         group!.phase = .beforesFinished
 
-        closure()
+        do {
+            try closure()
+        } catch {
+            let description = "Test \(name) threw unexpected error: \(error.localizedDescription)"
+            #if SWIFT_PACKAGE
+            let file = callsite.file.description
+            #else
+            let file = callsite.file
+            #endif
+            QuickSpec.current.recordFailure(
+                withDescription: description,
+                inFile: file,
+                atLine: Int(callsite.line),
+                expected: false
+            )
+        }
 
         group!.phase = .aftersExecuting
         for after in group!.afters {
@@ -95,9 +105,9 @@ final public class Example: _ExampleBase {
         group!.phase = .aftersFinished
         world.exampleHooks.executeAfters(exampleMetadata)
 
-        numberOfExamplesRun += 1
+        world.numberOfExamplesRun += 1
 
-        if !world.isRunningAdditionalSuites && numberOfExamplesRun >= numberOfIncludedExamples {
+        if !world.isRunningAdditionalSuites && world.numberOfExamplesRun >= world.cachedIncludedExampleCount {
             world.suiteHooks.executeAfters()
         }
     }

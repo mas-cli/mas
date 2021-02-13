@@ -10,19 +10,19 @@ import XCTest
 // Implementation note: This is broken down into two separate protocols because we need a
 // protocol with no Self references to which we can cast XCTestCase instances in a non-generic context.
 
-public protocol XCTestCaseProviderStatic {
+protocol XCTestCaseProviderStatic {
     // This should be explicitly implemented by XCTestCase subclasses
     static var allTests: [(String, (Self) -> () throws -> Void)] { get }
 }
 
-public protocol XCTestCaseNameProvider {
+protocol XCTestCaseNameProvider {
     // This does not need to be explicitly implemented because of the protocol extension below
     var allTestNames: [String] { get }
 }
 
-public protocol XCTestCaseProvider: XCTestCaseProviderStatic, XCTestCaseNameProvider {}
+protocol XCTestCaseProvider: XCTestCaseProviderStatic, XCTestCaseNameProvider {}
 
-public extension XCTestCaseProvider where Self: XCTestCaseProviderStatic {
+extension XCTestCaseProvider where Self: XCTestCaseProviderStatic {
     var allTestNames: [String] {
         return type(of: self).allTests.map { name, _ in
             return name
