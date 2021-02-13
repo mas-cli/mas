@@ -8,10 +8,10 @@ class Mas < Formula
   head "https://github.com/mas-cli/mas.git"
 
   bottle do
-    sha256 cellar: :any, arm64_big_sur: "47fc7a22f7df891118ce45675f41e413df06e2527371a3cfa2f6790710b36973"
-    sha256 cellar: :any, big_sur:       "432091a534d0a1f753fcf953fb1c20c10ef5762b7f8922cb378c3dcd36898d30"
-    sha256 cellar: :any, catalina:      "e6de2f98ebd21885a9827664fe1b7eea5516a7fd75d5b7383e3a9b088591a27f"
-    sha256 cellar: :any, mojave:        "8b6dc4e261ebdc8e2f93afe87da3db4d482eb3d8a0358ab19a0485d434550e77"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur: "9667e4236b0afadd58eb02047ef4be19a5a9265cea49a89ddd794a29adefbe6e"
+    sha256 cellar: :any_skip_relocation, big_sur:       "2b6527d04527d0900000b41ed501eed11d9b3cfec65328efa7f48427ce197c24"
+    sha256 cellar: :any_skip_relocation, catalina:      "b50bdef7eb4fbf4d963d3b57879be5b97094e68c9d7372ec3103da246b21ff9e"
+    sha256 cellar: :any_skip_relocation, mojave:        "04e225d74595e2ecef0d5aefb24edd32171a6368b2bdc22957dab43f46925d3d"
   end
 
   depends_on "carthage" => :build
