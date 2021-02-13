@@ -19,8 +19,11 @@ let package = Package(
                 name: "QuickTests",
                 dependencies: [ "Quick", "Nimble" ],
                 exclude: [
+                    "QuickAfterSuiteTests/Info.plist",
                     "QuickAfterSuiteTests/AfterSuiteTests+ObjC.m",
+                    "QuickFocusedTests/Info.plist",
                     "QuickFocusedTests/FocusedTests+ObjC.m",
+                    "QuickTests/Info.plist",
                     "QuickTests/FunctionalTests/ObjC",
                     "QuickTests/Helpers/QCKSpecRunner.h",
                     "QuickTests/Helpers/QCKSpecRunner.m",
@@ -36,11 +39,11 @@ let package = Package(
 #if os(macOS)
         targets.append(contentsOf: [
             .target(name: "QuickObjCRuntime", dependencies: []),
-            .target(name: "Quick", dependencies: [ "QuickObjCRuntime" ]),
+            .target(name: "Quick", dependencies: [ "QuickObjCRuntime" ], exclude: ["Info.plist"]),
         ])
 #else
         targets.append(contentsOf: [
-            .target(name: "Quick", dependencies: []),
+            .target(name: "Quick", dependencies: [], exclude: ["Info.plist"]),
         ])
 #endif
         return targets

@@ -7,18 +7,24 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-- 🎨 Improve `mas list` command output #278
-- 🐛 Fix alignment of 2nd column of list command output #298
-- ✨ `Makefile` #277
-- 🐛 Specify desired LD_RUNPATH_SEARCH_PATHS at link-time #310
+
+
+## [v1.8.0] 💪🏼 arm64 support for M1 Macs - 2021-02-12
+
+- ✨ Support for Apple Silicon (arm64) #310  
+  thanks, [@chris-araman](https://github.com/chris-araman)!
+  - ⚒️ Xcode 12.2 and macOS 10.15.4 required to build
+- 🕊 Swift 5.2 #310
+  - ⚒️ Xcode 11.4 and macOS 10.15.2 required to build
+- 🐛 Specify desired `LD_RUNPATH_SEARCH_PATHS` at link-time #310
+- 🐛 Default PREFIX to /opt/homebrew on Apple Silicon (arm64)
 - ⬆️ Commandant (0.18.0) #310
 - ⬆️ Nimble (9.0.0) #310
 - ⬆️ Quick (3.1.0) #310
-- 🕊 Swift 5.2 #310
-  - ⚒️ Xcode 11.4 and macOS 10.15.2 required to build
-- ✨ Support for Apple Silicon (arm64) #310
-  - ⚒️ Xcode 12.2 and macOS 10.15.4 required to build
-- 🐛 Default PREFIX to /opt/homebrew on Apple Silicon (arm64)
+- 🎨 Improve `mas list` command output #278  
+  thanks, [@danielbayley](https://github.com/danielbayley)!
+- 🐛 Fix alignment of 2nd column of list command output #298
+- ✨ `Makefile` #277
 
 ## [v1.7.1] 🐛 Search JSON Fix - 2020-09-06
 
@@ -218,7 +224,8 @@ Use the `mas.pkg` package to install manually.
 
 - Initial Release
 
-[Unreleased]: https://github.com/mas-cli/mas/compare/v1.7.1...HEAD
+[Unreleased]: https://github.com/mas-cli/mas/compare/v1.8.0...HEAD
+[v1.8.0]: https://github.com/mas-cli/mas/compare/v1.7.1...v1.8.0
 [v1.7.1]: https://github.com/mas-cli/mas/compare/v1.7.0...v1.7.1
 [v1.7.0]: https://github.com/mas-cli/mas/compare/v1.6.4...v1.7.0
 [v1.6.4]: https://github.com/mas-cli/mas/compare/v1.6.3...v1.6.4
