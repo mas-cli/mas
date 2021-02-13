@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-
+- 🍼 Formula updates from 1.8 release #319
 
 ## [v1.8.0] 💪🏼 arm64 support for M1 Macs - 2021-02-12
 
