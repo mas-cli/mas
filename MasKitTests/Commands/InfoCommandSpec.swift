@@ -28,7 +28,7 @@ class InfoCommandSpec: QuickSpec {
         let expectedOutput = """
         Awesome App 1.0 [2.0]
         By: Awesome Dev
-        Released: Jan 7, 2019
+        Released: 2019-01-07
         Minimum OS: 10.14
         Size: 1 KB
         From: https://awesome.app
