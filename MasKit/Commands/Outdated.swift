@@ -7,7 +7,6 @@
 //
 
 import Commandant
-import CommerceKit
 
 /// Command which displays a list of installed apps which have available updates
 /// ready to be installed from the Mac App Store.
@@ -17,31 +16,41 @@ public struct OutdatedCommand: CommandProtocol {
     public let function = "Lists pending updates from the Mac App Store"
 
     private let appLibrary: AppLibrary
+    private let storeSearch: StoreSearch
 
     /// Public initializer.
-    /// - Parameter appLibrary: AppLibrary manager.
     public init() {
         self.init(appLibrary: MasAppLibrary())
     }
 
     /// Internal initializer.
     /// - Parameter appLibrary: AppLibrary manager.
-    init(appLibrary: AppLibrary = MasAppLibrary()) {
+    /// - Parameter storeSearch: StoreSearch manager.
+    init(appLibrary: AppLibrary = MasAppLibrary(), storeSearch: StoreSearch = MasStoreSearch()) {
         self.appLibrary = appLibrary
+        self.storeSearch = storeSearch
     }
 
     /// Runs the command.
     public func run(_: Options) -> Result<(), MASError> {
-        let updateController = CKUpdateController.shared()
-        let updates = updateController?.availableUpdates()
-        for update in updates! {
-            if let installed = appLibrary.installedApp(forBundleId: update.bundleID) {
-                // Display version of installed app compared to available update.
-                print("""
-                    \(update.itemIdentifier) \(update.title) (\(installed.bundleVersion) -> \(update.bundleVersion))
-                    """)
-            } else {
-                print("\(update.itemIdentifier) \(update.title) (unknown -> \(update.bundleVersion))")
+        for installedApp in appLibrary.installedApps {
+            do {
+                if let storeApp = try storeSearch.lookup(app: installedApp.itemIdentifier.intValue) {
+                    if installedApp.bundleVersion != storeApp.version {
+                        print("""
+\(installedApp.itemIdentifier) \(installedApp.appName) (\(installedApp.bundleVersion) -> \(storeApp.version))
+""")
+                    }
+                } else {
+                    printWarning("""
+Identifier \(installedApp.itemIdentifier) not found in store. Was expected to identify \(installedApp.appName).
+""")
+                }
+            } catch {
+                // Bubble up MASErrors
+                // swiftlint:disable force_cast
+                return .failure(error is MASError ? error as! MASError : .searchFailed)
+                // swiftlint:enable force_cast
             }
         }
         return .success(())
