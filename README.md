@@ -28,7 +28,7 @@ brew install mas
 sudo port install mas
 ```
 
-⚠️ Note that macOS 10.14 (Mojave) is required to install mas from MacPorts or the core Homebrew formula.
+⚠️ Note that macOS 10.15 (Catalina) is required to install mas from MacPorts or the core Homebrew formula.
 
 ### ☎️ Older macOS Versions
 
