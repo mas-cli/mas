@@ -21,7 +21,7 @@ main() {
   # Set up mint cache to be relative to user HOME
   export MINT_PATH=~/.mint/cache
   mkdir -p $MINT_PATH
-  mint bootstrap --verbose
+  mint bootstrap --link --verbose
 
   # Download and build project dependencies
   carthage bootstrap --platform macOS --cache-builds
