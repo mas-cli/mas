@@ -50,8 +50,7 @@ struct AppInfoFormatter {
         serverDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
 
         let humanDateFormatter = DateFormatter()
-        humanDateFormatter.timeStyle = .none
-        humanDateFormatter.dateStyle = .medium
+        humanDateFormatter.dateFormat = "yyyy-MM-dd"
         return serverDateFormatter.date(from: serverDate).flatMap(humanDateFormatter.string(from:)) ?? ""
     }
 }
