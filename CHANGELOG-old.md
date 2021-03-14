@@ -8,10 +8,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 - 🍼 Formula updates from 1.8 release #319
-- 🎨 Fix `mas outdated` & `mas upgrade` commands #312
-  thanks, [@rgoldberg](https://github.com/rgoldberg)!
-- 🎨 Fix errors being output with "Warning" when not on TTY #312
-  thanks, [@rgoldberg](https://github.com/rgoldberg)!
 
 ## [v1.8.0] 💪🏼 arm64 support for M1 Macs - 2021-02-12
 
