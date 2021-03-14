@@ -11,7 +11,7 @@ BUILD_DIR="$PWD/build"
 BOTTLE_DIR="$BUILD_DIR/bottles"
 VERSION=$(script/version)
 ROOT_URL="https://dl.bintray.com/phatblat/mas-bottles"
-OS_VERSIONS=(catalina mojave high_sierra sierra el_capitan)
+OS_VERSIONS=(arm64_big_sur big_sur catalina mojave high_sierra sierra el_capitan)
 OLD_FILENAME="mas--${VERSION}.${OS_VERSIONS[0]}.bottle.tar.gz"
 
 echo "==> 🍼 Bottling mas ${VERSION} for ${OS_VERSIONS[*]}"
@@ -52,7 +52,6 @@ mkdir -p "$BOTTLE_DIR"
 BOTTLE_BLOCK=$(cat <<-SETVAR
   bottle do
     root_url "$ROOT_URL"
-    cellar :any
 SETVAR
 )
 
@@ -64,7 +63,7 @@ for os in ${OS_VERSIONS[*]}; do
     # Append each os
     BOTTLE_BLOCK="$BOTTLE_BLOCK"$(cat <<-SETVAR
 
-    sha256 "$SHA256" => :$os
+    sha256 cellar: :any, $os: "$SHA256"
 SETVAR
 )
 done

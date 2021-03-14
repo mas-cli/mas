@@ -33,7 +33,7 @@ func printWarning(_ message: String) {
 
 public func printError(_ message: String) {
     guard isatty(fileno(stdout)) != 0 else {
-        print("Warning: \(message)")
+        print("Error: \(message)")
         return
     }
 

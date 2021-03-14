@@ -7,7 +7,6 @@
 //
 
 import Commandant
-import CommerceKit
 
 /// Command which upgrades apps with new versions available in the Mac App Store.
 public struct UpgradeCommand: CommandProtocol {
@@ -16,71 +15,82 @@ public struct UpgradeCommand: CommandProtocol {
     public let function = "Upgrade outdated apps from the Mac App Store"
 
     private let appLibrary: AppLibrary
+    private let storeSearch: StoreSearch
 
     /// Public initializer.
-    /// - Parameter appLibrary: AppLibrary manager.
     public init() {
         self.init(appLibrary: MasAppLibrary())
     }
 
     /// Internal initializer.
     /// - Parameter appLibrary: AppLibrary manager.
-    init(appLibrary: AppLibrary = MasAppLibrary()) {
+    /// - Parameter storeSearch: StoreSearch manager.
+    init(appLibrary: AppLibrary = MasAppLibrary(), storeSearch: StoreSearch = MasStoreSearch()) {
         self.appLibrary = appLibrary
+        self.storeSearch = storeSearch
     }
 
     /// Runs the command.
     public func run(_ options: Options) -> Result<(), MASError> {
-        let updateController = CKUpdateController.shared()
-        let updates: [CKUpdate]
-        let apps = options.apps
-        if apps.count > 0 {
-            // convert input into a list of appId's
-            let appIds: [UInt64]
-
-            appIds = apps.compactMap {
-                if let appId = UInt64($0) {
-                    return appId
+        do {
+            let apps =
+                try (
+                    options.apps.count == 0
+                        ? appLibrary.installedApps
+                        : options.apps.compactMap {
+                            if let appId = UInt64($0) {
+                                // if argument a UInt64, lookup app by id using argument
+                                return appLibrary.installedApp(forId: appId)
+                            } else {
+                                // if argument not a UInt64, lookup app by name using argument
+                                return appLibrary.installedApp(named: $0)
+                            }
+                        }
+                ).compactMap {(installedApp: SoftwareProduct) -> SoftwareProduct? in
+                    // only upgrade apps whose local version differs from the store version
+                    if let storeApp = try storeSearch.lookup(app: installedApp.itemIdentifier.intValue) {
+                        return storeApp.version != installedApp.bundleVersion
+                            ? installedApp
+                            : nil
+                    } else {
+                        return nil
+                    }
                 }
-                if let appId = appLibrary.appIdsByName[$0] {
-                    return appId
-                }
-                return nil
-            }
 
-            // check each of those for updates
-            updates = appIds.compactMap {
-                updateController?.availableUpdate(withItemIdentifier: $0)
-            }
-
-            guard updates.count > 0 else {
+            guard apps.count > 0 else {
                 printWarning("Nothing found to upgrade")
                 return .success(())
             }
-        } else {
-            updates = updateController?.availableUpdates() ?? []
 
-            // Upgrade everything
-            guard updates.count > 0 else {
-                print("Everything is up-to-date")
-                return .success(())
+            print("Upgrading \(apps.count) outdated application\(apps.count > 1 ? "s" : ""):")
+            print(apps.map {"\($0.appName) (\($0.bundleVersion))"}.joined(separator: ", "))
+
+            var updatedAppCount = 0
+            var failedUpgradeResults = [MASError]()
+            for app in apps {
+                if let upgradeResult = download(app.itemIdentifier.uint64Value) {
+                    failedUpgradeResults.append(upgradeResult)
+                } else {
+                    updatedAppCount += 1
+                }
             }
-        }
 
-        print("Upgrading \(updates.count) outdated application\(updates.count > 1 ? "s" : ""):")
-        print(updates.map({ "\($0.title) (\($0.bundleVersion))" }).joined(separator: ", "))
-
-        let updateResults = updates.compactMap {
-            download($0.itemIdentifier.uint64Value)
-        }
-
-        switch updateResults.count {
-        case 0:
-            return .success(())
-        case 1:
-            return .failure(updateResults[0])
-        default:
-            return .failure(.downloadFailed(error: nil))
+            switch failedUpgradeResults.count {
+            case 0:
+                if updatedAppCount == 0 {
+                    print("Everything is up-to-date")
+                }
+                return .success(())
+            case 1:
+                return .failure(failedUpgradeResults[0])
+            default:
+                return .failure(.downloadFailed(error: nil))
+            }
+        } catch {
+            // Bubble up MASErrors
+            // swiftlint:disable force_cast
+            return .failure(error is MASError ? error as! MASError : .searchFailed)
+            // swiftlint:enable force_cast
         }
     }
 }

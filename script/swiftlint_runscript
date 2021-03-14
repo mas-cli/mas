@@ -19,7 +19,7 @@ fi
 # : command: usage: command [-pVv] command [arg ...]
 
 if command -v swiftlint > /dev/null; then
-    swiftlint autocorrect --format
+    swiftlint autocorrect
     swiftlint lint --quiet
 else
     echo "warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint"
