@@ -16,7 +16,7 @@ main() {
   bundle install
 
   # Install Mint and shellcheck
-  brew bundle install --verbose
+  brew bundle install --no-upgrade --verbose
 
   # Set up mint cache to be relative to user HOME
   export MINT_PATH=~/.mint/cache
@@ -25,9 +25,6 @@ main() {
 
   # Download and build project dependencies
   carthage bootstrap --platform macOS --cache-builds
-
-  # Old Xcode project sort script used for CocoaSeeds
-  script/sort
 }
 
 main
