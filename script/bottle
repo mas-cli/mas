@@ -7,14 +7,27 @@
 # https://github.com/mas-cli/homebrew-tap
 #
 
+################################################################################
+#
+# Variables
+#
+
 BUILD_DIR="$PWD/build"
 BOTTLE_DIR="$BUILD_DIR/bottles"
 VERSION=$(script/version)
 ROOT_URL="https://dl.bintray.com/phatblat/mas-bottles"
-OS_VERSIONS=(arm64_big_sur big_sur catalina mojave high_sierra sierra el_capitan)
+
+# Supports macOS versions 11.0 (arm64 & x86_64), 10.15, 10.14, 10.13, 10.12 and 10.11
+# arm64_big_sur
+OS_VERSIONS=(big_sur catalina mojave high_sierra sierra el_capitan)
+
+# Output filename from build-bottle command
 OLD_FILENAME="mas--${VERSION}.${OS_VERSIONS[0]}.bottle.tar.gz"
 
-echo "==> 🍼 Bottling mas ${VERSION} for ${OS_VERSIONS[*]}"
+################################################################################
+#
+# Preflight checks
+#
 
 # Ensure core formula isn't shadowed by custom tap
 brew tap --list-pinned | grep mas-cli/tap && brew tap-unpin mas-cli/tap
@@ -34,12 +47,17 @@ fi
 # fatal: Unable to create '/Users/ben/Library/Caches/org.carthage.CarthageKit/dependencies/Commandant/./index.lock': Operation not permitted
 rm -rf ~/Library/Caches/org.carthage.CarthageKit
 
-# Uninstall carthage via Mint
-if command -v mint > /dev/null; then
+# Uninstall carthage via Mint, only when installed via mint
+if [[ $(command -v mint >/dev/null) && $(mint which carthage >/dev/null) ]]; then
     mint uninstall carthage
 fi
 
-# Build the formula
+################################################################################
+#
+# Build the formula for the current macOS version and architecture.
+#
+
+echo "==> 🍼 Bottling mas ${VERSION} for ${OS_VERSIONS[*]}"
 brew install --build-bottle mas
 
 # Generate bottle do block, dropping last 2 lines
@@ -49,11 +67,16 @@ SHA256=$(shasum --algorithm 256 "$OLD_FILENAME" | cut -f 1 -d ' ' -)
 mkdir -p "$BOTTLE_DIR"
 
 # Start of bottle block
-BOTTLE_BLOCK=$(cat <<-SETVAR
+BOTTLE_BLOCK=$(cat <<-EOF
   bottle do
     root_url "$ROOT_URL"
-SETVAR
+EOF
 )
+
+################################################################################
+#
+# Copy the bottle for all macOS version + architecture combinations.
+#
 
 # Fix filename
 for os in ${OS_VERSIONS[*]}; do
@@ -61,18 +84,18 @@ for os in ${OS_VERSIONS[*]}; do
     cp "$OLD_FILENAME" "$BOTTLE_DIR/$new_filename"
 
     # Append each os
-    BOTTLE_BLOCK="$BOTTLE_BLOCK"$(cat <<-SETVAR
+    BOTTLE_BLOCK="$BOTTLE_BLOCK"$(cat <<-EOF
 
     sha256 cellar: :any, $os: "$SHA256"
-SETVAR
+EOF
 )
 done
 
 # End of bottle block
-BOTTLE_BLOCK="$BOTTLE_BLOCK"$(cat <<-SETVAR
+BOTTLE_BLOCK="$BOTTLE_BLOCK"$(cat <<-EOF
 
   end
-SETVAR
+EOF
 )
 
 rm "$OLD_FILENAME"
