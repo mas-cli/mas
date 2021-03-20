@@ -11,7 +11,6 @@ class Mas < Formula
     root_url "https://dl.bintray.com/phatblat/mas-bottles"
     sha256 cellar: :any, arm64_big_sur: "d54d864976f78665d5175fd9e69ab81b3911fa28fd6ae627b61a18d55d68191a"
     sha256 cellar: :any, big_sur:       "d54d864976f78665d5175fd9e69ab81b3911fa28fd6ae627b61a18d55d68191a"
-    sha256 cellar: :any, big_sur:       "d54d864976f78665d5175fd9e69ab81b3911fa28fd6ae627b61a18d55d68191a"
     sha256 cellar: :any, catalina:      "d54d864976f78665d5175fd9e69ab81b3911fa28fd6ae627b61a18d55d68191a"
     sha256 cellar: :any, mojave:        "d54d864976f78665d5175fd9e69ab81b3911fa28fd6ae627b61a18d55d68191a"
     sha256 cellar: :any, high_sierra:   "d54d864976f78665d5175fd9e69ab81b3911fa28fd6ae627b61a18d55d68191a"
