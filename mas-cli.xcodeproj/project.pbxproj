@@ -207,40 +207,7 @@
 		90CB406A213F4DDD0044E445 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Quick.framework; sourceTree = "<group>"; };
 		90CB406B213F4DDD0044E445 /* Commandant.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Commandant.framework; sourceTree = "<group>"; };
 		90CB406C213F4DDD0044E445 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Nimble.framework; sourceTree = "<group>"; };
-		B55B3D7921ED96FC0009A1A5 /* Cartfile.resolved */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile.resolved; sourceTree = "<group>"; };
-		B55B3D7A21ED96FC0009A1A5 /* CODE_OF_CONDUCT.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CODE_OF_CONDUCT.md; sourceTree = "<group>"; };
-		B55B3D7B21ED96FC0009A1A5 /* Dangerfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Dangerfile; sourceTree = "<group>"; };
-		B55B3D7C21ED96FC0009A1A5 /* Cartfile.private */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile.private; sourceTree = "<group>"; };
-		B55B3D7D21ED96FC0009A1A5 /* releases */ = {isa = PBXFileReference; lastKnownFileType = folder; path = releases; sourceTree = "<group>"; };
-		B55B3D7E21ED96FD0009A1A5 /* docs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = docs; sourceTree = "<group>"; };
-		B55B3D7F21ED96FD0009A1A5 /* Gemfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Gemfile; sourceTree = "<group>"; };
-		B55B3D8021ED96FD0009A1A5 /* Carthage */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Carthage; sourceTree = "<group>"; };
-		B55B3D8121ED96FD0009A1A5 /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
-		B55B3D8221ED96FD0009A1A5 /* Gemfile.lock */ = {isa = PBXFileReference; lastKnownFileType = text; path = Gemfile.lock; sourceTree = "<group>"; };
-		B55B3D8321ED96FD0009A1A5 /* contrib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = contrib; sourceTree = "<group>"; };
-		B55B3D8421ED96FD0009A1A5 /* Homebrew */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Homebrew; sourceTree = "<group>"; };
-		B55B3D8521ED96FD0009A1A5 /* script */ = {isa = PBXFileReference; lastKnownFileType = folder; path = script; sourceTree = "<group>"; };
-		B55B3D8621ED96FD0009A1A5 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		B55B3D8721ED96FD0009A1A5 /* build */ = {isa = PBXFileReference; lastKnownFileType = folder; path = build; sourceTree = "<group>"; };
-		B55B3D8821ED96FD0009A1A5 /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
-		B55B3D8921ED96FD0009A1A5 /* Jenkinsfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Jenkinsfile; sourceTree = "<group>"; };
-		B55B3D8A21ED96FD0009A1A5 /* mas-cli.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mas-cli.png"; sourceTree = "<group>"; };
-		B55B3D8B21ED96FD0009A1A5 /* Brewfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Brewfile; sourceTree = "<group>"; };
-		B55B3D8C21ED96FD0009A1A5 /* bin */ = {isa = PBXFileReference; lastKnownFileType = folder; path = bin; sourceTree = "<group>"; };
-		B55B3D8D21ED96FD0009A1A5 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
-		B55B3D8E21ED96FD0009A1A5 /* Package */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Package; sourceTree = "<group>"; };
-		B55B3D8F21ED96FD0009A1A5 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B55B3D9121ED9B8C0009A1A5 /* SearchResultFormatterSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultFormatterSpec.swift; sourceTree = "<group>"; };
-		B55B3D9321EEA6A90009A1A5 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		B55B3D9421EEA6A90009A1A5 /* .hound.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .hound.yml; sourceTree = "<group>"; };
-		B55B3D9521EEA6AA0009A1A5 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
-		B55B3D9621EEA6AA0009A1A5 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
-		B55B3D9721EEA6AA0009A1A5 /* .github */ = {isa = PBXFileReference; lastKnownFileType = folder; path = .github; sourceTree = "<group>"; };
-		B55B3D9821EEA6AA0009A1A5 /* .ruby-version */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".ruby-version"; sourceTree = "<group>"; };
-		B55B3D9921EEA6AA0009A1A5 /* .bundle */ = {isa = PBXFileReference; lastKnownFileType = folder; path = .bundle; sourceTree = "<group>"; };
-		B55B3D9A21EEA6AA0009A1A5 /* .editorconfig */ = {isa = PBXFileReference; lastKnownFileType = text; path = .editorconfig; sourceTree = "<group>"; };
-		B55B3D9B21EEBD6E0009A1A5 /* .shellcheck.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .shellcheck.yml; sourceTree = "<group>"; };
-		B55B3D9D21EEBD7D0009A1A5 /* .envrc */ = {isa = PBXFileReference; lastKnownFileType = text; path = .envrc; sourceTree = "<group>"; };
 		B576FDF221E03B780016B39D /* MasStoreSearchSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasStoreSearchSpec.swift; sourceTree = "<group>"; };
 		B576FDF421E1078F0016B39D /* MASErrorTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MASErrorTestCase.swift; sourceTree = "<group>"; };
 		B576FDF621E107AA0016B39D /* OpenSystemCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenSystemCommand.swift; sourceTree = "<group>"; };
@@ -268,7 +235,6 @@
 		B578F060224FB5BD00D2086A /* ISAuthenticationResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISAuthenticationResponse.h; sourceTree = "<group>"; };
 		B5793E28219BDD4800135B39 /* JSON */ = {isa = PBXFileReference; lastKnownFileType = folder; path = JSON; sourceTree = "<group>"; };
 		B588CE0121DC89490047D305 /* ExternalCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalCommand.swift; sourceTree = "<group>"; };
-		B592D8522201702A00A9C970 /* .swiftformat */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftformat; sourceTree = "<group>"; };
 		B594B11F21D53A8200F3AC59 /* Uninstall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Uninstall.swift; sourceTree = "<group>"; };
 		B594B12121D5416100F3AC59 /* ListCommandSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListCommandSpec.swift; sourceTree = "<group>"; };
 		B594B12421D580BB00F3AC59 /* UninstallCommandSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UninstallCommandSpec.swift; sourceTree = "<group>"; };
@@ -405,47 +371,6 @@
 			);
 			name = Carthage;
 			path = Carthage/Build/Mac;
-			sourceTree = "<group>";
-		};
-		B55B3D7821ED96AA0009A1A5 /* Project */ = {
-			isa = PBXGroup;
-			children = (
-				B55B3D8C21ED96FD0009A1A5 /* bin */,
-				B55B3D8B21ED96FD0009A1A5 /* Brewfile */,
-				B55B3D8721ED96FD0009A1A5 /* build */,
-				B55B3D8121ED96FD0009A1A5 /* Cartfile */,
-				B55B3D8021ED96FD0009A1A5 /* Carthage */,
-				B55B3D8321ED96FD0009A1A5 /* contrib */,
-				B55B3D7B21ED96FC0009A1A5 /* Dangerfile */,
-				B55B3D7E21ED96FD0009A1A5 /* docs */,
-				B55B3D7F21ED96FD0009A1A5 /* Gemfile */,
-				B55B3D8421ED96FD0009A1A5 /* Homebrew */,
-				B55B3D8921ED96FD0009A1A5 /* Jenkinsfile */,
-				B55B3D8621ED96FD0009A1A5 /* LICENSE */,
-				B55B3D8E21ED96FD0009A1A5 /* Package */,
-				B55B3D7D21ED96FC0009A1A5 /* releases */,
-				B55B3D8521ED96FD0009A1A5 /* script */,
-				B55B3D9921EEA6AA0009A1A5 /* .bundle */,
-				B55B3D9A21EEA6AA0009A1A5 /* .editorconfig */,
-				B55B3D9D21EEBD7D0009A1A5 /* .envrc */,
-				B55B3D9721EEA6AA0009A1A5 /* .github */,
-				B55B3D9321EEA6A90009A1A5 /* .gitignore */,
-				B55B3D9421EEA6A90009A1A5 /* .hound.yml */,
-				B55B3D9821EEA6AA0009A1A5 /* .ruby-version */,
-				B55B3D9B21EEBD6E0009A1A5 /* .shellcheck.yml */,
-				B592D8522201702A00A9C970 /* .swiftformat */,
-				B55B3D9521EEA6AA0009A1A5 /* .swiftlint.yml */,
-				B55B3D9621EEA6AA0009A1A5 /* .travis.yml */,
-				B55B3D7C21ED96FC0009A1A5 /* Cartfile.private */,
-				B55B3D7921ED96FC0009A1A5 /* Cartfile.resolved */,
-				B55B3D8D21ED96FD0009A1A5 /* CHANGELOG.md */,
-				B55B3D7A21ED96FC0009A1A5 /* CODE_OF_CONDUCT.md */,
-				B55B3D8821ED96FD0009A1A5 /* CONTRIBUTING.md */,
-				B55B3D8221ED96FD0009A1A5 /* Gemfile.lock */,
-				B55B3D8A21ED96FD0009A1A5 /* mas-cli.png */,
-				B55B3D8F21ED96FD0009A1A5 /* README.md */,
-			);
-			name = Project;
 			sourceTree = "<group>";
 		};
 		B55B3D9021ED9B6A0009A1A5 /* Formatters */ = {
@@ -645,7 +570,6 @@
 				F8FB715E20F2B41400F56FDC /* MasKitTests */,
 				F8FB719920F2EC4500F56FDC /* PrivateFrameworks */,
 				ED031A791B5127C00097692E /* Products */,
-				B55B3D7821ED96AA0009A1A5 /* Project */,
 			);
 			sourceTree = "<group>";
 		};
