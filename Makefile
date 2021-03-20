@@ -125,9 +125,14 @@ danger:
 archive:
 	script/archive
 
-.PHONY: bottle
-bottle:
+# Builds bottles
+.PHONY: bottles
+bottles:
 	script/bottle
+
+# Alias for bottles
+.PHONY: bottle
+bottle: bottles
 
 .PHONY: package
 package:
