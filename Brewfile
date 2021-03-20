@@ -1,3 +1,4 @@
+brew "carthage"
 brew "make"
 brew "mint"
 brew "shellcheck"
