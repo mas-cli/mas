@@ -12,7 +12,6 @@ has_app_changes = !git.modified_files.grep(/MasKit/).empty?
 has_test_changes = !git.modified_files.grep(/MasKitTests/).empty?
 
 is_version_bump = git.modified_files.sort == [
-    "CHANGELOG.md",
     "mas/mas-Info.plist",
     "mas-cli.xcodeproj/project.pbxproj",
     "MasKit/SupportingFiles/Info.plist",
@@ -30,15 +29,6 @@ message(":tada:") if is_version_bump && github.pr_author != "phatblat"
 # Mainly to encourage writing up some reasoning about the PR, rather than just leaving a title
 if github.pr_body.length < 5
     fail ":memo: Please provide a summary in the Pull Request description"
-end
-
-# Let people say that this isn't worth a CHANGELOG entry in the PR if they choose
-declared_trivial = (github.pr_title + github.pr_body).include?("#trivial") || !has_app_changes
-message("This PR might seem trivial, but every contribution counts. :kissing_heart:") if declared_trivial
-
-# Keep the CHANGELOG up-to-date
-if !git.modified_files.include?("CHANGELOG.md") && !declared_trivial
-    fail(":memo: Please include a CHANGELOG entry. \nYou can find it at [CHANGELOG.md](https://github.com/mas-cli/mas/blob/master/CHANGELOG.md).", sticky: false)
 end
 
 # Make it more obvious that a PR is a work in progress and shouldn't be merged yet

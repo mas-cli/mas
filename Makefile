@@ -3,6 +3,7 @@
 # mas
 #
 
+
 ################################################################################
 #
 # Variables
@@ -18,7 +19,7 @@ PREFIX ?= /usr/local
 # Swift 5.3
 # SWIFT_VERSION = swift-5.3-DEVELOPMENT-SNAPSHOT-2020-04-21-a
 
-SWIFT_VERSION = 5.3.1
+SWIFT_VERSION = 5.3.2
 
 # set EXECUTABLE_DIRECTORY according to your specific environment
 # run swift build and see where the output executable is created
@@ -42,9 +43,11 @@ RUN_RESOURCES_DIRECTORY = ${EXECUTABLE_DIRECTORY}
 # Targets
 #
 
+# Prints versions of tools used by this Makefile.
 .PHONY: version
 version:
 	xcodebuild -version
+	swiftenv version
 	swift --version
 	# swift package tools-version
 
@@ -122,9 +125,14 @@ danger:
 archive:
 	script/archive
 
-.PHONY: bottle
-bottle:
+# Builds bottles
+.PHONY: bottles
+bottles:
 	script/bottle
+
+# Alias for bottles
+.PHONY: bottle
+bottle: bottles
 
 .PHONY: package
 package:
