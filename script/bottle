@@ -57,19 +57,19 @@ fi
 # Build the formula for the current macOS version and architecture.
 #
 
-echo "==> 🍼 Bottling mas ${VERSION} for ${OS_VERSIONS[*]}"
+echo "==> 🍼 Bottling mas ${VERSION} for: ${OS_VERSIONS[*]}"
 brew install --build-bottle mas
 
 # Generate bottle do block, dropping last 2 lines
 brew bottle --verbose --no-rebuild --root-url=$ROOT_URL mas
-SHA256=$(shasum --algorithm 256 "$OLD_FILENAME" | cut -f 1 -d ' ' -)
+SHA256=$(shasum --algorithm 256 "${OLD_FILENAME}" | cut -f 1 -d ' ' -)
 
 mkdir -p "$BOTTLE_DIR"
 
 # Start of bottle block
 BOTTLE_BLOCK=$(cat <<-EOF
-  bottle do
-    root_url "$ROOT_URL"
+bottle do
+  root_url "$ROOT_URL"
 EOF
 )
 
@@ -81,9 +81,10 @@ EOF
 # Fix filename
 for os in ${OS_VERSIONS[*]}; do
     new_filename="mas-${VERSION}.${os}.bottle.tar.gz"
-    cp "$OLD_FILENAME" "$BOTTLE_DIR/$new_filename"
+    cp -v "${OLD_FILENAME}" "${BOTTLE_DIR}/${new_filename}"
 
     # Append each os
+    # BOTTLE_BLOCK="$(printf "${BOTTLE_BLOCK}\n  sha256 cellar: :any, %-15s %s" "${os}:" "${SHA256}")"
     BOTTLE_BLOCK="$BOTTLE_BLOCK"$(cat <<-EOF
 
     sha256 cellar: :any, $os: "$SHA256"
@@ -92,12 +93,12 @@ EOF
 done
 
 # End of bottle block
-BOTTLE_BLOCK="$BOTTLE_BLOCK"$(cat <<-EOF
+BOTTLE_BLOCK=$(cat <<-EOF
 
-  end
+end
 EOF
 )
 
-rm "$OLD_FILENAME"
-ls -l "$BOTTLE_DIR"
-echo "$BOTTLE_BLOCK"
+rm "${OLD_FILENAME}"
+ls -l "${BOTTLE_DIR}"
+echo "${BOTTLE_BLOCK}"
