@@ -9,13 +9,14 @@ class Mas < Formula
 
   bottle do
     root_url "https://dl.bintray.com/phatblat/mas-bottles"
-    sha256 cellar: :any, arm64_big_sur: "444796f43ad88de2cc6f8effcde699330867ace7d722b367dd446dd75e1db251"
-    sha256 cellar: :any, big_sur:       "444796f43ad88de2cc6f8effcde699330867ace7d722b367dd446dd75e1db251"
-    sha256 cellar: :any, catalina:      "444796f43ad88de2cc6f8effcde699330867ace7d722b367dd446dd75e1db251"
-    sha256 cellar: :any, mojave:        "444796f43ad88de2cc6f8effcde699330867ace7d722b367dd446dd75e1db251"
-    sha256 cellar: :any, high_sierra:   "444796f43ad88de2cc6f8effcde699330867ace7d722b367dd446dd75e1db251"
-    sha256 cellar: :any, sierra:        "444796f43ad88de2cc6f8effcde699330867ace7d722b367dd446dd75e1db251"
-    sha256 cellar: :any, el_capitan:    "444796f43ad88de2cc6f8effcde699330867ace7d722b367dd446dd75e1db251"
+    sha256 cellar: :any, arm64_big_sur: "d54d864976f78665d5175fd9e69ab81b3911fa28fd6ae627b61a18d55d68191a"
+    sha256 cellar: :any, big_sur:       "d54d864976f78665d5175fd9e69ab81b3911fa28fd6ae627b61a18d55d68191a"
+    sha256 cellar: :any, big_sur:       "d54d864976f78665d5175fd9e69ab81b3911fa28fd6ae627b61a18d55d68191a"
+    sha256 cellar: :any, catalina:      "d54d864976f78665d5175fd9e69ab81b3911fa28fd6ae627b61a18d55d68191a"
+    sha256 cellar: :any, mojave:        "d54d864976f78665d5175fd9e69ab81b3911fa28fd6ae627b61a18d55d68191a"
+    sha256 cellar: :any, high_sierra:   "d54d864976f78665d5175fd9e69ab81b3911fa28fd6ae627b61a18d55d68191a"
+    sha256 cellar: :any, sierra:        "d54d864976f78665d5175fd9e69ab81b3911fa28fd6ae627b61a18d55d68191a"
+    sha256 cellar: :any, el_capitan:    "d54d864976f78665d5175fd9e69ab81b3911fa28fd6ae627b61a18d55d68191a"
   end
 
   depends_on "carthage" => :build
