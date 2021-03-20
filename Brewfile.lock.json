@@ -81,6 +81,10 @@
             }
           }
         }
+      },
+      "swiftenv": {
+        "version": "1.4.0",
+        "bottle": false
       }
     }
   },
@@ -95,10 +99,10 @@
         "macOS": "10.15.6"
       },
       "big_sur": {
-        "HOMEBREW_VERSION": "3.0.5-42-ge3b451c",
+        "HOMEBREW_VERSION": "3.0.7-44-g7e2ba95",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "71ccd48f3217276bf2634b9698373d34ffb38607",
-        "CLT": "",
+        "Homebrew/homebrew-core": "d34154298ad4f6adcdae2895f82c33dc316f79a4",
+        "CLT": "12.4.0.0.1.1610135815",
         "Xcode": "12.4",
         "macOS": "11.2.3"
       }

@@ -42,9 +42,11 @@ RUN_RESOURCES_DIRECTORY = ${EXECUTABLE_DIRECTORY}
 # Targets
 #
 
+# Prints versions of tools used by this Makefile.
 .PHONY: version
 version:
 	xcodebuild -version
+	swiftenv version
 	swift --version
 	# swift package tools-version
 
