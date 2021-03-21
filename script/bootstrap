@@ -16,6 +16,7 @@ main() {
   bundle install
 
   # Install Homebrew tools
+  rm -f Brewfile.lock.json
   brew bundle install --no-upgrade --verbose
 
   # Download and build project dependencies
