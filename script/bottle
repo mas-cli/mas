@@ -35,13 +35,13 @@ OLD_FILENAME="mas--${VERSION}.${OS_VERSIONS[0]}.bottle.tar.gz"
 brew tap --list-pinned | grep mas-cli/tap && brew tap-unpin mas-cli/tap
 
 # Uninstall if necessary
-if brew ls --versions mas > /dev/null; then
-    brew uninstall mas
+if brew ls --versions mas >/dev/null; then
+  brew uninstall mas
 fi
 
 # Uninstall if still found on path
-if command -v mas > /dev/null; then
-    script/uninstall || true # ignore failure
+if command -v mas >/dev/null; then
+  script/uninstall || true # ignore failure
 fi
 
 # Purge the Carthage cache to avoid this error from Homebrew sandboxing:
@@ -64,7 +64,8 @@ SHA256=$(shasum --algorithm 256 "${OLD_FILENAME}" | cut -f 1 -d ' ' -)
 mkdir -p "$BOTTLE_DIR"
 
 # Start of bottle block
-BOTTLE_BLOCK=$(cat <<-EOF
+BOTTLE_BLOCK=$(
+  cat <<-EOF
 bottle do
   root_url "$ROOT_URL"
 EOF
@@ -77,20 +78,22 @@ EOF
 
 # Fix filename
 for os in ${OS_VERSIONS[*]}; do
-    new_filename="mas-${VERSION}.${os}.bottle.tar.gz"
-    cp -v "${OLD_FILENAME}" "${BOTTLE_DIR}/${new_filename}"
+  new_filename="mas-${VERSION}.${os}.bottle.tar.gz"
+  cp -v "${OLD_FILENAME}" "${BOTTLE_DIR}/${new_filename}"
 
-    # Append each os
-    # BOTTLE_BLOCK="$(printf "${BOTTLE_BLOCK}\n  sha256 cellar: :any, %-15s %s" "${os}:" "${SHA256}")"
-    BOTTLE_BLOCK="$BOTTLE_BLOCK"$(cat <<-EOF
+  # Append each os
+  # BOTTLE_BLOCK="$(printf "${BOTTLE_BLOCK}\n  sha256 cellar: :any, %-15s %s" "${os}:" "${SHA256}")"
+  BOTTLE_BLOCK="$BOTTLE_BLOCK"$(
+    cat <<-EOF
 
     sha256 cellar: :any, $os: "$SHA256"
 EOF
-)
+  )
 done
 
 # End of bottle block
-BOTTLE_BLOCK=$(cat <<-EOF
+BOTTLE_BLOCK=$(
+  cat <<-EOF
 
 end
 EOF

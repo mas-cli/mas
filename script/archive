@@ -14,9 +14,9 @@ zip -r mas.xcarchive.zip mas.xcarchive
 echo "==> ️🗜️ Compressing binary and framework"
 pushd mas.xcarchive/Products
 zip -r \
-    mas-cli.zip \
-    bin/mas \
-    Frameworks/MasKit.framework
+  mas-cli.zip \
+  bin/mas \
+  Frameworks/MasKit.framework
 mv mas-cli.zip ../../
 popd
 

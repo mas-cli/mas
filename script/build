@@ -42,29 +42,29 @@ main() {
 
 build() {
   echo "==> 🏗️ Building mas ($VERSION)"
-  set -o pipefail && \
-      xcodebuild \
-          -workspace "$WORKSPACE" \
-          -scheme "$SCHEME" \
-          -configuration "$CONFIG" \
-          OBJROOT="$BUILD_DIR" \
-          SYMROOT="$BUILD_DIR" \
-          build \
-      | bundle exec xcpretty --color
+  set -o pipefail &&
+    xcodebuild \
+      -workspace "$WORKSPACE" \
+      -scheme "$SCHEME" \
+      -configuration "$CONFIG" \
+      OBJROOT="$BUILD_DIR" \
+      SYMROOT="$BUILD_DIR" \
+      build |
+    bundle exec xcpretty --color
 }
 
 archive() {
   echo "==> 📦 Archiving mas ($VERSION)"
-  set -o pipefail && \
-      xcodebuild \
-          -workspace "$WORKSPACE" \
-          -scheme "$SCHEME" \
-          -configuration "$CONFIG" \
-          -archivePath "$BUILD_DIR/mas.xcarchive" \
-          OBJROOT="$BUILD_DIR" \
-          SYMROOT="$BUILD_DIR" \
-          archive \
-      | bundle exec xcpretty --color
+  set -o pipefail &&
+    xcodebuild \
+      -workspace "$WORKSPACE" \
+      -scheme "$SCHEME" \
+      -configuration "$CONFIG" \
+      -archivePath "$BUILD_DIR/mas.xcarchive" \
+      OBJROOT="$BUILD_DIR" \
+      SYMROOT="$BUILD_DIR" \
+      archive |
+    bundle exec xcpretty --color
 }
 
 main

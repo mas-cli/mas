@@ -26,30 +26,30 @@ INSTALL_TEMPORARY_FOLDER=${DSTROOT:-build/distributions}
 # Final destination.
 # Override default prefix path with optional 1st arg
 if test -n "$1"; then
-    PREFIX="$1"
+  PREFIX="$1"
 elif [[ $(uname -m) == 'arm64' ]]; then
-    PREFIX=/opt/homebrew
+  PREFIX=/opt/homebrew
 else
-    PREFIX=/usr/local
+  PREFIX=/usr/local
 fi
 
 echo "==> 📲 Installing mas ($VERSION) to $PREFIX"
 
 xcodebuild \
-    -project "$PROJECT" \
-    -scheme "$SCHEME" \
-    -configuration "$CONFIG" \
-    OBJROOT="$BUILD_DIR" \
-    SYMROOT="$BUILD_DIR" \
-    DSTROOT="$INSTALL_TEMPORARY_FOLDER" \
-    install
+  -project "$PROJECT" \
+  -scheme "$SCHEME" \
+  -configuration "$CONFIG" \
+  OBJROOT="$BUILD_DIR" \
+  SYMROOT="$BUILD_DIR" \
+  DSTROOT="$INSTALL_TEMPORARY_FOLDER" \
+  install
 
 # Deep copy MasKit.framework
 ditto -v \
-    "$INSTALL_TEMPORARY_FOLDER/Frameworks" \
-    "$PREFIX/Frameworks"
+  "$INSTALL_TEMPORARY_FOLDER/Frameworks" \
+  "$PREFIX/Frameworks"
 
 # Copy mas binary
 ditto -v \
-    "$INSTALL_TEMPORARY_FOLDER/bin" \
-    "$PREFIX/bin"
+  "$INSTALL_TEMPORARY_FOLDER/bin" \
+  "$PREFIX/bin"

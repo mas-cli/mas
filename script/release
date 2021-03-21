@@ -56,7 +56,8 @@ prompt() {
 
 write_version_number() {
   local value
-  value=$1; shift
+  value=$1
+  shift
   write_plist "CFBundleShortVersionString" "${value}"
 }
 
@@ -66,15 +67,18 @@ read_version_number() {
 
 read_plist() {
   local key
-  key=$1; shift
+  key=$1
+  shift
   /usr/libexec/PlistBuddy -c "Print :${key}" "${PLIST_FILE}"
 }
 
 write_plist() {
   local key
   local value
-  key=$1; shift
-  value=$1; shift
+  key=$1
+  shift
+  value=$1
+  shift
   echo "Setting ${key} to ${value}" >&2
   /usr/libexec/PlistBuddy -c "Set :${key} ${value}" "${PLIST_FILE}"
 }

@@ -14,4 +14,4 @@ swiftlint lint --strict
 
 echo
 echo "--> 📜 Bash"
-shfmt -i 2 -w contrib/ script/
+shfmt -i 2 -l -w contrib/ script/

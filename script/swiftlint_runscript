@@ -7,10 +7,9 @@
 # https://github.com/realm/SwiftLint
 #
 
-if test -n "$JENKINS_URL"
-then
-    echo "Skipping SwiftLint run script on CI, will run in Lint stage."
-    exit
+if test -n "$JENKINS_URL"; then
+  echo "Skipping SwiftLint run script on CI, will run in Lint stage."
+  exit
 fi
 
 # 😕 When run from Xcode, the command command doesn't support these options
@@ -18,9 +17,9 @@ fi
 # : command: --: invalid option
 # : command: usage: command [-pVv] command [arg ...]
 
-if command -v swiftlint > /dev/null; then
-    swiftlint autocorrect
-    swiftlint lint --quiet
+if command -v swiftlint >/dev/null; then
+  swiftlint autocorrect
+  swiftlint lint --quiet
 else
-    echo "warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint"
+  echo "warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint"
 fi
