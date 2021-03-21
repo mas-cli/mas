@@ -1,7 +1,7 @@
 brew "carthage"
 brew "make"
 brew "mint"
-brew "shellcheck"
+brew "shfmt"
 
 tap "kylef/formulae"
 brew "swiftenv"
