@@ -12,10 +12,10 @@ main() {
 
   echo "==> 👢 Bootstrapping"
 
-  # Install ruby tools
+  # Install Ruby tools
   bundle install
 
-  # Install Mint and shellcheck
+  # Install Homebrew tools
   brew bundle install --no-upgrade --verbose
 
   # Download and build project dependencies
