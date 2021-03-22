@@ -15,7 +15,3 @@ rubocop:
 
 shellcheck:
   enabled: true
-
-swiftlint:
-  enabled: true
-  config_file: .swiftlint.yml
