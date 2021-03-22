@@ -8,6 +8,13 @@
 
 echo "==> 🚨 Linting mas"
 
+for LINTER in swift-format swiftformat swiftlint; do
+  if [[ ! -x "$(command -v ${LINTER})" ]]; then
+    echo "warning: ${LINTER} is not installed: script/bootstrap"
+    exit 1
+  fi
+done
+
 echo "--> 🌳 Git"
 git diff --check
 
