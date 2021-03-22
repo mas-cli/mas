@@ -6,9 +6,10 @@
 //  Copyright © 2019 mas-cli. All rights reserved.
 //
 
-@testable import MasKit
 import Nimble
 import Quick
+
+@testable import MasKit
 
 class MasStoreSearchSpec: QuickSpec {
     override func spec() {

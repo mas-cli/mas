@@ -8,8 +8,10 @@
 
 // https://medium.com/@merowing_/stop-weak-strong-dance-in-swift-3aec6d3563d4
 
-func strongify<Context: AnyObject, Arguments>(_ context: Context?,
-                                              closure: @escaping (Context, Arguments) -> Void) -> (Arguments) -> Void {
+func strongify<Context: AnyObject, Arguments>(
+    _ context: Context?,
+    closure: @escaping (Context, Arguments) -> Void
+) -> (Arguments) -> Void {
     return { [weak context] arguments in
         guard let strongContext = context else { return }
         closure(strongContext, arguments)

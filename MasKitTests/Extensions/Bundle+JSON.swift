@@ -32,10 +32,12 @@ extension Bundle {
     /// - Parameter fileName: Name of file to locate.
     /// - Returns: URL to file.
     func url(for fileName: String) -> URL? {
-        guard let path = self.path(forResource: fileName.fileNameWithoutExtension,
-                                   ofType: fileName.fileExtension,
-                                   inDirectory: "JSON")
-            else { fatalError("Unable to load file \(fileName)") }
+        guard
+            let path = self.path(
+                forResource: fileName.fileNameWithoutExtension,
+                ofType: fileName.fileExtension,
+                inDirectory: "JSON")
+        else { fatalError("Unable to load file \(fileName)") }
 
         return URL(fileURLWithPath: path)
     }

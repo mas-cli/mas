@@ -65,9 +65,10 @@ extension OutputListener {
         // Restore stdout
         freopen("/dev/stdout", "a", stdout)
 
-        [inputPipe.fileHandleForReading, outputPipe.fileHandleForWriting].forEach { file in
-            file.closeFile()
-        }
+        [inputPipe.fileHandleForReading, outputPipe.fileHandleForWriting]
+            .forEach { file in
+                file.closeFile()
+            }
     }
 }
 

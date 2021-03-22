@@ -31,9 +31,9 @@ class OutputListenerSpec: QuickSpec {
                 output.openConsolePipe()
 
                 let expectedOutput = """
-                hi there
+                    hi there
 
-                """
+                    """
 
                 print("hi there")
 

@@ -54,9 +54,7 @@ public struct SignInOptions: OptionsProtocol {
     let dialog: Bool
 
     static func create(username: String) -> (_ password: String) -> (_ dialog: Bool) -> SignInOptions {
-        return { password in { dialog in
-            SignInOptions(username: username, password: password, dialog: dialog)
-            } }
+        { password in { dialog in SignInOptions(username: username, password: password, dialog: dialog) } }
     }
 
     public static func evaluate(_ mode: CommandMode) -> Result<SignInOptions, CommandantError<MASError>> {

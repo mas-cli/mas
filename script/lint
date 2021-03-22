@@ -13,6 +13,9 @@ git diff --check
 
 echo
 echo "--> 🕊️ Swift"
+for SOURCE in mas MasKit MasKitTests; do
+  swift-format format --in-place --configuration .swift-format --recursive ${SOURCE}
+done
 swiftlint lint --fix --strict
 
 echo

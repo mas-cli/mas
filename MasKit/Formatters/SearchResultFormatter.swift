@@ -16,7 +16,8 @@ struct SearchResultFormatter {
     /// - Returns: Multiliune text outoutp.
     static func format(results: [SearchResult], includePrice: Bool = false) -> String {
         // find longest appName for formatting, default 50
-        let maxLength = results.map { $0.trackName }.max(by: { $1.count > $0.count })?.count
+        let maxLength =
+            results.map { $0.trackName }.max(by: { $1.count > $0.count })?.count
             ?? 50
 
         var output: String = ""

@@ -20,8 +20,9 @@ import StoreFoundation
 
     func downloadQueue(_ queue: CKDownloadQueue, statusChangedFor download: SSDownload) {
         guard download.metadata.itemIdentifier == purchase.itemIdentifier,
-            let status = download.status else {
-                return
+            let status = download.status
+        else {
+            return
         }
 
         if status.isFailed || status.isCancelled {
@@ -41,8 +42,9 @@ import StoreFoundation
 
     func downloadQueue(_: CKDownloadQueue, changedWithRemoval download: SSDownload) {
         guard download.metadata.itemIdentifier == purchase.itemIdentifier,
-            let status = download.status else {
-                return
+            let status = download.status
+        else {
+            return
         }
 
         clearLine()
@@ -76,7 +78,7 @@ func progress(_ state: ProgressState) {
 
     let completeLength = Int(state.percentComplete * Float(barLength))
     var bar = ""
-    for index in 0 ..< barLength {
+    for index in 0..<barLength {
         if index < completeLength {
             bar += "#"
         } else {

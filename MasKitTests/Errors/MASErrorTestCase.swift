@@ -6,9 +6,10 @@
 //  Copyright © 2018 Andrew Naylor. All rights reserved.
 //
 
-@testable import MasKit
 import Foundation
 import XCTest
+
+@testable import MasKit
 
 class MASErrorTestCase: XCTestCase {
     private let errorDomain = "MAS"

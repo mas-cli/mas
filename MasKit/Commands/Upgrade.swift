@@ -34,19 +34,19 @@ public struct UpgradeCommand: CommandProtocol {
     public func run(_ options: Options) -> Result<(), MASError> {
         do {
             let apps =
-                try (
-                    options.apps.count == 0
-                        ? appLibrary.installedApps
-                        : options.apps.compactMap {
-                            if let appId = UInt64($0) {
-                                // if argument a UInt64, lookup app by id using argument
-                                return appLibrary.installedApp(forId: appId)
-                            } else {
-                                // if argument not a UInt64, lookup app by name using argument
-                                return appLibrary.installedApp(named: $0)
-                            }
-                        }
-                ).compactMap {(installedApp: SoftwareProduct) -> SoftwareProduct? in
+                try
+                (options.apps.count == 0
+                ? appLibrary.installedApps
+                : options.apps.compactMap {
+                    if let appId = UInt64($0) {
+                        // if argument a UInt64, lookup app by id using argument
+                        return appLibrary.installedApp(forId: appId)
+                    } else {
+                        // if argument not a UInt64, lookup app by name using argument
+                        return appLibrary.installedApp(named: $0)
+                    }
+                })
+                .compactMap { (installedApp: SoftwareProduct) -> SoftwareProduct? in
                     // only upgrade apps whose local version differs from the store version
                     if let storeApp = try storeSearch.lookup(app: installedApp.itemIdentifier.intValue) {
                         return storeApp.version != installedApp.bundleVersion
@@ -63,7 +63,7 @@ public struct UpgradeCommand: CommandProtocol {
             }
 
             print("Upgrading \(apps.count) outdated application\(apps.count > 1 ? "s" : ""):")
-            print(apps.map {"\($0.appName) (\($0.bundleVersion))"}.joined(separator: ", "))
+            print(apps.map { "\($0.appName) (\($0.bundleVersion))" }.joined(separator: ", "))
 
             var updatedAppCount = 0
             var failedUpgradeResults = [MASError]()

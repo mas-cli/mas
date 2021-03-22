@@ -30,7 +30,8 @@ public class NetworkManager {
     ///   - completionHandler: Closure where result is delivered.
     func loadData(from url: URL, completionHandler: @escaping (NetworkResult) -> Void) {
         session.loadData(from: url) { (data: Data?, error: Error?) in
-            let result: NetworkResult = data != nil
+            let result: NetworkResult =
+                data != nil
                 ? .success(data!)
                 : .failure(error!)
             completionHandler(result)

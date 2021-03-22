@@ -28,8 +28,10 @@ public struct LuckyCommand: CommandProtocol {
     /// Internal initializer.
     /// - Parameter appLibrary: AppLibrary manager.
     /// - Parameter storeSearch: Search manager.
-    init(appLibrary: AppLibrary = MasAppLibrary(),
-         storeSearch: StoreSearch = MasStoreSearch()) {
+    init(
+        appLibrary: AppLibrary = MasAppLibrary(),
+        storeSearch: StoreSearch = MasStoreSearch()
+    ) {
         self.appLibrary = appLibrary
         self.storeSearch = storeSearch
     }
@@ -67,14 +69,15 @@ public struct LuckyCommand: CommandProtocol {
     /// - Returns: Result of the operation.
     fileprivate func install(_ appId: UInt64, options: Options) -> Result<(), MASError> {
         // Try to download applications with given identifiers and collect results
-        let downloadResults = [appId].compactMap { (appId) -> MASError? in
-            if let product = appLibrary.installedApp(forId: appId), !options.forceInstall {
-                printWarning("\(product.appName) is already installed")
-                return nil
-            }
+        let downloadResults = [appId]
+            .compactMap { (appId) -> MASError? in
+                if let product = appLibrary.installedApp(forId: appId), !options.forceInstall {
+                    printWarning("\(product.appName) is already installed")
+                    return nil
+                }
 
-            return download(appId)
-        }
+                return download(appId)
+            }
 
         switch downloadResults.count {
         case 0:

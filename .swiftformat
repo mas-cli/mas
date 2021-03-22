@@ -5,7 +5,7 @@
 # https://github.com/nicklockwood/SwiftFormat#config-file
 #
 
---exclude Carthage/
+--exclude Carthage/,docs/
 
 # Disabled rules
 --disable blankLinesAroundMark
@@ -15,4 +15,5 @@
 
 # Rule options
 --commas inline
---importgrouping testable-top
+--guardelse same-line
+--importgrouping testable-last

@@ -21,19 +21,21 @@ public struct SearchResult: Decodable {
     public var trackViewUrl: String
     public var version: String
 
-    init(bundleId: String = "",
-         currentVersionReleaseDate: String = "",
-         fileSizeBytes: String = "0",
-         formattedPrice: String = "Free",
-         minimumOsVersion: String = "",
-         price: Double = 0.0,
-         sellerName: String = "",
-         sellerUrl: String = "",
-         trackId: Int = 0,
-         trackCensoredName: String = "",
-         trackName: String = "",
-         trackViewUrl: String = "",
-         version: String = "") {
+    init(
+        bundleId: String = "",
+        currentVersionReleaseDate: String = "",
+        fileSizeBytes: String = "0",
+        formattedPrice: String = "Free",
+        minimumOsVersion: String = "",
+        price: Double = 0.0,
+        sellerName: String = "",
+        sellerUrl: String = "",
+        trackId: Int = 0,
+        trackCensoredName: String = "",
+        trackName: String = "",
+        trackViewUrl: String = "",
+        version: String = ""
+    ) {
         self.bundleId = bundleId
         self.currentVersionReleaseDate = currentVersionReleaseDate
         self.fileSizeBytes = fileSizeBytes

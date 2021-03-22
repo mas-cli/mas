@@ -5,9 +5,10 @@
 //  Created by Ben Chatelain on 1/11/19.
 //  Copyright © 2019 mas-cli. All rights reserved.
 //
-@testable import MasKit
 import Nimble
 import Quick
+
+@testable import MasKit
 
 /// Protocol minimal implementation
 struct StoreSearchForTesting: StoreSearch {
@@ -23,15 +24,14 @@ class StoreSearchSpec: QuickSpec {
             it("contains the app name") {
                 let appName = "myapp"
                 let urlString = storeSearch.searchURLString(forApp: appName)
-                expect(urlString) ==
-                "https://itunes.apple.com/search?media=software&entity=macSoftware&term=\(appName)"
+                expect(urlString) == "https://itunes.apple.com/search?media=software&entity=macSoftware&term=\(appName)"
             }
             it("contains the encoded app name") {
                 let appName = "My App"
                 let appNameEncoded = "My%20App"
                 let urlString = storeSearch.searchURLString(forApp: appName)
-                expect(urlString) ==
-                "https://itunes.apple.com/search?media=software&entity=macSoftware&term=\(appNameEncoded)"
+                expect(urlString)
+                    == "https://itunes.apple.com/search?media=software&entity=macSoftware&term=\(appNameEncoded)"
             }
             // Find a character that causes addingPercentEncoding(withAllowedCharacters to return nil
             xit("is nil when app name cannot be url encoded") {

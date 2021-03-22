@@ -39,10 +39,12 @@ extension MASError: CustomStringConvertible {
             return "Not signed in"
 
         case .signInDisabled:
-            return "The 'signin' command has been disabled on this macOS version. " +
-                "Please sign into the Mac App Store app manually." +
-                "\nFor more info see: " +
-            "https://github.com/mas-cli/mas/issues/164"
+            return """
+                The 'signin' command has been disabled on this macOS version. \
+                Please sign into the Mac App Store app manually.
+                For more info see: \
+                https://github.com/mas-cli/mas/issues/164
+                """
 
         case let .signInFailed(error):
             if let error = error {

@@ -21,7 +21,7 @@ extension SSPurchase {
             "price": 0,
             "salableAdamId": adamId,
             "pg": "default",
-            "appExtVrsId": 0
+            "appExtVrsId": 0,
         ]
 
         if purchase {
@@ -33,9 +33,11 @@ extension SSPurchase {
             parameters["pricingParameters"] = "STDRDL"
         }
 
-        buyParameters = parameters.map { key, value in
-            return "\(key)=\(value)"
-        }.joined(separator: "&")
+        buyParameters =
+            parameters.map { key, value in
+                return "\(key)=\(value)"
+            }
+            .joined(separator: "&")
 
         itemIdentifier = adamId
         accountIdentifier = account.dsID

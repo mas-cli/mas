@@ -6,9 +6,10 @@
 //  Copyright © 2020 mas-cli. All rights reserved.
 //
 
-@testable import MasKit
 import Nimble
 import Quick
+
+@testable import MasKit
 
 class AppListsFormatterSpec: QuickSpec {
     override func spec() {
@@ -25,14 +26,14 @@ class AppListsFormatterSpec: QuickSpec {
                 expect(output) == ""
             }
             it("can format a single product") {
-                products = [SoftwareProductMock(
+                let product = SoftwareProductMock(
                     appName: "Awesome App",
                     bundleIdentifier: "",
                     bundlePath: "",
                     bundleVersion: "19.2.1",
                     itemIdentifier: 12345
-                    )]
-                let output = format(products)
+                )
+                let output = format([product])
                 expect(output) == "12345       Awesome App  (19.2.1)"
             }
             it("can format two products") {
@@ -50,11 +51,10 @@ class AppListsFormatterSpec: QuickSpec {
                         bundlePath: "",
                         bundleVersion: "1.2.0",
                         itemIdentifier: 67890
-                    )
+                    ),
                 ]
                 let output = format(products)
-                expect(output) ==
-                "12345       Awesome App      (19.2.1)\n67890       Even Better App  (1.2.0)"
+                expect(output) == "12345       Awesome App      (19.2.1)\n67890       Even Better App  (1.2.0)"
             }
         }
     }

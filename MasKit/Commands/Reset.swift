@@ -44,7 +44,7 @@ public struct ResetCommand: CommandProtocol {
             "storeassetd",
             "storedownloadd",
             "storeinstalld",
-            "storelegacy"
+            "storelegacy",
         ]
 
         let kill = Process()

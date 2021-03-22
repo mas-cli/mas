@@ -20,8 +20,10 @@ public struct HomeCommand: CommandProtocol {
     private var openCommand: ExternalCommand
 
     /// Designated initializer.
-    public init(storeSearch: StoreSearch = MasStoreSearch(),
-                openCommand: ExternalCommand = OpenSystemCommand()) {
+    public init(
+        storeSearch: StoreSearch = MasStoreSearch(),
+        openCommand: ExternalCommand = OpenSystemCommand()
+    ) {
         self.storeSearch = storeSearch
         self.openCommand = openCommand
     }

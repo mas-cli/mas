@@ -22,7 +22,9 @@ class AppLibraryMock: AppLibrary {
     func uninstallApp(app: SoftwareProduct) throws {
         if !installedApps.contains(where: { (product) -> Bool in
             app.itemIdentifier == product.itemIdentifier
-        }) { throw MASError.notInstalled }
+        }) {
+            throw MASError.notInstalled
+        }
 
         // Special case for testing where we pretend the trash command failed
         if app.bundlePath == "/dev/null" {

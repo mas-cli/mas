@@ -6,9 +6,10 @@
 //  Copyright © 2020 mas-cli. All rights reserved.
 //
 
-@testable import MasKit
 import Nimble
 import Quick
+
+@testable import MasKit
 
 class MasAppLibrarySpec: QuickSpec {
     override func spec() {
@@ -35,9 +36,7 @@ let myApp = SoftwareProductMock(
     bundleVersion: "",
     itemIdentifier: 1234)
 
-var apps: [SoftwareProduct] = [
-    myApp
-]
+var apps: [SoftwareProduct] = [myApp]
 
 // MARK: - SoftwareMapMock
 struct SoftwareMapMock: SoftwareMap {

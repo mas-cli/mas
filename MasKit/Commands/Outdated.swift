@@ -37,14 +37,16 @@ public struct OutdatedCommand: CommandProtocol {
             do {
                 if let storeApp = try storeSearch.lookup(app: installedApp.itemIdentifier.intValue) {
                     if installedApp.bundleVersion != storeApp.version {
-                        print("""
-\(installedApp.itemIdentifier) \(installedApp.appName) (\(installedApp.bundleVersion) -> \(storeApp.version))
-""")
+                        print(
+                            """
+                            \(installedApp.itemIdentifier) \(installedApp.appName) (\(installedApp.bundleVersion) -> \(storeApp.version))
+                            """)
                     }
                 } else {
-                    printWarning("""
-Identifier \(installedApp.itemIdentifier) not found in store. Was expected to identify \(installedApp.appName).
-""")
+                    printWarning(
+                        """
+                        Identifier \(installedApp.itemIdentifier) not found in store. Was expected to identify \(installedApp.appName).
+                        """)
                 }
             } catch {
                 // Bubble up MASErrors
