@@ -24,7 +24,7 @@ extension Bundle {
     /// - Parameter fileName: Name of file to locate.
     /// - Returns: URL to file.
     static func url(for fileName: String) -> URL? {
-        return Bundle(for: NetworkSessionMock.self).url(for: fileName)
+        Bundle(for: NetworkSessionMock.self).url(for: fileName)
     }
 
     /// Builds a URL for a file in the JSON directory of the current bundle.
@@ -36,7 +36,8 @@ extension Bundle {
             let path = self.path(
                 forResource: fileName.fileNameWithoutExtension,
                 ofType: fileName.fileExtension,
-                inDirectory: "JSON")
+                inDirectory: "JSON"
+            )
         else { fatalError("Unable to load file \(fileName)") }
 
         return URL(fileURLWithPath: path)

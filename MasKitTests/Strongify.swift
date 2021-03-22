@@ -12,10 +12,12 @@ func strongify<Context: AnyObject, Arguments>(
     _ context: Context?,
     closure: @escaping (Context, Arguments) -> Void
 ) -> (Arguments) -> Void {
-    return { [weak context] arguments in
+    let strongified = { [weak context] (arguments: Arguments) in
         guard let strongContext = context else { return }
         closure(strongContext, arguments)
     }
+
+    return strongified
 }
 
 func strongify<Context: AnyObject>(_ context: Context?, closure: @escaping (Context) -> Void) {

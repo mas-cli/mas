@@ -31,7 +31,7 @@ public struct UpgradeCommand: CommandProtocol {
     }
 
     /// Runs the command.
-    public func run(_ options: Options) -> Result<(), MASError> {
+    public func run(_ options: Options) -> Result<Void, MASError> {
         do {
             let apps =
                 try
@@ -99,11 +99,11 @@ public struct UpgradeOptions: OptionsProtocol {
     let apps: [String]
 
     static func create(_ apps: [String]) -> UpgradeOptions {
-        return UpgradeOptions(apps: apps)
+        UpgradeOptions(apps: apps)
     }
 
     public static func evaluate(_ mode: CommandMode) -> Result<UpgradeOptions, CommandantError<MASError>> {
-        return create
+        create
             <*> mode <| Argument(defaultValue: [], usage: "app(s) to upgrade")
     }
 }

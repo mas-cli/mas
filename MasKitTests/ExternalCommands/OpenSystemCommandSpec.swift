@@ -14,7 +14,6 @@ import Quick
 class OpenSystemCommandSpec: QuickSpec {
     override func spec() {
         describe("open system command") {
-
             context("binary path") {
                 it("defaults to the macOS open command") {
                     let cmd = OpenSystemCommand()

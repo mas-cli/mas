@@ -15,7 +15,7 @@ public class MasAppLibrary: AppLibrary {
 
     /// Array of installed software products.
     public lazy var installedApps: [SoftwareProduct] = {
-        return softwareMap.allSoftwareProducts()
+        softwareMap.allSoftwareProducts()
     }()
 
     /// Internal initializer for providing a mock software map.
@@ -29,7 +29,7 @@ public class MasAppLibrary: AppLibrary {
     /// - Parameter bundleId: Bundle identifier of app.
     /// - Returns: Software Product of app if found; nil otherwise.
     public func installedApp(forBundleId bundleId: String) -> SoftwareProduct? {
-        return softwareMap.product(for: bundleId)
+        softwareMap.product(for: bundleId)
     }
 
     /// Uninstalls an app.
@@ -66,6 +66,6 @@ public class MasAppLibrary: AppLibrary {
     ///
     /// - Returns: true if the current user is root; false otherwise
     private func userIsRoot() -> Bool {
-        return NSUserName() == "root"
+        NSUserName() == "root"
     }
 }

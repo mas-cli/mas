@@ -14,6 +14,7 @@
 --enable trailingClosures
 
 # Rule options
---commas inline
---guardelse same-line
+--commas always
+--extensionacl on-declarations
 --importgrouping testable-last
+--ranges no-space

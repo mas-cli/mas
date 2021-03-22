@@ -37,7 +37,7 @@ public struct LuckyCommand: CommandProtocol {
     }
 
     /// Runs the command.
-    public func run(_ options: Options) -> Result<(), MASError> {
+    public func run(_ options: Options) -> Result<Void, MASError> {
         var appId: Int?
 
         do {
@@ -67,7 +67,7 @@ public struct LuckyCommand: CommandProtocol {
     ///   - appId: App identifier
     ///   - options: command opetions.
     /// - Returns: Result of the operation.
-    fileprivate func install(_ appId: UInt64, options: Options) -> Result<(), MASError> {
+    fileprivate func install(_ appId: UInt64, options: Options) -> Result<Void, MASError> {
         // Try to download applications with given identifiers and collect results
         let downloadResults = [appId]
             .compactMap { (appId) -> MASError? in
@@ -95,13 +95,13 @@ public struct LuckyOptions: OptionsProtocol {
     let forceInstall: Bool
 
     public static func create(_ appName: String) -> (_ forceInstall: Bool) -> LuckyOptions {
-        return { forceInstall in
+        { forceInstall in
             LuckyOptions(appName: appName, forceInstall: forceInstall)
         }
     }
 
     public static func evaluate(_ mode: CommandMode) -> Result<LuckyOptions, CommandantError<MASError>> {
-        return create
+        create
             <*> mode <| Argument(usage: "the app name to install")
             <*> mode <| Switch(flag: nil, key: "force", usage: "force reinstall")
     }

@@ -64,7 +64,7 @@ struct ProgressState {
     let phase: String
 
     var percentage: String {
-        return String(format: "%.1f%%", arguments: [floor(percentComplete * 100)])
+        String(format: "%.1f%%", arguments: [floor(percentComplete * 100)])
     }
 }
 
@@ -92,7 +92,7 @@ func progress(_ state: ProgressState) {
 
 extension SSDownloadStatus {
     var progressState: ProgressState {
-        return ProgressState(percentComplete: percentComplete, phase: activePhase.phaseDescription)
+        ProgressState(percentComplete: percentComplete, phase: activePhase.phaseDescription)
     }
 }
 

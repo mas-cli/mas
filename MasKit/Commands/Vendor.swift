@@ -29,7 +29,7 @@ public struct VendorCommand: CommandProtocol {
     }
 
     /// Runs the command.
-    public func run(_ options: VendorOptions) -> Result<(), MASError> {
+    public func run(_ options: VendorOptions) -> Result<Void, MASError> {
         do {
             guard let result = try storeSearch.lookup(app: options.appId)
             else {
@@ -67,11 +67,11 @@ public struct VendorOptions: OptionsProtocol {
     let appId: Int
 
     static func create(_ appId: Int) -> VendorOptions {
-        return VendorOptions(appId: appId)
+        VendorOptions(appId: appId)
     }
 
     public static func evaluate(_ mode: CommandMode) -> Result<VendorOptions, CommandantError<MASError>> {
-        return create
+        create
             <*> mode <| Argument(usage: "the app ID to show the vendor's website")
     }
 }

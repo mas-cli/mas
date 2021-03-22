@@ -20,7 +20,7 @@ class MASErrorTestCase: XCTestCase {
     /// value of the next NSError created. Only used when the NSError does not have a user info
     /// entry for localized description.
     var localizedDescription: String {
-        get { return "dummy value" }
+        get { "dummy value" }
         set {
             NSError.setUserInfoValueProvider(forDomain: errorDomain) { (_: Error, _: String) -> Any? in
                 newValue

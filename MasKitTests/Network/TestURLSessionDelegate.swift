@@ -31,7 +31,7 @@ class TestURLSessionDelegate: NSObject, URLSessionDelegate {
         }
     }
 
-    struct Constants {
+    enum Constants {
         // A list of hosts you allow self-signed certificates on.
         // You'd likely have your dev/test servers here.
         // Please don't put your production server here!

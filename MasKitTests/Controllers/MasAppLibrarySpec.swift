@@ -34,7 +34,8 @@ let myApp = SoftwareProductMock(
     bundleIdentifier: "com.example",
     bundlePath: "",
     bundleVersion: "",
-    itemIdentifier: 1234)
+    itemIdentifier: 1234
+)
 
 var apps: [SoftwareProduct] = [myApp]
 
@@ -43,7 +44,7 @@ struct SoftwareMapMock: SoftwareMap {
     var products: [SoftwareProduct] = []
 
     func allSoftwareProducts() -> [SoftwareProduct] {
-        return products
+        products
     }
 
     func product(for bundleIdentifier: String) -> SoftwareProduct? {

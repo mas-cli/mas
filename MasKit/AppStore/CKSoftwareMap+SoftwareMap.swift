@@ -11,10 +11,10 @@ import CommerceKit
 // MARK: - SoftwareProduct
 extension CKSoftwareMap: SoftwareMap {
     func allSoftwareProducts() -> [SoftwareProduct] {
-        return allProducts() ?? []
+        allProducts() ?? []
     }
 
     func product(for bundleIdentifier: String) -> SoftwareProduct? {
-        return product(forBundleIdentifier: bundleIdentifier)
+        product(forBundleIdentifier: bundleIdentifier)
     }
 }

@@ -48,6 +48,6 @@ extension StoreSearch {
     /// - Parameter appId: MAS app identifier.
     /// - Returns: String URL for the lookup service.
     func lookupURLString(forApp appId: Int) -> String? {
-        return "https://itunes.apple.com/lookup?id=\(appId)"
+        "https://itunes.apple.com/lookup?id=\(appId)"
     }
 }

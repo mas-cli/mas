@@ -32,7 +32,7 @@ public struct OutdatedCommand: CommandProtocol {
     }
 
     /// Runs the command.
-    public func run(_: Options) -> Result<(), MASError> {
+    public func run(_: Options) -> Result<Void, MASError> {
         for installedApp in appLibrary.installedApps {
             do {
                 if let storeApp = try storeSearch.lookup(app: installedApp.itemIdentifier.intValue) {

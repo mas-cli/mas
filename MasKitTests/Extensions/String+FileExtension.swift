@@ -11,11 +11,11 @@ import Foundation
 extension String {
     /// Returns the file name before the extension.
     var fileNameWithoutExtension: String {
-        return (self as NSString).deletingPathExtension
+        (self as NSString).deletingPathExtension
     }
 
     /// Returns the file extension.
     var fileExtension: String {
-        return (self as NSString).pathExtension
+        (self as NSString).pathExtension
     }
 }

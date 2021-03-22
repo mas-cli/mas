@@ -32,7 +32,7 @@ public struct OpenCommand: CommandProtocol {
     }
 
     /// Runs the command.
-    public func run(_ options: OpenOptions) -> Result<(), MASError> {
+    public func run(_ options: OpenOptions) -> Result<Void, MASError> {
         do {
             if options.appId == markerValue {
                 // If no app ID is given, just open the MAS GUI app
@@ -85,11 +85,11 @@ public struct OpenOptions: OptionsProtocol {
     var appId: String
 
     static func create(_ appId: String) -> OpenOptions {
-        return OpenOptions(appId: appId)
+        OpenOptions(appId: appId)
     }
 
     public static func evaluate(_ mode: CommandMode) -> Result<OpenOptions, CommandantError<MASError>> {
-        return create
+        create
             <*> mode <| Argument(defaultValue: markerValue, usage: "the app ID")
     }
 }

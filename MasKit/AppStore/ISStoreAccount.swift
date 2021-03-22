@@ -11,7 +11,7 @@ import StoreFoundation
 
 extension ISStoreAccount: StoreAccount {
     static var primaryAccountIsPresentAndSignedIn: Bool {
-        return CKAccountStore.shared().primaryAccountIsPresentAndSignedIn
+        CKAccountStore.shared().primaryAccountIsPresentAndSignedIn
     }
 
     static var primaryAccount: StoreAccount? {

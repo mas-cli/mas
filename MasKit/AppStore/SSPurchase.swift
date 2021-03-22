@@ -35,7 +35,7 @@ extension SSPurchase {
 
         buyParameters =
             parameters.map { key, value in
-                return "\(key)=\(value)"
+                "\(key)=\(value)"
             }
             .joined(separator: "&")
 

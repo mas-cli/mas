@@ -75,11 +75,11 @@ extension OutputListener {
 extension OutputListener {
     /// File descriptor for stdout (aka STDOUT_FILENO)
     var stdoutFileDescriptor: Int32 {
-        return FileHandle.standardOutput.fileDescriptor
+        FileHandle.standardOutput.fileDescriptor
     }
 
     /// File descriptor for stderr (aka STDERR_FILENO)
     var stderrFileDescriptor: Int32 {
-        return FileHandle.standardError.fileDescriptor
+        FileHandle.standardError.fileDescriptor
     }
 }

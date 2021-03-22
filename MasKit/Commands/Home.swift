@@ -29,7 +29,7 @@ public struct HomeCommand: CommandProtocol {
     }
 
     /// Runs the command.
-    public func run(_ options: HomeOptions) -> Result<(), MASError> {
+    public func run(_ options: HomeOptions) -> Result<Void, MASError> {
         do {
             guard let result = try storeSearch.lookup(app: options.appId) else {
                 print("No results found")
@@ -63,11 +63,11 @@ public struct HomeOptions: OptionsProtocol {
     let appId: Int
 
     static func create(_ appId: Int) -> HomeOptions {
-        return HomeOptions(appId: appId)
+        HomeOptions(appId: appId)
     }
 
     public static func evaluate(_ mode: CommandMode) -> Result<HomeOptions, CommandantError<MASError>> {
-        return create
+        create
             <*> mode <| Argument(usage: "ID of app to show on MAS Preview")
     }
 }

@@ -18,7 +18,7 @@ public struct ResetCommand: CommandProtocol {
     public init() {}
 
     /// Runs the command.
-    public func run(_ options: Options) -> Result<(), MASError> {
+    public func run(_ options: Options) -> Result<Void, MASError> {
         /*
          The "Reset Application" command in the Mac App Store debug menu performs
          the following steps
@@ -83,11 +83,11 @@ public struct ResetOptions: OptionsProtocol {
     let debug: Bool
 
     public static func create(debug: Bool) -> ResetOptions {
-        return ResetOptions(debug: debug)
+        ResetOptions(debug: debug)
     }
 
     public static func evaluate(_ mode: CommandMode) -> Result<ResetOptions, CommandantError<MASError>> {
-        return create
+        create
             <*> mode <| Switch(flag: nil, key: "debug", usage: "Enable debug mode")
     }
 }

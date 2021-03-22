@@ -34,7 +34,7 @@ public struct UninstallCommand: CommandProtocol {
     ///
     /// - Parameter options: UninstallOptions (arguments) for this command
     /// - Returns: Success or an error.
-    public func run(_ options: Options) -> Result<(), MASError> {
+    public func run(_ options: Options) -> Result<Void, MASError> {
         let appId = UInt64(options.appId)
 
         guard let product = appLibrary.installedApp(forId: appId) else {
@@ -67,13 +67,13 @@ public struct UninstallOptions: OptionsProtocol {
     let dryRun: Bool
 
     static func create(_ appId: Int) -> (_ dryRun: Bool) -> UninstallOptions {
-        return { dryRun in
+        { dryRun in
             UninstallOptions(appId: appId, dryRun: dryRun)
         }
     }
 
     public static func evaluate(_ mode: CommandMode) -> Result<UninstallOptions, CommandantError<MASError>> {
-        return create
+        create
             <*> mode <| Argument(usage: "ID of app to uninstall")
             <*> mode <| Switch(flag: nil, key: "dry-run", usage: "dry run")
     }

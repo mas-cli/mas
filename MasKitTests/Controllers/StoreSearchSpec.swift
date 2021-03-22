@@ -12,8 +12,8 @@ import Quick
 
 /// Protocol minimal implementation
 struct StoreSearchForTesting: StoreSearch {
-    func lookup(app _: Int) throws -> SearchResult? { return nil }
-    func search(for _: String) throws -> SearchResultList { return SearchResultList(resultCount: 0, results: []) }
+    func lookup(app _: Int) throws -> SearchResult? { nil }
+    func search(for _: String) throws -> SearchResultList { SearchResultList(resultCount: 0, results: []) }
 }
 
 class StoreSearchSpec: QuickSpec {
