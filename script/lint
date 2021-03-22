@@ -3,10 +3,13 @@
 # script/lint
 # mas
 #
-# Linting checks for CI "Lint" stage.
+# Linting checks for development and CI.
 #
 
 echo "==> 🚨 Linting mas"
+
+echo "--> 🌳 Git"
+git diff --check
 
 echo
 echo "--> 🕊️ Swift"
