@@ -39,13 +39,15 @@ public struct OutdatedCommand: CommandProtocol {
                     if installedApp.bundleVersion != storeApp.version {
                         print(
                             """
-                            \(installedApp.itemIdentifier) \(installedApp.appName) (\(installedApp.bundleVersion) -> \(storeApp.version))
+                            \(installedApp.itemIdentifier) \(installedApp.appName) \
+                            (\(installedApp.bundleVersion) -> \(storeApp.version))
                             """)
                     }
                 } else {
                     printWarning(
                         """
-                        Identifier \(installedApp.itemIdentifier) not found in store. Was expected to identify \(installedApp.appName).
+                        Identifier \(installedApp.itemIdentifier) not found in store. \
+                        Was expected to identify \(installedApp.appName).
                         """)
                 }
             } catch {
