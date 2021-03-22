@@ -109,10 +109,6 @@ install:
 uninstall:
 	script/uninstall
 
-.PHONY: sort
-sort:
-	script/sort
-
 .PHONY: lint
 lint:
 	script/lint
