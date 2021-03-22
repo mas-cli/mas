@@ -13,7 +13,7 @@ git diff --check
 
 echo
 echo "--> 🕊️ Swift"
-swiftlint lint --strict
+swiftlint lint --fix --strict
 
 echo
 echo "--> 📜 Bash"
