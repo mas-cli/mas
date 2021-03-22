@@ -52,9 +52,7 @@ public struct OutdatedCommand: CommandProtocol {
                 }
             } catch {
                 // Bubble up MASErrors
-                // swiftlint:disable force_cast
-                return .failure(error is MASError ? error as! MASError : .searchFailed)
-                // swiftlint:enable force_cast
+                return .failure(error as? MASError ?? .searchFailed)
             }
         }
         return .success(())
