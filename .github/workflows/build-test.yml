@@ -1,0 +1,17 @@
+name: Build & Test
+
+on: [push]
+
+jobs:
+  build-test:
+
+    runs-on: macOS-latest
+
+    steps:
+    - uses: actions/checkout@master
+    - name: Bootstrap
+      run: script/bootstrap
+    - name: Build
+      run: script/build
+    - name: Test
+      run: script/test
