@@ -49,11 +49,6 @@ fi
 # fatal: Unable to create '/Users/ben/Library/Caches/org.carthage.CarthageKit/dependencies/Commandant/./index.lock': Operation not permitted
 rm -rf ~/Library/Caches/org.carthage.CarthageKit
 
-# Uninstall carthage via Mint, only when installed via mint
-if [[ $(command -v mint >/dev/null) && $(mint which carthage >/dev/null) ]]; then
-    mint uninstall carthage
-fi
-
 ################################################################################
 #
 # Build the formula for the current macOS version and architecture.
