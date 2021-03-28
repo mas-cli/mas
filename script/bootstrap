@@ -22,7 +22,7 @@ main() {
   fi
 
   # Download and build project dependencies
-  carthage bootstrap --platform macOS --cache-builds
+  carthage bootstrap --platform macOS --cache-builds --verbose
 }
 
 main
