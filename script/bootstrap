@@ -15,8 +15,11 @@ main() {
   # Install ruby tools
   bundle install
 
-  # Install Mint and shellcheck
-  brew bundle install --no-upgrade --verbose
+  # Skip Homebrew when running on Jenkins
+  if [[ $USER != "jenkins" ]]; then
+    # Install Mint and shellcheck
+    brew bundle install --no-upgrade --verbose
+  fi
 
   # Set up mint cache to be relative to user HOME
   export MINT_PATH=~/.mint/cache
