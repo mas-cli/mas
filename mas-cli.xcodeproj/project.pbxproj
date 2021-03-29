@@ -78,6 +78,8 @@
 		B5DBF81521E02BA900F3B151 /* StoreSearchMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DBF81421E02BA900F3B151 /* StoreSearchMock.swift */; };
 		B5DBF81721E02E3400F3B151 /* OpenSystemCommandMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DBF81621E02E3400F3B151 /* OpenSystemCommandMock.swift */; };
 		ED031A7C1B5127C00097692E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED031A7B1B5127C00097692E /* main.swift */; };
+		F80B27B62611116A00A285C9 /* AppListFormatterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80B27B52611116A00A285C9 /* AppListFormatterSpec.swift */; };
+		F80B27BA2611118E00A285C9 /* AppListFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80B27B92611118E00A285C9 /* AppListFormatter.swift */; };
 		F83213892173D3E1008BA8A0 /* CKAccountStore.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB719B20F2EC4500F56FDC /* CKAccountStore.h */; };
 		F832138A2173D3E1008BA8A0 /* CKDownloadQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB719C20F2EC4500F56FDC /* CKDownloadQueue.h */; };
 		F832138B2173D3E1008BA8A0 /* CKDownloadQueueObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71B520F2F7E000F56FDC /* CKDownloadQueueObserver.h */; };
@@ -285,6 +287,8 @@
 		EDCBF9541D89CFC7000039C6 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		EDD3B3621C34709400B56B88 /* Upgrade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Upgrade.swift; sourceTree = "<group>"; };
 		EDE296521C700F4300554778 /* SignOut.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignOut.swift; sourceTree = "<group>"; };
+		F80B27B52611116A00A285C9 /* AppListFormatterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppListFormatterSpec.swift; sourceTree = "<group>"; };
+		F80B27B92611118E00A285C9 /* AppListFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppListFormatter.swift; sourceTree = "<group>"; };
 		F8242D8020746A510026DF35 /* StoreAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreAccount.swift; sourceTree = "<group>"; };
 		F83213A42173EF75008BA8A0 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F83213A52173EF75008BA8A0 /* StoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreFoundation.framework; path = ../../../../../../../System/Library/PrivateFrameworks/StoreFoundation.framework; sourceTree = "<group>"; };
@@ -376,6 +380,7 @@
 		B55B3D9021ED9B6A0009A1A5 /* Formatters */ = {
 			isa = PBXGroup;
 			children = (
+				F80B27B52611116A00A285C9 /* AppListFormatterSpec.swift */,
 				B55B3D9121ED9B8C0009A1A5 /* SearchResultFormatterSpec.swift */,
 			);
 			path = Formatters;
@@ -454,6 +459,7 @@
 			isa = PBXGroup;
 			children = (
 				B576FE2921E4240B0016B39D /* AppInfoFormatter.swift */,
+				F80B27B92611118E00A285C9 /* AppListFormatter.swift */,
 				B576FE3221E985250016B39D /* SearchResultFormatter.swift */,
 				EDCBF9541D89CFC7000039C6 /* Utilities.swift */,
 			);
@@ -959,6 +965,7 @@
 				B576FDF721E107AA0016B39D /* OpenSystemCommand.swift in Sources */,
 				F8FB717420F2B4DD00F56FDC /* Outdated.swift in Sources */,
 				75FB3E761F9F7841005B6F20 /* Purchase.swift in Sources */,
+				F80B27BA2611118E00A285C9 /* AppListFormatter.swift in Sources */,
 				F8FB716C20F2B4DD00F56FDC /* PurchaseDownloadObserver.swift in Sources */,
 				F8FB717520F2B4DD00F56FDC /* Reset.swift in Sources */,
 				F8FB717620F2B4DD00F56FDC /* Search.swift in Sources */,
@@ -1019,6 +1026,7 @@
 				B5DBF81521E02BA900F3B151 /* StoreSearchMock.swift in Sources */,
 				B576FE3521E98AAE0016B39D /* StoreSearchSpec.swift in Sources */,
 				B576FE1621E1D8CB0016B39D /* String+FileExtension.swift in Sources */,
+				F80B27B62611116A00A285C9 /* AppListFormatterSpec.swift in Sources */,
 				B576FE2E21E5A8010016B39D /* Strongify.swift in Sources */,
 				B576FDFE21E10B660016B39D /* TestURLSessionDelegate.swift in Sources */,
 				B594B12521D580BB00F3AC59 /* UninstallCommandSpec.swift in Sources */,
