@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -863,7 +863,7 @@
 				};
 			};
 			buildConfigurationList = ED031A731B5127C00097692E /* Build configuration list for PBXProject "mas-cli" */;
-			compatibilityVersion = "Xcode 8.0";
+			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -1195,7 +1195,13 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "mas/mas-Info.plist";
 				INSTALL_PATH = /bin;
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path/. @executable_path/MasKit.framework/Versions/Current/Frameworks @executable_path/../Frameworks @executable_path/../Frameworks/MasKit.framework/Versions/Current/Frameworks $(inherited)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/.",
+					"@executable_path/MasKit.framework/Versions/Current/Frameworks",
+					"@executable_path/../Frameworks",
+					"@executable_path/../Frameworks/MasKit.framework/Versions/Current/Frameworks",
+					"$(inherited)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mphys.mas-cli";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
@@ -1218,12 +1224,19 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "mas/mas-Info.plist";
 				INSTALL_PATH = /bin;
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path/. @executable_path/MasKit.framework/Versions/Current/Frameworks @executable_path/../Frameworks @executable_path/../Frameworks/MasKit.framework/Versions/Current/Frameworks $(inherited)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/.",
+					"@executable_path/MasKit.framework/Versions/Current/Frameworks",
+					"@executable_path/../Frameworks",
+					"@executable_path/../Frameworks/MasKit.framework/Versions/Current/Frameworks",
+					"$(inherited)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mphys.mas-cli";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
 				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.2;
 			};
 			name = Release;
@@ -1253,7 +1266,11 @@
 				FRAMEWORK_VERSION = A;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = MasKit/SupportingFiles/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = at.phatbl.MasKit;
@@ -1289,12 +1306,17 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = MasKit/SupportingFiles/Info.plist;
 				INSTALL_PATH = /Frameworks;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = at.phatbl.MasKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_INCLUDE_PATHS = "$(inherited) $(SRCROOT)/PrivateFrameworks/CommerceKit $(SRCROOT)/PrivateFrameworks/StoreFoundation";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
 		};
@@ -1318,7 +1340,11 @@
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = MasKitTests/SupportingFiles/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -1349,12 +1375,17 @@
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = MasKitTests/SupportingFiles/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = at.phatbl.MasKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.2;
 			};
 			name = Release;
