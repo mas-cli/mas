@@ -917,7 +917,7 @@
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/bash;
+			shellPath = /bin/zsh;
 			shellScript = "script/lint\n";
 		};
 /* End PBXShellScriptBuildPhase section */
