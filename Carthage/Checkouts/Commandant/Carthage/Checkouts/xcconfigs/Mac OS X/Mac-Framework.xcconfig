@@ -1,8 +1,0 @@
-//
-// DEPRECATED: This configuration file is deprecated. Please use 'macOS/macOS-Framework.xcconfig' instead.
-//
-
-#include "../macOS/macOS-Framework.xcconfig"
-
-// The below #include is intended to fail, so that Xcode will include the deprecation notice in the error message shown to the user. 
-#include "This configuration file ('Mac OS X/Mac-Framework.xcconfig') is deprecated. Please use 'macOS/macOS-Framework.xcconfig' instead."

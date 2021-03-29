@@ -25,7 +25,7 @@
 .envrc
 .fseventsd
 .rubygems/
-Carthage/Build
+Carthage/
 DerivedData
 Pods/
 Temporary Items
