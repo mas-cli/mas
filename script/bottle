@@ -21,8 +21,7 @@ ROOT_URL="https://dl.bintray.com/phatblat/mas-bottles"
 OS_NAMES=(arm64_big_sur big_sur catalina mojave high_sierra sierra el_capitan)
 
 # Semantic version number split into a list using  Ugly, bash 3 compatible syntax
-# https://github.com/koalaman/shellcheck/wiki/SC2207
-IFS=" " read -r -a CURRENT_OS_VERSION <<< "$(sw_vers -productVersion | sed 's/\./ /g'))"
+IFS=" " read -r -a CURRENT_OS_VERSION <<<"$(sw_vers -productVersion | sed 's/\./ /g'))"
 CURRENT_OS_VERSION_MAJOR=${CURRENT_OS_VERSION[0]}
 CURRENT_OS_VERSION_MINOR=${CURRENT_OS_VERSION[1]}
 
