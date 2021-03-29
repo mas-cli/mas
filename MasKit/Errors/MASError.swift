@@ -46,7 +46,7 @@ extension MASError: CustomStringConvertible {
                 https://github.com/mas-cli/mas/issues/164
                 """
 
-        case let .signInFailed(error):
+        case .signInFailed(let error):
             if let error = error {
                 return "Sign in failed: \(error.localizedDescription)"
             } else {
@@ -56,14 +56,14 @@ extension MASError: CustomStringConvertible {
         case .alreadySignedIn:
             return "Already signed in"
 
-        case let .purchaseFailed(error):
+        case .purchaseFailed(let error):
             if let error = error {
                 return "Download request failed: \(error.localizedDescription)"
             } else {
                 return "Download request failed"
             }
 
-        case let .downloadFailed(error):
+        case .downloadFailed(let error):
             if let error = error {
                 return "Download failed: \(error.localizedDescription)"
             } else {

@@ -10,6 +10,7 @@
 # Disabled rules
 --disable blankLinesAroundMark
 --disable consecutiveSpaces
+--disable hoistPatternLet
 --disable indent
 
 # Enabled rules (disabled by default)

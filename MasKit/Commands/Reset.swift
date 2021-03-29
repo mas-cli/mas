@@ -19,23 +19,21 @@ public struct ResetCommand: CommandProtocol {
 
     /// Runs the command.
     public func run(_ options: Options) -> Result<Void, MASError> {
-        /*
-         The "Reset Application" command in the Mac App Store debug menu performs
-         the following steps
-
-         - killall Dock
-         - killall storeagent (storeagent no longer exists)
-         - rm com.apple.appstore download directory
-         - clear cookies (appears to be a no-op)
-
-         As storeagent no longer exists we will implement a slight variant and kill all
-         App Store-associated processes
-         - storeaccountd
-         - storeassetd
-         - storedownloadd
-         - storeinstalld
-         - storelegacy
-         */
+        // The "Reset Application" command in the Mac App Store debug menu performs
+        // the following steps
+        //
+        // - killall Dock
+        // - killall storeagent (storeagent no longer exists)
+        // - rm com.apple.appstore download directory
+        // - clear cookies (appears to be a no-op)
+        //
+        // As storeagent no longer exists we will implement a slight variant and kill all
+        // App Store-associated processes
+        // - storeaccountd
+        // - storeassetd
+        // - storedownloadd
+        // - storeinstalld
+        // - storelegacy
 
         // Kill processes
         let killProcs = [

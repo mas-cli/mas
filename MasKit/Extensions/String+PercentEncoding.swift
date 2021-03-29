@@ -10,7 +10,7 @@ import Foundation
 
 extension String {
     /// Return an URL encoded string
-    public var URLEncodedString: String? {
+    public var urlEncodedString: String? {
         addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
     }
 }
