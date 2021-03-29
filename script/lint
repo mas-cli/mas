@@ -5,12 +5,16 @@
 #
 # Linting checks for development and CI.
 #
+# Reports style violations without making any modifications to the code.
+#
+# Please keep in sync with script/format.
+#
 
 echo "==> 🚨 Linting mas"
 
-for LINTER in swift-format swiftformat swiftlint; do
+for LINTER in git swift-format swiftformat swiftlint; do
   if [[ ! -x "$(command -v ${LINTER})" ]]; then
-    echo "warning: ${LINTER} is not installed: script/bootstrap"
+    echo "error: ${LINTER} is not installed. Run script/bootstrap."
     exit 1
   fi
 done
@@ -20,12 +24,12 @@ git diff --check
 
 echo
 echo "--> 🕊️ Swift"
-swiftformat .
+swiftformat --lint .
 for SOURCE in mas MasKit MasKitTests; do
-  swift-format format --in-place --configuration .swift-format --recursive ${SOURCE}
+  swift-format lint --configuration .swift-format --recursive ${SOURCE}
 done
-swiftlint lint --fix --strict
+swiftlint lint --strict
 
 echo
 echo "--> 📜 Bash"
-shfmt -i 2 -l -w contrib/ script/
+shfmt -d -i 2 -l -w contrib/ script/

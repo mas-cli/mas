@@ -1,5 +1,6 @@
 # All Files
 
+- Use `script/format` to automatically fix a number of style violations.
 - Remove unnecessary whitespace from the end of lines.
    - Use `script/lint` to look for these before committing.
    - Note that [two trailing spaces](https://gist.github.com/shaunlebron/746476e6e7a4d698b373)

@@ -23,7 +23,7 @@ We love pull requests from everyone. By participating in this project, you agree
      `git checkout -b awesome-feature master`
    - Please avoid working [directly on the master branch](https://softwareengineering.stackexchange.com/questions/223400/when-should-i-stop-committing-to-master-on-new-projects).
    - Make commits of logical units.
-- Run script/lint before committing your changes. Fix anything that isn't automatically fixed by the linters.
+- Run script/format before committing your changes. Fix anything that isn't automatically fixed by the linters.
 - Push your topic branch to your fork and [submit a pull request](https://github.com/mas-cli/mas/compare/master...your-username:topic-branch).
 
 Some things that will increase the chance that your pull request is accepted:

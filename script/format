@@ -1,0 +1,35 @@
+#!/bin/bash -e
+#
+# script/format
+# mas
+#
+# Linting checks for development and CI.
+#
+# Automatically formats and fixes style violations using various tools.
+# Additionally runs `lint` to report any remaining style violations.
+#
+# Please keep in sync with script/lint.
+#
+
+echo "==> 🚨 Formatting mas"
+
+for LINTER in shfmt swift-format swiftformat swiftlint; do
+  if [[ ! -x "$(command -v ${LINTER})" ]]; then
+    echo "error: ${LINTER} is not installed. Run script/bootstrap."
+    exit 1
+  fi
+done
+
+echo
+echo "--> 🕊️ Swift"
+swiftformat .
+for SOURCE in mas MasKit MasKitTests; do
+  swift-format format --in-place --configuration .swift-format --recursive ${SOURCE}
+done
+swiftlint lint --fix --strict
+
+echo
+echo "--> 📜 Bash"
+shfmt -i 2 -l -w contrib/ script/
+
+script/lint

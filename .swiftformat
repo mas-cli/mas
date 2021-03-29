@@ -9,6 +9,8 @@
 
 # Disabled rules
 --disable blankLinesAroundMark
+--disable consecutiveSpaces
+--disable indent
 
 # Enabled rules (disabled by default)
 --enable trailingClosures
