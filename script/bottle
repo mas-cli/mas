@@ -18,12 +18,16 @@ VERSION=$(script/version)
 ROOT_URL="https://dl.bintray.com/phatblat/mas-bottles"
 
 # Supports macOS versions 11.0 (arm64 & x86_64), 10.15, 10.14, 10.13, 10.12, 10.11
-# NOTE: The built bottle (OLD_FILENAME) will have the *current* macOS name,
-#       which is why the big_sur (x86) is first in the list (aka ${OS_VERSIONS[0]})
-OS_VERSIONS=(big_sur arm64_big_sur catalina mojave high_sierra sierra el_capitan)
+OS_VERSIONS=(arm64_big_sur big_sur catalina mojave high_sierra sierra el_capitan)
+
+if [[ "x86_64" == "$(uname --machine)" ]]; then
+  CURRENT_PLATFORM=big_sur
+else
+  CURRENT_PLATFORM=arm64_big_sur
+fi
 
 # Output filename from build-bottle command
-OLD_FILENAME="mas--${VERSION}.${OS_VERSIONS[0]}.bottle.tar.gz"
+OLD_FILENAME="mas--${VERSION}.${CURRENT_PLATFORM}.bottle.tar.gz"
 
 ################################################################################
 #
@@ -35,7 +39,7 @@ brew tap --list-pinned | grep mas-cli/tap && brew tap-unpin mas-cli/tap
 
 # Uninstall if necessary
 if brew ls --versions mas >/dev/null; then
-  brew uninstall mas
+  brew unlink mas
 fi
 
 # Uninstall if still found on path
@@ -54,6 +58,7 @@ rm -rf ~/Library/Caches/org.carthage.CarthageKit
 #
 
 echo "==> 🍼 Bottling mas ${VERSION} for: ${OS_VERSIONS[*]}"
+echo "CURRENT_PLATFORM: ${CURRENT_PLATFORM}"
 brew install --build-bottle mas
 
 # Generate bottle do block, dropping last 2 lines
