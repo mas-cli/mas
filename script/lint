@@ -14,7 +14,7 @@ echo "==> 🚨 Linting mas"
 
 for LINTER in git swift-format swiftformat swiftlint; do
   if [[ ! -x "$(command -v ${LINTER})" ]]; then
-    echo "error: ${LINTER} is not installed. Run script/bootstrap."
+    echo "error: ${LINTER} is not installed. Run 'script/bootstrap' or 'brew install ${LINTER}'."
     exit 1
   fi
 done
