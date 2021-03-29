@@ -18,10 +18,9 @@ VERSION=$(script/version)
 ROOT_URL="https://dl.bintray.com/phatblat/mas-bottles"
 
 # Supports macOS versions 11.0 (arm64 & x86_64), 10.15, 10.14, 10.13, 10.12, 10.11
-# NOTE: The built bottle will have the *current* macOS name, which is why the
-#       latest is first in the list (aka ${OS_VERSIONS[0]})
-# TODO: Add support for arm64_big_sur
-OS_VERSIONS=(big_sur catalina mojave high_sierra sierra el_capitan)
+# NOTE: The built bottle (OLD_FILENAME) will have the *current* macOS name,
+#       which is why the big_sur (x86) is first in the list (aka ${OS_VERSIONS[0]})
+OS_VERSIONS=(big_sur arm64_big_sur catalina mojave high_sierra sierra el_capitan)
 
 # Output filename from build-bottle command
 OLD_FILENAME="mas--${VERSION}.${OS_VERSIONS[0]}.bottle.tar.gz"
