@@ -1,7 +1,8 @@
 # All Files
 
+- Use `script/format` to automatically fix a number of style violations.
 - Remove unnecessary whitespace from the end of lines.
-   - Use `git diff --check` to look for these before committing.
+   - Use `script/lint` to look for these before committing.
    - Note that [two trailing spaces](https://gist.github.com/shaunlebron/746476e6e7a4d698b373)
      is intentional in markdown documents to create a line break like `<br>`, so these should _not_ be removed.
 - End each file with a [newline character](https://unix.stackexchange.com/questions/18743/whats-the-point-in-adding-a-new-line-to-the-end-of-a-file#18789).

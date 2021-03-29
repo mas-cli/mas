@@ -32,25 +32,27 @@ public struct OutdatedCommand: CommandProtocol {
     }
 
     /// Runs the command.
-    public func run(_: Options) -> Result<(), MASError> {
+    public func run(_: Options) -> Result<Void, MASError> {
         for installedApp in appLibrary.installedApps {
             do {
                 if let storeApp = try storeSearch.lookup(app: installedApp.itemIdentifier.intValue) {
                     if installedApp.bundleVersion != storeApp.version {
-                        print("""
-\(installedApp.itemIdentifier) \(installedApp.appName) (\(installedApp.bundleVersion) -> \(storeApp.version))
-""")
+                        print(
+                            """
+                            \(installedApp.itemIdentifier) \(installedApp.appName) \
+                            (\(installedApp.bundleVersion) -> \(storeApp.version))
+                            """)
                     }
                 } else {
-                    printWarning("""
-Identifier \(installedApp.itemIdentifier) not found in store. Was expected to identify \(installedApp.appName).
-""")
+                    printWarning(
+                        """
+                        Identifier \(installedApp.itemIdentifier) not found in store. \
+                        Was expected to identify \(installedApp.appName).
+                        """)
                 }
             } catch {
                 // Bubble up MASErrors
-                // swiftlint:disable force_cast
-                return .failure(error is MASError ? error as! MASError : .searchFailed)
-                // swiftlint:enable force_cast
+                return .failure(error as? MASError ?? .searchFailed)
             }
         }
         return .success(())

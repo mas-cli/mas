@@ -6,9 +6,10 @@
 //  Copyright © 2019 mas-cli. All rights reserved.
 //
 
-@testable import MasKit
 import Nimble
 import Quick
+
+@testable import MasKit
 
 class OpenCommandSpec: QuickSpec {
     override func spec() {
@@ -27,15 +28,19 @@ class OpenCommandSpec: QuickSpec {
             }
             it("fails to open app with invalid ID") {
                 let result = cmd.run(OpenCommand.Options(appId: "-999"))
-                expect(result).to(beFailure { error in
-                    expect(error) == .searchFailed
-                })
+                expect(result)
+                    .to(
+                        beFailure { error in
+                            expect(error) == .searchFailed
+                        })
             }
             it("can't find app with unknown ID") {
                 let result = cmd.run(OpenCommand.Options(appId: "999"))
-                expect(result).to(beFailure { error in
-                    expect(error) == .noSearchResultsFound
-                })
+                expect(result)
+                    .to(
+                        beFailure { error in
+                            expect(error) == .noSearchResultsFound
+                        })
             }
             it("opens app in MAS") {
                 storeSearch.apps[result.trackId] = result

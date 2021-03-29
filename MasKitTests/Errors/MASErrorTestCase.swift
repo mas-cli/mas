@@ -6,9 +6,10 @@
 //  Copyright © 2018 Andrew Naylor. All rights reserved.
 //
 
-@testable import MasKit
 import Foundation
 import XCTest
+
+@testable import MasKit
 
 class MASErrorTestCase: XCTestCase {
     private let errorDomain = "MAS"
@@ -19,7 +20,7 @@ class MASErrorTestCase: XCTestCase {
     /// value of the next NSError created. Only used when the NSError does not have a user info
     /// entry for localized description.
     var localizedDescription: String {
-        get { return "dummy value" }
+        get { "dummy value" }
         set {
             NSError.setUserInfoValueProvider(forDomain: errorDomain) { (_: Error, _: String) -> Any? in
                 newValue

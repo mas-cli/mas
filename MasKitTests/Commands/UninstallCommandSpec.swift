@@ -6,9 +6,10 @@
 //  Copyright © 2018 mas-cli. All rights reserved.
 //
 
-@testable import MasKit
 import Nimble
 import Quick
+
+@testable import MasKit
 
 class UninstallCommandSpec: QuickSpec {
     override func spec() {
@@ -32,9 +33,11 @@ class UninstallCommandSpec: QuickSpec {
                 }
                 it("can't remove a missing app") {
                     let result = uninstall.run(options)
-                    expect(result).to(beFailure { error in
-                        expect(error) == .notInstalled
-                    })
+                    expect(result)
+                        .to(
+                            beFailure { error in
+                                expect(error) == .notInstalled
+                            })
                 }
                 it("finds an app") {
                     mockLibrary.installedApps.append(app)
@@ -51,9 +54,11 @@ class UninstallCommandSpec: QuickSpec {
                 }
                 it("can't remove a missing app") {
                     let result = uninstall.run(options)
-                    expect(result).to(beFailure { error in
-                        expect(error) == .notInstalled
-                    })
+                    expect(result)
+                        .to(
+                            beFailure { error in
+                                expect(error) == .notInstalled
+                            })
                 }
                 it("removes an app") {
                     mockLibrary.installedApps.append(app)
@@ -62,14 +67,16 @@ class UninstallCommandSpec: QuickSpec {
                     expect(result).to(beSuccess())
                 }
                 it("fails if there is a problem with the trash command") {
-                    var brokenUninstall = app // make mutable copy
+                    var brokenUninstall = app  // make mutable copy
                     brokenUninstall.bundlePath = "/dev/null"
                     mockLibrary.installedApps.append(brokenUninstall)
 
                     let result = uninstall.run(options)
-                    expect(result).to(beFailure { error in
-                        expect(error) == .uninstallFailed
-                    })
+                    expect(result)
+                        .to(
+                            beFailure { error in
+                                expect(error) == .uninstallFailed
+                            })
                 }
             }
         }

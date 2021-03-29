@@ -28,7 +28,7 @@ extension StoreSearch {
     /// - Parameter appName: Name of app to find.
     /// - Returns: String URL for the search service or nil if appName can't be encoded.
     func searchURLString(forApp appName: String) -> String? {
-        if let urlEncodedAppName = appName.URLEncodedString {
+        if let urlEncodedAppName = appName.urlEncodedString {
             return "https://itunes.apple.com/search?media=software&entity=macSoftware&term=\(urlEncodedAppName)"
         }
         return nil
@@ -48,6 +48,6 @@ extension StoreSearch {
     /// - Parameter appId: MAS app identifier.
     /// - Returns: String URL for the lookup service.
     func lookupURLString(forApp appId: Int) -> String? {
-        return "https://itunes.apple.com/lookup?id=\(appId)"
+        "https://itunes.apple.com/lookup?id=\(appId)"
     }
 }

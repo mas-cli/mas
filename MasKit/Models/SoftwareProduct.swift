@@ -18,7 +18,7 @@ public protocol SoftwareProduct {
 // MARK: - Equatable
 extension SoftwareProduct {
     static func == (lhs: Self, rhs: Self) -> Bool {
-        return lhs.appName == rhs.appName
+        lhs.appName == rhs.appName
             && lhs.bundleIdentifier == rhs.bundleIdentifier
             && lhs.bundlePath == rhs.bundlePath
             && lhs.bundleVersion == rhs.bundleVersion

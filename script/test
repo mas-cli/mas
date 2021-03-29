@@ -26,11 +26,11 @@ CONFIG="Debug"
 
 echo "==> ✅ Testing"
 
-set -o pipefail && \
-    xcodebuild -project "$PROJECT" \
-        -scheme "$SCHEME" \
-        -configuration "$CONFIG" \
-        OBJROOT="$BUILD_DIR" \
-        SYMROOT="$BUILD_DIR" \
-        test \
-    | bundle exec xcpretty --color
+set -o pipefail &&
+  xcodebuild -project "$PROJECT" \
+    -scheme "$SCHEME" \
+    -configuration "$CONFIG" \
+    OBJROOT="$BUILD_DIR" \
+    SYMROOT="$BUILD_DIR" \
+    test |
+  bundle exec xcpretty --color

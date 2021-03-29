@@ -6,8 +6,9 @@
 //  Copyright © 2019 mas-cli. All rights reserved.
 //
 
-@testable import MasKit
 import XCTest
+
+@testable import MasKit
 
 class NetworkManagerTests: XCTestCase {
     func testSuccessfulAsyncResponse() {

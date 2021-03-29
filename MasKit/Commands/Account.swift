@@ -17,7 +17,7 @@ public struct AccountCommand: CommandProtocol {
     public init() {}
 
     /// Runs the command.
-    public func run(_: Options) -> Result<(), MASError> {
+    public func run(_: Options) -> Result<Void, MASError> {
         if let account = ISStoreAccount.primaryAccount {
             print(String(describing: account.identifier))
         } else {

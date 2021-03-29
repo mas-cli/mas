@@ -33,19 +33,19 @@ echo "==> 📦 Assemble an installer package"
 #   - installer: The install failed (The Installer encountered an error that caused the installation to fail. Contact the software manufacturer for assistance.)
 #   - GUI warning: This package is incompatible with this version of macOS and may fail to install. (may damage your system... )
 pkgbuild \
-    --identifier "$IDENTIFIER" \
-    --install-location "/usr/local" \
-    --version "$VERSION" \
-    --root "$INSTALL_TEMPORARY_FOLDER" \
-    --component-plist "$COMPONENTS_PLIST" \
-    "$COMPONENT_PACKAGE"
+  --identifier "$IDENTIFIER" \
+  --install-location "/usr/local" \
+  --version "$VERSION" \
+  --root "$INSTALL_TEMPORARY_FOLDER" \
+  --component-plist "$COMPONENTS_PLIST" \
+  "$COMPONENT_PACKAGE"
 
 # Build distribution package (aka "product archive"). Not sure why, but this is how Carthage does it.
 # https://github.com/Carthage/Carthage/blob/master/Makefile#L87
 productbuild \
-    --distribution "$DISTRIBUTION_PLIST" \
-    --package-path "$BUILD_DIR" \
-    "$DISTRIBUTION_PACKAGE"
+  --distribution "$DISTRIBUTION_PLIST" \
+  --package-path "$BUILD_DIR" \
+  "$DISTRIBUTION_PACKAGE"
 
 echo "==> 🔢 Files Hashes"
 shasum -a 256 "$DISTRIBUTION_PACKAGE"

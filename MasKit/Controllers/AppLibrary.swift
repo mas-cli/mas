@@ -64,6 +64,6 @@ extension AppLibrary {
     /// - Parameter appName: Full title of an app.
     /// - Returns: Software Product of app if found; nil otherwise.
     public func installedApp(named appName: String) -> SoftwareProduct? {
-        return installedApps.first { $0.appName == appName }
+        installedApps.first { $0.appName == appName }
     }
 }

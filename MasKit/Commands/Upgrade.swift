@@ -31,22 +31,22 @@ public struct UpgradeCommand: CommandProtocol {
     }
 
     /// Runs the command.
-    public func run(_ options: Options) -> Result<(), MASError> {
+    public func run(_ options: Options) -> Result<Void, MASError> {
         do {
             let apps =
-                try (
-                    options.apps.count == 0
-                        ? appLibrary.installedApps
-                        : options.apps.compactMap {
-                            if let appId = UInt64($0) {
-                                // if argument a UInt64, lookup app by id using argument
-                                return appLibrary.installedApp(forId: appId)
-                            } else {
-                                // if argument not a UInt64, lookup app by name using argument
-                                return appLibrary.installedApp(named: $0)
-                            }
-                        }
-                ).compactMap {(installedApp: SoftwareProduct) -> SoftwareProduct? in
+                try
+                (options.apps.count == 0
+                ? appLibrary.installedApps
+                : options.apps.compactMap {
+                    if let appId = UInt64($0) {
+                        // if argument a UInt64, lookup app by id using argument
+                        return appLibrary.installedApp(forId: appId)
+                    } else {
+                        // if argument not a UInt64, lookup app by name using argument
+                        return appLibrary.installedApp(named: $0)
+                    }
+                })
+                .compactMap { (installedApp: SoftwareProduct) -> SoftwareProduct? in
                     // only upgrade apps whose local version differs from the store version
                     if let storeApp = try storeSearch.lookup(app: installedApp.itemIdentifier.intValue) {
                         return storeApp.version != installedApp.bundleVersion
@@ -63,7 +63,7 @@ public struct UpgradeCommand: CommandProtocol {
             }
 
             print("Upgrading \(apps.count) outdated application\(apps.count > 1 ? "s" : ""):")
-            print(apps.map {"\($0.appName) (\($0.bundleVersion))"}.joined(separator: ", "))
+            print(apps.map { "\($0.appName) (\($0.bundleVersion))" }.joined(separator: ", "))
 
             var updatedAppCount = 0
             var failedUpgradeResults = [MASError]()
@@ -88,9 +88,7 @@ public struct UpgradeCommand: CommandProtocol {
             }
         } catch {
             // Bubble up MASErrors
-            // swiftlint:disable force_cast
-            return .failure(error is MASError ? error as! MASError : .searchFailed)
-            // swiftlint:enable force_cast
+            return .failure(error as? MASError ?? .searchFailed)
         }
     }
 }
@@ -99,11 +97,11 @@ public struct UpgradeOptions: OptionsProtocol {
     let apps: [String]
 
     static func create(_ apps: [String]) -> UpgradeOptions {
-        return UpgradeOptions(apps: apps)
+        UpgradeOptions(apps: apps)
     }
 
     public static func evaluate(_ mode: CommandMode) -> Result<UpgradeOptions, CommandantError<MASError>> {
-        return create
+        create
             <*> mode <| Argument(defaultValue: [], usage: "app(s) to upgrade")
     }
 }

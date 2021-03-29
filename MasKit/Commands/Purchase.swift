@@ -28,7 +28,7 @@ public struct PurchaseCommand: CommandProtocol {
     }
 
     /// Runs the command.
-    public func run(_ options: Options) -> Result<(), MASError> {
+    public func run(_ options: Options) -> Result<Void, MASError> {
         // Try to download applications with given identifiers and collect results
         let downloadResults = options.appIds.compactMap { (appId) -> MASError? in
             if let product = appLibrary.installedApp(forId: appId) {
@@ -54,11 +54,11 @@ public struct PurchaseOptions: OptionsProtocol {
     let appIds: [UInt64]
 
     public static func create(_ appIds: [Int]) -> PurchaseOptions {
-        return PurchaseOptions(appIds: appIds.map { UInt64($0) })
+        PurchaseOptions(appIds: appIds.map { UInt64($0) })
     }
 
     public static func evaluate(_ mode: CommandMode) -> Result<PurchaseOptions, CommandantError<MASError>> {
-        return create
+        create
             <*> mode <| Argument(usage: "app ID(s) to install")
     }
 }

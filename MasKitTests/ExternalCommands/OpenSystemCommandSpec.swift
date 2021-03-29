@@ -6,14 +6,14 @@
 //  Copyright © 2020 mas-cli. All rights reserved.
 //
 
-@testable import MasKit
 import Nimble
 import Quick
+
+@testable import MasKit
 
 class OpenSystemCommandSpec: QuickSpec {
     override func spec() {
         describe("open system command") {
-
             context("binary path") {
                 it("defaults to the macOS open command") {
                     let cmd = OpenSystemCommand()

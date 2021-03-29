@@ -20,23 +20,25 @@ public struct VendorCommand: CommandProtocol {
     private var openCommand: ExternalCommand
 
     /// Designated initializer.
-    public init(storeSearch: StoreSearch = MasStoreSearch(),
-                openCommand: ExternalCommand = OpenSystemCommand()) {
+    public init(
+        storeSearch: StoreSearch = MasStoreSearch(),
+        openCommand: ExternalCommand = OpenSystemCommand()
+    ) {
         self.storeSearch = storeSearch
         self.openCommand = openCommand
     }
 
     /// Runs the command.
-    public func run(_ options: VendorOptions) -> Result<(), MASError> {
+    public func run(_ options: VendorOptions) -> Result<Void, MASError> {
         do {
             guard let result = try storeSearch.lookup(app: options.appId)
-                else {
-                    print("No results found")
-                    return .failure(.noSearchResultsFound)
+            else {
+                print("No results found")
+                return .failure(.noSearchResultsFound)
             }
 
             guard let vendorWebsite = result.sellerUrl
-                else { throw MASError.noVendorWebsite }
+            else { throw MASError.noVendorWebsite }
 
             do {
                 try openCommand.run(arguments: vendorWebsite)
@@ -65,11 +67,11 @@ public struct VendorOptions: OptionsProtocol {
     let appId: Int
 
     static func create(_ appId: Int) -> VendorOptions {
-        return VendorOptions(appId: appId)
+        VendorOptions(appId: appId)
     }
 
     public static func evaluate(_ mode: CommandMode) -> Result<VendorOptions, CommandantError<MASError>> {
-        return create
+        create
             <*> mode <| Argument(usage: "the app ID to show the vendor's website")
     }
 }

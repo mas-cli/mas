@@ -24,7 +24,7 @@ public struct SearchCommand: CommandProtocol {
         self.storeSearch = storeSearch
     }
 
-    public func run(_ options: Options) -> Result<(), MASError> {
+    public func run(_ options: Options) -> Result<Void, MASError> {
         do {
             let resultList = try storeSearch.search(for: options.appName)
             if resultList.resultCount <= 0 || resultList.results.isEmpty {
@@ -51,13 +51,13 @@ public struct SearchOptions: OptionsProtocol {
     let price: Bool
 
     public static func create(_ appName: String) -> (_ price: Bool) -> SearchOptions {
-        return { price in
+        { price in
             SearchOptions(appName: appName, price: price)
         }
     }
 
     public static func evaluate(_ mode: CommandMode) -> Result<SearchOptions, CommandantError<MASError>> {
-        return create
+        create
             <*> mode <| Argument(usage: "the app name to search")
             <*> mode <| Option(key: "price", defaultValue: false, usage: "Show price of found apps")
     }

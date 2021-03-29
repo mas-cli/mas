@@ -6,9 +6,10 @@
 //  Copyright © 2018 mas-cli. All rights reserved.
 //
 
-@testable import MasKit
 import Nimble
 import Quick
+
+@testable import MasKit
 
 class SearchCommandSpec: QuickSpec {
     override func spec() {
@@ -36,9 +37,11 @@ class SearchCommandSpec: QuickSpec {
                 let search = SearchCommand(storeSearch: storeSearch)
                 let searchOptions = SearchOptions(appName: "nonexistent", price: false)
                 let result = search.run(searchOptions)
-                expect(result).to(beFailure { error in
-                    expect(error) == .noSearchResultsFound
-                })
+                expect(result)
+                    .to(
+                        beFailure { error in
+                            expect(error) == .noSearchResultsFound
+                        })
             }
         }
     }

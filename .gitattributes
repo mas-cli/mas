@@ -1,0 +1,4 @@
+# Trailing spaces may be intentional in markdown documents, so these should not
+# be removed.
+# https://gist.github.com/shaunlebron/746476e6e7a4d698b373
+**/*.md whitespace=-blank-at-eol

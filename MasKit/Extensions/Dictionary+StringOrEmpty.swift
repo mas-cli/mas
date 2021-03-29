@@ -10,6 +10,6 @@ import Foundation
 
 extension Dictionary {
     func stringOrEmpty(key: Key) -> String {
-        return self[key] as? String ?? ""
+        self[key] as? String ?? ""
     }
 }

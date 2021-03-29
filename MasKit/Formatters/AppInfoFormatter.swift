@@ -18,8 +18,9 @@ struct AppInfoFormatter {
         let headline = [
             "\(app.trackName)",
             "\(app.version)",
-            "[\(app.price ?? 0)]"
-            ].joined(separator: " ")
+            "[\(app.price ?? 0)]",
+        ]
+        .joined(separator: " ")
 
         return [
             headline,
@@ -27,8 +28,9 @@ struct AppInfoFormatter {
             "Released: \(humanReadableDate(app.currentVersionReleaseDate))",
             "Minimum OS: \(app.minimumOsVersion)",
             "Size: \(humanReadableSize(app.fileSizeBytes ?? "0"))",
-            "From: \(app.trackViewUrl)"
-            ].joined(separator: "\n")
+            "From: \(app.trackViewUrl)",
+        ]
+        .joined(separator: "\n")
     }
 
     /// Formats a file size.

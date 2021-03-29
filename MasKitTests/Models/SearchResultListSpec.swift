@@ -6,9 +6,10 @@
 //  Copyright © 2020 mas-cli. All rights reserved.
 //
 
-@testable import MasKit
-import Quick
 import Nimble
+import Quick
+
+@testable import MasKit
 
 class SearchResultListSpec: QuickSpec {
     override func spec() {

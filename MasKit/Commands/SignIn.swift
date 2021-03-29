@@ -18,7 +18,7 @@ public struct SignInCommand: CommandProtocol {
     public init() {}
 
     /// Runs the command.
-    public func run(_ options: Options) -> Result<(), MASError> {
+    public func run(_ options: Options) -> Result<Void, MASError> {
         if #available(macOS 10.13, *) {
             return .failure(.signInDisabled)
         }
@@ -54,13 +54,11 @@ public struct SignInOptions: OptionsProtocol {
     let dialog: Bool
 
     static func create(username: String) -> (_ password: String) -> (_ dialog: Bool) -> SignInOptions {
-        return { password in { dialog in
-            SignInOptions(username: username, password: password, dialog: dialog)
-            } }
+        { password in { dialog in SignInOptions(username: username, password: password, dialog: dialog) } }
     }
 
     public static func evaluate(_ mode: CommandMode) -> Result<SignInOptions, CommandantError<MASError>> {
-        return create
+        create
             <*> mode <| Argument(usage: "Apple ID")
             <*> mode <| Argument(defaultValue: "", usage: "Password")
             <*> mode <| Option(key: "dialog", defaultValue: false, usage: "Complete login with graphical dialog")

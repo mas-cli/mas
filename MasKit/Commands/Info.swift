@@ -23,7 +23,7 @@ public struct InfoCommand: CommandProtocol {
     }
 
     /// Runs the command.
-    public func run(_ options: InfoOptions) -> Result<(), MASError> {
+    public func run(_ options: InfoOptions) -> Result<Void, MASError> {
         do {
             guard let result = try storeSearch.lookup(app: options.appId) else {
                 print("No results found")
@@ -47,11 +47,11 @@ public struct InfoOptions: OptionsProtocol {
     let appId: Int
 
     static func create(_ appId: Int) -> InfoOptions {
-        return InfoOptions(appId: appId)
+        InfoOptions(appId: appId)
     }
 
     public static func evaluate(_ mode: CommandMode) -> Result<InfoOptions, CommandantError<MASError>> {
-        return create
+        create
             <*> mode <| Argument(usage: "ID of app to show info")
     }
 }

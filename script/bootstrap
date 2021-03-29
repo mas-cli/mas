@@ -3,8 +3,7 @@
 # script/bootstrap
 # mas
 #
-# Installs gem tools, installs Swift dependencies via CocoaPods and sorts
-# the Xcode project file references.
+# Installs development dependencies and builds project dependencies.
 #
 
 main() {
@@ -12,10 +11,11 @@ main() {
 
   echo "==> 👢 Bootstrapping"
 
-  # Install ruby tools
+  # Install Ruby tools
   bundle install
 
-  # Install Mint and shellcheck
+  # Install Homebrew tools
+  rm -f Brewfile.lock.json
   brew bundle install --no-upgrade --verbose
 
   # Download and build project dependencies

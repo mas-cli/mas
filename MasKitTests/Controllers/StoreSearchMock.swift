@@ -23,7 +23,7 @@ class StoreSearchMock: StoreSearch {
         }
 
         guard let result = apps[appId]
-            else { throw MASError.noSearchResultsFound }
+        else { throw MASError.noSearchResultsFound }
 
         return result
     }

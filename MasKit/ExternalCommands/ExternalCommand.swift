@@ -38,15 +38,15 @@ extension ExternalCommand {
     }
 
     public var exitCode: Int? {
-        return Int(process.terminationStatus)
+        Int(process.terminationStatus)
     }
 
     public var succeeded: Bool {
-        return exitCode == 0
+        exitCode == 0
     }
 
     public var failed: Bool {
-        return !succeeded
+        !succeeded
     }
 
     /// Runs the command.

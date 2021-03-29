@@ -6,9 +6,10 @@
 //  Copyright © 2018 mas-cli. All rights reserved.
 //
 
-@testable import MasKit
 import Nimble
 import Quick
+
+@testable import MasKit
 
 class LuckyCommandSpec: QuickSpec {
     override func spec() {

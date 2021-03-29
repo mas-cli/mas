@@ -6,9 +6,10 @@
 //  Copyright © 2018 mas-cli. All rights reserved.
 //
 
-@testable import MasKit
 import Nimble
 import Quick
+
+@testable import MasKit
 
 class InfoCommandSpec: QuickSpec {
     override func spec() {
@@ -26,14 +27,14 @@ class InfoCommandSpec: QuickSpec {
         let storeSearch = StoreSearchMock()
         let cmd = InfoCommand(storeSearch: storeSearch)
         let expectedOutput = """
-        Awesome App 1.0 [2.0]
-        By: Awesome Dev
-        Released: 2019-01-07
-        Minimum OS: 10.14
-        Size: 1 KB
-        From: https://awesome.app
+            Awesome App 1.0 [2.0]
+            By: Awesome Dev
+            Released: 2019-01-07
+            Minimum OS: 10.14
+            Size: 1 KB
+            From: https://awesome.app
 
-        """
+            """
 
         describe("Info command") {
             beforeEach {
@@ -41,15 +42,19 @@ class InfoCommandSpec: QuickSpec {
             }
             it("fails to open app with invalid ID") {
                 let result = cmd.run(InfoCommand.Options(appId: -999))
-                expect(result).to(beFailure { error in
-                    expect(error) == .searchFailed
-                })
+                expect(result)
+                    .to(
+                        beFailure { error in
+                            expect(error) == .searchFailed
+                        })
             }
             it("can't find app with unknown ID") {
                 let result = cmd.run(InfoCommand.Options(appId: 999))
-                expect(result).to(beFailure { error in
-                    expect(error) == .noSearchResultsFound
-                })
+                expect(result)
+                    .to(
+                        beFailure { error in
+                            expect(error) == .noSearchResultsFound
+                        })
             }
             it("displays app details") {
                 storeSearch.apps[result.trackId] = result

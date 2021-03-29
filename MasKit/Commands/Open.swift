@@ -23,14 +23,16 @@ public struct OpenCommand: CommandProtocol {
     private var systemOpen: ExternalCommand
 
     /// Designated initializer.
-    public init(storeSearch: StoreSearch = MasStoreSearch(),
-                openCommand: ExternalCommand = OpenSystemCommand()) {
+    public init(
+        storeSearch: StoreSearch = MasStoreSearch(),
+        openCommand: ExternalCommand = OpenSystemCommand()
+    ) {
         self.storeSearch = storeSearch
         systemOpen = openCommand
     }
 
     /// Runs the command.
-    public func run(_ options: OpenOptions) -> Result<(), MASError> {
+    public func run(_ options: OpenOptions) -> Result<Void, MASError> {
         do {
             if options.appId == markerValue {
                 // If no app ID is given, just open the MAS GUI app
@@ -39,20 +41,20 @@ public struct OpenCommand: CommandProtocol {
             }
 
             guard let appId = Int(options.appId)
-                else {
-                    print("Invalid app ID")
-                    return .failure(.noSearchResultsFound)
+            else {
+                print("Invalid app ID")
+                return .failure(.noSearchResultsFound)
             }
 
             guard let result = try storeSearch.lookup(app: appId)
-                else {
-                    print("No results found")
-                    return .failure(.noSearchResultsFound)
+            else {
+                print("No results found")
+                return .failure(.noSearchResultsFound)
             }
 
             guard var url = URLComponents(string: result.trackViewUrl)
-                else {
-                    return .failure(.searchFailed)
+            else {
+                return .failure(.searchFailed)
             }
             url.scheme = masScheme
 
@@ -83,11 +85,11 @@ public struct OpenOptions: OptionsProtocol {
     var appId: String
 
     static func create(_ appId: String) -> OpenOptions {
-        return OpenOptions(appId: appId)
+        OpenOptions(appId: appId)
     }
 
     public static func evaluate(_ mode: CommandMode) -> Result<OpenOptions, CommandantError<MASError>> {
-        return create
+        create
             <*> mode <| Argument(defaultValue: markerValue, usage: "the app ID")
     }
 }

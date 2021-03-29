@@ -3,18 +3,33 @@
 # script/lint
 # mas
 #
-# Linting checks for CI "Lint" stage.
+# Linting checks for development and CI.
+#
+# Reports style violations without making any modifications to the code.
+#
+# Please keep in sync with script/format.
 #
 
 echo "==> 🚨 Linting mas"
 
+for LINTER in git swift-format swiftformat swiftlint; do
+  if [[ ! -x "$(command -v ${LINTER})" ]]; then
+    echo "error: ${LINTER} is not installed. Run 'script/bootstrap' or 'brew install ${LINTER}'."
+    exit 1
+  fi
+done
+
+echo "--> 🌳 Git"
+git diff --check
+
 echo
 echo "--> 🕊️ Swift"
+swiftformat --lint .
+for SOURCE in mas MasKit MasKitTests; do
+  swift-format lint --configuration .swift-format --recursive ${SOURCE}
+done
 swiftlint lint --strict
 
 echo
 echo "--> 📜 Bash"
-shopt -s extglob
-# Only lint files with no extension (skipping .pl)
-shellcheck --shell=bash script/!(*.*)
-shopt -u extglob
+shfmt -d -i 2 -l -w contrib/ script/
