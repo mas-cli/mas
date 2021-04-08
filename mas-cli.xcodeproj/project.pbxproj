@@ -85,19 +85,15 @@
 		F832138C2173D3E1008BA8A0 /* CKPurchaseController.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB719D20F2EC4500F56FDC /* CKPurchaseController.h */; };
 		F832138D2173D3E1008BA8A0 /* CKServiceInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB719E20F2EC4500F56FDC /* CKServiceInterface.h */; };
 		F832138E2173D3E1008BA8A0 /* CKSoftwareMap.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB719F20F2EC4500F56FDC /* CKSoftwareMap.h */; };
-		F832138F2173D3E1008BA8A0 /* CKUpdateController.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71A020F2EC4500F56FDC /* CKUpdateController.h */; };
-		F83213902173D3E1008BA8A0 /* ISStoreURLOperationDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71A120F2EC4500F56FDC /* ISStoreURLOperationDelegate.h */; };
 		F83213912173D3E1008BA8A0 /* CKDownloadDirectory.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71B620F2F87300F56FDC /* CKDownloadDirectory.h */; };
 		F83213922173D5AB008BA8A0 /* CKSoftwareProduct.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71A320F2EC4500F56FDC /* CKSoftwareProduct.h */; };
 		F83213932173D5AB008BA8A0 /* CKUpdate.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71A420F2EC4500F56FDC /* CKUpdate.h */; };
 		F83213942173D5AB008BA8A0 /* ISAccountService.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71A520F2EC4500F56FDC /* ISAccountService.h */; };
 		F83213952173D5AB008BA8A0 /* ISAuthenticationContext.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71A620F2EC4500F56FDC /* ISAuthenticationContext.h */; };
-		F83213962173D5AB008BA8A0 /* ISOperationDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71A720F2EC4500F56FDC /* ISOperationDelegate.h */; };
 		F83213972173D5AB008BA8A0 /* ISServiceProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71A820F2EC4500F56FDC /* ISServiceProxy.h */; };
 		F83213982173D5AB008BA8A0 /* ISServiceRemoteObject.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71A920F2EC4500F56FDC /* ISServiceRemoteObject.h */; };
 		F83213992173D5AB008BA8A0 /* ISStoreAccount.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71AA20F2EC4500F56FDC /* ISStoreAccount.h */; };
 		F832139A2173D5AB008BA8A0 /* ISStoreClient.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71AB20F2EC4500F56FDC /* ISStoreClient.h */; };
-		F832139B2173D5AB008BA8A0 /* ISURLOperationDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71AC20F2EC4500F56FDC /* ISURLOperationDelegate.h */; };
 		F832139C2173D5B2008BA8A0 /* SSDownload.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71AD20F2EC4500F56FDC /* SSDownload.h */; };
 		F832139D2173D5B2008BA8A0 /* SSDownloadMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71AE20F2EC4500F56FDC /* SSDownloadMetadata.h */; };
 		F832139E2173D5B2008BA8A0 /* SSDownloadPhase.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71AF20F2EC4500F56FDC /* SSDownloadPhase.h */; };
@@ -306,18 +302,14 @@
 		F8FB719D20F2EC4500F56FDC /* CKPurchaseController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKPurchaseController.h; sourceTree = "<group>"; };
 		F8FB719E20F2EC4500F56FDC /* CKServiceInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKServiceInterface.h; sourceTree = "<group>"; };
 		F8FB719F20F2EC4500F56FDC /* CKSoftwareMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKSoftwareMap.h; sourceTree = "<group>"; };
-		F8FB71A020F2EC4500F56FDC /* CKUpdateController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKUpdateController.h; sourceTree = "<group>"; };
-		F8FB71A120F2EC4500F56FDC /* ISStoreURLOperationDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISStoreURLOperationDelegate.h; sourceTree = "<group>"; };
 		F8FB71A320F2EC4500F56FDC /* CKSoftwareProduct.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKSoftwareProduct.h; sourceTree = "<group>"; };
 		F8FB71A420F2EC4500F56FDC /* CKUpdate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKUpdate.h; sourceTree = "<group>"; };
 		F8FB71A520F2EC4500F56FDC /* ISAccountService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISAccountService.h; sourceTree = "<group>"; };
 		F8FB71A620F2EC4500F56FDC /* ISAuthenticationContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISAuthenticationContext.h; sourceTree = "<group>"; };
-		F8FB71A720F2EC4500F56FDC /* ISOperationDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISOperationDelegate.h; sourceTree = "<group>"; };
 		F8FB71A820F2EC4500F56FDC /* ISServiceProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISServiceProxy.h; sourceTree = "<group>"; };
 		F8FB71A920F2EC4500F56FDC /* ISServiceRemoteObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISServiceRemoteObject.h; sourceTree = "<group>"; };
 		F8FB71AA20F2EC4500F56FDC /* ISStoreAccount.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISStoreAccount.h; sourceTree = "<group>"; };
 		F8FB71AB20F2EC4500F56FDC /* ISStoreClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISStoreClient.h; sourceTree = "<group>"; };
-		F8FB71AC20F2EC4500F56FDC /* ISURLOperationDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISURLOperationDelegate.h; sourceTree = "<group>"; };
 		F8FB71AD20F2EC4500F56FDC /* SSDownload.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSDownload.h; sourceTree = "<group>"; };
 		F8FB71AE20F2EC4500F56FDC /* SSDownloadMetadata.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSDownloadMetadata.h; sourceTree = "<group>"; };
 		F8FB71AF20F2EC4500F56FDC /* SSDownloadPhase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSDownloadPhase.h; sourceTree = "<group>"; };
@@ -698,8 +690,6 @@
 				F8FB719D20F2EC4500F56FDC /* CKPurchaseController.h */,
 				F8FB719E20F2EC4500F56FDC /* CKServiceInterface.h */,
 				F8FB719F20F2EC4500F56FDC /* CKSoftwareMap.h */,
-				F8FB71A020F2EC4500F56FDC /* CKUpdateController.h */,
-				F8FB71A120F2EC4500F56FDC /* ISStoreURLOperationDelegate.h */,
 				F8FB71B320F2EC7900F56FDC /* module.modulemap */,
 			);
 			path = CommerceKit;
@@ -713,12 +703,10 @@
 				F8FB71A520F2EC4500F56FDC /* ISAccountService.h */,
 				F8FB71A620F2EC4500F56FDC /* ISAuthenticationContext.h */,
 				B578F060224FB5BD00D2086A /* ISAuthenticationResponse.h */,
-				F8FB71A720F2EC4500F56FDC /* ISOperationDelegate.h */,
 				F8FB71A820F2EC4500F56FDC /* ISServiceProxy.h */,
 				F8FB71A920F2EC4500F56FDC /* ISServiceRemoteObject.h */,
 				F8FB71AA20F2EC4500F56FDC /* ISStoreAccount.h */,
 				F8FB71AB20F2EC4500F56FDC /* ISStoreClient.h */,
-				F8FB71AC20F2EC4500F56FDC /* ISURLOperationDelegate.h */,
 				F8FB71B420F2EC8800F56FDC /* module.modulemap */,
 				F8FB71AD20F2EC4500F56FDC /* SSDownload.h */,
 				F8FB71AE20F2EC4500F56FDC /* SSDownloadMetadata.h */,
@@ -746,17 +734,13 @@
 				F832138E2173D3E1008BA8A0 /* CKSoftwareMap.h in Headers */,
 				F83213922173D5AB008BA8A0 /* CKSoftwareProduct.h in Headers */,
 				F83213932173D5AB008BA8A0 /* CKUpdate.h in Headers */,
-				F832138F2173D3E1008BA8A0 /* CKUpdateController.h in Headers */,
 				F83213942173D5AB008BA8A0 /* ISAccountService.h in Headers */,
 				F83213952173D5AB008BA8A0 /* ISAuthenticationContext.h in Headers */,
 				B578F061224FB5BD00D2086A /* ISAuthenticationResponse.h in Headers */,
-				F83213962173D5AB008BA8A0 /* ISOperationDelegate.h in Headers */,
 				F83213972173D5AB008BA8A0 /* ISServiceProxy.h in Headers */,
 				F83213982173D5AB008BA8A0 /* ISServiceRemoteObject.h in Headers */,
 				F83213992173D5AB008BA8A0 /* ISStoreAccount.h in Headers */,
 				F832139A2173D5AB008BA8A0 /* ISStoreClient.h in Headers */,
-				F83213902173D3E1008BA8A0 /* ISStoreURLOperationDelegate.h in Headers */,
-				F832139B2173D5AB008BA8A0 /* ISURLOperationDelegate.h in Headers */,
 				F8FB716220F2B41400F56FDC /* MasKit.h in Headers */,
 				F832139C2173D5B2008BA8A0 /* SSDownload.h in Headers */,
 				F832139D2173D5B2008BA8A0 /* SSDownloadMetadata.h in Headers */,
