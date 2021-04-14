@@ -6,6 +6,7 @@
 //  Copyright © 2019 mas-cli. All rights reserved.
 //
 
+import Foundation
 import MasKit
 
 /// Mock NetworkSession for testing with saved JSON response payload files.

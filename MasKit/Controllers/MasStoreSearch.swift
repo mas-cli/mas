@@ -6,6 +6,8 @@
 //  Copyright © 2018 mas-cli. All rights reserved.
 //
 
+import Foundation
+
 /// Manages searching the MAS catalog through the iTunes Search and Lookup APIs.
 public class MasStoreSearch: StoreSearch {
     private let networkManager: NetworkManager

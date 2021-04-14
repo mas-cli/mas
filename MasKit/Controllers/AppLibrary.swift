@@ -6,6 +6,8 @@
 //  Copyright © 2018 mas-cli. All rights reserved.
 //
 
+import Foundation
+
 /// Utility for managing installed apps.
 public protocol AppLibrary {
     /// Entire set of installed apps.

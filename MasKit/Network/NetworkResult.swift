@@ -6,6 +6,8 @@
 //  Copyright © 2019 mas-cli. All rights reserved.
 //
 
+import Foundation
+
 enum NetworkResult {
     case success(Data)
     case failure(Error)

@@ -6,6 +6,8 @@
 //  Copyright © 2019 mas-cli. All rights reserved.
 //
 
+import Foundation
+
 /// CLI command
 public protocol ExternalCommand {
     var binaryPath: String { get set }

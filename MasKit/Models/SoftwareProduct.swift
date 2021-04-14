@@ -6,6 +6,8 @@
 //  Copyright © 2018 mas-cli. All rights reserved.
 //
 
+import Foundation
+
 /// Protocol describing the members of CKSoftwareProduct used throughout MasKit.
 public protocol SoftwareProduct {
     var appName: String { get }

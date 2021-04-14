@@ -6,6 +6,8 @@
 //  Copyright © 2019 mas-cli. All rights reserved.
 //
 
+import Foundation
+
 @objc public protocol NetworkSession {
     @objc func loadData(from url: URL, completionHandler: @escaping (Data?, Error?) -> Void)
 }

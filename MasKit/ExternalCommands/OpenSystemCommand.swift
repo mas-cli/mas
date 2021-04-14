@@ -6,6 +6,8 @@
 //  Copyright © 2019 mas-cli. All rights reserved.
 //
 
+import Foundation
+
 /// Wrapper for the external open system command.
 /// https://ss64.com/osx/open.html
 public struct OpenSystemCommand: ExternalCommand {

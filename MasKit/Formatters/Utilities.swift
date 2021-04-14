@@ -6,6 +6,8 @@
 //  Copyright © 2016 Andrew Naylor. All rights reserved.
 //
 
+import Foundation
+
 /// A collection of output formatting helpers
 
 /// Terminal Control Sequence Indicator

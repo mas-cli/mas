@@ -6,6 +6,7 @@
 //  Copyright © 2018 mas-cli. All rights reserved.
 //
 
+import Foundation
 import MasKit
 
 /// Mock NetworkSession for testing.
