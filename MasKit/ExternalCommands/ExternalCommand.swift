@@ -19,7 +19,7 @@ public protocol ExternalCommand {
     var stdoutPipe: Pipe { get }
     var stderrPipe: Pipe { get }
 
-    var exitCode: Int? { get }
+    var exitCode: Int32 { get }
     var succeeded: Bool { get }
     var failed: Bool { get }
 
@@ -39,12 +39,12 @@ extension ExternalCommand {
         return String(data: data, encoding: .utf8) ?? ""
     }
 
-    public var exitCode: Int? {
-        Int(process.terminationStatus)
+    public var exitCode: Int32 {
+        process.terminationStatus
     }
 
     public var succeeded: Bool {
-        exitCode == 0
+        process.terminationReason == .exit && exitCode == 0
     }
 
     public var failed: Bool {
@@ -57,14 +57,9 @@ extension ExternalCommand {
         process.standardError = stderrPipe
         process.arguments = arguments
 
-        if #available(OSX 10.13, *) {
+        if #available(macOS 10.13, *) {
             process.executableURL = URL(fileURLWithPath: binaryPath)
-            do {
-                try process.run()
-            } catch {
-                printError("Unable to launch command")
-                // return throw Error()
-            }
+            try process.run()
         } else {
             process.launchPath = binaryPath
             process.launch()
