@@ -13,9 +13,6 @@ public protocol AppLibrary {
     /// Entire set of installed apps.
     var installedApps: [SoftwareProduct] { get }
 
-    /// Map of app name to ID.
-    var appIdsByName: [String: UInt64] { get }
-
     /// Finds an app by ID.
     ///
     /// - Parameter forId: MAS ID for app.
@@ -43,15 +40,6 @@ public protocol AppLibrary {
 
 /// Common logic
 extension AppLibrary {
-    /// Map of app name to ID.
-    public var appIdsByName: [String: UInt64] {
-        var destMap = [String: UInt64]()
-        for product in installedApps {
-            destMap[product.appName] = product.itemIdentifier.uint64Value
-        }
-        return destMap
-    }
-
     /// Finds an app by name.
     ///
     /// - Parameter id: MAS ID for app.

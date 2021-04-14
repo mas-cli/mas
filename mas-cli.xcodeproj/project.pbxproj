@@ -36,7 +36,6 @@
 		B576FE1621E1D8CB0016B39D /* String+FileExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE1521E1D8CB0016B39D /* String+FileExtension.swift */; };
 		B576FE1B21E28E8A0016B39D /* NetworkSessionMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE1A21E28E8A0016B39D /* NetworkSessionMock.swift */; };
 		B576FE1D21E28EF70016B39D /* URLSessionDataTaskMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE1C21E28EF70016B39D /* URLSessionDataTaskMock.swift */; };
-		B576FE2821E423E60016B39D /* Dictionary+StringOrEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE2721E423E60016B39D /* Dictionary+StringOrEmpty.swift */; };
 		B576FE2A21E4240B0016B39D /* AppInfoFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE2921E4240B0016B39D /* AppInfoFormatter.swift */; };
 		B576FE2C21E42A230016B39D /* OutputListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE2B21E42A230016B39D /* OutputListener.swift */; };
 		B576FE2E21E5A8010016B39D /* Strongify.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE2D21E5A8010016B39D /* Strongify.swift */; };
@@ -227,7 +226,6 @@
 		B576FE1521E1D8CB0016B39D /* String+FileExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+FileExtension.swift"; sourceTree = "<group>"; };
 		B576FE1A21E28E8A0016B39D /* NetworkSessionMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkSessionMock.swift; sourceTree = "<group>"; };
 		B576FE1C21E28EF70016B39D /* URLSessionDataTaskMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionDataTaskMock.swift; sourceTree = "<group>"; };
-		B576FE2721E423E60016B39D /* Dictionary+StringOrEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+StringOrEmpty.swift"; sourceTree = "<group>"; };
 		B576FE2921E4240B0016B39D /* AppInfoFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoFormatter.swift; sourceTree = "<group>"; };
 		B576FE2B21E42A230016B39D /* OutputListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputListener.swift; sourceTree = "<group>"; };
 		B576FE2D21E5A8010016B39D /* Strongify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strongify.swift; sourceTree = "<group>"; };
@@ -448,7 +446,6 @@
 		B576FE1F21E290720016B39D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				B576FE2721E423E60016B39D /* Dictionary+StringOrEmpty.swift */,
 				B576FE0D21E1D6310016B39D /* String+PercentEncoding.swift */,
 			);
 			path = Extensions;
@@ -944,7 +941,6 @@
 				B594B12721D5825800F3AC59 /* AppLibrary.swift in Sources */,
 				F85DA8B2240CBAFE00FE5650 /* CKSoftwareMap+SoftwareMap.swift in Sources */,
 				B594B12B21D5837200F3AC59 /* CKSoftwareProduct+SoftwareProduct.swift in Sources */,
-				B576FE2821E423E60016B39D /* Dictionary+StringOrEmpty.swift in Sources */,
 				F8FB716A20F2B4DD00F56FDC /* Downloader.swift in Sources */,
 				B588CE0221DC89490047D305 /* ExternalCommand.swift in Sources */,
 				B594B14C21D8983700F3AC59 /* Home.swift in Sources */,
