@@ -19,8 +19,14 @@ public class NetworkManager {
     /// Designated initializer
     ///
     /// - Parameter session: A networking session.
-    public init(session: NetworkSession = URLSession.shared) {
+    public init(session: NetworkSession = URLSession(configuration: .ephemeral)) {
         self.session = session
+
+        // Older releases allowed URLSession to write a cache. We clean it up here.
+        do {
+            let url = URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("Library/Caches/com.mphys.mas-cli")
+            try FileManager.default.removeItem(at: url)
+        } catch {}
     }
 
     /// Loads data asynchronously.
