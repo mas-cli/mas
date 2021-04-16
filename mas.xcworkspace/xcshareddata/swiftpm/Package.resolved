@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Version",
+        "repositoryURL": "https://github.com/mxcl/Version.git",
+        "state": {
+          "branch": null,
+          "revision": "a94b48f36763c05629fc102837398505032dead9",
+          "version": "2.0.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -36,7 +36,7 @@ public struct OutdatedCommand: CommandProtocol {
         for installedApp in appLibrary.installedApps {
             do {
                 if let storeApp = try storeSearch.lookup(app: installedApp.itemIdentifier.intValue) {
-                    if installedApp.bundleVersion != storeApp.version {
+                    if installedApp.isOutdatedWhenComparedTo(storeApp) {
                         print(
                             """
                             \(installedApp.itemIdentifier) \(installedApp.appName) \

@@ -76,6 +76,7 @@
 		B5DBF81321DEEC7C00F3B151 /* OpenCommandSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DBF81221DEEC7C00F3B151 /* OpenCommandSpec.swift */; };
 		B5DBF81521E02BA900F3B151 /* StoreSearchMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DBF81421E02BA900F3B151 /* StoreSearchMock.swift */; };
 		B5DBF81721E02E3400F3B151 /* OpenSystemCommandMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DBF81621E02E3400F3B151 /* OpenSystemCommandMock.swift */; };
+		C56C4FF5262A50F5004F37EB /* Version in Frameworks */ = {isa = PBXBuildFile; productRef = C56C4FF4262A50F5004F37EB /* Version */; };
 		ED031A7C1B5127C00097692E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED031A7B1B5127C00097692E /* main.swift */; };
 		F80B27B62611116A00A285C9 /* AppListFormatterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80B27B52611116A00A285C9 /* AppListFormatterSpec.swift */; };
 		F80B27BA2611118E00A285C9 /* AppListFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80B27B92611118E00A285C9 /* AppListFormatter.swift */; };
@@ -336,6 +337,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F83213A22173DC13008BA8A0 /* Commandant.framework in Frameworks */,
+				C56C4FF5262A50F5004F37EB /* Version in Frameworks */,
 				B5552928219A1BB900ACB4CA /* CommerceKit.framework in Frameworks */,
 				B5552929219A1BC700ACB4CA /* StoreFoundation.framework in Frameworks */,
 			);
@@ -790,6 +792,9 @@
 			dependencies = (
 			);
 			name = MasKit;
+			packageProductDependencies = (
+				C56C4FF4262A50F5004F37EB /* Version */,
+			);
 			productName = MasKit;
 			productReference = F8FB715220F2B41400F56FDC /* MasKit.framework */;
 			productType = "com.apple.product-type.framework";
@@ -850,6 +855,9 @@
 				Base,
 			);
 			mainGroup = ED031A6F1B5127C00097692E;
+			packageReferences = (
+				C56C4FF0262A4ED0004F37EB /* XCRemoteSwiftPackageReference "Version" */,
+			);
 			productRefGroup = ED031A791B5127C00097692E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1398,6 +1406,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C56C4FF0262A4ED0004F37EB /* XCRemoteSwiftPackageReference "Version" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mxcl/Version.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C56C4FF4262A50F5004F37EB /* Version */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C56C4FF0262A4ED0004F37EB /* XCRemoteSwiftPackageReference "Version" */;
+			productName = Version;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = ED031A701B5127C00097692E /* Project object */;
 }

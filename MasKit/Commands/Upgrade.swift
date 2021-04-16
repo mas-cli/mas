@@ -49,7 +49,7 @@ public struct UpgradeCommand: CommandProtocol {
                 .compactMap { (installedApp: SoftwareProduct) -> SoftwareProduct? in
                     // only upgrade apps whose local version differs from the store version
                     if let storeApp = try storeSearch.lookup(app: installedApp.itemIdentifier.intValue) {
-                        return storeApp.version != installedApp.bundleVersion
+                        return installedApp.isOutdatedWhenComparedTo(storeApp)
                             ? installedApp
                             : nil
                     } else {
