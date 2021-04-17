@@ -47,8 +47,8 @@ public class NetworkManager {
     /// Loads data synchronously.
     ///
     /// - Parameter url: URL to load data from.
-    /// - Returns: Network result containing either Data or an Error.
-    func loadDataSync(from url: URL) -> NetworkResult {
+    /// - Returns: The Data of the response.
+    func loadDataSync(from url: URL) throws -> Data {
         var syncResult: NetworkResult?
         let semaphore = DispatchSemaphore(value: 0)
 
@@ -59,9 +59,18 @@ public class NetworkManager {
         _ = semaphore.wait(timeout: .distantFuture)
 
         guard let result = syncResult else {
-            return .failure(NetworkError.timeout)
+            throw NetworkError.timeout
         }
 
-        return result
+        // Unwrap network result
+        guard case let .success(data) = result
+        else {
+            if case let .failure(error) = result {
+                throw error
+            }
+            throw MASError.noData
+        }
+
+        return data
     }
 }

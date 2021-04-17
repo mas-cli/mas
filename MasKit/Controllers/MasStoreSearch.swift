@@ -26,17 +26,7 @@ public class MasStoreSearch: StoreSearch {
         guard let url = searchURL(for: appName)
         else { throw MASError.urlEncoding }
 
-        let result = networkManager.loadDataSync(from: url)
-
-        // Unwrap network result
-        guard case let .success(data) = result
-        else {
-            if case let .failure(error) = result {
-                throw error
-            }
-            throw MASError.noData
-        }
-
+        let data = try networkManager.loadDataSync(from: url)
         do {
             let results = try JSONDecoder().decode(SearchResultList.self, from: data)
             return results
@@ -54,17 +44,7 @@ public class MasStoreSearch: StoreSearch {
         guard let url = lookupURL(forApp: appId)
         else { throw MASError.urlEncoding }
 
-        let result = networkManager.loadDataSync(from: url)
-
-        // Unwrap network result
-        guard case let .success(data) = result
-        else {
-            if case let .failure(error) = result {
-                throw error
-            }
-            throw MASError.noData
-        }
-
+        let data = try networkManager.loadDataSync(from: url)
         do {
             let results = try JSONDecoder().decode(SearchResultList.self, from: data)
 

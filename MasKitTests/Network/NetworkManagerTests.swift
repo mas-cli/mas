@@ -29,7 +29,7 @@ class NetworkManagerTests: XCTestCase {
         XCTAssertEqual(result, NetworkResult.success(data))
     }
 
-    func testSuccessfulSyncResponse() {
+    func testSuccessfulSyncResponse() throws {
         // Setup our objects
         let session = NetworkSessionMock()
         let manager = NetworkManager(session: session)
@@ -42,8 +42,8 @@ class NetworkManagerTests: XCTestCase {
         let url = URL(fileURLWithPath: "url")
 
         // Perform the request and verify the result
-        let result = manager.loadDataSync(from: url)
-        XCTAssertEqual(result, NetworkResult.success(data))
+        let result = try manager.loadDataSync(from: url)
+        XCTAssertEqual(result, data)
     }
 
     func testFailureAsyncResponse() {
@@ -73,7 +73,13 @@ class NetworkManagerTests: XCTestCase {
         let url = URL(fileURLWithPath: "url")
 
         // Perform the request and verify the result
-        let result = manager.loadDataSync(from: url)
-        XCTAssertEqual(result, NetworkResult.failure(NetworkManager.NetworkError.timeout))
+        XCTAssertThrowsError(try manager.loadDataSync(from: url)) { error in
+            guard let error = error as? NetworkManager.NetworkError else {
+                XCTFail("Error is of unexpected type.")
+                return
+            }
+
+            XCTAssertEqual(error, NetworkManager.NetworkError.timeout)
+        }
     }
 }
