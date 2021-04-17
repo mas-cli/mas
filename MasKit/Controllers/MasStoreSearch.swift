@@ -55,8 +55,16 @@ public class MasStoreSearch: StoreSearch {
             throw MASError.jsonParsing(error: error as NSError)
         }
 
+        let regex: NSRegularExpression
+        do {
+            regex = try NSRegularExpression(pattern: #"\"versionDisplay\"\:\"([^\"]+)\""#)
+        } catch {
+            return results
+        }
+
         // The App Store often lists a newer version available in an app's page than in
         // the search results. We attempt to scrape it here.
+        let group = DispatchGroup()
         for index in results.results.indices {
             let result = results.results[index]
             guard let searchVersion = Version(tolerant: result.version),
@@ -65,27 +73,32 @@ public class MasStoreSearch: StoreSearch {
                 continue
             }
 
-            let pageData: Data
-            do {
-                pageData = try networkManager.loadDataSync(from: pageUrl)
-            } catch {
-                continue
-            }
+            group.enter()
+            networkManager.loadData(from: pageUrl) { result in
+                guard case let .success(pageData) = result else {
+                    group.leave()
+                    return
+                }
 
-            let html = String(decoding: pageData, as: UTF8.self)
-            let regex = try NSRegularExpression(pattern: #"\"versionDisplay\"\:\"([^\"]+)\""#)
-            let fullRange = NSRange(html.startIndex..<html.endIndex, in: html)
-            guard let match = regex.firstMatch(in: html, range: fullRange),
-                let range = Range(match.range(at: 1), in: html),
-                let pageVersion = Version(tolerant: html[range])
-            else {
-                continue
-            }
+                let html = String(decoding: pageData, as: UTF8.self)
+                let fullRange = NSRange(html.startIndex..<html.endIndex, in: html)
+                guard let match = regex.firstMatch(in: html, range: fullRange),
+                    let range = Range(match.range(at: 1), in: html),
+                    let pageVersion = Version(tolerant: html[range])
+                else {
+                    group.leave()
+                    return
+                }
 
-            if pageVersion > searchVersion {
-                results.results[index].version = pageVersion.description
+                if pageVersion > searchVersion {
+                    results.results[index].version = pageVersion.description
+                }
+
+                group.leave()
             }
         }
+
+        group.wait()
 
         return results
     }
