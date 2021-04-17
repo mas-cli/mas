@@ -26,13 +26,7 @@ public class MasStoreSearch: StoreSearch {
         guard let url = searchURL(for: appName)
         else { throw MASError.urlEncoding }
 
-        let data = try networkManager.loadDataSync(from: url)
-        do {
-            let results = try JSONDecoder().decode(SearchResultList.self, from: data)
-            return results
-        } catch {
-            throw MASError.jsonParsing(error: error as NSError)
-        }
+        return try loadSearchResults(url)
     }
 
     /// Looks up app details.
@@ -44,14 +38,17 @@ public class MasStoreSearch: StoreSearch {
         guard let url = lookupURL(forApp: appId)
         else { throw MASError.urlEncoding }
 
+        let results = try loadSearchResults(url)
+        guard let searchResult = results.results.first
+        else { return nil }
+
+        return searchResult
+    }
+
+    private func loadSearchResults(_ url: URL) throws -> SearchResultList {
         let data = try networkManager.loadDataSync(from: url)
         do {
-            let results = try JSONDecoder().decode(SearchResultList.self, from: data)
-
-            guard let searchResult = results.results.first
-            else { return nil }
-
-            return searchResult
+            return try JSONDecoder().decode(SearchResultList.self, from: data)
         } catch {
             throw MASError.jsonParsing(error: error as NSError)
         }
