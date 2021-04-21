@@ -32,32 +32,9 @@ public struct UpgradeCommand: CommandProtocol {
 
     /// Runs the command.
     public func run(_ options: Options) -> Result<Void, MASError> {
-        var apps: [SoftwareProduct]
-        if options.apps.isEmpty {
-            apps = appLibrary.installedApps
-        } else {
-            apps = options.apps.compactMap {
-                if let appId = UInt64($0) {
-                    // if argument a UInt64, lookup app by id using argument
-                    return appLibrary.installedApp(forId: appId)
-                } else {
-                    // if argument not a UInt64, lookup app by name using argument
-                    return appLibrary.installedApp(named: $0)
-                }
-            }
-        }
-
+        let apps: [SoftwareProduct]
         do {
-            apps = try apps.compactMap { installedApp in
-                // only upgrade apps whose local version differs from the store version
-                guard let storeApp = try storeSearch.lookup(app: installedApp.itemIdentifier.intValue),
-                    installedApp.isOutdatedWhenComparedTo(storeApp)
-                else {
-                    return nil
-                }
-
-                return installedApp
-            }
+            apps = try findOutdatedApps(options)
         } catch {
             // Bubble up MASErrors
             return .failure(error as? MASError ?? .searchFailed)
@@ -92,6 +69,36 @@ public struct UpgradeCommand: CommandProtocol {
         default:
             return .failure(.downloadFailed(error: nil))
         }
+    }
+
+    private func findOutdatedApps(_ options: Options) throws -> [SoftwareProduct] {
+        var apps: [SoftwareProduct]
+        if options.apps.isEmpty {
+            apps = appLibrary.installedApps
+        } else {
+            apps = options.apps.compactMap {
+                if let appId = UInt64($0) {
+                    // if argument a UInt64, lookup app by id using argument
+                    return appLibrary.installedApp(forId: appId)
+                } else {
+                    // if argument not a UInt64, lookup app by name using argument
+                    return appLibrary.installedApp(named: $0)
+                }
+            }
+        }
+
+        apps = try apps.compactMap { installedApp in
+            // only upgrade apps whose local version differs from the store version
+            guard let storeApp = try storeSearch.lookup(app: installedApp.itemIdentifier.intValue),
+                installedApp.isOutdatedWhenComparedTo(storeApp)
+            else {
+                return nil
+            }
+
+            return installedApp
+        }
+
+        return apps
     }
 }
 
