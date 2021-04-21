@@ -33,28 +33,44 @@ public struct OutdatedCommand: CommandProtocol {
 
     /// Runs the command.
     public func run(_: Options) -> Result<Void, MASError> {
+        var failure: MASError?
+        let group = DispatchGroup()
         for installedApp in appLibrary.installedApps {
-            do {
-                if let storeApp = try storeSearch.lookup(app: installedApp.itemIdentifier.intValue) {
-                    if installedApp.isOutdatedWhenComparedTo(storeApp) {
-                        print(
-                            """
-                            \(installedApp.itemIdentifier) \(installedApp.appName) \
-                            (\(installedApp.bundleVersion) -> \(storeApp.version))
-                            """)
-                    }
-                } else {
+            group.enter()
+            storeSearch.lookup(app: installedApp.itemIdentifier.intValue) { storeApp, error in
+                defer { group.leave() }
+
+                if let error = error {
+                    // Bubble up MASErrors
+                    failure = error as? MASError ?? .searchFailed
+                    return
+                }
+
+                guard let storeApp = storeApp else {
                     printWarning(
                         """
                         Identifier \(installedApp.itemIdentifier) not found in store. \
                         Was expected to identify \(installedApp.appName).
                         """)
+                    return
                 }
-            } catch {
-                // Bubble up MASErrors
-                return .failure(error as? MASError ?? .searchFailed)
+
+                if installedApp.isOutdatedWhenComparedTo(storeApp) {
+                    print(
+                        """
+                        \(installedApp.itemIdentifier) \(installedApp.appName) \
+                        (\(installedApp.bundleVersion) -> \(storeApp.version))
+                        """)
+                }
             }
         }
+
+        group.wait()
+
+        if let failure = failure {
+            return .failure(failure)
+        }
+
         return .success(())
     }
 }
