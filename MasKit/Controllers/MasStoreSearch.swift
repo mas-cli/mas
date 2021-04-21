@@ -12,6 +12,13 @@ import Version
 /// Manages searching the MAS catalog through the iTunes Search and Lookup APIs.
 public class MasStoreSearch: StoreSearch {
     private let networkManager: NetworkManager
+    private static let versionExpression: NSRegularExpression? = {
+        do {
+            return try NSRegularExpression(pattern: #"\"versionDisplay\"\:\"([^\"]+)\""#)
+        } catch {
+            return nil
+        }
+    }()
 
     /// Designated initializer.
     public init(networkManager: NetworkManager = NetworkManager()) {
@@ -55,13 +62,6 @@ public class MasStoreSearch: StoreSearch {
             throw MASError.jsonParsing(error: error as NSError)
         }
 
-        let regex: NSRegularExpression
-        do {
-            regex = try NSRegularExpression(pattern: #"\"versionDisplay\"\:\"([^\"]+)\""#)
-        } catch {
-            return results
-        }
-
         // The App Store often lists a newer version available in an app's page than in
         // the search results. We attempt to scrape it here.
         let group = DispatchGroup()
@@ -82,7 +82,7 @@ public class MasStoreSearch: StoreSearch {
 
                 let html = String(decoding: pageData, as: UTF8.self)
                 let fullRange = NSRange(html.startIndex..<html.endIndex, in: html)
-                guard let match = regex.firstMatch(in: html, range: fullRange),
+                guard let match = MasStoreSearch.versionExpression?.firstMatch(in: html, range: fullRange),
                     let range = Range(match.range(at: 1), in: html),
                     let pageVersion = Version(tolerant: html[range])
                 else {
