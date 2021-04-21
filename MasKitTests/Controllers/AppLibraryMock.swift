@@ -20,7 +20,7 @@ class AppLibraryMock: AppLibrary {
     }
 
     func uninstallApp(app: SoftwareProduct) throws {
-        if !installedApps.contains(where: { (product) -> Bool in
+        if !installedApps.contains(where: { product -> Bool in
             app.itemIdentifier == product.itemIdentifier
         }) {
             throw MASError.notInstalled

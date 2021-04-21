@@ -70,7 +70,7 @@ public struct LuckyCommand: CommandProtocol {
     fileprivate func install(_ appId: UInt64, options: Options) -> Result<Void, MASError> {
         // Try to download applications with given identifiers and collect results
         let downloadResults = [appId]
-            .compactMap { (appId) -> MASError? in
+            .compactMap { appId -> MASError? in
                 if let product = appLibrary.installedApp(forId: appId), !options.forceInstall {
                     printWarning("\(product.appName) is already installed")
                     return nil
