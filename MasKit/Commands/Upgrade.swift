@@ -87,18 +87,27 @@ public struct UpgradeCommand: CommandProtocol {
             }
         }
 
-        apps = try apps.compactMap { installedApp in
+        var outdated = [SoftwareProduct]()
+        let group = DispatchGroup()
+        let semaphore = DispatchSemaphore(value: 1)
+        for installedApp in apps {
             // only upgrade apps whose local version differs from the store version
-            guard let storeApp = try storeSearch.lookup(app: installedApp.itemIdentifier.intValue),
-                installedApp.isOutdatedWhenComparedTo(storeApp)
-            else {
-                return nil
-            }
+            group.enter()
+            storeSearch.lookup(app: installedApp.itemIdentifier.intValue) { result, _ in
+                defer { group.leave() }
 
-            return installedApp
+                if let storeApp = result, installedApp.isOutdatedWhenComparedTo(storeApp) {
+                    semaphore.wait()
+                    defer { semaphore.signal() }
+
+                    outdated.append(installedApp)
+                }
+            }
         }
 
-        return apps
+        group.wait()
+
+        return outdated
     }
 }
 
