@@ -50,13 +50,14 @@ public class NetworkManager {
     /// - Returns: The Data of the response.
     func loadDataSync(from url: URL) throws -> Data {
         var syncResult: NetworkResult?
-        let semaphore = DispatchSemaphore(value: 0)
-
+        let group = DispatchGroup()
+        group.enter()
         loadData(from: url) { asyncResult in
             syncResult = asyncResult
-            semaphore.signal()
+            group.leave()
         }
-        _ = semaphore.wait(timeout: .distantFuture)
+
+        group.wait()
 
         guard let result = syncResult else {
             throw NetworkError.timeout
