@@ -10,12 +10,64 @@ import Foundation
 
 /// Protocol for searching the MAS catalog.
 public protocol StoreSearch {
-    func lookup(app appId: Int) throws -> SearchResult?
-    func search(for appName: String) throws -> SearchResultList
+    func lookup(app appId: Int, _ completion: @escaping (SearchResult?, Error?) -> Void)
+    func search(for appName: String, _ completion: @escaping (SearchResultList?, Error?) -> Void)
 }
 
 // MARK: - Common methods
 extension StoreSearch {
+    /// Looks up app details.
+    ///
+    /// - Parameter appId: MAS ID of app
+    /// - Returns: Search result record of app or nil if no apps match the ID.
+    /// - Throws: Error if there is a problem with the network request.
+    public func lookup(app appId: Int) throws -> SearchResult? {
+        var result: SearchResult?
+        var error: Error?
+
+        let group = DispatchGroup()
+        group.enter()
+        lookup(app: appId) {
+            result = $0
+            error = $1
+            group.leave()
+        }
+
+        group.wait()
+
+        if let error = error {
+            throw error
+        }
+
+        return result
+    }
+
+    /// Searches for an app.
+    ///
+    /// - Parameter appName: MAS ID of app
+    /// - Returns: Search results list of app. List will have no records if there were no matches. Never nil.
+    /// - Throws: Error if there is a problem with the network request.
+    public func search(for appName: String) throws -> SearchResultList {
+        var results: SearchResultList?
+        var error: Error?
+
+        let group = DispatchGroup()
+        group.enter()
+        search(for: appName) {
+            results = $0
+            error = $1
+            group.leave()
+        }
+
+        group.wait()
+
+        if let error = error {
+            throw error
+        }
+
+        return results!
+    }
+
     /// Builds the search URL for an app.
     ///
     /// - Parameter appName: MAS app identifier.

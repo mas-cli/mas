@@ -11,21 +11,26 @@
 class StoreSearchMock: StoreSearch {
     var apps: [Int: SearchResult] = [:]
 
-    func search(for appName: String) throws -> SearchResultList {
+    func search(for appName: String, _ completion: @escaping (SearchResultList?, Error?) -> Void) {
         let filtered = apps.filter { $1.trackName.contains(appName) }
-        return SearchResultList(resultCount: filtered.count, results: filtered.map { $1 })
+        let results = SearchResultList(resultCount: filtered.count, results: filtered.map { $1 })
+        completion(results, nil)
     }
 
-    func lookup(app appId: Int) throws -> SearchResult? {
+    func lookup(app appId: Int, _ completion: @escaping (SearchResult?, Error?) -> Void) {
         // Negative numbers are invalid
-        if appId <= 0 {
-            throw MASError.searchFailed
+        guard appId > 0 else {
+            completion(nil, MASError.searchFailed)
+            return
         }
 
         guard let result = apps[appId]
-        else { throw MASError.noSearchResultsFound }
+        else {
+            completion(nil, MASError.noSearchResultsFound)
+            return
+        }
 
-        return result
+        completion(result, nil)
     }
 
     func reset() {

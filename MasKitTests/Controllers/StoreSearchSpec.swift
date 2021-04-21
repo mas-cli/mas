@@ -12,8 +12,13 @@ import Quick
 
 /// Protocol minimal implementation
 struct StoreSearchForTesting: StoreSearch {
-    func lookup(app _: Int) throws -> SearchResult? { nil }
-    func search(for _: String) throws -> SearchResultList { SearchResultList(resultCount: 0, results: []) }
+    func lookup(app _: Int, _ completion: @escaping (SearchResult?, Error?) -> Void) {
+        completion(nil, nil)
+    }
+
+    func search(for _: String, _ completion: @escaping (SearchResultList?, Error?) -> Void) {
+        completion(SearchResultList(resultCount: 0, results: []), nil)
+    }
 }
 
 class StoreSearchSpec: QuickSpec {

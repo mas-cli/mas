@@ -28,62 +28,90 @@ public class MasStoreSearch: StoreSearch {
     /// Searches for an app.
     ///
     /// - Parameter appName: MAS ID of app
-    /// - Returns: Search results list of app. List will have no records if there were no matches. Never nil.
-    /// - Throws: Error if there is a problem with the network request.
-    public func search(for appName: String) throws -> SearchResultList {
+    /// - Parameter completion: A closure that receives the search results or an Error if there is a
+    ///   problem with the network request. List will have no records if there were no matches.
+    public func search(for appName: String, _ completion: @escaping (SearchResultList?, Error?) -> Void) {
         guard let url = searchURL(for: appName)
-        else { throw MASError.urlEncoding }
+        else {
+            completion(nil, MASError.urlEncoding)
+            return
+        }
 
-        return try loadSearchResults(url)
+        loadSearchResults(url) { results, error in
+            if let error = error {
+                completion(nil, error)
+                return
+            }
+
+            completion(results, nil)
+        }
     }
 
     /// Looks up app details.
     ///
     /// - Parameter appId: MAS ID of app
-    /// - Returns: Search result record of app or nil if no apps match the ID.
-    /// - Throws: Error if there is a problem with the network request.
-    public func lookup(app appId: Int) throws -> SearchResult? {
+    /// - Parameter completion: A closure that receives the search result record of app, or nil if no apps match the ID,
+    ///   or an Error if there is a problem with the network request.
+    public func lookup(app appId: Int, _ completion: @escaping (SearchResult?, Error?) -> Void) {
         guard let url = lookupURL(forApp: appId)
-        else { throw MASError.urlEncoding }
+        else {
+            completion(nil, MASError.urlEncoding)
+            return
+        }
 
-        let results = try loadSearchResults(url)
-        guard let searchResult = results.results.first
-        else { return nil }
+        loadSearchResults(url) { results, error in
+            if let error = error {
+                completion(nil, error)
+                return
+            }
 
-        return searchResult
+            completion(results?.results.first, nil)
+        }
     }
 
-    private func loadSearchResults(_ url: URL) throws -> SearchResultList {
-        var results: SearchResultList
-        let data = try networkManager.loadDataSync(from: url)
-        do {
-            results = try JSONDecoder().decode(SearchResultList.self, from: data)
-        } catch {
-            throw MASError.jsonParsing(error: error as NSError)
-        }
-
-        let group = DispatchGroup()
-        for index in results.results.indices {
-            let result = results.results[index]
-            guard let searchVersion = Version(tolerant: result.version),
-                let pageUrl = URL(string: result.trackViewUrl)
-            else {
-                continue
-            }
-
-            group.enter()
-            scrapeVersionFromPage(pageUrl) { pageVersion in
-                if let pageVersion = pageVersion, pageVersion > searchVersion {
-                    results.results[index].version = pageVersion.description
+    public func loadSearchResults(_ url: URL, _ completion: @escaping (SearchResultList?, Error?) -> Void) {
+        networkManager.loadData(from: url) { result in
+            guard case let .success(data) = result else {
+                if case let .failure(error) = result {
+                    completion(nil, error)
+                } else {
+                    completion(nil, MASError.noData)
                 }
 
-                group.leave()
+                return
+            }
+
+            var results: SearchResultList
+            do {
+                results = try JSONDecoder().decode(SearchResultList.self, from: data)
+            } catch {
+                completion(nil, MASError.jsonParsing(error: error as NSError))
+                return
+            }
+
+            let group = DispatchGroup()
+            for index in results.results.indices {
+                let result = results.results[index]
+                guard let searchVersion = Version(tolerant: result.version),
+                    let pageUrl = URL(string: result.trackViewUrl)
+                else {
+                    continue
+                }
+
+                group.enter()
+                self.scrapeVersionFromPage(pageUrl) { pageVersion in
+                    if let pageVersion = pageVersion, pageVersion > searchVersion {
+                        results.results[index].version = pageVersion.description
+                    }
+
+                    group.leave()
+                }
+            }
+
+            group.notify(queue: DispatchQueue.global()) {
+                completion(results, nil)
             }
         }
-
-        group.wait()
-
-        return results
     }
 
     // The App Store often lists a newer version available in an app's page than in
