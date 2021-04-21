@@ -62,8 +62,6 @@ public class MasStoreSearch: StoreSearch {
             throw MASError.jsonParsing(error: error as NSError)
         }
 
-        // The App Store often lists a newer version available in an app's page than in
-        // the search results. We attempt to scrape it here.
         let group = DispatchGroup()
         for index in results.results.indices {
             let result = results.results[index]
@@ -74,23 +72,8 @@ public class MasStoreSearch: StoreSearch {
             }
 
             group.enter()
-            networkManager.loadData(from: pageUrl) { result in
-                guard case let .success(pageData) = result else {
-                    group.leave()
-                    return
-                }
-
-                let html = String(decoding: pageData, as: UTF8.self)
-                let fullRange = NSRange(html.startIndex..<html.endIndex, in: html)
-                guard let match = MasStoreSearch.versionExpression?.firstMatch(in: html, range: fullRange),
-                    let range = Range(match.range(at: 1), in: html),
-                    let pageVersion = Version(tolerant: html[range])
-                else {
-                    group.leave()
-                    return
-                }
-
-                if pageVersion > searchVersion {
+            scrapeVersionFromPage(pageUrl) { pageVersion in
+                if let pageVersion = pageVersion, pageVersion > searchVersion {
                     results.results[index].version = pageVersion.description
                 }
 
@@ -101,5 +84,28 @@ public class MasStoreSearch: StoreSearch {
         group.wait()
 
         return results
+    }
+
+    // The App Store often lists a newer version available in an app's page than in
+    // the search results. We attempt to scrape it here.
+    private func scrapeVersionFromPage(_ pageUrl: URL, _ completion: @escaping (Version?) -> Void) {
+        networkManager.loadData(from: pageUrl) { result in
+            guard case let .success(pageData) = result else {
+                completion(nil)
+                return
+            }
+
+            let html = String(decoding: pageData, as: UTF8.self)
+            let fullRange = NSRange(html.startIndex..<html.endIndex, in: html)
+            guard let match = MasStoreSearch.versionExpression?.firstMatch(in: html, range: fullRange),
+                let range = Range(match.range(at: 1), in: html),
+                let version = Version(tolerant: html[range])
+            else {
+                completion(nil)
+                return
+            }
+
+            completion(version)
+        }
     }
 }
