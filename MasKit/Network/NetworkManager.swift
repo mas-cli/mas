@@ -10,10 +10,6 @@ import Foundation
 
 /// Network abstraction
 public class NetworkManager {
-    enum NetworkError: Error {
-        case timeout
-    }
-
     private let session: NetworkSession
 
     /// Designated initializer
@@ -34,14 +30,8 @@ public class NetworkManager {
     /// - Parameters:
     ///   - url: URL to load data from.
     ///   - completionHandler: Closure where result is delivered.
-    func loadData(from url: URL, completionHandler: @escaping (NetworkResult) -> Void) {
-        session.loadData(from: url) { (data: Data?, error: Error?) in
-            let result: NetworkResult =
-                data != nil
-                ? .success(data!)
-                : .failure(error!)
-            completionHandler(result)
-        }
+    func loadData(from url: URL, completionHandler: @escaping (Data?, Error?) -> Void) {
+        session.loadData(from: url, completionHandler: completionHandler)
     }
 
     /// Loads data synchronously.
@@ -49,29 +39,26 @@ public class NetworkManager {
     /// - Parameter url: URL to load data from.
     /// - Returns: The Data of the response.
     func loadDataSync(from url: URL) throws -> Data {
-        var syncResult: NetworkResult?
+        var data: Data?
+        var error: Error?
         let group = DispatchGroup()
         group.enter()
-        loadData(from: url) { asyncResult in
-            syncResult = asyncResult
+        session.loadData(from: url) {
+            data = $0
+            error = $1
             group.leave()
         }
 
         group.wait()
 
-        guard let result = syncResult else {
-            throw NetworkError.timeout
+        if let error = error {
+            throw error
         }
 
-        // Unwrap network result
-        guard case let .success(data) = result
-        else {
-            if case let .failure(error) = result {
-                throw error
-            }
-            throw MASError.noData
+        if let data = data {
+            return data
         }
 
-        return data
+        throw MASError.noData
     }
 }

@@ -28,7 +28,6 @@
 		B576FE0021E113610016B39D /* NetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FDFF21E113610016B39D /* NetworkSession.swift */; };
 		B576FE0221E1139E0016B39D /* URLSession+NetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE0121E1139E0016B39D /* URLSession+NetworkSession.swift */; };
 		B576FE0421E113E90016B39D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE0321E113E90016B39D /* NetworkManager.swift */; };
-		B576FE0821E114A80016B39D /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE0721E114A80016B39D /* NetworkResult.swift */; };
 		B576FE0C21E116590016B39D /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE0B21E116590016B39D /* NetworkManagerTests.swift */; };
 		B576FE0E21E1D6310016B39D /* String+PercentEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE0D21E1D6310016B39D /* String+PercentEncoding.swift */; };
 		B576FE1221E1D82D0016B39D /* NetworkSessionMockFromFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE1121E1D82D0016B39D /* NetworkSessionMockFromFile.swift */; };
@@ -215,7 +214,6 @@
 		B576FDFF21E113610016B39D /* NetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSession.swift; sourceTree = "<group>"; };
 		B576FE0121E1139E0016B39D /* URLSession+NetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+NetworkSession.swift"; sourceTree = "<group>"; };
 		B576FE0321E113E90016B39D /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		B576FE0721E114A80016B39D /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		B576FE0B21E116590016B39D /* NetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
 		B576FE0D21E1D6310016B39D /* String+PercentEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+PercentEncoding.swift"; sourceTree = "<group>"; };
 		B576FE1121E1D82D0016B39D /* NetworkSessionMockFromFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkSessionMockFromFile.swift; sourceTree = "<group>"; };
@@ -381,7 +379,6 @@
 			isa = PBXGroup;
 			children = (
 				B576FE0321E113E90016B39D /* NetworkManager.swift */,
-				B576FE0721E114A80016B39D /* NetworkResult.swift */,
 				B576FDFF21E113610016B39D /* NetworkSession.swift */,
 				B576FE0121E1139E0016B39D /* URLSession+NetworkSession.swift */,
 			);
@@ -945,7 +942,6 @@
 				F8FB717B20F2B4DD00F56FDC /* MASError.swift in Sources */,
 				B594B15221D89A8B00F3AC59 /* MasStoreSearch.swift in Sources */,
 				B576FE0421E113E90016B39D /* NetworkManager.swift in Sources */,
-				B576FE0821E114A80016B39D /* NetworkResult.swift in Sources */,
 				B576FE0021E113610016B39D /* NetworkSession.swift in Sources */,
 				B5DBF80D21DEE4E600F3B151 /* Open.swift in Sources */,
 				B576FDF721E107AA0016B39D /* OpenSystemCommand.swift in Sources */,

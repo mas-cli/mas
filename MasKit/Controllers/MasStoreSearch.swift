@@ -70,9 +70,9 @@ public class MasStoreSearch: StoreSearch {
     }
 
     public func loadSearchResults(_ url: URL, _ completion: @escaping (SearchResultList?, Error?) -> Void) {
-        networkManager.loadData(from: url) { result in
-            guard case let .success(data) = result else {
-                if case let .failure(error) = result {
+        networkManager.loadData(from: url) { data, error in
+            guard let data = data else {
+                if let error = error {
                     completion(nil, error)
                 } else {
                     completion(nil, MASError.noData)
@@ -117,13 +117,13 @@ public class MasStoreSearch: StoreSearch {
     // The App Store often lists a newer version available in an app's page than in
     // the search results. We attempt to scrape it here.
     private func scrapeVersionFromPage(_ pageUrl: URL, _ completion: @escaping (Version?) -> Void) {
-        networkManager.loadData(from: pageUrl) { result in
-            guard case let .success(pageData) = result else {
+        networkManager.loadData(from: pageUrl) { data, _ in
+            guard let data = data else {
                 completion(nil)
                 return
             }
 
-            let html = String(decoding: pageData, as: UTF8.self)
+            let html = String(decoding: data, as: UTF8.self)
             let fullRange = NSRange(html.startIndex..<html.endIndex, in: html)
             guard let match = MasStoreSearch.versionExpression?.firstMatch(in: html, range: fullRange),
                 let range = Range(match.range(at: 1), in: html),
