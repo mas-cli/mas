@@ -12,11 +12,11 @@ import Version
 /// Manages searching the MAS catalog through the iTunes Search and Lookup APIs.
 class MasStoreSearch: StoreSearch {
     private let networkManager: NetworkManager
-    private static let versionExpression: NSRegularExpression? = {
+    private static let versionExpression: NSRegularExpression = {
         do {
             return try NSRegularExpression(pattern: #"\"versionDisplay\"\:\"([^\"]+)\""#)
         } catch {
-            return nil
+            fatalError("Unexpected error initializing NSRegularExpression: \(error.localizedDescription)")
         }
     }()
 
@@ -125,7 +125,7 @@ class MasStoreSearch: StoreSearch {
 
             let html = String(decoding: data, as: UTF8.self)
             let fullRange = NSRange(html.startIndex..<html.endIndex, in: html)
-            guard let match = MasStoreSearch.versionExpression?.firstMatch(in: html, range: fullRange),
+            guard let match = MasStoreSearch.versionExpression.firstMatch(in: html, range: fullRange),
                 let range = Range(match.range(at: 1), in: html),
                 let version = Version(tolerant: html[range])
             else {
