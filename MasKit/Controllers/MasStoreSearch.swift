@@ -10,7 +10,7 @@ import Foundation
 import Version
 
 /// Manages searching the MAS catalog through the iTunes Search and Lookup APIs.
-public class MasStoreSearch: StoreSearch {
+class MasStoreSearch: StoreSearch {
     private let networkManager: NetworkManager
     private static let versionExpression: NSRegularExpression? = {
         do {
@@ -21,7 +21,7 @@ public class MasStoreSearch: StoreSearch {
     }()
 
     /// Designated initializer.
-    public init(networkManager: NetworkManager = NetworkManager()) {
+    init(networkManager: NetworkManager = NetworkManager()) {
         self.networkManager = networkManager
     }
 
@@ -30,7 +30,7 @@ public class MasStoreSearch: StoreSearch {
     /// - Parameter appName: MAS ID of app
     /// - Parameter completion: A closure that receives the search results or an Error if there is a
     ///   problem with the network request. Results array will be empty if there were no matches.
-    public func search(for appName: String, _ completion: @escaping ([SearchResult]?, Error?) -> Void) {
+    func search(for appName: String, _ completion: @escaping ([SearchResult]?, Error?) -> Void) {
         guard let url = searchURL(for: appName)
         else {
             completion(nil, MASError.urlEncoding)
@@ -52,7 +52,7 @@ public class MasStoreSearch: StoreSearch {
     /// - Parameter appId: MAS ID of app
     /// - Parameter completion: A closure that receives the search result record of app, or nil if no apps match the ID,
     ///   or an Error if there is a problem with the network request.
-    public func lookup(app appId: Int, _ completion: @escaping (SearchResult?, Error?) -> Void) {
+    func lookup(app appId: Int, _ completion: @escaping (SearchResult?, Error?) -> Void) {
         guard let url = lookupURL(forApp: appId)
         else {
             completion(nil, MASError.urlEncoding)
@@ -69,7 +69,7 @@ public class MasStoreSearch: StoreSearch {
         }
     }
 
-    public func loadSearchResults(_ url: URL, _ completion: @escaping ([SearchResult]?, Error?) -> Void) {
+    private func loadSearchResults(_ url: URL, _ completion: @escaping ([SearchResult]?, Error?) -> Void) {
         networkManager.loadData(from: url) { data, error in
             guard let data = data else {
                 if let error = error {

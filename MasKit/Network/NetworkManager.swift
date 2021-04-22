@@ -9,13 +9,13 @@
 import Foundation
 
 /// Network abstraction
-public class NetworkManager {
+class NetworkManager {
     private let session: NetworkSession
 
     /// Designated initializer
     ///
     /// - Parameter session: A networking session.
-    public init(session: NetworkSession = URLSession(configuration: .ephemeral)) {
+    init(session: NetworkSession = URLSession(configuration: .ephemeral)) {
         self.session = session
 
         // Older releases allowed URLSession to write a cache. We clean it up here.

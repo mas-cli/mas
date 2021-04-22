@@ -9,7 +9,7 @@
 import Foundation
 
 /// Utility for managing installed apps.
-public protocol AppLibrary {
+protocol AppLibrary {
     /// Entire set of installed apps.
     var installedApps: [SoftwareProduct] { get }
 
@@ -44,7 +44,7 @@ extension AppLibrary {
     ///
     /// - Parameter id: MAS ID for app.
     /// - Returns: Software Product of app if found; nil otherwise.
-    public func installedApp(forId identifier: UInt64) -> SoftwareProduct? {
+    func installedApp(forId identifier: UInt64) -> SoftwareProduct? {
         let appId = NSNumber(value: identifier)
         return installedApps.first { $0.itemIdentifier == appId }
     }
@@ -53,7 +53,7 @@ extension AppLibrary {
     ///
     /// - Parameter appName: Full title of an app.
     /// - Returns: Software Product of app if found; nil otherwise.
-    public func installedApp(named appName: String) -> SoftwareProduct? {
+    func installedApp(named appName: String) -> SoftwareProduct? {
         installedApps.first { $0.appName == appName }
     }
 }

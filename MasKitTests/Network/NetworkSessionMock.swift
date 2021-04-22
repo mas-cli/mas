@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import MasKit
+@testable import MasKit
 
 /// Mock NetworkSession for testing.
 class NetworkSessionMock: NetworkSession {
@@ -38,7 +38,7 @@ class NetworkSessionMock: NetworkSession {
     /// - Parameters:
     ///   - url: unused
     ///   - completionHandler: Closure which is delivered either data or an error.
-    @objc func loadData(from _: URL, completionHandler: @escaping (Data?, Error?) -> Void) {
+    func loadData(from _: URL, completionHandler: @escaping (Data?, Error?) -> Void) {
         completionHandler(data, error)
     }
 }

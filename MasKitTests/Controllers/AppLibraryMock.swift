@@ -15,7 +15,7 @@ class AppLibraryMock: AppLibrary {
     ///
     /// - Parameter bundleId: Bundle identifier of app.
     /// - Returns: Software Product of app if found; nil otherwise.
-    public func installedApp(forBundleId _: String) -> SoftwareProduct? {
+    func installedApp(forBundleId _: String) -> SoftwareProduct? {
         nil
     }
 

@@ -9,7 +9,7 @@
 import Foundation
 
 /// Protocol for searching the MAS catalog.
-public protocol StoreSearch {
+protocol StoreSearch {
     func lookup(app appId: Int, _ completion: @escaping (SearchResult?, Error?) -> Void)
     func search(for appName: String, _ completion: @escaping ([SearchResult]?, Error?) -> Void)
 }
@@ -21,7 +21,7 @@ extension StoreSearch {
     /// - Parameter appId: MAS ID of app
     /// - Returns: Search result record of app or nil if no apps match the ID.
     /// - Throws: Error if there is a problem with the network request.
-    public func lookup(app appId: Int) throws -> SearchResult? {
+    func lookup(app appId: Int) throws -> SearchResult? {
         var result: SearchResult?
         var error: Error?
 
@@ -47,7 +47,7 @@ extension StoreSearch {
     /// - Parameter appName: MAS ID of app
     /// - Returns: Search results. Empty if there were no matches.
     /// - Throws: Error if there is a problem with the network request.
-    public func search(for appName: String) throws -> [SearchResult] {
+    func search(for appName: String) throws -> [SearchResult] {
         var results: [SearchResult]?
         var error: Error?
 
@@ -72,7 +72,7 @@ extension StoreSearch {
     ///
     /// - Parameter appName: MAS app identifier.
     /// - Returns: URL for the search service or nil if appName can't be encoded.
-    public func searchURL(for appName: String) -> URL? {
+    func searchURL(for appName: String) -> URL? {
         guard let urlString = searchURLString(forApp: appName) else { return nil }
         return URL(string: urlString)
     }
@@ -92,7 +92,7 @@ extension StoreSearch {
     ///
     /// - Parameter appId: MAS app identifier.
     /// - Returns: URL for the lookup service or nil if appId can't be encoded.
-    public func lookupURL(forApp appId: Int) -> URL? {
+    func lookupURL(forApp appId: Int) -> URL? {
         guard let urlString = lookupURLString(forApp: appId) else { return nil }
         return URL(string: urlString)
     }

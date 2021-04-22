@@ -10,17 +10,15 @@ import Foundation
 
 /// Wrapper for the external open system command.
 /// https://ss64.com/osx/open.html
-public struct OpenSystemCommand: ExternalCommand {
-    public var binaryPath: String
+struct OpenSystemCommand: ExternalCommand {
+    var binaryPath: String
 
-    public let process = Process()
+    let process = Process()
 
-    public let stdoutPipe = Pipe()
-    public let stderrPipe = Pipe()
+    let stdoutPipe = Pipe()
+    let stderrPipe = Pipe()
 
-    public init(
-        binaryPath: String = "/usr/bin/open"
-    ) {
+    init(binaryPath: String = "/usr/bin/open") {
         self.binaryPath = binaryPath
     }
 }

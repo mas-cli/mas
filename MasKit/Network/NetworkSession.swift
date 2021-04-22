@@ -8,6 +8,6 @@
 
 import Foundation
 
-@objc public protocol NetworkSession {
-    @objc func loadData(from url: URL, completionHandler: @escaping (Data?, Error?) -> Void)
+protocol NetworkSession {
+    func loadData(from url: URL, completionHandler: @escaping (Data?, Error?) -> Void)
 }

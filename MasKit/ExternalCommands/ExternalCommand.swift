@@ -9,7 +9,7 @@
 import Foundation
 
 /// CLI command
-public protocol ExternalCommand {
+protocol ExternalCommand {
     var binaryPath: String { get set }
 
     var process: Process { get }
@@ -29,30 +29,30 @@ public protocol ExternalCommand {
 
 /// Common implementation
 extension ExternalCommand {
-    public var stdout: String {
+    var stdout: String {
         let data = stdoutPipe.fileHandleForReading.readDataToEndOfFile()
         return String(data: data, encoding: .utf8) ?? ""
     }
 
-    public var stderr: String {
+    var stderr: String {
         let data = stderrPipe.fileHandleForReading.readDataToEndOfFile()
         return String(data: data, encoding: .utf8) ?? ""
     }
 
-    public var exitCode: Int32 {
+    var exitCode: Int32 {
         process.terminationStatus
     }
 
-    public var succeeded: Bool {
+    var succeeded: Bool {
         process.terminationReason == .exit && exitCode == 0
     }
 
-    public var failed: Bool {
+    var failed: Bool {
         !succeeded
     }
 
     /// Runs the command.
-    public func run(arguments: String...) throws {
+    func run(arguments: String...) throws {
         process.standardOutput = stdoutPipe
         process.standardError = stderrPipe
         process.arguments = arguments

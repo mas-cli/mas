@@ -17,10 +17,14 @@ public struct SearchCommand: CommandProtocol {
 
     private let storeSearch: StoreSearch
 
+    public init() {
+        self.init(storeSearch: MasStoreSearch())
+    }
+
     /// Designated initializer.
     ///
     /// - Parameter storeSearch: Search manager.
-    public init(storeSearch: StoreSearch = MasStoreSearch()) {
+    init(storeSearch: StoreSearch = MasStoreSearch()) {
         self.storeSearch = storeSearch
     }
 

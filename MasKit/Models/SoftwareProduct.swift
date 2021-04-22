@@ -10,7 +10,7 @@ import Foundation
 import Version
 
 /// Protocol describing the members of CKSoftwareProduct used throughout MasKit.
-public protocol SoftwareProduct {
+protocol SoftwareProduct {
     var appName: String { get }
     var bundleIdentifier: String { get set }
     var bundlePath: String { get set }
