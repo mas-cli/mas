@@ -26,13 +26,13 @@ public struct SearchCommand: CommandProtocol {
 
     public func run(_ options: Options) -> Result<Void, MASError> {
         do {
-            let resultList = try storeSearch.search(for: options.appName)
-            if resultList.resultCount <= 0 || resultList.results.isEmpty {
+            let results = try storeSearch.search(for: options.appName)
+            if results.isEmpty {
                 print("No results found")
                 return .failure(.noSearchResultsFound)
             }
 
-            let output = SearchResultFormatter.format(results: resultList.results, includePrice: options.price)
+            let output = SearchResultFormatter.format(results: results, includePrice: options.price)
             print(output)
 
             return .success(())

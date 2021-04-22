@@ -16,8 +16,8 @@ struct StoreSearchForTesting: StoreSearch {
         completion(nil, nil)
     }
 
-    func search(for _: String, _ completion: @escaping (SearchResultList?, Error?) -> Void) {
-        completion(SearchResultList(resultCount: 0, results: []), nil)
+    func search(for _: String, _ completion: @escaping ([SearchResult]?, Error?) -> Void) {
+        completion([], nil)
     }
 }
 

@@ -11,7 +11,7 @@ import Foundation
 /// Protocol for searching the MAS catalog.
 public protocol StoreSearch {
     func lookup(app appId: Int, _ completion: @escaping (SearchResult?, Error?) -> Void)
-    func search(for appName: String, _ completion: @escaping (SearchResultList?, Error?) -> Void)
+    func search(for appName: String, _ completion: @escaping ([SearchResult]?, Error?) -> Void)
 }
 
 // MARK: - Common methods
@@ -45,10 +45,10 @@ extension StoreSearch {
     /// Searches for an app.
     ///
     /// - Parameter appName: MAS ID of app
-    /// - Returns: Search results list of app. List will have no records if there were no matches. Never nil.
+    /// - Returns: Search results. Empty if there were no matches.
     /// - Throws: Error if there is a problem with the network request.
-    public func search(for appName: String) throws -> SearchResultList {
-        var results: SearchResultList?
+    public func search(for appName: String) throws -> [SearchResult] {
+        var results: [SearchResult]?
         var error: Error?
 
         let group = DispatchGroup()

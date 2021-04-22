@@ -29,8 +29,8 @@ public class MasStoreSearch: StoreSearch {
     ///
     /// - Parameter appName: MAS ID of app
     /// - Parameter completion: A closure that receives the search results or an Error if there is a
-    ///   problem with the network request. List will have no records if there were no matches.
-    public func search(for appName: String, _ completion: @escaping (SearchResultList?, Error?) -> Void) {
+    ///   problem with the network request. Results array will be empty if there were no matches.
+    public func search(for appName: String, _ completion: @escaping ([SearchResult]?, Error?) -> Void) {
         guard let url = searchURL(for: appName)
         else {
             completion(nil, MASError.urlEncoding)
@@ -65,11 +65,11 @@ public class MasStoreSearch: StoreSearch {
                 return
             }
 
-            completion(results?.results.first, nil)
+            completion(results?.first, nil)
         }
     }
 
-    public func loadSearchResults(_ url: URL, _ completion: @escaping (SearchResultList?, Error?) -> Void) {
+    public func loadSearchResults(_ url: URL, _ completion: @escaping ([SearchResult]?, Error?) -> Void) {
         networkManager.loadData(from: url) { data, error in
             guard let data = data else {
                 if let error = error {
@@ -109,7 +109,7 @@ public class MasStoreSearch: StoreSearch {
             }
 
             group.notify(queue: DispatchQueue.global()) {
-                completion(results, nil)
+                completion(results.results, nil)
             }
         }
     }

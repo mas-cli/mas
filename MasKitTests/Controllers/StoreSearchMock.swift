@@ -11,9 +11,9 @@
 class StoreSearchMock: StoreSearch {
     var apps: [Int: SearchResult] = [:]
 
-    func search(for appName: String, _ completion: @escaping (SearchResultList?, Error?) -> Void) {
+    func search(for appName: String, _ completion: @escaping ([SearchResult]?, Error?) -> Void) {
         let filtered = apps.filter { $1.trackName.contains(appName) }
-        let results = SearchResultList(resultCount: filtered.count, results: filtered.map { $1 })
+        let results = filtered.map { $1 }
         completion(results, nil)
     }
 
