@@ -51,14 +51,14 @@ class NetworkManager {
 
         group.wait()
 
-        if let error = error {
-            throw error
+        guard error == nil else {
+            throw error!
         }
 
-        if let data = data {
-            return data
+        guard data != nil else {
+            throw MASError.noData
         }
 
-        throw MASError.noData
+        return data!
     }
 }

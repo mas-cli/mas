@@ -40,7 +40,7 @@ public struct OutdatedCommand: CommandProtocol {
             storeSearch.lookup(app: installedApp.itemIdentifier.intValue) { storeApp, error in
                 defer { group.leave() }
 
-                if let error = error {
+                guard error == nil else {
                     // Bubble up MASErrors
                     failure = error as? MASError ?? .searchFailed
                     return
