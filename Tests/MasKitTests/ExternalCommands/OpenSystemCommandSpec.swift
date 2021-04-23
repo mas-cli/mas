@@ -13,6 +13,9 @@ import Quick
 
 public class OpenSystemCommandSpec: QuickSpec {
     public override func spec() {
+        beforeSuite {
+            MasKit.initialize()
+        }
         describe("open system command") {
             context("binary path") {
                 it("defaults to the macOS open command") {

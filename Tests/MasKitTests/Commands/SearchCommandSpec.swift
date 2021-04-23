@@ -21,6 +21,9 @@ public class SearchCommandSpec: QuickSpec {
         )
         let storeSearch = StoreSearchMock()
 
+        beforeSuite {
+            MasKit.initialize()
+        }
         describe("search command") {
             beforeEach {
                 storeSearch.reset()

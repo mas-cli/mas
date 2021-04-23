@@ -13,6 +13,9 @@ import Quick
 
 public class LuckyCommandSpec: QuickSpec {
     public override func spec() {
+        beforeSuite {
+            MasKit.initialize()
+        }
         describe("lucky command") {
             it("installs the first app matching a search") {
                 let cmd = LuckyCommand()

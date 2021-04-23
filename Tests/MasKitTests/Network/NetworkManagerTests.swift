@@ -11,6 +11,11 @@ import XCTest
 @testable import MasKit
 
 class NetworkManagerTests: XCTestCase {
+    public override func setUp() {
+        super.setUp()
+        MasKit.initialize()
+    }
+
     func testSuccessfulAsyncResponse() {
         // Setup our objects
         let session = NetworkSessionMock()

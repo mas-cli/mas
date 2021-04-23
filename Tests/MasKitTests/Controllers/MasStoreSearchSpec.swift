@@ -13,6 +13,9 @@ import Quick
 
 public class MasStoreSearchSpec: QuickSpec {
     public override func spec() {
+        beforeSuite {
+            MasKit.initialize()
+        }
         describe("store") {
             context("when searched") {
                 it("can find slack") {

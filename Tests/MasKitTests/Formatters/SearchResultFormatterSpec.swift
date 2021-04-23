@@ -17,6 +17,9 @@ public class SearchResultsFormatterSpec: QuickSpec {
         let format = SearchResultFormatter.format(results:includePrice:)
         var results: [SearchResult] = []
 
+        beforeSuite {
+            MasKit.initialize()
+        }
         describe("search results formatter") {
             beforeEach {
                 results = []

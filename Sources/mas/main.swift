@@ -10,6 +10,8 @@ import Commandant
 import Foundation
 import MasKit
 
+MasKit.initialize()
+
 struct StderrOutputStream: TextOutputStream {
     mutating func write(_ string: String) {
         fputs(string, stderr)
