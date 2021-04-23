@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import PromiseKit
 @testable import MasKit
 
 /// Mock NetworkSession for testing.
@@ -22,7 +22,11 @@ class NetworkSessionMock: NetworkSession {
     /// - Parameters:
     ///   - url: unused
     ///   - completionHandler: Closure which is delivered either data or an error.
-    func loadData(from _: URL, completionHandler: @escaping (Data?, Error?) -> Void) {
-        completionHandler(data, error)
+    func loadData(from _: URL) -> Promise<Data> {
+        guard let data = data else {
+            return Promise(error: error ?? MASError.noData)
+        }
+
+        return .value(data)
     }
 }

@@ -7,12 +7,21 @@
 //
 
 import Foundation
+import PromiseKit
 
 extension URLSession: NetworkSession {
-    open func loadData(from url: URL, completionHandler: @escaping (Data?, Error?) -> Void) {
-        let task = dataTask(with: url) { data, _, error in
-            completionHandler(data, error)
+    open func loadData(from url: URL) -> Promise<Data> {
+        Promise { seal in
+            dataTask(with: url) { data, _, error in
+                if let data = data {
+                    seal.fulfill(data)
+                } else if let error = error {
+                    seal.reject(error)
+                } else {
+                    seal.reject(MASError.noData)
+                }
+            }
+            .resume()
         }
-        task.resume()
     }
 }

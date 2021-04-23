@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import PromiseKit
 
 /// Network abstraction
 class NetworkManager {
@@ -29,9 +30,9 @@ class NetworkManager {
     ///
     /// - Parameters:
     ///   - url: URL to load data from.
-    ///   - completionHandler: Closure where result is delivered.
-    func loadData(from url: URL, completionHandler: @escaping (Data?, Error?) -> Void) {
-        session.loadData(from: url, completionHandler: completionHandler)
+    /// - Returns: A Promise for the Data of the response.
+    func loadData(from url: URL) -> Promise<Data> {
+        session.loadData(from: url)
     }
 
     /// Loads data synchronously.
@@ -39,26 +40,6 @@ class NetworkManager {
     /// - Parameter url: URL to load data from.
     /// - Returns: The Data of the response.
     func loadDataSync(from url: URL) throws -> Data {
-        var data: Data?
-        var error: Error?
-        let group = DispatchGroup()
-        group.enter()
-        session.loadData(from: url) {
-            data = $0
-            error = $1
-            group.leave()
-        }
-
-        group.wait()
-
-        guard error == nil else {
-            throw error!
-        }
-
-        guard data != nil else {
-            throw MASError.noData
-        }
-
-        return data!
+        try session.loadData(from: url).wait()
     }
 }
