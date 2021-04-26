@@ -65,11 +65,6 @@ if command -v mas >/dev/null; then
   script/uninstall || true # ignore failure
 fi
 
-# Purge the Carthage cache to avoid this error from Homebrew sandboxing:
-# A shell task (/usr/bin/env git checkout --quiet --force 0.15.0 (launched in /Users/ben/Library/Caches/org.carthage.CarthageKit/dependencies/Commandant)) failed with exit code 128:
-# fatal: Unable to create '/Users/ben/Library/Caches/org.carthage.CarthageKit/dependencies/Commandant/./index.lock': Operation not permitted
-rm -rf ~/Library/Caches/org.carthage.CarthageKit
-
 ################################################################################
 #
 # Build the formula for the current macOS version and architecture.

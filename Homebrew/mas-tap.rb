@@ -18,7 +18,6 @@ class Mas < Formula
     sha256 cellar: :any, el_capitan:    "d54d864976f78665d5175fd9e69ab81b3911fa28fd6ae627b61a18d55d68191a"
   end
 
-  depends_on "carthage" => :build
   depends_on :macos
   if Hardware::CPU.arm?
     depends_on xcode: ["12.2", :build]
@@ -37,8 +36,6 @@ class Mas < Formula
     EOS
     ENV["XCODE_XCCONFIG_FILE"] = xcconfig
 
-    # Only build necessary dependencies
-    system "carthage", "bootstrap", "--platform", "macOS", "Commandant"
     system "script/install", prefix
 
     bash_completion.install "contrib/completion/mas-completion.bash" => "mas"

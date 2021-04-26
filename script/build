@@ -19,11 +19,6 @@ main() {
   xcodebuild -version
   script/clean
 
-  carthage build \
-    --platform macOS \
-    --cache-builds \
-    --configuration "$CONFIG"
-
   archive
 }
 
