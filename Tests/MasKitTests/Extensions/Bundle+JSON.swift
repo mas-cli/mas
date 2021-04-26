@@ -24,7 +24,13 @@ extension Bundle {
     /// - Parameter fileName: Name of file to locate.
     /// - Returns: URL to file.
     static func url(for fileName: String) -> URL? {
-        Bundle(for: NetworkSessionMock.self).url(for: fileName)
+        var bundle = Bundle(for: NetworkSessionMock.self)
+        #if SWIFT_PACKAGE
+        // The Swift Package Manager places resources in a separate bundle from the executable.
+        bundle =
+            Bundle(url: bundle.bundleURL.deletingLastPathComponent().appendingPathComponent("mas_MasKitTests.bundle"))!
+        #endif
+        return bundle.url(for: fileName)
     }
 
     /// Builds a URL for a file in the JSON directory of the current bundle.
@@ -33,13 +39,13 @@ extension Bundle {
     /// - Returns: URL to file.
     func url(for fileName: String) -> URL? {
         guard
-            let path = self.path(
+            let url = self.url(
                 forResource: fileName.fileNameWithoutExtension,
-                ofType: fileName.fileExtension,
-                inDirectory: "JSON"
+                withExtension: fileName.fileExtension,
+                subdirectory: "JSON"
             )
         else { fatalError("Unable to load file \(fileName)") }
 
-        return URL(fileURLWithPath: path)
+        return url
     }
 }

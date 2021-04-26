@@ -234,6 +234,7 @@
 		B5DBF81221DEEC7C00F3B151 /* OpenCommandSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenCommandSpec.swift; sourceTree = "<group>"; };
 		B5DBF81421E02BA900F3B151 /* StoreSearchMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreSearchMock.swift; sourceTree = "<group>"; };
 		B5DBF81621E02E3400F3B151 /* OpenSystemCommandMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSystemCommandMock.swift; sourceTree = "<group>"; };
+		C56F16DF2637825300EAC548 /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		ED031A781B5127C00097692E /* mas */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = mas; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED031A7B1B5127C00097692E /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		ED0F237E1B87522400AE40CD /* Install.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Install.swift; sourceTree = "<group>"; };
@@ -543,6 +544,7 @@
 				C56F16DB2637711100EAC548 /* Sources */,
 				C56F16DC2637711900EAC548 /* Tests */,
 				ED031A791B5127C00097692E /* Products */,
+				C56F16DF2637825300EAC548 /* Package.swift */,
 			);
 			sourceTree = "<group>";
 		};

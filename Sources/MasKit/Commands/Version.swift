@@ -7,6 +7,7 @@
 //
 
 import Commandant
+import Foundation
 
 /// Command which displays the version of the mas tool.
 public struct VersionCommand: CommandProtocol {

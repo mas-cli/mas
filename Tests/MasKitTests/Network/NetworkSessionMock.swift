@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 @testable import MasKit
 
 /// Mock NetworkSession for testing.

@@ -22,9 +22,11 @@
 .VolumeIcon.icns
 ._*
 .apdisk
+.build/
 .envrc
 .fseventsd
 .rubygems/
+.swiftpm/
 Carthage/
 DerivedData
 Pods/

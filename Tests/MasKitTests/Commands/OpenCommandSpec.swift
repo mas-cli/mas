@@ -6,6 +6,7 @@
 //  Copyright © 2019 mas-cli. All rights reserved.
 //
 
+import Foundation
 import Nimble
 import Quick
 

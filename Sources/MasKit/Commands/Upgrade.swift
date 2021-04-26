@@ -7,6 +7,7 @@
 //
 
 import Commandant
+import Foundation
 
 /// Command which upgrades apps with new versions available in the Mac App Store.
 public struct UpgradeCommand: CommandProtocol {
