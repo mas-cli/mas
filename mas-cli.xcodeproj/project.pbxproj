@@ -22,7 +22,6 @@
 		B576FE0021E113610016B39D /* NetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FDFF21E113610016B39D /* NetworkSession.swift */; };
 		B576FE0221E1139E0016B39D /* URLSession+NetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE0121E1139E0016B39D /* URLSession+NetworkSession.swift */; };
 		B576FE0421E113E90016B39D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE0321E113E90016B39D /* NetworkManager.swift */; };
-		B576FE0821E114A80016B39D /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE0721E114A80016B39D /* NetworkResult.swift */; };
 		B576FE0C21E116590016B39D /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE0B21E116590016B39D /* NetworkManagerTests.swift */; };
 		B576FE0E21E1D6310016B39D /* String+PercentEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE0D21E1D6310016B39D /* String+PercentEncoding.swift */; };
 		B576FE1221E1D82D0016B39D /* NetworkSessionMockFromFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE1121E1D82D0016B39D /* NetworkSessionMockFromFile.swift */; };
@@ -30,7 +29,6 @@
 		B576FE1621E1D8CB0016B39D /* String+FileExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE1521E1D8CB0016B39D /* String+FileExtension.swift */; };
 		B576FE1B21E28E8A0016B39D /* NetworkSessionMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE1A21E28E8A0016B39D /* NetworkSessionMock.swift */; };
 		B576FE1D21E28EF70016B39D /* URLSessionDataTaskMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE1C21E28EF70016B39D /* URLSessionDataTaskMock.swift */; };
-		B576FE2821E423E60016B39D /* Dictionary+StringOrEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE2721E423E60016B39D /* Dictionary+StringOrEmpty.swift */; };
 		B576FE2A21E4240B0016B39D /* AppInfoFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE2921E4240B0016B39D /* AppInfoFormatter.swift */; };
 		B576FE2C21E42A230016B39D /* OutputListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE2B21E42A230016B39D /* OutputListener.swift */; };
 		B576FE2E21E5A8010016B39D /* Strongify.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE2D21E5A8010016B39D /* Strongify.swift */; };
@@ -188,7 +186,6 @@
 		B576FDFF21E113610016B39D /* NetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSession.swift; sourceTree = "<group>"; };
 		B576FE0121E1139E0016B39D /* URLSession+NetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+NetworkSession.swift"; sourceTree = "<group>"; };
 		B576FE0321E113E90016B39D /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		B576FE0721E114A80016B39D /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		B576FE0B21E116590016B39D /* NetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
 		B576FE0D21E1D6310016B39D /* String+PercentEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+PercentEncoding.swift"; sourceTree = "<group>"; };
 		B576FE1121E1D82D0016B39D /* NetworkSessionMockFromFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkSessionMockFromFile.swift; sourceTree = "<group>"; };
@@ -196,7 +193,6 @@
 		B576FE1521E1D8CB0016B39D /* String+FileExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+FileExtension.swift"; sourceTree = "<group>"; };
 		B576FE1A21E28E8A0016B39D /* NetworkSessionMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkSessionMock.swift; sourceTree = "<group>"; };
 		B576FE1C21E28EF70016B39D /* URLSessionDataTaskMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionDataTaskMock.swift; sourceTree = "<group>"; };
-		B576FE2721E423E60016B39D /* Dictionary+StringOrEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+StringOrEmpty.swift"; sourceTree = "<group>"; };
 		B576FE2921E4240B0016B39D /* AppInfoFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoFormatter.swift; sourceTree = "<group>"; };
 		B576FE2B21E42A230016B39D /* OutputListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputListener.swift; sourceTree = "<group>"; };
 		B576FE2D21E5A8010016B39D /* Strongify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strongify.swift; sourceTree = "<group>"; };
@@ -348,7 +344,6 @@
 			isa = PBXGroup;
 			children = (
 				B576FE0321E113E90016B39D /* NetworkManager.swift */,
-				B576FE0721E114A80016B39D /* NetworkResult.swift */,
 				B576FDFF21E113610016B39D /* NetworkSession.swift */,
 				B576FE0121E1139E0016B39D /* URLSession+NetworkSession.swift */,
 			);
@@ -407,7 +402,6 @@
 		B576FE1F21E290720016B39D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				B576FE2721E423E60016B39D /* Dictionary+StringOrEmpty.swift */,
 				B576FE0D21E1D6310016B39D /* String+PercentEncoding.swift */,
 			);
 			path = Extensions;
@@ -524,14 +518,30 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		C56F16DB2637711100EAC548 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				ED031A7A1B5127C00097692E /* mas */,
+				F8FB715320F2B41400F56FDC /* MasKit */,
+				F8FB719920F2EC4500F56FDC /* PrivateFrameworks */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		C56F16DC2637711900EAC548 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				F8FB715E20F2B41400F56FDC /* MasKitTests */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
 		ED031A6F1B5127C00097692E = {
 			isa = PBXGroup;
 			children = (
 				EDFC76381B642A2E00D0DBD7 /* Frameworks */,
-				ED031A7A1B5127C00097692E /* mas */,
-				F8FB715320F2B41400F56FDC /* MasKit */,
-				F8FB715E20F2B41400F56FDC /* MasKitTests */,
-				F8FB719920F2EC4500F56FDC /* PrivateFrameworks */,
+				C56F16DB2637711100EAC548 /* Sources */,
+				C56F16DC2637711900EAC548 /* Tests */,
 				ED031A791B5127C00097692E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -917,7 +927,6 @@
 				B594B12721D5825800F3AC59 /* AppLibrary.swift in Sources */,
 				F85DA8B2240CBAFE00FE5650 /* CKSoftwareMap+SoftwareMap.swift in Sources */,
 				B594B12B21D5837200F3AC59 /* CKSoftwareProduct+SoftwareProduct.swift in Sources */,
-				B576FE2821E423E60016B39D /* Dictionary+StringOrEmpty.swift in Sources */,
 				F8FB716A20F2B4DD00F56FDC /* Downloader.swift in Sources */,
 				B588CE0221DC89490047D305 /* ExternalCommand.swift in Sources */,
 				B594B14C21D8983700F3AC59 /* Home.swift in Sources */,
@@ -930,7 +939,6 @@
 				F8FB717B20F2B4DD00F56FDC /* MASError.swift in Sources */,
 				B594B15221D89A8B00F3AC59 /* MasStoreSearch.swift in Sources */,
 				B576FE0421E113E90016B39D /* NetworkManager.swift in Sources */,
-				B576FE0821E114A80016B39D /* NetworkResult.swift in Sources */,
 				B576FE0021E113610016B39D /* NetworkSession.swift in Sources */,
 				B5DBF80D21DEE4E600F3B151 /* Open.swift in Sources */,
 				B576FDF721E107AA0016B39D /* OpenSystemCommand.swift in Sources */,
@@ -1150,7 +1158,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INFOPLIST_FILE = "mas/mas-Info.plist";
+				INFOPLIST_FILE = "Sources/mas/mas-Info.plist";
 				INSTALL_PATH = /bin;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@executable_path/.",
@@ -1175,7 +1183,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_LOCATION = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INFOPLIST_FILE = "mas/mas-Info.plist";
+				INFOPLIST_FILE = "Sources/mas/mas-Info.plist";
 				INSTALL_PATH = /bin;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@executable_path/.",
@@ -1214,7 +1222,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				FRAMEWORK_VERSION = A;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = MasKit/SupportingFiles/Info.plist;
+				INFOPLIST_FILE = Sources/MasKit/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1225,7 +1233,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = at.phatbl.MasKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_INCLUDE_PATHS = "$(inherited) $(SRCROOT)/PrivateFrameworks/CommerceKit $(SRCROOT)/PrivateFrameworks/StoreFoundation";
+				SWIFT_INCLUDE_PATHS = "$(inherited) $(SRCROOT)/Sources/PrivateFrameworks/CommerceKit $(SRCROOT)/Sources/PrivateFrameworks/StoreFoundation";
 			};
 			name = Debug;
 		};
@@ -1249,7 +1257,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				FRAMEWORK_VERSION = A;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = MasKit/SupportingFiles/Info.plist;
+				INFOPLIST_FILE = Sources/MasKit/SupportingFiles/Info.plist;
 				INSTALL_PATH = /Frameworks;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1260,7 +1268,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = at.phatbl.MasKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_INCLUDE_PATHS = "$(inherited) $(SRCROOT)/PrivateFrameworks/CommerceKit $(SRCROOT)/PrivateFrameworks/StoreFoundation";
+				SWIFT_INCLUDE_PATHS = "$(inherited) $(SRCROOT)/Sources/PrivateFrameworks/CommerceKit $(SRCROOT)/Sources/PrivateFrameworks/StoreFoundation";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
@@ -1281,7 +1289,7 @@
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = MasKitTests/SupportingFiles/Info.plist;
+				INFOPLIST_FILE = Tests/MasKitTests/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1313,7 +1321,7 @@
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = MasKitTests/SupportingFiles/Info.plist;
+				INFOPLIST_FILE = Tests/MasKitTests/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",

@@ -24,7 +24,7 @@ check_class_dump() {
 extract_private_framework_headers() {
   local framework_name="$1"
   shift
-  local directory="PrivateFrameworks/${framework_name}"
+  local directory="Sources/PrivateFrameworks/${framework_name}"
   mkdir -p "$directory"
   class-dump -Ho "$directory" "/System/Library/PrivateFrameworks/${framework_name}.framework"
 }
