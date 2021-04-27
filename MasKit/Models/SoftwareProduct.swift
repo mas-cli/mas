@@ -6,8 +6,11 @@
 //  Copyright © 2018 mas-cli. All rights reserved.
 //
 
+import Foundation
+import Version
+
 /// Protocol describing the members of CKSoftwareProduct used throughout MasKit.
-public protocol SoftwareProduct {
+protocol SoftwareProduct {
     var appName: String { get }
     var bundleIdentifier: String { get set }
     var bundlePath: String { get set }
@@ -28,5 +31,20 @@ extension SoftwareProduct {
     /// Returns bundleIdentifier if appName is empty string.
     var appNameOrBbundleIdentifier: String {
         appName == "" ? bundleIdentifier : appName
+    }
+
+    func isOutdatedWhenComparedTo(_ storeApp: SearchResult) -> Bool {
+        // The App Store does not enforce semantic versioning, but we assume most apps follow versioning
+        // schemes that increase numerically over time.
+        guard let semanticBundleVersion = Version(tolerant: bundleVersion),
+            let semanticAppStoreVersion = Version(tolerant: storeApp.version)
+        else {
+            // If a version string can't be parsed as a Semantic Version, our best effort is to check for
+            // equality. The only version that matters is the one in the App Store.
+            // https://semver.org
+            return bundleVersion != storeApp.version
+        }
+
+        return semanticBundleVersion < semanticAppStoreVersion
     }
 }

@@ -9,17 +9,13 @@
 import Foundation
 
 /// Network abstraction
-public class NetworkManager {
-    enum NetworkError: Error {
-        case timeout
-    }
-
+class NetworkManager {
     private let session: NetworkSession
 
     /// Designated initializer
     ///
     /// - Parameter session: A networking session.
-    public init(session: NetworkSession = URLSession(configuration: .ephemeral)) {
+    init(session: NetworkSession = URLSession(configuration: .ephemeral)) {
         self.session = session
 
         // Older releases allowed URLSession to write a cache. We clean it up here.
@@ -34,34 +30,35 @@ public class NetworkManager {
     /// - Parameters:
     ///   - url: URL to load data from.
     ///   - completionHandler: Closure where result is delivered.
-    func loadData(from url: URL, completionHandler: @escaping (NetworkResult) -> Void) {
-        session.loadData(from: url) { (data: Data?, error: Error?) in
-            let result: NetworkResult =
-                data != nil
-                ? .success(data!)
-                : .failure(error!)
-            completionHandler(result)
-        }
+    func loadData(from url: URL, completionHandler: @escaping (Data?, Error?) -> Void) {
+        session.loadData(from: url, completionHandler: completionHandler)
     }
 
     /// Loads data synchronously.
     ///
     /// - Parameter url: URL to load data from.
-    /// - Returns: Network result containing either Data or an Error.
-    func loadDataSync(from url: URL) -> NetworkResult {
-        var syncResult: NetworkResult?
-        let semaphore = DispatchSemaphore(value: 0)
-
-        loadData(from: url) { asyncResult in
-            syncResult = asyncResult
-            semaphore.signal()
-        }
-        _ = semaphore.wait(timeout: .distantFuture)
-
-        guard let result = syncResult else {
-            return .failure(NetworkError.timeout)
+    /// - Returns: The Data of the response.
+    func loadDataSync(from url: URL) throws -> Data {
+        var data: Data?
+        var error: Error?
+        let group = DispatchGroup()
+        group.enter()
+        session.loadData(from: url) {
+            data = $0
+            error = $1
+            group.leave()
         }
 
-        return result
+        group.wait()
+
+        guard error == nil else {
+            throw error!
+        }
+
+        guard data != nil else {
+            throw MASError.noData
+        }
+
+        return data!
     }
 }

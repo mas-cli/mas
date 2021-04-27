@@ -9,7 +9,7 @@
 import Foundation
 
 extension URLSession: NetworkSession {
-    @objc open func loadData(from url: URL, completionHandler: @escaping (Data?, Error?) -> Void) {
+    open func loadData(from url: URL, completionHandler: @escaping (Data?, Error?) -> Void) {
         let task = dataTask(with: url) { data, _, error in
             completionHandler(data, error)
         }

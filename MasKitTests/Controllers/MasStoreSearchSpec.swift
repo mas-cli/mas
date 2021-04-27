@@ -19,11 +19,10 @@ class MasStoreSearchSpec: QuickSpec {
                     let networkSession = NetworkSessionMockFromFile(responseFile: "search/slack.json")
                     let storeSearch = MasStoreSearch(networkManager: NetworkManager(session: networkSession))
 
-                    var searchList: SearchResultList
+                    var results: [SearchResult]
                     do {
-                        searchList = try storeSearch.search(for: "slack")
-                        expect(searchList.resultCount) == 39
-                        expect(searchList.results.count) == 39
+                        results = try storeSearch.search(for: "slack")
+                        expect(results.count) == 39
                     } catch {
                         let maserror = error as! MASError
                         if case let .jsonParsing(nserror) = maserror {

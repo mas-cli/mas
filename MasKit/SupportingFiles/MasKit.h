@@ -6,7 +6,7 @@
 //  Copyright © 2018 Andrew Naylor. All rights reserved.
 //
 
-@import Cocoa;
+@import Foundation;
 
 //! Project version number for MasKit.
 FOUNDATION_EXPORT double MasKitVersionNumber;
