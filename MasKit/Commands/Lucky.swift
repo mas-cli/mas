@@ -19,9 +19,13 @@ public struct LuckyCommand: CommandProtocol {
     private let appLibrary: AppLibrary
     private let storeSearch: StoreSearch
 
-    /// Public initializer.
+    public init() {
+        self.init(storeSearch: MasStoreSearch())
+    }
+
+    /// Designated initializer.
     /// - Parameter storeSearch: Search manager.
-    public init(storeSearch: StoreSearch = MasStoreSearch()) {
+    init(storeSearch: StoreSearch = MasStoreSearch()) {
         self.init(appLibrary: MasAppLibrary(), storeSearch: storeSearch)
     }
 
@@ -42,7 +46,7 @@ public struct LuckyCommand: CommandProtocol {
 
         do {
             let results = try storeSearch.search(for: options.appName)
-            guard let result = results.results.first else {
+            guard let result = results.first else {
                 print("No results found")
                 return .failure(.noSearchResultsFound)
             }

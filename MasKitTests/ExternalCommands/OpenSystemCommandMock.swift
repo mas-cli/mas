@@ -6,6 +6,7 @@
 //  Copyright © 2019 mas-cli. All rights reserved.
 //
 
+import Foundation
 @testable import MasKit
 
 class OpenSystemCommandMock: ExternalCommand {

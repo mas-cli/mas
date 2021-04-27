@@ -57,7 +57,7 @@ func download(_ adamId: UInt64, purchase: Bool = false) -> MASError? {
         }
     }
 
-    _ = group.wait(timeout: .distantFuture)
+    group.wait()
 
     if let observerIdentifier = observerIdentifier {
         CKDownloadQueue.shared().remove(observerIdentifier)

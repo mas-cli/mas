@@ -17,8 +17,12 @@ public struct InfoCommand: CommandProtocol {
 
     private let storeSearch: StoreSearch
 
+    public init() {
+        self.init(storeSearch: MasStoreSearch())
+    }
+
     /// Designated initializer.
-    public init(storeSearch: StoreSearch = MasStoreSearch()) {
+    init(storeSearch: StoreSearch = MasStoreSearch()) {
         self.storeSearch = storeSearch
     }
 

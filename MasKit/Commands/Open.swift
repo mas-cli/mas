@@ -22,8 +22,15 @@ public struct OpenCommand: CommandProtocol {
     private let storeSearch: StoreSearch
     private var systemOpen: ExternalCommand
 
+    public init() {
+        self.init(
+            storeSearch: MasStoreSearch(),
+            openCommand: OpenSystemCommand()
+        )
+    }
+
     /// Designated initializer.
-    public init(
+    init(
         storeSearch: StoreSearch = MasStoreSearch(),
         openCommand: ExternalCommand = OpenSystemCommand()
     ) {

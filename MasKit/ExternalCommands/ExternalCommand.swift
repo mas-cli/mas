@@ -6,8 +6,10 @@
 //  Copyright © 2019 mas-cli. All rights reserved.
 //
 
+import Foundation
+
 /// CLI command
-public protocol ExternalCommand {
+protocol ExternalCommand {
     var binaryPath: String { get set }
 
     var process: Process { get }
@@ -17,7 +19,7 @@ public protocol ExternalCommand {
     var stdoutPipe: Pipe { get }
     var stderrPipe: Pipe { get }
 
-    var exitCode: Int? { get }
+    var exitCode: Int32 { get }
     var succeeded: Bool { get }
     var failed: Bool { get }
 
@@ -27,42 +29,37 @@ public protocol ExternalCommand {
 
 /// Common implementation
 extension ExternalCommand {
-    public var stdout: String {
+    var stdout: String {
         let data = stdoutPipe.fileHandleForReading.readDataToEndOfFile()
         return String(data: data, encoding: .utf8) ?? ""
     }
 
-    public var stderr: String {
+    var stderr: String {
         let data = stderrPipe.fileHandleForReading.readDataToEndOfFile()
         return String(data: data, encoding: .utf8) ?? ""
     }
 
-    public var exitCode: Int? {
-        Int(process.terminationStatus)
+    var exitCode: Int32 {
+        process.terminationStatus
     }
 
-    public var succeeded: Bool {
-        exitCode == 0
+    var succeeded: Bool {
+        process.terminationReason == .exit && exitCode == 0
     }
 
-    public var failed: Bool {
+    var failed: Bool {
         !succeeded
     }
 
     /// Runs the command.
-    public func run(arguments: String...) throws {
+    func run(arguments: String...) throws {
         process.standardOutput = stdoutPipe
         process.standardError = stderrPipe
         process.arguments = arguments
 
-        if #available(OSX 10.13, *) {
+        if #available(macOS 10.13, *) {
             process.executableURL = URL(fileURLWithPath: binaryPath)
-            do {
-                try process.run()
-            } catch {
-                printError("Unable to launch command")
-                // return throw Error()
-            }
+            try process.run()
         } else {
             process.launchPath = binaryPath
             process.launch()
