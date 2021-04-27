@@ -19,11 +19,7 @@ struct AppListFormatter {
     /// - Returns: Multiliune text outoutp.
     static func format(products: [SoftwareProduct]) -> String {
         // find longest appName for formatting, default 50
-        let maxLength =
-            products.map(\.appNameOrBbundleIdentifier)
-            .max(by: { $1.count > $0.count })?
-            .count
-            ?? nameColumnMinWidth
+        let maxLength = products.map(\.appNameOrBbundleIdentifier.count).max() ?? nameColumnMinWidth
 
         var output: String = ""
 
