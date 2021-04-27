@@ -30,7 +30,7 @@ extension SoftwareProduct {
 
     /// Returns bundleIdentifier if appName is empty string.
     var appNameOrBundleIdentifier: String {
-        appName == "" ? bundleIdentifier : appName
+        appName.isEmpty ? bundleIdentifier : appName
     }
 
     func isOutdatedWhenComparedTo(_ storeApp: SearchResult) -> Bool {
