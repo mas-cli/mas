@@ -227,5 +227,5 @@ Code is under the [MIT license](LICENSE).
 
 [homebrew-bundle]: https://github.com/Homebrew/homebrew-bundle
 [mas-cli]: https://github.com/mas-cli/mas
-[`softwareupdate(8)`]: https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man8/softwareupdate.8.html
+[`softwareupdate(8)`]: https://www.unix.com/man-page/osx/8/softwareupdate/
 [Quick]: https://github.com/Quick/Quick
