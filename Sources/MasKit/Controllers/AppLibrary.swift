@@ -19,18 +19,6 @@ protocol AppLibrary {
     /// - Returns: Software Product of app if found; nil otherwise.
     func installedApp(forId: UInt64) -> SoftwareProduct?
 
-    /// Finds an app by it's bundle identifier.
-    ///
-    /// - Parameter forBundleId: Bundle identifier of app.
-    /// - Returns: Software Product of app if found; nil otherwise.
-    func installedApp(forBundleId: String) -> SoftwareProduct?
-
-    /// Finds an app by name.
-    ///
-    /// - Parameter named: Name of app.
-    /// - Returns: Software Product of app if found; nil otherwise.
-    func installedApp(named: String) -> SoftwareProduct?
-
     /// Uninstalls an app.
     ///
     /// - Parameter app: App to be removed.
