@@ -29,7 +29,7 @@ extension SoftwareProduct {
     }
 
     /// Returns bundleIdentifier if appName is empty string.
-    var appNameOrBbundleIdentifier: String {
+    var appNameOrBundleIdentifier: String {
         appName == "" ? bundleIdentifier : appName
     }
 
