@@ -32,64 +32,82 @@ public struct UpgradeCommand: CommandProtocol {
 
     /// Runs the command.
     public func run(_ options: Options) -> Result<Void, MASError> {
+        let apps: [SoftwareProduct]
         do {
-            let apps =
-                try
-                (options.apps.count == 0
-                ? appLibrary.installedApps
-                : options.apps.compactMap {
-                    if let appId = UInt64($0) {
-                        // if argument a UInt64, lookup app by id using argument
-                        return appLibrary.installedApp(forId: appId)
-                    } else {
-                        // if argument not a UInt64, lookup app by name using argument
-                        return appLibrary.installedApp(named: $0)
-                    }
-                })
-                .compactMap { (installedApp: SoftwareProduct) -> SoftwareProduct? in
-                    // only upgrade apps whose local version differs from the store version
-                    if let storeApp = try storeSearch.lookup(app: installedApp.itemIdentifier.intValue) {
-                        return storeApp.version != installedApp.bundleVersion
-                            ? installedApp
-                            : nil
-                    } else {
-                        return nil
-                    }
-                }
-
-            guard apps.count > 0 else {
-                printWarning("Nothing found to upgrade")
-                return .success(())
-            }
-
-            print("Upgrading \(apps.count) outdated application\(apps.count > 1 ? "s" : ""):")
-            print(apps.map { "\($0.appName) (\($0.bundleVersion))" }.joined(separator: ", "))
-
-            var updatedAppCount = 0
-            var failedUpgradeResults = [MASError]()
-            for app in apps {
-                if let upgradeResult = download(app.itemIdentifier.uint64Value) {
-                    failedUpgradeResults.append(upgradeResult)
-                } else {
-                    updatedAppCount += 1
-                }
-            }
-
-            switch failedUpgradeResults.count {
-            case 0:
-                if updatedAppCount == 0 {
-                    print("Everything is up-to-date")
-                }
-                return .success(())
-            case 1:
-                return .failure(failedUpgradeResults[0])
-            default:
-                return .failure(.downloadFailed(error: nil))
-            }
+            apps = try findOutdatedApps(options)
         } catch {
             // Bubble up MASErrors
             return .failure(error as? MASError ?? .searchFailed)
         }
+
+        guard apps.count > 0 else {
+            printWarning("Nothing found to upgrade")
+            return .success(())
+        }
+
+        print("Upgrading \(apps.count) outdated application\(apps.count > 1 ? "s" : ""):")
+        print(apps.map { "\($0.appName) (\($0.bundleVersion))" }.joined(separator: ", "))
+
+        var updatedAppCount = 0
+        var failedUpgradeResults = [MASError]()
+        for app in apps {
+            if let upgradeResult = download(app.itemIdentifier.uint64Value) {
+                failedUpgradeResults.append(upgradeResult)
+            } else {
+                updatedAppCount += 1
+            }
+        }
+
+        switch failedUpgradeResults.count {
+        case 0:
+            if updatedAppCount == 0 {
+                print("Everything is up-to-date")
+            }
+            return .success(())
+        case 1:
+            return .failure(failedUpgradeResults[0])
+        default:
+            return .failure(.downloadFailed(error: nil))
+        }
+    }
+
+    private func findOutdatedApps(_ options: Options) throws -> [SoftwareProduct] {
+        var apps: [SoftwareProduct]
+        if options.apps.isEmpty {
+            apps = appLibrary.installedApps
+        } else {
+            apps = options.apps.compactMap {
+                if let appId = UInt64($0) {
+                    // if argument a UInt64, lookup app by id using argument
+                    return appLibrary.installedApp(forId: appId)
+                } else {
+                    // if argument not a UInt64, lookup app by name using argument
+                    return appLibrary.installedApp(named: $0)
+                }
+            }
+        }
+
+        var outdated = [SoftwareProduct]()
+        let group = DispatchGroup()
+        let semaphore = DispatchSemaphore(value: 1)
+        for installedApp in apps {
+            // only upgrade apps whose local version differs from the store version
+            group.enter()
+            storeSearch.lookup(app: installedApp.itemIdentifier.intValue) { result, _ in
+                defer { group.leave() }
+
+                if let storeApp = result, installedApp.isOutdatedWhenComparedTo(storeApp) {
+                    semaphore.wait()
+                    defer { semaphore.signal() }
+
+                    outdated.append(installedApp)
+                }
+            }
+        }
+
+        group.wait()
+
+        return outdated
     }
 }
 

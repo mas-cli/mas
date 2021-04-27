@@ -6,13 +6,12 @@
 //  Copyright © 2018 mas-cli. All rights reserved.
 //
 
+import Foundation
+
 /// Utility for managing installed apps.
-public protocol AppLibrary {
+protocol AppLibrary {
     /// Entire set of installed apps.
     var installedApps: [SoftwareProduct] { get }
-
-    /// Map of app name to ID.
-    var appIdsByName: [String: UInt64] { get }
 
     /// Finds an app by ID.
     ///
@@ -41,20 +40,11 @@ public protocol AppLibrary {
 
 /// Common logic
 extension AppLibrary {
-    /// Map of app name to ID.
-    public var appIdsByName: [String: UInt64] {
-        var destMap = [String: UInt64]()
-        for product in installedApps {
-            destMap[product.appName] = product.itemIdentifier.uint64Value
-        }
-        return destMap
-    }
-
     /// Finds an app by name.
     ///
     /// - Parameter id: MAS ID for app.
     /// - Returns: Software Product of app if found; nil otherwise.
-    public func installedApp(forId identifier: UInt64) -> SoftwareProduct? {
+    func installedApp(forId identifier: UInt64) -> SoftwareProduct? {
         let appId = NSNumber(value: identifier)
         return installedApps.first { $0.itemIdentifier == appId }
     }
@@ -63,7 +53,7 @@ extension AppLibrary {
     ///
     /// - Parameter appName: Full title of an app.
     /// - Returns: Software Product of app if found; nil otherwise.
-    public func installedApp(named appName: String) -> SoftwareProduct? {
+    func installedApp(named appName: String) -> SoftwareProduct? {
         installedApps.first { $0.appName == appName }
     }
 }

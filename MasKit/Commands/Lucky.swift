@@ -19,9 +19,13 @@ public struct LuckyCommand: CommandProtocol {
     private let appLibrary: AppLibrary
     private let storeSearch: StoreSearch
 
-    /// Public initializer.
+    public init() {
+        self.init(storeSearch: MasStoreSearch())
+    }
+
+    /// Designated initializer.
     /// - Parameter storeSearch: Search manager.
-    public init(storeSearch: StoreSearch = MasStoreSearch()) {
+    init(storeSearch: StoreSearch = MasStoreSearch()) {
         self.init(appLibrary: MasAppLibrary(), storeSearch: storeSearch)
     }
 
@@ -42,7 +46,7 @@ public struct LuckyCommand: CommandProtocol {
 
         do {
             let results = try storeSearch.search(for: options.appName)
-            guard let result = results.results.first else {
+            guard let result = results.first else {
                 print("No results found")
                 return .failure(.noSearchResultsFound)
             }
@@ -70,7 +74,7 @@ public struct LuckyCommand: CommandProtocol {
     fileprivate func install(_ appId: UInt64, options: Options) -> Result<Void, MASError> {
         // Try to download applications with given identifiers and collect results
         let downloadResults = [appId]
-            .compactMap { (appId) -> MASError? in
+            .compactMap { appId -> MASError? in
                 if let product = appLibrary.installedApp(forId: appId), !options.forceInstall {
                     printWarning("\(product.appName) is already installed")
                     return nil

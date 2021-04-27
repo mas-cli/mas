@@ -28,7 +28,6 @@
 		B576FE0021E113610016B39D /* NetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FDFF21E113610016B39D /* NetworkSession.swift */; };
 		B576FE0221E1139E0016B39D /* URLSession+NetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE0121E1139E0016B39D /* URLSession+NetworkSession.swift */; };
 		B576FE0421E113E90016B39D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE0321E113E90016B39D /* NetworkManager.swift */; };
-		B576FE0821E114A80016B39D /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE0721E114A80016B39D /* NetworkResult.swift */; };
 		B576FE0C21E116590016B39D /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE0B21E116590016B39D /* NetworkManagerTests.swift */; };
 		B576FE0E21E1D6310016B39D /* String+PercentEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE0D21E1D6310016B39D /* String+PercentEncoding.swift */; };
 		B576FE1221E1D82D0016B39D /* NetworkSessionMockFromFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE1121E1D82D0016B39D /* NetworkSessionMockFromFile.swift */; };
@@ -36,7 +35,6 @@
 		B576FE1621E1D8CB0016B39D /* String+FileExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE1521E1D8CB0016B39D /* String+FileExtension.swift */; };
 		B576FE1B21E28E8A0016B39D /* NetworkSessionMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE1A21E28E8A0016B39D /* NetworkSessionMock.swift */; };
 		B576FE1D21E28EF70016B39D /* URLSessionDataTaskMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE1C21E28EF70016B39D /* URLSessionDataTaskMock.swift */; };
-		B576FE2821E423E60016B39D /* Dictionary+StringOrEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE2721E423E60016B39D /* Dictionary+StringOrEmpty.swift */; };
 		B576FE2A21E4240B0016B39D /* AppInfoFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE2921E4240B0016B39D /* AppInfoFormatter.swift */; };
 		B576FE2C21E42A230016B39D /* OutputListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE2B21E42A230016B39D /* OutputListener.swift */; };
 		B576FE2E21E5A8010016B39D /* Strongify.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576FE2D21E5A8010016B39D /* Strongify.swift */; };
@@ -77,6 +75,7 @@
 		B5DBF81321DEEC7C00F3B151 /* OpenCommandSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DBF81221DEEC7C00F3B151 /* OpenCommandSpec.swift */; };
 		B5DBF81521E02BA900F3B151 /* StoreSearchMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DBF81421E02BA900F3B151 /* StoreSearchMock.swift */; };
 		B5DBF81721E02E3400F3B151 /* OpenSystemCommandMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DBF81621E02E3400F3B151 /* OpenSystemCommandMock.swift */; };
+		C56C4FF5262A50F5004F37EB /* Version in Frameworks */ = {isa = PBXBuildFile; productRef = C56C4FF4262A50F5004F37EB /* Version */; };
 		ED031A7C1B5127C00097692E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED031A7B1B5127C00097692E /* main.swift */; };
 		F80B27B62611116A00A285C9 /* AppListFormatterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80B27B52611116A00A285C9 /* AppListFormatterSpec.swift */; };
 		F80B27BA2611118E00A285C9 /* AppListFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80B27B92611118E00A285C9 /* AppListFormatter.swift */; };
@@ -86,19 +85,15 @@
 		F832138C2173D3E1008BA8A0 /* CKPurchaseController.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB719D20F2EC4500F56FDC /* CKPurchaseController.h */; };
 		F832138D2173D3E1008BA8A0 /* CKServiceInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB719E20F2EC4500F56FDC /* CKServiceInterface.h */; };
 		F832138E2173D3E1008BA8A0 /* CKSoftwareMap.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB719F20F2EC4500F56FDC /* CKSoftwareMap.h */; };
-		F832138F2173D3E1008BA8A0 /* CKUpdateController.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71A020F2EC4500F56FDC /* CKUpdateController.h */; };
-		F83213902173D3E1008BA8A0 /* ISStoreURLOperationDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71A120F2EC4500F56FDC /* ISStoreURLOperationDelegate.h */; };
 		F83213912173D3E1008BA8A0 /* CKDownloadDirectory.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71B620F2F87300F56FDC /* CKDownloadDirectory.h */; };
 		F83213922173D5AB008BA8A0 /* CKSoftwareProduct.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71A320F2EC4500F56FDC /* CKSoftwareProduct.h */; };
 		F83213932173D5AB008BA8A0 /* CKUpdate.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71A420F2EC4500F56FDC /* CKUpdate.h */; };
 		F83213942173D5AB008BA8A0 /* ISAccountService.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71A520F2EC4500F56FDC /* ISAccountService.h */; };
 		F83213952173D5AB008BA8A0 /* ISAuthenticationContext.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71A620F2EC4500F56FDC /* ISAuthenticationContext.h */; };
-		F83213962173D5AB008BA8A0 /* ISOperationDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71A720F2EC4500F56FDC /* ISOperationDelegate.h */; };
 		F83213972173D5AB008BA8A0 /* ISServiceProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71A820F2EC4500F56FDC /* ISServiceProxy.h */; };
 		F83213982173D5AB008BA8A0 /* ISServiceRemoteObject.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71A920F2EC4500F56FDC /* ISServiceRemoteObject.h */; };
 		F83213992173D5AB008BA8A0 /* ISStoreAccount.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71AA20F2EC4500F56FDC /* ISStoreAccount.h */; };
 		F832139A2173D5AB008BA8A0 /* ISStoreClient.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71AB20F2EC4500F56FDC /* ISStoreClient.h */; };
-		F832139B2173D5AB008BA8A0 /* ISURLOperationDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71AC20F2EC4500F56FDC /* ISURLOperationDelegate.h */; };
 		F832139C2173D5B2008BA8A0 /* SSDownload.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71AD20F2EC4500F56FDC /* SSDownload.h */; };
 		F832139D2173D5B2008BA8A0 /* SSDownloadMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71AE20F2EC4500F56FDC /* SSDownloadMetadata.h */; };
 		F832139E2173D5B2008BA8A0 /* SSDownloadPhase.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FB71AF20F2EC4500F56FDC /* SSDownloadPhase.h */; };
@@ -219,7 +214,6 @@
 		B576FDFF21E113610016B39D /* NetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSession.swift; sourceTree = "<group>"; };
 		B576FE0121E1139E0016B39D /* URLSession+NetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+NetworkSession.swift"; sourceTree = "<group>"; };
 		B576FE0321E113E90016B39D /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		B576FE0721E114A80016B39D /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		B576FE0B21E116590016B39D /* NetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
 		B576FE0D21E1D6310016B39D /* String+PercentEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+PercentEncoding.swift"; sourceTree = "<group>"; };
 		B576FE1121E1D82D0016B39D /* NetworkSessionMockFromFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkSessionMockFromFile.swift; sourceTree = "<group>"; };
@@ -227,7 +221,6 @@
 		B576FE1521E1D8CB0016B39D /* String+FileExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+FileExtension.swift"; sourceTree = "<group>"; };
 		B576FE1A21E28E8A0016B39D /* NetworkSessionMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkSessionMock.swift; sourceTree = "<group>"; };
 		B576FE1C21E28EF70016B39D /* URLSessionDataTaskMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionDataTaskMock.swift; sourceTree = "<group>"; };
-		B576FE2721E423E60016B39D /* Dictionary+StringOrEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+StringOrEmpty.swift"; sourceTree = "<group>"; };
 		B576FE2921E4240B0016B39D /* AppInfoFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoFormatter.swift; sourceTree = "<group>"; };
 		B576FE2B21E42A230016B39D /* OutputListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputListener.swift; sourceTree = "<group>"; };
 		B576FE2D21E5A8010016B39D /* Strongify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strongify.swift; sourceTree = "<group>"; };
@@ -290,7 +283,6 @@
 		F80B27B52611116A00A285C9 /* AppListFormatterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppListFormatterSpec.swift; sourceTree = "<group>"; };
 		F80B27B92611118E00A285C9 /* AppListFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppListFormatter.swift; sourceTree = "<group>"; };
 		F8242D8020746A510026DF35 /* StoreAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreAccount.swift; sourceTree = "<group>"; };
-		F83213A42173EF75008BA8A0 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F83213A52173EF75008BA8A0 /* StoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreFoundation.framework; path = /System/Library/PrivateFrameworks/StoreFoundation.framework; sourceTree = "<absolute>"; };
 		F83213A62173EF75008BA8A0 /* CommerceKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CommerceKit.framework; path = /System/Library/PrivateFrameworks/CommerceKit.framework; sourceTree = "<absolute>"; };
 		F85DA8AD240C313900FE5650 /* MasAppLibrarySpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasAppLibrarySpec.swift; sourceTree = "<group>"; };
@@ -309,18 +301,14 @@
 		F8FB719D20F2EC4500F56FDC /* CKPurchaseController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKPurchaseController.h; sourceTree = "<group>"; };
 		F8FB719E20F2EC4500F56FDC /* CKServiceInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKServiceInterface.h; sourceTree = "<group>"; };
 		F8FB719F20F2EC4500F56FDC /* CKSoftwareMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKSoftwareMap.h; sourceTree = "<group>"; };
-		F8FB71A020F2EC4500F56FDC /* CKUpdateController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKUpdateController.h; sourceTree = "<group>"; };
-		F8FB71A120F2EC4500F56FDC /* ISStoreURLOperationDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISStoreURLOperationDelegate.h; sourceTree = "<group>"; };
 		F8FB71A320F2EC4500F56FDC /* CKSoftwareProduct.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKSoftwareProduct.h; sourceTree = "<group>"; };
 		F8FB71A420F2EC4500F56FDC /* CKUpdate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKUpdate.h; sourceTree = "<group>"; };
 		F8FB71A520F2EC4500F56FDC /* ISAccountService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISAccountService.h; sourceTree = "<group>"; };
 		F8FB71A620F2EC4500F56FDC /* ISAuthenticationContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISAuthenticationContext.h; sourceTree = "<group>"; };
-		F8FB71A720F2EC4500F56FDC /* ISOperationDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISOperationDelegate.h; sourceTree = "<group>"; };
 		F8FB71A820F2EC4500F56FDC /* ISServiceProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISServiceProxy.h; sourceTree = "<group>"; };
 		F8FB71A920F2EC4500F56FDC /* ISServiceRemoteObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISServiceRemoteObject.h; sourceTree = "<group>"; };
 		F8FB71AA20F2EC4500F56FDC /* ISStoreAccount.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISStoreAccount.h; sourceTree = "<group>"; };
 		F8FB71AB20F2EC4500F56FDC /* ISStoreClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISStoreClient.h; sourceTree = "<group>"; };
-		F8FB71AC20F2EC4500F56FDC /* ISURLOperationDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISURLOperationDelegate.h; sourceTree = "<group>"; };
 		F8FB71AD20F2EC4500F56FDC /* SSDownload.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSDownload.h; sourceTree = "<group>"; };
 		F8FB71AE20F2EC4500F56FDC /* SSDownloadMetadata.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSDownloadMetadata.h; sourceTree = "<group>"; };
 		F8FB71AF20F2EC4500F56FDC /* SSDownloadPhase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSDownloadPhase.h; sourceTree = "<group>"; };
@@ -347,6 +335,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F83213A22173DC13008BA8A0 /* Commandant.framework in Frameworks */,
+				C56C4FF5262A50F5004F37EB /* Version in Frameworks */,
 				B5552928219A1BB900ACB4CA /* CommerceKit.framework in Frameworks */,
 				B5552929219A1BC700ACB4CA /* StoreFoundation.framework in Frameworks */,
 			);
@@ -390,7 +379,6 @@
 			isa = PBXGroup;
 			children = (
 				B576FE0321E113E90016B39D /* NetworkManager.swift */,
-				B576FE0721E114A80016B39D /* NetworkResult.swift */,
 				B576FDFF21E113610016B39D /* NetworkSession.swift */,
 				B576FE0121E1139E0016B39D /* URLSession+NetworkSession.swift */,
 			);
@@ -449,7 +437,6 @@
 		B576FE1F21E290720016B39D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				B576FE2721E423E60016B39D /* Dictionary+StringOrEmpty.swift */,
 				B576FE0D21E1D6310016B39D /* String+PercentEncoding.swift */,
 			);
 			path = Extensions;
@@ -639,7 +626,6 @@
 		EDFC76381B642A2E00D0DBD7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F83213A42173EF75008BA8A0 /* Cocoa.framework */,
 				F83213A62173EF75008BA8A0 /* CommerceKit.framework */,
 				F83213A52173EF75008BA8A0 /* StoreFoundation.framework */,
 			);
@@ -703,8 +689,6 @@
 				F8FB719D20F2EC4500F56FDC /* CKPurchaseController.h */,
 				F8FB719E20F2EC4500F56FDC /* CKServiceInterface.h */,
 				F8FB719F20F2EC4500F56FDC /* CKSoftwareMap.h */,
-				F8FB71A020F2EC4500F56FDC /* CKUpdateController.h */,
-				F8FB71A120F2EC4500F56FDC /* ISStoreURLOperationDelegate.h */,
 				F8FB71B320F2EC7900F56FDC /* module.modulemap */,
 			);
 			path = CommerceKit;
@@ -718,12 +702,10 @@
 				F8FB71A520F2EC4500F56FDC /* ISAccountService.h */,
 				F8FB71A620F2EC4500F56FDC /* ISAuthenticationContext.h */,
 				B578F060224FB5BD00D2086A /* ISAuthenticationResponse.h */,
-				F8FB71A720F2EC4500F56FDC /* ISOperationDelegate.h */,
 				F8FB71A820F2EC4500F56FDC /* ISServiceProxy.h */,
 				F8FB71A920F2EC4500F56FDC /* ISServiceRemoteObject.h */,
 				F8FB71AA20F2EC4500F56FDC /* ISStoreAccount.h */,
 				F8FB71AB20F2EC4500F56FDC /* ISStoreClient.h */,
-				F8FB71AC20F2EC4500F56FDC /* ISURLOperationDelegate.h */,
 				F8FB71B420F2EC8800F56FDC /* module.modulemap */,
 				F8FB71AD20F2EC4500F56FDC /* SSDownload.h */,
 				F8FB71AE20F2EC4500F56FDC /* SSDownloadMetadata.h */,
@@ -751,17 +733,13 @@
 				F832138E2173D3E1008BA8A0 /* CKSoftwareMap.h in Headers */,
 				F83213922173D5AB008BA8A0 /* CKSoftwareProduct.h in Headers */,
 				F83213932173D5AB008BA8A0 /* CKUpdate.h in Headers */,
-				F832138F2173D3E1008BA8A0 /* CKUpdateController.h in Headers */,
 				F83213942173D5AB008BA8A0 /* ISAccountService.h in Headers */,
 				F83213952173D5AB008BA8A0 /* ISAuthenticationContext.h in Headers */,
 				B578F061224FB5BD00D2086A /* ISAuthenticationResponse.h in Headers */,
-				F83213962173D5AB008BA8A0 /* ISOperationDelegate.h in Headers */,
 				F83213972173D5AB008BA8A0 /* ISServiceProxy.h in Headers */,
 				F83213982173D5AB008BA8A0 /* ISServiceRemoteObject.h in Headers */,
 				F83213992173D5AB008BA8A0 /* ISStoreAccount.h in Headers */,
 				F832139A2173D5AB008BA8A0 /* ISStoreClient.h in Headers */,
-				F83213902173D3E1008BA8A0 /* ISStoreURLOperationDelegate.h in Headers */,
-				F832139B2173D5AB008BA8A0 /* ISURLOperationDelegate.h in Headers */,
 				F8FB716220F2B41400F56FDC /* MasKit.h in Headers */,
 				F832139C2173D5B2008BA8A0 /* SSDownload.h in Headers */,
 				F832139D2173D5B2008BA8A0 /* SSDownloadMetadata.h in Headers */,
@@ -811,6 +789,9 @@
 			dependencies = (
 			);
 			name = MasKit;
+			packageProductDependencies = (
+				C56C4FF4262A50F5004F37EB /* Version */,
+			);
 			productName = MasKit;
 			productReference = F8FB715220F2B41400F56FDC /* MasKit.framework */;
 			productType = "com.apple.product-type.framework";
@@ -871,6 +852,9 @@
 				Base,
 			);
 			mainGroup = ED031A6F1B5127C00097692E;
+			packageReferences = (
+				C56C4FF0262A4ED0004F37EB /* XCRemoteSwiftPackageReference "Version" */,
+			);
 			productRefGroup = ED031A791B5127C00097692E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -946,7 +930,6 @@
 				B594B12721D5825800F3AC59 /* AppLibrary.swift in Sources */,
 				F85DA8B2240CBAFE00FE5650 /* CKSoftwareMap+SoftwareMap.swift in Sources */,
 				B594B12B21D5837200F3AC59 /* CKSoftwareProduct+SoftwareProduct.swift in Sources */,
-				B576FE2821E423E60016B39D /* Dictionary+StringOrEmpty.swift in Sources */,
 				F8FB716A20F2B4DD00F56FDC /* Downloader.swift in Sources */,
 				B588CE0221DC89490047D305 /* ExternalCommand.swift in Sources */,
 				B594B14C21D8983700F3AC59 /* Home.swift in Sources */,
@@ -959,7 +942,6 @@
 				F8FB717B20F2B4DD00F56FDC /* MASError.swift in Sources */,
 				B594B15221D89A8B00F3AC59 /* MasStoreSearch.swift in Sources */,
 				B576FE0421E113E90016B39D /* NetworkManager.swift in Sources */,
-				B576FE0821E114A80016B39D /* NetworkResult.swift in Sources */,
 				B576FE0021E113610016B39D /* NetworkSession.swift in Sources */,
 				B5DBF80D21DEE4E600F3B151 /* Open.swift in Sources */,
 				B576FDF721E107AA0016B39D /* OpenSystemCommand.swift in Sources */,
@@ -1420,6 +1402,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C56C4FF0262A4ED0004F37EB /* XCRemoteSwiftPackageReference "Version" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mxcl/Version.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C56C4FF4262A50F5004F37EB /* Version */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C56C4FF0262A4ED0004F37EB /* XCRemoteSwiftPackageReference "Version" */;
+			productName = Version;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = ED031A701B5127C00097692E /* Project object */;
 }

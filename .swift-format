@@ -7,7 +7,7 @@
     "AllPublicDeclarationsHaveDocumentation" : false,
     "AlwaysUseLowerCamelCase" : true,
     "AmbiguousTrailingClosureOverload" : true,
-    "BeginDocumentationCommentWithOneLineSummary" : true,
+    "BeginDocumentationCommentWithOneLineSummary" : false,
     "DoNotUseSemicolons" : true,
     "DontRepeatTypeInStaticProperties" : true,
     "FileScopedDeclarationPrivacy" : true,

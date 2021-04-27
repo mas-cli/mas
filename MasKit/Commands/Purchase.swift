@@ -30,7 +30,7 @@ public struct PurchaseCommand: CommandProtocol {
     /// Runs the command.
     public func run(_ options: Options) -> Result<Void, MASError> {
         // Try to download applications with given identifiers and collect results
-        let downloadResults = options.appIds.compactMap { (appId) -> MASError? in
+        let downloadResults = options.appIds.compactMap { appId -> MASError? in
             if let product = appLibrary.installedApp(forId: appId) {
                 printWarning("\(product.appName) has already been purchased.")
                 return nil

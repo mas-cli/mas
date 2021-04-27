@@ -9,12 +9,12 @@
 import CommerceKit
 
 /// Utility for managing installed apps.
-public class MasAppLibrary: AppLibrary {
+class MasAppLibrary: AppLibrary {
     /// CommerceKit's singleton manager of installed software.
     private let softwareMap: SoftwareMap
 
     /// Array of installed software products.
-    public lazy var installedApps: [SoftwareProduct] = {
+    lazy var installedApps: [SoftwareProduct] = {
         softwareMap.allSoftwareProducts()
     }()
 
@@ -28,7 +28,7 @@ public class MasAppLibrary: AppLibrary {
     ///
     /// - Parameter bundleId: Bundle identifier of app.
     /// - Returns: Software Product of app if found; nil otherwise.
-    public func installedApp(forBundleId bundleId: String) -> SoftwareProduct? {
+    func installedApp(forBundleId bundleId: String) -> SoftwareProduct? {
         softwareMap.product(for: bundleId)
     }
 
@@ -36,7 +36,7 @@ public class MasAppLibrary: AppLibrary {
     ///
     /// - Parameter app: App to be removed.
     /// - Throws: Error if there is a problem.
-    public func uninstallApp(app: SoftwareProduct) throws {
+    func uninstallApp(app: SoftwareProduct) throws {
         if !userIsRoot() {
             printWarning("Apps installed from the Mac App Store require root permission to remove.")
         }

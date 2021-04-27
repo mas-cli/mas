@@ -6,20 +6,20 @@
 //  Copyright © 2018 mas-cli. All rights reserved.
 //
 
-public struct SearchResult: Decodable {
-    public var bundleId: String
-    public var currentVersionReleaseDate: String
-    public var fileSizeBytes: String?
-    public var formattedPrice: String?
-    public var minimumOsVersion: String
-    public var price: Double?
-    public var sellerName: String
-    public var sellerUrl: String?
-    public var trackId: Int
-    public var trackCensoredName: String
-    public var trackName: String
-    public var trackViewUrl: String
-    public var version: String
+struct SearchResult: Decodable {
+    var bundleId: String
+    var currentVersionReleaseDate: String
+    var fileSizeBytes: String?
+    var formattedPrice: String?
+    var minimumOsVersion: String
+    var price: Double?
+    var sellerName: String
+    var sellerUrl: String?
+    var trackId: Int
+    var trackCensoredName: String
+    var trackName: String
+    var trackViewUrl: String
+    var version: String
 
     init(
         bundleId: String = "",

@@ -6,7 +6,7 @@
 //  Copyright © 2018 mas-cli. All rights reserved.
 //
 
-public struct SearchResultList: Decodable {
+struct SearchResultList: Decodable {
     var resultCount: Int
     var results: [SearchResult]
 }
