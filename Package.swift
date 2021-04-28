@@ -34,7 +34,6 @@ let package = Package(
             dependencies: ["MasKit"],
             swiftSettings: [
                 .unsafeFlags([
-                    "-F", "/System/Library/PrivateFrameworks",
                     "-I", "Sources/PrivateFrameworks/CommerceKit",
                     "-I", "Sources/PrivateFrameworks/StoreFoundation",
                 ]),
@@ -45,7 +44,6 @@ let package = Package(
             dependencies: ["Commandant", "Version"],
             swiftSettings: [
                 .unsafeFlags([
-                    "-F", "/System/Library/PrivateFrameworks",
                     "-I", "Sources/PrivateFrameworks/CommerceKit",
                     "-I", "Sources/PrivateFrameworks/StoreFoundation",
                 ]),
@@ -62,7 +60,6 @@ let package = Package(
             resources: [.copy("JSON")],
             swiftSettings: [
                 .unsafeFlags([
-                    "-F", "/System/Library/PrivateFrameworks",
                     "-I", "Sources/PrivateFrameworks/CommerceKit",
                     "-I", "Sources/PrivateFrameworks/StoreFoundation",
                 ]),
