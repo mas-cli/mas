@@ -73,6 +73,7 @@
 		C56F16DA26376C4B00EAC548 /* Quick in Frameworks */ = {isa = PBXBuildFile; productRef = C56F16D926376C4B00EAC548 /* Quick */; };
 		C56F16E92637C2B300EAC548 /* Version in Frameworks */ = {isa = PBXBuildFile; productRef = C56F16E82637C2B300EAC548 /* Version */; };
 		C56F16EC2637C2C600EAC548 /* Commandant in Frameworks */ = {isa = PBXBuildFile; productRef = C56F16EB2637C2C600EAC548 /* Commandant */; };
+		C56F16EF2639EC0C00EAC548 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56F16ED2639EBF700EAC548 /* Package.swift */; };
 		ED031A7C1B5127C00097692E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED031A7B1B5127C00097692E /* main.swift */; };
 		F80B27B62611116A00A285C9 /* AppListFormatterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80B27B52611116A00A285C9 /* AppListFormatterSpec.swift */; };
 		F80B27BA2611118E00A285C9 /* AppListFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80B27B92611118E00A285C9 /* AppListFormatter.swift */; };
@@ -231,6 +232,7 @@
 		B5DBF81421E02BA900F3B151 /* StoreSearchMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreSearchMock.swift; sourceTree = "<group>"; };
 		B5DBF81621E02E3400F3B151 /* OpenSystemCommandMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSystemCommandMock.swift; sourceTree = "<group>"; };
 		C56F16DF2637825300EAC548 /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		C56F16ED2639EBF700EAC548 /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		ED031A781B5127C00097692E /* mas */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = mas; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED031A7B1B5127C00097692E /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		ED0F237E1B87522400AE40CD /* Install.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Install.swift; sourceTree = "<group>"; };
@@ -456,6 +458,7 @@
 			children = (
 				F8FB715520F2B41400F56FDC /* Info.plist */,
 				F8FB715420F2B41400F56FDC /* MasKit.h */,
+				C56F16ED2639EBF700EAC548 /* Package.swift */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";
@@ -928,6 +931,7 @@
 				B576FE0021E113610016B39D /* NetworkSession.swift in Sources */,
 				B5DBF80D21DEE4E600F3B151 /* Open.swift in Sources */,
 				B576FDF721E107AA0016B39D /* OpenSystemCommand.swift in Sources */,
+				C56F16EF2639EC0C00EAC548 /* Package.swift in Sources */,
 				F8FB717420F2B4DD00F56FDC /* Outdated.swift in Sources */,
 				75FB3E761F9F7841005B6F20 /* Purchase.swift in Sources */,
 				F80B27BA2611118E00A285C9 /* AppListFormatter.swift in Sources */,

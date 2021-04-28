@@ -7,7 +7,6 @@
 //
 
 import Commandant
-import Foundation
 
 /// Command which displays the version of the mas tool.
 public struct VersionCommand: CommandProtocol {
@@ -19,10 +18,7 @@ public struct VersionCommand: CommandProtocol {
 
     /// Runs the command.
     public func run(_: Options) -> Result<Void, MASError> {
-        let plist = Bundle.main.infoDictionary
-        if let versionString = plist?["CFBundleShortVersionString"] {
-            print(versionString)
-        }
+        print(Package.Version)
         return .success(())
     }
 }
