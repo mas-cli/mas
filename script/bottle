@@ -12,12 +12,12 @@
 # Variables
 #
 
-BUILD_DIR="$PWD/build"
+BUILD_DIR="$PWD/.build"
 BOTTLE_DIR="$BUILD_DIR/bottles"
 VERSION=$(script/version)
 ROOT_URL="https://dl.bintray.com/phatblat/mas-bottles"
 
-# Supports macOS versions 11.0 (arm64 & x86_64), 10.15, 10.14, 10.13, 10.12, 10.11
+# Supports macOS versions 11 (arm64 & x86_64), 10.15, 10.14, 10.13, 10.12, 10.11
 OS_NAMES=(arm64_big_sur big_sur catalina mojave high_sierra sierra el_capitan)
 
 # Semantic version number split into a list using  Ugly, bash 3 compatible syntax

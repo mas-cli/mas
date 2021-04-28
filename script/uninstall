@@ -17,5 +17,4 @@ fi
 
 echo "==> 🔥 Uninstalling mas from $PREFIX"
 
-trash "$PREFIX/Frameworks/MasKit.framework"
 trash "$PREFIX/bin/mas"
