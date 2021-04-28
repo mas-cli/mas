@@ -21,16 +21,6 @@ class Mas < Formula
   end
 
   def install
-    # Working around build issues in dependencies
-    # - Prevent warnings from causing build failures
-    # - Prevent linker errors by telling all lib builds to use max size install names
-    xcconfig = buildpath/"Overrides.xcconfig"
-    xcconfig.write <<~EOS
-      GCC_TREAT_WARNINGS_AS_ERRORS = NO
-      OTHER_LDFLAGS = -headerpad_max_install_names
-    EOS
-    ENV["XCODE_XCCONFIG_FILE"] = xcconfig
-
     system "script/install", prefix
 
     bash_completion.install "contrib/completion/mas-completion.bash" => "mas"
