@@ -21,8 +21,6 @@ else
   PREFIX=/usr/local
 fi
 
-script/build
-
 echo "==> 📲 Installing mas ($VERSION) for $ARCH to $PREFIX"
 ditto -v \
   ".build/apple/Products/Release/mas" \
