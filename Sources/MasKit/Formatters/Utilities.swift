@@ -13,6 +13,19 @@ import Foundation
 /// Terminal Control Sequence Indicator
 let csi = "\u{001B}["
 
+var printObserver: ((String) -> Void)?
+
+// Override global print for testability.
+// See MasKitTests/OutputListener.swift.
+func print(_ items: Any..., separator: String = " ", terminator: String = "\n") {
+    if let observer = printObserver {
+        let output = items.map { "\($0)" }.joined(separator: separator)
+        observer(output)
+    }
+
+    Swift.print(items, separator: separator, terminator: terminator)
+}
+
 func printInfo(_ message: String) {
     guard isatty(fileno(stdout)) != 0 else {
         print("==> \(message)")

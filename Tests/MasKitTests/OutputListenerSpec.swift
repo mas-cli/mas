@@ -14,22 +14,14 @@ class OutputListenerSpec: QuickSpec {
         xdescribe("output listener") {
             it("can intercept a single line written stdout") {
                 let output = OutputListener()
-                output.openConsolePipe()
-
                 let expectedOutput = "hi there"
 
                 print("hi there", terminator: "")
 
-                // output is async so need to wait for contents to be updated
-                expect(output.contents).toEventuallyNot(beEmpty())
                 expect(output.contents) == expectedOutput
-
-                output.closeConsolePipe()
             }
             it("can intercept multiple lines written stdout") {
                 let output = OutputListener()
-                output.openConsolePipe()
-
                 let expectedOutput = """
                     hi there
 
@@ -37,11 +29,7 @@ class OutputListenerSpec: QuickSpec {
 
                 print("hi there")
 
-                // output is async so need to wait for contents to be updated
-                expect(output.contents).toEventuallyNot(beEmpty())
                 expect(output.contents) == expectedOutput
-
-                output.closeConsolePipe()
             }
         }
     }

@@ -33,7 +33,6 @@ class InfoCommandSpec: QuickSpec {
             Minimum OS: 10.14
             Size: 1 KB
             From: https://awesome.app
-
             """
 
         describe("Info command") {
@@ -59,16 +58,11 @@ class InfoCommandSpec: QuickSpec {
             it("displays app details") {
                 storeSearch.apps[result.trackId] = result
                 let output = OutputListener()
-                output.openConsolePipe()
 
                 let result = cmd.run(InfoCommand.Options(appId: result.trackId))
 
                 expect(result).to(beSuccess())
-                // output is async so need to wait for contents to be updated
-                expect(output.contents).toEventuallyNot(beEmpty())
                 expect(output.contents) == expectedOutput
-
-                output.closeConsolePipe()
             }
         }
     }
