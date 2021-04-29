@@ -205,7 +205,7 @@ reattach-to-user-namespace mas install
 
 ## ℹ️ Build from source
 
-You can now build from Xcode by opening `mas-cli.xcodeproj`, or from the Terminal:
+You can build from Xcode by opening the root `mas` directory, or from the Terminal:
 
 ```bash
 script/build
