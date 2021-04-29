@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import MasKit
 
 /// Mock NetworkSession for testing with saved JSON response payload files.
 class NetworkSessionMockFromFile: NetworkSessionMock {
