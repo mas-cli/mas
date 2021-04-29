@@ -17,6 +17,9 @@ main() {
   # Install Homebrew tools
   rm -f Brewfile.lock.json
   brew bundle install --no-upgrade --verbose
+
+  # Generate Package.swift
+  script/version
 }
 
 main

@@ -36,3 +36,4 @@ build/
 default.profraw
 releases/
 xcuserdata
+Sources/MasKit/Package.swift
