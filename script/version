@@ -9,7 +9,8 @@
 # This no longer works with MARKETING_VERSION build setting in Info.plist
 # agvtool what-marketing-version -terse1
 
-VERSION="1.8.1"
+VERSION=$(git describe --abbrev=0 --tags)
+VERSION=${VERSION#v}
 
 SCRIPT_PATH=$(dirname $(which $0))
 cat <<EOF >"${SCRIPT_PATH}/../Sources/MasKit/SupportingFiles/Package.swift"
