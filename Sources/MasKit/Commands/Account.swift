@@ -27,7 +27,7 @@ public struct AccountCommand: CommandProtocol {
         if let account = ISStoreAccount.primaryAccount {
             print(String(describing: account.identifier))
         } else {
-            print("Not signed in")
+            printError("Not signed in")
             return .failure(.notSignedIn)
         }
         return .success(())
