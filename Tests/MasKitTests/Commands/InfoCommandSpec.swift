@@ -33,6 +33,7 @@ class InfoCommandSpec: QuickSpec {
             Minimum OS: 10.14
             Size: 1 KB
             From: https://awesome.app
+
             """
 
         describe("Info command") {

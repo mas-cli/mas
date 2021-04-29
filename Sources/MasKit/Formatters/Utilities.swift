@@ -19,7 +19,10 @@ var printObserver: ((String) -> Void)?
 // See MasKitTests/OutputListener.swift.
 func print(_ items: Any..., separator: String = " ", terminator: String = "\n") {
     if let observer = printObserver {
-        let output = items.map { "\($0)" }.joined(separator: separator)
+        let output = items
+            .map { "\($0)" }
+            .joined(separator: separator)
+            .appending(terminator)
         observer(output)
     }
 
