@@ -18,15 +18,16 @@ var printObserver: ((String) -> Void)?
 // Override global print for testability.
 // See MasKitTests/OutputListener.swift.
 func print(_ items: Any..., separator: String = " ", terminator: String = "\n") {
+    let output = items
+        .map { "\($0)" }
+        .joined(separator: separator)
+        .appending(terminator)
+
     if let observer = printObserver {
-        let output = items
-            .map { "\($0)" }
-            .joined(separator: separator)
-            .appending(terminator)
         observer(output)
     }
 
-    Swift.print(items, separator: separator, terminator: terminator)
+    Swift.print(output)
 }
 
 func printInfo(_ message: String) {
