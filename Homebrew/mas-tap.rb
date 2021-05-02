@@ -22,7 +22,7 @@ class Mas < Formula
   if Hardware::CPU.arm?
     depends_on xcode: ["12.2", :build]
   else
-    depends_on xcode: ["11.4", :build]
+    depends_on xcode: ["12.0", :build]
   end
 
   def install
