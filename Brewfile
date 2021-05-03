@@ -1,3 +1,4 @@
+brew "markdownlint-cli"
 brew "shfmt"
 brew "swift-format"
 brew "swiftformat"
