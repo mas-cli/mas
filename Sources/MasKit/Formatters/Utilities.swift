@@ -13,6 +13,8 @@ import Foundation
 /// Terminal Control Sequence Indicator
 let csi = "\u{001B}["
 
+#if DEBUG
+
 var printObserver: ((String) -> Void)?
 
 // Override global print for testability.
@@ -29,6 +31,8 @@ func print(_ items: Any..., separator: String = " ", terminator: String = "\n") 
 
     Swift.print(output)
 }
+
+#endif
 
 func printInfo(_ message: String) {
     guard isatty(fileno(stdout)) != 0 else {
