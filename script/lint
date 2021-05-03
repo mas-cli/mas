@@ -24,11 +24,11 @@ git diff --check
 
 echo
 echo "--> 🕊️ Swift"
-swiftformat --lint .
-for SOURCE in mas MasKit MasKitTests; do
+for SOURCE in Package.swift Sources Tests; do
+  swiftformat --lint ${SOURCE}
   swift-format lint --configuration .swift-format --recursive ${SOURCE}
+  swiftlint lint --strict ${SOURCE}
 done
-swiftlint lint --strict
 
 echo
 echo "--> 📜 Bash"

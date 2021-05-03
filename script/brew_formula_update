@@ -32,11 +32,6 @@ else
   REVISION=$(git rev-parse "$VERSION")
 fi
 
-# Purge the Carthage cache to avoid this error from Homebrew sandboxing:
-# A shell task (/usr/bin/env git checkout --quiet --force 0.15.0 (launched in /Users/ben/Library/Caches/org.carthage.CarthageKit/dependencies/Commandant)) failed with exit code 128:
-# fatal: Unable to create '/Users/ben/Library/Caches/org.carthage.CarthageKit/dependencies/Commandant/./index.lock': Operation not permitted
-rm -rf ~/Library/Caches/org.carthage.CarthageKit
-
 echo "Checking to see if this update can be a simple bump."
 diff "Homebrew/mas.rb" "$BREW_CORE_PATH/mas.rb"
 

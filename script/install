@@ -3,27 +3,15 @@
 # script/install
 # mas
 #
-# Installs mas into PREFIX using the following steps:
-#
-# 1. Invokes the xcodebuild install action.
-# 2. Copies the mas binary and MasKit.framework bundle into their correct
-#    relative positions under PREFIX.
+# Installs mas into PREFIX.
 #
 # NOTE: This script is called by the mas Homebrew formula so it has only system
-# dependencies aside from xcodebuild.
+# dependencies aside from Swift.
 # https://github.com/Homebrew/homebrew-core/blob/master/Formula/mas.rb
 #
 
-BUILD_DIR="$PWD/build"
-PROJECT="mas-cli.xcodeproj"
-SCHEME="mas-cli Release"
-CONFIG="Release"
 VERSION=$(script/version)
 
-# Destination for `xcodebuild install`
-INSTALL_TEMPORARY_FOLDER=${DSTROOT:-build/distributions}
-
-# Final destination.
 # Override default prefix path with optional 1st arg
 if test -n "$1"; then
   PREFIX="$1"
@@ -33,23 +21,7 @@ else
   PREFIX=/usr/local
 fi
 
-echo "==> 📲 Installing mas ($VERSION) to $PREFIX"
-
-xcodebuild \
-  -project "$PROJECT" \
-  -scheme "$SCHEME" \
-  -configuration "$CONFIG" \
-  OBJROOT="$BUILD_DIR" \
-  SYMROOT="$BUILD_DIR" \
-  DSTROOT="$INSTALL_TEMPORARY_FOLDER" \
-  install
-
-# Deep copy MasKit.framework
+echo "==> 📲 Installing mas ($VERSION) for $ARCH to $PREFIX"
 ditto -v \
-  "$INSTALL_TEMPORARY_FOLDER/Frameworks" \
-  "$PREFIX/Frameworks"
-
-# Copy mas binary
-ditto -v \
-  "$INSTALL_TEMPORARY_FOLDER/bin" \
-  "$PREFIX/bin"
+  ".build/apple/Products/Release/mas" \
+  "$PREFIX/bin/"

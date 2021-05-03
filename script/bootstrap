@@ -18,8 +18,8 @@ main() {
   rm -f Brewfile.lock.json
   brew bundle install --no-upgrade --verbose
 
-  # Download and build project dependencies
-  carthage bootstrap --platform macOS --cache-builds
+  # Generate Package.swift
+  script/version
 }
 
 main

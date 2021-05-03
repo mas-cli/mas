@@ -8,7 +8,7 @@ A simple command line interface for the Mac App Store. Designed for scripting an
 [![Swift 5](https://img.shields.io/badge/Language-Swift_5-orange.svg)](https://swift.org)
 [![GitHub Release](https://img.shields.io/github/release/mas-cli/mas.svg)](https://github.com/mas-cli/mas/releases)
 [![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
-[![Pipeline Status](https://jenkins.log-g.co/buildStatus/icon?job=mas-cli/mas/master)](https://jenkins.log-g.co/job/mas-cli/job/mas/job/master/)
+[![Build & Test](https://github.com/mas-cli/mas/actions/workflows/build-test.yml/badge.svg?branch=master)](https://github.com/mas-cli/mas/actions/workflows/build-test.yml?query=branch%3Amaster)
 
 ## 📲 Install
 
@@ -205,7 +205,7 @@ reattach-to-user-namespace mas install
 
 ## ℹ️ Build from source
 
-You can now build from Xcode by opening `mas-cli.xcodeproj`, or from the Terminal:
+You can build from Xcode by opening the root `mas` directory, or from the Terminal:
 
 ```bash
 script/build

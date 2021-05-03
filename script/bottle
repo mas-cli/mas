@@ -12,12 +12,12 @@
 # Variables
 #
 
-BUILD_DIR="$PWD/build"
+BUILD_DIR="$PWD/.build"
 BOTTLE_DIR="$BUILD_DIR/bottles"
 VERSION=$(script/version)
 ROOT_URL="https://dl.bintray.com/phatblat/mas-bottles"
 
-# Supports macOS versions 11.0 (arm64 & x86_64), 10.15, 10.14, 10.13, 10.12, 10.11
+# Supports macOS versions 11 (arm64 & x86_64), 10.15, 10.14, 10.13, 10.12, 10.11
 OS_NAMES=(arm64_big_sur big_sur catalina mojave high_sierra sierra el_capitan)
 
 # Semantic version number split into a list using  Ugly, bash 3 compatible syntax
@@ -64,11 +64,6 @@ fi
 if command -v mas >/dev/null; then
   script/uninstall || true # ignore failure
 fi
-
-# Purge the Carthage cache to avoid this error from Homebrew sandboxing:
-# A shell task (/usr/bin/env git checkout --quiet --force 0.15.0 (launched in /Users/ben/Library/Caches/org.carthage.CarthageKit/dependencies/Commandant)) failed with exit code 128:
-# fatal: Unable to create '/Users/ben/Library/Caches/org.carthage.CarthageKit/dependencies/Commandant/./index.lock': Operation not permitted
-rm -rf ~/Library/Caches/org.carthage.CarthageKit
 
 ################################################################################
 #

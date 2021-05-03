@@ -3,16 +3,8 @@
 # script/clean
 # mas
 #
-# Deletes the build and temp install directories.
+# Deletes the build directory.
 #
 
-BUILD_DIR=build
-INSTALL_DIR=/tmp/mas-cli.dst
-
-main() {
-  rm -rf Carthage/Build
-  rm -rf ${BUILD_DIR:?}
-  rm -rf ${INSTALL_DIR:?}
-}
-
-main
+BUILD_DIR=.build
+rm -rf ${BUILD_DIR:?}

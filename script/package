@@ -6,46 +6,38 @@
 # Builds macOS installer component and distribution packages.
 #
 
-BUILD_DIR="$PWD/build"
+BUILD_DIR="$PWD/.build"
 COMPONENT_PACKAGE="$BUILD_DIR/mas_components.pkg"
 DISTRIBUTION_PACKAGE="$BUILD_DIR/mas.pkg"
 
 IDENTIFIER="com.mphys.mas-cli"
 
-# Component package definition
-COMPONENTS_PLIST="Package/Components.plist"
-
 # Distribution package definition
 # https://developer.apple.com/library/archive/documentation/DeveloperTools/Reference/DistributionDefinitionRef/Chapters/Distribution_XML_Ref.html
 DISTRIBUTION_PLIST="Package/Distribution.plist"
 
-# Destination for `xcodebuild install`
-# DSTROOT will be updated if unset.
-INSTALL_TEMPORARY_FOLDER=${DSTROOT:-build/distributions}
-mkdir -p "$INSTALL_TEMPORARY_FOLDER"
+# Destination for install root
+DSTROOT=.build/distributions
+script/install "$DSTROOT/usr/local"
 
 VERSION=$(script/version)
 
 echo "==> 📦 Assemble an installer package"
 
 # Assemble macOS installer component package (aka "product archive").
-# Using /usr/local prefix to avoid the following errors with "/"
-#   - installer: The install failed (The Installer encountered an error that caused the installation to fail. Contact the software manufacturer for assistance.)
-#   - GUI warning: This package is incompatible with this version of macOS and may fail to install. (may damage your system... )
 pkgbuild \
   --identifier "$IDENTIFIER" \
-  --install-location "/usr/local" \
+  --install-location "/" \
   --version "$VERSION" \
-  --root "$INSTALL_TEMPORARY_FOLDER" \
-  --component-plist "$COMPONENTS_PLIST" \
+  --root "$DSTROOT" \
   "$COMPONENT_PACKAGE"
 
 # Build distribution package (aka "product archive"). Not sure why, but this is how Carthage does it.
-# https://github.com/Carthage/Carthage/blob/master/Makefile#L87
+# https://github.com/Carthage/Carthage/blob/master/Makefile#L69
 productbuild \
   --distribution "$DISTRIBUTION_PLIST" \
   --package-path "$BUILD_DIR" \
   "$DISTRIBUTION_PACKAGE"
 
-echo "==> 🔢 Files Hashes"
+echo "==> 🔢 File Hash"
 shasum -a 256 "$DISTRIBUTION_PACKAGE"

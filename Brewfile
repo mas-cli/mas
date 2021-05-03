@@ -1,5 +1,3 @@
-brew "carthage"
-brew "make"
 brew "shfmt"
 brew "swift-format"
 brew "swiftformat"

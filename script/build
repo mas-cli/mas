@@ -3,68 +3,11 @@
 # script/build
 # mas
 #
-# Builds the Xcode project. Uses xcpretty gem to format output.
-#
-# If the TRAVIS_TAG env variable is present, it generates an archive.
-# https://docs.travis-ci.com/user/environment-variables/#default-environment-variables
+# Builds the Swift Package.
 #
 
-BUILD_DIR="$PWD/build"
-WORKSPACE="mas.xcworkspace"
-SCHEME="mas-cli Release"
-CONFIG="Release"
-VERSION=$(script/version)
+script/clean
+script/lint
 
-main() {
-  xcodebuild -version
-  script/clean
-
-  carthage build \
-    --platform macOS \
-    --cache-builds \
-    --configuration "$CONFIG"
-
-  archive
-}
-
-# OBJROOT - Intermediate Build Files Path
-# The path where intermediate files will be placed during a build. Intermediate files include generated sources, object
-# files, etc. Shell script build phases can place and access files here, as well. Typically this path is not set per
-# target, but is set per project or per user. By default, this is set to `$(PROJECT_DIR)/build`.
-
-# SHARED_PRECOMPS_DIR - Precompiled Headers Cache Path
-# The path where precompiled prefix header files are placed during a build. Defaults to `$(OBJROOT)/SharedPrecompiledHeaders`.
-# Using a common location allows precompiled headers to be shared between multiple projects.
-
-# SYMROOT - Build Procucts Path
-# The path at which all products will be placed when performing a build. Typically this path is not set per target,
-# but is set per-project or per-user. By default, this is set to `$(PROJECT_DIR)/build`.
-
-build() {
-  echo "==> 🏗️ Building mas ($VERSION)"
-  set -o pipefail &&
-    xcodebuild \
-      -workspace "$WORKSPACE" \
-      -scheme "$SCHEME" \
-      -configuration "$CONFIG" \
-      OBJROOT="$BUILD_DIR" \
-      SYMROOT="$BUILD_DIR" \
-      build |
-    bundle exec xcpretty --color
-}
-
-archive() {
-  echo "==> 📦 Archiving mas ($VERSION)"
-  set -o pipefail &&
-    xcodebuild \
-      -workspace "$WORKSPACE" \
-      -scheme "$SCHEME" \
-      -configuration "$CONFIG" \
-      -archivePath "$BUILD_DIR/mas.xcarchive" \
-      OBJROOT="$BUILD_DIR" \
-      SYMROOT="$BUILD_DIR" \
-      archive |
-    bundle exec xcpretty --color
-}
-
-main
+echo "==> 🏗️ Building mas ($(script/version))"
+swift build --configuration release --arch arm64 --arch x86_64

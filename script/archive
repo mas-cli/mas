@@ -6,21 +6,8 @@
 # Compresses artifacts so the can be archived more easily.
 #
 
-pushd build
+echo "==> 🗜️ Compressing mas"
+zip .build/mas.zip .build/apple/Products/Release/mas
 
-echo "==> 🗜️ Compressing mas.xcarchive"
-zip -r mas.xcarchive.zip mas.xcarchive
-
-echo "==> ️🗜️ Compressing binary and framework"
-pushd mas.xcarchive/Products
-zip -r \
-  mas-cli.zip \
-  bin/mas \
-  Frameworks/MasKit.framework
-mv mas-cli.zip ../../
-popd
-
-echo "==> 🔢 Files Hashes"
-shasum -a 256 mas-cli.zip mas.xcarchive.zip
-
-popd
+echo "==> 🔢 File Hash"
+shasum -a 256 .build/mas.zip

@@ -15,3 +15,6 @@ rubocop:
 
 shellcheck:
   enabled: true
+
+swiftlint:
+  enabled: false

@@ -13,27 +13,14 @@ class Mas < Formula
     sha256 cellar: :any, catalina:      "2e7ffedf674543f98c2b95868b6a23db208cb2e6a3ec1ddbb3553ddab0cf9a68"
   end
 
-  depends_on "carthage" => :build
   depends_on :macos
   if Hardware::CPU.arm?
     depends_on xcode: ["12.2", :build]
   else
-    depends_on xcode: ["11.4", :build]
+    depends_on xcode: ["12.0", :build]
   end
 
   def install
-    # Working around build issues in dependencies
-    # - Prevent warnings from causing build failures
-    # - Prevent linker errors by telling all lib builds to use max size install names
-    xcconfig = buildpath/"Overrides.xcconfig"
-    xcconfig.write <<~EOS
-      GCC_TREAT_WARNINGS_AS_ERRORS = NO
-      OTHER_LDFLAGS = -headerpad_max_install_names
-    EOS
-    ENV["XCODE_XCCONFIG_FILE"] = xcconfig
-
-    # Only build necessary dependencies
-    system "carthage", "bootstrap", "--platform", "macOS", "Commandant"
     system "script/install", prefix
 
     bash_completion.install "contrib/completion/mas-completion.bash" => "mas"

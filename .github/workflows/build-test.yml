@@ -17,16 +17,14 @@ jobs:
       # https://github.com/actions/checkout#usage
     - uses: actions/checkout@master
       with:
+        # Fetch tags for script/version
+        fetch-depth: 0
         # https://docs.github.com/en/actions/reference/authentication-in-a-workflow
         token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Bootstrap
       run: script/bootstrap
       # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepsenv
-      env:
-        # Carthage looks for GITHUB_ACCESS_TOKEN
-        # https://github.com/Carthage/Carthage/blob/master/Source/CarthageKit/GitHub.swift#L118
-        GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Build
       run: script/build

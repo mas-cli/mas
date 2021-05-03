@@ -13,5 +13,4 @@ echo "Building mas $VERSION artifacts"
 script/clean
 script/build
 script/archive
-script/install
 script/package

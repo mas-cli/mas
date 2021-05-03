@@ -22,11 +22,11 @@ done
 
 echo
 echo "--> 🕊️ Swift"
-swiftformat .
-for SOURCE in mas MasKit MasKitTests; do
+for SOURCE in Package.swift Sources Tests; do
+  swiftformat ${SOURCE}
   swift-format format --in-place --configuration .swift-format --recursive ${SOURCE}
+  swiftlint lint --fix --strict ${SOURCE}
 done
-swiftlint lint --fix --strict
 
 echo
 echo "--> 📜 Bash"
