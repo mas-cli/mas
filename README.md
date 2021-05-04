@@ -41,21 +41,22 @@ To install mas from our tap:
 brew install mas-cli/tap/mas
 ```
 
-#### Known Installation Issues On macOS Before 10.14.4
+#### Swift 5 Runtime Support
 
-Starting with [mas 1.7.0](https://github.com/mas-cli/mas/releases/tag/v1.7.0), if you get
-an error similar to `dyld: Symbol not found: _$s11SubSequenceSlTl` when running mas,
-you'll need to install the [Swift 5 Runtime Support for Command Line Tools](https://support.apple.com/kb/DL1998).
+mas requires Swift 5 runtime support. macOS 10.14.4 and later include it, but earlier releases did not.
+Without it, running `mas` may report an error similar to
+```
+dyld: Symbol not found: _$s11SubSequenceSlTl
+```
 
-Alternatively, you can:
-
-- Update to macOS 10.14.4 or later
-- Install Xcode 10.2 or later at `/Applications/Xcode.app`
-- Rebuild mas from source using Xcode 11.4 or later
+To get Swift 5 support, you have a few options:
+- Install the [Swift 5 Runtime Support for Command Line Tools](https://support.apple.com/kb/DL1998).
+- Update to macOS 10.14.4 or later.
+- Install Xcode 10.2 or later to `/Applications/Xcode.app`.
 
 ### 🐙 GitHub Releases
 
-Alternatively, binaries are available in the [GitHub Releases](https://github.com/mas-cli/mas/releases)
+Alternatively, binaries are available in the [GitHub Releases](https://github.com/mas-cli/mas/releases).
 
 ## 🤳🏻 Usage
 
@@ -120,7 +121,7 @@ $ mas outdated
 ```
 
 > `mas` is only able to install/update applications that are listed in the Mac App Store itself.
-Use [`softwareupdate(8)`] utility for downloading system updates (like iTunes, Xcode Command Line Tools, etc)
+Use [`softwareupdate(8)`] utility for downloading system updates (e.g. Xcode Command Line Tools)
 
 To install all pending updates run `mas upgrade`.
 
@@ -208,6 +209,7 @@ reattach-to-user-namespace mas install
 You can build from Xcode by opening the root `mas` directory, or from the Terminal:
 
 ```bash
+script/bootstrap
 script/build
 ```
 
@@ -219,6 +221,10 @@ The tests in this project are a recent work-in-progress.
 Since Xcode does not officially support tests for command-line tool targets,
 all logic is part of the MasKit target with tests in MasKitTests.
 Tests are written using [Quick].
+
+```bash
+script/test
+```
 
 ## 📄 License
 
