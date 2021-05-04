@@ -1,4 +1,4 @@
-[<p align="center"><img src="mas-cli.png" alt="mas-cli" width="450" height="auto"></p>][mas-cli]
+<h1 align="center"><img src="mas-cli.png" alt="mas-cli" width="450" height="auto"></h1>
 
 # mas-cli
 
@@ -110,7 +110,8 @@ $ mas purchase 768053424
 ```
 
 > Please note that you may have to re-authenticate yourself in the App Store to complete the purchase.
-This is the case if the application is not free or if you configured your account not to remember the credentials for free purchases.
+This is the case if the application is not free or if you configured your account not to remember the
+credentials for free purchases.
 
 Use `mas outdated` to list all applications with pending updates.
 
@@ -184,9 +185,14 @@ docs for more details.
 
 ## 💥 When something doesn't work
 
-If you see the error "This redownload is not available for this Apple ID either because it was bought by a different user of the item was refunded or cancelled.", it's probably because you haven't installed the app through the App Store yet. See [#46](https://github.com/mas-cli/mas/issues/46#issuecomment-248581233).
+If you see this error, it's probably because you haven't installed the app through the App Store yet.
+See [#46](https://github.com/mas-cli/mas/issues/46#issuecomment-248581233).
+> This redownload is not available for this Apple ID either because it was bought by a different user of the
+> item was refunded or cancelled.
 
-If `mas` doesn't work for you as expected (e.g. you can't update/download apps), run `mas reset` and try again. If the issue persists, please [file a bug](https://github.com/mas-cli/mas/issues/new)! All your feedback is much appreciated ✨
+If `mas` doesn't work for you as expected (e.g. you can't update/download apps), run `mas reset` and try again.
+If the issue persists, please [file a bug](https://github.com/mas-cli/mas/issues/new).
+All your feedback is much appreciated! ✨
 
 ## 📺 Using `tmux`
 
