@@ -44,12 +44,11 @@ brew install mas-cli/tap/mas
 #### Swift 5 Runtime Support
 
 mas requires Swift 5 runtime support. macOS 10.14.4 and later include it, but earlier releases did not.
-Without it, running `mas` may report an error similar to
-```
-dyld: Symbol not found: _$s11SubSequenceSlTl
-```
+Without it, running `mas` may report an error similar to this:
+> dyld: Symbol not found: _$s11SubSequenceSlTl
 
 To get Swift 5 support, you have a few options:
+
 - Install the [Swift 5 Runtime Support for Command Line Tools](https://support.apple.com/kb/DL1998).
 - Update to macOS 10.14.4 or later.
 - Install Xcode 10.2 or later to `/Applications/Xcode.app`.
