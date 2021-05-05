@@ -73,19 +73,16 @@ extension StoreSearch {
     /// - Parameter appName: MAS app identifier.
     /// - Returns: URL for the search service or nil if appName can't be encoded.
     func searchURL(for appName: String) -> URL? {
-        guard let urlString = searchURLString(forApp: appName) else { return nil }
-        return URL(string: urlString)
-    }
-
-    /// Builds the search URL for an app.
-    ///
-    /// - Parameter appName: Name of app to find.
-    /// - Returns: String URL for the search service or nil if appName can't be encoded.
-    func searchURLString(forApp appName: String) -> String? {
-        if let urlEncodedAppName = appName.urlEncodedString {
-            return "https://itunes.apple.com/search?media=software&entity=macSoftware&term=\(urlEncodedAppName)"
+        guard var components = URLComponents(string: "https://itunes.apple.com/search") else {
+            return nil
         }
-        return nil
+
+        components.queryItems = [
+            URLQueryItem(name: "media", value: "software"),
+            URLQueryItem(name: "entity", value: "macSoftware"),
+            URLQueryItem(name: "term", value: appName),
+        ]
+        return components.url
     }
 
     /// Builds the lookup URL for an app.
@@ -93,15 +90,11 @@ extension StoreSearch {
     /// - Parameter appId: MAS app identifier.
     /// - Returns: URL for the lookup service or nil if appId can't be encoded.
     func lookupURL(forApp appId: Int) -> URL? {
-        guard let urlString = lookupURLString(forApp: appId) else { return nil }
-        return URL(string: urlString)
-    }
+        guard var components = URLComponents(string: "https://itunes.apple.com/lookup") else {
+            return nil
+        }
 
-    /// Builds the lookup URL for an app.
-    ///
-    /// - Parameter appId: MAS app identifier.
-    /// - Returns: String URL for the lookup service.
-    func lookupURLString(forApp appId: Int) -> String? {
-        "https://itunes.apple.com/lookup?id=\(appId)"
+        components.queryItems = [URLQueryItem(name: "id", value: "\(appId)")]
+        return components.url
     }
 }
