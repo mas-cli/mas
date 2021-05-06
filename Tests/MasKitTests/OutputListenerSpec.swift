@@ -9,9 +9,11 @@
 import Nimble
 import Quick
 
+@testable import MasKit
+
 class OutputListenerSpec: QuickSpec {
     override func spec() {
-        xdescribe("output listener") {
+        describe("output listener") {
             it("can intercept a single line written stdout") {
                 let output = OutputListener()
                 let expectedOutput = "hi there"
