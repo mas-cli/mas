@@ -94,7 +94,7 @@ public struct UpgradeCommand: CommandProtocol {
         for installedApp in apps {
             // only upgrade apps whose local version differs from the store version
             group.enter()
-            storeSearch.lookup(app: installedApp.itemIdentifier.intValue) { result, _ in
+            try storeSearch.lookup(app: installedApp.itemIdentifier.intValue).done { result in
                 defer { group.leave() }
 
                 if let storeApp = result, installedApp.isOutdatedWhenComparedTo(storeApp) {
@@ -103,7 +103,7 @@ public struct UpgradeCommand: CommandProtocol {
 
                     outdated.append(installedApp)
                 }
-            }
+            }.wait()
         }
 
         group.wait()

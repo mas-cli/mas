@@ -31,41 +31,27 @@ class MasStoreSearch: StoreSearch {
     /// - Parameter appName: MAS ID of app
     /// - Parameter completion: A closure that receives the search results or an Error if there is a
     ///   problem with the network request. Results array will be empty if there were no matches.
-    func search(for appName: String, _ completion: @escaping ([SearchResult]?, Error?) -> Void) {
+    func search(for appName: String) -> Promise<[SearchResult]> {
         guard let url = searchURL(for: appName)
         else {
-            completion(nil, MASError.urlEncoding)
-            return
+            return Promise(error: MASError.urlEncoding)
         }
 
-        firstly {
-            loadSearchResults(url)
-        }.done { results in
-            completion(results, nil)
-        }.catch { error in
-            completion(nil, error)
-        }
+        return loadSearchResults(url)
     }
 
     /// Looks up app details.
     ///
     /// - Parameter appId: MAS ID of app
-    /// - Parameter completion: A closure that receives the search result record of app, or nil if no apps match the ID,
+    /// - Returns: A Promise for the search result record of app, or nil if no apps match the ID,
     ///   or an Error if there is a problem with the network request.
-    func lookup(app appId: Int, _ completion: @escaping (SearchResult?, Error?) -> Void) {
+    func lookup(app appId: Int) -> Promise<SearchResult?> {
         guard let url = lookupURL(forApp: appId)
         else {
-            completion(nil, MASError.urlEncoding)
-            return
+            return Promise(error: MASError.urlEncoding)
         }
 
-        firstly {
-            loadSearchResults(url)
-        }.done { results in
-            completion(results.first, nil)
-        }.catch { error in
-            completion(nil, error)
-        }
+        return loadSearchResults(url).map { results in results.first }
     }
 
     private func loadSearchResults(_ url: URL) -> Promise<[SearchResult]> {

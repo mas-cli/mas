@@ -8,6 +8,8 @@
 
 import Commandant
 import Foundation
+import PromiseKit
+import enum Swift.Result
 
 /// Command which displays a list of installed apps which have available updates
 /// ready to be installed from the Mac App Store.
@@ -34,19 +36,10 @@ public struct OutdatedCommand: CommandProtocol {
 
     /// Runs the command.
     public func run(_: Options) -> Result<Void, MASError> {
-        var failure: MASError?
-        let group = DispatchGroup()
-        for installedApp in appLibrary.installedApps {
-            group.enter()
-            storeSearch.lookup(app: installedApp.itemIdentifier.intValue) { storeApp, error in
-                defer { group.leave() }
-
-                guard error == nil else {
-                    // Bubble up MASErrors
-                    failure = error as? MASError ?? .searchFailed
-                    return
-                }
-
+        let promises = appLibrary.installedApps.map { installedApp in
+            firstly {
+                storeSearch.lookup(app: installedApp.itemIdentifier.intValue)
+            }.done { storeApp in
                 guard let storeApp = storeApp else {
                     printWarning(
                         """
@@ -66,12 +59,13 @@ public struct OutdatedCommand: CommandProtocol {
             }
         }
 
-        group.wait()
-
-        if let failure = failure {
-            return .failure(failure)
-        }
-
-        return .success(())
+        return firstly {
+            when(fulfilled: promises)
+        }.map {
+            Result<Void, MASError>.success(())
+        }.recover { error in
+            // Bubble up MASErrors
+            .value(Result<Void, MASError>.failure(error as? MASError ?? .searchFailed))
+        }.wait()
     }
 }

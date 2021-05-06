@@ -24,7 +24,7 @@ public class MasStoreSearchSpec: QuickSpec {
 
                     var results: [SearchResult]
                     do {
-                        results = try storeSearch.search(for: "slack")
+                        results = try storeSearch.search(for: "slack").wait()
                         expect(results.count) == 39
                     } catch {
                         let maserror = error as! MASError
@@ -43,7 +43,7 @@ public class MasStoreSearchSpec: QuickSpec {
 
                     var lookup: SearchResult?
                     do {
-                        lookup = try storeSearch.lookup(app: appId)
+                        lookup = try storeSearch.lookup(app: appId).wait()
                     } catch {
                         let maserror = error as! MASError
                         if case .jsonParsing(let nserror) = maserror {
