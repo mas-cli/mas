@@ -30,23 +30,22 @@ public struct PurchaseCommand: CommandProtocol {
     /// Runs the command.
     public func run(_ options: Options) -> Result<Void, MASError> {
         // Try to download applications with given identifiers and collect results
-        let downloadResults = options.appIds.compactMap { appId -> MASError? in
+        let appIds = options.appIds.filter { appId in
             if let product = appLibrary.installedApp(forId: appId) {
                 printWarning("\(product.appName) has already been purchased.")
-                return nil
+                return false
             }
 
-            return download(appId, purchase: true)
+            return true
         }
 
-        switch downloadResults.count {
-        case 0:
-            return .success(())
-        case 1:
-            return .failure(downloadResults[0])
-        default:
-            return .failure(.downloadFailed(error: nil))
+        do {
+            try downloadAll(appIds, purchase: true).wait()
+        } catch {
+            return .failure(error as? MASError ?? .downloadFailed(error: error as NSError))
         }
+
+        return .success(())
     }
 }
 
