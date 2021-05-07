@@ -11,6 +11,5 @@ VERSION=$(script/version)
 echo "Building mas $VERSION artifacts"
 
 script/clean
-script/build
-script/archive
+script/build --universal
 script/package
