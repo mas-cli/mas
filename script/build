@@ -6,8 +6,10 @@
 # Builds the Swift Package.
 #
 
-script/clean
-script/lint
-
 echo "==> 🏗️ Building mas ($(script/version))"
-swift build --configuration release --arch arm64 --arch x86_64
+swift build \
+  --configuration release \
+  --arch arm64 \
+  --arch x86_64 \
+  --disable-sandbox \
+  --manifest-cache none
