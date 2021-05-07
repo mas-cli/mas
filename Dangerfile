@@ -13,7 +13,7 @@ has_test_changes = !git.modified_files.grep(/Tests/).empty?
 
 is_version_bump = git.modified_files.sort == [
     "Package.swift",
-    "MasKit/SupportingFiles/Package.swift"
+    "MasKit/Package.swift"
 ].sort
 message(":bookmark: Version bump!") if is_version_bump
 
