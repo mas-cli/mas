@@ -26,8 +26,8 @@ class Mas < Formula
   end
 
   def install
-    system "script/build"
-    system "script/install", prefix
+    system "script/build", "--universal"
+    system "script/install", "--universal", prefix
 
     bash_completion.install "contrib/completion/mas-completion.bash" => "mas"
     fish_completion.install "contrib/completion/mas.fish"
