@@ -6,5 +6,5 @@
 # Deletes the build directory.
 #
 
-BUILD_DIR=.build
-rm -rf ${BUILD_DIR:?}
+swift package clean
+swift package reset
