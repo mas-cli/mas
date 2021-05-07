@@ -2,8 +2,8 @@ class Mas < Formula
   desc "Mac App Store command-line interface"
   homepage "https://github.com/mas-cli/mas"
   url "https://github.com/mas-cli/mas.git",
-      tag:      "v1.8.1",
-      revision: "23a36b4555f5625fe29915b31b8b101064452dca"
+      tag:      "v1.8.2",
+      revision: "c88a98892e52a0ad8527a532aaa5dd1a2dd19635"
   license "MIT"
   head "https://github.com/mas-cli/mas.git"
 
@@ -26,6 +26,7 @@ class Mas < Formula
   end
 
   def install
+    system "script/build"
     system "script/install", prefix
 
     bash_completion.install "contrib/completion/mas-completion.bash" => "mas"
@@ -34,6 +35,6 @@ class Mas < Formula
 
   test do
     assert_equal version.to_s, shell_output("#{bin}/mas version").chomp
-    assert_include shell_output("#{bin}/mas info 497799835"), "Xcode"
+    assert_includes shell_output("#{bin}/mas info 497799835"), "Xcode"
   end
 end
