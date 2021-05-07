@@ -15,10 +15,20 @@ import StoreFoundation
 /// - Parameter appIDs: The IDs of the apps to be downloaded
 /// - Parameter purchase: Flag indicating whether the apps needs to be purchased.
 /// Only works for free apps. Defaults to false.
-/// - Returns: A promise that completes when the downloads are complete.
+/// - Returns: A promise that completes when the downloads are complete. If any fail,
+/// the promise is rejected with the first error, after all remaining downloads are attempted.
 func downloadAll(_ appIDs: [UInt64], purchase: Bool = false) -> Promise<Void> {
-    appIDs.reduce(Promise<Void>.value) { promise, appID in
-        promise.then { download(appID, purchase: purchase) }
+    var firstError: Error?
+    return appIDs.reduce(Guarantee<Void>.value(())) { previous, appID in
+        previous.then { download(appID, purchase: purchase).recover { error in
+            if firstError == nil {
+                firstError = error
+            }
+        } }
+    }.done {
+        if let error = firstError {
+            throw error
+        }
     }
 }
 
