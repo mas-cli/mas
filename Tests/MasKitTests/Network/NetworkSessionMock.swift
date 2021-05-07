@@ -19,21 +19,6 @@ class NetworkSessionMock: NetworkSession {
     var data: Data?
     var error: Error?
 
-    /// Creates a mock data task
-    ///
-    /// - Parameters:
-    ///   - url: unused
-    ///   - completionHandler: Closure which is delivered both data and error properties (only one should be non-nil)
-    /// - Returns: Mock data task
-    func dataTask(with _: URL, completionHandler: @escaping CompletionHandler) -> URLSessionDataTask {
-        let data = self.data
-        let error = self.error
-
-        return URLSessionDataTaskMock {
-            completionHandler(data, nil, error)
-        }
-    }
-
     /// Immediately passes data and error to completion handler.
     ///
     /// - Parameters:
