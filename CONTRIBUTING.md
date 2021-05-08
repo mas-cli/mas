@@ -17,7 +17,7 @@ you are exeriencing.
 ## Making Changes
 
 - [Fork the repository](https://github.com/mas-cli/mas#fork-destination-box) on GitHub.
-- Cone your fork
+- Clone your fork
   `git clone git@github.com:your-username/mas.git`
 - Create a topic branch from where you want to base your work.
   - This is usually the `main` branch.
