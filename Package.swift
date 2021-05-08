@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "mas",
     platforms: [
-        .macOS(.v10_11),
+        .macOS(.v10_11)
     ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
@@ -36,7 +36,7 @@ let package = Package(
                 .unsafeFlags([
                     "-I", "Sources/PrivateFrameworks/CommerceKit",
                     "-I", "Sources/PrivateFrameworks/StoreFoundation",
-                ]),
+                ])
             ]
         ),
         .target(
@@ -46,7 +46,7 @@ let package = Package(
                 .unsafeFlags([
                     "-I", "Sources/PrivateFrameworks/CommerceKit",
                     "-I", "Sources/PrivateFrameworks/StoreFoundation",
-                ]),
+                ])
             ],
             linkerSettings: [
                 .linkedFramework("CommerceKit"),
@@ -62,9 +62,19 @@ let package = Package(
                 .unsafeFlags([
                     "-I", "Sources/PrivateFrameworks/CommerceKit",
                     "-I", "Sources/PrivateFrameworks/StoreFoundation",
-                ]),
+                ])
             ]
         ),
     ],
     swiftLanguageVersions: [.v5]
 )
+
+#if swift(>=5.4)
+    package.dependencies += [
+        .package(url: "https://github.com/apple/swift-format", from: "0.50400.0")
+    ]
+#elseif swift(>=5.3)
+    package.dependencies += [
+        .package(url: "https://github.com/apple/swift-format", from: "0.50300.0")
+    ]
+#endif

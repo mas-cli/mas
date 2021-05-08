@@ -25,7 +25,7 @@ class MasStoreSearchSpec: QuickSpec {
                         expect(results.count) == 39
                     } catch {
                         let maserror = error as! MASError
-                        if case let .jsonParsing(nserror) = maserror {
+                        if case .jsonParsing(let nserror) = maserror {
                             fail("\(maserror) \(nserror!)")
                         }
                     }
@@ -43,7 +43,7 @@ class MasStoreSearchSpec: QuickSpec {
                         lookup = try storeSearch.lookup(app: appId)
                     } catch {
                         let maserror = error as! MASError
-                        if case let .jsonParsing(nserror) = maserror {
+                        if case .jsonParsing(let nserror) = maserror {
                             fail("\(maserror) \(nserror!)")
                         }
                     }
