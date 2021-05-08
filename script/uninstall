@@ -3,7 +3,7 @@
 # script/uninstall
 # mas
 #
-# Removes mas and MasKit from PREFIX.
+# Removes mas from PREFIX.
 #
 
 # Override default prefix path with optional 1st arg

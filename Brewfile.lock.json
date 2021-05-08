@@ -1,6 +1,35 @@
 {
   "entries": {
     "brew": {
+      "markdownlint-cli": {
+        "version": "0.27.1",
+        "bottle": {
+          "rebuild": 0,
+          "root_url": "https://ghcr.io/v2/homebrew/core",
+          "files": {
+            "arm64_big_sur": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/markdownlint-cli/blobs/sha256:ed9779fa2a2cc0141debd2c61501681dcd2c78741ee47ea90726e65f52515d81",
+              "sha256": "ed9779fa2a2cc0141debd2c61501681dcd2c78741ee47ea90726e65f52515d81"
+            },
+            "big_sur": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/markdownlint-cli/blobs/sha256:d6454296ad369bb59d89724a04b36374946d5880eaaefc9690f617f5a74ff310",
+              "sha256": "d6454296ad369bb59d89724a04b36374946d5880eaaefc9690f617f5a74ff310"
+            },
+            "catalina": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/markdownlint-cli/blobs/sha256:b005b2342165d9c7dbd528d57659fa4bbe6615c2fc6f7ea87fbec39cdb7857a5",
+              "sha256": "b005b2342165d9c7dbd528d57659fa4bbe6615c2fc6f7ea87fbec39cdb7857a5"
+            },
+            "mojave": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/markdownlint-cli/blobs/sha256:802003979b630f36bfce119b8cd8a05ce34a006e19d94bbceb2040944167233b",
+              "sha256": "802003979b630f36bfce119b8cd8a05ce34a006e19d94bbceb2040944167233b"
+            }
+          }
+        }
+      },
       "shfmt": {
         "version": "3.2.4",
         "bottle": {
@@ -97,12 +126,12 @@
   "system": {
     "macos": {
       "big_sur": {
-        "HOMEBREW_VERSION": "3.1.3-107-g1157a97",
+        "HOMEBREW_VERSION": "3.1.5",
         "HOMEBREW_PREFIX": "/opt/homebrew",
-        "Homebrew/homebrew-core": "1da7ce26f5cfa33eec131571755152680a5321b7",
+        "Homebrew/homebrew-core": "e6c5a215e70e758472a62b1ff0a1ecdf94facc61",
         "CLT": "12.5.0.0.1.1617976050",
         "Xcode": "12.5",
-        "macOS": "11.3"
+        "macOS": "11.3.1"
       }
     }
   }

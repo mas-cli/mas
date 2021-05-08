@@ -10,18 +10,29 @@
 # https://github.com/Homebrew/homebrew-core/blob/master/Formula/mas.rb
 #
 
+ARCH=$(uname -m)
+RELEASE=.build/${ARCH}-apple-macosx/release
 VERSION=$(script/version)
 
-# Override default prefix path with optional 1st arg
-if test -n "$1"; then
-  PREFIX="$1"
-elif [[ $(uname -m) == 'arm64' ]]; then
+if [[ $(uname -m) == 'arm64' ]]; then
   PREFIX=/opt/homebrew
 else
   PREFIX=/usr/local
 fi
 
+while test -n "$1"; do
+  if [[ "$1" == '--universal' ]]; then
+    ARCH=universal
+    RELEASE=.build/apple/Products/Release
+  else
+    # Override default prefix path with optional arg
+    PREFIX="$1"
+  fi
+
+  shift
+done
+
 echo "==> 📲 Installing mas ($VERSION) for $ARCH to $PREFIX"
 ditto -v \
-  ".build/apple/Products/Release/mas" \
+  "$RELEASE/mas" \
   "$PREFIX/bin/"

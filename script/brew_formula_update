@@ -9,7 +9,7 @@
 # brew bump-formula-pr --help
 #
 
-BREW_CORE_PATH="$(brew --prefix)/Homebrew/Library/Taps/homebrew/homebrew-core/Formula"
+BREW_CORE_PATH="$(brew --prefix)/Library/Taps/homebrew/homebrew-core/Formula"
 
 function usage {
   echo "Usage: brew_formula_bump [v1.0] [sha1_hash]"
