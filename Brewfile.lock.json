@@ -96,6 +96,17 @@
     "tap": {
       "kylef/formulae": {
         "revision": "00757e80d6861651d3dc18bbc978edf9a5d0a8a9"
+      },
+      "peripheryapp/periphery": {
+        "revision": "85922da2070aec89444ade214be45271f33286a1"
+      }
+    },
+    "cask": {
+      "periphery": {
+        "version": "2.4.3",
+        "options": {
+          "full_name": "periphery"
+        }
       }
     }
   },
@@ -104,7 +115,7 @@
       "big_sur": {
         "HOMEBREW_VERSION": "3.1.5-146-g64b6846",
         "HOMEBREW_PREFIX": "/opt/homebrew",
-        "Homebrew/homebrew-core": "625fbbcc0d7c16be8838dc2c309714dd553ccbd1",
+        "Homebrew/homebrew-core": "9c6af5030d41978a1714f1c1dc5f0a8e452e308b",
         "CLT": "12.5.0.22.9",
         "Xcode": "12.5",
         "macOS": "11.3.1"

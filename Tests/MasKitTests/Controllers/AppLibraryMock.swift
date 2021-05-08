@@ -11,14 +11,6 @@
 class AppLibraryMock: AppLibrary {
     var installedApps = [SoftwareProduct]()
 
-    /// Finds an app using a bundle identifier.
-    ///
-    /// - Parameter bundleId: Bundle identifier of app.
-    /// - Returns: Software Product of app if found; nil otherwise.
-    func installedApp(forBundleId _: String) -> SoftwareProduct? {
-        nil
-    }
-
     func uninstallApp(app: SoftwareProduct) throws {
         if !installedApps.contains(where: { product -> Bool in
             app.itemIdentifier == product.itemIdentifier

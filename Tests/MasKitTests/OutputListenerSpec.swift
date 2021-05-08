@@ -11,8 +11,8 @@ import Quick
 
 @testable import MasKit
 
-class OutputListenerSpec: QuickSpec {
-    override func spec() {
+public class OutputListenerSpec: QuickSpec {
+    public override func spec() {
         describe("output listener") {
             it("can intercept a single line written stdout") {
                 let output = OutputListener()

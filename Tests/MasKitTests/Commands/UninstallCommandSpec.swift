@@ -12,8 +12,8 @@ import Quick
 
 @testable import MasKit
 
-class UninstallCommandSpec: QuickSpec {
-    override func spec() {
+public class UninstallCommandSpec: QuickSpec {
+    public override func spec() {
         describe("uninstall command") {
             let appId = 12345
             let app = SoftwareProductMock(

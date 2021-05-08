@@ -11,8 +11,8 @@ import Quick
 
 @testable import MasKit
 
-class SignOutCommandSpec: QuickSpec {
-    override func spec() {
+public class SignOutCommandSpec: QuickSpec {
+    public override func spec() {
         describe("signout command") {
             it("updates stuff") {
                 let cmd = SignOutCommand()

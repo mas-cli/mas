@@ -10,10 +10,6 @@ import CommerceKit
 import StoreFoundation
 
 extension ISStoreAccount: StoreAccount {
-    static var primaryAccountIsPresentAndSignedIn: Bool {
-        CKAccountStore.shared().primaryAccountIsPresentAndSignedIn
-    }
-
     static var primaryAccount: StoreAccount? {
         var account: ISStoreAccount?
 

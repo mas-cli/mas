@@ -11,8 +11,8 @@ import Quick
 
 @testable import MasKit
 
-class ResetCommandSpec: QuickSpec {
-    override func spec() {
+public class ResetCommandSpec: QuickSpec {
+    public override func spec() {
         describe("reset command") {
             it("updates stuff") {
                 let cmd = ResetCommand()

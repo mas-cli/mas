@@ -12,7 +12,7 @@
 
 echo "==> 🚨 Linting mas"
 
-for LINTER in git markdownlint shfmt swiftformat swiftlint; do
+for LINTER in git markdownlint periphery shfmt swiftformat swiftlint; do
   if [[ ! -x "$(command -v ${LINTER})" ]]; then
     echo "error: ${LINTER} is not installed. Run 'script/bootstrap' or 'brew install ${LINTER}'."
     exit 1
@@ -33,6 +33,7 @@ for SOURCE in Package.swift Sources Tests; do
   swift run swift-format lint --recursive ${SOURCE}
   swiftlint lint --strict ${SOURCE}
 done
+periphery scan --retain-public --strict
 
 echo
 echo "--> 📜 Bash"

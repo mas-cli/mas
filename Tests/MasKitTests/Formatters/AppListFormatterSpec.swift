@@ -11,8 +11,8 @@ import Quick
 
 @testable import MasKit
 
-class AppListsFormatterSpec: QuickSpec {
-    override func spec() {
+public class AppListsFormatterSpec: QuickSpec {
+    public override func spec() {
         // static func reference
         let format = AppListFormatter.format(products:)
         var products: [SoftwareProduct] = []

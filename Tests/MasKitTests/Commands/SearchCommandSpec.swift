@@ -11,8 +11,8 @@ import Quick
 
 @testable import MasKit
 
-class SearchCommandSpec: QuickSpec {
-    override func spec() {
+public class SearchCommandSpec: QuickSpec {
+    public override func spec() {
         let result = SearchResult(
             trackId: 1111,
             trackName: "slack",

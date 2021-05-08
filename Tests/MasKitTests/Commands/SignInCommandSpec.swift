@@ -11,8 +11,8 @@ import Quick
 
 @testable import MasKit
 
-class SignInCommandSpec: QuickSpec {
-    override func spec() {
+public class SignInCommandSpec: QuickSpec {
+    public override func spec() {
         describe("signn command") {
             it("updates stuff") {
                 let cmd = SignInCommand()

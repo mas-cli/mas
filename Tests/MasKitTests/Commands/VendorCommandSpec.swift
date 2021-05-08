@@ -11,8 +11,8 @@ import Quick
 
 @testable import MasKit
 
-class VendorCommandSpec: QuickSpec {
-    override func spec() {
+public class VendorCommandSpec: QuickSpec {
+    public override func spec() {
         let result = SearchResult(
             trackId: 1111,
             trackViewUrl: "https://awesome.app",

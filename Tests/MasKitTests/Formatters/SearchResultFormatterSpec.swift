@@ -11,8 +11,8 @@ import Quick
 
 @testable import MasKit
 
-class SearchResultsFormatterSpec: QuickSpec {
-    override func spec() {
+public class SearchResultsFormatterSpec: QuickSpec {
+    public override func spec() {
         // static func reference
         let format = SearchResultFormatter.format(results:includePrice:)
         var results: [SearchResult] = []

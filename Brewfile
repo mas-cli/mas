@@ -7,3 +7,6 @@ brew "swiftformat"
 
 tap "kylef/formulae"
 brew "swiftenv"
+
+tap "peripheryapp/periphery"
+cask "periphery"

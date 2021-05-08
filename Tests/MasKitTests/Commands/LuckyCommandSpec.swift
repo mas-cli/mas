@@ -11,8 +11,8 @@ import Quick
 
 @testable import MasKit
 
-class LuckyCommandSpec: QuickSpec {
-    override func spec() {
+public class LuckyCommandSpec: QuickSpec {
+    public override func spec() {
         describe("lucky command") {
             it("installs the first app matching a search") {
                 let cmd = LuckyCommand()

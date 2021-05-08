@@ -12,8 +12,6 @@ import Foundation
 
 /// Mock NetworkSession for testing.
 class NetworkSessionMock: NetworkSession {
-    typealias CompletionHandler = (Data?, URLResponse?, Error?) -> Void
-
     // Properties that enable us to set exactly what data or error
     // we want our mocked URLSession to return for any request.
     var data: Data?
