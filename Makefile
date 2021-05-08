@@ -26,17 +26,13 @@ SWIFT_VERSION = 5.3.2
 
 # OS specific differences
 UNAME = ${shell uname}
+ARCH = ${shell uname -m}
 
 ifeq ($(UNAME), Darwin)
-SWIFTC_FLAGS =
-LINKER_FLAGS = -Xlinker -L/usr/local/lib
-PLATFORM = x86_64-apple-macosx
+PLATFORM = $(ARCH)-apple-macosx
 EXECUTABLE_DIRECTORY = ./.build/${PLATFORM}/debug
-TEST_BUNDLE = ${CMD_NAME}PackageTests.xctest
-TEST_RESOURCES_DIRECTORY = ./.build/${PLATFORM}/debug/${TEST_BUNDLE}/Contents/Resources
 endif
 
-RUN_RESOURCES_DIRECTORY = ${EXECUTABLE_DIRECTORY}
 
 ################################################################################
 #
@@ -49,7 +45,7 @@ version:
 	xcodebuild -version
 	swiftenv version
 	swift --version
-	# swift package tools-version
+	swift package tools-version
 
 .PHONY: init
 init:
@@ -63,38 +59,21 @@ bootstrap:
 .PHONY: clean
 clean:
 	script/clean
-	xcodebuild clean
-	# swift package clean
-	# swift package reset
 
 .PHONY: distclean
-distclean:
-	rm -rf Packages
-	# swift package clean
+distclean: clean
 
 .PHONY: updateHeaders
 updateHeaders:
 	script/update_headers
 
 .PHONY: build
-build: #copyRunResources
+build:
 	script/build
-	# swift build $(SWIFTC_FLAGS) $(LINKER_FLAGS)
 
 .PHONY: test
-test: build #copyTestResources
+test: build
 	script/test
-	# swift test --enable-test-discovery
-
-.PHONY: copyRunResources
-copyRunResources:
-	mkdir -p ${RUN_RESOURCES_DIRECTORY}
-	cp -r Resources/* ${RUN_RESOURCES_DIRECTORY}
-
-.PHONY: copyTestResources
-copyTestResources:
-	mkdir -p ${TEST_RESOURCES_DIRECTORY}
-	cp -r Resources/* ${TEST_RESOURCES_DIRECTORY}
 
 # make run ARGS="asdf"
 .PHONY: run
@@ -109,6 +88,10 @@ install:
 uninstall:
 	script/uninstall
 
+.PHONY: format
+lint:
+	script/format
+
 .PHONY: lint
 lint:
 	script/lint
@@ -116,10 +99,6 @@ lint:
 .PHONY: danger
 danger:
 	script/danger
-
-.PHONY: archive
-archive:
-	script/archive
 
 # Builds bottles
 .PHONY: bottles
@@ -138,26 +117,18 @@ package:
 packageInstall:
 	script/package_install
 
-.PHONY: release
-release:
-	script/release
+.PHONY: describe
+describe:
+	swift package describe
 
-# .PHONY: describe
-# describe:
-# 	swift package describe
+.PHONY: resolve
+resolve:
+	swift package resolve
 
-# .PHONY: resolve
-# resolve:
-# 	swift package resolve
+.PHONY: dependencies
+dependencies: resolve
+	swift package show-dependencies
 
-# .PHONY: dependencies
-# dependencies: resolve
-# 	swift package show-dependencies
-
-# .PHONY: update
-# update: resolve
-# 	swift package update
-
-# .PHONY: xcproj
-# xcproj:
-# 	swift package generate-xcodeproj
+.PHONY: update
+update: resolve
+	swift package update

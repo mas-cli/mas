@@ -18,7 +18,7 @@ DISTRIBUTION_PLIST="Package/Distribution.plist"
 
 # Destination for install root
 DSTROOT=.build/distributions
-script/install "$DSTROOT/usr/local"
+script/install "$DSTROOT/usr/local" --universal
 
 VERSION=$(script/version)
 
