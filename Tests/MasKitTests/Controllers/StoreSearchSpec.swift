@@ -21,8 +21,8 @@ struct StoreSearchForTesting: StoreSearch {
     }
 }
 
-class StoreSearchSpec: QuickSpec {
-    override func spec() {
+public class StoreSearchSpec: QuickSpec {
+    public override func spec() {
         let storeSearch = StoreSearchForTesting()
 
         describe("url string") {

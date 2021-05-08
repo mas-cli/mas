@@ -11,8 +11,8 @@ import Quick
 
 @testable import MasKit
 
-class InstallCommandSpec: QuickSpec {
-    override func spec() {
+public class InstallCommandSpec: QuickSpec {
+    public override func spec() {
         describe("install command") {
             it("installs apps") {
                 let cmd = InstallCommand()

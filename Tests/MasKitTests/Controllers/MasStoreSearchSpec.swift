@@ -11,8 +11,8 @@ import Quick
 
 @testable import MasKit
 
-class MasStoreSearchSpec: QuickSpec {
-    override func spec() {
+public class MasStoreSearchSpec: QuickSpec {
+    public override func spec() {
         describe("store") {
             context("when searched") {
                 it("can find slack") {

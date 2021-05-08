@@ -11,8 +11,8 @@ import Quick
 
 @testable import MasKit
 
-class AccountCommandSpec: QuickSpec {
-    override func spec() {
+public class AccountCommandSpec: QuickSpec {
+    public override func spec() {
         describe("Account command") {
             it("displays active account") {
                 let cmd = AccountCommand()

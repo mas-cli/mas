@@ -11,8 +11,8 @@ import Quick
 
 @testable import MasKit
 
-class VersionCommandSpec: QuickSpec {
-    override func spec() {
+public class VersionCommandSpec: QuickSpec {
+    public override func spec() {
         describe("version command") {
             it("displays the current version") {
                 let cmd = VersionCommand()

@@ -12,8 +12,8 @@ import Quick
 
 @testable import MasKit
 
-class SearchResultListSpec: QuickSpec {
-    override func spec() {
+public class SearchResultListSpec: QuickSpec {
+    public override func spec() {
         describe("search result list") {
             it("can parse bbedit") {
                 let data = Data(from: "search/bbedit.json")
