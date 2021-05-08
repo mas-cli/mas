@@ -20,13 +20,13 @@ you are exeriencing.
 - Cone your fork
   `git clone git@github.com:your-username/mas.git`
 - Create a topic branch from where you want to base your work.
-  - This is usually the `master` branch.
-  - To quickly create a topic branch based on `master`, run
-     `git checkout -b awesome-feature master`
-  - Please avoid working [directly on the master branch](https://softwareengineering.stackexchange.com/questions/223400/when-should-i-stop-committing-to-master-on-new-projects).
+  - This is usually the `main` branch.
+  - To quickly create a topic branch based on `main`, run
+     `git checkout -b awesome-feature main`
+  - Please avoid working [directly on the main branch](https://softwareengineering.stackexchange.com/questions/223400/when-should-i-stop-committing-to-master-on-new-projects).
   - Make commits of logical units.
 - Run script/format before committing your changes. Fix anything that isn't automatically fixed by the linters.
-- Push your topic branch to your fork and [submit a pull request](https://github.com/mas-cli/mas/compare/master...your-username:topic-branch).
+- Push your topic branch to your fork and [submit a pull request](https://github.com/mas-cli/mas/compare/main...your-username:topic-branch).
 
 Some things that will increase the chance that your pull request is accepted:
 
@@ -50,7 +50,7 @@ to this project, but must remain an owner. By becoming a contributor, you agree 
 
 ## Branching and Releases
 
-- This project follows [trunk-based development](https://trunkbaseddevelopment.com/), where `master` is our trunk.
+- This project follows [trunk-based development](https://trunkbaseddevelopment.com/), where `main` is our trunk.
 - Release commits will be tagged in the format: `v1.2.3`.
 - Once releases are tagged, high-level release notes are published on the
 [releases](https://github.com/mas-cli/mas/releases) page.

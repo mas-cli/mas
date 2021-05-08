@@ -14,7 +14,7 @@
 - Avoid [force unwrapping optionals](https://blog.timac.org/2017/0628-swift-banning-force-unwrapping-optionals/)
 with `!` in production code
   - Production code is what gets shipped with the app. Basically, everything under the
-  [`mas-cli/`](https://github.com/mas-cli/mas/tree/master/mas-cli) folder.
+  [`mas-cli/`](https://github.com/mas-cli/mas/tree/main/mas-cli) folder.
   - However, force unwrapping is **encouraged** in tests for less code and tests
   _should_ break when any expected conditions aren't met.
 - Prefer `struct`s over `class`es wherever possible
