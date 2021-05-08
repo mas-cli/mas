@@ -5,13 +5,14 @@
 # https://github.com/nicklockwood/SwiftFormat#config-file
 #
 
---exclude Carthage/,docs/
+--exclude docs/
 
 # Disabled rules
 --disable blankLinesAroundMark
 --disable consecutiveSpaces
 --disable hoistPatternLet
 --disable indent
+--disable trailingCommas
 
 # Enabled rules (disabled by default)
 --enable trailingClosures

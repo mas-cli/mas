@@ -18,7 +18,7 @@ public struct VersionCommand: CommandProtocol {
 
     /// Runs the command.
     public func run(_: Options) -> Result<Void, MASError> {
-        print(Package.Version)
+        print(Package.version)
         return .success(())
     }
 }

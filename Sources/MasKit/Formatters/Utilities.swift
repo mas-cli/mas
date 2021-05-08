@@ -15,28 +15,29 @@ let csi = "\u{001B}["
 
 #if DEBUG
 
-var printObserver: ((String) -> Void)?
+    var printObserver: ((String) -> Void)?
 
-// Override global print for testability.
-// See MasKitTests/OutputListener.swift.
-func print(_ items: Any..., separator: String = " ", terminator: String = "\n") {
-    if let observer = printObserver {
-        let output = items
-            .map { "\($0)" }
-            .joined(separator: separator)
-            .appending(terminator)
-        observer(output)
+    // Override global print for testability.
+    // See MasKitTests/OutputListener.swift.
+    func print(_ items: Any..., separator: String = " ", terminator: String = "\n") {
+        if let observer = printObserver {
+            let output =
+                items
+                .map { "\($0)" }
+                .joined(separator: separator)
+                .appending(terminator)
+            observer(output)
+        }
+
+        var prefix = ""
+        for item in items {
+            Swift.print(prefix, terminator: "")
+            Swift.print(item, terminator: "")
+            prefix = separator
+        }
+
+        Swift.print(terminator, terminator: "")
     }
-
-    var prefix = ""
-    for item in items {
-        Swift.print(prefix, terminator: "")
-        Swift.print(item, terminator: "")
-        prefix = separator
-    }
-
-    Swift.print(terminator, terminator: "")
-}
 
 #endif
 

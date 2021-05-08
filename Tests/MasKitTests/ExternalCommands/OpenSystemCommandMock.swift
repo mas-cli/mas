@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 @testable import MasKit
 
 class OpenSystemCommandMock: ExternalCommand {

@@ -23,7 +23,7 @@ func beSuccess() -> Predicate<Result<Void, MASError>> {
 /// Nimble predicate for result enum failure with associated error
 func beFailure(test: @escaping (MASError) -> Void = { _ in }) -> Predicate<Result<Void, MASError>> {
     Predicate.define("be <failure>") { expression, message in
-        if case let .failure(error) = try expression.evaluate() {
+        if case .failure(let error) = try expression.evaluate() {
             test(error)
             return PredicateResult(status: .matches, message: message)
         }
