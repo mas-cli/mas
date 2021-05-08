@@ -22,8 +22,8 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         .package(url: "https://github.com/Carthage/Commandant.git", from: "0.18.0"),
-        .package(url: "https://github.com/Quick/Nimble.git", from: "9.0.1"),
-        .package(url: "https://github.com/Quick/Quick.git", from: "3.1.2"),
+        .package(url: "https://github.com/Quick/Nimble.git", from: "9.1.0"),
+        .package(url: "https://github.com/Quick/Quick.git", from: "4.0.0"),
         .package(url: "https://github.com/mxcl/Version.git", from: "2.0.0"),
     ],
     targets: [
