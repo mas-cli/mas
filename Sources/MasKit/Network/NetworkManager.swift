@@ -34,12 +34,4 @@ class NetworkManager {
     func loadData(from url: URL) -> Promise<Data> {
         session.loadData(from: url)
     }
-
-    /// Loads data synchronously.
-    ///
-    /// - Parameter url: URL to load data from.
-    /// - Returns: The Data of the response.
-    func loadDataSync(from url: URL) throws -> Data {
-        try session.loadData(from: url).wait()
-    }
 }

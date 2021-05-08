@@ -46,7 +46,7 @@ class NetworkManagerTests: XCTestCase {
         let url = URL(fileURLWithPath: "url")
 
         // Perform the request and verify the result
-        let result = try manager.loadDataSync(from: url)
+        let result = try manager.loadData(from: url).wait()
         XCTAssertEqual(result, data)
     }
 
@@ -82,7 +82,7 @@ class NetworkManagerTests: XCTestCase {
         let url = URL(fileURLWithPath: "url")
 
         // Perform the request and verify the result
-        XCTAssertThrowsError(try manager.loadDataSync(from: url)) { error in
+        XCTAssertThrowsError(try manager.loadData(from: url).wait()) { error in
             guard let error = error as? MASError else {
                 XCTFail("Error is of unexpected type.")
                 return
