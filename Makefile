@@ -89,7 +89,7 @@ uninstall:
 	script/uninstall
 
 .PHONY: format
-lint:
+format:
 	script/format
 
 .PHONY: lint

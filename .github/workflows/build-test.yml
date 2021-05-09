@@ -3,7 +3,7 @@
 #
 # https://docs.github.com/en/actions/reference/environment-variables#default-environment-variables
 
-name: Build & Test
+name: Build, Test, and Lint
 
 on: [push]
 
@@ -11,6 +11,7 @@ jobs:
   build-test:
 
     # https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners
+    name: Build, Test, and Lint
     runs-on: macOS-latest
     steps:
 
@@ -31,3 +32,6 @@ jobs:
 
     - name: Test
       run: script/test
+
+    - name: Lint
+      run: script/lint
