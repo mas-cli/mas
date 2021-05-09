@@ -8,7 +8,7 @@ A simple command line interface for the Mac App Store. Designed for scripting an
 [![Swift 5](https://img.shields.io/badge/Language-Swift_5-orange.svg)](https://swift.org)
 [![GitHub Release](https://img.shields.io/github/release/mas-cli/mas.svg)](https://github.com/mas-cli/mas/releases)
 [![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
-[![Build & Test](https://github.com/mas-cli/mas/actions/workflows/build-test.yml/badge.svg?branch=main)](https://github.com/mas-cli/mas/actions/workflows/build-test.yml?query=branch%3Amain)
+[![Build, Test, & Lint](https://github.com/mas-cli/mas/actions/workflows/build-test.yml/badge.svg?branch=main)](https://github.com/mas-cli/mas/actions/workflows/build-test.yml?query=branch%3Amain)
 
 ## 📲 Install
 
