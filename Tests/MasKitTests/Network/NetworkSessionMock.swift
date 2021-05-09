@@ -8,6 +8,7 @@
 
 import Foundation
 import PromiseKit
+
 @testable import MasKit
 
 /// Mock NetworkSession for testing.

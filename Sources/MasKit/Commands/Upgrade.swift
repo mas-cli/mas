@@ -9,6 +9,7 @@
 import Commandant
 import Foundation
 import PromiseKit
+
 import enum Swift.Result
 
 /// Command which upgrades apps with new versions available in the Mac App Store.
