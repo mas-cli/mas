@@ -3,19 +3,19 @@ class Mas < Formula
   homepage "https://github.com/mas-cli/mas"
   url "https://github.com/mas-cli/mas.git",
       tag:      "v1.8.2",
-      revision: "c88a98892e52a0ad8527a532aaa5dd1a2dd19635"
+      revision: "2f2a43b425498f3cee50974116b8c9d27adbb7cb"
   license "MIT"
   head "https://github.com/mas-cli/mas.git"
 
   bottle do
-    root_url "https://dl.bintray.com/phatblat/mas-bottles"
-    sha256 cellar: :any, arm64_big_sur: "d54d864976f78665d5175fd9e69ab81b3911fa28fd6ae627b61a18d55d68191a"
-    sha256 cellar: :any, big_sur:       "d54d864976f78665d5175fd9e69ab81b3911fa28fd6ae627b61a18d55d68191a"
-    sha256 cellar: :any, catalina:      "d54d864976f78665d5175fd9e69ab81b3911fa28fd6ae627b61a18d55d68191a"
-    sha256 cellar: :any, mojave:        "d54d864976f78665d5175fd9e69ab81b3911fa28fd6ae627b61a18d55d68191a"
-    sha256 cellar: :any, high_sierra:   "d54d864976f78665d5175fd9e69ab81b3911fa28fd6ae627b61a18d55d68191a"
-    sha256 cellar: :any, sierra:        "d54d864976f78665d5175fd9e69ab81b3911fa28fd6ae627b61a18d55d68191a"
-    sha256 cellar: :any, el_capitan:    "d54d864976f78665d5175fd9e69ab81b3911fa28fd6ae627b61a18d55d68191a"
+    root_url "https://github.com/mas-cli/mas/releases/download/v1.8.2"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur: "76d7de5e7891f049c84f079b09c25f88576d45813651bdc529a8af4660c8efa0"
+    sha256 cellar: :any_skip_relocation, big_sur:       "76d7de5e7891f049c84f079b09c25f88576d45813651bdc529a8af4660c8efa0"
+    sha256 cellar: :any_skip_relocation, catalina:      "76d7de5e7891f049c84f079b09c25f88576d45813651bdc529a8af4660c8efa0"
+    sha256 cellar: :any_skip_relocation, mojave:        "76d7de5e7891f049c84f079b09c25f88576d45813651bdc529a8af4660c8efa0"
+    sha256 cellar: :any_skip_relocation, high_sierra:   "76d7de5e7891f049c84f079b09c25f88576d45813651bdc529a8af4660c8efa0"
+    sha256 cellar: :any_skip_relocation, sierra:        "76d7de5e7891f049c84f079b09c25f88576d45813651bdc529a8af4660c8efa0"
+    sha256 cellar: :any_skip_relocation, el_capitan:    "76d7de5e7891f049c84f079b09c25f88576d45813651bdc529a8af4660c8efa0"
   end
 
   depends_on :macos
