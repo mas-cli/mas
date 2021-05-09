@@ -12,7 +12,7 @@ import Quick
 @testable import MasKit
 
 public class OutdatedCommandSpec: QuickSpec {
-    public override func spec() {
+    override public func spec() {
         describe("outdated command") {
             it("displays apps with pending updates") {
                 let cmd = OutdatedCommand()

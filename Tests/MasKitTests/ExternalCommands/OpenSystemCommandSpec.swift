@@ -12,7 +12,7 @@ import Quick
 @testable import MasKit
 
 public class OpenSystemCommandSpec: QuickSpec {
-    public override func spec() {
+    override public func spec() {
         describe("open system command") {
             context("binary path") {
                 it("defaults to the macOS open command") {

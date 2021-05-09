@@ -13,7 +13,7 @@ import Quick
 @testable import MasKit
 
 public class OpenCommandSpec: QuickSpec {
-    public override func spec() {
+    override public func spec() {
         let result = SearchResult(
             trackId: 1111,
             trackViewUrl: "fakescheme://some/url",

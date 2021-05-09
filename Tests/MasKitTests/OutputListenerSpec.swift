@@ -12,7 +12,7 @@ import Quick
 @testable import MasKit
 
 public class OutputListenerSpec: QuickSpec {
-    public override func spec() {
+    override public func spec() {
         describe("output listener") {
             it("can intercept a single line written stdout") {
                 let output = OutputListener()

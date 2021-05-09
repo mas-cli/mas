@@ -12,7 +12,7 @@ import Quick
 @testable import MasKit
 
 public class UpgradeCommandSpec: QuickSpec {
-    public override func spec() {
+    override public func spec() {
         describe("upgrade command") {
             it("updates stuff") {
                 let cmd = UpgradeCommand()

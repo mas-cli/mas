@@ -12,7 +12,7 @@ import Quick
 @testable import MasKit
 
 public class MasAppLibrarySpec: QuickSpec {
-    public override func spec() {
+    override public func spec() {
         let library = MasAppLibrary(softwareMap: SoftwareMapMock(products: apps))
 
         describe("mas app library") {

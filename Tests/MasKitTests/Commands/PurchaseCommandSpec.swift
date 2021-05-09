@@ -12,7 +12,7 @@ import Quick
 @testable import MasKit
 
 public class PurchaseCommandSpec: QuickSpec {
-    public override func spec() {
+    override public func spec() {
         describe("purchase command") {
             it("purchases apps") {
                 let cmd = PurchaseCommand()

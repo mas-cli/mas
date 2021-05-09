@@ -12,7 +12,7 @@ import Quick
 @testable import MasKit
 
 public class AccountCommandSpec: QuickSpec {
-    public override func spec() {
+    override public func spec() {
         describe("Account command") {
             it("displays active account") {
                 let cmd = AccountCommand()

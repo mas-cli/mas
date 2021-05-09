@@ -12,7 +12,7 @@ import Quick
 @testable import MasKit
 
 public class ListCommandSpec: QuickSpec {
-    public override func spec() {
+    override public func spec() {
         describe("list command") {
             it("lists stuff") {
                 let list = ListCommand()
