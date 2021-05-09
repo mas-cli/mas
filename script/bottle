@@ -15,7 +15,7 @@
 BUILD_DIR="$PWD/.build"
 BOTTLE_DIR="$BUILD_DIR/bottles"
 VERSION=$(script/version)
-ROOT_URL="https://dl.bintray.com/phatblat/mas-bottles"
+ROOT_URL="https://github.com/mas-cli/mas/releases/download/v${VERSION}"
 
 # Supports macOS versions 11 (arm64 & x86_64), 10.15, 10.14, 10.13, 10.12, 10.11
 OS_NAMES=(arm64_big_sur big_sur catalina mojave high_sierra sierra el_capitan)
@@ -98,11 +98,11 @@ for os in ${OS_NAMES[*]}; do
   cp -v "${OLD_FILENAME}" "${BOTTLE_DIR}/${new_filename}"
 
   # Append each os
-  # BOTTLE_BLOCK="$(printf "${BOTTLE_BLOCK}\n  sha256 cellar: :any, %-15s %s" "${os}:" "${SHA256}")"
+  # BOTTLE_BLOCK="$(printf "${BOTTLE_BLOCK}\n  sha256 cellar: :any_skip_relocation, %-15s %s" "${os}:" "${SHA256}")"
   BOTTLE_BLOCK="$BOTTLE_BLOCK"$(
     cat <<-EOF
 
-    sha256 cellar: :any, $os: "$SHA256"
+    sha256 cellar: :any_skip_relocation, $os: "$SHA256"
 EOF
   )
 done
