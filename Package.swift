@@ -42,7 +42,11 @@ let package = Package(
         ),
         .target(
             name: "MasKit",
-            dependencies: ["Commandant", "PromiseKit", "Version"],
+            dependencies: [
+                "Commandant",
+                "PromiseKit",
+                "Version",
+            ],
             swiftSettings: [
                 .unsafeFlags([
                     "-I", "Sources/PrivateFrameworks/CommerceKit",
