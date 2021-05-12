@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import PromiseKit
 import Version
 
 /// Manages searching the MAS catalog through the iTunes Search and Lookup APIs.
@@ -30,110 +31,79 @@ class MasStoreSearch: StoreSearch {
     /// - Parameter appName: MAS ID of app
     /// - Parameter completion: A closure that receives the search results or an Error if there is a
     ///   problem with the network request. Results array will be empty if there were no matches.
-    func search(for appName: String, _ completion: @escaping ([SearchResult]?, Error?) -> Void) {
+    func search(for appName: String) -> Promise<[SearchResult]> {
         guard let url = searchURL(for: appName)
         else {
-            completion(nil, MASError.urlEncoding)
-            return
+            return Promise(error: MASError.urlEncoding)
         }
 
-        loadSearchResults(url) { results, error in
-            if let error = error {
-                completion(nil, error)
-                return
-            }
-
-            completion(results, nil)
-        }
+        return loadSearchResults(url)
     }
 
     /// Looks up app details.
     ///
     /// - Parameter appId: MAS ID of app
-    /// - Parameter completion: A closure that receives the search result record of app, or nil if no apps match the ID,
+    /// - Returns: A Promise for the search result record of app, or nil if no apps match the ID,
     ///   or an Error if there is a problem with the network request.
-    func lookup(app appId: Int, _ completion: @escaping (SearchResult?, Error?) -> Void) {
+    func lookup(app appId: Int) -> Promise<SearchResult?> {
         guard let url = lookupURL(forApp: appId)
         else {
-            completion(nil, MASError.urlEncoding)
-            return
+            return Promise(error: MASError.urlEncoding)
         }
 
-        loadSearchResults(url) { results, error in
-            if let error = error {
-                completion(nil, error)
-                return
-            }
-
-            completion(results?.first, nil)
-        }
+        return loadSearchResults(url).map { results in results.first }
     }
 
-    private func loadSearchResults(_ url: URL, _ completion: @escaping ([SearchResult]?, Error?) -> Void) {
-        networkManager.loadData(from: url) { data, error in
-            guard let data = data else {
-                if let error = error {
-                    completion(nil, error)
-                } else {
-                    completion(nil, MASError.noData)
-                }
-
-                return
-            }
-
-            var results: SearchResultList
+    private func loadSearchResults(_ url: URL) -> Promise<[SearchResult]> {
+        firstly {
+            networkManager.loadData(from: url)
+        }.map { data -> SearchResultList in
             do {
-                results = try JSONDecoder().decode(SearchResultList.self, from: data)
+                return try JSONDecoder().decode(SearchResultList.self, from: data)
             } catch {
-                completion(nil, MASError.jsonParsing(error: error as NSError))
-                return
+                throw MASError.jsonParsing(error: error as NSError)
             }
-
-            let group = DispatchGroup()
-            for index in results.results.indices {
-                let result = results.results[index]
+        }.then { list -> Promise<[SearchResult]> in
+            var results = list.results
+            let scraping = results.indices.compactMap { index -> Guarantee<Void>? in
+                let result = results[index]
                 guard let searchVersion = Version(tolerant: result.version),
                     let pageUrl = URL(string: result.trackViewUrl)
                 else {
-                    continue
+                    return nil
                 }
 
-                group.enter()
-                self.scrapeVersionFromPage(pageUrl) { pageVersion in
+                return firstly {
+                    self.scrapeVersionFromPage(pageUrl)
+                }.done { pageVersion in
                     if let pageVersion = pageVersion, pageVersion > searchVersion {
-                        results.results[index].version = pageVersion.description
+                        results[index].version = pageVersion.description
                     }
-
-                    group.leave()
                 }
             }
 
-            group.notify(queue: DispatchQueue.global()) {
-                completion(results.results, nil)
-            }
+            return when(fulfilled: scraping).map { results }
         }
     }
 
     // The App Store often lists a newer version available in an app's page than in
     // the search results. We attempt to scrape it here.
-    private func scrapeVersionFromPage(_ pageUrl: URL, _ completion: @escaping (Version?) -> Void) {
-        networkManager.loadData(from: pageUrl) { data, _ in
-            guard let data = data else {
-                completion(nil)
-                return
-            }
-
+    private func scrapeVersionFromPage(_ pageUrl: URL) -> Guarantee<Version?> {
+        firstly {
+            networkManager.loadData(from: pageUrl)
+        }.map { data in
             let html = String(decoding: data, as: UTF8.self)
             let fullRange = NSRange(html.startIndex..<html.endIndex, in: html)
             guard let match = MasStoreSearch.versionExpression.firstMatch(in: html, range: fullRange),
                 let range = Range(match.range(at: 1), in: html),
                 let version = Version(tolerant: html[range])
             else {
-                completion(nil)
-                return
+                throw MASError.noData
             }
 
-            completion(version)
+            return version
+        }.recover { _ in
+            .value(nil)
         }
     }
 }

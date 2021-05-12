@@ -15,6 +15,9 @@ public class MasAppLibrarySpec: QuickSpec {
     public override func spec() {
         let library = MasAppLibrary(softwareMap: SoftwareMapMock(products: apps))
 
+        beforeSuite {
+            MasKit.initialize()
+        }
         describe("mas app library") {
             it("contains all installed apps") {
                 expect(library.installedApps.count) == apps.count

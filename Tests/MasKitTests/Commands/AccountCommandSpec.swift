@@ -13,6 +13,9 @@ import Quick
 
 public class AccountCommandSpec: QuickSpec {
     public override func spec() {
+        beforeSuite {
+            MasKit.initialize()
+        }
         describe("Account command") {
             it("displays active account") {
                 let cmd = AccountCommand()

@@ -22,6 +22,9 @@ public class VendorCommandSpec: QuickSpec {
         let openCommand = OpenSystemCommandMock()
         let cmd = VendorCommand(storeSearch: storeSearch, openCommand: openCommand)
 
+        beforeSuite {
+            MasKit.initialize()
+        }
         describe("vendor command") {
             beforeEach {
                 storeSearch.reset()

@@ -7,61 +7,94 @@
 //
 
 import CommerceKit
+import PromiseKit
 import StoreFoundation
 
-/// Monitors app download progress.
+/// Downloads a list of apps, one after the other, printing progress to the console.
 ///
-/// - Parameter adamId: An app ID?
+/// - Parameter appIDs: The IDs of the apps to be downloaded
+/// - Parameter purchase: Flag indicating whether the apps needs to be purchased.
+/// Only works for free apps. Defaults to false.
+/// - Returns: A promise that completes when the downloads are complete. If any fail,
+/// the promise is rejected with the first error, after all remaining downloads are attempted.
+func downloadAll(_ appIDs: [UInt64], purchase: Bool = false) -> Promise<Void> {
+    var firstError: Error?
+    return appIDs.reduce(Guarantee<Void>.value(())) { previous, appID in
+        previous.then { downloadWithRetries(appID, purchase: purchase).recover { error in
+            if firstError == nil {
+                firstError = error
+            }
+        } }
+    }.done {
+        if let error = firstError {
+            throw error
+        }
+    }
+}
+
+private func downloadWithRetries(
+    _ appID: UInt64, purchase: Bool = false, attempts: Int = 3
+) -> Promise<Void> {
+    download(appID, purchase: purchase).recover { error -> Promise<Void> in
+        guard attempts > 1 else {
+            throw error
+        }
+
+        // If the download failed due to network issues, try again. Otherwise, fail immediately.
+        guard case MASError.downloadFailed(let downloadError) = error,
+            case NSURLErrorDomain = downloadError?.domain else {
+            throw error
+        }
+
+        let attempts = attempts - 1
+        printWarning((downloadError ?? error).localizedDescription)
+        print("Trying again up to \(attempts) more \(attempts == 1 ? "time" : "times").")
+        return downloadWithRetries(appID, purchase: purchase, attempts: attempts)
+    }
+}
+
+/// Downloads an app, printing progress to the console.
+///
+/// - Parameter appID: The ID of the app to be downloaded
 /// - Parameter purchase: Flag indicating whether the app needs to be purchased.
 /// Only works for free apps. Defaults to false.
-/// - Returns: An error, if one occurred.
-func download(_ adamId: UInt64, purchase: Bool = false) -> MASError? {
+/// - Returns: A promise the completes when the download is complete.
+private func download(_ appID: UInt64, purchase: Bool = false) -> Promise<Void> {
     guard let account = ISStoreAccount.primaryAccount else {
-        return .notSignedIn
+        return Promise(error: MASError.notSignedIn)
     }
 
-    guard let storeAccount = account as? ISStoreAccount
-    else { fatalError("Unable to cast StoreAccount to ISStoreAccount") }
-    let purchase = SSPurchase(adamId: adamId, account: storeAccount, purchase: purchase)
+    guard let storeAccount = account as? ISStoreAccount else {
+        fatalError("Unable to cast StoreAccount to ISStoreAccount")
+    }
 
-    var purchaseError: MASError?
-    var observerIdentifier: CKDownloadQueueObserver?
-
-    let group = DispatchGroup()
-    group.enter()
-    purchase.perform { purchase, _, error, response in
-        if let error = error {
-            purchaseError = .purchaseFailed(error: error as NSError?)
-            group.leave()
-            return
-        }
-
-        if let downloads = response?.downloads, downloads.count > 0, let purchase = purchase {
-            let observer = PurchaseDownloadObserver(purchase: purchase)
-
-            observer.errorHandler = { error in
-                purchaseError = error
-                group.leave()
+    return Promise<SSPurchase> { seal in
+        let purchase = SSPurchase(adamId: appID, account: storeAccount, purchase: purchase)
+        purchase.perform { purchase, _, error, response in
+            if let error = error {
+                seal.reject(MASError.purchaseFailed(error: error as NSError?))
+                return
             }
 
-            observer.completionHandler = {
-                group.leave()
+            guard response?.downloads.isEmpty == false, let purchase = purchase else {
+                print("No downloads")
+                seal.reject(MASError.noDownloads)
+                return
             }
 
-            let downloadQueue = CKDownloadQueue.shared()
-            observerIdentifier = downloadQueue.add(observer)
-        } else {
-            print("No downloads")
-            purchaseError = .noDownloads
-            group.leave()
+            seal.fulfill(purchase)
+        }
+    }.then { purchase -> Promise<Void> in
+        let observer = PurchaseDownloadObserver(purchase: purchase)
+        let download = Promise<Void> { seal in
+            observer.errorHandler = seal.reject
+            observer.completionHandler = seal.fulfill_
+        }
+
+        let downloadQueue = CKDownloadQueue.shared()
+        let observerID = downloadQueue.add(observer)
+        return download.ensure {
+            downloadQueue.remove(observerID)
         }
     }
-
-    group.wait()
-
-    if let observerIdentifier = observerIdentifier {
-        CKDownloadQueue.shared().remove(observerIdentifier)
-    }
-
-    return purchaseError
 }

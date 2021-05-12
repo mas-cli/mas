@@ -13,6 +13,9 @@ import Quick
 
 public class ResetCommandSpec: QuickSpec {
     public override func spec() {
+        beforeSuite {
+            MasKit.initialize()
+        }
         describe("reset command") {
             it("updates stuff") {
                 let cmd = ResetCommand()

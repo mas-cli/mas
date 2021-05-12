@@ -8,6 +8,8 @@
 
 import Commandant
 import Foundation
+import PromiseKit
+import enum Swift.Result
 
 /// Command which upgrades apps with new versions available in the Mac App Store.
 public struct UpgradeCommand: CommandProtocol {
@@ -49,27 +51,14 @@ public struct UpgradeCommand: CommandProtocol {
         print("Upgrading \(apps.count) outdated application\(apps.count > 1 ? "s" : ""):")
         print(apps.map { "\($0.appName) (\($0.bundleVersion))" }.joined(separator: ", "))
 
-        var updatedAppCount = 0
-        var failedUpgradeResults = [MASError]()
-        for app in apps {
-            if let upgradeResult = download(app.itemIdentifier.uint64Value) {
-                failedUpgradeResults.append(upgradeResult)
-            } else {
-                updatedAppCount += 1
-            }
+        let appIds = apps.map(\.itemIdentifier.uint64Value)
+        do {
+            try downloadAll(appIds).wait()
+        } catch {
+            return .failure(error as? MASError ?? .downloadFailed(error: error as NSError))
         }
 
-        switch failedUpgradeResults.count {
-        case 0:
-            if updatedAppCount == 0 {
-                print("Everything is up-to-date")
-            }
-            return .success(())
-        case 1:
-            return .failure(failedUpgradeResults[0])
-        default:
-            return .failure(.downloadFailed(error: nil))
-        }
+        return .success(())
     }
 
     private func findOutdatedApps(_ options: Options) throws -> [SoftwareProduct] {
@@ -88,27 +77,20 @@ public struct UpgradeCommand: CommandProtocol {
             }
         }
 
-        var outdated = [SoftwareProduct]()
-        let group = DispatchGroup()
-        let semaphore = DispatchSemaphore(value: 1)
-        for installedApp in apps {
+        let promises = apps.map { installedApp in
             // only upgrade apps whose local version differs from the store version
-            group.enter()
-            storeSearch.lookup(app: installedApp.itemIdentifier.intValue) { result, _ in
-                defer { group.leave() }
-
-                if let storeApp = result, installedApp.isOutdatedWhenComparedTo(storeApp) {
-                    semaphore.wait()
-                    defer { semaphore.signal() }
-
-                    outdated.append(installedApp)
+            firstly {
+                storeSearch.lookup(app: installedApp.itemIdentifier.intValue)
+            }.map { result -> SoftwareProduct? in
+                guard let storeApp = result, installedApp.isOutdatedWhenComparedTo(storeApp) else {
+                    return nil
                 }
+
+                return installedApp
             }
         }
 
-        group.wait()
-
-        return outdated
+        return try when(fulfilled: promises).wait().compactMap { $0 }
     }
 }
 

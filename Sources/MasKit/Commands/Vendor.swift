@@ -38,7 +38,7 @@ public struct VendorCommand: CommandProtocol {
     /// Runs the command.
     public func run(_ options: VendorOptions) -> Result<Void, MASError> {
         do {
-            guard let result = try storeSearch.lookup(app: options.appId)
+            guard let result = try storeSearch.lookup(app: options.appId).wait()
             else {
                 print("No results found")
                 return .failure(.noSearchResultsFound)

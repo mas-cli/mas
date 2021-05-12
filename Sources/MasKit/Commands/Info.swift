@@ -29,7 +29,7 @@ public struct InfoCommand: CommandProtocol {
     /// Runs the command.
     public func run(_ options: InfoOptions) -> Result<Void, MASError> {
         do {
-            guard let result = try storeSearch.lookup(app: options.appId) else {
+            guard let result = try storeSearch.lookup(app: options.appId).wait() else {
                 print("No results found")
                 return .failure(.noSearchResultsFound)
             }

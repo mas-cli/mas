@@ -6,31 +6,30 @@
 //  Copyright © 2019 mas-cli. All rights reserved.
 //
 
+import PromiseKit
 @testable import MasKit
 
 class StoreSearchMock: StoreSearch {
     var apps: [Int: SearchResult] = [:]
 
-    func search(for appName: String, _ completion: @escaping ([SearchResult]?, Error?) -> Void) {
+    func search(for appName: String) -> Promise<[SearchResult]> {
         let filtered = apps.filter { $1.trackName.contains(appName) }
         let results = filtered.map { $1 }
-        completion(results, nil)
+        return .value(results)
     }
 
-    func lookup(app appId: Int, _ completion: @escaping (SearchResult?, Error?) -> Void) {
+    func lookup(app appId: Int) -> Promise<SearchResult?> {
         // Negative numbers are invalid
         guard appId > 0 else {
-            completion(nil, MASError.searchFailed)
-            return
+            return Promise(error: MASError.searchFailed)
         }
 
         guard let result = apps[appId]
         else {
-            completion(nil, MASError.noSearchResultsFound)
-            return
+            return Promise(error: MASError.noSearchResultsFound)
         }
 
-        completion(result, nil)
+        return .value(result)
     }
 
     func reset() {

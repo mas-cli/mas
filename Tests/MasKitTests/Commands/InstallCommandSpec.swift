@@ -13,6 +13,9 @@ import Quick
 
 public class InstallCommandSpec: QuickSpec {
     public override func spec() {
+        beforeSuite {
+            MasKit.initialize()
+        }
         describe("install command") {
             it("installs apps") {
                 let cmd = InstallCommand()

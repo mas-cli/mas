@@ -14,6 +14,9 @@ import Quick
 
 public class SearchResultSpec: QuickSpec {
     public override func spec() {
+        beforeSuite {
+            MasKit.initialize()
+        }
         describe("search result") {
             it("can parse things") {
                 let data = Data(from: "search/things-that-go-bump.json")

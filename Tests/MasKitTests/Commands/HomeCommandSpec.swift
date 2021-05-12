@@ -22,6 +22,9 @@ public class HomeCommandSpec: QuickSpec {
         let openCommand = OpenSystemCommandMock()
         let cmd = HomeCommand(storeSearch: storeSearch, openCommand: openCommand)
 
+        beforeSuite {
+            MasKit.initialize()
+        }
         describe("home command") {
             beforeEach {
                 storeSearch.reset()

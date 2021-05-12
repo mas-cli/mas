@@ -30,7 +30,7 @@ public struct SearchCommand: CommandProtocol {
 
     public func run(_ options: Options) -> Result<Void, MASError> {
         do {
-            let results = try storeSearch.search(for: options.appName)
+            let results = try storeSearch.search(for: options.appName).wait()
             if results.isEmpty {
                 print("No results found")
                 return .failure(.noSearchResultsFound)
