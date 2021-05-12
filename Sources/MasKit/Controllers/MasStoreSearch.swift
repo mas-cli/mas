@@ -30,9 +30,9 @@ class MasStoreSearch: StoreSearch {
     ///
     /// - Parameter appName: MAS app identifier.
     /// - Returns: URL for the search service or nil if appName can't be encoded.
-    static func searchURL(for appName: String) -> URL? {
+    static func searchURL(for appName: String) -> URL {
         guard var components = URLComponents(string: "https://itunes.apple.com/search") else {
-            return nil
+            fatalError("URLComponents failed to parse URL.")
         }
 
         components.queryItems = [
@@ -40,20 +40,28 @@ class MasStoreSearch: StoreSearch {
             URLQueryItem(name: "entity", value: "macSoftware"),
             URLQueryItem(name: "term", value: appName),
         ]
-        return components.url
+        guard let url = components.url else {
+            fatalError("URLComponents failed to generate URL.")
+        }
+
+        return url
     }
 
     /// Builds the lookup URL for an app.
     ///
     /// - Parameter appId: MAS app identifier.
     /// - Returns: URL for the lookup service or nil if appId can't be encoded.
-    static func lookupURL(forApp appId: Int) -> URL? {
+    static func lookupURL(forApp appId: Int) -> URL {
         guard var components = URLComponents(string: "https://itunes.apple.com/lookup") else {
-            return nil
+            fatalError("URLComponents failed to parse URL.")
         }
 
         components.queryItems = [URLQueryItem(name: "id", value: "\(appId)")]
-        return components.url
+        guard let url = components.url else {
+            fatalError("URLComponents failed to generate URL.")
+        }
+
+        return url
     }
 
     /// Searches for an app.
@@ -62,11 +70,7 @@ class MasStoreSearch: StoreSearch {
     /// - Parameter completion: A closure that receives the search results or an Error if there is a
     ///   problem with the network request. Results array will be empty if there were no matches.
     func search(for appName: String) -> Promise<[SearchResult]> {
-        guard let url = MasStoreSearch.searchURL(for: appName)
-        else {
-            return Promise(error: MASError.urlEncoding)
-        }
-
+        let url = MasStoreSearch.searchURL(for: appName)
         return loadSearchResults(url)
     }
 
@@ -76,11 +80,7 @@ class MasStoreSearch: StoreSearch {
     /// - Returns: A Promise for the search result record of app, or nil if no apps match the ID,
     ///   or an Error if there is a problem with the network request.
     func lookup(app appId: Int) -> Promise<SearchResult?> {
-        guard let url = MasStoreSearch.lookupURL(forApp: appId)
-        else {
-            return Promise(error: MASError.urlEncoding)
-        }
-
+        let url = MasStoreSearch.lookupURL(forApp: appId)
         return loadSearchResults(url).map { results in results.first }
     }
 
