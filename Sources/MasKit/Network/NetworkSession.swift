@@ -7,7 +7,8 @@
 //
 
 import Foundation
+import PromiseKit
 
 protocol NetworkSession {
-    func loadData(from url: URL, completionHandler: @escaping (Data?, Error?) -> Void)
+    func loadData(from url: URL) -> Promise<Data>
 }

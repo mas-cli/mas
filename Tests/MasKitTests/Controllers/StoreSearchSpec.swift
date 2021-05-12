@@ -5,19 +5,20 @@
 //  Created by Ben Chatelain on 1/11/19.
 //  Copyright © 2019 mas-cli. All rights reserved.
 //
-import Nimble
-import Quick
 
+import Nimble
+import PromiseKit
+import Quick
 @testable import MasKit
 
 /// Protocol minimal implementation
 struct StoreSearchForTesting: StoreSearch {
-    func lookup(app _: Int, _ completion: @escaping (SearchResult?, Error?) -> Void) {
-        completion(nil, nil)
+    func lookup(app _: Int) -> Promise<SearchResult?> {
+        .value(nil)
     }
 
-    func search(for _: String, _ completion: @escaping ([SearchResult]?, Error?) -> Void) {
-        completion([], nil)
+    func search(for _: String) -> Promise<[SearchResult]> {
+        .value([])
     }
 }
 

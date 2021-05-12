@@ -36,6 +36,9 @@ public class InfoCommandSpec: QuickSpec {
 
             """
 
+        beforeSuite {
+            MasKit.initialize()
+        }
         describe("Info command") {
             beforeEach {
                 storeSearch.reset()

@@ -13,6 +13,9 @@ import Quick
 
 public class VersionCommandSpec: QuickSpec {
     public override func spec() {
+        beforeSuite {
+            MasKit.initialize()
+        }
         describe("version command") {
             it("displays the current version") {
                 let cmd = VersionCommand()

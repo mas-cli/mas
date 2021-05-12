@@ -13,6 +13,9 @@ import Quick
 
 public class SignInCommandSpec: QuickSpec {
     public override func spec() {
+        beforeSuite {
+            MasKit.initialize()
+        }
         describe("signn command") {
             it("updates stuff") {
                 let cmd = SignInCommand()

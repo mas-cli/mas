@@ -45,7 +45,7 @@ public struct LuckyCommand: CommandProtocol {
         var appId: Int?
 
         do {
-            let results = try storeSearch.search(for: options.appName)
+            let results = try storeSearch.search(for: options.appName).wait()
             guard let result = results.first else {
                 print("No results found")
                 return .failure(.noSearchResultsFound)
@@ -73,24 +73,18 @@ public struct LuckyCommand: CommandProtocol {
     /// - Returns: Result of the operation.
     fileprivate func install(_ appId: UInt64, options: Options) -> Result<Void, MASError> {
         // Try to download applications with given identifiers and collect results
-        let downloadResults = [appId]
-            .compactMap { appId -> MASError? in
-                if let product = appLibrary.installedApp(forId: appId), !options.forceInstall {
-                    printWarning("\(product.appName) is already installed")
-                    return nil
-                }
-
-                return download(appId)
-            }
-
-        switch downloadResults.count {
-        case 0:
+        if let product = appLibrary.installedApp(forId: appId), !options.forceInstall {
+            printWarning("\(product.appName) is already installed")
             return .success(())
-        case 1:
-            return .failure(downloadResults[0])
-        default:
-            return .failure(.downloadFailed(error: nil))
         }
+
+        do {
+            try downloadAll([appId]).wait()
+        } catch {
+            return .failure(error as? MASError ?? .downloadFailed(error: error as NSError))
+        }
+
+        return .success(())
     }
 }
 

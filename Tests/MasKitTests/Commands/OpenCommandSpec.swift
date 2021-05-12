@@ -23,6 +23,9 @@ public class OpenCommandSpec: QuickSpec {
         let openCommand = OpenSystemCommandMock()
         let cmd = OpenCommand(storeSearch: storeSearch, openCommand: openCommand)
 
+        beforeSuite {
+            MasKit.initialize()
+        }
         describe("open command") {
             beforeEach {
                 storeSearch.reset()

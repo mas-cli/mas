@@ -15,7 +15,7 @@ class OutputListener {
     var contents = ""
 
     init() {
-        MasKit.printObserver = { [weak self] text in
+        printObserver = { [weak self] text in
             strongify(self) { context in
                 context.contents += text
             }
@@ -23,6 +23,6 @@ class OutputListener {
     }
 
     deinit {
-        MasKit.printObserver = nil
+        printObserver = nil
     }
 }

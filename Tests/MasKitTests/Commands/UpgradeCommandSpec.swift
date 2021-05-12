@@ -13,6 +13,9 @@ import Quick
 
 public class UpgradeCommandSpec: QuickSpec {
     public override func spec() {
+        beforeSuite {
+            MasKit.initialize()
+        }
         describe("upgrade command") {
             it("updates stuff") {
                 let cmd = UpgradeCommand()

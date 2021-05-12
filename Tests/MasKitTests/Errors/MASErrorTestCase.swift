@@ -30,6 +30,7 @@ class MASErrorTestCase: XCTestCase {
 
     override func setUp() {
         super.setUp()
+        MasKit.initialize()
         nserror = NSError(domain: errorDomain, code: 999)
         localizedDescription = "foo"
     }

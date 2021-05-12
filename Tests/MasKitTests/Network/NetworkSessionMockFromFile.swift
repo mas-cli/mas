@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import PromiseKit
 
 /// Mock NetworkSession for testing with saved JSON response payload files.
 class NetworkSessionMockFromFile: NetworkSessionMock {
@@ -25,16 +26,16 @@ class NetworkSessionMockFromFile: NetworkSessionMock {
     /// - Parameters:
     ///   - url: unused
     ///   - completionHandler: Closure which is delivered either data or an error.
-    override func loadData(from _: URL, completionHandler: @escaping (Data?, Error?) -> Void) {
+    override func loadData(from _: URL) -> Promise<Data> {
         guard let fileURL = Bundle.url(for: responseFile)
         else { fatalError("Unable to load file \(responseFile)") }
 
         do {
             let data = try Data(contentsOf: fileURL, options: .mappedIfSafe)
-            completionHandler(data, nil)
+            return .value(data)
         } catch {
             print("Error opening file: \(error)")
-            completionHandler(nil, error)
+            return Promise(error: error)
         }
     }
 }

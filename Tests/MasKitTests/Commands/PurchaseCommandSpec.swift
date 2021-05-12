@@ -13,6 +13,9 @@ import Quick
 
 public class PurchaseCommandSpec: QuickSpec {
     public override func spec() {
+        beforeSuite {
+            MasKit.initialize()
+        }
         describe("purchase command") {
             it("purchases apps") {
                 let cmd = PurchaseCommand()

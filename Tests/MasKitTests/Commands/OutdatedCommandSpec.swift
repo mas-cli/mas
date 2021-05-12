@@ -13,6 +13,9 @@ import Quick
 
 public class OutdatedCommandSpec: QuickSpec {
     public override func spec() {
+        beforeSuite {
+            MasKit.initialize()
+        }
         describe("outdated command") {
             it("displays apps with pending updates") {
                 let cmd = OutdatedCommand()

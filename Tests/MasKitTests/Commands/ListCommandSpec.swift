@@ -13,6 +13,9 @@ import Quick
 
 public class ListCommandSpec: QuickSpec {
     public override func spec() {
+        beforeSuite {
+            MasKit.initialize()
+        }
         describe("list command") {
             it("lists stuff") {
                 let list = ListCommand()

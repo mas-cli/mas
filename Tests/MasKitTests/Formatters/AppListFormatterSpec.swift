@@ -17,6 +17,9 @@ public class AppListsFormatterSpec: QuickSpec {
         let format = AppListFormatter.format(products:)
         var products: [SoftwareProduct] = []
 
+        beforeSuite {
+            MasKit.initialize()
+        }
         describe("app list formatter") {
             beforeEach {
                 products = []
