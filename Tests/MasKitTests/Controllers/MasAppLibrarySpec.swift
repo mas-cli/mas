@@ -35,8 +35,8 @@ public class MasAppLibrarySpec: QuickSpec {
 let myApp = SoftwareProductMock(
     appName: "MyApp",
     bundleIdentifier: "com.example",
-    bundlePath: "",
-    bundleVersion: "",
+    bundlePath: "/Applications/MyApp.app",
+    bundleVersion: "1.0.0",
     itemIdentifier: 1234
 )
 

@@ -11,18 +11,12 @@
 has_app_changes = !git.modified_files.grep(/Sources/).empty?
 has_test_changes = !git.modified_files.grep(/Tests/).empty?
 
-is_version_bump = git.modified_files.sort == [
-    "Package.swift",
-    "MasKit/Package.swift"
-].sort
-message(":bookmark: Version bump!") if is_version_bump
-
-# if has_app_changes && !has_test_changes && !is_version_bump
+# if has_app_changes && !has_test_changes
 #     warn("Tests were not updated", sticky: false)
 # end
 
 # Thanks other people!
-message(":tada:") if is_version_bump && github.pr_author != "phatblat"
+message(":tada:") if github.pr_author != "phatblat"
 
 # Mainly to encourage writing up some reasoning about the PR, rather than just leaving a title
 if github.pr_body.length < 5
