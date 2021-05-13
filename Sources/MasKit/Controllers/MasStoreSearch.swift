@@ -8,18 +8,19 @@
 
 import Foundation
 import PromiseKit
+import Regex
 import Version
 
 /// Manages searching the MAS catalog through the iTunes Search and Lookup APIs.
 class MasStoreSearch: StoreSearch {
     private let networkManager: NetworkManager
-    private static let versionExpression: NSRegularExpression = {
-        do {
-            return try NSRegularExpression(pattern: #"\"versionDisplay\"\:\"([^\"]+)\""#)
-        } catch {
-            fatalError("Unexpected error initializing NSRegularExpression: \(error.localizedDescription)")
-        }
-    }()
+    private static let appVersionExpression = Regex(#"\"versionDisplay\"\:\"([^\"]+)\""#)
+
+    enum Entity: String {
+        case macSoftware
+        case iPadSoftware
+        case iPhoneSoftware = "software"
+    }
 
     /// Designated initializer.
     init(networkManager: NetworkManager = NetworkManager()) {
@@ -30,14 +31,14 @@ class MasStoreSearch: StoreSearch {
     ///
     /// - Parameter appName: MAS app identifier.
     /// - Returns: URL for the search service or nil if appName can't be encoded.
-    static func searchURL(for appName: String) -> URL {
+    static func searchURL(for appName: String, ofEntity entity: Entity = .macSoftware) -> URL {
         guard var components = URLComponents(string: "https://itunes.apple.com/search") else {
             fatalError("URLComponents failed to parse URL.")
         }
 
         components.queryItems = [
             URLQueryItem(name: "media", value: "software"),
-            URLQueryItem(name: "entity", value: "macSoftware"),
+            URLQueryItem(name: "entity", value: entity.rawValue),
             URLQueryItem(name: "term", value: appName),
         ]
         guard let url = components.url else {
@@ -70,8 +71,23 @@ class MasStoreSearch: StoreSearch {
     /// - Parameter completion: A closure that receives the search results or an Error if there is a
     ///   problem with the network request. Results array will be empty if there were no matches.
     func search(for appName: String) -> Promise<[SearchResult]> {
-        let url = MasStoreSearch.searchURL(for: appName)
-        return loadSearchResults(url)
+        // Search for apps for compatible platforms, in order of preference.
+        // Macs with Apple Silicon can run iPad and iPhone apps.
+        var entities = [Entity.macSoftware]
+        if SysCtlSystemCommand.isAppleSilicon {
+            entities += [.iPadSoftware, .iPhoneSoftware]
+        }
+
+        let results = entities.map { entity -> Promise<[SearchResult]> in
+            let url = MasStoreSearch.searchURL(for: appName, ofEntity: entity)
+            return loadSearchResults(url)
+        }
+
+        // Combine the results, removing any duplicates.
+        var seenAppIDs = Set<Int>()
+        return when(fulfilled: results).flatMapValues { $0 }.filterValues { result in
+            seenAppIDs.insert(result.trackId).inserted
+        }
     }
 
     /// Looks up app details.
@@ -87,18 +103,24 @@ class MasStoreSearch: StoreSearch {
     private func loadSearchResults(_ url: URL) -> Promise<[SearchResult]> {
         firstly {
             networkManager.loadData(from: url)
-        }.map { data -> SearchResultList in
+        }.map { data -> [SearchResult] in
             do {
-                return try JSONDecoder().decode(SearchResultList.self, from: data)
+                return try JSONDecoder().decode(SearchResultList.self, from: data).results
             } catch {
                 throw MASError.jsonParsing(error: error as NSError)
             }
-        }.then { list -> Promise<[SearchResult]> in
-            var results = list.results
-            let scraping = results.indices.compactMap { index -> Guarantee<Void>? in
-                let result = results[index]
-                guard let searchVersion = Version(tolerant: result.version),
-                    let pageUrl = URL(string: result.trackViewUrl)
+        }.thenMap { result -> Guarantee<SearchResult> in
+            guard let pageUrl = URL(string: result.trackViewUrl)
+            else {
+                return .value(result)
+            }
+
+            return firstly {
+                self.scrapeAppStoreVersion(pageUrl)
+            }.map { pageVersion in
+                guard let pageVersion = pageVersion,
+                    let searchVersion = Version(tolerant: result.version),
+                    pageVersion > searchVersion
                 else {
                     return nil
                 }
@@ -111,29 +133,26 @@ class MasStoreSearch: StoreSearch {
                     }
                 }
             }
-
-            return when(fulfilled: scraping).map { results }
         }
     }
 
-    // The App Store often lists a newer version available in an app's page than in
-    // the search results. We attempt to scrape it here.
-    private func scrapeVersionFromPage(_ pageUrl: URL) -> Guarantee<Version?> {
+    // App Store pages indicate:
+    // - compatibility with Macs with Apple Silicon
+    // - (often) a version that is newer than what is listed in search results
+    //
+    // We attempt to scrape this information here.
+    private func scrapeAppStoreVersion(_ pageUrl: URL) -> Promise<Version?> {
         firstly {
             networkManager.loadData(from: pageUrl)
         }.map { data in
             let html = String(decoding: data, as: UTF8.self)
-            let fullRange = NSRange(html.startIndex..<html.endIndex, in: html)
-            guard let match = MasStoreSearch.versionExpression.firstMatch(in: html, range: fullRange),
-                let range = Range(match.range(at: 1), in: html),
-                let version = Version(tolerant: html[range])
+            guard let capture = MasStoreSearch.appVersionExpression.firstMatch(in: html)?.captures[0],
+                let version = Version(tolerant: capture)
             else {
-                throw MASError.noData
+                return nil
             }
 
             return version
-        }.recover { _ in
-            .value(nil)
         }
     }
 }
