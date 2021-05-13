@@ -7,4 +7,4 @@
 #
 
 echo "==> ✅ Testing"
-swift test 2>&1
+swift test
