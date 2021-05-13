@@ -7,6 +7,7 @@
 //
 
 import PromiseKit
+
 @testable import MasKit
 
 class StoreSearchMock: StoreSearch {

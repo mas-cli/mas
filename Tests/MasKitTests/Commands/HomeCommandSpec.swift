@@ -12,7 +12,7 @@ import Quick
 @testable import MasKit
 
 public class HomeCommandSpec: QuickSpec {
-    public override func spec() {
+    override public func spec() {
         let result = SearchResult(
             trackId: 1111,
             trackViewUrl: "mas preview url",

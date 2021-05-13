@@ -70,12 +70,12 @@ let package = Package(
     swiftLanguageVersions: [.v5]
 )
 
-#if swift(>=5.4)
+#if compiler(>=5.4)
     package.dependencies += [
-        .package(url: "https://github.com/apple/swift-format", from: "0.50400.0")
+        .package(url: "https://github.com/apple/swift-format", .branch("swift-5.4-branch"))
     ]
-#elseif swift(>=5.3)
+#elseif compiler(>=5.3)
     package.dependencies += [
-        .package(url: "https://github.com/apple/swift-format", from: "0.50300.0")
+        .package(url: "https://github.com/apple/swift-format", .branch("swift-5.3-branch"))
     ]
 #endif

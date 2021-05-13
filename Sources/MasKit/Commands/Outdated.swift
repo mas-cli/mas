@@ -9,6 +9,7 @@
 import Commandant
 import Foundation
 import PromiseKit
+
 import enum Swift.Result
 
 /// Command which displays a list of installed apps which have available updates

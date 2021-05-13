@@ -12,7 +12,7 @@ import Quick
 @testable import MasKit
 
 public class VersionCommandSpec: QuickSpec {
-    public override func spec() {
+    override public func spec() {
         beforeSuite {
             MasKit.initialize()
         }

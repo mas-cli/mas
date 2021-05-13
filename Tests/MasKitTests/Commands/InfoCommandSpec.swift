@@ -12,7 +12,7 @@ import Quick
 @testable import MasKit
 
 public class InfoCommandSpec: QuickSpec {
-    public override func spec() {
+    override public func spec() {
         let result = SearchResult(
             currentVersionReleaseDate: "2019-01-07T18:53:13Z",
             fileSizeBytes: "1024",

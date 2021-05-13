@@ -20,11 +20,13 @@ import StoreFoundation
 func downloadAll(_ appIDs: [UInt64], purchase: Bool = false) -> Promise<Void> {
     var firstError: Error?
     return appIDs.reduce(Guarantee<Void>.value(())) { previous, appID in
-        previous.then { downloadWithRetries(appID, purchase: purchase).recover { error in
-            if firstError == nil {
-                firstError = error
+        previous.then {
+            downloadWithRetries(appID, purchase: purchase).recover { error in
+                if firstError == nil {
+                    firstError = error
+                }
             }
-        } }
+        }
     }.done {
         if let error = firstError {
             throw error
@@ -42,7 +44,8 @@ private func downloadWithRetries(
 
         // If the download failed due to network issues, try again. Otherwise, fail immediately.
         guard case MASError.downloadFailed(let downloadError) = error,
-            case NSURLErrorDomain = downloadError?.domain else {
+            case NSURLErrorDomain = downloadError?.domain
+        else {
             throw error
         }
 

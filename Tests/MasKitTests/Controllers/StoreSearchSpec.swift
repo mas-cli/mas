@@ -9,6 +9,7 @@
 import Nimble
 import PromiseKit
 import Quick
+
 @testable import MasKit
 
 /// Protocol minimal implementation
@@ -23,7 +24,7 @@ struct StoreSearchForTesting: StoreSearch {
 }
 
 public class StoreSearchSpec: QuickSpec {
-    public override func spec() {
+    override public func spec() {
         let storeSearch = StoreSearchForTesting()
 
         describe("url string") {
