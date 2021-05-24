@@ -42,8 +42,8 @@
         "repositoryURL": "https://github.com/mxcl/PromiseKit.git",
         "state": {
           "branch": null,
-          "revision": "aea48ea1855f5d82e2dffa6027afce3aab8f3dd7",
-          "version": "6.13.3"
+          "revision": "cf94b87e50e6c21bf42887e3474a2785f1049591",
+          "version": "6.14.0"
         }
       },
       {
