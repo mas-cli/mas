@@ -98,12 +98,12 @@
         "revision": "00757e80d6861651d3dc18bbc978edf9a5d0a8a9"
       },
       "peripheryapp/periphery": {
-        "revision": "85922da2070aec89444ade214be45271f33286a1"
+        "revision": "0655b61faa48df0c36728ac184985fd9f9dbdd37"
       }
     },
     "cask": {
       "periphery": {
-        "version": "2.4.3",
+        "version": "2.5.0",
         "options": {
           "full_name": "periphery"
         }
@@ -113,12 +113,12 @@
   "system": {
     "macos": {
       "big_sur": {
-        "HOMEBREW_VERSION": "3.1.9-2-g1795b37",
+        "HOMEBREW_VERSION": "3.1.9-58-g7ae9cc3",
         "HOMEBREW_PREFIX": "/opt/homebrew",
-        "Homebrew/homebrew-core": "b635bce76112dd46186dcf2ca7fe2bb6f94fa07f",
+        "Homebrew/homebrew-core": "993a5784531ac08020f0e85fa7503a484c8bc231",
         "CLT": "12.5.0.22.9",
         "Xcode": "12.5",
-        "macOS": "11.3.1"
+        "macOS": "11.4"
       }
     }
   }
