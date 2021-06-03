@@ -37,4 +37,4 @@ periphery scan --retain-public --strict
 
 echo
 echo "--> 📜 Bash"
-shfmt -d -i 2 -l -w contrib/ script/
+shfmt -d -i 2 -l contrib/ script/
