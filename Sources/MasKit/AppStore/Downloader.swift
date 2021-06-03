@@ -91,7 +91,7 @@ private func download(_ appID: UInt64, purchase: Bool = false) -> Promise<Void> 
         let observer = PurchaseDownloadObserver(purchase: purchase)
         let download = Promise<Void> { seal in
             observer.errorHandler = seal.reject
-            observer.completionHandler = seal.fulfill_
+            observer.completionHandler = seal.fulfill
         }
 
         let downloadQueue = CKDownloadQueue.shared()
