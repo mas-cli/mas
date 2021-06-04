@@ -87,8 +87,8 @@
         "repositoryURL": "https://github.com/mxcl/Version.git",
         "state": {
           "branch": null,
-          "revision": "a94b48f36763c05629fc102837398505032dead9",
-          "version": "2.0.0"
+          "revision": "1fe824b80d89201652e7eca7c9252269a1d85e25",
+          "version": "2.0.1"
         }
       }
     ]
