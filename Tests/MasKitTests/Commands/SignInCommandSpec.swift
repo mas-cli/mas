@@ -16,12 +16,11 @@ public class SignInCommandSpec: QuickSpec {
         beforeSuite {
             MasKit.initialize()
         }
-        describe("signn command") {
-            it("updates stuff") {
+        describe("signin command") {
+            xit("signs in") {
                 let cmd = SignInCommand()
                 let result = cmd.run(SignInCommand.Options(username: "", password: "", dialog: false))
-                print(result)
-                //                expect(result).to(beSuccess())
+                expect(result).to(beSuccess())
             }
         }
     }

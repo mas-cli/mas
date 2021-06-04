@@ -17,11 +17,10 @@ public class AccountCommandSpec: QuickSpec {
             MasKit.initialize()
         }
         describe("Account command") {
-            it("displays active account") {
+            xit("displays active account") {
                 let cmd = AccountCommand()
                 let result = cmd.run(AccountCommand.Options())
-                print(result)
-                //                expect(result).to(beSuccess())
+                expect(result).to(beSuccess())
             }
         }
     }

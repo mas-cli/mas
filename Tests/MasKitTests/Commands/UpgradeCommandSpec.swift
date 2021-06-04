@@ -17,11 +17,10 @@ public class UpgradeCommandSpec: QuickSpec {
             MasKit.initialize()
         }
         describe("upgrade command") {
-            it("updates stuff") {
+            it("upgrades stuff") {
                 let cmd = UpgradeCommand()
                 let result = cmd.run(UpgradeCommand.Options(apps: [""]))
-                print(result)
-                //                expect(result).to(beSuccess())
+                expect(result).to(beSuccess())
             }
         }
     }

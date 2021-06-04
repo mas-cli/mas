@@ -17,11 +17,10 @@ public class LuckyCommandSpec: QuickSpec {
             MasKit.initialize()
         }
         describe("lucky command") {
-            it("installs the first app matching a search") {
+            xit("installs the first app matching a search") {
                 let cmd = LuckyCommand()
                 let result = cmd.run(LuckyCommand.Options(appName: "", forceInstall: false))
-                print(result)
-                //                expect(result).to(beSuccess())
+                expect(result).to(beSuccess())
             }
         }
     }
