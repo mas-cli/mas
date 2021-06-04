@@ -97,19 +97,13 @@ class MasStoreSearch: StoreSearch {
     ///   or an Error if there is a problem with the network request.
     func lookup(app appId: Int) -> Promise<SearchResult?> {
         let url = MasStoreSearch.lookupURL(forApp: appId)
-        return loadSearchResults(url).map { results in results.first }
-    }
-
-    private func loadSearchResults(_ url: URL) -> Promise<[SearchResult]> {
-        firstly {
-            networkManager.loadData(from: url)
-        }.map { data -> [SearchResult] in
-            do {
-                return try JSONDecoder().decode(SearchResultList.self, from: data).results
-            } catch {
-                throw MASError.jsonParsing(error: error as NSError)
+        return firstly {
+            loadSearchResults(url)
+        }.then { results -> Guarantee<SearchResult?> in
+            guard let result = results.first else {
+                return .value(nil)
             }
-        }.thenMap { result -> Guarantee<SearchResult> in
+
             guard let pageUrl = URL(string: result.trackViewUrl)
             else {
                 return .value(result)
@@ -132,6 +126,18 @@ class MasStoreSearch: StoreSearch {
                         results[index].version = pageVersion.description
                     }
                 }
+            }
+        }
+    }
+
+    private func loadSearchResults(_ url: URL) -> Promise<[SearchResult]> {
+        firstly {
+            networkManager.loadData(from: url)
+        }.map { data -> [SearchResult] in
+            do {
+                return try JSONDecoder().decode(SearchResultList.self, from: data).results
+            } catch {
+                throw MASError.jsonParsing(error: error as NSError)
             }
         }
     }
