@@ -74,7 +74,7 @@ echo "==> 🍼 Bottling mas ${VERSION} for: ${OS_NAMES[*]}"
 brew install --build-bottle mas
 
 # Generate bottle do block, dropping last 2 lines
-brew bottle --verbose --no-rebuild --root-url=$ROOT_URL mas
+brew bottle --verbose --no-rebuild --root-url="$ROOT_URL" mas
 SHA256=$(shasum --algorithm 256 "${OLD_FILENAME}" | cut -f 1 -d ' ' -)
 
 mkdir -p "$BOTTLE_DIR"
