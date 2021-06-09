@@ -30,6 +30,35 @@
           }
         }
       },
+      "shellcheck": {
+        "version": "0.7.2",
+        "bottle": {
+          "rebuild": 0,
+          "root_url": "https://ghcr.io/v2/homebrew/core",
+          "files": {
+            "arm64_big_sur": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/shellcheck/blobs/sha256:8844cd2a84bd07f8697463d9af3cc41cc4356edfa11d1171255884dc732ee9cd",
+              "sha256": "8844cd2a84bd07f8697463d9af3cc41cc4356edfa11d1171255884dc732ee9cd"
+            },
+            "big_sur": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/shellcheck/blobs/sha256:516df7bcc8d5b1e7e4b989b472e89d9e3cf5e4dfc977aa45f06c0335c697b77a",
+              "sha256": "516df7bcc8d5b1e7e4b989b472e89d9e3cf5e4dfc977aa45f06c0335c697b77a"
+            },
+            "catalina": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/shellcheck/blobs/sha256:d4ffbfe9cb1fc1c888c7b6805a6c224810e4137c0bac0aac3041733bb36b7d79",
+              "sha256": "d4ffbfe9cb1fc1c888c7b6805a6c224810e4137c0bac0aac3041733bb36b7d79"
+            },
+            "mojave": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/shellcheck/blobs/sha256:a810166fde56298431a942ec439d5359e871a0727b989788040608876b519b07",
+              "sha256": "a810166fde56298431a942ec439d5359e871a0727b989788040608876b519b07"
+            }
+          }
+        }
+      },
       "shfmt": {
         "version": "3.3.0",
         "bottle": {
@@ -98,12 +127,12 @@
         "revision": "00757e80d6861651d3dc18bbc978edf9a5d0a8a9"
       },
       "peripheryapp/periphery": {
-        "revision": "9a2339d2bcd07846d2ca580e88082f97b8a66095"
+        "revision": "22ad61496f90c8b6e8b2af34f371eab6c1cb1f1a"
       }
     },
     "cask": {
       "periphery": {
-        "version": "2.5.2",
+        "version": "2.6.0",
         "options": {
           "full_name": "periphery"
         }
@@ -113,9 +142,9 @@
   "system": {
     "macos": {
       "big_sur": {
-        "HOMEBREW_VERSION": "3.1.9-121-g654c78c",
+        "HOMEBREW_VERSION": "3.1.11-14-g76cda75",
         "HOMEBREW_PREFIX": "/opt/homebrew",
-        "Homebrew/homebrew-core": "b68a20a099cc511ee6df038b3ef46bd4793b3cf7",
+        "Homebrew/homebrew-core": "112feba9af1ddb9870c7584f8b1d04d4b62827d8",
         "CLT": "12.5.0.22.9",
         "Xcode": "12.5",
         "macOS": "11.4"

@@ -18,11 +18,9 @@ main() {
   rm -f Brewfile.lock.json
   brew bundle install --no-upgrade --verbose
 
-  if [[ "CI" != "true" ]]; then
-    # Already installed on GitHub Actions runner.
-    if ! command -v swiftlint >/dev/null; then
-      brew install swiftlint
-    fi
+  # Already installed on GitHub Actions runner.
+  if [[ ! -x "$(command -v swiftlint)" ]]; then
+    brew install swiftlint
   fi
 
   # Generate Package.swift
