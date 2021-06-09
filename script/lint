@@ -33,7 +33,7 @@ for SOURCE in Package.swift Sources Tests; do
   swift run swift-format lint --recursive ${SOURCE}
   swiftlint lint --strict ${SOURCE}
 done
-periphery scan --retain-public --strict
+periphery scan
 
 echo
 echo "--> 📜 Bash"
