@@ -64,7 +64,7 @@ struct ProgressState {
     let phase: String
 
     var percentage: String {
-        String(format: "%.1f%%", arguments: [floor(percentComplete * 100)])
+        String(format: "%.1f%%", floor(percentComplete * 1000) / 10)
     }
 }
 
