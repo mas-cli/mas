@@ -24,6 +24,9 @@ jobs:
     steps:
     # https://github.com/actions/checkout#usage
     - uses: actions/checkout@v2
+      with:
+        # Fetch tags for script/version
+        fetch-depth: 0
 
     - name: Bootstrap
       run: script/bootstrap
