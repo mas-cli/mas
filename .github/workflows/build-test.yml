@@ -5,23 +5,28 @@
 
 name: Build, Test, and Lint
 
-on: [push]
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build-test:
 
     # https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners
     name: Build, Test, and Lint
-    runs-on: macOS-latest
+    runs-on: macos-latest
     steps:
-
-      # https://github.com/actions/checkout#usage
-    - uses: actions/checkout@master
+    # https://github.com/actions/checkout#usage
+    - uses: actions/checkout@v2
       with:
         # Fetch tags for script/version
         fetch-depth: 0
-        # https://docs.github.com/en/actions/reference/authentication-in-a-workflow
-        token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Bootstrap
       run: script/bootstrap
