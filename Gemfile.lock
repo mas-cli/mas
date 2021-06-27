@@ -24,7 +24,7 @@ GEM
       no_proxy_fix
       octokit (~> 4.7)
       terminal-table (>= 1, < 4)
-    faraday (1.4.2)
+    faraday (1.4.3)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
       faraday-excon (~> 1.1)
@@ -74,4 +74,4 @@ DEPENDENCIES
   xcpretty
 
 BUNDLED WITH
-   2.2.19
+   2.2.21
