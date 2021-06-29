@@ -10,13 +10,11 @@ struct SearchResult: Decodable {
     var bundleId: String
     var currentVersionReleaseDate: String
     var fileSizeBytes: String?
-    var formattedPrice: String?
     var minimumOsVersion: String
     var price: Double?
     var sellerName: String
     var sellerUrl: String?
     var trackId: Int
-    var trackCensoredName: String
     var trackName: String
     var trackViewUrl: String
     var version: String
@@ -25,13 +23,11 @@ struct SearchResult: Decodable {
         bundleId: String = "",
         currentVersionReleaseDate: String = "",
         fileSizeBytes: String = "0",
-        formattedPrice: String = "Free",
         minimumOsVersion: String = "",
         price: Double = 0.0,
         sellerName: String = "",
         sellerUrl: String = "",
         trackId: Int = 0,
-        trackCensoredName: String = "",
         trackName: String = "",
         trackViewUrl: String = "",
         version: String = ""
@@ -39,13 +35,11 @@ struct SearchResult: Decodable {
         self.bundleId = bundleId
         self.currentVersionReleaseDate = currentVersionReleaseDate
         self.fileSizeBytes = fileSizeBytes
-        self.formattedPrice = formattedPrice
         self.minimumOsVersion = minimumOsVersion
         self.price = price
         self.sellerName = sellerName
         self.sellerUrl = sellerUrl
         self.trackId = trackId
-        self.trackCensoredName = trackCensoredName
         self.trackName = trackName
         self.trackViewUrl = trackViewUrl
         self.version = version
