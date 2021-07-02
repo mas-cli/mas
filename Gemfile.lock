@@ -11,7 +11,7 @@ GEM
     colored2 (3.1.2)
     cork (0.3.0)
       colored2 (~> 3.1)
-    danger (8.2.3)
+    danger (8.3.1)
       claide (~> 1.0)
       claide-plugins (>= 0.9.2)
       colored2 (~> 3.1)
