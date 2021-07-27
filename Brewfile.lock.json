@@ -26,6 +26,11 @@
               "cellar": ":any_skip_relocation",
               "url": "https://ghcr.io/v2/homebrew/core/markdownlint-cli/blobs/sha256:802003979b630f36bfce119b8cd8a05ce34a006e19d94bbceb2040944167233b",
               "sha256": "802003979b630f36bfce119b8cd8a05ce34a006e19d94bbceb2040944167233b"
+            },
+            "x86_64_linux": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/markdownlint-cli/blobs/sha256:02efc301b7d7dfefbc9d6d42c3ee32417194ae4408165a505bd689e96b06e07c",
+              "sha256": "02efc301b7d7dfefbc9d6d42c3ee32417194ae4408165a505bd689e96b06e07c"
             }
           }
         }
@@ -99,30 +104,30 @@
         }
       },
       "swiftformat": {
-        "version": "0.48.9",
+        "version": "0.48.11",
         "bottle": {
           "rebuild": 0,
           "root_url": "https://ghcr.io/v2/homebrew/core",
           "files": {
             "arm64_big_sur": {
               "cellar": ":any_skip_relocation",
-              "url": "https://ghcr.io/v2/homebrew/core/swiftformat/blobs/sha256:4687b1109421980f9c0d8558dafb5feca3af8b264ad2a8637ad243331d4dcc42",
-              "sha256": "4687b1109421980f9c0d8558dafb5feca3af8b264ad2a8637ad243331d4dcc42"
+              "url": "https://ghcr.io/v2/homebrew/core/swiftformat/blobs/sha256:e0a851cfa2ff5d04f0fc98a9e624d1411f1b5b1e55e3cbc0901f4913c02e716a",
+              "sha256": "e0a851cfa2ff5d04f0fc98a9e624d1411f1b5b1e55e3cbc0901f4913c02e716a"
             },
             "big_sur": {
               "cellar": ":any_skip_relocation",
-              "url": "https://ghcr.io/v2/homebrew/core/swiftformat/blobs/sha256:4405a3fe6d770321b3cc11a55041b61ae0875a2bb8f2b10b056485d7dec2fdfc",
-              "sha256": "4405a3fe6d770321b3cc11a55041b61ae0875a2bb8f2b10b056485d7dec2fdfc"
+              "url": "https://ghcr.io/v2/homebrew/core/swiftformat/blobs/sha256:a5327283fe32b2ef2c6f264e14c966a9a60cb291415d3d05ed659c92a93c4987",
+              "sha256": "a5327283fe32b2ef2c6f264e14c966a9a60cb291415d3d05ed659c92a93c4987"
             },
             "catalina": {
               "cellar": ":any_skip_relocation",
-              "url": "https://ghcr.io/v2/homebrew/core/swiftformat/blobs/sha256:14d57ba4c8370864983e6a352b6cc926b94aa0d93da09df3f0a8252bea02bc04",
-              "sha256": "14d57ba4c8370864983e6a352b6cc926b94aa0d93da09df3f0a8252bea02bc04"
+              "url": "https://ghcr.io/v2/homebrew/core/swiftformat/blobs/sha256:ba95e49ecc71bb19734698dee565e3b0ced6470729206cb434675cfa051f2755",
+              "sha256": "ba95e49ecc71bb19734698dee565e3b0ced6470729206cb434675cfa051f2755"
             },
             "mojave": {
               "cellar": ":any_skip_relocation",
-              "url": "https://ghcr.io/v2/homebrew/core/swiftformat/blobs/sha256:66143cfa8d7a16cd7e4bb17bd425124dfa4e58f8bf537994c1347aa50f5554d8",
-              "sha256": "66143cfa8d7a16cd7e4bb17bd425124dfa4e58f8bf537994c1347aa50f5554d8"
+              "url": "https://ghcr.io/v2/homebrew/core/swiftformat/blobs/sha256:c7e00eae9d46dddf040999f0f2832d08110f093c7a403aaaaaa18d8830213967",
+              "sha256": "c7e00eae9d46dddf040999f0f2832d08110f093c7a403aaaaaa18d8830213967"
             }
           }
         }
@@ -133,12 +138,12 @@
         "revision": "00757e80d6861651d3dc18bbc978edf9a5d0a8a9"
       },
       "peripheryapp/periphery": {
-        "revision": "013cf07019e22b1aafe90a7d24846e652e23d60a"
+        "revision": "a45b2588b35d2d94cbd2d3cf792eaf85de9e4146"
       }
     },
     "cask": {
       "periphery": {
-        "version": "2.7.1",
+        "version": "2.8.0",
         "options": {
           "full_name": "periphery"
         }
@@ -148,12 +153,12 @@
   "system": {
     "macos": {
       "big_sur": {
-        "HOMEBREW_VERSION": "3.2.1-70-g5659d74",
+        "HOMEBREW_VERSION": "3.2.4-8-gf76c524",
         "HOMEBREW_PREFIX": "/opt/homebrew",
-        "Homebrew/homebrew-core": "843eca6b944c46f363deb9e79c7e722d80e74d38",
+        "Homebrew/homebrew-core": "de15ccd462bfddf164257815f20763f8984f9aa0",
         "CLT": "12.5.0.22.9",
         "Xcode": "12.5.1",
-        "macOS": "11.4"
+        "macOS": "11.5.1"
       }
     }
   }

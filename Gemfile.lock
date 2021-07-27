@@ -24,7 +24,7 @@ GEM
       no_proxy_fix
       octokit (~> 4.7)
       terminal-table (>= 1, < 4)
-    faraday (1.5.0)
+    faraday (1.5.1)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
       faraday-excon (~> 1.1)
@@ -41,7 +41,7 @@ GEM
       faraday (>= 0.8)
     faraday-httpclient (1.0.1)
     faraday-net_http (1.0.1)
-    faraday-net_http_persistent (1.1.0)
+    faraday-net_http_persistent (1.2.0)
     faraday-patron (1.0.0)
     git (1.9.1)
       rchardet (~> 1.8)
@@ -60,7 +60,7 @@ GEM
     rchardet (1.8.0)
     rexml (3.2.5)
     rouge (2.0.7)
-    ruby2_keywords (0.0.4)
+    ruby2_keywords (0.0.5)
     sawyer (0.8.2)
       addressable (>= 2.3.5)
       faraday (> 0.8, < 2.0)
@@ -78,4 +78,4 @@ DEPENDENCIES
   xcpretty
 
 BUNDLED WITH
-   2.2.23
+   2.2.24
