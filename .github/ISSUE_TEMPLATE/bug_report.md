@@ -19,7 +19,7 @@ assignees: ''
 - [] [mas-cli/tap](https://github.com/mas-cli/homebrew-tap)
 - [] `.pkg` installer from [releases](https://github.com/mas-cli/mas/releases)
 - [] Built from source
-  - Fork/branch: ? (e.g. mas-cli/master)
+  - Fork/branch: ? (e.g. mas-cli/main)
   - Xcode version: 10.?
 
 ## Describe the Bug
