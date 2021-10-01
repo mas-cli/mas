@@ -30,7 +30,8 @@ extension SoftwareProduct {
     func isOutdatedWhenComparedTo(_ storeApp: SearchResult) -> Bool {
         // Only look at min OS version if we have one
         if let osVersion = Version(storeApp.minimumOsVersion) {
-            let requiredVersion = OperatingSystemVersion(majorVersion: osVersion.major, minorVersion: osVersion.minor, patchVersion: osVersion.patch)
+            let requiredVersion = OperatingSystemVersion(majorVersion: osVersion.major, minorVersion: osVersion.minor,
+                                                         patchVersion: osVersion.patch)
             // Don't consider an app outdated if the version in the app store requires a higher OS version.
             guard ProcessInfo.processInfo.isOperatingSystemAtLeast(requiredVersion) else {
                 return false
