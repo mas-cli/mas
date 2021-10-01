@@ -130,11 +130,11 @@
   "system": {
     "macos": {
       "monterey": {
-        "HOMEBREW_VERSION": "3.2.9-73-g7e7bdca",
-        "HOMEBREW_PREFIX": "/opt/homebrew",
-        "Homebrew/homebrew-core": "42fd3eec28f71853a59e12f77bcaff2f103097b5",
-        "CLT": "12.5.0.22.9",
-        "Xcode": "12.5.1",
+        "HOMEBREW_VERSION": "3.2.14-35-g9b42a10",
+        "HOMEBREW_PREFIX": "/usr/local",
+        "Homebrew/homebrew-core": "4119ab758ae132acdae47e218d718ff273a47997",
+        "CLT": "13.0.0.0.1.1630607135",
+        "Xcode": "13.0",
         "macOS": "12.0"
       }
     }
