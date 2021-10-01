@@ -18,7 +18,8 @@ public class SoftwareProductSpec: QuickSpec {
             MasKit.initialize()
         }
         describe("software product") {
-            let app = SoftwareProductMock(appName: "App", bundleIdentifier: "", bundlePath: "", bundleVersion: "1.0.0", itemIdentifier: 111)
+            let app = SoftwareProductMock(appName: "App", bundleIdentifier: "", bundlePath: "", bundleVersion: "1.0.0",
+                                          itemIdentifier: 111)
 
             let currentApp = SearchResult(kind: "mac-software", version: "1.0.0")
             let appUpdate = SearchResult(kind: "mac-software", version: "2.0.0")
