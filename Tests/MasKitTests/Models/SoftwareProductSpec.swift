@@ -26,7 +26,7 @@ public class SoftwareProductSpec: QuickSpec {
             let higherOs = SearchResult(kind: "mac-software", minimumOsVersion: "99.0.0", version: "3.0.0")
             let updateIos = SearchResult(kind: "software", minimumOsVersion: "99.0.0", version: "3.0.0")
 
-            it("is not outdated there is no new version available") {
+            it("is not outdated when there is no new version available") {
                 expect(app.isOutdatedWhenComparedTo(currentApp)) == false
             }
             it("is outdated when there is a new version available") {
