@@ -24,7 +24,21 @@ extension SoftwareProduct {
         appName.isEmpty ? bundleIdentifier : appName
     }
 
+    /// Determines whether the app is considered outdated. Updates that require a higher OS version are excluded.
+    /// - Parameter storeApp: App from search result.
+    /// - Returns: true if the app is outdated; false otherwise.
     func isOutdatedWhenComparedTo(_ storeApp: SearchResult) -> Bool {
+        // Only look at min OS version if we have one, also only consider macOS apps
+        // Replace string literal with MasStoreSearch.Entity once `search` branch is merged.
+        if let osVersion = Version(tolerant: storeApp.minimumOsVersion), storeApp.kind == "mac-software" {
+            let requiredVersion = OperatingSystemVersion(majorVersion: osVersion.major, minorVersion: osVersion.minor,
+                                                         patchVersion: osVersion.patch)
+            // Don't consider an app outdated if the version in the app store requires a higher OS version.
+            guard ProcessInfo.processInfo.isOperatingSystemAtLeast(requiredVersion) else {
+                return false
+            }
+        }
+
         // The App Store does not enforce semantic versioning, but we assume most apps follow versioning
         // schemes that increase numerically over time.
         guard let semanticBundleVersion = Version(tolerant: bundleVersion),
