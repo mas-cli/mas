@@ -29,7 +29,7 @@ extension SoftwareProduct {
     /// - Returns: true if the app is outdated; false otherwise.
     func isOutdatedWhenComparedTo(_ storeApp: SearchResult) -> Bool {
         // Only look at min OS version if we have one, also only consider macOS apps
-        // TODO: Replace string literal with MasStoreSearch.Entity once search branch is merged.
+        // Replace string literal with MasStoreSearch.Entity once `search` branch is merged.
         if let osVersion = Version(tolerant: storeApp.minimumOsVersion), storeApp.kind == "mac-software" {
             let requiredVersion = OperatingSystemVersion(majorVersion: osVersion.major, minorVersion: osVersion.minor,
                                                          patchVersion: osVersion.patch)
