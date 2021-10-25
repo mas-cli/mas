@@ -5,7 +5,7 @@ class Mas < Formula
       tag:      "v1.8.3",
       revision: "aeeb1c508e98d657769ef4e368a113be7822d92e"
   license "MIT"
-  head "https://github.com/mas-cli/mas.git"
+  head "https://github.com/mas-cli/mas.git", branch: "main"
 
   bottle do
     root_url "https://github.com/mas-cli/mas/releases/download/v1.8.3"
