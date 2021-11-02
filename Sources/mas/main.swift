@@ -7,9 +7,18 @@
 //
 
 import Commandant
+import Foundation
 import MasKit
 
 MasKit.initialize()
+
+let monterey = OperatingSystemVersion(majorVersion: 12, minorVersion: 0, patchVersion: 0)
+if ProcessInfo.processInfo.isOperatingSystemAtLeast(monterey) {
+    printWarning(
+        "mas is not yet functional on macOS Monterey (12) due to changes in macOS frameworks. "
+            + "To track progress or to *contribute* to fixing this issue, please see: "
+            + "https://github.com/mas-cli/mas/issues/417")
+}
 
 let registry = CommandRegistry<MASError>()
 let helpCommand = HelpCommand(registry: registry)
