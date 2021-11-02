@@ -50,7 +50,7 @@ public struct OpenCommand: CommandProtocol {
 
             guard let appId = Int(options.appId)
             else {
-                print("Invalid app ID")
+                printError("Invalid app ID")
                 return .failure(.noSearchResultsFound)
             }
 

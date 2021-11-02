@@ -51,7 +51,7 @@ private func downloadWithRetries(
 
         let attempts = attempts - 1
         printWarning((downloadError ?? error).localizedDescription)
-        print("Trying again up to \(attempts) more \(attempts == 1 ? "time" : "times").")
+        printWarning("Trying again up to \(attempts) more \(attempts == 1 ? "time" : "times").")
         return downloadWithRetries(appID, purchase: purchase, attempts: attempts)
     }
 }
