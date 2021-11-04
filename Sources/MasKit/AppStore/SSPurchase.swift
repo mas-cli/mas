@@ -13,7 +13,7 @@ typealias SSPurchaseCompletion =
     (_ purchase: SSPurchase?, _ completed: Bool, _ error: Error?, _ response: SSPurchaseResponse?) -> Void
 
 extension SSPurchase {
-    convenience init(adamId: UInt64, account: ISStoreAccount, purchase: Bool = false) {
+    convenience init(adamId: UInt64, account: ISStoreAccount?, purchase: Bool = false) {
         self.init()
 
         var parameters: [String: Any] = [
@@ -40,8 +40,11 @@ extension SSPurchase {
             .joined(separator: "&")
 
         itemIdentifier = adamId
-        accountIdentifier = account.dsID
-        appleID = account.identifier
+
+        if let account = account {
+            accountIdentifier = account.dsID
+            appleID = account.identifier
+        }
 
         // Not sure if this is needed, but lets use it here.
         if purchase {

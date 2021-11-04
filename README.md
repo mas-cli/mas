@@ -101,6 +101,7 @@ $ mas lucky twitter
 
 > Please note that this command will not allow you to install (or even purchase) an app for the first time:
 use the `purchase` command in that case.
+> ⛔ The `purchase` command is not supported as of macOS 10.15 Catalina. Please see [Known Issues](#%EF%B8%8F-known-issues).
 
 ```bash
 $ mas purchase 768053424
@@ -148,6 +149,8 @@ Xcode (8.0)
 
 ### 🚏📥 Sign-in
 
+> ⛔ The `signin` command is not supported as of macOS 10.13 High Sierra. Please see [Known Issues](#%EF%B8%8F-known-issues).
+
 To sign into the Mac App Store for the first time run `mas signin`.
 
 ```bash
@@ -156,11 +159,8 @@ $ mas signin mas@example.com
 Password:
 ```
 
-> ⚠️ Due to breaking changes in the underlying API that mas uses to interact with the Mac App Store,
-> the `signin` command has been temporarily disabled on macOS 10.13+ ⛔.
-> For more information on this issue, see [#164](https://github.com/mas-cli/mas/issues/164).
-
-If you experience issues signing in this way, you can ask to signin using a graphical dialog (provided by Mac App Store application):
+If you experience issues signing in this way, you can ask to sign in using a graphical dialog
+(provided by Mac App Store application):
 
 ```bash
 $ mas signin --dialog mas@example.com
@@ -181,6 +181,22 @@ Use `mas signout` to sign out from the Mac App Store.
 `mas` is integrated with [homebrew-bundle]. If `mas` is installed, and you run `brew bundle dump`,
 then your Mac App Store apps will be included in the Brewfile created. See the [homebrew-bundle]
 docs for more details.
+
+## ⚠️ Known Issues
+
+Over time, Apple has changed the APIs used by `mas` to manage App Store apps, limiting its capabilities. Please sign in
+or purchase apps using the App Store app instead. Subsequent redownloads can be performed with `mas install`.
+
+- ⛔️ The `signin` command is not supported as of macOS 10.13 High Sierra. [#164](https://github.com/mas-cli/mas/issues/164)
+- ⛔️ The `purchase` command is not supported as of macOS 10.15 Catalina. [#289](https://github.com/mas-cli/mas/issues/289)
+- ⛔️ The `account` command is not supported as of macOS 12 Monterey. [#417](https://github.com/mas-cli/mas/issues/417)
+
+The versions `mas` sees from the app bundles on your Mac don't always match the versions reported by the App Store for
+the same app bundles. This leads to some confusion when the `outdated` and `upgrade` commands differ in behavior from
+what is shown as outdated in the App Store app. Further confusing matters, there is often some delay due to CDN
+propagatioon and caching between the time a new app version is released to the App Store, and the time it appears
+available in the App Store app or via the `mas` command. These issues cause symptoms like
+[#384](https://github.com/mas-cli/mas/issues/384) and [#387](https://github.com/mas-cli/mas/issues/387).
 
 ## 💥 When something doesn't work
 

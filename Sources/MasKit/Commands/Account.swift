@@ -18,6 +18,12 @@ public struct AccountCommand: CommandProtocol {
 
     /// Runs the command.
     public func run(_: Options) -> Result<Void, MASError> {
+        if #available(macOS 12, *) {
+            // Account information is no longer available as of Monterey.
+            // https://github.com/mas-cli/mas/issues/417
+            return .failure(.notSupported)
+        }
+
         if let account = ISStoreAccount.primaryAccount {
             print(String(describing: account.identifier))
         } else {

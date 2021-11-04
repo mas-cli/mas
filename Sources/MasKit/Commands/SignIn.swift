@@ -20,7 +20,9 @@ public struct SignInCommand: CommandProtocol {
     /// Runs the command.
     public func run(_ options: Options) -> Result<Void, MASError> {
         if #available(macOS 10.13, *) {
-            return .failure(.signInDisabled)
+            // Signing in is no longer possible as of High Sierra.
+            // https://github.com/mas-cli/mas/issues/164
+            return .failure(.notSupported)
         }
 
         guard ISStoreAccount.primaryAccount == nil else {

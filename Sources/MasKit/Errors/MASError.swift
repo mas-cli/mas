@@ -9,8 +9,9 @@
 import Foundation
 
 public enum MASError: Error, Equatable {
+    case notSupported
+
     case notSignedIn
-    case signInDisabled
     case signInFailed(error: NSError?)
     case alreadySignedIn
 
@@ -38,12 +39,11 @@ extension MASError: CustomStringConvertible {
         case .notSignedIn:
             return "Not signed in"
 
-        case .signInDisabled:
+        case .notSupported:
             return """
-                The 'signin' command has been disabled on this macOS version. \
-                Please sign into the Mac App Store app manually.
-                For more info see: \
-                https://github.com/mas-cli/mas/issues/164
+                This command is not supported on this macOS version due to changes in macOS. \
+                For more information see: \
+                https://github.com/mas-cli/mas#known-issues
                 """
 
         case .signInFailed(let error):
