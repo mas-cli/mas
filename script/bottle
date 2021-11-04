@@ -58,18 +58,18 @@ OLD_FILENAME="mas--${VERSION}.${CURRENT_PLATFORM}.bottle.tar.gz"
 # Preflight checks
 #
 
-# Ensure core formula isn't shadowed by custom tap
-brew tap --list-pinned | grep mas-cli/tap && brew tap-unpin mas-cli/tap
-
 # Uninstall if necessary
-if brew ls --versions mas >/dev/null; then
-  brew unlink mas
-fi
+brew remove mas 2>/dev/null || true             # ignore failure
+brew remove mas-cli/tap/mas 2>/dev/null || true #ignore failure
 
 # Uninstall if still found on path
 if command -v mas >/dev/null; then
   script/uninstall || true # ignore failure
 fi
+
+# Use formula from custom tap
+brew tap mas-cli/tap
+brew update
 
 ################################################################################
 #
@@ -77,10 +77,10 @@ fi
 #
 
 echo "==> 🍼 Bottling mas ${VERSION} for: ${OS_NAMES[*]}"
-brew install --build-bottle mas
+brew install --build-bottle mas-cli/tap/mas
 
 # Generate bottle do block, dropping last 2 lines
-brew bottle --verbose --no-rebuild --root-url="$ROOT_URL" mas
+brew bottle --verbose --no-rebuild --root-url="$ROOT_URL" mas-cli/tap/mas
 if ! test -e "${OLD_FILENAME}"; then
   echo "Bottle not found: ${OLD_FILENAME}"
   echo "If an old version is showing in the log and filename, then make sure the formula has been updated in:"
@@ -131,3 +131,7 @@ EOF
 rm "${OLD_FILENAME}"
 ls -l "${BOTTLE_DIR}"
 echo "${BOTTLE_BLOCK}"
+
+brew remove mas-cli/tap/mas
+
+open "${BOTTLE_DIR}"
