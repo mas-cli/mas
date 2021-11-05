@@ -70,7 +70,10 @@ fi
 # Use formula from custom tap
 brew tap mas-cli/tap
 brew update
+
+# Audit formula
 brew audit --strict mas-cli/tap/mas
+brew style mas-cli/tap/mas
 
 ################################################################################
 #
