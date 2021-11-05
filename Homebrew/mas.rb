@@ -2,17 +2,17 @@ class Mas < Formula
   desc "Mac App Store command-line interface"
   homepage "https://github.com/mas-cli/mas"
   url "https://github.com/mas-cli/mas.git",
-      tag:      "v1.8.3",
-      revision: "aeeb1c508e98d657769ef4e368a113be7822d92e"
+      tag:      "v1.8.5",
+      revision: "9da3c3a1f72271e022f02897ed587f2ce1fcddf3"
   license "MIT"
   head "https://github.com/mas-cli/mas.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "a6f0cd804841db315c3d253d922aecc23fc3bbcdc530b1bcf4da71998052d4a8"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "6498917d8d2106fa582aa0fd0714cd87ad7d091023c7b3c6b2db3a6051a2fb5b"
-    sha256 cellar: :any_skip_relocation, monterey:       "d6b735b08844da39f1889732932600f297e5bb92b2e391b0ab7ea6ba2fb89bfc"
-    sha256 cellar: :any_skip_relocation, big_sur:        "0116c8f800780c890dc819ff3479640f3b33ef235af9fe0bc7a53202b35c9b82"
-    sha256 cellar: :any_skip_relocation, catalina:       "015c0e53aee08c429ff468fc2a9c8b0bc973df084c0e6366d92905714f20248b"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "433b94f32da9835c0800975a5f8db08c823c4b8c35077db7e2a9763d700f0fbe"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "446af97db6bcb0f44d61e7486d7c74d14325002ff9918dba7a7db3045bf8b07c"
+    sha256 cellar: :any_skip_relocation, monterey:       "62f08836f3ff705e8b7dd858a5225a0b0bceb39d6bb2340ee469e68ead73a90b"
+    sha256 cellar: :any_skip_relocation, big_sur:        "18fd65b45ff112ca5c80a31202688617a22dec56b28bbb93cf4bdb6ed2d73d56"
+    sha256 cellar: :any_skip_relocation, catalina:       "29d2d552d09ef893c3560d94a01c2985bb53b2e9499400987ad76c9b50b9f0f9"
   end
 
   depends_on :macos
