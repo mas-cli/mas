@@ -110,7 +110,7 @@ EOF
 #
 
 # Fix filename
-for os in ${OS_NAMES[*]}; do
+for os in "${OS_NAMES[@]}"; do
   new_filename="mas-${VERSION}.${os}.bottle.tar.gz"
   cp -v "${OLD_FILENAME}" "${BOTTLE_DIR}/${new_filename}"
 
