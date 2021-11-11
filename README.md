@@ -194,7 +194,7 @@ or purchase apps using the App Store app instead. Subsequent redownloads can be 
 The versions `mas` sees from the app bundles on your Mac don't always match the versions reported by the App Store for
 the same app bundles. This leads to some confusion when the `outdated` and `upgrade` commands differ in behavior from
 what is shown as outdated in the App Store app. Further confusing matters, there is often some delay due to CDN
-propagatioon and caching between the time a new app version is released to the App Store, and the time it appears
+propagation and caching between the time a new app version is released to the App Store, and the time it appears
 available in the App Store app or via the `mas` command. These issues cause symptoms like
 [#384](https://github.com/mas-cli/mas/issues/384) and [#387](https://github.com/mas-cli/mas/issues/387).
 
