@@ -1,6 +1,0 @@
----
-BUNDLE_CLEAN: "true"
-BUNDLE_BIN: "bin"
-BUNDLE_JOBS: "8"
-BUNDLE_DISABLE_SHARED_GEMS: "true"
-BUNDLE_PATH: ".rubygems"
