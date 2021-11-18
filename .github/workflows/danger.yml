@@ -1,0 +1,16 @@
+name: Danger
+on:
+  pull_request:
+    branches: [ main ]
+jobs:
+  danger:
+    name: Danger
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Danger
+      uses: docker://ghcr.io/danger/danger-swift:3.12.2
+      with:
+        args: --failOnErrors --no-publish-check
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
