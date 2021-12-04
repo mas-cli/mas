@@ -43,20 +43,13 @@ class MasAppLibrary: AppLibrary {
             printWarning("Apps installed from the Mac App Store require root permission to remove.")
         }
 
-        let fileManager = FileManager()
         let appUrl = URL(fileURLWithPath: app.bundlePath)
-
         do {
+            // Move item to trash
             var trashUrl: NSURL?
-            try withUnsafeMutablePointer(to: &trashUrl) { (mutablePointer: UnsafeMutablePointer<NSURL?>) in
-                let pointer = AutoreleasingUnsafeMutablePointer<NSURL?>(mutablePointer)
-
-                // Move item to trash
-                try fileManager.trashItem(at: appUrl, resultingItemURL: pointer)
-
-                if let url = pointer.pointee, let path = url.path {
-                    printInfo("App moved to trash: \(path)")
-                }
+            try FileManager().trashItem(at: appUrl, resultingItemURL: &trashUrl)
+            if let path = trashUrl?.path {
+                printInfo("App moved to trash: \(path)")
             }
         } catch {
             printError("Unable to move app to trash.")
