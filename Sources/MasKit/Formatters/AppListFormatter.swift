@@ -21,7 +21,7 @@ struct AppListFormatter {
         // find longest appName for formatting, default 50
         let maxLength = products.map(\.appNameOrBundleIdentifier.count).max() ?? nameColumnMinWidth
 
-        var output: String = ""
+        var output = ""
 
         for product in products {
             let appId = product.itemIdentifier.stringValue

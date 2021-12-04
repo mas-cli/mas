@@ -17,7 +17,7 @@ struct SearchResultFormatter {
     static func format(results: [SearchResult], includePrice: Bool = false) -> String {
         // find longest appName for formatting, default 50
         let maxLength = results.map(\.trackName.count).max() ?? 50
-        var output: String = ""
+        var output = ""
 
         for result in results {
             let appId = result.trackId
