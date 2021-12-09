@@ -198,6 +198,9 @@ propagation and caching between the time a new app version is released to the Ap
 available in the App Store app or via the `mas` command. These issues cause symptoms like
 [#384](https://github.com/mas-cli/mas/issues/384) and [#387](https://github.com/mas-cli/mas/issues/387).
 
+Macs with Apple silicon can install and run iOS and iPadOS apps from the App Store. `mas` is not yet aware of these apps, and
+is not yet able to install or update them. [#321](https://github.com/mas-cli/mas/issues/321)
+
 ## 💥 When something doesn't work
 
 If you see this error, it's probably because you haven't installed the app through the App Store yet.
