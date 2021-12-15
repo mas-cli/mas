@@ -31,6 +31,11 @@ extension StoreSearch {
             URLQueryItem(name: "entity", value: "macSoftware"),
             URLQueryItem(name: "term", value: appName),
         ]
+
+        if let country = country {
+            components.queryItems!.append(country)
+        }
+
         return components.url
     }
 
@@ -44,6 +49,24 @@ extension StoreSearch {
         }
 
         components.queryItems = [URLQueryItem(name: "id", value: "\(appId)")]
+
+        if let country = country {
+            components.queryItems!.append(country)
+        }
+
         return components.url
+    }
+
+    private var country: URLQueryItem? {
+        // CommerceKit and StoreFoundation don't seem to expose the region of the Apple ID signed
+        // into the App Store. Instead, we'll make an educated guess that it matches the currently
+        // selected locale in macOS. This obviously isn't always going to match, but it's probably
+        // better than passing no "country" at all to the iTunes Search API.
+        // https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/
+        guard let region = Locale.autoupdatingCurrent.regionCode else {
+            return nil
+        }
+
+        return URLQueryItem(name: "country", value: region)
     }
 }
