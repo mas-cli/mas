@@ -8,3 +8,4 @@
 
 echo "==> ✅ Testing"
 swift test
+
