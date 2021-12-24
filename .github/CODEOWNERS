@@ -1,0 +1,6 @@
+#
+# .github/CODEOWNERS
+# mas-cli/mas
+#
+
+/.github/ @mas-cli/admins
