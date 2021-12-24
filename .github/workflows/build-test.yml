@@ -18,6 +18,15 @@ concurrency:
 jobs:
   build-test:
 
+    # https://github.com/actions/runner/issues/805#issuecomment-942784948
+    # https://github.com/rolpdog/cffi-mirror/blob/release-1.15/.github/workflows/ci.yaml#L81-L141
+    # https://github.com/actions/virtual-environments/issues/2187#issuecomment-790507204
+    defaults:
+      run:
+        # shell: ${{ matrix.run_wrapper || 'bash --noprofile --norc -eo pipefail {0}' }}
+        # run_wrapper: arch -arm64 bash --noprofile --norc -eo pipefail {0}
+        shell: arch -arm64 bash --noprofile --norc -eo pipefail {0}
+
     # https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners
     name: Build, Test, and Lint
     # https://docs.github.com/en/actions/hosting-your-own-runners/using-self-hosted-runners-in-a-workflow
