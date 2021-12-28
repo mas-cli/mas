@@ -1,0 +1,12 @@
+# https://docs.github.com/en/repositories/releasing-projects-on-github/automatically-generated-release-notes
+changelog:
+  categories:
+    - title: '🚀 Features'
+      labels:
+        - '🆕 feature request'
+    - title: '🐛 Bug Fixes'
+      labels:
+        - '🐛 bug'
+    - title: Changes
+      labels:
+        - '*'
