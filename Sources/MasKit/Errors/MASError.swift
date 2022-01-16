@@ -43,7 +43,7 @@ extension MASError: CustomStringConvertible {
             return """
                 This command is not supported on this macOS version due to changes in macOS. \
                 For more information see: \
-                https://github.com/mas-cli/mas#known-issues
+                https://github.com/mas-cli/mas#%EF%B8%8F-known-issues
                 """
 
         case .signInFailed(let error):
