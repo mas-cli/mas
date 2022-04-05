@@ -82,6 +82,11 @@ $ mas search Xcode
 [...]
 ```
 
+Another way to find the identifier for an app is to
+1. Find the app in the Mac App Store
+2. Select `Share` > `Copy Link`
+3. Grab the identifier from the string, e.g. for Xcode, https://apps.apple.com/us/app/xcode/id497799835?mt=12 has identifier `497799835`
+
 To install or update an application simply run `mas install` with an
 application identifier:
 
