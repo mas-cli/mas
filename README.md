@@ -1,8 +1,17 @@
 <h1 align="center"><img src="mas-cli.png" alt="mas-cli" width="450" height="auto"></h1>
 
-# mas-cli
+# masito
 
-A simple command line interface for the Mac App Store. Designed for scripting and automation.
+A simpler command line interface for the Mac App Store. Designed for scripting and automation of installs only.
+
+mas is nice.
+sometimes less is mas, sometimes mas is mas.
+
+This is just a toy :fork: to see how far I can :hocho: and :pear: down this to an audit.
+
+Some :hand: wavy goals include:
+- masito targets MacPorts only
+- masito only uses :octocat: things
 
 [![Software License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/mas-cli/mas/blob/main/LICENSE)
 [![Swift 5](https://img.shields.io/badge/Language-Swift_5-orange.svg)](https://swift.org)
