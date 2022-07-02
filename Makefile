@@ -110,11 +110,11 @@ bottles:
 bottle: bottles
 
 .PHONY: package
-package:
+package: build
 	script/package
 
 .PHONY: packageInstall
-packageInstall:
+packageInstall: package
 	script/package_install
 
 .PHONY: describe
