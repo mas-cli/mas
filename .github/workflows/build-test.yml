@@ -38,7 +38,7 @@ jobs:
 
     steps:
     # https://github.com/actions/checkout#usage
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         # A fetch-depth of 0 includes all history and tags for script/version
         fetch-depth: 0

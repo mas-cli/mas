@@ -210,7 +210,7 @@ apps, and is not yet able to install or update them. [#321](https://github.com/m
 
 If you see this error, it's probably because you haven't installed the app through the App Store yet.
 See [#46](https://github.com/mas-cli/mas/issues/46#issuecomment-248581233).
-> This redownload is not available for this Apple ID either because it was bought by a different user of the
+> This redownload is not available for this Apple ID either because it was bought by a different user or the
 > item was refunded or cancelled.
 
 If `mas` doesn't work for you as expected (e.g. you can't update/download apps), run `mas reset` and try again.
