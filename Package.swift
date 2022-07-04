@@ -70,7 +70,12 @@ let package = Package(
     swiftLanguageVersions: [.v5]
 )
 
-#if compiler(>=5.5)
+// https://github.com/apple/swift-format#matching-swift-format-to-your-swift-version
+#if compiler(>=5.6)
+    package.dependencies += [
+        .package(url: "https://github.com/apple/swift-format", .branch("release/5.6"))
+    ]
+#elseif compiler(>=5.5)
     package.dependencies += [
         .package(url: "https://github.com/apple/swift-format", .branch("swift-5.5-branch"))
     ]
