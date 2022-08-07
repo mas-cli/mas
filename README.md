@@ -245,7 +245,7 @@ script/bootstrap
 script/build
 ```
 
-Build output can be found in the `build/` directory within the project.
+Build output can be found in the `.build/` directory within the project.
 
 ## ✅ Tests
 
