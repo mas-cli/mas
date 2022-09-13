@@ -18,19 +18,33 @@ concurrency:
 jobs:
   build-test:
 
-    # https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners
+    defaults:
+      run:
+        # Prefixes all `run` commands with the following command to force them to run outside Rosetta.
+        # https://github.com/actions/runner/issues/805#issuecomment-942784948
+        # https://github.com/rolpdog/cffi-mirror/blob/release-1.15/.github/workflows/ci.yaml#L81-L141
+        # https://github.com/actions/virtual-environments/issues/2187#issuecomment-790507204
+        shell: arch -arm64 bash --noprofile --norc -eo pipefail {0}
+
     name: Build, Test, and Lint
-    runs-on: macos-latest
+
+    # GitHub provided runners (in case we need to switch back)
+    # https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners
+    # runs-on: macos-latest
+
+    # https://docs.github.com/en/actions/hosting-your-own-runners/using-self-hosted-runners-in-a-workflow
+    # https://github.com/mas-cli/mas/settings/actions/runners
+    runs-on: [self-hosted, macOS]
+
     steps:
     # https://github.com/actions/checkout#usage
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
-        # Fetch tags for script/version
+        # A fetch-depth of 0 includes all history and tags for script/version
         fetch-depth: 0
 
     - name: Bootstrap
       run: script/bootstrap
-      # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepsenv
 
     - name: Build
       run: script/build

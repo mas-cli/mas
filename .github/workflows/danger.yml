@@ -7,9 +7,10 @@ jobs:
     name: Danger
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Danger
-      uses: docker://ghcr.io/danger/danger-swift:3.12.2
+      # https://github.com/orgs/danger/packages/container/package/danger-swift
+      uses: docker://ghcr.io/danger/danger-swift:3.12.3
       with:
         args: --failOnErrors --no-publish-check
       env:
