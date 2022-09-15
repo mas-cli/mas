@@ -36,7 +36,7 @@ public struct UpgradeCommand: CommandProtocol {
 
     /// Runs the command.
     public func run(_ options: Options) -> Result<Void, MASError> {
-        let apps: [SoftwareProduct]
+        let apps: [(installedApp: SoftwareProduct, storeApp: SearchResult)]
         do {
             apps = try findOutdatedApps(options)
         } catch {
@@ -50,9 +50,9 @@ public struct UpgradeCommand: CommandProtocol {
         }
 
         print("Upgrading \(apps.count) outdated application\(apps.count > 1 ? "s" : ""):")
-        print(apps.map { "\($0.appName) (\($0.bundleVersion))" }.joined(separator: ", "))
+        print(apps.map { "\($0.installedApp.appName) (\($0.installedApp.bundleVersion)) -> (\($0.storeApp.version))" }.joined(separator: "\n"))
 
-        let appIds = apps.map(\.itemIdentifier.uint64Value)
+        let appIds = apps.map(\.installedApp.itemIdentifier.uint64Value)
         do {
             try downloadAll(appIds).wait()
         } catch {
@@ -62,32 +62,30 @@ public struct UpgradeCommand: CommandProtocol {
         return .success(())
     }
 
-    private func findOutdatedApps(_ options: Options) throws -> [SoftwareProduct] {
-        var apps: [SoftwareProduct]
-        if options.apps.isEmpty {
-            apps = appLibrary.installedApps
-        } else {
-            apps = options.apps.compactMap {
-                if let appId = UInt64($0) {
-                    // if argument a UInt64, lookup app by id using argument
-                    return appLibrary.installedApp(forId: appId)
-                } else {
-                    // if argument not a UInt64, lookup app by name using argument
-                    return appLibrary.installedApp(named: $0)
+    private func findOutdatedApps(_ options: Options) throws -> [(SoftwareProduct, SearchResult)] {
+        let apps: [SoftwareProduct] = options.apps.isEmpty
+            ? appLibrary.installedApps
+            :
+                options.apps.compactMap {
+                    if let appId = UInt64($0) {
+                        // if argument a UInt64, lookup app by id using argument
+                        return appLibrary.installedApp(forId: appId)
+                    } else {
+                        // if argument not a UInt64, lookup app by name using argument
+                        return appLibrary.installedApp(named: $0)
+                    }
                 }
-            }
-        }
 
         let promises = apps.map { installedApp in
             // only upgrade apps whose local version differs from the store version
             firstly {
                 storeSearch.lookup(app: installedApp.itemIdentifier.intValue)
-            }.map { result -> SoftwareProduct? in
+            }.map { result -> (SoftwareProduct, SearchResult)? in
                 guard let storeApp = result, installedApp.isOutdatedWhenComparedTo(storeApp) else {
                     return nil
                 }
 
-                return installedApp
+                return (installedApp, storeApp)
             }
         }
 
