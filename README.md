@@ -245,7 +245,7 @@ script/bootstrap
 script/build
 ```
 
-Build output can be found in the `build/` directory within the project.
+Build output can be found in the `.build/` directory within the project.
 
 ## ✅ Tests
 
@@ -264,6 +264,5 @@ mas-cli was created by [@argon](https://github.com/argon).
 Code is under the [MIT license](LICENSE).
 
 [homebrew-bundle]: https://github.com/Homebrew/homebrew-bundle
-[mas-cli]: https://github.com/mas-cli/mas
 [`softwareupdate(8)`]: https://www.unix.com/man-page/osx/8/softwareupdate/
 [Quick]: https://github.com/Quick/Quick
