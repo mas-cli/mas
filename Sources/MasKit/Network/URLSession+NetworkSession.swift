@@ -10,7 +10,7 @@ import Foundation
 import PromiseKit
 
 extension URLSession: NetworkSession {
-    open func loadData(from url: URL) -> Promise<Data> {
+    public func loadData(from url: URL) -> Promise<Data> {
         Promise { seal in
             dataTask(with: url) { data, _, error in
                 if let data = data {
