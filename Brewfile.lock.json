@@ -2,15 +2,15 @@
   "entries": {
     "brew": {
       "markdownlint-cli": {
-        "version": "0.31.1",
+        "version": "0.32.2",
         "bottle": {
           "rebuild": 0,
           "root_url": "https://ghcr.io/v2/homebrew/core",
           "files": {
             "all": {
               "cellar": ":any_skip_relocation",
-              "url": "https://ghcr.io/v2/homebrew/core/markdownlint-cli/blobs/sha256:26519a6a4330fd29cd897e61f8af2070def21758b06517c136690a5404d07d5a",
-              "sha256": "26519a6a4330fd29cd897e61f8af2070def21758b06517c136690a5404d07d5a"
+              "url": "https://ghcr.io/v2/homebrew/core/markdownlint-cli/blobs/sha256:7be52e16473a658becde9b817f86c868bcb9e41e79856d9dce542218b9515860",
+              "sha256": "7be52e16473a658becde9b817f86c868bcb9e41e79856d9dce542218b9515860"
             }
           }
         }
