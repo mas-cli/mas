@@ -18,7 +18,7 @@ PREFIX ?= /usr/local
 # Swift 5.3
 # SWIFT_VERSION = swift-5.3-DEVELOPMENT-SNAPSHOT-2020-04-21-a
 
-SWIFT_VERSION = 5.6.1
+SWIFT_VERSION = 5.7
 
 # set EXECUTABLE_DIRECTORY according to your specific environment
 # run swift build and see where the output executable is created
@@ -42,13 +42,10 @@ endif
 .PHONY: help
 help: MAKEFILE_FMT = "  \033[36m%-25s\033[0m%s\n"
 help: ## (default) Displays this message
-	@echo "Ditto main Makefile."
+	@echo "mas Makefile"
 	@echo ""
 	@echo "Targets:"
 	@grep -E '^[a-zA-Z0-9_-]*:.*?##' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?##"}; {printf $(MAKEFILE_FMT), $$1, $$2}'
-	@echo ""
-	@echo "Parameters:"
-	@grep -E '^[A-Z0-9_-]* ?\?=.*?##' $(MAKEFILE_LIST) | awk 'BEGIN {FS = " ?\\?=.*?##"}; {printf $(MAKEFILE_FMT), $$1, $$2}'
 : # Hacky way to display a newline ##
 
 ################################################################################
