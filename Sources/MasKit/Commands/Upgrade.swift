@@ -50,7 +50,9 @@ public struct UpgradeCommand: CommandProtocol {
         }
 
         print("Upgrading \(apps.count) outdated application\(apps.count > 1 ? "s" : ""):")
-        print(apps.map { "\($0.installedApp.appName) (\($0.installedApp.bundleVersion)) -> (\($0.storeApp.version))" }.joined(separator: "\n"))
+        print(
+            apps.map { "\($0.installedApp.appName) (\($0.installedApp.bundleVersion)) -> (\($0.storeApp.version))" }
+                .joined(separator: "\n"))
 
         let appIds = apps.map(\.installedApp.itemIdentifier.uint64Value)
         do {
