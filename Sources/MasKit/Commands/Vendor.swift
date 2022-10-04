@@ -40,7 +40,6 @@ public struct VendorCommand: CommandProtocol {
         do {
             guard let result = try storeSearch.lookup(app: options.appId).wait()
             else {
-                print("No results found")
                 return .failure(.noSearchResultsFound)
             }
 
