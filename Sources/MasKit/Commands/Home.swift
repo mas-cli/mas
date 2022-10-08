@@ -39,7 +39,6 @@ public struct HomeCommand: CommandProtocol {
     public func run(_ options: HomeOptions) -> Result<Void, MASError> {
         do {
             guard let result = try storeSearch.lookup(app: options.appId).wait() else {
-                print("No results found")
                 return .failure(.noSearchResultsFound)
             }
 

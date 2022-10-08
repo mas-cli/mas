@@ -56,7 +56,6 @@ public struct OpenCommand: CommandProtocol {
 
             guard let result = try storeSearch.lookup(app: appId).wait()
             else {
-                print("No results found")
                 return .failure(.noSearchResultsFound)
             }
 

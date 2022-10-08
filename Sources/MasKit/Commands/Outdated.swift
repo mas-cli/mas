@@ -15,7 +15,7 @@ import enum Swift.Result
 /// Command which displays a list of installed apps which have available updates
 /// ready to be installed from the Mac App Store.
 public struct OutdatedCommand: CommandProtocol {
-    public typealias Options = NoOptions<MASError>
+    public typealias Options = OutdatedOptions
     public let verb = "outdated"
     public let function = "Lists pending updates from the Mac App Store"
 
@@ -36,17 +36,19 @@ public struct OutdatedCommand: CommandProtocol {
     }
 
     /// Runs the command.
-    public func run(_: Options) -> Result<Void, MASError> {
+    public func run(_ options: Options) -> Result<Void, MASError> {
         let promises = appLibrary.installedApps.map { installedApp in
             firstly {
                 storeSearch.lookup(app: installedApp.itemIdentifier.intValue)
             }.done { storeApp in
                 guard let storeApp = storeApp else {
-                    printWarning(
-                        """
-                        Identifier \(installedApp.itemIdentifier) not found in store. \
-                        Was expected to identify \(installedApp.appName).
-                        """)
+                    if options.verbose {
+                        printWarning(
+                            """
+                            Identifier \(installedApp.itemIdentifier) not found in store. \
+                            Was expected to identify \(installedApp.appName).
+                            """)
+                    }
                     return
                 }
 
@@ -68,5 +70,20 @@ public struct OutdatedCommand: CommandProtocol {
             // Bubble up MASErrors
             .value(Result<Void, MASError>.failure(error as? MASError ?? .searchFailed))
         }.wait()
+    }
+}
+
+public struct OutdatedOptions: OptionsProtocol {
+    public typealias ClientError = MASError
+
+    let verbose: Bool
+
+    static func create(verbose: Bool) -> OutdatedOptions {
+        OutdatedOptions(verbose: verbose)
+    }
+
+    public static func evaluate(_ mode: CommandMode) -> Result<OutdatedOptions, CommandantError<MASError>> {
+        create
+        <*> mode <| Switch(flag: nil, key: "verbose", usage: "Show warnings about apps")
     }
 }

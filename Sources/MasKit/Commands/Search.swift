@@ -32,7 +32,6 @@ public struct SearchCommand: CommandProtocol {
         do {
             let results = try storeSearch.search(for: options.appName).wait()
             if results.isEmpty {
-                print("No results found")
                 return .failure(.noSearchResultsFound)
             }
 

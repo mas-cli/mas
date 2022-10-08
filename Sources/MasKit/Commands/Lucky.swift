@@ -47,7 +47,7 @@ public struct LuckyCommand: CommandProtocol {
         do {
             let results = try storeSearch.search(for: options.appName).wait()
             guard let result = results.first else {
-                print("No results found")
+                printError("No results found")
                 return .failure(.noSearchResultsFound)
             }
 
