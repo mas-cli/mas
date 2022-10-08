@@ -79,6 +79,7 @@ extension FileHandle: TextOutputStream {
     }
 }
 
+/// Prints a message to stdout prefixed with a blue arrow.
 func printInfo(_ message: String) {
     guard isatty(fileno(stdout)) != 0 else {
         print("==> \(message)")
@@ -89,6 +90,7 @@ func printInfo(_ message: String) {
     print("\(csi)1;34m==>\(csi)0m \(csi)1m\(message)\(csi)0m")
 }
 
+/// Prints a message to stderr prefixed with "Warning:" underlined in yellow.
 public func printWarning(_ message: String) {
     guard isatty(fileno(stderr)) != 0 else {
         print("Warning: \(message)", to: &standardError)
@@ -99,6 +101,7 @@ public func printWarning(_ message: String) {
     print("\(csi)4;33mWarning:\(csi)0m \(message)", to: &standardError)
 }
 
+/// Prints a message to stderr prefixed with "Error:" underlined in red.
 public func printError(_ message: String) {
     guard isatty(fileno(stderr)) != 0 else {
         print("Error: \(message)", to: &standardError)
@@ -109,6 +112,7 @@ public func printError(_ message: String) {
     print("\(csi)4;31mError:\(csi)0m \(message)", to: &standardError)
 }
 
+/// Flushes stdout.
 func clearLine() {
     guard isatty(fileno(stdout)) != 0 else {
         return
