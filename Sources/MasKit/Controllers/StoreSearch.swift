@@ -6,8 +6,8 @@
 //  Copyright © 2018 mas-cli. All rights reserved.
 //
 
-import Foundation
 import PromiseKit
+import Foundation
 
 /// Protocol for searching the MAS catalog.
 protocol StoreSearch {
