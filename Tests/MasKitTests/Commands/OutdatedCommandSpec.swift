@@ -19,9 +19,9 @@ public class OutdatedCommandSpec: QuickSpec {
         describe("outdated command") {
             it("displays apps with pending updates") {
                 let cmd = OutdatedCommand()
-                let result = cmd.run(OutdatedCommand.Options())
+                let result = cmd.run(OutdatedCommand.Options(verbose: true))
                 print(result)
-                //                expect(result).to(beSuccess())
+                expect(result).to(beSuccess())
             }
         }
     }
