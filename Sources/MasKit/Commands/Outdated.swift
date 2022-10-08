@@ -73,7 +73,6 @@ public struct OutdatedCommand: CommandProtocol {
     }
 }
 
-
 public struct OutdatedOptions: OptionsProtocol {
     public typealias ClientError = MASError
 
