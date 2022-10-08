@@ -78,8 +78,8 @@
         "repositoryURL": "https://github.com/apple/swift-syntax",
         "state": {
           "branch": null,
-          "revision": "04d4497be6b88e524a71778d828790e9589ae1c4",
-          "version": "0.50700.0"
+          "revision": "72d3da66b085c2299dd287c2be3b92b5ebd226de",
+          "version": "0.50700.1"
         }
       },
       {
