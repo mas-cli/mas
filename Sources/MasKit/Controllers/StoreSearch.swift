@@ -48,7 +48,10 @@ extension StoreSearch {
             return nil
         }
 
-        components.queryItems = [URLQueryItem(name: "id", value: "\(appId)")]
+        components.queryItems = [
+            URLQueryItem(name: "id", value: "\(appId)"),
+            URLQueryItem(name: "entity", value: "desktopSoftware"),
+        ]
 
         if let country = country {
             components.queryItems!.append(country)
