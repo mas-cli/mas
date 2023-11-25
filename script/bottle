@@ -14,8 +14,8 @@
 
 BUILD_DIR="$PWD/.build"
 BOTTLE_DIR="$BUILD_DIR/bottles"
-VERSION=$(script/version)
-ROOT_URL="https://github.com/mas-cli/mas/releases/download/v${VERSION}"
+MAS_VERSION=$(script/version)
+ROOT_URL="https://github.com/mas-cli/mas/releases/download/v${MAS_VERSION}"
 
 # Supports macOS 10.11 and later
 OS_NAMES=(arm64_monterey monterey arm64_big_sur big_sur catalina mojave high_sierra sierra el_capitan)
@@ -58,7 +58,7 @@ fi
 echo "CURRENT_PLATFORM: ${CURRENT_PLATFORM}"
 
 # Output filename from build-bottle command
-OLD_FILENAME="mas--${VERSION}.${CURRENT_PLATFORM}.bottle.tar.gz"
+OLD_FILENAME="mas--${MAS_VERSION}.${CURRENT_PLATFORM}.bottle.tar.gz"
 
 ################################################################################
 #
@@ -87,7 +87,7 @@ brew style mas-cli/tap/mas
 # Build the formula for the current macOS version and architecture.
 #
 
-echo "==> 🍼 Bottling mas ${VERSION} for: ${OS_NAMES[*]}"
+echo "==> 🍼 Bottling mas ${MAS_VERSION} for: ${OS_NAMES[*]}"
 brew install --build-bottle mas-cli/tap/mas
 
 # Generate bottle do block, dropping last 2 lines
@@ -118,7 +118,7 @@ EOF
 
 # Fix filename
 for os in "${OS_NAMES[@]}"; do
-  new_filename="mas-${VERSION}.${os}.bottle.tar.gz"
+  new_filename="mas-${MAS_VERSION}.${os}.bottle.tar.gz"
   cp -v "${OLD_FILENAME}" "${BOTTLE_DIR}/${new_filename}"
 
   # Append each os

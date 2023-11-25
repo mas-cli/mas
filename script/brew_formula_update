@@ -20,16 +20,16 @@ function usage {
 
 # arg 1 - version tag
 if test -n "$1"; then
-  VERSION="$1"
+  MAS_VERSION="$1"
 else
-  VERSION="v$(script/version)"
+  MAS_VERSION="v$(script/version)"
 fi
 
 # arg 2 - revision (commit hash)
 if test -n "$2"; then
   REVISION="$2"
 else
-  REVISION=$(git rev-parse "$VERSION")
+  REVISION=$(git rev-parse "$MAS_VERSION")
 fi
 
 echo "Checking to see if this update can be a simple bump."
@@ -44,11 +44,11 @@ if test $status -ne 0; then
   formula_revisions=1
 fi
 
-echo "==> 🧪 Updating homebrew-core formula mas ($VERSION, $REVISION)"
+echo "==> 🧪 Updating homebrew-core formula mas ($MAS_VERSION, $REVISION)"
 
 echo "Validating formula"
 brew bump-formula-pr \
-  --tag="$VERSION" \
+  --tag="$MAS_VERSION" \
   --revision="$REVISION" \
   --strict \
   mas
@@ -69,7 +69,7 @@ if test $formula_revisions -eq 1; then
 fi
 
 brew bump-formula-pr \
-  --tag="$VERSION" \
+  --tag="$MAS_VERSION" \
   --revision="$REVISION" \
   --strict \
   --verbose \

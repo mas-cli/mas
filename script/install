@@ -12,7 +12,7 @@
 
 ARCH=$(uname -m)
 RELEASE=.build/${ARCH}-apple-macosx/release
-VERSION=$(script/version)
+MAS_VERSION=$(script/version)
 
 if [[ $(uname -m) == 'arm64' ]]; then
   PREFIX=/opt/homebrew
@@ -32,7 +32,7 @@ while test -n "$1"; do
   shift
 done
 
-echo "==> 📲 Installing mas ($VERSION) for $ARCH to $PREFIX"
+echo "==> 📲 Installing mas ($MAS_VERSION) for $ARCH to $PREFIX"
 ditto -v \
   "$RELEASE/mas" \
   "$PREFIX/bin/"
