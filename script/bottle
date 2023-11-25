@@ -6,6 +6,8 @@
 # Builds bottles of mas Homebrew formula for custom tap:
 # https://github.com/mas-cli/homebrew-tap
 #
+# This script should be run _after_ the formula has been updated in Homebrew
+#
 
 ################################################################################
 #
@@ -18,7 +20,21 @@ MAS_VERSION=$(script/version)
 ROOT_URL="https://github.com/mas-cli/mas/releases/download/v${MAS_VERSION}"
 
 # Supports macOS 10.11 and later
-OS_NAMES=(arm64_monterey monterey arm64_big_sur big_sur catalina mojave high_sierra sierra el_capitan)
+OS_NAMES=( \
+  sonoma \
+  arm64_sonoma \
+  ventura \
+  arm64_ventura \
+  monterey \
+  arm64_monterey \
+  big_sur \
+  arm64_big_sur \
+  catalina \
+  mojave \
+  high_sierra \
+  sierra \
+  el_capitan \
+)
 
 # Semantic version number split into a list using  Ugly, bash 3 compatible syntax
 IFS=" " read -r -a CURRENT_OS_VERSION <<<"$(sw_vers -productVersion | sed 's/\./ /g'))"
@@ -66,12 +82,12 @@ OLD_FILENAME="mas--${MAS_VERSION}.${CURRENT_PLATFORM}.bottle.tar.gz"
 #
 
 # Uninstall if necessary
-brew remove mas 2>/dev/null || true             # ignore failure
-brew remove mas-cli/tap/mas 2>/dev/null || true #ignore failure
+brew remove mas 2>/dev/null || true
+brew remove mas-cli/tap/mas 2>/dev/null || true
 
 # Uninstall if still found on path
 if command -v mas >/dev/null; then
-  script/uninstall || true # ignore failure
+  script/uninstall || true
 fi
 
 # Use formula from custom tap
