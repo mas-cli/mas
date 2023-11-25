@@ -30,7 +30,7 @@ echo "CURRENT_OS_VERSION_MINOR: $CURRENT_OS_VERSION_MINOR"
 
 case "${CURRENT_OS_VERSION_MAJOR}" in
 14)
-  CURRENT_PLATFORM=monterey
+  CURRENT_PLATFORM=sonoma
   ;;
 13)
   CURRENT_PLATFORM=ventura
@@ -41,7 +41,7 @@ case "${CURRENT_OS_VERSION_MAJOR}" in
 11)
   CURRENT_PLATFORM=big_sur
   ;;
-11)
+10)
   CURRENT_PLATFORM=catalina
   ;;
 *)
