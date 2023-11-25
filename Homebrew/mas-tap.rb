@@ -16,7 +16,6 @@ class Mas < Formula
     sha256 cellar: :any_skip_relocation, sonoma:         "0d042a450d2623e3ea40db0b645454ee88d1a1763a7aa778eec5beea619b9a60"
     sha256 cellar: :any_skip_relocation, ventura:        "0d042a450d2623e3ea40db0b645454ee88d1a1763a7aa778eec5beea619b9a60"
     sha256 cellar: :any_skip_relocation, monterey:       "0d042a450d2623e3ea40db0b645454ee88d1a1763a7aa778eec5beea619b9a60"
-    sha256 cellar: :any_skip_relocation, monterey:       "0d042a450d2623e3ea40db0b645454ee88d1a1763a7aa778eec5beea619b9a60"
     sha256 cellar: :any_skip_relocation, big_sur:        "0d042a450d2623e3ea40db0b645454ee88d1a1763a7aa778eec5beea619b9a60"
     sha256 cellar: :any_skip_relocation, catalina:       "0d042a450d2623e3ea40db0b645454ee88d1a1763a7aa778eec5beea619b9a60"
     sha256 cellar: :any_skip_relocation, mojave:         "0d042a450d2623e3ea40db0b645454ee88d1a1763a7aa778eec5beea619b9a60"
