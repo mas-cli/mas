@@ -13,12 +13,7 @@
 ARCH=$(uname -m)
 RELEASE=.build/${ARCH}-apple-macosx/release
 MAS_VERSION=$(script/version)
-
-if [[ $(uname -m) == 'arm64' ]]; then
-  PREFIX=/opt/homebrew
-else
-  PREFIX=/usr/local
-fi
+PREFIX=$(brew --prefix)
 
 while test -n "$1"; do
   if [[ "$1" == '--universal' ]]; then

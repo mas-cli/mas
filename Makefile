@@ -10,7 +10,7 @@
 
 CMD_NAME = mas
 SHELL = /bin/sh
-PREFIX ?= /usr/local
+PREFIX ?= $(shell brew --prefix)
 
 # trunk
 # SWIFT_VERSION = swift-DEVELOPMENT-SNAPSHOT-2020-04-23-a
