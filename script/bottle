@@ -28,24 +28,31 @@ CURRENT_OS_VERSION_MINOR=${CURRENT_OS_VERSION[1]}
 echo "CURRENT_OS_VERSION_MAJOR: $CURRENT_OS_VERSION_MAJOR"
 echo "CURRENT_OS_VERSION_MINOR: $CURRENT_OS_VERSION_MINOR"
 
-if [[ ${CURRENT_OS_VERSION_MAJOR} == "12" ]]; then
-  if [[ "x86_64" == "$(uname -m)" ]]; then
-    CURRENT_PLATFORM=monterey
-  else
-    CURRENT_PLATFORM=arm64_monterey
-  fi
-elif [[ ${CURRENT_OS_VERSION_MAJOR} == "11" ]]; then
-  # Big Sur
-  if [[ "x86_64" == "$(uname -m)" ]]; then
-    CURRENT_PLATFORM=big_sur
-  else
-    CURRENT_PLATFORM=arm64_big_sur
-  fi
-elif [[ ${CURRENT_OS_VERSION_MAJOR} == "10" && ${CURRENT_OS_VERSION_MINOR} == "15" ]]; then
+case "${CURRENT_OS_VERSION_MAJOR}" in
+14)
+  CURRENT_PLATFORM=monterey
+  ;;
+13)
+  CURRENT_PLATFORM=ventura
+  ;;
+12)
+  CURRENT_PLATFORM=monterey
+  ;;
+11)
+  CURRENT_PLATFORM=big_sur
+  ;;
+11)
   CURRENT_PLATFORM=catalina
-else
+  ;;
+*)
   echo "Unsupported macOS version. This script requires Catalina or better."
   exit 1
+  ;;
+esac
+
+# Prefix platform with architecture
+if [[ "arm64" == "$(uname -m)" ]]; then
+  CURRENT_PLATFORM="arm64_${CURRENT_PLATFORM}"
 fi
 
 echo "CURRENT_PLATFORM: ${CURRENT_PLATFORM}"
