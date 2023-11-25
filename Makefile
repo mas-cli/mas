@@ -110,13 +110,9 @@ lint: ## Lints source code.
 danger: ## Runs danger.
 	script/danger
 
-# Builds bottles
-.PHONY: bottles
-bottles: ## Builds bottles.
-	script/bottle
-
 .PHONY: bottle
-bottle: bottles ## Alias for bottles
+bottle: ## Builds Homebrew bottle for the current system.
+	script/bottle
 
 .PHONY: package
 package: build ## Packages the project.
