@@ -13,13 +13,16 @@ import Quick
 
 public class LuckyCommandSpec: QuickSpec {
     override public func spec() {
+        let networkSession = NetworkSessionMockFromFile(responseFile: "search/slack.json")
+        let storeSearch = MasStoreSearch(networkManager: NetworkManager(session: networkSession))
+
         beforeSuite {
             MasKit.initialize()
         }
         describe("lucky command") {
-            xit("installs the first app matching a search") {
-                let cmd = LuckyCommand()
-                let result = cmd.run(LuckyCommand.Options(appName: "", forceInstall: false))
+            it("installs the first app matching a search") {
+                let cmd = LuckyCommand(storeSearch: storeSearch)
+                let result = cmd.run(LuckyCommand.Options(appName: "Slack", forceInstall: false))
                 expect(result).to(beSuccess())
             }
         }
