@@ -18,7 +18,7 @@ PREFIX=$(brew --prefix)
 while test -n "$1"; do
   if [[ "$1" == '--universal' ]]; then
     ARCH=universal
-    RELEASE=.build/release
+    RELEASE=.build/apple/Products/Release
   else
     # Override default prefix path with optional arg
     PREFIX="$1"
@@ -30,4 +30,4 @@ done
 echo "==> 📲 Installing mas ($MAS_VERSION) for $ARCH to $PREFIX"
 ditto -v \
   "$RELEASE/mas" \
-  "$PREFIX/bin/"
+  "$PREFIX/bin/mas"

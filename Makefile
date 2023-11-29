@@ -81,6 +81,10 @@ updateHeaders: ## Updates private headers.
 build: ## Builds the project.
 	script/build
 
+.PHONY: build-universal
+build-universal: ## Builds a "fat" universal binary.
+	script/build --universal
+
 .PHONY: test
 test: build ## Runs tests.
 	script/test
@@ -91,8 +95,12 @@ run: build
 	${EXECUTABLE_DIRECTORY}/${CMD_NAME} $(ARGS)
 
 .PHONY: install
-install: ## Installs the project.
+install: build ## Installs the project.
 	script/install $(PREFIX)
+
+.PHONY: install-universal
+install-universal: build-universal ## Installs a universal binary.
+	script/install --universal
 
 .PHONY: uninstall
 uninstall: ## Uninstalls the project.
