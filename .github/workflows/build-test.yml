@@ -28,13 +28,10 @@ jobs:
 
     name: Build, Test, and Lint
 
-    # GitHub provided runners (in case we need to switch back)
+    # https://github.blog/changelog/2024-01-30-github-actions-introducing-the-new-m1-macos-runner-available-to-open-source
     # https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners
-    # runs-on: macos-latest
-
-    # https://docs.github.com/en/actions/hosting-your-own-runners/using-self-hosted-runners-in-a-workflow
-    # https://github.com/mas-cli/mas/settings/actions/runners
-    runs-on: [self-hosted, macOS]
+    # https://github.com/mas-cli/mas/actions/runners
+    runs-on: macos-latest
 
     steps:
     # https://github.com/actions/checkout#usage
