@@ -31,7 +31,7 @@ jobs:
     # https://github.blog/changelog/2024-01-30-github-actions-introducing-the-new-m1-macos-runner-available-to-open-source
     # https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners
     # https://github.com/mas-cli/mas/actions/runners
-    runs-on: macos-latest
+    runs-on: macos-14
 
     steps:
     # https://github.com/actions/checkout#usage
