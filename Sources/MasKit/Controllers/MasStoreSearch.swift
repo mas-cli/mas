@@ -76,7 +76,7 @@ class MasStoreSearch: StoreSearch {
                 return firstly {
                     self.scrapeVersionFromPage(pageUrl)
                 }.done { pageVersion in
-                    if let pageVersion = pageVersion, pageVersion > searchVersion {
+                    if let pageVersion, pageVersion > searchVersion {
                         results[index].version = pageVersion.description
                     }
                 }

@@ -41,7 +41,7 @@ public struct OutdatedCommand: CommandProtocol {
             firstly {
                 storeSearch.lookup(app: installedApp.itemIdentifier.intValue)
             }.done { storeApp in
-                guard let storeApp = storeApp else {
+                guard let storeApp else {
                     if options.verbose {
                         printWarning(
                             """

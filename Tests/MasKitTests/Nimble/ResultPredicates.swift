@@ -1,5 +1,5 @@
 //
-//  ResultPreticates.swift
+//  ResultPredicates.swift
 //  MasKitTests
 //
 //  Created by Ben Chatelain on 12/27/18.
