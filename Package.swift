@@ -71,7 +71,11 @@ let package = Package(
 )
 
 // https://github.com/apple/swift-format#matching-swift-format-to-your-swift-version-swift-57-and-earlier
-#if compiler(>=5.7)
+#if compiler(>=5.8)
+    package.dependencies += [
+        .package(url: "https://github.com/apple/swift-format", .branch("release/5.9"))
+    ]
+#elseif compiler(>=5.7)
     package.dependencies += [
         .package(url: "https://github.com/apple/swift-format", .branch("release/5.7"))
     ]
