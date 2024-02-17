@@ -1,5 +1,5 @@
 //
-//  MAError.swift
+//  MASError.swift
 //  mas-cli
 //
 //  Created by Andrew Naylor on 21/08/2015.
@@ -47,7 +47,7 @@ extension MASError: CustomStringConvertible {
                 """
 
         case .signInFailed(let error):
-            if let error = error {
+            if let error {
                 return "Sign in failed: \(error.localizedDescription)"
             } else {
                 return "Sign in failed"
@@ -57,14 +57,14 @@ extension MASError: CustomStringConvertible {
             return "Already signed in"
 
         case .purchaseFailed(let error):
-            if let error = error {
+            if let error {
                 return "Download request failed: \(error.localizedDescription)"
             } else {
                 return "Download request failed"
             }
 
         case .downloadFailed(let error):
-            if let error = error {
+            if let error {
                 return "Download failed: \(error.localizedDescription)"
             } else {
                 return "Download failed"

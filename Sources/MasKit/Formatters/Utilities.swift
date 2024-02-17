@@ -43,12 +43,12 @@ let csi = "\u{001B}["
         Swift.print(terminator, terminator: "")
     }
 
-    func print<Target>(
+    func print(
         _ items: Any...,
         separator: String = " ",
         terminator: String = "\n",
-        to output: inout Target
-    ) where Target: TextOutputStream {
+        to output: inout some TextOutputStream
+    ) {
         if let observer = printObserver {
             let output =
                 items

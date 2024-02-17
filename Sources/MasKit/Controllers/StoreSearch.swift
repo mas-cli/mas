@@ -32,7 +32,7 @@ extension StoreSearch {
             URLQueryItem(name: "term", value: appName),
         ]
 
-        if let country = country {
+        if let country {
             components.queryItems!.append(country)
         }
 
@@ -50,7 +50,7 @@ extension StoreSearch {
 
         components.queryItems = [URLQueryItem(name: "id", value: "\(appId)")]
 
-        if let country = country {
+        if let country {
             components.queryItems!.append(country)
         }
 
