@@ -112,20 +112,20 @@ class MasStoreSearch: StoreSearch {
             return firstly {
                 self.scrapeAppStoreVersion(pageUrl)
             }.map { pageVersion in
-                guard let pageVersion = pageVersion,
+                guard let pageVersion,
                     let searchVersion = Version(tolerant: result.version),
                     pageVersion > searchVersion
                 else {
-                    return nil
+                    return result
                 }
 
-                return firstly {
-                    self.scrapeVersionFromPage(pageUrl)
-                }.done { pageVersion in
-                    if let pageVersion, pageVersion > searchVersion {
-                        results[index].version = pageVersion.description
-                    }
-                }
+                // Update the search result with the version from the App Store page.
+                var result = result
+                result.version = pageVersion.description
+                return result
+            }.recover { _ in
+                // If we were unable to scrape the App Store page, assume compatibility.
+                .value(result)
             }
         }
     }
