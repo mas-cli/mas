@@ -9,7 +9,7 @@
 import Foundation
 
 /// Formats text output for the search command.
-struct SearchResultFormatter {
+enum SearchResultFormatter {
     /// Formats text output with search results.
     ///
     /// - Parameter results: Search results with app data

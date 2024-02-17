@@ -9,7 +9,7 @@
 import Foundation
 
 /// Formats text output for the info command.
-struct AppInfoFormatter {
+enum AppInfoFormatter {
     /// Formats text output with app info.
     ///
     /// - Parameter app: Search result with app data.

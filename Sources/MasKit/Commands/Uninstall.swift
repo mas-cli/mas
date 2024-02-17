@@ -1,5 +1,5 @@
 //
-//  Upgrade.swift
+//  Uninstall.swift
 //  mas-cli
 //
 //  Created by Ben Chatelain on 2018-12-27.

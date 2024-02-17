@@ -41,7 +41,7 @@ extension SSPurchase {
 
         itemIdentifier = adamId
 
-        if let account = account {
+        if let account {
             accountIdentifier = account.dsID
             appleID = account.identifier
         }

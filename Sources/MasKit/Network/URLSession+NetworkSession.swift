@@ -13,9 +13,9 @@ extension URLSession: NetworkSession {
     public func loadData(from url: URL) -> Promise<Data> {
         Promise { seal in
             dataTask(with: url) { data, _, error in
-                if let data = data {
+                if let data {
                     seal.fulfill(data)
-                } else if let error = error {
+                } else if let error {
                     seal.reject(error)
                 } else {
                     seal.reject(MASError.noData)

@@ -9,7 +9,7 @@
 import Foundation
 
 /// Formats text output for the search command.
-struct AppListFormatter {
+enum AppListFormatter {
     static let idColumnMinWidth = 10
     static let nameColumnMinWidth = 50
 

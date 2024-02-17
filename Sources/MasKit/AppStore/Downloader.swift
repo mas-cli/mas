@@ -81,12 +81,12 @@ private func download(_ appID: UInt64, purchase: Bool = false) -> Promise<Void> 
     return Promise<SSPurchase> { seal in
         let purchase = SSPurchase(adamId: appID, account: storeAccount, purchase: purchase)
         purchase.perform { purchase, _, error, response in
-            if let error = error {
+            if let error {
                 seal.reject(MASError.purchaseFailed(error: error as NSError?))
                 return
             }
 
-            guard response?.downloads.isEmpty == false, let purchase = purchase else {
+            guard response?.downloads.isEmpty == false, let purchase else {
                 print("No downloads")
                 seal.reject(MASError.noDownloads)
                 return
