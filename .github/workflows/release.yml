@@ -4,6 +4,7 @@
 ---
 name: release
 on:
+  push:
   release:
     types: [published]
 jobs:
