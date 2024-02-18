@@ -5,3 +5,4 @@
 
 [tools]
 act = "0.2.59"
+yamllint = "1.35.1"
