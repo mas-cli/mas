@@ -12,18 +12,13 @@
 
 ARCH=$(uname -m)
 RELEASE=.build/${ARCH}-apple-macosx/release
-VERSION=$(script/version)
-
-if [[ $(uname -m) == 'arm64' ]]; then
-  PREFIX=/opt/homebrew
-else
-  PREFIX=/usr/local
-fi
+MAS_VERSION=$(script/version)
+PREFIX=$(brew --prefix)
 
 while test -n "$1"; do
   if [[ "$1" == '--universal' ]]; then
     ARCH=universal
-    RELEASE=.build/release
+    RELEASE=.build/apple/Products/Release
   else
     # Override default prefix path with optional arg
     PREFIX="$1"
@@ -32,7 +27,7 @@ while test -n "$1"; do
   shift
 done
 
-echo "==> 📲 Installing mas ($VERSION) for $ARCH to $PREFIX"
+echo "==> 📲 Installing mas ($MAS_VERSION) for $ARCH to $PREFIX"
 ditto -v \
   "$RELEASE/mas" \
-  "$PREFIX/bin/"
+  "$PREFIX/bin/mas"

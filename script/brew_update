@@ -6,9 +6,9 @@
 # Runs all related scripts for generating all artifacts.
 #
 
-VERSION=$(script/version)
+MAS_VERSION=$(script/version)
 
-echo "Updating mas $VERSION Homebrew formula"
+echo "Updating mas $MAS_VERSION Homebrew formula"
 
 script/brew_formula_update
 script/bottle

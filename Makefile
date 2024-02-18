@@ -10,7 +10,7 @@
 
 CMD_NAME = mas
 SHELL = /bin/sh
-PREFIX ?= /usr/local
+PREFIX ?= $(shell brew --prefix)
 
 # trunk
 # SWIFT_VERSION = swift-DEVELOPMENT-SNAPSHOT-2020-04-23-a
@@ -81,6 +81,10 @@ updateHeaders: ## Updates private headers.
 build: ## Builds the project.
 	script/build
 
+.PHONY: build-universal
+build-universal: ## Builds a "fat" universal binary.
+	script/build --universal
+
 .PHONY: test
 test: build ## Runs tests.
 	script/test
@@ -91,8 +95,12 @@ run: build
 	${EXECUTABLE_DIRECTORY}/${CMD_NAME} $(ARGS)
 
 .PHONY: install
-install: ## Installs the project.
+install: build ## Installs the project.
 	script/install $(PREFIX)
+
+.PHONY: install-universal
+install-universal: build-universal ## Installs a universal binary.
+	script/install --universal
 
 .PHONY: uninstall
 uninstall: ## Uninstalls the project.
@@ -110,13 +118,9 @@ lint: ## Lints source code.
 danger: ## Runs danger.
 	script/danger
 
-# Builds bottles
-.PHONY: bottles
-bottles: ## Builds bottles.
-	script/bottle
-
 .PHONY: bottle
-bottle: bottles ## Alias for bottles
+bottle: ## Builds Homebrew bottle for the current system.
+	script/bottle
 
 .PHONY: package
 package: build ## Packages the project.
