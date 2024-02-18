@@ -1,0 +1,7 @@
+#
+# .mise.toml
+# https://mise.jdx.dev/configuration.html
+#
+
+[tools]
+act = "0.2.59"
