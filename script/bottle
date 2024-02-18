@@ -20,20 +20,20 @@ MAS_VERSION=$(script/version)
 ROOT_URL="https://github.com/mas-cli/mas/releases/download/v${MAS_VERSION}"
 
 # Supports macOS 10.11 and later
-OS_NAMES=( \
-  sonoma \
-  arm64_sonoma \
-  ventura \
-  arm64_ventura \
-  monterey \
-  arm64_monterey \
-  big_sur \
-  arm64_big_sur \
-  catalina \
-  mojave \
-  high_sierra \
-  sierra \
-  el_capitan \
+OS_NAMES=(
+  sonoma
+  arm64_sonoma
+  ventura
+  arm64_ventura
+  monterey
+  arm64_monterey
+  big_sur
+  arm64_big_sur
+  catalina
+  mojave
+  high_sierra
+  sierra
+  el_capitan
 )
 
 # Semantic version number split into a list using  Ugly, bash 3 compatible syntax

@@ -9,9 +9,9 @@
 # Build for the host architecture by default.
 ARCH=()
 if [[ "$1" == '--universal' ]]; then
-  ARCH=( \
-    --arch arm64 \
-    --arch x86_64 \
+  ARCH=(
+    --arch arm64
+    --arch x86_64
   )
 fi
 
