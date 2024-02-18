@@ -2,23 +2,19 @@
 # .github/workflows/pr-checks.yml
 #
 # https://docs.github.com/en/actions/reference/environment-variables#default-environment-variables
-
+---
 name: pr-checks
-
 on:
   pull_request:
-    branches: [ main ]
+    branches: [main]
   push:
-    branches: [ main ]
-
+    branches: [main]
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
-
 jobs:
   build-test:
     runs-on: macos-14
-
     defaults:
       run:
         # Prefixes all `run` commands with the following command to force them to run outside Rosetta.
@@ -26,21 +22,16 @@ jobs:
         # https://github.com/rolpdog/cffi-mirror/blob/release-1.15/.github/workflows/ci.yaml#L81-L141
         # https://github.com/actions/virtual-environments/issues/2187#issuecomment-790507204
         shell: arch -arm64 bash --noprofile --norc -eo pipefail {0}
-
     steps:
-    - uses: actions/checkout@v4
-      with:
-        # A fetch-depth of 0 includes all history and tags for script/version
-        fetch-depth: 0
-
-    - name: Bootstrap
-      run: script/bootstrap
-
-    - name: Build
-      run: script/build
-
-    - name: Test
-      run: script/test
-
-    - name: Lint
-      run: script/lint
+      - uses: actions/checkout@v4
+        with:
+          # A fetch-depth of 0 includes all history and tags for script/version
+          fetch-depth: 0
+      - name: Bootstrap
+        run: script/bootstrap
+      - name: Build
+        run: script/build
+      - name: Test
+        run: script/test
+      - name: Lint
+        run: script/lint

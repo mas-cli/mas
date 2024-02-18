@@ -1,22 +1,18 @@
 #
 # .github/workflows/release.yml
 #
-
+---
 name: release
-
 on:
   release:
     types: [published]
-
 jobs:
   release:
     runs-on: macos-14
-
     steps:
-    - uses: actions/checkout@v4
-      with:
-        # A fetch-depth of 0 includes all history and tags for script/version
-        fetch-depth: 0
-
-    - name: Bootstrap
-      run: script/bootstrap
+      - uses: actions/checkout@v4
+        with:
+          # A fetch-depth of 0 includes all history and tags for script/version
+          fetch-depth: 0
+      - name: Bootstrap
+        run: script/bootstrap
