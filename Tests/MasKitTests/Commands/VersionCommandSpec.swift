@@ -20,8 +20,7 @@ public class VersionCommandSpec: QuickSpec {
             it("displays the current version") {
                 let cmd = VersionCommand()
                 let result = cmd.run(VersionCommand.Options())
-                print(result)
-                //                expect(result).to(beSuccess())
+                expect(result).to(beSuccess())
             }
         }
     }

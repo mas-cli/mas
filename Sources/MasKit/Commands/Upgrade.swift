@@ -65,18 +65,18 @@ public struct UpgradeCommand: CommandProtocol {
     }
 
     private func findOutdatedApps(_ options: Options) throws -> [(SoftwareProduct, SearchResult)] {
-        let apps: [SoftwareProduct] = options.apps.isEmpty
+        let apps: [SoftwareProduct] =
+            options.apps.isEmpty
             ? appLibrary.installedApps
-            :
-                options.apps.compactMap {
-                    if let appId = UInt64($0) {
-                        // if argument a UInt64, lookup app by id using argument
-                        return appLibrary.installedApp(forId: appId)
-                    } else {
-                        // if argument not a UInt64, lookup app by name using argument
-                        return appLibrary.installedApp(named: $0)
-                    }
+            : options.apps.compactMap {
+                if let appId = UInt64($0) {
+                    // if argument a UInt64, lookup app by id using argument
+                    return appLibrary.installedApp(forId: appId)
+                } else {
+                    // if argument not a UInt64, lookup app by name using argument
+                    return appLibrary.installedApp(named: $0)
                 }
+            }
 
         let promises = apps.map { installedApp in
             // only upgrade apps whose local version differs from the store version

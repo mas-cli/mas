@@ -84,6 +84,6 @@ public struct OutdatedOptions: OptionsProtocol {
 
     public static func evaluate(_ mode: CommandMode) -> Result<OutdatedOptions, CommandantError<MASError>> {
         create
-        <*> mode <| Switch(flag: nil, key: "verbose", usage: "Show warnings about apps")
+            <*> mode <| Switch(flag: nil, key: "verbose", usage: "Show warnings about apps")
     }
 }

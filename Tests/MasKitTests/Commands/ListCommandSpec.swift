@@ -17,11 +17,10 @@ public class ListCommandSpec: QuickSpec {
             MasKit.initialize()
         }
         describe("list command") {
-            it("lists stuff") {
+            it("lists apps") {
                 let list = ListCommand()
                 let result = list.run(ListCommand.Options())
-                print(result)
-                //                expect(result).to(beSuccess())
+                expect(result).to(beSuccess())
             }
         }
     }

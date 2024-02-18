@@ -17,11 +17,10 @@ public class SignOutCommandSpec: QuickSpec {
             MasKit.initialize()
         }
         describe("signout command") {
-            it("updates stuff") {
+            it("signs out") {
                 let cmd = SignOutCommand()
                 let result = cmd.run(SignOutCommand.Options())
-                print(result)
-                //                expect(result).to(beSuccess())
+                expect(result).to(beSuccess())
             }
         }
     }

@@ -17,11 +17,10 @@ public class ResetCommandSpec: QuickSpec {
             MasKit.initialize()
         }
         describe("reset command") {
-            it("updates stuff") {
+            it("resets the App Store state") {
                 let cmd = ResetCommand()
                 let result = cmd.run(ResetCommand.Options(debug: false))
-                print(result)
-                //                expect(result).to(beSuccess())
+                expect(result).to(beSuccess())
             }
         }
     }

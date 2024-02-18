@@ -14,6 +14,7 @@ protocol ExternalCommand {
 
     var process: Process { get }
 
+    var stdout: String { get }
     var stderr: String { get }
     var stdoutPipe: Pipe { get }
     var stderrPipe: Pipe { get }
@@ -28,6 +29,11 @@ protocol ExternalCommand {
 
 /// Common implementation
 extension ExternalCommand {
+    var stdout: String {
+        let data = stdoutPipe.fileHandleForReading.readDataToEndOfFile()
+        return String(data: data, encoding: .utf8) ?? ""
+    }
+
     var stderr: String {
         let data = stderrPipe.fileHandleForReading.readDataToEndOfFile()
         return String(data: data, encoding: .utf8) ?? ""

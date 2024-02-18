@@ -27,7 +27,6 @@ public enum MASError: Error, Equatable {
     case notInstalled
     case uninstallFailed
 
-    case urlEncoding
     case noData
     case jsonParsing(error: NSError?)
 }
@@ -90,9 +89,6 @@ extension MASError: CustomStringConvertible {
 
         case .uninstallFailed:
             return "Uninstall failed"
-
-        case .urlEncoding:
-            return "Unable to encode service URL"
 
         case .noData:
             return "Service did not return data"

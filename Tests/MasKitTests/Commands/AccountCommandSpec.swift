@@ -11,17 +11,18 @@ import Quick
 
 @testable import MasKit
 
+// Deprecated test
 public class AccountCommandSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
             MasKit.initialize()
         }
-        describe("Account command") {
-            it("displays active account") {
+        // account command disabled since macOS 12 Monterey https://github.com/mas-cli/mas#%EF%B8%8F-known-issues
+        xdescribe("Account command") {
+            xit("displays active account") {
                 let cmd = AccountCommand()
                 let result = cmd.run(AccountCommand.Options())
-                print(result)
-                //                expect(result).to(beSuccess())
+                expect(result).to(beSuccess())
             }
         }
     }
