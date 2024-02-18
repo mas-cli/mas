@@ -7,3 +7,6 @@
 act = "0.2.59"
 "npm:prettier" = "3.2.5"
 yamllint = "1.35.1"
+
+[settings]
+experimental = true
