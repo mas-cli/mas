@@ -7,7 +7,7 @@ jobs:
     name: Danger
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Danger
       # https://github.com/orgs/danger/packages/container/package/danger-swift
       uses: docker://ghcr.io/danger/danger-swift:3.12.3
