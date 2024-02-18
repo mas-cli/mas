@@ -9,8 +9,13 @@
 # This no longer works with MARKETING_VERSION build setting in Info.plist
 # agvtool what-marketing-version -terse1
 
-MAS_VERSION=$(git describe --abbrev=0 --tags)
+if git describe 2>/dev/null; then
+  MAS_VERSION=$(git describe --abbrev=0 --tags 2>/dev/null || true)
+else
+  MAS_VERSION=0.0.0
+fi
 MAS_VERSION=${MAS_VERSION#v}
+echo "MAS_VERSION: ${MAS_VERSION}"
 
 SCRIPT_PATH=$(dirname "$(which "$0")")
 
@@ -20,5 +25,3 @@ enum Package {
     static let version = "${MAS_VERSION}"
 }
 EOF
-
-echo "${MAS_VERSION}"
