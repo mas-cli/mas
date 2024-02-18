@@ -13,56 +13,23 @@ import Version
 
 /// Manages searching the MAS catalog through the iTunes Search and Lookup APIs.
 class MasStoreSearch: StoreSearch {
-    private let networkManager: NetworkManager
     private static let appVersionExpression = Regex(#"\"versionDisplay\"\:\"([^\"]+)\""#)
 
-    enum Entity: String {
-        case macSoftware
-        case iPadSoftware
-        case iPhoneSoftware = "software"
-    }
+    // CommerceKit and StoreFoundation don't seem to expose the region of the Apple ID signed
+    // into the App Store. Instead, we'll make an educated guess that it matches the currently
+    // selected locale in macOS. This obviously isn't always going to match, but it's probably
+    // better than passing no "country" at all to the iTunes Search API.
+    // https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/
+    private let country: String?
+    private let networkManager: NetworkManager
 
     /// Designated initializer.
-    init(networkManager: NetworkManager = NetworkManager()) {
+    init(
+        country: String? = Locale.autoupdatingCurrent.regionCode,
+        networkManager: NetworkManager = NetworkManager()
+    ) {
+        self.country = country
         self.networkManager = networkManager
-    }
-
-    /// Builds the search URL for an app.
-    ///
-    /// - Parameter appName: MAS app identifier.
-    /// - Returns: URL for the search service or nil if appName can't be encoded.
-    static func searchURL(for appName: String, ofEntity entity: Entity = .macSoftware) -> URL {
-        guard var components = URLComponents(string: "https://itunes.apple.com/search") else {
-            fatalError("URLComponents failed to parse URL.")
-        }
-
-        components.queryItems = [
-            URLQueryItem(name: "media", value: "software"),
-            URLQueryItem(name: "entity", value: entity.rawValue),
-            URLQueryItem(name: "term", value: appName),
-        ]
-        guard let url = components.url else {
-            fatalError("URLComponents failed to generate URL.")
-        }
-
-        return url
-    }
-
-    /// Builds the lookup URL for an app.
-    ///
-    /// - Parameter appId: MAS app identifier.
-    /// - Returns: URL for the lookup service or nil if appId can't be encoded.
-    static func lookupURL(forApp appId: Int) -> URL {
-        guard var components = URLComponents(string: "https://itunes.apple.com/lookup") else {
-            fatalError("URLComponents failed to parse URL.")
-        }
-
-        components.queryItems = [URLQueryItem(name: "id", value: "\(appId)")]
-        guard let url = components.url else {
-            fatalError("URLComponents failed to generate URL.")
-        }
-
-        return url
     }
 
     /// Searches for an app.
@@ -79,7 +46,9 @@ class MasStoreSearch: StoreSearch {
         }
 
         let results = entities.map { entity -> Promise<[SearchResult]> in
-            let url = MasStoreSearch.searchURL(for: appName, ofEntity: entity)
+            guard let url = searchURL(for: appName, inCountry: country, ofEntity: entity) else {
+                fatalError("Failed to build URL for \(appName)")
+            }
             return loadSearchResults(url)
         }
 
@@ -96,7 +65,9 @@ class MasStoreSearch: StoreSearch {
     /// - Returns: A Promise for the search result record of app, or nil if no apps match the ID,
     ///   or an Error if there is a problem with the network request.
     func lookup(app appId: Int) -> Promise<SearchResult?> {
-        let url = MasStoreSearch.lookupURL(forApp: appId)
+        guard let url = lookupURL(forApp: appId, inCountry: country) else {
+            fatalError("Failed to build URL for \(appId)")
+        }
         return firstly {
             loadSearchResults(url)
         }.then { results -> Guarantee<SearchResult?> in
