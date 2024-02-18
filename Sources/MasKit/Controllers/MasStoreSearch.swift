@@ -72,8 +72,6 @@ class MasStoreSearch: StoreSearch {
             loadSearchResults(url)
         }.then { results -> Guarantee<SearchResult?> in
             guard let result = results.first else {
-                return try JSONDecoder().decode(SearchResultList.self, from: data).results
-            } catch {
                 return .value(nil)
             }
 
