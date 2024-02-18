@@ -15,6 +15,12 @@ main() {
   rm -f Brewfile.lock.json
   brew bundle install --no-upgrade --verbose
 
+  if [[ ! -x "$(command -v mise)" ]]; then
+    brew install mise
+  fi
+  mise install
+  mise ls
+
   # Already installed on GitHub Actions runner.
   if [[ ! -x "$(command -v swiftlint)" ]]; then
     brew install swiftlint
