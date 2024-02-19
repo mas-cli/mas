@@ -15,7 +15,7 @@ else
   MAS_VERSION=0.0.0
 fi
 MAS_VERSION=${MAS_VERSION#v}
-echo "MAS_VERSION: ${MAS_VERSION}"
+echo "${MAS_VERSION}"
 
 SCRIPT_PATH=$(dirname "$(which "$0")")
 
