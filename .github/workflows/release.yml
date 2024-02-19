@@ -17,3 +17,19 @@ jobs:
           fetch-depth: 0
       - name: Bootstrap
         run: script/bootstrap
+
+      # Important to trigger a universal build first as package just works with
+      # the `mas` binary in finds in the build dir.
+      - name: Build Universal
+        run: script/build --universal
+      - name: macOS Package
+        run: script/package
+      - name: Upload mas.pkg
+        uses: actions/upload-artifact@v3
+        with:
+          if-no-files-found: error
+          name: mas.pkg
+          path: .build/mas.pkg
+
+      - name: Homebrew Bottles for mas tap
+        run: script/bottle
