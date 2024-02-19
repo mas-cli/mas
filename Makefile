@@ -154,8 +154,8 @@ uninstall: ## Uninstalls the binary.
 package: build ## Packages the project.
 	script/package
 
-.PHONY: packageInstall
-packageInstall: package ## Installs the package.
+.PHONY: package-install
+package-install: package ## Installs the package.
 	script/package_install
 
 .PHONY: bottle
