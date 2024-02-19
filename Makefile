@@ -159,5 +159,13 @@ package-install: package ## Installs the package.
 	script/package_install
 
 .PHONY: bottle
-bottle: ## Builds Homebrew bottle for the current system.
+bottle: ## Builds Homebrew bottles.
 	script/bottle
+
+.PHONY: brew_formula_update
+brew_formula_update: ## Updates homebrew-core formula.
+	script/brew_formula_update
+
+.PHONY: brew_release_validate
+brew_release_validate: ## Builds Homebrew bottle for the current system.
+	script/brew_release_validate

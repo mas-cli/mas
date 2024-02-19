@@ -12,7 +12,7 @@
 BREW_CORE_PATH="$(brew --prefix)/Library/Taps/homebrew/homebrew-core/Formula"
 
 function usage {
-  echo "Usage: brew_formula_bump [v1.0] [sha1_hash]"
+  echo "Usage: brew_formula_update [v1.0] [sha1_hash]"
   echo "- version will be inferred using version script if not provided"
   echo "- sha will be inferred from the current commit if not provided"
   exit 1
@@ -30,6 +30,10 @@ if test -n "$2"; then
   REVISION="$2"
 else
   REVISION=$(git rev-parse "$MAS_VERSION")
+fi
+
+if test ! -f "$BREW_CORE_PATH/mas.rb"; then
+  brew install mas
 fi
 
 echo "Checking to see if this update can be a simple bump."
