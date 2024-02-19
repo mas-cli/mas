@@ -104,8 +104,8 @@ test: build ## Runs tests.
 run: build
 	${EXECUTABLE_DIRECTORY}/${CMD_NAME} $(ARGS)
 
-.PHONY: updateHeaders
-updateHeaders: ## Updates private macOS headers.
+.PHONY: update-headers
+update-headers: ## Updates private macOS headers.
 	script/update_headers
 
 ################################################################################
