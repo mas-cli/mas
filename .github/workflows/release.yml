@@ -32,4 +32,9 @@ jobs:
           path: .build/mas.pkg
 
       - name: Homebrew Bottles for mas tap
-        run: script/bottle
+        uses: actions/upload-artifact@v3
+        with:
+          if-no-files-found: error
+          name: homebrew-bottles
+          path: |
+            .build/bottles/mas-*.bottle.tar.gz
