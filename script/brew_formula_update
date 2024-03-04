@@ -9,7 +9,7 @@
 # brew bump-formula-pr --help
 #
 
-BREW_CORE_PATH="$(brew --prefix)/Library/Taps/homebrew/homebrew-core/Formula"
+CORE_FORMULA_PATH="$(brew --repository homebrew/core)/Formula"
 
 function usage {
   echo "Usage: brew_formula_update [v1.0] [sha1_hash]"
@@ -32,12 +32,12 @@ else
   REVISION=$(git rev-parse "$MAS_VERSION")
 fi
 
-if test ! -f "$BREW_CORE_PATH/mas.rb"; then
+if test ! -f "$CORE_FORMULA_PATH/mas.rb"; then
   brew install mas
 fi
 
 echo "Checking to see if this update can be a simple bump."
-diff "Homebrew/mas.rb" "$BREW_CORE_PATH/mas.rb"
+diff "Homebrew/mas.rb" "$CORE_FORMULA_PATH/mas.rb"
 
 # diff exit status
 status=$?
@@ -64,7 +64,7 @@ if test $status -ne 0; then
   exit $status
 fi
 
-pushd "$BREW_CORE_PATH" || exit 2
+pushd "$CORE_FORMULA_PATH" || exit 2
 
 echo "Updating formula"
 if test $formula_revisions -eq 1; then
