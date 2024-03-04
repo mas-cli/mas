@@ -32,6 +32,10 @@ else
   REVISION=$(git rev-parse "$MAS_VERSION")
 fi
 
+# Force brew to use the local repository instead of the API.
+# Disable API before any install, reinstall or upgrade commands.
+export HOMEBREW_NO_INSTALL_FROM_API=1
+
 if test ! -f "$CORE_FORMULA_PATH/mas.rb"; then
   brew install mas
 fi
