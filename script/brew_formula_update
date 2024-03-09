@@ -9,7 +9,9 @@
 # brew bump-formula-pr --help
 #
 
-CORE_FORMULA_PATH="$(brew --repository homebrew/core)/Formula"
+CORE_TAP_PATH="$(brew --repository homebrew/core)"
+CORE_FORMULA_PATH="${CORE_TAP_PATH}/Formula"
+MAS_FORMULA_PATH="${CORE_FORMULA_PATH}/mas.rb"
 
 function usage {
   echo "Usage: brew_formula_update [v1.0] [sha1_hash]"
@@ -36,12 +38,18 @@ fi
 # Disable API before any install, reinstall or upgrade commands.
 export HOMEBREW_NO_INSTALL_FROM_API=1
 
-if test ! -f "$CORE_FORMULA_PATH/mas.rb"; then
+# Ensure core is tapped and clean
+if test -d "${CORE_TAP_PATH}"; then
+  brew untap homebrew/core
+fi
+brew tap homebrew/core
+
+if test ! -f "${MAS_FORMULA_PATH}"; then
   brew install mas
 fi
 
 echo "Checking to see if this update can be a simple bump."
-diff "Homebrew/mas.rb" "$CORE_FORMULA_PATH/mas.rb"
+diff "Homebrew/mas.rb" "${MAS_FORMULA_PATH}"
 
 # diff exit status
 status=$?
