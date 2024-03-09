@@ -40,3 +40,6 @@ jobs:
           name: homebrew-bottles
           path: |
             .build/bottles/mas-*.bottle.tar.gz
+
+      - name: 🍺 Update Homebrew mas formula
+        run: script/brew_formula_update
