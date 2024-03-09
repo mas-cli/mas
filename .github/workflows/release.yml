@@ -4,6 +4,10 @@
 ---
 name: release
 on:
+  # The `push` event is used only for testing while making changes to this workflow.
+  # This will be detected by the `github.event.release.name` being empty which
+  # switches the logic into "dry run" mode.
+  # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#push
   push:
   # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#release
   release:
@@ -13,10 +17,23 @@ jobs:
     runs-on: macos-14
     steps:
 
-      - run: |
-          echo "release event"
-          echo "Name: ${{ github.event.release.name }}"
-          echo "Description: ${{ github.event.release.body }}"
+      # Logs event details and sets `DRY_RUN` env var
+      # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
+      - name: 🔈 Log release event
+        if: ${{ github.event.release.name != '' }}
+        run: |
+          echo "Triggered by a release publication event (wet run)"
+          echo "release.name: ${{ github.event.release.name }}"
+          echo "release.body: ${{ github.event.release.body }}"
+          echo "DRY_RUN=false" >> $GITHUB_ENV
+      - name: 🚩 Enable dry run
+        if: ${{ github.event.release.name == '' }}
+        run: |
+          echo "dry run"
+          echo "DRY_RUN=true" >> $GITHUB_ENV
+      - name: 🔈 Log dry run
+        run: |
+          echo "DRY_RUN: ${DRY_RUN}"
 
       - uses: actions/checkout@v4
         with:
