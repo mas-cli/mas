@@ -14,18 +14,24 @@ CORE_FORMULA_PATH="${CORE_TAP_PATH}/Formula"
 MAS_FORMULA_PATH="${CORE_FORMULA_PATH}/m/mas.rb"
 
 function usage {
-  echo "Usage: brew_formula_update [v1.0] [sha1_hash]"
+  echo "Usage: brew_formula_update [0.0] [sha1_hash]"
   echo "- version will be inferred using version script if not provided"
   echo "- sha will be inferred from the current commit if not provided"
   exit 1
 }
 
+if [[ $# -gt 3 ]]; then
+  usage
+fi
+
 # arg 1 - version tag
 if test -n "$1"; then
-  MAS_VERSION="$1"
+  MAS_VERSION="v$1"
 else
   MAS_VERSION="v$(script/version)"
 fi
+
+echo "MAS_VERSION: $MAS_VERSION"
 
 # arg 2 - revision (commit hash)
 if test -n "$2"; then
@@ -34,15 +40,16 @@ else
   REVISION=$(git rev-parse "$MAS_VERSION")
 fi
 
+echo "REVISION: $REVISION"
+
 # Force brew to use the local repository instead of the API.
 # Disable API before any install, reinstall or upgrade commands.
 export HOMEBREW_NO_INSTALL_FROM_API=1
 
-# Ensure core is tapped and clean
+# Ensure core is tapped
 if test -d "${CORE_TAP_PATH}"; then
-  brew untap homebrew/core
+  brew tap homebrew/core
 fi
-brew tap homebrew/core
 
 if test ! -f "${MAS_FORMULA_PATH}"; then
   brew install mas
