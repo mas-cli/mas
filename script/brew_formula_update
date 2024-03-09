@@ -47,11 +47,11 @@ echo "REVISION: $REVISION"
 export HOMEBREW_NO_INSTALL_FROM_API=1
 
 # Ensure core is tapped
-if test -d "${CORE_TAP_PATH}"; then
+if ! test -d "${CORE_TAP_PATH}"; then
   brew tap homebrew/core
 fi
 
-if test ! -f "${MAS_FORMULA_PATH}"; then
+if ! test -f "${MAS_FORMULA_PATH}"; then
   brew install mas
 fi
 
