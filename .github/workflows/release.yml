@@ -15,6 +15,8 @@ on:
 jobs:
   release:
     runs-on: macos-14
+    env:
+      DRY_RUN: true
     steps:
 
       # Logs event details and sets `DRY_RUN` env var
@@ -25,12 +27,7 @@ jobs:
           echo "Triggered by a release publication event (wet run)"
           echo "release.name: ${{ github.event.release.name }}"
           echo "release.body: ${{ github.event.release.body }}"
-          echo "DRY_RUN=false" >> $GITHUB_ENV
-      - name: 🚩 Enable dry run
-        if: ${{ github.event.release.name == '' }}
-        run: |
-          echo "dry run"
-          echo "DRY_RUN=true" >> $GITHUB_ENV
+          echo "DRY_RUN=false" >>$GITHUB_ENV
       - name: 🔈 Log dry run
         run: |
           echo "DRY_RUN: ${DRY_RUN}"
@@ -50,6 +47,7 @@ jobs:
         run: script/package
       - name: 🚀 Upload mas.pkg
         uses: actions/upload-artifact@v3
+        if: ${{ env.DRY_RUN == 'false' }}
         with:
           if-no-files-found: error
           name: mas.pkg
@@ -59,6 +57,7 @@ jobs:
         run: script/bottle
       - name: 🚀 Upload Bottles
         uses: actions/upload-artifact@v3
+        if: ${{ env.DRY_RUN == 'false' }}
         with:
           if-no-files-found: error
           name: homebrew-bottles
