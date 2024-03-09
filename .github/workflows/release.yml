@@ -15,6 +15,10 @@ on:
 jobs:
   release:
     runs-on: macos-14
+    defaults:
+      run:
+        # Prefixes all `run` commands with the following command to force them to run outside Rosetta.
+        shell: arch -arm64 bash --noprofile --norc -eo pipefail {0}
     env:
       DRY_RUN: true
     steps:
