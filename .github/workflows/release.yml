@@ -5,12 +5,19 @@
 name: release
 on:
   push:
+  # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#release
   release:
     types: [published]
 jobs:
   release:
     runs-on: macos-14
     steps:
+
+      - run: |
+          echo "release event"
+          echo "Name: ${{ github.event.release.name }}"
+          echo "Description: ${{ github.event.release.body }}"
+
       - uses: actions/checkout@v4
         with:
           # A fetch-depth of 0 includes all history and tags for script/version
