@@ -11,7 +11,7 @@
 
 CORE_TAP_PATH="$(brew --repository homebrew/core)"
 CORE_FORMULA_PATH="${CORE_TAP_PATH}/Formula"
-MAS_FORMULA_PATH="${CORE_FORMULA_PATH}/mas.rb"
+MAS_FORMULA_PATH="${CORE_FORMULA_PATH}/m/mas.rb"
 
 function usage {
   echo "Usage: brew_formula_update [v1.0] [sha1_hash]"
