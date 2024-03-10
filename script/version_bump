@@ -6,8 +6,6 @@
 # Increments the marketing version of mas.
 #
 
-
-# SCRIPT_PATH=$(dirname "$(which "$0")")
 PROJECT_PATH="$(git rev-parse --show-toplevel)"
 PACKAGE_MANIFEST="${PROJECT_PATH}/Sources/MasKit/Package.swift"
 LOCAL_MAS_FORMULA_PATH="${PROJECT_PATH}/Homebrew/mas.rb"
@@ -24,23 +22,20 @@ if [[ $# -lt 1 ]]; then
   usage
 fi
 
-last_tag=$(script/version)
-echo "Last git tag: $last_tag"
-
 # arg 1 - version tag
-if test -n "$1"; then
-  MAS_VERSION=$1
+if test -n "${1}"; then
+  MAS_VERSION=${1}
 fi
 
 # arg 2 - revision (commit hash)
-if test -n "$2"; then
-  REVISION="$2"
+if test -n "${2}"; then
+  REVISION="${2}"
 else
-  REVISION=$(git rev-parse "$MAS_VERSION")
+  REVISION=$(git rev-parse "${MAS_VERSION}")
 fi
 
-echo "MAS_VERSION: $MAS_VERSION"
-echo "REVISION: $REVISION"
+echo "MAS_VERSION: ${MAS_VERSION}"
+echo "REVISION: ${REVISION}"
 
 # Write new version into swift package
 cat <<EOF >"${PACKAGE_MANIFEST}"
@@ -54,11 +49,9 @@ echo
 cat "${PACKAGE_MANIFEST}"
 
 # Write new version into brew formulae
-for file in $LOCAL_MAS_FORMULA_PATH $LOCAL_TAP_FORMULA_PATH; do
-  echo "$file"
-  # echo sed -i "5s/(\w+tag:\w+\"\)v[^\"]\",/$0$MAS_VERSION\"/" "$file"
-  # sed -i '' -E "s/(\w+tag:\w+\")v,/\1$MAS_VERSION\"/" "$file"
-  sd  '( +tag: +)"[^"]+"' "\$1\"$MAS_VERSION\"" "$file"
-  sd  '( +revision: +)"[^"]+"' "\$1\"$REVISION\"" "$file"
+for file in ${LOCAL_MAS_FORMULA_PATH} ${LOCAL_TAP_FORMULA_PATH}; do
+  echo "${file}"
+  sd  '( +tag: +)"[^"]+"' "\$1\"${MAS_VERSION}\"" "${file}"
+  sd  '( +revision: +)"[^"]+"' "\$1\"${REVISION}\"" "${file}"
 done
 
