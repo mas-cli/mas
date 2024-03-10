@@ -70,6 +70,11 @@ jobs:
           name: mas.pkg
           path: .build/mas.pkg
 
+      - name: 🍺 Update Homebrew mas formula
+        run: |
+          DRY_RUN=${{ env.DRY_RUN }} \
+            script/brew_formula_update ${{ env.MAS_VERSION }}
+
       - name: 🍼 Homebrew Bottles for mas tap
         run: |
           script/bottle
@@ -82,7 +87,3 @@ jobs:
           path: |
             .build/bottles/mas-*.bottle.tar.gz
 
-      - name: 🍺 Update Homebrew mas formula
-        run: |
-          DRY_RUN=${{ env.DRY_RUN }} \
-            script/brew_formula_update ${{ env.MAS_VERSION }}
