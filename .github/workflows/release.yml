@@ -22,7 +22,7 @@ jobs:
     env:
       DRY_RUN: true
       MAS_VERSION: 0.0.0
-      RELEASE_COMMIT: abcd
+      RELEASE_COMMIT: fake-commit-hash
     steps:
 
       # Logs event details and sets `DRY_RUN` env var
@@ -51,14 +51,17 @@ jobs:
           # A fetch-depth of 0 includes all history and tags for script/version
           fetch-depth: 0
       - name: 👢 Bootstrap
-        run: script/bootstrap
+        run: |
+          script/bootstrap
 
       # Important to trigger a universal build first as package just works with
       # the `mas` binary in finds in the build dir.
       - name: 🏗️ Build Universal
-        run: script/build --universal
+        run: |
+          script/build --universal
       - name: 📦 macOS Package
-        run: script/package
+        run: |
+          script/package
       - name: 🚀 Upload mas.pkg
         uses: actions/upload-artifact@v3
         if: ${{ env.DRY_RUN == 'false' }}
@@ -68,7 +71,8 @@ jobs:
           path: .build/mas.pkg
 
       - name: 🍼 Homebrew Bottles for mas tap
-        run: script/bottle
+        run: |
+          script/bottle
       - name: 🚀 Upload Bottles
         uses: actions/upload-artifact@v3
         if: ${{ env.DRY_RUN == 'false' }}
@@ -79,4 +83,6 @@ jobs:
             .build/bottles/mas-*.bottle.tar.gz
 
       - name: 🍺 Update Homebrew mas formula
-        run: script/brew_formula_update ${{ env.MAS_VERSION }}
+        run: |
+          DRY_RUN=${{ env.DRY_RUN }} \
+            script/brew_formula_update ${{ env.MAS_VERSION }}

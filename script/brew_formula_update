@@ -48,6 +48,13 @@ while getopts "d" o; do
 done
 shift $((OPTIND-1))
 
+# DRY_RUN environment variable
+# shellcheck disable=SC2153
+if [[ $DRY_RUN == 'true' ]]; then
+  echo='echo (DRY-RUN):'
+  dry_run='-d'
+fi
+
 # arg 1 - version tag
 if [[ -n "${1}" ]]; then
   MAS_VERSION="${1}"
