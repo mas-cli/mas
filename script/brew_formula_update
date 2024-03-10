@@ -49,10 +49,11 @@ echo "REVISION: $REVISION"
 
 script/version_bump "$MAS_VERSION" "$REVISION"
 
+git branch "releases/release-$MAS_VERSION"
+git switch "releases/release-$MAS_VERSION"
+
 PROJECT_PATH="$(git rev-parse --show-toplevel)"
 LOCAL_MAS_FORMULA_PATH="${PROJECT_PATH}/Homebrew/mas.rb"
-
-git branch "releases/release-$MAS_VERSION"
 
 git add \
   "${PROJECT_PATH}/Sources/MasKit/Package.swift" \

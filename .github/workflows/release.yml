@@ -21,20 +21,30 @@ jobs:
         shell: arch -arm64 bash --noprofile --norc -eo pipefail {0}
     env:
       DRY_RUN: true
+      MAS_VERSION: 0.0.0
+      RELEASE_COMMIT: abcd
     steps:
 
       # Logs event details and sets `DRY_RUN` env var
       # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
+      # https://docs.github.com/en/webhooks/webhook-events-and-payloads?actionType=published#release
       - name: 🔈 Log release event
         if: ${{ github.event.release.name != '' }}
         run: |
           echo "Triggered by a release publication event (wet run)"
           echo "release.name: ${{ github.event.release.name }}"
+          echo "release.tag_name: ${{ github.event.release.tag_name }}"
+          echo "release.target_commitish: ${{ github.event.release.target_commitish }}"
           echo "release.body: ${{ github.event.release.body }}"
           echo "DRY_RUN=false" >>$GITHUB_ENV
-      - name: 🔈 Log dry run
+          echo "MAS_VERSION=${{ github.event.release.tag_name }}" >>${GITHUB_REF}
+          echo "RELEASE_COMMIT=${{ github.event.release.target_commitish }}" >>${GITHUB_REF}
+
+      - name: 🔈 Log environment variables
         run: |
           echo "DRY_RUN: ${DRY_RUN}"
+          echo "MAS_VERSION: ${MAS_VERSION}"
+          echo "RELEASE_COMMIT: ${RELEASE_COMMIT}"
 
       - uses: actions/checkout@v4
         with:
@@ -69,4 +79,4 @@ jobs:
             .build/bottles/mas-*.bottle.tar.gz
 
       - name: 🍺 Update Homebrew mas formula
-        run: script/brew_formula_update
+        run: script/brew_formula_update ${{ env.MAS_VERSION }}
