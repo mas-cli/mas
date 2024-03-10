@@ -68,12 +68,8 @@ echo "MAS_VERSION: ${MAS_VERSION}"
 if [[ -n "${2}" ]]; then
   REVISION="${2}"
 else
-  if [[ $dry_run == '-d' ]]; then
-    REVISION=fake-revision
-  else
-    # Derive revision from version. Fails if MAS_VERSION is not a tag.
-    REVISION=$(git rev-parse "${MAS_VERSION}")
-  fi
+  # Derive revision from version. Fails if MAS_VERSION is not a tag.
+  REVISION=$(git rev-parse "${MAS_VERSION}")
 fi
 
 echo "REVISION: ${REVISION}"
@@ -84,8 +80,6 @@ echo "REVISION: ${REVISION}"
 #
 
 script/version_bump "${MAS_VERSION}" "$REVISION"
-
-# cp -v "${LOCAL_MAS_FORMULA_PATH}" "${CORE_MAS_FORMULA_PATH}"
 
 branch_name="releases/release-${MAS_VERSION}"
 $echo git branch "${branch_name}"
@@ -124,12 +118,18 @@ brew update
 # Build the formula for the current macOS version and architecture.
 #
 
-# Force brew to use the local repository instead of the API.
-# Disable API before any install, reinstall or upgrade commands.
-export HOMEBREW_NO_INSTALL_FROM_API=1
+# Update mas formula in core
+cp -v "${LOCAL_MAS_FORMULA_PATH}" "${CORE_MAS_FORMULA_PATH}"
 
 # Install mas from source
-brew reinstall mas
+# HOMEBREW_NO_INSTALL_FROM_API:
+# Force brew to use the local repository instead of the API.
+# Disable API before any install, reinstall or upgrade commands.
+
+HOMEBREW_NO_INSTALL_FROM_API=1 \
+  brew install mas \
+    --build-from-source \
+    --verbose
 
 # Audit formula
 brew audit --strict mas-cli/tap/mas
