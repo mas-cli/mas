@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -ue
 #
 # script/version
 # mas
