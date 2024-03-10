@@ -118,7 +118,7 @@ brew update
 # Build the formula for the current macOS version and architecture.
 #
 
-# Update mas formula in core
+# Update mas formula in core (temporary)
 cp -v "${LOCAL_MAS_FORMULA_PATH}" "${CORE_MAS_FORMULA_PATH}"
 
 # Install mas from source
@@ -134,6 +134,12 @@ HOMEBREW_NO_INSTALL_FROM_API=1 \
 # Audit formula
 brew audit --strict mas
 brew style mas
+
+# Revert core formula change after testing
+pushd "${CORE_TAP_PATH}"
+git diff
+git checkout .
+popd
 
 ################################################################################
 #
