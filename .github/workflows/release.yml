@@ -3,6 +3,10 @@
 #
 ---
 name: release
+defaults:
+  run:
+    # Prefixes all `run` commands with the following command to force them to run outside Rosetta.
+    shell: arch -arm64 bash --noprofile --norc -eo pipefail {0}
 on:
   # The `push` event is used only for testing while making changes to this workflow.
   # This will be detected by the `github.event.release.name` being empty which
@@ -15,10 +19,6 @@ on:
 jobs:
   release:
     runs-on: macos-14
-    defaults:
-      run:
-        # Prefixes all `run` commands with the following command to force them to run outside Rosetta.
-        shell: arch -arm64 bash --noprofile --norc -eo pipefail {0}
     env:
       DRY_RUN: true
       # Dry run version pinned to real release for testing brew build system
