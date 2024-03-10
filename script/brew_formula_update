@@ -132,8 +132,8 @@ HOMEBREW_NO_INSTALL_FROM_API=1 \
     --verbose
 
 # Audit formula
-brew audit --strict mas-cli/tap/mas
-brew style mas-cli/tap/mas
+brew audit --strict mas
+brew style mas
 
 ################################################################################
 #
