@@ -13,6 +13,11 @@ CORE_TAP_PATH="$(brew --repository homebrew/core)"
 CORE_FORMULA_PATH="${CORE_TAP_PATH}/Formula"
 CORE_MAS_FORMULA_PATH="${CORE_FORMULA_PATH}/m/mas.rb"
 
+PROJECT_PATH="$(git rev-parse --show-toplevel)"
+SWIFT_PACKAGE="${PROJECT_PATH}/Sources/MasKit/Package.swift"
+LOCAL_MAS_FORMULA_PATH="${PROJECT_PATH}/Homebrew/mas.rb"
+LOCAL_TAP_FORMULA_PATH="${PROJECT_PATH}/Homebrew/mas-tap.rb"
+
 function usage {
   echo "Usage: brew_formula_update [0.0] [sha1_hash]"
   echo "- version will be inferred using version script if not provided"
@@ -25,42 +30,42 @@ if [[ $# -gt 3 ]]; then
 fi
 
 # arg 1 - version tag
-if test -n "$1"; then
-  MAS_VERSION="$1"
+if test -n "${1}"; then
+  MAS_VERSION="${1}"
 else
   MAS_VERSION="v$(script/version)"
 fi
 
-echo "MAS_VERSION: $MAS_VERSION"
+echo "MAS_VERSION: ${MAS_VERSION}"
 
 # arg 2 - revision (commit hash)
-if test -n "$2"; then
-  REVISION="$2"
+if test -n "${2}"; then
+  REVISION="${2}"
 else
-  REVISION=$(git rev-parse "$MAS_VERSION")
+  REVISION=$(git rev-parse "${MAS_VERSION}")
 fi
 
-echo "REVISION: $REVISION"
+echo "REVISION: ${REVISION}"
 
 ################################################################################
 #
 # Update Version
 #
 
-script/version_bump "$MAS_VERSION" "$REVISION"
+script/version_bump "${MAS_VERSION}" "$REVISION"
 
-git branch "releases/release-$MAS_VERSION"
-git switch "releases/release-$MAS_VERSION"
+cp -v "${LOCAL_MAS_FORMULA_PATH}" "${CORE_MAS_FORMULA_PATH}"
 
-PROJECT_PATH="$(git rev-parse --show-toplevel)"
-LOCAL_MAS_FORMULA_PATH="${PROJECT_PATH}/Homebrew/mas.rb"
+branch_name="releases/release-${MAS_VERSION}"
+git branch "${branch_name}"
+git switch "${branch_name}"
 
 git add \
-  "${PROJECT_PATH}/Sources/MasKit/Package.swift" \
+  "${SWIFT_PACKAGE}" \
   "${LOCAL_MAS_FORMULA_PATH}" \
-  "${PROJECT_PATH}/Homebrew/mas-tap.rb"
+  "${LOCAL_TAP_FORMULA_PATH}"
 
-git commit --message="🔖 Version $MAS_VERSION"
+git commit --message="🔖 Version ${MAS_VERSION}"
 
 ################################################################################
 #
@@ -106,109 +111,24 @@ brew style mas-cli/tap/mas
 echo "Checking to see if this update can be a simple bump."
 diff "${LOCAL_MAS_FORMULA_PATH}" "${CORE_MAS_FORMULA_PATH}"
 
-# diff exit status
-# status=$?
-# formula_revisions=0
-# if test $status -ne 0; then
-#   echo "There are changes in the local formula (Homebrew/mas.rb) that haven't been released yet."
-#   #exit $status
-#   formula_revisions=1
-# fi
-
-echo "==> 🧪 Updating homebrew-core formula mas ($MAS_VERSION, $REVISION)"
-
-# brew bump-formula-pr --help
-# Usage: brew bump-formula-pr [options] [formula]
-
-# Create a pull request to update formula with a new URL or a new tag.
-
-# If a URL is specified, the SHA-256 checksum of the new download should also
-# be specified. A best effort to determine the SHA-256 will be made if not
-# supplied by the user.
-
-# If a tag is specified, the Git commit revision corresponding to that tag
-# should also be specified. A best effort to determine the revision will be made
-# if the value is not supplied by the user.
-
-# If a version is specified, a best effort to determine the URL and SHA-256
-# or the tag and revision will be made if both values are not supplied by the
-# user.
-
-# Note: this command cannot be used to transition a formula from a
-# URL-and-SHA-256 style specification into a tag-and-revision style specification,
-# nor vice versa. It must use whichever style specification the formula already
-# uses.
-
-#   -n, --dry-run                    Print what would be done rather than doing
-#                                    it.
-#       --write-only                 Make the expected file modifications without
-#                                    taking any Git actions.
-#       --commit                     When passed with --write-only, generate a
-#                                    new commit after writing changes to the
-#                                    formula file.
-#       --no-audit                   Don't run brew audit before opening the PR.
-#       --strict                     Run brew audit --strict before opening the
-#                                    PR.
-#       --online                     Run brew audit --online before opening the
-#                                    PR.
-#       --no-browse                  Print the pull request URL instead of opening
-#                                    in a browser.
-#       --no-fork                    Don't try to fork the repository.
-#       --mirror                     Use the specified URL as a mirror URL. If
-#                                    URL is a comma-separated list of URLs,
-#                                    multiple mirrors will be added.
-#       --fork-org                   Use the specified GitHub organization for
-#                                    forking.
-#       --version                    Use the specified version to override the
-#                                    value parsed from the URL or tag. Note that
-#                                    --version=0 can be used to delete an
-#                                    existing version override from a formula if
-#                                    it has become redundant.
-#       --message                    Prepend message to the default pull request
-#                                    message.
-#       --url                        Specify the URL for the new download. If a
-#                                    URL is specified, the SHA-256 checksum of
-#                                    the new download should also be specified.
-#       --sha256                     Specify the SHA-256 checksum of the new
-#                                    download.
-#       --tag                        Specify the new git commit tag for the
-#                                    formula.
-#       --revision                   Specify the new commit revision
-#                                    corresponding to the specified git tag or
-#                                    specified version.
-#   -f, --force                      Remove all mirrors if --mirror was not
-#                                    specified.
-#       --install-dependencies       Install missing dependencies required to
-#                                    update resources.
-#       --python-package-name        Use the specified package-name when finding
-#                                    Python resources for formula. If no package
-#                                    name is specified, it will be inferred from
-#                                    the formula's stable URL.
-#       --python-extra-packages      Include these additional Python packages when
-#                                    finding resources.
-#       --python-exclude-packages    Exclude these Python packages when finding
-#                                    resources.
-#   -d, --debug                      Display any debugging information.
-#   -q, --quiet                      Make some output more quiet.
-#   -v, --verbose                    Make some output more verbose.
-#   -h, --help                       Show this message.
+echo "==> 🧪 Updating homebrew-core formula mas (${MAS_VERSION}, ${REVISION})"
 
 echo "Validating formula"
 brew bump-formula-pr \
-  --tag="$MAS_VERSION" \
-  --revision="$REVISION" \
+  --tag="${MAS_VERSION}" \
+  --revision="${REVISION}" \
   --strict \
   --verbose \
   mas
 
 # brew exit status
 status=$?
-if test $status -ne 0; then
+if test ${status} -ne 0; then
   echo "Formula did not validate using 'brew bump-formula-pr'"
-  exit $status
+  exit ${status}
 fi
 
-pushd "$CORE_FORMULA_PATH" || exit 2
+pushd "${CORE_FORMULA_PATH}" || exit 2
 
 dry_run=''
 echo "Updating formula"
@@ -218,12 +138,28 @@ echo "Updating formula"
 # fi
 
 brew bump-formula-pr \
-  --tag="$MAS_VERSION" \
-  --revision="$REVISION" \
+  --tag="${MAS_VERSION}" \
+  --revision="${REVISION}" \
   --commit \
   --fork-org mas-cli \
   --online \
   --strict \
   --verbose \
-  "$dry_run" \
+  "${dry_run}" \
   mas
+
+################################################################################
+#
+# Create pr on mas-cli/mas
+#
+
+gh pr create \
+  --assignee phatblat \
+  --base main \
+  --draft \
+  --fill
+
+################################################################################
+#
+# Create pr on mas-cli/homebrew-tap
+#
