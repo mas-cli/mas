@@ -10,8 +10,6 @@
 #
 
 CORE_TAP_PATH="$(brew --repository homebrew/core)"
-MAS_TAP_PATH="$(brew --repository mas-cli/tap)"
-MAS_TAP_PATH_FORMULA="${MAS_TAP_PATH}/Formula/mas.rb"
 CORE_FORMULA_PATH="${CORE_TAP_PATH}/Formula/"
 CORE_MAS_FORMULA_PATH="${CORE_FORMULA_PATH}/m/mas.rb"
 
@@ -21,7 +19,7 @@ LOCAL_MAS_FORMULA_PATH="${PROJECT_PATH}/Homebrew/mas.rb"
 LOCAL_TAP_FORMULA_PATH="${PROJECT_PATH}/Homebrew/mas-tap.rb"
 
 function usage {
-  echo "Usage: brew_formula_update [-d] v0.0 [sha1_hash]"
+  echo "Usage: brew_core_update [-d] v0.0 [sha1_hash]"
   echo "  -d option enables dry run mode"
   echo "  version will be inferred using version script if not provided"
   echo "  sha will be inferred from the current commit if not provided"
@@ -204,36 +202,4 @@ $echo gh pr create \
   --base main \
   --draft \
   --fill
-
-################################################################################
-#
-# Create pr on mas-cli/homebrew-tap
-#
-
-# Ensure mas is tapped
-if ! [[ -d "${MAS_TAP_PATH}" ]]; then
-  brew tap mas-cli/tap
-fi
-
-# Update tap formula version
-cp -v "${LOCAL_TAP_FORMULA_PATH}" "${MAS_TAP_PATH_FORMULA}"
-
-pushd "${MAS_TAP_PATH}"
-
-branch_name="releases/release-${MAS_VERSION}"
-$echo git branch "${branch_name}"
-$echo git switch "${branch_name}"
-
-$echo git add \
-  "${MAS_TAP_PATH_FORMULA}"
-
-$echo git commit --message="🔖 Version ${MAS_VERSION}"
-
-$echo gh pr create \
-  --assignee phatblat \
-  --base main \
-  --draft \
-  --fill
-
-popd
 
