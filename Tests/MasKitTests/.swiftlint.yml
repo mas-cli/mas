@@ -4,8 +4,9 @@
 #
 # https://github.com/realm/SwiftLint#configuration
 #
+
 ---
 disabled_rules:
-- force_cast
-- force_try
-- function_body_length
+  - force_cast
+  - force_try
+  - function_body_length

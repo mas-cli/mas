@@ -26,6 +26,7 @@
 .envrc
 .fseventsd
 .rubygems/
+.secrets
 .swiftpm/
 Carthage/
 DerivedData
@@ -33,7 +34,7 @@ Pods/
 Temporary Items
 bin/
 build/
+gha/
 default.profraw
 releases/
 xcuserdata
-Sources/MasKit/Package.swift

@@ -1,0 +1,132 @@
+#
+# .github/workflows/release.yml
+#
+---
+name: release
+defaults:
+  run:
+    # Prefixes all `run` commands with the following command to force them to run outside Rosetta.
+    shell: arch -arm64 bash --noprofile --norc -eo pipefail {0}
+env:
+  DRY_RUN: true
+  # Dry run version pinned to real release for testing brew build system
+  MAS_VERSION: v1.8.7-beta.1
+  RELEASE_COMMIT: f8be3e9aaa6c78490277976f17041f2577f5dc21
+on:
+  # The `push` event is used only for testing while making changes to this workflow.
+  # This will be detected by the `github.event.release.name` being empty which
+  # switches the logic into "dry run" mode.
+  # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#push
+  push:
+  # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#release
+  release:
+    types: [published]
+jobs:
+  debug-event:
+    runs-on: macos-14
+    steps:
+
+      # Logs event details and sets `DRY_RUN` env var
+      # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
+      # https://docs.github.com/en/webhooks/webhook-events-and-payloads?actionType=published#release
+      - name: 🔈 Log release event
+        if: ${{ github.event.release.name != '' }}
+        run: |
+          echo "Triggered by a release publication event (wet run)"
+          echo "release.name: ${{ github.event.release.name }}"
+          echo "release.tag_name: ${{ github.event.release.tag_name }}"
+          echo "release.target_commitish: ${{ github.event.release.target_commitish }}"
+          echo "release.body: ${{ github.event.release.body }}"
+          echo "DRY_RUN=false" >>$GITHUB_ENV
+          echo "MAS_VERSION=${{ github.event.release.tag_name }}" >>${GITHUB_ENV}
+          echo "RELEASE_COMMIT=${{ github.event.release.target_commitish }}" >>${GITHUB_ENV}
+
+      - name: 🔈 Log environment variables
+        run: |
+          echo "DRY_RUN: ${DRY_RUN}"
+          echo "MAS_VERSION: ${MAS_VERSION}"
+          echo "RELEASE_COMMIT: ${RELEASE_COMMIT}"
+
+  pkg-installer:
+    runs-on: macos-14
+    needs: debug-event
+    steps:
+
+      - uses: actions/checkout@v4
+        with:
+          # A fetch-depth of 0 includes all history and tags for script/version
+          fetch-depth: 0
+
+      - name: 👢 Bootstrap
+        run: |
+          script/bootstrap
+
+      # Important to trigger a universal build first as package just works with
+      # the `mas` binary in finds in the build dir.
+      - name: 🏗️ Build Universal
+        run: |
+          script/build --universal
+
+      - name: 📦 macOS Package
+        run: |
+          script/package
+
+      - name: 🚀 Upload mas.pkg
+        uses: actions/upload-artifact@v3
+        if: ${{ env.DRY_RUN == 'false' }}
+        with:
+          if-no-files-found: error
+          name: mas.pkg
+          path: .build/mas.pkg
+
+  homebrew-core:
+    runs-on: macos-14
+    needs: debug-event
+    steps:
+
+      - uses: actions/checkout@v4
+        with:
+          # A fetch-depth of 0 includes all history and tags for script/version
+          fetch-depth: 0
+
+      - name: 👢 Bootstrap
+        run: |
+          script/bootstrap
+
+      - name: 🍺 Update Homebrew mas formula
+        run: |
+          DRY_RUN=${{ env.DRY_RUN }} \
+            script/brew_core_update ${{ env.MAS_VERSION }}
+
+  homebrew-tap:
+    runs-on: macos-14
+    needs: [debug-event, homebrew-core]
+    steps:
+
+      - uses: actions/checkout@v4
+        with:
+          # A fetch-depth of 0 includes all history and tags for script/version
+          fetch-depth: 0
+
+      - name: 👢 Bootstrap
+        run: |
+          script/bootstrap
+
+      - name: 🚰 Update mas tap formula
+        run: |
+          DRY_RUN=${{ env.DRY_RUN }} \
+            script/brew_tap_update ${{ env.MAS_VERSION }}
+
+      - name: 🍼 Homebrew Bottles for mas tap
+        run: |
+          script/bottle
+
+      - name: 🚀 Upload Bottles
+        uses: actions/upload-artifact@v3
+        if: ${{ env.DRY_RUN == 'false' }}
+        with:
+          if-no-files-found: error
+          name: homebrew-bottles
+          path: |
+            .build/bottles/mas-*.bottle.tar.gz
+

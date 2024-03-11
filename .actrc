@@ -1,0 +1,6 @@
+--action-offline-mode
+--container-architecture linux/amd64
+--platform macos-14=-self-hosted
+--pull=false
+--reuse
+--secret-file .secrets

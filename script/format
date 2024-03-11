@@ -13,18 +13,13 @@
 
 echo "==> 🚨 Formatting mas"
 
-for LINTER in markdownlint shfmt swiftformat swiftlint; do
+for LINTER in markdownlint prettier shfmt swiftformat swiftlint yamllint; do
   if [[ ! -x "$(command -v ${LINTER})" ]]; then
     echo "error: ${LINTER} is not installed. Run 'script/bootstrap' or 'brew install ${LINTER}'."
     exit 1
   fi
 done
 
-echo
-echo "--> 🖊 Markdown"
-markdownlint --config .markdownlint.json --fix .github .
-
-echo
 echo "--> 🕊️ Swift"
 for SOURCE in Package.swift Sources Tests; do
   swiftformat ${SOURCE}
@@ -32,8 +27,12 @@ for SOURCE in Package.swift Sources Tests; do
   swiftlint lint --fix --strict ${SOURCE}
 done
 
-echo
+echo "--> 〽️ Markdown"
+markdownlint --config .markdownlint.json --fix .github .
+
+echo "--> 🖊 YAML"
+# shellcheck disable=SC2046
+prettier --write $(yamllint --list-files .)
+
 echo "--> 📜 Bash"
 shfmt -i 2 -l -w contrib/ script/
-
-script/lint
