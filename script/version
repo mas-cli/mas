@@ -6,13 +6,10 @@
 # Displays the current marketing version of mas.
 #
 
-# This no longer works with MARKETING_VERSION build setting in Info.plist
-# agvtool what-marketing-version -terse1
-
 if git describe >/dev/null 2>&1; then
-  MAS_VERSION=$(git describe --abbrev=0 --tags 2>/dev/null || true)
-else
-  MAS_VERSION=1.0.0
+  last_tag=$(git describe --abbrev=0 --tags 2>/dev/null || true)
+  # Use MAS_VERSION environment varible unless unset
+  MAS_VERSION=${MAS_VERSION:-$last_tag}
 fi
 MAS_VERSION=${MAS_VERSION#v}
 echo "${MAS_VERSION}"

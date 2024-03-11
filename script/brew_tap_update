@@ -1,0 +1,237 @@
+#!/bin/bash -e
+#
+# script/brew_tap_update
+# mas
+#
+# Updates mas custom tap formula:
+# https://github.com/mas-cli/homebrew-tap/blob/main/Formula/mas.rb
+#
+
+CORE_TAP_PATH="$(brew --repository homebrew/core)"
+MAS_TAP_PATH="$(brew --repository mas-cli/tap)"
+MAS_TAP_PATH_FORMULA="${MAS_TAP_PATH}/Formula/mas.rb"
+CORE_FORMULA_PATH="${CORE_TAP_PATH}/Formula/"
+CORE_MAS_FORMULA_PATH="${CORE_FORMULA_PATH}/m/mas.rb"
+
+PROJECT_PATH="$(git rev-parse --show-toplevel)"
+SWIFT_PACKAGE="${PROJECT_PATH}/Sources/MasKit/Package.swift"
+LOCAL_MAS_FORMULA_PATH="${PROJECT_PATH}/Homebrew/mas.rb"
+LOCAL_TAP_FORMULA_PATH="${PROJECT_PATH}/Homebrew/mas-tap.rb"
+
+function usage {
+  echo "Usage: brew_formula_update [-d] v0.0 [sha1_hash]"
+  echo "  -d option enables dry run mode"
+  echo "  version will be inferred using version script if not provided"
+  echo "  sha will be inferred from the current commit if not provided"
+  exit 1
+}
+
+# Max 3 arguments
+if [[ $# -gt 3 ]]; then
+  usage 1>&2
+fi
+
+echo=''
+dry_run=''
+
+# Detect presence of `-d` dry run option
+while getopts "d" o; do
+  case "${o}" in
+    d)
+      echo='echo (DRY-RUN):'
+      dry_run='-d'
+      ;;
+    *)
+      usage 1>&2
+      ;;
+  esac
+done
+shift $((OPTIND-1))
+
+# DRY_RUN environment variable
+# shellcheck disable=SC2153
+if [[ $DRY_RUN == 'true' ]]; then
+  echo='echo (DRY-RUN):'
+  dry_run='-d'
+fi
+
+# arg 1 - version tag
+if [[ -n "${1}" ]]; then
+  MAS_VERSION="${1}"
+else
+  MAS_VERSION="v$(script/version)"
+fi
+
+echo "MAS_VERSION: ${MAS_VERSION}"
+
+# arg 2 - revision (commit hash)
+if [[ -n "${2}" ]]; then
+  REVISION="${2}"
+else
+  # Derive revision from version. Fails if MAS_VERSION is not a tag.
+  REVISION=$(git rev-parse "${MAS_VERSION}")
+fi
+
+echo "REVISION: ${REVISION}"
+
+################################################################################
+#
+# Update Version
+#
+
+script/version_bump "${MAS_VERSION}" "$REVISION"
+
+branch_name="releases/release-${MAS_VERSION}"
+$echo git branch "${branch_name}"
+$echo git switch "${branch_name}"
+
+$echo git add \
+  "${SWIFT_PACKAGE}" \
+  "${LOCAL_MAS_FORMULA_PATH}" \
+  "${LOCAL_TAP_FORMULA_PATH}"
+
+$echo git commit --message="🔖 Version ${MAS_VERSION}"
+
+################################################################################
+#
+# Preflight checks
+#
+
+# Uninstall if necessary
+brew remove mas 2>/dev/null || true
+brew remove mas-cli/tap/mas 2>/dev/null || true
+
+# Uninstall if still found on path
+if command -v mas >/dev/null; then
+  script/uninstall || true
+fi
+
+# Ensure core is tapped
+if ! [[ -d "${CORE_TAP_PATH}" ]]; then
+  brew tap homebrew/core
+fi
+
+brew update
+
+################################################################################
+#
+# Build the formula for the current macOS version and architecture.
+#
+
+# Update mas formula in core (temporary)
+cp -v "${LOCAL_MAS_FORMULA_PATH}" "${CORE_MAS_FORMULA_PATH}"
+
+# Install mas from source
+# HOMEBREW_NO_INSTALL_FROM_API:
+# Force brew to use the local repository instead of the API.
+# Disable API before any install, reinstall or upgrade commands.
+
+HOMEBREW_NO_INSTALL_FROM_API=1 \
+  brew install mas \
+    --build-from-source \
+    --verbose
+
+# Audit formula
+brew audit --strict mas
+brew style mas
+
+# Revert core formula change after testing
+pushd "${CORE_TAP_PATH}"
+git diff
+git checkout .
+popd
+
+################################################################################
+#
+# Update Homebrew
+#
+
+# echo "Checking to see if this update can be a simple bump."
+# diff "${LOCAL_MAS_FORMULA_PATH}" "${CORE_MAS_FORMULA_PATH}"
+
+echo "==> 🧪 Updating homebrew-core formula mas (${MAS_VERSION}, ${REVISION})"
+
+if [[ $dry_run == '-d' ]]; then
+  # -n, --dry-run                    Print what would be done rather than doing
+  #                                   it.
+  # --write-only                 Make the expected file modifications without
+  #                               taking any Git actions.
+  dry_run="--dry-run"
+fi
+
+echo "Validating formula"
+brew bump-formula-pr \
+  --tag="${MAS_VERSION}" \
+  --revision="${REVISION}" \
+  --strict \
+  --verbose \
+  "${dry_run}" \
+  mas
+
+# brew exit status
+status=$?
+if [[ ${status} -ne 0 ]]; then
+  echo "Formula did not validate using 'brew bump-formula-pr'"
+  exit ${status}
+fi
+
+pushd "${CORE_FORMULA_PATH}"
+
+echo "Updating homebrew/core formula with a PR"
+
+$echo brew bump-formula-pr \
+  --tag="${MAS_VERSION}" \
+  --revision="${REVISION}" \
+  --commit \
+  --fork-org mas-cli \
+  --online \
+  --strict \
+  --verbose \
+  "${dry_run}" \
+  mas
+
+popd
+
+################################################################################
+#
+# Create pr on mas-cli/mas
+#
+
+$echo gh pr create \
+  --assignee phatblat \
+  --base main \
+  --draft \
+  --fill
+
+################################################################################
+#
+# Create pr on mas-cli/homebrew-tap
+#
+
+# Ensure mas is tapped
+if ! [[ -d "${MAS_TAP_PATH}" ]]; then
+  brew tap mas-cli/tap
+fi
+
+# Update tap formula version
+cp -v "${LOCAL_TAP_FORMULA_PATH}" "${MAS_TAP_PATH_FORMULA}"
+
+pushd "${MAS_TAP_PATH}"
+
+branch_name="releases/release-${MAS_VERSION}"
+$echo git branch "${branch_name}"
+$echo git switch "${branch_name}"
+
+$echo git add \
+  "${MAS_TAP_PATH_FORMULA}"
+
+$echo git commit --message="🔖 Version ${MAS_VERSION}"
+
+$echo gh pr create \
+  --assignee phatblat \
+  --base main \
+  --draft \
+  --fill
+
+popd
+

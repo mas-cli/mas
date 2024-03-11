@@ -16,6 +16,7 @@
 
 BUILD_DIR="$PWD/.build"
 BOTTLE_DIR="$BUILD_DIR/bottles"
+CORE_TAP_PATH="$(brew --repository homebrew/core)"
 MAS_VERSION=$(script/version)
 ROOT_URL="https://github.com/mas-cli/mas/releases/download/v${MAS_VERSION}"
 
@@ -41,8 +42,8 @@ IFS=" " read -r -a CURRENT_OS_VERSION <<<"$(sw_vers -productVersion | sed 's/\./
 CURRENT_OS_VERSION_MAJOR=${CURRENT_OS_VERSION[0]}
 CURRENT_OS_VERSION_MINOR=${CURRENT_OS_VERSION[1]}
 
-echo "CURRENT_OS_VERSION_MAJOR: $CURRENT_OS_VERSION_MAJOR"
-echo "CURRENT_OS_VERSION_MINOR: $CURRENT_OS_VERSION_MINOR"
+echo "CURRENT_OS_VERSION_MAJOR: ${CURRENT_OS_VERSION_MAJOR}"
+echo "CURRENT_OS_VERSION_MINOR: ${CURRENT_OS_VERSION_MINOR}"
 
 case "${CURRENT_OS_VERSION_MAJOR}" in
 14)
@@ -107,23 +108,23 @@ echo "==> 🍼 Bottling mas ${MAS_VERSION} for: ${OS_NAMES[*]}"
 brew install --build-bottle mas-cli/tap/mas
 
 # Generate bottle do block, dropping last 2 lines
-brew bottle --verbose --no-rebuild --root-url="$ROOT_URL" mas-cli/tap/mas
+brew bottle --verbose --no-rebuild --root-url="${ROOT_URL}" mas-cli/tap/mas
 if ! test -e "${OLD_FILENAME}"; then
   echo "Bottle not found: ${OLD_FILENAME}"
   echo "If an old version is showing in the log and filename, then make sure the formula has been updated in:"
-  echo "<BREW_HOME>/Library/Taps/homebrew/homebrew-core"
+  echo "${CORE_TAP_PATH}"
   exit 1
 fi
 
 SHA256=$(shasum --algorithm 256 "${OLD_FILENAME}" | cut -f 1 -d ' ' -)
 
-mkdir -p "$BOTTLE_DIR"
+mkdir -p "${BOTTLE_DIR}"
 
 # Start of bottle block
 BOTTLE_BLOCK=$(
   cat <<-EOF
 bottle do
-  root_url "$ROOT_URL"
+  root_url "${ROOT_URL}"
 EOF
 )
 
@@ -139,10 +140,10 @@ for os in "${OS_NAMES[@]}"; do
 
   # Append each os
   # BOTTLE_BLOCK="$(printf "${BOTTLE_BLOCK}\n  sha256 cellar: :any_skip_relocation, %-15s %s" "${os}:" "${SHA256}")"
-  BOTTLE_BLOCK="$BOTTLE_BLOCK"$(
+  BOTTLE_BLOCK="${BOTTLE_BLOCK}"$(
     cat <<-EOF
 
-    sha256 cellar: :any_skip_relocation, $os: "$SHA256"
+    sha256 cellar: :any_skip_relocation, ${os}: "${SHA256}"
 EOF
   )
 done

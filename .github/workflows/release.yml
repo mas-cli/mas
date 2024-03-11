@@ -22,7 +22,7 @@ on:
   release:
     types: [published]
 jobs:
-  release:
+  debug-event:
     runs-on: macos-14
     steps:
 
@@ -47,10 +47,16 @@ jobs:
           echo "MAS_VERSION: ${MAS_VERSION}"
           echo "RELEASE_COMMIT: ${RELEASE_COMMIT}"
 
+  pkg-installer:
+    runs-on: macos-14
+    needs: debug-event
+    steps:
+
       - uses: actions/checkout@v4
         with:
           # A fetch-depth of 0 includes all history and tags for script/version
           fetch-depth: 0
+
       - name: 👢 Bootstrap
         run: |
           script/bootstrap
@@ -60,9 +66,11 @@ jobs:
       - name: 🏗️ Build Universal
         run: |
           script/build --universal
+
       - name: 📦 macOS Package
         run: |
           script/package
+
       - name: 🚀 Upload mas.pkg
         uses: actions/upload-artifact@v3
         if: ${{ env.DRY_RUN == 'false' }}
@@ -71,14 +79,48 @@ jobs:
           name: mas.pkg
           path: .build/mas.pkg
 
+  homebrew-core:
+    runs-on: macos-14
+    needs: debug-event
+    steps:
+
+      - uses: actions/checkout@v4
+        with:
+          # A fetch-depth of 0 includes all history and tags for script/version
+          fetch-depth: 0
+
+      - name: 👢 Bootstrap
+        run: |
+          script/bootstrap
+
       - name: 🍺 Update Homebrew mas formula
         run: |
           DRY_RUN=${{ env.DRY_RUN }} \
-            script/brew_formula_update ${{ env.MAS_VERSION }}
+            script/brew_core_update ${{ env.MAS_VERSION }}
+
+  homebrew-tap:
+    runs-on: macos-14
+    needs: [debug-event, homebrew-core]
+    steps:
+
+      - uses: actions/checkout@v4
+        with:
+          # A fetch-depth of 0 includes all history and tags for script/version
+          fetch-depth: 0
+
+      - name: 👢 Bootstrap
+        run: |
+          script/bootstrap
+
+      - name: 🚰 Update mas tap formula
+        run: |
+          DRY_RUN=${{ env.DRY_RUN }} \
+            script/brew_tap_update ${{ env.MAS_VERSION }}
 
       - name: 🍼 Homebrew Bottles for mas tap
         run: |
           script/bottle
+
       - name: 🚀 Upload Bottles
         uses: actions/upload-artifact@v3
         if: ${{ env.DRY_RUN == 'false' }}
