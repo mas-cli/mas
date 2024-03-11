@@ -14,8 +14,8 @@
 # Variables
 #
 
-BUILD_DIR="$PWD/.build"
-BOTTLE_DIR="$BUILD_DIR/bottles"
+BUILD_DIR="${PWD}/.build"
+BOTTLE_DIR="${BUILD_DIR}/bottles"
 CORE_TAP_PATH="$(brew --repository homebrew/core)"
 MAS_VERSION=$(script/version)
 ROOT_URL="https://github.com/mas-cli/mas/releases/download/v${MAS_VERSION}"
@@ -37,7 +37,7 @@ OS_NAMES=(
   el_capitan
 )
 
-# Semantic version number split into a list using  Ugly, bash 3 compatible syntax
+# Semantic version number split into a list using ugly, bash 3 compatible syntax
 IFS=" " read -r -a CURRENT_OS_VERSION <<<"$(sw_vers -productVersion | sed 's/\./ /g')"
 CURRENT_OS_VERSION_MAJOR=${CURRENT_OS_VERSION[0]}
 CURRENT_OS_VERSION_MINOR=${CURRENT_OS_VERSION[1]}

@@ -79,7 +79,7 @@ $echo git switch "${branch_name}"
 
 ################################################################################
 #
-# Create pr on mas-cli/homebrew-tap
+# Create branch on mas-cli/homebrew-tap
 #
 
 # Ensure mas is tapped
@@ -100,6 +100,18 @@ $echo git add \
   "${MAS_TAP_PATH_FORMULA}"
 
 $echo git commit --message="🔖 Version ${MAS_VERSION}"
+
+popd
+
+# Build in mas project
+script/bottle
+
+################################################################################
+#
+# Create PR on mas-cli/homebrew-tap
+#
+
+pushd "${MAS_TAP_PATH}"
 
 $echo gh pr create \
   --assignee phatblat \
