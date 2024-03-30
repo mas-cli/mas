@@ -161,5 +161,3 @@ ls -l "${BOTTLE_DIR}"
 echo "${BOTTLE_BLOCK}"
 
 brew remove mas-cli/tap/mas
-
-open "${BOTTLE_DIR}"
