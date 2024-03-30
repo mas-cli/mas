@@ -22,7 +22,7 @@ on:
   release:
     types: [published]
 jobs:
-  debug-event:
+  start:
     runs-on: macos-14
     steps:
 
@@ -49,7 +49,7 @@ jobs:
 
   pkg-installer:
     runs-on: macos-14
-    needs: debug-event
+    needs: start
     steps:
 
       - uses: actions/checkout@v4
@@ -81,7 +81,7 @@ jobs:
 
   homebrew-core:
     runs-on: macos-14
-    needs: debug-event
+    needs: start
     steps:
 
       - uses: actions/checkout@v4
@@ -100,7 +100,7 @@ jobs:
 
   homebrew-tap:
     runs-on: macos-14
-    needs: [debug-event, homebrew-core]
+    needs: [start, homebrew-core]
     steps:
 
       - uses: actions/checkout@v4
