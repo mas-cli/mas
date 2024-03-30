@@ -6,14 +6,43 @@
 # Installs development dependencies and builds project dependencies.
 #
 
+function usage {
+  echo "Usage: bootstrap [-f]"
+  echo "  -f option enables frozen mode"
+  exit 1
+}
+
+frozen=''
+
+# Detect presence of `-f` frozen option
+while getopts "f" opt; do
+  echo "${opt}"
+  case "${opt}" in
+    f)
+      frozen='-f'
+      ;;
+    *)
+      usage 1>&2
+      ;;
+  esac
+done
+
 main() {
   script/clean
+
 
   echo "==> 👢 Bootstrapping"
 
   # Install Homebrew tools
-  rm -f Brewfile.lock.json
-  brew bundle install --no-upgrade --verbose
+  if [[ "${frozen}" == "-f" ]]; then
+    # --no-lock Don't touch Brewfile.lock.json
+    brew bundle install --no-lock --no-upgrade --verbose
+  else
+    # Allow upgrades
+    rm -f Brewfile.lock.json
+    brew bundle install --verbose
+  fi
+
 
   if [[ ! -x "$(command -v mise)" ]]; then
     brew install mise

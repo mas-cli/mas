@@ -59,7 +59,7 @@ jobs:
 
       - name: 👢 Bootstrap
         run: |
-          script/bootstrap
+          script/bootstrap -f
 
       # Important to trigger a universal build first as package just works with
       # the `mas` binary in finds in the build dir.
@@ -91,7 +91,7 @@ jobs:
 
       - name: 👢 Bootstrap
         run: |
-          script/bootstrap
+          script/bootstrap -f
 
       - name: 🍺 Update Homebrew mas formula
         run: |
@@ -110,7 +110,7 @@ jobs:
 
       - name: 👢 Bootstrap
         run: |
-          script/bootstrap
+          script/bootstrap -f
 
       - name: 🚰 Update mas tap formula
         run: |

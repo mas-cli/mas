@@ -28,7 +28,7 @@ jobs:
           # A fetch-depth of 0 includes all history and tags for script/version
           fetch-depth: 0
       - name: Bootstrap
-        run: script/bootstrap
+        run: script/bootstrap -f
       - name: Build
         run: script/build
       - name: Test

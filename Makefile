@@ -72,6 +72,10 @@ init: ## Installs tools.
 
 .PHONY: bootstrap
 bootstrap: ## Installs tools.
+	script/bootstrap -f
+
+.PHONY: bootstrap-update
+bootstrap-update: ## Upgrades and installs tools.
 	script/bootstrap
 
 ################################################################################
