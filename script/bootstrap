@@ -16,7 +16,6 @@ frozen=''
 
 # Detect presence of `-f` frozen option
 while getopts "f" opt; do
-  echo "${opt}"
   case "${opt}" in
     f)
       frozen='-f'
