@@ -36,7 +36,8 @@ jobs:
           echo "release.name: ${{ github.event.release.name }}"
           echo "release.tag_name: ${{ github.event.release.tag_name }}"
           echo "release.target_commitish: ${{ github.event.release.target_commitish }}"
-          echo "release.body: ${{ github.event.release.body }}"
+          echo -e "release.body: \n${{ github.event.release.body }}"
+
           echo "DRY_RUN=false" >>$GITHUB_ENV
           echo "MAS_VERSION=${{ github.event.release.tag_name }}" >>${GITHUB_ENV}
           echo "RELEASE_COMMIT=${{ github.event.release.target_commitish }}" >>${GITHUB_ENV}
