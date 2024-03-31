@@ -151,13 +151,6 @@ popd
 
 echo "==> 🧪 Updating homebrew-core formula mas (${MAS_VERSION}, ${REVISION})"
 
-if [[ $dry_run == '-d' ]]; then
-  # -n, --dry-run                    Print what would be done rather than doing
-  #                                   it.
-  # --write-only                 Make the expected file modifications without
-  #                               taking any Git actions.
-  dry_run="--dry-run"
-fi
 
 echo "Validating formula"
 brew bump-formula-pr \
@@ -165,7 +158,9 @@ brew bump-formula-pr \
   --revision="${REVISION}" \
   --strict \
   --verbose \
-  "${dry_run}" \
+  --no-browse \
+  --fork-org mas-cli \
+  --dry-run \
   mas
 
 # brew exit status
@@ -175,6 +170,10 @@ if [[ ${status} -ne 0 ]]; then
   exit ${status}
 fi
 
+if [[ $dry_run == '-d' ]]; then
+  exit 0
+fi
+
 pushd "${CORE_FORMULA_PATH}"
 
 echo "Updating homebrew/core formula with a PR"
@@ -182,12 +181,12 @@ echo "Updating homebrew/core formula with a PR"
 $echo brew bump-formula-pr \
   --tag="${MAS_VERSION}" \
   --revision="${REVISION}" \
-  --commit \
-  --fork-org mas-cli \
-  --online \
   --strict \
   --verbose \
-  "${dry_run}" \
+  --online \
+  --no-browse \
+  --fork-org mas-cli \
+  --commit \
   mas
 
 popd
