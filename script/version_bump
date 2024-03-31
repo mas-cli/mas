@@ -24,7 +24,7 @@ fi
 
 # arg 1 - version tag
 if test -n "${1}"; then
-  MAS_VERSION=${1}
+  MAS_VERSION="${1}"
 fi
 
 # arg 2 - revision (commit hash)

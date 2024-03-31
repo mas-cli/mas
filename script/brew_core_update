@@ -79,7 +79,7 @@ echo "REVISION: ${REVISION}"
 # Update Version
 #
 
-script/version_bump "${MAS_VERSION}" "$REVISION"
+script/version_bump "${MAS_VERSION}" "${REVISION}"
 
 branch_name="releases/release-${MAS_VERSION}"
 $echo git branch "${branch_name}"
