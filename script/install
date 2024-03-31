@@ -13,7 +13,7 @@
 ARCH=$(uname -m)
 RELEASE=.build/${ARCH}-apple-macosx/release
 MAS_VERSION=$(script/version)
-PREFIX=$(brew --prefix)
+PREFIX=/usr/local
 
 while test -n "$1"; do
   if [[ "$1" == '--universal' ]]; then
