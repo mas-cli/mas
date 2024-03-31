@@ -130,4 +130,3 @@ jobs:
           name: homebrew-bottles
           path: |
             .build/bottles/mas-*.bottle.tar.gz
-

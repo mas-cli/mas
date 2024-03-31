@@ -29,7 +29,6 @@ done
 main() {
   script/clean
 
-
   echo "==> 👢 Bootstrapping"
 
   # Install Homebrew tools
