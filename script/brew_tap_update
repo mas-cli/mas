@@ -26,28 +26,24 @@ if [[ $# -gt 3 ]]; then
   usage 1>&2
 fi
 
-echo=''
-dry_run=''
+echo='echo'
 
 # Detect presence of `-d` dry run option
 while getopts "d" o; do
   case "${o}" in
     d)
       echo='echo (DRY-RUN):'
-      dry_run='-d'
       ;;
     *)
       usage 1>&2
       ;;
   esac
 done
-shift $((OPTIND-1))
 
 # DRY_RUN environment variable
 # shellcheck disable=SC2153
 if [[ $DRY_RUN == 'true' ]]; then
   echo='echo (DRY-RUN):'
-  dry_run='-d'
 fi
 
 # arg 1 - version tag
