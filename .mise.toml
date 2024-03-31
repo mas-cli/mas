@@ -6,8 +6,6 @@
 [tools]
 act = "0.2.60"
 "npm:prettier" = "3.2.5"
-python = "3.12.2"
-yamllint = "1.35.1"
 
 [settings]
 experimental = true

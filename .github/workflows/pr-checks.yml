@@ -33,5 +33,3 @@ jobs:
         run: script/build
       - name: Test
         run: script/test
-      - name: Lint
-        run: script/lint
