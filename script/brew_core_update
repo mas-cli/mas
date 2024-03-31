@@ -46,7 +46,7 @@ while getopts "d" o; do
       ;;
   esac
 done
-shift $((OPTIND-1))
+shift $((OPTIND - 1))
 
 # DRY_RUN environment variable
 # shellcheck disable=SC2153
@@ -128,8 +128,8 @@ cp -v "${LOCAL_MAS_FORMULA_PATH}" "${CORE_MAS_FORMULA_PATH}"
 
 HOMEBREW_NO_INSTALL_FROM_API=1 \
   brew install mas \
-    --build-from-source \
-    --verbose
+  --build-from-source \
+  --verbose
 
 # Audit formula
 brew audit --strict mas
@@ -202,4 +202,3 @@ $echo gh pr create \
   --base main \
   --draft \
   --fill
-

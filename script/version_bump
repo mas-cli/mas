@@ -51,7 +51,6 @@ cat "${PACKAGE_MANIFEST}"
 # Write new version into brew formulae
 for file in ${LOCAL_MAS_FORMULA_PATH} ${LOCAL_TAP_FORMULA_PATH}; do
   echo "${file}"
-  sd  '( +tag: +)"[^"]+"' "\$1\"${MAS_VERSION}\"" "${file}"
-  sd  '( +revision: +)"[^"]+"' "\$1\"${REVISION}\"" "${file}"
+  sd '( +tag: +)"[^"]+"' "\$1\"${MAS_VERSION}\"" "${file}"
+  sd '( +revision: +)"[^"]+"' "\$1\"${REVISION}\"" "${file}"
 done
-

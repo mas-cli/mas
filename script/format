@@ -35,4 +35,9 @@ echo "--> 🖊 YAML"
 prettier --write $(yamllint --list-files .)
 
 echo "--> 📜 Bash"
-shfmt -i 2 -l -w contrib/ script/
+shfmt \
+  --write \
+  --list \
+  --indent 2 \
+  --case-indent \
+  contrib/ script/

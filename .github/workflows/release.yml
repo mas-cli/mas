@@ -25,7 +25,6 @@ jobs:
   start:
     runs-on: macos-14
     steps:
-
       # Logs event details and sets `DRY_RUN` env var
       # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
       # https://docs.github.com/en/webhooks/webhook-events-and-payloads?actionType=published#release
@@ -52,7 +51,6 @@ jobs:
     runs-on: macos-14
     needs: start
     steps:
-
       - uses: actions/checkout@v4
         with:
           # A fetch-depth of 0 includes all history and tags for script/version
@@ -84,7 +82,6 @@ jobs:
     runs-on: macos-14
     needs: start
     steps:
-
       - uses: actions/checkout@v4
         with:
           # A fetch-depth of 0 includes all history and tags for script/version
@@ -103,7 +100,6 @@ jobs:
     runs-on: macos-14
     needs: [start, homebrew-core]
     steps:
-
       - uses: actions/checkout@v4
         with:
           # A fetch-depth of 0 includes all history and tags for script/version

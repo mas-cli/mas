@@ -38,4 +38,9 @@ yamllint .
 
 echo "--> 📜 Bash"
 shellcheck --shell=bash script/*
-shfmt -d -i 2 -l contrib/ script/
+shfmt \
+  --diff \
+  --list \
+  --indent 2 \
+  --case-indent \
+  contrib/ script/

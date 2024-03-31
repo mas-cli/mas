@@ -41,7 +41,6 @@ main() {
     brew bundle install --verbose
   fi
 
-
   if [[ ! -x "$(command -v mise)" ]]; then
     brew install mise
   fi

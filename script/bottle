@@ -46,25 +46,25 @@ echo "CURRENT_OS_VERSION_MAJOR: ${CURRENT_OS_VERSION_MAJOR}"
 echo "CURRENT_OS_VERSION_MINOR: ${CURRENT_OS_VERSION_MINOR}"
 
 case "${CURRENT_OS_VERSION_MAJOR}" in
-14)
-  CURRENT_PLATFORM=sonoma
-  ;;
-13)
-  CURRENT_PLATFORM=ventura
-  ;;
-12)
-  CURRENT_PLATFORM=monterey
-  ;;
-11)
-  CURRENT_PLATFORM=big_sur
-  ;;
-10)
-  CURRENT_PLATFORM=catalina
-  ;;
-*)
-  echo "Unsupported macOS version. This script requires Catalina or better."
-  exit 1
-  ;;
+  14)
+    CURRENT_PLATFORM=sonoma
+    ;;
+  13)
+    CURRENT_PLATFORM=ventura
+    ;;
+  12)
+    CURRENT_PLATFORM=monterey
+    ;;
+  11)
+    CURRENT_PLATFORM=big_sur
+    ;;
+  10)
+    CURRENT_PLATFORM=catalina
+    ;;
+  *)
+    echo "Unsupported macOS version. This script requires Catalina or better."
+    exit 1
+    ;;
 esac
 
 # Prefix platform with architecture
