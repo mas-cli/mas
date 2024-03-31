@@ -186,7 +186,6 @@ $echo brew bump-formula-pr \
   --online \
   --no-browse \
   --fork-org mas-cli \
-  --commit \
   mas
 
 popd
