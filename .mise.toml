@@ -6,6 +6,7 @@
 [tools]
 act = "0.2.60"
 "npm:prettier" = "3.2.5"
+python = "3.11"
 yamllint = "1.35.1"
 
 [settings]
