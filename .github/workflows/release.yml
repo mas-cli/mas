@@ -29,6 +29,7 @@ jobs:
       # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
       # https://docs.github.com/en/webhooks/webhook-events-and-payloads?actionType=published#release
       - name: 🔈 Log release event
+        # This step will only run for a real 'release' event.
         if: ${{ github.event.release.name != '' }}
         run: |
           echo "Triggered by a release publication event (wet run)"
@@ -71,12 +72,10 @@ jobs:
           script/package
 
       - name: 🚀 Upload mas.pkg
-        uses: actions/upload-artifact@v3
         if: ${{ env.DRY_RUN == 'false' }}
-        with:
-          if-no-files-found: error
-          name: mas.pkg
-          path: .build/mas.pkg
+        run: |
+          gh release upload ${MAS_VERSION} \
+            .build/mas.pkg
 
   homebrew-core:
     runs-on: macos-14
@@ -119,10 +118,7 @@ jobs:
           script/bottle
 
       - name: 🚀 Upload Bottles
-        uses: actions/upload-artifact@v3
         if: ${{ env.DRY_RUN == 'false' }}
-        with:
-          if-no-files-found: error
-          name: homebrew-bottles
-          path: |
+        run: |
+          gh release upload ${MAS_VERSION} \
             .build/bottles/mas-*.bottle.tar.gz
