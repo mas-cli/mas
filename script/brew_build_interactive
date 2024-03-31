@@ -1,0 +1,11 @@
+#!/bin/bash -e
+#
+# script/brew_build_interactive
+# mas
+#
+# https://docs.brew.sh/Formula-Cookbook#check-the-build-system
+#
+
+HOMEBREW_NO_INSTALL_FROM_API=1 \
+  brew reinstall \
+  --interactive mas

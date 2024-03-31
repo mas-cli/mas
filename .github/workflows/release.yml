@@ -1,0 +1,113 @@
+#
+# .github/workflows/release.yml
+#
+---
+name: release
+defaults:
+  run:
+    # Prefixes all `run` commands with the following command to force them to run outside Rosetta.
+    shell: arch -arm64 bash --noprofile --norc -eo pipefail {0}
+on:
+  release:
+    types: [published]
+jobs:
+  start:
+    runs-on: macos-14
+    steps:
+      # Logs event details and sets `DRY_RUN` env var
+      # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
+      # https://docs.github.com/en/webhooks/webhook-events-and-payloads?actionType=published#release
+      - name: 🔈 Log release event
+        # This step will only run for a real 'release' event.
+        if: ${{ github.event.release.name != '' }}
+        run: |
+          echo "Triggered by a release publication event (wet run)"
+          echo "release.name: ${{ github.event.release.name }}"
+          echo "release.tag_name: ${{ github.event.release.tag_name }}"
+          echo "release.target_commitish: ${{ github.event.release.target_commitish }}"
+          echo -e "release.body: \n${{ github.event.release.body }}"
+
+          echo "DRY_RUN=false" >>$GITHUB_ENV
+          echo "MAS_VERSION=${{ github.event.release.tag_name }}" >>${GITHUB_ENV}
+          echo "RELEASE_COMMIT=${{ github.event.release.target_commitish }}" >>${GITHUB_ENV}
+
+      - name: 🔈 Log environment variables
+        run: |
+          echo "DRY_RUN: ${DRY_RUN}"
+          echo "MAS_VERSION: ${MAS_VERSION}"
+          echo "RELEASE_COMMIT: ${RELEASE_COMMIT}"
+
+  pkg-installer:
+    runs-on: macos-14
+    needs: start
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # A fetch-depth of 0 includes all history and tags for script/version
+          fetch-depth: 0
+
+      - name: 👢 Bootstrap
+        run: |
+          script/bootstrap -f
+
+      # Important to trigger a universal build first as package just works with
+      # the `mas` binary in finds in the build dir.
+      - name: 🏗️ Build Universal
+        run: |
+          script/build --universal
+
+      - name: 📦 macOS Package
+        run: |
+          script/package
+
+      - name: 🚀 Upload mas.pkg
+        if: ${{ env.DRY_RUN == 'false' }}
+        run: |
+          gh release upload ${MAS_VERSION} \
+            .build/mas.pkg
+
+  homebrew-core:
+    runs-on: macos-14
+    needs: start
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # A fetch-depth of 0 includes all history and tags for script/version
+          fetch-depth: 0
+
+      - name: 👢 Bootstrap
+        run: |
+          script/bootstrap -f
+
+      - name: 🍺 Update Homebrew mas formula
+        run: |
+          DRY_RUN=${{ env.DRY_RUN }} \
+            script/brew_core_update ${{ env.MAS_VERSION }}
+
+  homebrew-tap:
+    runs-on: macos-14
+    needs: [start, homebrew-core]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # A fetch-depth of 0 includes all history and tags for script/version
+          fetch-depth: 0
+
+      - name: 👢 Bootstrap
+        run: |
+          script/bootstrap -f
+
+      - name: 🚰 Update mas tap formula
+        run: |
+          DRY_RUN=${{ env.DRY_RUN }} \
+            script/brew_tap_update ${{ env.MAS_VERSION }}
+
+      - name: 🍼 Homebrew Bottles for mas tap
+        run: |
+          script/bottle
+
+      - name: 🚀 Upload Bottles
+        if: ${{ env.DRY_RUN == 'false' }}
+        run: |
+          gh release upload ${MAS_VERSION} \
+            .build/bottles/mas-*.bottle.tar.gz

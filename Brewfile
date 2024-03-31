@@ -1,4 +1,6 @@
 brew "markdownlint-cli"
+brew "mise"
+brew "sd"
 brew "shellcheck"
 brew "shfmt"
 brew "swiftformat"

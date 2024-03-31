@@ -12,21 +12,13 @@
 
 echo "==> 🚨 Linting mas"
 
-for LINTER in git markdownlint periphery shfmt swiftformat swiftlint; do
+for LINTER in git markdownlint periphery shfmt swiftformat swiftlint yamllint; do
   if [[ ! -x "$(command -v ${LINTER})" ]]; then
     echo "error: ${LINTER} is not installed. Run 'script/bootstrap' or 'brew install ${LINTER}'."
     exit 1
   fi
 done
 
-echo "--> 🌳 Git"
-git diff --check
-
-echo
-echo "--> 🖊 Markdown"
-markdownlint --config .markdownlint.json .github .
-
-echo
 echo "--> 🕊️ Swift"
 for SOURCE in Package.swift Sources Tests; do
   swiftformat --lint ${SOURCE}
@@ -35,7 +27,20 @@ for SOURCE in Package.swift Sources Tests; do
 done
 periphery scan
 
-echo
+echo "--> 🌳 Git"
+git diff --check
+
+echo "--> 〽️ Markdown"
+markdownlint --config .markdownlint.json .github .
+
+echo "--> 🖊 YAML"
+yamllint .
+
 echo "--> 📜 Bash"
 shellcheck --shell=bash script/*
-shfmt -d -i 2 -l contrib/ script/
+shfmt \
+  --diff \
+  --list \
+  --indent 2 \
+  --case-indent \
+  contrib/ script/
