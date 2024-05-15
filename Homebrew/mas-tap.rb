@@ -33,6 +33,7 @@ class Mas < Formula
 
     bash_completion.install "contrib/completion/mas-completion.bash" => "mas"
     fish_completion.install "contrib/completion/mas.fish"
+    zsh_completion.install "contrib/completion/mas-completion.zsh" => "_mas"
   end
 
   test do
