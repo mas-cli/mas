@@ -6,6 +6,7 @@
 #
 ---
 disabled_rules:
+- non_optional_string_data_conversion
   - trailing_comma
 excluded:
   - docs
