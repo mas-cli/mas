@@ -68,7 +68,7 @@ jobs:
 
   homebrew-tap:
     runs-on: macos-14
-    needs: [start, homebrew-core]
+    needs: [start]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -96,7 +96,7 @@ jobs:
 
   homebrew-core:
     runs-on: macos-14
-    needs: start
+    needs: [start, homebrew-tap]
     steps:
       - uses: actions/checkout@v4
         with:
