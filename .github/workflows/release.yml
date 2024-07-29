@@ -66,24 +66,6 @@ jobs:
           gh release upload ${MAS_VERSION} \
             .build/mas.pkg
 
-  homebrew-core:
-    runs-on: macos-14
-    needs: start
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          # A fetch-depth of 0 includes all history and tags for script/version
-          fetch-depth: 0
-
-      - name: 👢 Bootstrap
-        run: |
-          script/bootstrap -f
-
-      - name: 🍺 Update Homebrew mas formula
-        run: |
-          DRY_RUN=${{ env.DRY_RUN }} \
-            script/brew_core_update ${{ env.MAS_VERSION }}
-
   homebrew-tap:
     runs-on: macos-14
     needs: [start, homebrew-core]
@@ -111,3 +93,22 @@ jobs:
         run: |
           gh release upload ${MAS_VERSION} \
             .build/bottles/mas-*.bottle.tar.gz
+
+  homebrew-core:
+    runs-on: macos-14
+    needs: start
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # A fetch-depth of 0 includes all history and tags for script/version
+          fetch-depth: 0
+
+      - name: 👢 Bootstrap
+        run: |
+          script/bootstrap -f
+
+      - name: 🍺 Update Homebrew mas formula
+        run: |
+          DRY_RUN=${{ env.DRY_RUN }} \
+            script/brew_core_update ${{ env.MAS_VERSION }}
+
