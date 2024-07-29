@@ -28,13 +28,14 @@
 .rubygems/
 .secrets
 .swiftpm/
+.vscode/
 Carthage/
 DerivedData
 Pods/
 Temporary Items
 bin/
 build/
-gha/
 default.profraw
+gha/
 releases/
 xcuserdata
