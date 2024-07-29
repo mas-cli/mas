@@ -84,10 +84,6 @@ jobs:
           DRY_RUN=${{ env.DRY_RUN }} \
             script/brew_tap_update ${{ env.MAS_VERSION }}
 
-      - name: 🍼 Homebrew Bottles for mas tap
-        run: |
-          script/bottle
-
       - name: 🚀 Upload Bottles
         if: ${{ env.DRY_RUN == 'false' }}
         run: |
