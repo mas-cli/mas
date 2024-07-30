@@ -29,12 +29,14 @@ jobs:
 
           echo "DRY_RUN=false" >>$GITHUB_ENV
           echo "MAS_VERSION=${{ github.event.release.tag_name }}" >>${GITHUB_ENV}
+          echo "RELEASE_BRANCH=releases/release-${{ MAS_VERSION }}" >>${GITHUB_ENV}
           echo "RELEASE_COMMIT=${{ github.event.release.target_commitish }}" >>${GITHUB_ENV}
 
       - name: 🔈 Log environment variables
         run: |
           echo "DRY_RUN: ${DRY_RUN}"
           echo "MAS_VERSION: ${MAS_VERSION}"
+          echo "RELEASE_BRANCH: ${RELEASE_BRANCH}"
           echo "RELEASE_COMMIT: ${RELEASE_COMMIT}"
 
   version-update:
