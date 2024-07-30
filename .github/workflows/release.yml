@@ -29,17 +29,15 @@ jobs:
 
           echo "DRY_RUN=false" >>$GITHUB_ENV
           echo "MAS_VERSION=${{ github.event.release.tag_name }}" >>${GITHUB_ENV}
-          echo "RELEASE_BRANCH=releases/release-${{ MAS_VERSION }}" >>${GITHUB_ENV}
           echo "RELEASE_COMMIT=${{ github.event.release.target_commitish }}" >>${GITHUB_ENV}
 
       - name: 🔈 Log environment variables
         run: |
           echo "DRY_RUN: ${DRY_RUN}"
           echo "MAS_VERSION: ${MAS_VERSION}"
-          echo "RELEASE_BRANCH: ${RELEASE_BRANCH}"
           echo "RELEASE_COMMIT: ${RELEASE_COMMIT}"
 
-  version-update:
+  prepare-release:
     runs-on: macos-14
     needs: [start]
     steps:
@@ -48,24 +46,39 @@ jobs:
           # A fetch-depth of 0 includes all history and tags for script/version
           fetch-depth: 0
 
-      - name: 🔖 version
+      - name: 🔀 Create release branch
+        run: |
+          branch_name="releases/release-${MAS_VERSION}"
+          echo "RELEASE_BRANCH=${branch_name}" >>${GITHUB_ENV}
+          git branch "${branch_name}"
+          git switch "${branch_name}"
+
+      - name: 🔖 Update version
         run: |
           script/version_bump "${MAS_VERSION}" "${RELEASE_COMMIT}"
 
-# branch_name="releases/release-${MAS_VERSION}"
-# $echo git branch "${branch_name}"
-# $echo git switch "${branch_name}"
+      - name: 💾 Commit changes
+        run: |
+          git add \
+            "Homebrew/mas.rb" \
+            "Homebrew/mas-tap.rb" \
+            "Sources/MasKit/Package.swift"
+          git commit \
+            --message="🔖 Version ${MAS_VERSION}"
 
-# $echo git add \
-#   "${SWIFT_PACKAGE}" \
-#   "${LOCAL_MAS_FORMULA_PATH}" \
-#   "${LOCAL_TAP_FORMULA_PATH}"
-
-# $echo git commit --message="🔖 Version ${MAS_VERSION}"
+      - name: ⤴️ Open PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr create \
+            --base main \
+            --head "${RELEASE_BRANCH}" \
+            --title "🔖 Version ${MAS_VERSION}" \
+            --body "This PR contains the changes from releasing version [${MAS_VERSION}](https://github.com/mas-cli/mas/releases/tag/${MAS_VERSION})."
 
   pkg-installer:
     runs-on: macos-14
-    needs: [version-update]
+    needs: [prepare-release]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -94,7 +107,7 @@ jobs:
 
   homebrew-tap:
     runs-on: macos-14
-    needs: [version-update]
+    needs: [prepare-release]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -118,7 +131,7 @@ jobs:
 
   homebrew-core:
     runs-on: macos-14
-    needs: [version-update, homebrew-tap]
+    needs: [prepare-release, homebrew-tap]
     steps:
       - uses: actions/checkout@v4
         with:

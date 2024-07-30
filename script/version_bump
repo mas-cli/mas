@@ -7,9 +7,9 @@
 #
 
 PROJECT_PATH="$(git rev-parse --show-toplevel)"
-SWIFT_PACKAGE="${PROJECT_PATH}/Sources/MasKit/Package.swift"
 LOCAL_MAS_FORMULA_PATH="${PROJECT_PATH}/Homebrew/mas.rb"
 LOCAL_TAP_FORMULA_PATH="${PROJECT_PATH}/Homebrew/mas-tap.rb"
+SWIFT_PACKAGE="${PROJECT_PATH}/Sources/MasKit/Package.swift"
 
 function usage {
   echo "Usage: version_bump v0.0 [sha1_hash]"
