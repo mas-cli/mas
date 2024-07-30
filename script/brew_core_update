@@ -14,9 +14,7 @@ CORE_FORMULA_PATH="${CORE_TAP_PATH}/Formula/"
 CORE_MAS_FORMULA_PATH="${CORE_FORMULA_PATH}/m/mas.rb"
 
 PROJECT_PATH="$(git rev-parse --show-toplevel)"
-SWIFT_PACKAGE="${PROJECT_PATH}/Sources/MasKit/Package.swift"
 LOCAL_MAS_FORMULA_PATH="${PROJECT_PATH}/Homebrew/mas.rb"
-LOCAL_TAP_FORMULA_PATH="${PROJECT_PATH}/Homebrew/mas-tap.rb"
 
 function usage {
   echo "Usage: brew_core_update [-d] v0.0 [sha1_hash]"
@@ -73,24 +71,6 @@ else
 fi
 
 echo "REVISION: ${REVISION}"
-
-################################################################################
-#
-# Update Version
-#
-
-script/version_bump "${MAS_VERSION}" "${REVISION}"
-
-branch_name="releases/release-${MAS_VERSION}"
-$echo git branch "${branch_name}"
-$echo git switch "${branch_name}"
-
-$echo git add \
-  "${SWIFT_PACKAGE}" \
-  "${LOCAL_MAS_FORMULA_PATH}" \
-  "${LOCAL_TAP_FORMULA_PATH}"
-
-$echo git commit --message="🔖 Version ${MAS_VERSION}"
 
 ################################################################################
 #

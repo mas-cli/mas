@@ -37,9 +37,33 @@ jobs:
           echo "MAS_VERSION: ${MAS_VERSION}"
           echo "RELEASE_COMMIT: ${RELEASE_COMMIT}"
 
+  version-update:
+    runs-on: macos-14
+    needs: [start]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # A fetch-depth of 0 includes all history and tags for script/version
+          fetch-depth: 0
+
+      - name: 🔖 version
+        run: |
+          script/version_bump "${MAS_VERSION}" "${RELEASE_COMMIT}"
+
+# branch_name="releases/release-${MAS_VERSION}"
+# $echo git branch "${branch_name}"
+# $echo git switch "${branch_name}"
+
+# $echo git add \
+#   "${SWIFT_PACKAGE}" \
+#   "${LOCAL_MAS_FORMULA_PATH}" \
+#   "${LOCAL_TAP_FORMULA_PATH}"
+
+# $echo git commit --message="🔖 Version ${MAS_VERSION}"
+
   pkg-installer:
     runs-on: macos-14
-    needs: start
+    needs: [version-update]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -68,7 +92,7 @@ jobs:
 
   homebrew-tap:
     runs-on: macos-14
-    needs: [start]
+    needs: [version-update]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -92,7 +116,7 @@ jobs:
 
   homebrew-core:
     runs-on: macos-14
-    needs: [start, homebrew-tap]
+    needs: [version-update, homebrew-tap]
     steps:
       - uses: actions/checkout@v4
         with:
