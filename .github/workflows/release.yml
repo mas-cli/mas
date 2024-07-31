@@ -180,6 +180,7 @@ jobs:
 
       - name: 🍺 Update Homebrew mas formula
         env:
+          GH_TOKEN: ${{ github.token }}
           DRY_RUN: ${{ needs.start.outputs.dry_run }}
           MAS_VERSION: ${{ needs.start.outputs.mas_version }}
         run: |
