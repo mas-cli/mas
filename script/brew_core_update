@@ -169,14 +169,3 @@ $echo brew bump-formula-pr \
   mas
 
 popd
-
-################################################################################
-#
-# Create pr on mas-cli/mas
-#
-
-$echo gh pr create \
-  --assignee phatblat \
-  --base main \
-  --draft \
-  --fill
