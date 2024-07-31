@@ -109,6 +109,7 @@ jobs:
         with:
           # A fetch-depth of 0 includes all history and tags for script/version
           fetch-depth: 0
+          ref: ${{ needs.start.outputs.release_branch }}
 
       - name: 👢 Bootstrap
         run: |
@@ -142,6 +143,7 @@ jobs:
         with:
           # A fetch-depth of 0 includes all history and tags for script/version
           fetch-depth: 0
+          ref: ${{ needs.start.outputs.release_branch }}
 
       - name: 👢 Bootstrap
         run: |
@@ -173,6 +175,7 @@ jobs:
         with:
           # A fetch-depth of 0 includes all history and tags for script/version
           fetch-depth: 0
+          ref: ${{ needs.start.outputs.release_branch }}
 
       - name: 👢 Bootstrap
         run: |
