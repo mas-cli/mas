@@ -57,6 +57,10 @@ jobs:
           # A fetch-depth of 0 includes all history and tags for script/version
           fetch-depth: 0
 
+      - name: 👢 Bootstrap
+        run: |
+          script/bootstrap -f
+
       - name: 🔀 Create release branch
         env:
           RELEASE_BRANCH: ${{ needs.start.outputs.release_branch }}
