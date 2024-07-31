@@ -78,6 +78,7 @@ jobs:
       - name: 💾 Commit changes
         env:
           MAS_VERSION: ${{ needs.start.outputs.mas_version }}
+          RELEASE_BRANCH: ${{ needs.start.outputs.release_branch }}
         run: |
           git add \
             "Homebrew/mas.rb" \
@@ -85,6 +86,8 @@ jobs:
             "Sources/MasKit/Package.swift"
           git commit \
             --message="🔖 Version ${MAS_VERSION}"
+          git push \
+            --set-upstream origin "${RELEASE_BRANCH}"
 
       - name: ⤴️ Open PR
         env:
