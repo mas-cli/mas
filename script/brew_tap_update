@@ -95,21 +95,3 @@ popd
 
 # Build in mas project
 script/bottle
-
-################################################################################
-#
-# Create PR on mas-cli/homebrew-tap
-#
-
-pushd "${MAS_TAP_PATH}"
-
-$echo gh pr create \
-  --assignee phatblat \
-  --base main \
-  --draft \
-  --head "${branch_name}" \
-  --title "🔖 Version ${MAS_VERSION}" \
-  --body "This PR contains the changes from releasing version [${MAS_VERSION}](https://github.com/mas-cli/mas/releases/tag/${MAS_VERSION})."
-
-
-popd
