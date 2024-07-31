@@ -89,8 +89,6 @@ $echo git add \
 
 $echo git commit --message="🔖 Version ${MAS_VERSION}"
 
-$echo git push --set-upstream origin "${branch_name}"
-
 popd
 
 # Build in mas project

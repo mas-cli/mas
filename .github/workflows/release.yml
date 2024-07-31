@@ -158,14 +158,16 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           DRY_RUN: ${{ needs.start.outputs.dry_run }}
+          RELEASE_BRANCH: ${{ needs.start.outputs.release_branch }}
           MAS_VERSION: ${{ needs.start.outputs.mas_version }}
         run: |
           cd "$(brew --repository mas-cli/tap)"
+          git push --set-upstream origin "${RELEASE_BRANCH}"
           gh pr create \
             --assignee phatblat \
             --base main \
             --draft \
-            --head "${branch_name}" \
+            --head "${RELEASE_BRANCH}" \
             --title "🔖 Version ${MAS_VERSION}" \
             --body "This PR contains the changes from releasing version [${MAS_VERSION}](https://github.com/mas-cli/mas/releases/tag/${MAS_VERSION})."
 
