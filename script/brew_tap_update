@@ -67,14 +67,6 @@ echo "REVISION: ${REVISION}"
 
 ################################################################################
 #
-# Update Version
-#
-
-branch_name="releases/release-${MAS_VERSION}"
-$echo git switch "${branch_name}"
-
-################################################################################
-#
 # Create branch on mas-cli/homebrew-tap
 #
 
@@ -97,6 +89,8 @@ $echo git add \
 
 $echo git commit --message="🔖 Version ${MAS_VERSION}"
 
+$echo git push --set-upstream origin "${branch_name}"
+
 popd
 
 # Build in mas project
@@ -113,6 +107,9 @@ $echo gh pr create \
   --assignee phatblat \
   --base main \
   --draft \
-  --fill
+  --head "${branch_name}" \
+  --title "🔖 Version ${MAS_VERSION}" \
+  --body "This PR contains the changes from releasing version [${MAS_VERSION}](https://github.com/mas-cli/mas/releases/tag/${MAS_VERSION})."
+
 
 popd
