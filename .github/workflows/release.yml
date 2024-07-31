@@ -61,15 +61,15 @@ jobs:
         env:
           RELEASE_BRANCH: ${{ needs.start.outputs.release_branch }}
         run: |
-          git branch "${{ env.RELEASE_BRANCH }}"
-          git switch "${{ env.RELEASE_BRANCH }}"
+          git branch "${RELEASE_BRANCH}"
+          git switch "${RELEASE_BRANCH}"
 
       - name: 🔖 Update version
         env:
           MAS_VERSION: ${{ needs.start.outputs.mas_version }}
           RELEASE_COMMIT: ${{ needs.start.outputs.release_commit }}
         run: |
-          script/version_bump "${{ env.MAS_VERSION }}" "${{ env.RELEASE_COMMIT }}"
+          script/version_bump "${MAS_VERSION}" "${RELEASE_COMMIT}"
 
       - name: 💾 Commit changes
         env:
@@ -80,7 +80,7 @@ jobs:
             "Homebrew/mas-tap.rb" \
             "Sources/MasKit/Package.swift"
           git commit \
-            --message="🔖 Version ${{ env.MAS_VERSION }}"
+            --message="🔖 Version ${MAS_VERSION}"
 
       - name: ⤴️ Open PR
         env:
@@ -90,9 +90,9 @@ jobs:
         run: |
           gh pr create \
             --base main \
-            --head "${{ env.RELEASE_BRANCH }}" \
-            --title "🔖 Version ${{ env.MAS_VERSION }}" \
-            --body "This PR contains the changes from releasing version [${{ env.MAS_VERSION }}](https://github.com/mas-cli/mas/releases/tag/${{ env.MAS_VERSION }})."
+            --head "${RELEASE_BRANCH}" \
+            --title "🔖 Version ${MAS_VERSION}" \
+            --body "This PR contains the changes from releasing version [${MAS_VERSION}](https://github.com/mas-cli/mas/releases/tag/${MAS_VERSION})."
 
   pkg-installer:
     runs-on: macos-14
@@ -123,7 +123,7 @@ jobs:
           MAS_VERSION: ${{ needs.start.outputs.mas_version }}
         if: ${{ needs.start.outputs.dry_run == 'false' }}
         run: |
-          gh release upload ${{ env.MAS_VERSION }} \
+          gh release upload ${MAS_VERSION} \
             .build/mas.pkg
 
   homebrew-tap:
@@ -144,8 +144,8 @@ jobs:
           DRY_RUN: ${{ needs.start.outputs.dry_run }}
           MAS_VERSION: ${{ needs.start.outputs.mas_version }}
         run: |
-          DRY_RUN=${{ env.DRY_RUN }} \
-            script/brew_tap_update ${{ env.MAS_VERSION }}
+          DRY_RUN=${DRY_RUN} \
+            script/brew_tap_update ${MAS_VERSION}
 
       - name: 🚀 Upload Bottles
         env:
@@ -153,7 +153,7 @@ jobs:
           MAS_VERSION: ${{ needs.start.outputs.mas_version }}
         if: ${{ needs.start.outputs.dry_run == 'false' }}
         run: |
-          gh release upload ${{ env.MAS_VERSION }} \
+          gh release upload ${MAS_VERSION} \
             .build/bottles/mas-*.bottle.tar.gz
 
   homebrew-core:
@@ -174,6 +174,6 @@ jobs:
           DRY_RUN: ${{ needs.start.outputs.dry_run }}
           MAS_VERSION: ${{ needs.start.outputs.mas_version }}
         run: |
-          DRY_RUN=${{ env.DRY_RUN }} \
-            script/brew_core_update ${{ env.MAS_VERSION }}
+          DRY_RUN=${DRY_RUN} \
+            script/brew_core_update ${MAS_VERSION}
 
