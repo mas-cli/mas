@@ -56,7 +56,7 @@ jobs:
         run: |
           script/bootstrap -f
 
-      - name: 🔀 Create release branch
+      - name: 🔀 Create mas release branch
         env:
           RELEASE_BRANCH: ${{ needs.start.outputs.release_branch }}
         run: |
@@ -83,7 +83,7 @@ jobs:
           git push \
             --set-upstream origin "${RELEASE_BRANCH}"
 
-      - name: ⤴️ Open PR
+      - name: ⤴️ Open release PR
         env:
           GH_TOKEN: ${{ github.token }}
           MAS_VERSION: ${{ needs.start.outputs.mas_version }}
@@ -145,23 +145,25 @@ jobs:
         run: |
           script/bootstrap -f
 
-      - name: 🚰 Update mas tap formula
-        env:
-          GH_TOKEN: ${{ github.token }}
-          DRY_RUN: ${{ needs.start.outputs.dry_run }}
-          MAS_VERSION: ${{ needs.start.outputs.mas_version }}
-        run: |
-          DRY_RUN=${DRY_RUN} \
-            script/brew_tap_update ${MAS_VERSION}
-
-      - name: Open mas tap PR
+      - name: ⤴️ Open mas tap PR
         env:
           GH_TOKEN: ${{ github.token }}
           DRY_RUN: ${{ needs.start.outputs.dry_run }}
           RELEASE_BRANCH: ${{ needs.start.outputs.release_branch }}
           MAS_VERSION: ${{ needs.start.outputs.mas_version }}
         run: |
+          brew tap mas-cli/tap
           cd "$(brew --repository mas-cli/tap)"
+          git branch "${RELEASE_BRANCH}"
+          git switch "${RELEASE_BRANCH}"
+
+          cp -v \
+            ${GITHUB_WORKSPACE}/Homebrew/mas-tap.rb \
+            Formula/mas.rb
+
+          git add Formula/mas.rb
+          git commit --message="🔖 Version ${MAS_VERSION}"
+
           git push --set-upstream origin "${RELEASE_BRANCH}"
           gh pr create \
             --assignee phatblat \
@@ -170,6 +172,15 @@ jobs:
             --head "${RELEASE_BRANCH}" \
             --title "🔖 Version ${MAS_VERSION}" \
             --body "This PR contains the changes from releasing version [${MAS_VERSION}](https://github.com/mas-cli/mas/releases/tag/${MAS_VERSION})."
+
+      - name: 🚰 Update mas tap formula
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DRY_RUN: ${{ needs.start.outputs.dry_run }}
+          MAS_VERSION: ${{ needs.start.outputs.mas_version }}
+        run: |
+          DRY_RUN=${DRY_RUN} \
+            script/brew_tap_update ${MAS_VERSION}
 
       - name: 🚀 Upload Bottles
         env:

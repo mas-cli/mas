@@ -10,8 +10,7 @@
 #
 
 CORE_TAP_PATH="$(brew --repository homebrew/core)"
-CORE_FORMULA_PATH="${CORE_TAP_PATH}/Formula/"
-CORE_MAS_FORMULA_PATH="${CORE_FORMULA_PATH}/m/mas.rb"
+CORE_MAS_FORMULA_FILE="${CORE_TAP_PATH}/Formula/m/mas.rb"
 
 PROJECT_PATH="$(git rev-parse --show-toplevel)"
 LOCAL_MAS_FORMULA_PATH="${PROJECT_PATH}/Homebrew/mas.rb"
@@ -99,7 +98,7 @@ brew update
 #
 
 # Update mas formula in core (temporary)
-cp -v "${LOCAL_MAS_FORMULA_PATH}" "${CORE_MAS_FORMULA_PATH}"
+cp -v "${LOCAL_MAS_FORMULA_PATH}" "${CORE_MAS_FORMULA_FILE}"
 
 # Install mas from source
 # HOMEBREW_NO_INSTALL_FROM_API:
@@ -127,7 +126,7 @@ popd
 #
 
 # echo "Checking to see if this update can be a simple bump."
-# diff "${LOCAL_MAS_FORMULA_PATH}" "${CORE_MAS_FORMULA_PATH}"
+# diff "${LOCAL_MAS_FORMULA_PATH}" "${CORE_MAS_FORMULA_FILE}"
 
 echo "==> 🧪 Updating homebrew-core formula mas (${MAS_VERSION}, ${REVISION})"
 
@@ -154,7 +153,7 @@ if [[ $dry_run == '-d' ]]; then
   exit 0
 fi
 
-pushd "${CORE_FORMULA_PATH}"
+pushd "${CORE_TAP_PATH}"
 
 echo "Updating homebrew/core formula with a PR"
 

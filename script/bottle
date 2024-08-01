@@ -82,18 +82,18 @@ OLD_FILENAME="mas--${MAS_VERSION}.${CURRENT_PLATFORM}.bottle.tar.gz"
 # Preflight checks
 #
 
-# Uninstall if necessary
-brew remove mas 2>/dev/null || true
-brew remove mas-cli/tap/mas 2>/dev/null || true
+# # Uninstall if necessary
+# brew remove mas 2>/dev/null || true
+# brew remove mas-cli/tap/mas 2>/dev/null || true
 
-# Uninstall if still found on path
-if command -v mas >/dev/null; then
-  script/uninstall || true
-fi
+# # Uninstall if still found on path
+# if command -v mas >/dev/null; then
+#   script/uninstall || true
+# fi
 
 # Use formula from custom tap
-brew tap mas-cli/tap
-brew update
+# brew tap mas-cli/tap
+# brew update
 
 # Audit formula
 brew audit --strict mas-cli/tap/mas
@@ -159,5 +159,3 @@ EOF
 rm "${OLD_FILENAME}"
 ls -l "${BOTTLE_DIR}"
 echo "${BOTTLE_BLOCK}"
-
-brew remove mas-cli/tap/mas

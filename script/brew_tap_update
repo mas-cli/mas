@@ -8,7 +8,7 @@
 #
 
 MAS_TAP_PATH="$(brew --repository mas-cli/tap)"
-MAS_TAP_PATH_FORMULA="${MAS_TAP_PATH}/Formula/mas.rb"
+MAS_TAP_FORMULA_FILE="${MAS_TAP_PATH}/Formula/mas.rb"
 
 PROJECT_PATH="$(git rev-parse --show-toplevel)"
 LOCAL_TAP_FORMULA_PATH="${PROJECT_PATH}/Homebrew/mas-tap.rb"
@@ -64,32 +64,6 @@ else
 fi
 
 echo "REVISION: ${REVISION}"
-
-################################################################################
-#
-# Create branch on mas-cli/homebrew-tap
-#
-
-# Ensure mas is tapped
-if ! [[ -d "${MAS_TAP_PATH}" ]]; then
-  brew tap mas-cli/tap
-fi
-
-pushd "${MAS_TAP_PATH}"
-
-branch_name="releases/release-${MAS_VERSION}"
-$echo git branch "${branch_name}"
-$echo git switch "${branch_name}"
-
-# Update tap formula version
-cp -v "${LOCAL_TAP_FORMULA_PATH}" "${MAS_TAP_PATH_FORMULA}"
-
-$echo git add \
-  "${MAS_TAP_PATH_FORMULA}"
-
-$echo git commit --message="🔖 Version ${MAS_VERSION}"
-
-popd
 
 # Build in mas project
 script/bottle
