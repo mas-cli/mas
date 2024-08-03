@@ -165,9 +165,11 @@ jobs:
           DRY_RUN: ${{ needs.start.outputs.dry_run }}
           RELEASE_BRANCH: ${{ needs.start.outputs.release_branch }}
           MAS_VERSION: ${{ needs.start.outputs.mas_version }}
+        working-directory: mas-tap
         run: |
-          brew tap mas-cli/tap
-          cd "$(brew --repository mas-cli/tap)"
+          ln -s . "$(brew --repository mas-cli/tap)"
+          brew tap
+
           git branch "${RELEASE_BRANCH}"
           git switch "${RELEASE_BRANCH}"
 
