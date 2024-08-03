@@ -167,7 +167,8 @@ jobs:
           MAS_VERSION: ${{ needs.start.outputs.mas_version }}
         working-directory: mas-tap
         run: |
-          ln -s . "$(brew --repository mas-cli/tap)"
+          mkdir -p "$(brew --repository)/Library/Taps/mas-cli"
+          ln -s . "$(brew --repository)/Library/Taps/mas-cli/homebrew-tap"
           brew tap
 
           git branch "${RELEASE_BRANCH}"
