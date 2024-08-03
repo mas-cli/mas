@@ -135,7 +135,8 @@ jobs:
     runs-on: macos-14
     needs: [start, prepare-release]
     steps:
-      - uses: actions/checkout@v4
+      - name: 📺 Checkout mas repo
+        uses: actions/checkout@v4
         with:
           # A fetch-depth of 0 includes all history and tags for script/version
           fetch-depth: 0
@@ -145,9 +146,19 @@ jobs:
         run: |
           script/bootstrap -f
 
+      - name: 🔧 Configure Git Credentials
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
+      - name: 🚰 Checkout mas tap
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.start.outputs.release_branch }}
+
       - name: ⤴️ Open mas tap PR
         env:
-          GH_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
           DRY_RUN: ${{ needs.start.outputs.dry_run }}
           RELEASE_BRANCH: ${{ needs.start.outputs.release_branch }}
           MAS_VERSION: ${{ needs.start.outputs.mas_version }}
@@ -164,7 +175,9 @@ jobs:
           git add Formula/mas.rb
           git commit --message="🔖 Version ${MAS_VERSION}"
 
-          git push --set-upstream origin "${RELEASE_BRANCH}"
+          git push \
+            --set-upstream origin "${RELEASE_BRANCH}"
+
           gh pr create \
             --assignee phatblat \
             --base main \
