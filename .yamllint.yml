@@ -1,0 +1,17 @@
+# https://yamllint.readthedocs.io/en/stable/configuration.html#default-configuration
+---
+extends: default
+locale: en_US.UTF-8
+
+ignore-from-file: .gitignore
+
+rules:
+  line-length:
+    max: 120
+    level: warning
+  # https://yamllint.readthedocs.io/en/stable/rules.html#module-yamllint.rules.truthy
+  truthy:
+    allowed-values: ["true", "false"]
+    check-keys: false
+    # Disables fallse positives on GHA workflow `on:`
+    level: warning
