@@ -154,7 +154,10 @@ jobs:
       - name: 🚰 Checkout mas tap
         uses: actions/checkout@v4
         with:
-          ref: ${{ needs.start.outputs.release_branch }}
+          repository: mas-cli/homebrew-tap
+          token: ${{ secrets.DEPLOY_TOKEN }}
+          # Relative path under $GITHUB_WORKSPACE to place the repository
+          path: mas-tap
 
       - name: ⤴️ Open mas tap PR
         env:
