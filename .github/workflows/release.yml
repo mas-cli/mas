@@ -157,6 +157,7 @@ jobs:
         run: |
           brew tap mas-cli/tap
           rm -rf /opt/homebrew/Library/Taps/mas-cli/homebrew-tap
+          ln -s /opt/homebrew/Library/Taps Taps
 
       # Checkout with a token for write access
       - name: 🚰 Re-clone mas tap
@@ -165,7 +166,7 @@ jobs:
           repository: mas-cli/homebrew-tap
           token: ${{ secrets.DEPLOY_TOKEN }}
           # brew --repository mas-cli/tap
-          path: /opt/homebrew/Library/Taps/mas-cli/homebrew-tap
+          path: Taps/mas-cli/homebrew-tap
 
       - name: ⤴️ Open mas tap PR
         env:
