@@ -148,16 +148,24 @@ jobs:
 
       - name: 🔧 Configure Git Credentials
         run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
 
+      # This is necessary to avoid the following error:
+      # Error: No available formula or cask with the name "mas-cli/tap/mas".
       - name: 🚰 Checkout mas tap
+        run: |
+          brew tap mas-cli/tap
+          rm -rf /opt/homebrew/Library/Taps/mas-cli/homebrew-tap
+
+      # Checkout with a token for write access
+      - name: 🚰 Re-clone mas tap
         uses: actions/checkout@v4
         with:
           repository: mas-cli/homebrew-tap
           token: ${{ secrets.DEPLOY_TOKEN }}
-          # Relative path under $GITHUB_WORKSPACE to place the repository
-          path: mas-tap
+          # brew --repository mas-cli/tap
+          path: /opt/homebrew/Library/Taps/mas-cli/homebrew-tap
 
       - name: ⤴️ Open mas tap PR
         env:
@@ -165,12 +173,8 @@ jobs:
           DRY_RUN: ${{ needs.start.outputs.dry_run }}
           RELEASE_BRANCH: ${{ needs.start.outputs.release_branch }}
           MAS_VERSION: ${{ needs.start.outputs.mas_version }}
-        working-directory: mas-tap
+        working-directory: /opt/homebrew/Library/Taps/mas-cli/homebrew-tap
         run: |
-          mkdir -p "$(brew --repository)/Library/Taps/mas-cli"
-          ln -s . "$(brew --repository)/Library/Taps/mas-cli/homebrew-tap"
-          brew tap
-
           git branch "${RELEASE_BRANCH}"
           git switch "${RELEASE_BRANCH}"
 
