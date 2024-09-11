@@ -29,14 +29,6 @@ public class HomeCommandSpec: QuickSpec {
             beforeEach {
                 storeSearch.reset()
             }
-            it("fails to open app with invalid ID") {
-                let result = cmd.run(HomeCommand.Options(appId: -999))
-                expect(result)
-                    .to(
-                        beFailure { error in
-                            expect(error) == .searchFailed
-                        })
-            }
             it("can't find app with unknown ID") {
                 let result = cmd.run(HomeCommand.Options(appId: 999))
                 expect(result)

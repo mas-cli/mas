@@ -35,7 +35,7 @@ public class OpenCommandSpec: QuickSpec {
                 expect(result)
                     .to(
                         beFailure { error in
-                            expect(error) == .searchFailed
+                            expect(error) == .noSearchResultsFound
                         })
             }
             it("can't find app with unknown ID") {

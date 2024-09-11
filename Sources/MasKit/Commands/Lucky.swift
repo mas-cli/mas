@@ -42,7 +42,7 @@ public struct LuckyCommand: CommandProtocol {
 
     /// Runs the command.
     public func run(_ options: Options) -> Result<Void, MASError> {
-        var appId: Int?
+        var appId: UInt64?
 
         do {
             let results = try storeSearch.search(for: options.appName).wait()

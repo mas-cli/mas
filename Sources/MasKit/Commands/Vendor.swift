@@ -70,10 +70,10 @@ public struct VendorCommand: CommandProtocol {
 }
 
 public struct VendorOptions: OptionsProtocol {
-    let appId: Int
+    let appId: UInt64
 
     static func create(_ appId: Int) -> VendorOptions {
-        VendorOptions(appId: appId)
+        VendorOptions(appId: UInt64(appId))
     }
 
     public static func evaluate(_ mode: CommandMode) -> Result<VendorOptions, CommandantError<MASError>> {
