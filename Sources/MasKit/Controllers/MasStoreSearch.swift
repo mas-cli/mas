@@ -108,7 +108,7 @@ class MasStoreSearch: StoreSearch {
             do {
                 return try JSONDecoder().decode(SearchResultList.self, from: data).results
             } catch {
-                throw MASError.jsonParsing(error: error as NSError)
+                throw MASError.jsonParsing(data: data)
             }
         }
     }
@@ -122,8 +122,9 @@ class MasStoreSearch: StoreSearch {
         firstly {
             networkManager.loadData(from: pageUrl)
         }.map { data in
-            let html = String(decoding: data, as: UTF8.self)
-            guard let capture = MasStoreSearch.appVersionExpression.firstMatch(in: html)?.captures[0],
+            let html = String(data: data, encoding: .utf8)
+            guard let html,
+                let capture = MasStoreSearch.appVersionExpression.firstMatch(in: html)?.captures[0],
                 let version = Version(tolerant: capture)
             else {
                 return nil
