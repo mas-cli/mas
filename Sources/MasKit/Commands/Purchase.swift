@@ -29,12 +29,6 @@ public struct PurchaseCommand: CommandProtocol {
 
     /// Runs the command.
     public func run(_ options: Options) -> Result<Void, MASError> {
-        if #available(macOS 10.15, *) {
-            // Purchases are no longer possible as of Catalina.
-            // https://github.com/mas-cli/mas/issues/289
-            return .failure(.notSupported)
-        }
-
         // Try to download applications with given identifiers and collect results
         let appIds = options.appIds.filter { appId in
             if let product = appLibrary.installedApp(forId: appId) {
