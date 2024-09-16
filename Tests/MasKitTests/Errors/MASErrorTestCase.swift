@@ -122,7 +122,7 @@ class MASErrorTestCase: XCTestCase {
     }
 
     func testJsonParsing() {
-        error = .jsonParsing(error: nil)
-        XCTAssertEqual(error.description, "Unable to parse response JSON")
+        error = .jsonParsing(data: nil)
+        XCTAssertEqual(error.description, "Received empty response")
     }
 }
