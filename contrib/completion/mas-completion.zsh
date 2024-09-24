@@ -16,24 +16,24 @@ _mas() {
           ;;
         home|info|open|vendor)
           _arguments -C \
-            '1:availableIDs:__mas_list_available_ids' \
+            '1:availableIDs:__mas_list_installed_ids' \
             && ret=0
           ;;
         install)
           _arguments -C \
             '--force[Force reinstall]' \
-            '*:availableIDs:__mas_list_available_ids' \
+            '*:availableIDs:' \
             && ret=0
           ;;
         purchase)
           _arguments -C \
-            '*:availableIDs:__mas_list_available_ids' \
+            '*:availableIDs:' \
             && ret=0
           ;;
         lucky)
           _arguments -C \
             '--force[Force reinstall]' \
-            '1:name:__mas_list_available' \
+            '1:name:__mas_list_available_names' \
             && ret=0
           ;;
         reset)
@@ -44,7 +44,7 @@ _mas() {
         search)
           _arguments -C \
             '--price[Show price of found apps]' \
-            '1:name:__mas_list_available' \
+            '1:name:__mas_list_available_names' \
             && ret=0
           ;;
         signin)
@@ -103,58 +103,66 @@ __mas_subcommands() {
   _describe -t commands 'command' commands "$@"
 }
 
-__mas_list_available_ids() {
+__mas_list_available_names() {
   _alternative \
-    'searchedIDs:apps:__mas_search_ids' \
-    'installedIDs:apps:__mas_list_installed_ids'
-}
-
-__mas_list_available() {
-  _alternative \
-    'ids:apps:__mas_list_available_ids' \
     'searchedNames:apps:__mas_search_names' \
     'installedNames:apps:__mas_list_installed_names'
 }
 
-__mas_search_ids() {
-  [[ -z "$words[-1]" ]] && return
-
-  local -a searchIDs=(${(f)"$(__mas_filter_ids "$(mas search $words[-1] 2>/dev/null)")"})
-  _describe -t searchIDs 'search' searchIDs "$@"
-}
-
+# Autocomplete for the names returned by searching for the current word
 __mas_search_names() {
-  [[ -z "$words[-1]" ]] && return
+  # Don't search if no query has been entered
+  [[ -z "${(Q)words[-1]}" ]] && return
 
-  local -a searchNames=(${(f)"$(__mas_filter_names "$(mas search $words[-1] 2>/dev/null)")"})
+  local -a searchNames=("${(f)"$(__mas_filter_names "$(mas search ${(Q)words[-1]} 2>/dev/null)")"}")
   _describe -t searchNames 'search' searchNames "$@"
 }
 
-__mas_list_outdated() {
-  local -a outdated=(${(f)"$(__mas_filter_ids "$(mas outdated 2>/dev/null)")"} ${(f)"$(__mas_filter_names "$(mas outdated 2>/dev/null)")"})
-  _describe -t outdated 'outdated' outdated "$@"
-}
-
-__mas_list_installed_ids() {
-  local -a installedIDs=(${(f)"$(__mas_filter_ids "$(mas list 2>/dev/null)")"})
-  _describe -t installedIDs 'installed' installedIDs "$@"
-}
-
+# Autocomplete for the names of installed apps
 __mas_list_installed_names() {
-  local -a installedNames=(${(f)"$(__mas_filter_names "$(mas list 2>/dev/null)")"})
+  local -a installedNames=("${(f)"$(__mas_filter_names "$(mas list 2>/dev/null)")"}")
   _describe -t installedNames 'installed' installedNames "$@"
 }
 
+# Autocomplete for the ids of installed apps
+__mas_list_installed_ids() {
+  local -A installedApps=("${(f)"$(__mas_filter_descriptive_ids "$(mas list 2>/dev/null)")"}")
+  local -a installedIDs=("${(f)"$(printf '%s:%s\n' "${(@kv)installedApps}")"}")
+  _describe -t installedIDs 'installed' installedIDs "$@"
+}
+
+# Autocomplete for the ids or names of installed apps
+__mas_list_outdated() {
+  local -A unfilteredOutdated=(
+    "${(f)"$(__mas_filter_descriptive_ids "$(mas outdated 2>/dev/null)")"}"
+  )
+
+  # Exclude apps which have already been stated
+  local -a previousApps=(${(Q@)words:1})
+  local -a outdated=()
+
+  for id name in ${(kv)unfilteredOutdated}; do
+    local -a searchValues=( "$id" "$name" )
+    [[ ${#previousApps:*searchValues} == 0 ]] && outdated+=( "$id:$name" "$name" )
+  done
+
+  _describe -t outdated 'outdated' outdated "$@"
+}
+
+# Extract app names
 __mas_filter_names() {
-  __mas_strip_price "$1" | sed -nEe 's/^[[:space:]]*[0-9\-]+[[:space:]]+//pg'
+  local -A apps=("${(f)$(__mas_filter_descriptive_ids "$1")}")
+  printf "${(F)apps}"
 }
 
-__mas_filter_ids() {
-  __mas_strip_price "$1" | sed -nEe 's/^[[:space:]]*([0-9\-]+)[[:space:]]*(.*)/\1:\2/pg'
+# Extract app ids as an alternating, new-line seperated list of id and name, designed to be used to create an associative array.
+__mas_filter_descriptive_ids() {
+  printf ${(QF)${(*fqqq)"$(__mas_isolate_id_and_name "$1")"}/ ##/\\n}
 }
 
-__mas_strip_price() {
-  echo "$1" | sed -nEe 's/[[:space:]]+\(.*\).*$//pg' | sed 's/:/\\:/g'
+# Remove leading spaces and the trailing version from the list of apps returned by mas
+__mas_isolate_id_and_name() {
+  printf ${(*F)${${(*@)${(f)1}%% ##\([^(]##}//:/\\:}## ##}
 }
 
 if [[ $zsh_eval_context[-1] == loadautofunc ]]; then
