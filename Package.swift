@@ -75,30 +75,3 @@ let package = Package(
     ],
     swiftLanguageVersions: [.v5]
 )
-
-// https://github.com/apple/swift-format#matching-swift-format-to-your-swift-version-swift-57-and-earlier
-#if compiler(>=5.8)
-    package.dependencies += [
-        .package(url: "https://github.com/apple/swift-format", .branch("release/5.9"))
-    ]
-#elseif compiler(>=5.7)
-    package.dependencies += [
-        .package(url: "https://github.com/apple/swift-format", .branch("release/5.7"))
-    ]
-#elseif compiler(>=5.6)
-    package.dependencies += [
-        .package(url: "https://github.com/apple/swift-format", .branch("release/5.6"))
-    ]
-#elseif compiler(>=5.5)
-    package.dependencies += [
-        .package(url: "https://github.com/apple/swift-format", .branch("swift-5.5-branch"))
-    ]
-#elseif compiler(>=5.4)
-    package.dependencies += [
-        .package(url: "https://github.com/apple/swift-format", .branch("swift-5.4-branch"))
-    ]
-#elseif compiler(>=5.3)
-    package.dependencies += [
-        .package(url: "https://github.com/apple/swift-format", .branch("swift-5.3-branch"))
-    ]
-#endif
