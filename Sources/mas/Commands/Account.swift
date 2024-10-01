@@ -14,8 +14,6 @@ public struct AccountCommand: CommandProtocol {
     public let verb = "account"
     public let function = "Prints the primary account Apple ID"
 
-    public init() {}
-
     /// Runs the command.
     public func run(_: Options) -> Result<Void, MASError> {
         if #available(macOS 12, *) {

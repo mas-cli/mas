@@ -21,8 +21,6 @@ class OpenSystemCommandMock: ExternalCommand {
     var stdoutPipe = Pipe()
     var stderrPipe = Pipe()
 
-    init() {}
-
     func run(arguments: String...) throws {
         self.arguments = arguments
     }
