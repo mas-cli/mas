@@ -6,25 +6,35 @@
 //  Copyright © 2016 Andrew Naylor. All rights reserved.
 //
 
-import Commandant
+import ArgumentParser
 import CommerceKit
 
-public struct SignOutCommand: CommandProtocol {
-    public typealias Options = NoOptions<MASError>
-    public let verb = "signout"
-    public let function = "Sign out of the Mac App Store"
+extension Mas {
+    struct SignOut: ParsableCommand {
+        static let configuration = CommandConfiguration(
+            commandName: "signout",
+            abstract: "Sign out of the Mac App Store"
+        )
 
-    /// Runs the command.
-    public func run(_: Options) -> Result<Void, MASError> {
-        if #available(macOS 10.13, *) {
-            let accountService: ISAccountService = ISServiceProxy.genericShared().accountService
-            accountService.signOut()
-        } else {
-            // Using CKAccountStore to sign out does nothing on High Sierra
-            // https://github.com/mas-cli/mas/issues/129
-            CKAccountStore.shared().signOut()
+        /// Runs the command.
+        func run() throws {
+            let result = runInternal()
+            if case .failure = result {
+                try result.get()
+            }
         }
 
-        return .success(())
+        func runInternal() -> Result<Void, MASError> {
+            if #available(macOS 10.13, *) {
+                let accountService: ISAccountService = ISServiceProxy.genericShared().accountService
+                accountService.signOut()
+            } else {
+                // Using CKAccountStore to sign out does nothing on High Sierra
+                // https://github.com/mas-cli/mas/issues/129
+                CKAccountStore.shared().signOut()
+            }
+
+            return .success(())
+        }
     }
 }

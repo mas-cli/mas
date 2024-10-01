@@ -1,5 +1,5 @@
 //
-//  UninstallCommandSpec.swift
+//  UninstallSpec.swift
 //  masTests
 //
 //  Created by Ben Chatelain on 2018-12-27.
@@ -12,7 +12,7 @@ import Quick
 
 @testable import mas
 
-public class UninstallCommandSpec: QuickSpec {
+public class UninstallSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
             Mas.initialize()
@@ -27,60 +27,69 @@ public class UninstallCommandSpec: QuickSpec {
                 itemIdentifier: NSNumber(value: appId)
             )
             let mockLibrary = AppLibraryMock()
-            let uninstall = UninstallCommand(appLibrary: mockLibrary)
 
             context("dry run") {
-                let options = UninstallCommand.Options(appId: appId, dryRun: true)
+                let uninstall = try! Mas.Uninstall.parse(["--dry-run", String(appId)])
 
                 beforeEach {
                     mockLibrary.reset()
                 }
                 it("can't remove a missing app") {
-                    let result = uninstall.run(options)
-                    expect(result)
-                        .to(
-                            beFailure { error in
-                                expect(error) == .notInstalled
-                            })
+                    expect {
+                        uninstall.run(appLibrary: mockLibrary)
+                    }
+                    .to(
+                        beFailure { error in
+                            expect(error) == .notInstalled
+                        }
+                    )
                 }
                 it("finds an app") {
                     mockLibrary.installedApps.append(app)
 
-                    let result = uninstall.run(options)
-                    expect(result).to(beSuccess())
+                    expect {
+                        uninstall.run(appLibrary: mockLibrary)
+                    }
+                    .to(beSuccess())
                 }
             }
             context("wet run") {
-                let options = UninstallCommand.Options(appId: appId, dryRun: false)
+                let uninstall = try! Mas.Uninstall.parse([String(appId)])
 
                 beforeEach {
                     mockLibrary.reset()
                 }
                 it("can't remove a missing app") {
-                    let result = uninstall.run(options)
-                    expect(result)
-                        .to(
-                            beFailure { error in
-                                expect(error) == .notInstalled
-                            })
+                    expect {
+                        uninstall.run(appLibrary: mockLibrary)
+                    }
+                    .to(
+                        beFailure { error in
+                            expect(error) == .notInstalled
+                        }
+                    )
                 }
                 it("removes an app") {
                     mockLibrary.installedApps.append(app)
 
-                    let result = uninstall.run(options)
-                    expect(result).to(beSuccess())
+                    expect {
+                        uninstall.run(appLibrary: mockLibrary)
+                    }
+                    .to(beSuccess())
                 }
                 it("fails if there is a problem with the trash command") {
                     var brokenUninstall = app  // make mutable copy
                     brokenUninstall.bundlePath = "/dev/null"
                     mockLibrary.installedApps.append(brokenUninstall)
 
-                    let result = uninstall.run(options)
-                    expect(result)
-                        .to(
-                            beFailure { error in
-                                expect(error) == .uninstallFailed
-                            })
+                    expect {
+                        uninstall.run(appLibrary: mockLibrary)
+                    }
+                    .to(
+                        beFailure { error in
+                            expect(error) == .uninstallFailed
+                        }
+                    )
                 }
             }
         }

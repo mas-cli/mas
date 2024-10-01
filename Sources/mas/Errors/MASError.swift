@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum MASError: Error, Equatable {
+enum MASError: Error, Equatable {
     case notSupported
 
     case notSignedIn
@@ -33,7 +33,7 @@ public enum MASError: Error, Equatable {
 
 // MARK: - CustomStringConvertible
 extension MASError: CustomStringConvertible {
-    public var description: String {
+    var description: String {
         switch self {
         case .notSignedIn:
             return "Not signed in"

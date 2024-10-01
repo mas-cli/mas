@@ -91,7 +91,7 @@ func printInfo(_ message: String) {
 }
 
 /// Prints a message to stderr prefixed with "Warning:" underlined in yellow.
-public func printWarning(_ message: String) {
+func printWarning(_ message: String) {
     guard isatty(fileno(stderr)) != 0 else {
         print("Warning: \(message)", to: &standardError)
         return
@@ -102,7 +102,7 @@ public func printWarning(_ message: String) {
 }
 
 /// Prints a message to stderr prefixed with "Error:" underlined in red.
-public func printError(_ message: String) {
+func printError(_ message: String) {
     guard isatty(fileno(stderr)) != 0 else {
         print("Error: \(message)", to: &standardError)
         return

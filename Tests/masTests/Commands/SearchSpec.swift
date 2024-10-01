@@ -1,5 +1,5 @@
 //
-//  SearchCommandSpec.swift
+//  SearchSpec.swift
 //  masTests
 //
 //  Created by Ben Chatelain on 2018-12-28.
@@ -11,7 +11,7 @@ import Quick
 
 @testable import mas
 
-public class SearchCommandSpec: QuickSpec {
+public class SearchSpec: QuickSpec {
     override public func spec() {
         let result = SearchResult(
             trackId: 1111,
@@ -30,21 +30,20 @@ public class SearchCommandSpec: QuickSpec {
             }
             it("can find slack") {
                 storeSearch.apps[result.trackId] = result
-
-                let search = SearchCommand(storeSearch: storeSearch)
-                let searchOptions = SearchOptions(appName: "slack", price: false)
-                let result = search.run(searchOptions)
-                expect(result).to(beSuccess())
+                expect {
+                    try Mas.Search.parse(["slack"]).run(storeSearch: storeSearch)
+                }
+                .to(beSuccess())
             }
             it("fails when searching for nonexistent app") {
-                let search = SearchCommand(storeSearch: storeSearch)
-                let searchOptions = SearchOptions(appName: "nonexistent", price: false)
-                let result = search.run(searchOptions)
-                expect(result)
-                    .to(
-                        beFailure { error in
-                            expect(error) == .noSearchResultsFound
-                        })
+                expect {
+                    try Mas.Search.parse(["nonexistent"]).run(storeSearch: storeSearch)
+                }
+                .to(
+                    beFailure { error in
+                        expect(error) == .noSearchResultsFound
+                    }
+                )
             }
         }
     }

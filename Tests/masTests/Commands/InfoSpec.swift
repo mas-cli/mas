@@ -1,5 +1,5 @@
 //
-//  InfoCommandSpec.swift
+//  InfoSpec.swift
 //  masTests
 //
 //  Created by Ben Chatelain on 2018-12-28.
@@ -11,7 +11,7 @@ import Quick
 
 @testable import mas
 
-public class InfoCommandSpec: QuickSpec {
+public class InfoSpec: QuickSpec {
     override public func spec() {
         let result = SearchResult(
             currentVersionReleaseDate: "2019-01-07T18:53:13Z",
@@ -25,7 +25,6 @@ public class InfoCommandSpec: QuickSpec {
             version: "1.0"
         )
         let storeSearch = StoreSearchMock()
-        let cmd = InfoCommand(storeSearch: storeSearch)
         let expectedOutput = """
             Awesome App 1.0 [2.0]
             By: Awesome Dev
@@ -44,28 +43,33 @@ public class InfoCommandSpec: QuickSpec {
                 storeSearch.reset()
             }
             it("fails to open app with invalid ID") {
-                let result = cmd.run(InfoCommand.Options(appId: -999))
-                expect(result)
-                    .to(
-                        beFailure { error in
-                            expect(error) == .searchFailed
-                        })
+                expect {
+                    try Mas.Info.parse(["--", "-999"]).run(storeSearch: storeSearch)
+                }
+                .to(
+                    beFailure { error in
+                        expect(error) == .searchFailed
+                    }
+                )
             }
             it("can't find app with unknown ID") {
-                let result = cmd.run(InfoCommand.Options(appId: 999))
-                expect(result)
-                    .to(
-                        beFailure { error in
-                            expect(error) == .noSearchResultsFound
-                        })
+                expect {
+                    try Mas.Info.parse(["999"]).run(storeSearch: storeSearch)
+                }
+                .to(
+                    beFailure { error in
+                        expect(error) == .noSearchResultsFound
+                    }
+                )
             }
             it("displays app details") {
                 storeSearch.apps[result.trackId] = result
                 let output = OutputListener()
 
-                let result = cmd.run(InfoCommand.Options(appId: result.trackId))
-
-                expect(result).to(beSuccess())
+                expect {
+                    try Mas.Info.parse([String(result.trackId)]).run(storeSearch: storeSearch)
+                }
+                .to(beSuccess())
                 expect(output.contents) == expectedOutput
             }
         }

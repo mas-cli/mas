@@ -1,5 +1,5 @@
 //
-//  SignInCommandSpec.swift
+//  SignInSpec.swift
 //  masTests
 //
 //  Created by Ben Chatelain on 2018-12-28.
@@ -12,7 +12,7 @@ import Quick
 @testable import mas
 
 // Deprecated test
-public class SignInCommandSpec: QuickSpec {
+public class SignInSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
             Mas.initialize()
@@ -20,9 +20,10 @@ public class SignInCommandSpec: QuickSpec {
         // account command disabled since macOS 10.13 High Sierra https://github.com/mas-cli/mas#%EF%B8%8F-known-issues
         xdescribe("signin command") {
             xit("signs in") {
-                let cmd = SignInCommand()
-                let result = cmd.run(SignInCommand.Options(username: "", password: "", dialog: false))
-                expect(result).to(beSuccess())
+                expect {
+                    try Mas.SignIn.parse(["", ""]).runInternal()
+                }
+                .to(beSuccess())
             }
         }
     }

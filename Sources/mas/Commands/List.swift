@@ -6,39 +6,34 @@
 //  Copyright (c) 2015 Andrew Naylor. All rights reserved.
 //
 
-import Commandant
+import ArgumentParser
 
-/// Command which lists all installed apps.
-public struct ListCommand: CommandProtocol {
-    public typealias Options = NoOptions<MASError>
-    public let verb = "list"
-    public let function = "Lists apps from the Mac App Store which are currently installed"
+extension Mas {
+    /// Command which lists all installed apps.
+    struct List: ParsableCommand {
+        static let configuration = CommandConfiguration(
+            abstract: "Lists apps from the Mac App Store which are currently installed"
+        )
 
-    private let appLibrary: AppLibrary
-
-    /// Public initializer.
-    /// - Parameter appLibrary: AppLibrary manager.
-    public init() {
-        self.init(appLibrary: MasAppLibrary())
-    }
-
-    /// Internal initializer.
-    /// - Parameter appLibrary: AppLibrary manager.
-    init(appLibrary: AppLibrary = MasAppLibrary()) {
-        self.appLibrary = appLibrary
-    }
-
-    /// Runs the command.
-    public func run(_: Options) -> Result<Void, MASError> {
-        let products = appLibrary.installedApps
-        if products.isEmpty {
-            printError("No installed apps found")
-            return .success(())
+        /// Runs the command.
+        func run() throws {
+            let result = run(appLibrary: MasAppLibrary())
+            if case .failure = result {
+                try result.get()
+            }
         }
 
-        let output = AppListFormatter.format(products: products)
-        print(output)
+        func run(appLibrary: AppLibrary) -> Result<Void, MASError> {
+            let products = appLibrary.installedApps
+            if products.isEmpty {
+                printError("No installed apps found")
+                return .success(())
+            }
 
-        return .success(())
+            let output = AppListFormatter.format(products: products)
+            print(output)
+
+            return .success(())
+        }
     }
 }

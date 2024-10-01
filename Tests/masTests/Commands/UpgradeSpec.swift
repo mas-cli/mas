@@ -1,5 +1,5 @@
 //
-//  UpgradeCommandSpec.swift
+//  UpgradeSpec.swift
 //  masTests
 //
 //  Created by Ben Chatelain on 2018-12-28.
@@ -11,16 +11,17 @@ import Quick
 
 @testable import mas
 
-public class UpgradeCommandSpec: QuickSpec {
+public class UpgradeSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
             Mas.initialize()
         }
         describe("upgrade command") {
             it("upgrades stuff") {
-                let cmd = UpgradeCommand()
-                let result = cmd.run(UpgradeCommand.Options(apps: [""]))
-                expect(result).to(beSuccess())
+                expect {
+                    try Mas.Upgrade.parse([]).run(appLibrary: AppLibraryMock(), storeSearch: StoreSearchMock())
+                }
+                .to(beSuccess())
             }
         }
     }

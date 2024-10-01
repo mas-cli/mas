@@ -1,5 +1,5 @@
 //
-//  OutdatedCommandSpec.swift
+//  OutdatedSpec.swift
 //  masTests
 //
 //  Created by Ben Chatelain on 2018-12-28.
@@ -11,17 +11,18 @@ import Quick
 
 @testable import mas
 
-public class OutdatedCommandSpec: QuickSpec {
+public class OutdatedSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
             Mas.initialize()
         }
         describe("outdated command") {
             it("displays apps with pending updates") {
-                let cmd = OutdatedCommand()
-                let result = cmd.run(OutdatedCommand.Options(verbose: true))
-                print(result)
-                expect(result).to(beSuccess())
+                expect {
+                    try Mas.Outdated.parse(["--verbose"])
+                        .run(appLibrary: AppLibraryMock(), storeSearch: StoreSearchMock())
+                }
+                .to(beSuccess())
             }
         }
     }

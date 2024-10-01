@@ -1,5 +1,5 @@
 //
-//  VendorCommandSpec.swift
+//  VendorSpec.swift
 //  masTests
 //
 //  Created by Ben Chatelain on 2019-01-03.
@@ -11,7 +11,7 @@ import Quick
 
 @testable import mas
 
-public class VendorCommandSpec: QuickSpec {
+public class VendorSpec: QuickSpec {
     override public func spec() {
         let result = SearchResult(
             trackId: 1111,
@@ -20,7 +20,6 @@ public class VendorCommandSpec: QuickSpec {
         )
         let storeSearch = StoreSearchMock()
         let openCommand = OpenSystemCommandMock()
-        let cmd = VendorCommand(storeSearch: storeSearch, openCommand: openCommand)
 
         beforeSuite {
             Mas.initialize()
@@ -30,26 +29,32 @@ public class VendorCommandSpec: QuickSpec {
                 storeSearch.reset()
             }
             it("fails to open app with invalid ID") {
-                let result = cmd.run(VendorCommand.Options(appId: -999))
-                expect(result)
-                    .to(
-                        beFailure { error in
-                            expect(error) == .searchFailed
-                        })
+                expect {
+                    try Mas.Vendor.parse(["--", "-999"]).run(storeSearch: storeSearch, openCommand: openCommand)
+                }
+                .to(
+                    beFailure { error in
+                        expect(error) == .searchFailed
+                    }
+                )
             }
             it("can't find app with unknown ID") {
-                let result = cmd.run(VendorCommand.Options(appId: 999))
-                expect(result)
-                    .to(
-                        beFailure { error in
-                            expect(error) == .noSearchResultsFound
-                        })
+                expect {
+                    try Mas.Vendor.parse(["999"]).run(storeSearch: storeSearch, openCommand: openCommand)
+                }
+                .to(
+                    beFailure { error in
+                        expect(error) == .noSearchResultsFound
+                    }
+                )
             }
             it("opens vendor app page in browser") {
                 storeSearch.apps[result.trackId] = result
-
-                let cmdResult = cmd.run(VendorCommand.Options(appId: result.trackId))
-                expect(cmdResult).to(beSuccess())
+                expect {
+                    try Mas.Vendor.parse([String(result.trackId)])
+                        .run(storeSearch: storeSearch, openCommand: openCommand)
+                }
+                .to(beSuccess())
                 expect(openCommand.arguments).toNot(beNil())
                 expect(openCommand.arguments!.first!) == result.sellerUrl
             }

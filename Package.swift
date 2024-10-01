@@ -17,11 +17,11 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(url: "https://github.com/Carthage/Commandant.git", from: "0.18.0"),
         .package(url: "https://github.com/Quick/Nimble.git", from: "10.0.0"),
         .package(url: "https://github.com/Quick/Quick.git", from: "5.0.0"),
-        .package(url: "https://github.com/mxcl/PromiseKit.git", from: "6.16.2"),
-        .package(url: "https://github.com/mxcl/Version.git", from: "2.0.1"),
+        .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.5.0"),
+        .package(url: "https://github.com/mxcl/PromiseKit.git", from: "6.22.1"),
+        .package(url: "https://github.com/mxcl/Version.git", from: "2.1.0"),
         .package(url: "https://github.com/sharplet/Regex.git", from: "2.1.1"),
     ],
     targets: [
@@ -30,7 +30,7 @@ let package = Package(
         .executableTarget(
             name: "mas",
             dependencies: [
-                "Commandant",
+                .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 "PromiseKit",
                 "Regex",
                 "Version",
@@ -61,30 +61,3 @@ let package = Package(
     ],
     swiftLanguageVersions: [.v5]
 )
-
-// https://github.com/apple/swift-format#matching-swift-format-to-your-swift-version-swift-57-and-earlier
-#if compiler(>=5.8)
-    package.dependencies += [
-        .package(url: "https://github.com/apple/swift-format", .branch("release/5.9"))
-    ]
-#elseif compiler(>=5.7)
-    package.dependencies += [
-        .package(url: "https://github.com/apple/swift-format", .branch("release/5.7"))
-    ]
-#elseif compiler(>=5.6)
-    package.dependencies += [
-        .package(url: "https://github.com/apple/swift-format", .branch("release/5.6"))
-    ]
-#elseif compiler(>=5.5)
-    package.dependencies += [
-        .package(url: "https://github.com/apple/swift-format", .branch("swift-5.5-branch"))
-    ]
-#elseif compiler(>=5.4)
-    package.dependencies += [
-        .package(url: "https://github.com/apple/swift-format", .branch("swift-5.4-branch"))
-    ]
-#elseif compiler(>=5.3)
-    package.dependencies += [
-        .package(url: "https://github.com/apple/swift-format", .branch("swift-5.3-branch"))
-    ]
-#endif
