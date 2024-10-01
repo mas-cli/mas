@@ -1,5 +1,5 @@
 //
-//  OpenCommandSpec.swift
+//  OpenSpec.swift
 //  masTests
 //
 //  Created by Ben Chatelain on 2019-01-03.
@@ -12,7 +12,7 @@ import Quick
 
 @testable import mas
 
-public class OpenCommandSpec: QuickSpec {
+public class OpenSpec: QuickSpec {
     override public func spec() {
         let result = SearchResult(
             trackId: 1111,
@@ -21,7 +21,6 @@ public class OpenCommandSpec: QuickSpec {
         )
         let storeSearch = StoreSearchMock()
         let openCommand = OpenSystemCommandMock()
-        let cmd = OpenCommand(storeSearch: storeSearch, openCommand: openCommand)
 
         beforeSuite {
             Mas.initialize()
@@ -31,34 +30,43 @@ public class OpenCommandSpec: QuickSpec {
                 storeSearch.reset()
             }
             it("fails to open app with invalid ID") {
-                let result = cmd.run(OpenCommand.Options(appId: "-999"))
-                expect(result)
-                    .to(
-                        beFailure { error in
-                            expect(error) == .searchFailed
-                        })
+                expect {
+                    try Mas.Open.parse(["--", "-999"]).run(storeSearch: storeSearch, openCommand: openCommand)
+                }
+                .to(
+                    beFailure { error in
+                        expect(error) == .searchFailed
+                    }
+                )
             }
             it("can't find app with unknown ID") {
-                let result = cmd.run(OpenCommand.Options(appId: "999"))
-                expect(result)
-                    .to(
-                        beFailure { error in
-                            expect(error) == .noSearchResultsFound
-                        })
+                expect {
+                    try Mas.Open.parse(["999"]).run(storeSearch: storeSearch, openCommand: openCommand)
+                }
+                .to(
+                    beFailure { error in
+                        expect(error) == .noSearchResultsFound
+                    }
+                )
             }
             it("opens app in MAS") {
                 storeSearch.apps[result.trackId] = result
 
-                let cmdResult = cmd.run(OpenCommand.Options(appId: result.trackId.description))
-                expect(cmdResult).to(beSuccess())
+                expect {
+                    try Mas.Open.parse([result.trackId.description])
+                        .run(storeSearch: storeSearch, openCommand: openCommand)
+                }
+                .to(beSuccess())
                 expect(openCommand.arguments).toNot(beNil())
                 let url = URL(string: openCommand.arguments!.first!)
                 expect(url).toNot(beNil())
                 expect(url?.scheme) == "macappstore"
             }
             it("just opens MAS if no app specified") {
-                let cmdResult = cmd.run(OpenCommand.Options(appId: "appstore"))
-                expect(cmdResult).to(beSuccess())
+                expect {
+                    try Mas.Open.parse(["appstore"]).run(storeSearch: storeSearch, openCommand: openCommand)
+                }
+                .to(beSuccess())
                 expect(openCommand.arguments).toNot(beNil())
                 let url = URL(string: openCommand.arguments!.first!)
                 expect(url).toNot(beNil())

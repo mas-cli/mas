@@ -6,62 +6,46 @@
 //  Copyright © 2016 Andrew Naylor. All rights reserved.
 //
 
-import Commandant
+import ArgumentParser
 
-/// Search the Mac App Store using the iTunes Search API:
-/// https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/
-public struct SearchCommand: CommandProtocol {
-    public typealias Options = SearchOptions
-    public let verb = "search"
-    public let function = "Search for apps from the Mac App Store"
+extension Mas {
+    /// Search the Mac App Store using the iTunes Search API:
+    /// https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/
+    struct Search: ParsableCommand {
+        static let configuration = CommandConfiguration(
+            abstract: "Search for apps from the Mac App Store"
+        )
 
-    private let storeSearch: StoreSearch
+        @Flag(help: "Show price of found apps")
+        var price = false
+        @Argument(help: "the app name to search")
+        var appName: String
 
-    public init() {
-        self.init(storeSearch: MasStoreSearch())
-    }
-
-    /// Designated initializer.
-    ///
-    /// - Parameter storeSearch: Search manager.
-    init(storeSearch: StoreSearch = MasStoreSearch()) {
-        self.storeSearch = storeSearch
-    }
-
-    public func run(_ options: Options) -> Result<Void, MASError> {
-        do {
-            let results = try storeSearch.search(for: options.appName).wait()
-            if results.isEmpty {
-                return .failure(.noSearchResultsFound)
+        func run() throws {
+            let result = run(storeSearch: MasStoreSearch())
+            if case .failure = result {
+                try result.get()
             }
+        }
 
-            let output = SearchResultFormatter.format(results: results, includePrice: options.price)
-            print(output)
+        func run(storeSearch: StoreSearch) -> Result<Void, MASError> {
+            do {
+                let results = try storeSearch.search(for: appName).wait()
+                if results.isEmpty {
+                    return .failure(.noSearchResultsFound)
+                }
 
-            return .success(())
-        } catch {
-            // Bubble up MASErrors
-            if let error = error as? MASError {
-                return .failure(error)
+                let output = SearchResultFormatter.format(results: results, includePrice: price)
+                print(output)
+
+                return .success(())
+            } catch {
+                // Bubble up MASErrors
+                if let error = error as? MASError {
+                    return .failure(error)
+                }
+                return .failure(.searchFailed)
             }
-            return .failure(.searchFailed)
         }
-    }
-}
-
-public struct SearchOptions: OptionsProtocol {
-    let appName: String
-    let price: Bool
-
-    public static func create(_ appName: String) -> (_ price: Bool) -> SearchOptions {
-        { price in
-            SearchOptions(appName: appName, price: price)
-        }
-    }
-
-    public static func evaluate(_ mode: CommandMode) -> Result<SearchOptions, CommandantError<MASError>> {
-        create
-            <*> mode <| Argument(usage: "the app name to search")
-            <*> mode <| Option(key: "price", defaultValue: false, usage: "Show price of found apps")
     }
 }

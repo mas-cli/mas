@@ -6,10 +6,39 @@
 //  Copyright © 2021 mas-cli. All rights reserved.
 //
 
+import ArgumentParser
 import PromiseKit
 
-public enum Mas {
-    public static func initialize() {
+@main
+struct Mas: ParsableCommand {
+    static let configuration = CommandConfiguration(
+        abstract: "Mac App Store command-line interface",
+        subcommands: [
+            Account.self,
+            Home.self,
+            Info.self,
+            Install.self,
+            List.self,
+            Lucky.self,
+            Open.self,
+            Outdated.self,
+            Purchase.self,
+            Reset.self,
+            Search.self,
+            SignIn.self,
+            SignOut.self,
+            Uninstall.self,
+            Upgrade.self,
+            Vendor.self,
+            Version.self,
+        ]
+    )
+
+    func validate() throws {
+        Mas.initialize()
+    }
+
+    static func initialize() {
         PromiseKit.conf.Q.map = .global()
         PromiseKit.conf.Q.return = .global()
         PromiseKit.conf.logHandler = { event in

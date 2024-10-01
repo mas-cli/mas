@@ -1,5 +1,5 @@
 //
-//  LuckyCommandSpec.swift
+//  LuckySpec.swift
 //  masTests
 //
 //  Created by Ben Chatelain on 2018-12-28.
@@ -11,7 +11,7 @@ import Quick
 
 @testable import mas
 
-public class LuckyCommandSpec: QuickSpec {
+public class LuckySpec: QuickSpec {
     override public func spec() {
         let networkSession = NetworkSessionMockFromFile(responseFile: "search/slack.json")
         let storeSearch = MasStoreSearch(networkManager: NetworkManager(session: networkSession))
@@ -21,9 +21,10 @@ public class LuckyCommandSpec: QuickSpec {
         }
         describe("lucky command") {
             xit("installs the first app matching a search") {
-                let cmd = LuckyCommand(storeSearch: storeSearch)
-                let result = cmd.run(LuckyCommand.Options(appName: "Slack", forceInstall: false))
-                expect(result).to(beSuccess())
+                expect {
+                    try Mas.Lucky.parse(["Slack"]).run(appLibrary: AppLibraryMock(), storeSearch: storeSearch)
+                }
+                .to(beSuccess())
             }
         }
     }

@@ -1,5 +1,5 @@
 //
-//  SignOutCommandSpec.swift
+//  SignOutSpec.swift
 //  masTests
 //
 //  Created by Ben Chatelain on 2018-12-28.
@@ -11,16 +11,17 @@ import Quick
 
 @testable import mas
 
-public class SignOutCommandSpec: QuickSpec {
+public class SignOutSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
             Mas.initialize()
         }
         describe("signout command") {
             it("signs out") {
-                let cmd = SignOutCommand()
-                let result = cmd.run(SignOutCommand.Options())
-                expect(result).to(beSuccess())
+                expect {
+                    try Mas.SignOut.parse([]).runInternal()
+                }
+                .to(beSuccess())
             }
         }
     }

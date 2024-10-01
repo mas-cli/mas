@@ -6,78 +6,57 @@
 //  Copyright © 2016 mas-cli. All rights reserved.
 //
 
-import Commandant
+import ArgumentParser
 
-/// Opens vendor's app page in a browser. Uses the iTunes Lookup API:
-/// https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/#lookup
-public struct VendorCommand: CommandProtocol {
-    public typealias Options = VendorOptions
-
-    public let verb = "vendor"
-    public let function = "Opens vendor's app page in a browser"
-
-    private let storeSearch: StoreSearch
-    private var openCommand: ExternalCommand
-
-    public init() {
-        self.init(
-            storeSearch: MasStoreSearch(),
-            openCommand: OpenSystemCommand()
+extension Mas {
+    /// Opens vendor's app page in a browser. Uses the iTunes Lookup API:
+    /// https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/#lookup
+    struct Vendor: ParsableCommand {
+        static let configuration = CommandConfiguration(
+            abstract: "Opens vendor's app page in a browser"
         )
-    }
 
-    /// Designated initializer.
-    init(
-        storeSearch: StoreSearch = MasStoreSearch(),
-        openCommand: ExternalCommand = OpenSystemCommand()
-    ) {
-        self.storeSearch = storeSearch
-        self.openCommand = openCommand
-    }
+        @Argument(help: "the app ID to show the vendor's website")
+        var appId: Int
 
-    /// Runs the command.
-    public func run(_ options: VendorOptions) -> Result<Void, MASError> {
-        do {
-            guard let result = try storeSearch.lookup(app: options.appId).wait()
-            else {
-                return .failure(.noSearchResultsFound)
+        /// Runs the command.
+        func run() throws {
+            let result = run(storeSearch: MasStoreSearch(), openCommand: OpenSystemCommand())
+            if case .failure = result {
+                try result.get()
             }
-
-            guard let vendorWebsite = result.sellerUrl
-            else { throw MASError.noVendorWebsite }
-
-            do {
-                try openCommand.run(arguments: vendorWebsite)
-            } catch {
-                printError("Unable to launch open command")
-                return .failure(.searchFailed)
-            }
-            if openCommand.failed {
-                let reason = openCommand.process.terminationReason
-                printError("Open failed: (\(reason)) \(openCommand.stderr)")
-                return .failure(.searchFailed)
-            }
-        } catch {
-            // Bubble up MASErrors
-            if let error = error as? MASError {
-                return .failure(error)
-            }
-            return .failure(.searchFailed)
         }
 
-        return .success(())
-    }
-}
+        func run(storeSearch: StoreSearch, openCommand: ExternalCommand) -> Result<Void, MASError> {
+            do {
+                guard let result = try storeSearch.lookup(app: appId).wait()
+                else {
+                    return .failure(.noSearchResultsFound)
+                }
 
-public struct VendorOptions: OptionsProtocol {
-    let appId: Int
+                guard let vendorWebsite = result.sellerUrl
+                else { throw MASError.noVendorWebsite }
 
-    static func create(_ appId: Int) -> VendorOptions {
-        VendorOptions(appId: appId)
-    }
+                do {
+                    try openCommand.run(arguments: vendorWebsite)
+                } catch {
+                    printError("Unable to launch open command")
+                    return .failure(.searchFailed)
+                }
+                if openCommand.failed {
+                    let reason = openCommand.process.terminationReason
+                    printError("Open failed: (\(reason)) \(openCommand.stderr)")
+                    return .failure(.searchFailed)
+                }
+            } catch {
+                // Bubble up MASErrors
+                if let error = error as? MASError {
+                    return .failure(error)
+                }
+                return .failure(.searchFailed)
+            }
 
-    public static func evaluate(_ mode: CommandMode) -> Result<VendorOptions, CommandantError<MASError>> {
-        create
-            <*> mode <| Argument(usage: "the app ID to show the vendor's website")
+            return .success(())
+        }
     }
 }

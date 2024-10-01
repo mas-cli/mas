@@ -6,17 +6,26 @@
 //  Copyright © 2015 Andrew Naylor. All rights reserved.
 //
 
-import Commandant
+import ArgumentParser
 
-/// Command which displays the version of the mas tool.
-public struct VersionCommand: CommandProtocol {
-    public typealias Options = NoOptions<MASError>
-    public let verb = "version"
-    public let function = "Print version number"
+extension Mas {
+    /// Command which displays the version of the mas tool.
+    struct Version: ParsableCommand {
+        static let configuration = CommandConfiguration(
+            abstract: "Print version number"
+        )
 
-    /// Runs the command.
-    public func run(_: Options) -> Result<Void, MASError> {
-        print(Package.version)
-        return .success(())
+        /// Runs the command.
+        func run() throws {
+            let result = runInternal()
+            if case .failure = result {
+                try result.get()
+            }
+        }
+
+        func runInternal() -> Result<Void, MASError> {
+            print(Package.version)
+            return .success(())
+        }
     }
 }

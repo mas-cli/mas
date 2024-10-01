@@ -1,5 +1,5 @@
 //
-//  ListCommandSpec.swift
+//  ListSpec.swift
 //  masTests
 //
 //  Created by Ben Chatelain on 2018-12-27.
@@ -11,16 +11,17 @@ import Quick
 
 @testable import mas
 
-public class ListCommandSpec: QuickSpec {
+public class ListSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
             Mas.initialize()
         }
         describe("list command") {
             it("lists apps") {
-                let list = ListCommand()
-                let result = list.run(ListCommand.Options())
-                expect(result).to(beSuccess())
+                expect {
+                    try Mas.List.parse([]).run(appLibrary: AppLibraryMock())
+                }
+                .to(beSuccess())
             }
         }
     }

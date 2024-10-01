@@ -1,5 +1,5 @@
 //
-//  HomeCommandSpec.swift
+//  HomeSpec.swift
 //  masTests
 //
 //  Created by Ben Chatelain on 2018-12-29.
@@ -11,7 +11,7 @@ import Quick
 
 @testable import mas
 
-public class HomeCommandSpec: QuickSpec {
+public class HomeSpec: QuickSpec {
     override public func spec() {
         let result = SearchResult(
             trackId: 1111,
@@ -20,7 +20,6 @@ public class HomeCommandSpec: QuickSpec {
         )
         let storeSearch = StoreSearchMock()
         let openCommand = OpenSystemCommandMock()
-        let cmd = HomeCommand(storeSearch: storeSearch, openCommand: openCommand)
 
         beforeSuite {
             Mas.initialize()
@@ -30,26 +29,32 @@ public class HomeCommandSpec: QuickSpec {
                 storeSearch.reset()
             }
             it("fails to open app with invalid ID") {
-                let result = cmd.run(HomeCommand.Options(appId: -999))
-                expect(result)
-                    .to(
-                        beFailure { error in
-                            expect(error) == .searchFailed
-                        })
+                expect {
+                    try Mas.Home.parse(["--", "-999"]).run(storeSearch: storeSearch, openCommand: openCommand)
+                }
+                .to(
+                    beFailure { error in
+                        expect(error) == .searchFailed
+                    }
+                )
             }
             it("can't find app with unknown ID") {
-                let result = cmd.run(HomeCommand.Options(appId: 999))
-                expect(result)
-                    .to(
-                        beFailure { error in
-                            expect(error) == .noSearchResultsFound
-                        })
+                expect {
+                    try Mas.Home.parse(["999"]).run(storeSearch: storeSearch, openCommand: openCommand)
+                }
+                .to(
+                    beFailure { error in
+                        expect(error) == .noSearchResultsFound
+                    }
+                )
             }
             it("opens app on MAS Preview") {
                 storeSearch.apps[result.trackId] = result
 
-                let cmdResult = cmd.run(HomeCommand.Options(appId: result.trackId))
-                expect(cmdResult).to(beSuccess())
+                expect {
+                    try Mas.Home.parse([String(result.trackId)]).run(storeSearch: storeSearch, openCommand: openCommand)
+                }
+                .to(beSuccess())
                 expect(openCommand.arguments).toNot(beNil())
                 expect(openCommand.arguments!.first!) == result.trackViewUrl
             }

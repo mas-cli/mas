@@ -6,55 +6,44 @@
 //  Copyright © 2016 Andrew Naylor. All rights reserved.
 //
 
-import Commandant
+import ArgumentParser
 import Foundation
 
-/// Displays app details. Uses the iTunes Lookup API:
-/// https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/#lookup
-public struct InfoCommand: CommandProtocol {
-    public let verb = "info"
-    public let function = "Display app information from the Mac App Store"
+extension Mas {
+    /// Displays app details. Uses the iTunes Lookup API:
+    /// https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/#lookup
+    struct Info: ParsableCommand {
+        static let configuration = CommandConfiguration(
+            abstract: "Display app information from the Mac App Store"
+        )
 
-    private let storeSearch: StoreSearch
+        @Argument(help: "ID of app to show info")
+        var appId: Int
 
-    public init() {
-        self.init(storeSearch: MasStoreSearch())
-    }
-
-    /// Designated initializer.
-    init(storeSearch: StoreSearch = MasStoreSearch()) {
-        self.storeSearch = storeSearch
-    }
-
-    /// Runs the command.
-    public func run(_ options: InfoOptions) -> Result<Void, MASError> {
-        do {
-            guard let result = try storeSearch.lookup(app: options.appId).wait() else {
-                return .failure(.noSearchResultsFound)
+        /// Runs the command.
+        func run() throws {
+            let result = run(storeSearch: MasStoreSearch())
+            if case .failure = result {
+                try result.get()
             }
-
-            print(AppInfoFormatter.format(app: result))
-        } catch {
-            // Bubble up MASErrors
-            if let error = error as? MASError {
-                return .failure(error)
-            }
-            return .failure(.searchFailed)
         }
 
-        return .success(())
-    }
-}
+        func run(storeSearch: StoreSearch) -> Result<Void, MASError> {
+            do {
+                guard let result = try storeSearch.lookup(app: appId).wait() else {
+                    return .failure(.noSearchResultsFound)
+                }
 
-public struct InfoOptions: OptionsProtocol {
-    let appId: Int
+                print(AppInfoFormatter.format(app: result))
+            } catch {
+                // Bubble up MASErrors
+                if let error = error as? MASError {
+                    return .failure(error)
+                }
+                return .failure(.searchFailed)
+            }
 
-    static func create(_ appId: Int) -> InfoOptions {
-        InfoOptions(appId: appId)
-    }
-
-    public static func evaluate(_ mode: CommandMode) -> Result<InfoOptions, CommandantError<MASError>> {
-        create
-            <*> mode <| Argument(usage: "ID of app to show info")
+            return .success(())
+        }
     }
 }

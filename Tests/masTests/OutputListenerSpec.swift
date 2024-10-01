@@ -19,22 +19,20 @@ public class OutputListenerSpec: QuickSpec {
         describe("output listener") {
             it("can intercept a single line written stdout") {
                 let output = OutputListener()
-                let expectedOutput = "hi there"
 
                 print("hi there", terminator: "")
 
-                expect(output.contents) == expectedOutput
+                expect(output.contents) == "hi there"
             }
             it("can intercept multiple lines written stdout") {
                 let output = OutputListener()
-                let expectedOutput = """
-                    hi there
-
-                    """
 
                 print("hi there")
 
-                expect(output.contents) == expectedOutput
+                expect(output.contents) == """
+                    hi there
+
+                    """
             }
         }
     }

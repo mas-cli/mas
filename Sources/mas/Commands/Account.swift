@@ -6,27 +6,36 @@
 //  Copyright (c) 2015 Andrew Naylor. All rights reserved.
 //
 
-import Commandant
+import ArgumentParser
 import StoreFoundation
 
-public struct AccountCommand: CommandProtocol {
-    public typealias Options = NoOptions<MASError>
-    public let verb = "account"
-    public let function = "Prints the primary account Apple ID"
+extension Mas {
+    struct Account: ParsableCommand {
+        static let configuration = CommandConfiguration(
+            abstract: "Prints the primary account Apple ID"
+        )
 
-    /// Runs the command.
-    public func run(_: Options) -> Result<Void, MASError> {
-        if #available(macOS 12, *) {
-            // Account information is no longer available as of Monterey.
-            // https://github.com/mas-cli/mas/issues/417
-            return .failure(.notSupported)
+        /// Runs the command.
+        func run() throws {
+            let result = runInternal()
+            if case .failure = result {
+                try result.get()
+            }
         }
 
-        do {
-            print(try ISStoreAccount.primaryAccount.wait().identifier)
-            return .success(())
-        } catch {
-            return .failure(error as? MASError ?? .failed(error: error as NSError))
+        func runInternal() -> Result<Void, MASError> {
+            if #available(macOS 12, *) {
+                // Account information is no longer available as of Monterey.
+                // https://github.com/mas-cli/mas/issues/417
+                return .failure(.notSupported)
+            }
+
+            do {
+                print(try ISStoreAccount.primaryAccount.wait().identifier)
+                return .success(())
+            } catch {
+                return .failure(error as? MASError ?? .failed(error: error as NSError))
+            }
         }
     }
 }

@@ -1,5 +1,5 @@
 //
-//  ResetCommandSpec.swift
+//  ResetSpec.swift
 //  masTests
 //
 //  Created by Ben Chatelain on 2018-12-28.
@@ -11,16 +11,17 @@ import Quick
 
 @testable import mas
 
-public class ResetCommandSpec: QuickSpec {
+public class ResetSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
             Mas.initialize()
         }
         describe("reset command") {
             it("resets the App Store state") {
-                let cmd = ResetCommand()
-                let result = cmd.run(ResetCommand.Options(debug: false))
-                expect(result).to(beSuccess())
+                expect {
+                    try Mas.Reset.parse([]).runInternal()
+                }
+                .to(beSuccess())
             }
         }
     }
