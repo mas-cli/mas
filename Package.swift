@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.6.1
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -13,11 +13,7 @@ let package = Package(
         .executable(
             name: "mas",
             targets: ["mas"]
-        ),
-        .library(
-            name: "MasKit",
-            targets: ["MasKit"]
-        ),
+        )
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -31,18 +27,8 @@ let package = Package(
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
-        .target(
+        .executableTarget(
             name: "mas",
-            dependencies: ["MasKit"],
-            swiftSettings: [
-                .unsafeFlags([
-                    "-I", "Sources/PrivateFrameworks/CommerceKit",
-                    "-I", "Sources/PrivateFrameworks/StoreFoundation",
-                ])
-            ]
-        ),
-        .target(
-            name: "MasKit",
             dependencies: [
                 "Commandant",
                 "PromiseKit",
@@ -62,8 +48,8 @@ let package = Package(
             ]
         ),
         .testTarget(
-            name: "MasKitTests",
-            dependencies: ["MasKit", "Nimble", "Quick"],
+            name: "masTests",
+            dependencies: ["mas", "Nimble", "Quick"],
             resources: [.copy("JSON")],
             swiftSettings: [
                 .unsafeFlags([

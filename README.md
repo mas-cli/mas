@@ -246,7 +246,7 @@ Build output can be found in the `.build/` directory within the project.
 
 The tests in this project are a recent work-in-progress.
 Since Xcode does not officially support tests for command-line tool targets,
-all logic is part of the MasKit target with tests in MasKitTests.
+all logic is part of the mas target with tests in masTests.
 Tests are written using [Quick].
 
 ```bash

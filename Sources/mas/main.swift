@@ -1,15 +1,14 @@
 //
 //  main.swift
-//  mas-cli
+//  mas
 //
 //  Created by Andrew Naylor on 11/07/2015.
 //  Copyright © 2015 Andrew Naylor. All rights reserved.
 //
 
 import Commandant
-import MasKit
 
-MasKit.initialize()
+Mas.initialize()
 
 let registry = CommandRegistry<MASError>()
 let helpCommand = HelpCommand(registry: registry)
