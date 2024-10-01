@@ -14,8 +14,6 @@ public struct VersionCommand: CommandProtocol {
     public let verb = "version"
     public let function = "Print version number"
 
-    public init() {}
-
     /// Runs the command.
     public func run(_: Options) -> Result<Void, MASError> {
         print(Package.version)

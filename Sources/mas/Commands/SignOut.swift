@@ -14,8 +14,6 @@ public struct SignOutCommand: CommandProtocol {
     public let verb = "signout"
     public let function = "Sign out of the Mac App Store"
 
-    public init() {}
-
     /// Runs the command.
     public func run(_: Options) -> Result<Void, MASError> {
         if #available(macOS 10.13, *) {

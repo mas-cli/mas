@@ -15,8 +15,6 @@ public struct SignInCommand: CommandProtocol {
     public let verb = "signin"
     public let function = "Sign in to the Mac App Store"
 
-    public init() {}
-
     /// Runs the command.
     public func run(_ options: Options) -> Result<Void, MASError> {
         do {

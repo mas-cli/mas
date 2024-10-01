@@ -15,8 +15,6 @@ public struct ResetCommand: CommandProtocol {
     public let verb = "reset"
     public let function = "Resets the Mac App Store"
 
-    public init() {}
-
     /// Runs the command.
     public func run(_ options: Options) -> Result<Void, MASError> {
         // The "Reset Application" command in the Mac App Store debug menu performs
