@@ -24,7 +24,7 @@ public class LuckySpec: QuickSpec {
                 expect {
                     try Mas.Lucky.parse(["Slack"]).run(appLibrary: AppLibraryMock(), storeSearch: storeSearch)
                 }
-                .to(beSuccess())
+                .toNot(throwError())
             }
         }
     }

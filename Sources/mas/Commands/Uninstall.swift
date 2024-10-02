@@ -25,33 +25,26 @@ extension Mas {
 
         /// Runs the uninstall command.
         func run() throws {
-            let result = run(appLibrary: MasAppLibrary())
-            if case .failure = result {
-                try result.get()
-            }
+            try run(appLibrary: MasAppLibrary())
         }
 
-        func run(appLibrary: AppLibrary) -> Result<Void, MASError> {
+        func run(appLibrary: AppLibrary) throws {
             let appId = UInt64(appId)
 
             guard let product = appLibrary.installedApp(forId: appId) else {
-                return .failure(.notInstalled)
+                throw MASError.notInstalled
             }
 
             if dryRun {
                 printInfo("\(product.appName) \(product.bundlePath)")
                 printInfo("(not removed, dry run)")
-
-                return .success(())
+            } else {
+                do {
+                    try appLibrary.uninstallApp(app: product)
+                } catch {
+                    throw MASError.uninstallFailed
+                }
             }
-
-            do {
-                try appLibrary.uninstallApp(app: product)
-            } catch {
-                return .failure(.uninstallFailed)
-            }
-
-            return .success(())
         }
     }
 }

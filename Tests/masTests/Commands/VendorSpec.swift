@@ -32,21 +32,13 @@ public class VendorSpec: QuickSpec {
                 expect {
                     try Mas.Vendor.parse(["--", "-999"]).run(storeSearch: storeSearch, openCommand: openCommand)
                 }
-                .to(
-                    beFailure { error in
-                        expect(error) == .searchFailed
-                    }
-                )
+                .to(throwError(MASError.searchFailed))
             }
             it("can't find app with unknown ID") {
                 expect {
                     try Mas.Vendor.parse(["999"]).run(storeSearch: storeSearch, openCommand: openCommand)
                 }
-                .to(
-                    beFailure { error in
-                        expect(error) == .noSearchResultsFound
-                    }
-                )
+                .to(throwError(MASError.noSearchResultsFound))
             }
             it("opens vendor app page in browser") {
                 storeSearch.apps[result.trackId] = result
@@ -54,7 +46,7 @@ public class VendorSpec: QuickSpec {
                     try Mas.Vendor.parse([String(result.trackId)])
                         .run(storeSearch: storeSearch, openCommand: openCommand)
                 }
-                .to(beSuccess())
+                .toNot(throwError())
                 expect(openCommand.arguments).toNot(beNil())
                 expect(openCommand.arguments!.first!) == result.sellerUrl
             }

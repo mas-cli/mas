@@ -19,9 +19,9 @@ public class VersionSpec: QuickSpec {
         describe("version command") {
             it("displays the current version") {
                 expect {
-                    try Mas.Version.parse([]).runInternal()
+                    try Mas.Version.parse([]).run()
                 }
-                .to(beSuccess())
+                .toNot(throwError())
             }
         }
     }

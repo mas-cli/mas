@@ -22,28 +22,19 @@ extension Mas {
 
         /// Runs the command.
         func run() throws {
-            let result = run(storeSearch: MasStoreSearch())
-            if case .failure = result {
-                try result.get()
-            }
+            try run(storeSearch: MasStoreSearch())
         }
 
-        func run(storeSearch: StoreSearch) -> Result<Void, MASError> {
+        func run(storeSearch: StoreSearch) throws {
             do {
                 guard let result = try storeSearch.lookup(app: appId).wait() else {
-                    return .failure(.noSearchResultsFound)
+                    throw MASError.noSearchResultsFound
                 }
 
                 print(AppInfoFormatter.format(app: result))
             } catch {
-                // Bubble up MASErrors
-                if let error = error as? MASError {
-                    return .failure(error)
-                }
-                return .failure(.searchFailed)
+                throw error as? MASError ?? .searchFailed
             }
-
-            return .success(())
         }
     }
 }

@@ -33,17 +33,13 @@ public class SearchSpec: QuickSpec {
                 expect {
                     try Mas.Search.parse(["slack"]).run(storeSearch: storeSearch)
                 }
-                .to(beSuccess())
+                .toNot(throwError())
             }
             it("fails when searching for nonexistent app") {
                 expect {
                     try Mas.Search.parse(["nonexistent"]).run(storeSearch: storeSearch)
                 }
-                .to(
-                    beFailure { error in
-                        expect(error) == .noSearchResultsFound
-                    }
-                )
+                .to(throwError(MASError.noSearchResultsFound))
             }
         }
     }

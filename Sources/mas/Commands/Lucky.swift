@@ -24,34 +24,27 @@ extension Mas {
 
         /// Runs the command.
         func run() throws {
-            let result = run(appLibrary: MasAppLibrary(), storeSearch: MasStoreSearch())
-            if case .failure = result {
-                try result.get()
-            }
+            try run(appLibrary: MasAppLibrary(), storeSearch: MasStoreSearch())
         }
 
-        func run(appLibrary: AppLibrary, storeSearch: StoreSearch) -> Result<Void, MASError> {
+        func run(appLibrary: AppLibrary, storeSearch: StoreSearch) throws {
             var appId: Int?
 
             do {
                 let results = try storeSearch.search(for: appName).wait()
                 guard let result = results.first else {
                     printError("No results found")
-                    return .failure(.noSearchResultsFound)
+                    throw MASError.noSearchResultsFound
                 }
 
                 appId = result.trackId
             } catch {
-                // Bubble up MASErrors
-                if let error = error as? MASError {
-                    return .failure(error)
-                }
-                return .failure(.searchFailed)
+                throw error as? MASError ?? .searchFailed
             }
 
             guard let identifier = appId else { fatalError() }
 
-            return install(UInt64(identifier), appLibrary: appLibrary)
+            try install(UInt64(identifier), appLibrary: appLibrary)
         }
 
         /// Installs an app.
@@ -59,21 +52,17 @@ extension Mas {
         /// - Parameters:
         ///   - appId: App identifier
         ///   - appLibrary: Library of installed apps
-        /// - Returns: Result of the operation.
-        fileprivate func install(_ appId: UInt64, appLibrary: AppLibrary) -> Result<Void, MASError> {
+        fileprivate func install(_ appId: UInt64, appLibrary: AppLibrary) throws {
             // Try to download applications with given identifiers and collect results
             if let product = appLibrary.installedApp(forId: appId), !force {
                 printWarning("\(product.appName) is already installed")
-                return .success(())
+            } else {
+                do {
+                    try downloadAll([appId]).wait()
+                } catch {
+                    throw error as? MASError ?? .downloadFailed(error: error as NSError)
+                }
             }
-
-            do {
-                try downloadAll([appId]).wait()
-            } catch {
-                return .failure(error as? MASError ?? .downloadFailed(error: error as NSError))
-            }
-
-            return .success(())
         }
     }
 }

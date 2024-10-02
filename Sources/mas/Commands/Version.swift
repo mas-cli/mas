@@ -17,15 +17,7 @@ extension Mas {
 
         /// Runs the command.
         func run() throws {
-            let result = runInternal()
-            if case .failure = result {
-                try result.get()
-            }
-        }
-
-        func runInternal() -> Result<Void, MASError> {
             print(Package.version)
-            return .success(())
         }
     }
 }

@@ -21,7 +21,7 @@ public class ListSpec: QuickSpec {
                 expect {
                     try Mas.List.parse([]).run(appLibrary: AppLibraryMock())
                 }
-                .to(beSuccess())
+                .toNot(throwError())
             }
         }
     }

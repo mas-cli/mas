@@ -46,30 +46,21 @@ public class InfoSpec: QuickSpec {
                 expect {
                     try Mas.Info.parse(["--", "-999"]).run(storeSearch: storeSearch)
                 }
-                .to(
-                    beFailure { error in
-                        expect(error) == .searchFailed
-                    }
-                )
+                .to(throwError(MASError.searchFailed))
             }
             it("can't find app with unknown ID") {
                 expect {
                     try Mas.Info.parse(["999"]).run(storeSearch: storeSearch)
                 }
-                .to(
-                    beFailure { error in
-                        expect(error) == .noSearchResultsFound
-                    }
-                )
+                .to(throwError(MASError.noSearchResultsFound))
             }
             it("displays app details") {
                 storeSearch.apps[result.trackId] = result
                 let output = OutputListener()
-
                 expect {
                     try Mas.Info.parse([String(result.trackId)]).run(storeSearch: storeSearch)
                 }
-                .to(beSuccess())
+                .toNot(throwError())
                 expect(output.contents) == expectedOutput
             }
         }

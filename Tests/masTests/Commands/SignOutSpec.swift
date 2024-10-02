@@ -19,9 +19,9 @@ public class SignOutSpec: QuickSpec {
         describe("signout command") {
             it("signs out") {
                 expect {
-                    try Mas.SignOut.parse([]).runInternal()
+                    try Mas.SignOut.parse([]).run()
                 }
-                .to(beSuccess())
+                .toNot(throwError())
             }
         }
     }

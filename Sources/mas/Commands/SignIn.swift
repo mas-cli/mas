@@ -25,18 +25,10 @@ extension Mas {
 
         /// Runs the command.
         func run() throws {
-            let result = runInternal()
-            if case .failure = result {
-                try result.get()
-            }
-        }
-
-        func runInternal() -> Result<Void, MASError> {
             do {
                 _ = try ISStoreAccount.signIn(username: username, password: password, systemDialog: dialog).wait()
-                return .success(())
             } catch {
-                return .failure(error as? MASError ?? .signInFailed(error: error as NSError))
+                throw error as? MASError ?? MASError.signInFailed(error: error as NSError)
             }
         }
     }

@@ -21,17 +21,14 @@ extension Mas {
 
         /// Runs the command.
         func run() throws {
-            let result = run(storeSearch: MasStoreSearch(), openCommand: OpenSystemCommand())
-            if case .failure = result {
-                try result.get()
-            }
+            try run(storeSearch: MasStoreSearch(), openCommand: OpenSystemCommand())
         }
 
-        func run(storeSearch: StoreSearch, openCommand: ExternalCommand) -> Result<Void, MASError> {
+        func run(storeSearch: StoreSearch, openCommand: ExternalCommand) throws {
             do {
                 guard let result = try storeSearch.lookup(app: appId).wait()
                 else {
-                    return .failure(.noSearchResultsFound)
+                    throw MASError.noSearchResultsFound
                 }
 
                 guard let vendorWebsite = result.sellerUrl
@@ -41,22 +38,16 @@ extension Mas {
                     try openCommand.run(arguments: vendorWebsite)
                 } catch {
                     printError("Unable to launch open command")
-                    return .failure(.searchFailed)
+                    throw MASError.searchFailed
                 }
                 if openCommand.failed {
                     let reason = openCommand.process.terminationReason
                     printError("Open failed: (\(reason)) \(openCommand.stderr)")
-                    return .failure(.searchFailed)
+                    throw MASError.searchFailed
                 }
             } catch {
-                // Bubble up MASErrors
-                if let error = error as? MASError {
-                    return .failure(error)
-                }
-                return .failure(.searchFailed)
+                throw error as? MASError ?? .searchFailed
             }
-
-            return .success(())
         }
     }
 }

@@ -21,9 +21,9 @@ public class AccountSpec: QuickSpec {
         xdescribe("Account command") {
             xit("displays active account") {
                 expect {
-                    try Mas.Account.parse([]).runInternal()
+                    try Mas.Account.parse([]).run()
                 }
-                .to(beSuccess())
+                .toNot(throwError())
             }
         }
     }

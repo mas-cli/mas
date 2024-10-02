@@ -19,9 +19,9 @@ public class ResetSpec: QuickSpec {
         describe("reset command") {
             it("resets the App Store state") {
                 expect {
-                    try Mas.Reset.parse([]).runInternal()
+                    try Mas.Reset.parse([]).run()
                 }
-                .to(beSuccess())
+                .toNot(throwError())
             }
         }
     }
