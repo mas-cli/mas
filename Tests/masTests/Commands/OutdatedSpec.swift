@@ -19,8 +19,7 @@ public class OutdatedSpec: QuickSpec {
         describe("outdated command") {
             it("displays apps with pending updates") {
                 expect {
-                    try Mas.Outdated.parse(["--verbose"])
-                        .run(appLibrary: AppLibraryMock(), storeSearch: StoreSearchMock())
+                    try Mas.Outdated.parse([]).run(appLibrary: AppLibraryMock(), storeSearch: StoreSearchMock())
                 }
                 .toNot(throwError())
             }

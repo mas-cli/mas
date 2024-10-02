@@ -19,18 +19,16 @@ public class SearchResultListSpec: QuickSpec {
         }
         describe("search result list") {
             it("can parse bbedit") {
-                let data = Data(from: "search/bbedit.json")
-                let decoder = JSONDecoder()
-                let results = try decoder.decode(SearchResultList.self, from: data)
-
-                expect(results.resultCount) == 1
+                expect(
+                    try JSONDecoder().decode(SearchResultList.self, from: Data(from: "search/bbedit.json")).resultCount
+                )
+                    == 1
             }
             it("can parse things") {
-                let data = Data(from: "search/things.json")
-                let decoder = JSONDecoder()
-                let results = try decoder.decode(SearchResultList.self, from: data)
-
-                expect(results.resultCount) == 50
+                expect(
+                    try JSONDecoder().decode(SearchResultList.self, from: Data(from: "search/things.json")).resultCount
+                )
+                    == 50
             }
         }
     }

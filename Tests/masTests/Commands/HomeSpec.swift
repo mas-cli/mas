@@ -13,11 +13,6 @@ import Quick
 
 public class HomeSpec: QuickSpec {
     override public static func spec() {
-        let result = SearchResult(
-            trackId: 1111,
-            trackViewUrl: "mas preview url",
-            version: "0.0"
-        )
         let storeSearch = StoreSearchMock()
         let openCommand = OpenSystemCommandMock()
 
@@ -41,13 +36,18 @@ public class HomeSpec: QuickSpec {
                 .to(throwError(MASError.noSearchResultsFound))
             }
             it("opens app on MAS Preview") {
-                storeSearch.apps[result.trackId] = result
+                let mockResult = SearchResult(
+                    trackId: 1111,
+                    trackViewUrl: "mas preview url",
+                    version: "0.0"
+                )
+                storeSearch.apps[mockResult.trackId] = mockResult
                 expect {
-                    try Mas.Home.parse([String(result.trackId)]).run(storeSearch: storeSearch, openCommand: openCommand)
+                    try Mas.Home.parse([String(mockResult.trackId)])
+                        .run(storeSearch: storeSearch, openCommand: openCommand)
+                    return openCommand.arguments
                 }
-                .toNot(throwError())
-                expect(openCommand.arguments).toNot(beNil())
-                expect(openCommand.arguments!.first!) == result.trackViewUrl
+                    == [mockResult.trackViewUrl]
             }
         }
     }

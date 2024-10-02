@@ -25,8 +25,7 @@ public class AppListsFormatterSpec: QuickSpec {
                 products = []
             }
             it("formats nothing as empty string") {
-                let output = format(products)
-                expect(output) == ""
+                expect(format(products)) == ""
             }
             it("can format a single product") {
                 let product = SoftwareProductMock(
@@ -36,8 +35,7 @@ public class AppListsFormatterSpec: QuickSpec {
                     bundleVersion: "19.2.1",
                     itemIdentifier: 12345
                 )
-                let output = format([product])
-                expect(output) == "12345       Awesome App  (19.2.1)"
+                expect(format([product])) == "12345       Awesome App  (19.2.1)"
             }
             it("can format two products") {
                 products = [
@@ -56,8 +54,8 @@ public class AppListsFormatterSpec: QuickSpec {
                         itemIdentifier: 67890
                     ),
                 ]
-                let output = format(products)
-                expect(output) == "12345       Awesome App      (19.2.1)\n67890       Even Better App  (1.2.0)"
+                expect(format(products))
+                    == "12345       Awesome App      (19.2.1)\n67890       Even Better App  (1.2.0)"
             }
         }
     }

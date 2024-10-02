@@ -31,8 +31,7 @@ class NetworkSessionMockFromFile: NetworkSessionMock {
         else { fatalError("Unable to load file \(responseFile)") }
 
         do {
-            let data = try Data(contentsOf: fileURL, options: .mappedIfSafe)
-            return .value(data)
+            return .value(try Data(contentsOf: fileURL, options: .mappedIfSafe))
         } catch {
             print("Error opening file: \(error)")
             return Promise(error: error)

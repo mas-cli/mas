@@ -18,12 +18,12 @@ public class AccountSpec: QuickSpec {
             Mas.initialize()
         }
         // account command disabled since macOS 12 Monterey https://github.com/mas-cli/mas#%EF%B8%8F-known-issues
-        xdescribe("Account command") {
-            xit("displays active account") {
+        describe("Account command") {
+            it("displays active account") {
                 expect {
                     try Mas.Account.parse([]).run()
                 }
-                .toNot(throwError())
+                .to(throwError(MASError.notSupported))
             }
         }
     }

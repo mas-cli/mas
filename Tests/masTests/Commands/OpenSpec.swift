@@ -14,11 +14,6 @@ import Quick
 
 public class OpenSpec: QuickSpec {
     override public static func spec() {
-        let result = SearchResult(
-            trackId: 1111,
-            trackViewUrl: "fakescheme://some/url",
-            version: "0.0"
-        )
         let storeSearch = StoreSearchMock()
         let openCommand = OpenSystemCommandMock()
 
@@ -42,26 +37,25 @@ public class OpenSpec: QuickSpec {
                 .to(throwError(MASError.noSearchResultsFound))
             }
             it("opens app in MAS") {
-                storeSearch.apps[result.trackId] = result
+                let mockResult = SearchResult(
+                    trackId: 1111,
+                    trackViewUrl: "fakescheme://some/url",
+                    version: "0.0"
+                )
+                storeSearch.apps[mockResult.trackId] = mockResult
                 expect {
-                    try Mas.Open.parse([result.trackId.description])
+                    try Mas.Open.parse([mockResult.trackId.description])
                         .run(storeSearch: storeSearch, openCommand: openCommand)
+                    return openCommand.arguments
                 }
-                .toNot(throwError())
-                expect(openCommand.arguments).toNot(beNil())
-                let url = URL(string: openCommand.arguments!.first!)
-                expect(url).toNot(beNil())
-                expect(url?.scheme) == "macappstore"
+                    == ["macappstore://some/url"]
             }
             it("just opens MAS if no app specified") {
                 expect {
                     try Mas.Open.parse([]).run(storeSearch: storeSearch, openCommand: openCommand)
+                    return openCommand.arguments
                 }
-                .toNot(throwError())
-                expect(openCommand.arguments).toNot(beNil())
-                let url = URL(string: openCommand.arguments!.first!)
-                expect(url).toNot(beNil())
-                expect(url) == URL(string: "macappstore://")
+                    == ["macappstore://"]
             }
         }
     }

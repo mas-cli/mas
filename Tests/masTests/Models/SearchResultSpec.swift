@@ -19,11 +19,12 @@ public class SearchResultSpec: QuickSpec {
         }
         describe("search result") {
             it("can parse things") {
-                let data = Data(from: "search/things-that-go-bump.json")
-                let decoder = JSONDecoder()
-                let result = try decoder.decode(SearchResult.self, from: data)
-
-                expect(result.bundleId) == "uikitformac.com.tinybop.thingamabops"
+                expect(
+                    try JSONDecoder()
+                        .decode(SearchResult.self, from: Data(from: "search/things-that-go-bump.json"))
+                        .bundleId
+                )
+                    == "uikitformac.com.tinybop.thingamabops"
             }
         }
     }

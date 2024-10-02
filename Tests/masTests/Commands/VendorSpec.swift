@@ -13,11 +13,6 @@ import Quick
 
 public class VendorSpec: QuickSpec {
     override public static func spec() {
-        let result = SearchResult(
-            trackId: 1111,
-            trackViewUrl: "https://awesome.app",
-            version: "0.0"
-        )
         let storeSearch = StoreSearchMock()
         let openCommand = OpenSystemCommandMock()
 
@@ -41,14 +36,19 @@ public class VendorSpec: QuickSpec {
                 .to(throwError(MASError.noSearchResultsFound))
             }
             it("opens vendor app page in browser") {
-                storeSearch.apps[result.trackId] = result
+                let mockResult = SearchResult(
+                    sellerUrl: "https://awesome.app",
+                    trackId: 1111,
+                    trackViewUrl: "https://apps.apple.com/us/app/awesome/id1111?mt=12&uo=4",
+                    version: "0.0"
+                )
+                storeSearch.apps[mockResult.trackId] = mockResult
                 expect {
-                    try Mas.Vendor.parse([String(result.trackId)])
+                    try Mas.Vendor.parse([String(mockResult.trackId)])
                         .run(storeSearch: storeSearch, openCommand: openCommand)
+                    return openCommand.arguments
                 }
-                .toNot(throwError())
-                expect(openCommand.arguments).toNot(beNil())
-                expect(openCommand.arguments!.first!) == result.sellerUrl
+                    == [mockResult.sellerUrl]
             }
         }
     }
