@@ -25,13 +25,10 @@ extension Mas {
 
         /// Runs the command.
         func run() throws {
-            let result = run(appLibrary: MasAppLibrary(), storeSearch: MasStoreSearch())
-            if case .failure = result {
-                try result.get()
-            }
+            try run(appLibrary: MasAppLibrary(), storeSearch: MasStoreSearch())
         }
 
-        func run(appLibrary: AppLibrary, storeSearch: StoreSearch) -> Result<Void, MASError> {
+        func run(appLibrary: AppLibrary, storeSearch: StoreSearch) throws {
             let promises = appLibrary.installedApps.map { installedApp in
                 firstly {
                     storeSearch.lookup(app: installedApp.itemIdentifier.intValue)
@@ -59,12 +56,11 @@ extension Mas {
                 }
             }
 
-            return firstly {
+            _ = firstly {
                 when(fulfilled: promises)
             }.map {
                 Result<Void, MASError>.success(())
             }.recover { error in
-                // Bubble up MASErrors
                 .value(Result<Void, MASError>.failure(error as? MASError ?? .searchFailed))
             }.wait()
         }

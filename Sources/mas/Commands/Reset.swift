@@ -21,13 +21,6 @@ extension Mas {
 
         /// Runs the command.
         func run() throws {
-            let result = runInternal()
-            if case .failure = result {
-                try result.get()
-            }
-        }
-
-        func runInternal() -> Result<Void, MASError> {
             // The "Reset Application" command in the Mac App Store debug menu performs
             // the following steps
             //
@@ -81,8 +74,6 @@ extension Mas {
                     }
                 }
             }
-
-            return .success(())
         }
     }
 }

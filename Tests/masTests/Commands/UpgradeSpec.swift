@@ -21,7 +21,7 @@ public class UpgradeSpec: QuickSpec {
                 expect {
                     try Mas.Upgrade.parse([]).run(appLibrary: AppLibraryMock(), storeSearch: StoreSearchMock())
                 }
-                .to(beSuccess())
+                .toNot(throwError())
             }
         }
     }

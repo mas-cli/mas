@@ -20,17 +20,14 @@ extension Mas {
 
         /// Runs the command.
         func run() throws {
-            let result = run(appLibrary: MasAppLibrary())
-            if case .failure = result {
-                try result.get()
-            }
+            try run(appLibrary: MasAppLibrary())
         }
 
-        func run(appLibrary: AppLibrary) -> Result<Void, MASError> {
+        func run(appLibrary: AppLibrary) throws {
             if #available(macOS 10.15, *) {
                 // Purchases are no longer possible as of Catalina.
                 // https://github.com/mas-cli/mas/issues/289
-                return .failure(.notSupported)
+                throw MASError.notSupported
             }
 
             // Try to download applications with given identifiers and collect results
@@ -46,10 +43,8 @@ extension Mas {
             do {
                 try downloadAll(appIds, purchase: true).wait()
             } catch {
-                return .failure(error as? MASError ?? .downloadFailed(error: error as NSError))
+                throw error as? MASError ?? .downloadFailed(error: error as NSError)
             }
-
-            return .success(())
         }
     }
 }

@@ -25,21 +25,14 @@ extension Mas {
 
         /// Runs the command.
         func run() throws {
-            let result = runInternal()
-            if case .failure = result {
-                try result.get()
-            }
-        }
-
-        func runInternal() -> Result<Void, MASError> {
             if #available(macOS 10.13, *) {
                 // Signing in is no longer possible as of High Sierra.
                 // https://github.com/mas-cli/mas/issues/164
-                return .failure(.notSupported)
+                throw MASError.notSupported
             }
 
             guard ISStoreAccount.primaryAccount == nil else {
-                return .failure(.alreadySignedIn)
+                throw MASError.alreadySignedIn
             }
 
             do {
@@ -54,10 +47,8 @@ extension Mas {
 
                 _ = try ISStoreAccount.signIn(username: username, password: pwd, systemDialog: dialog)
             } catch let error as NSError {
-                return .failure(.signInFailed(error: error))
+                throw MASError.signInFailed(error: error)
             }
-
-            return .success(())
         }
     }
 }

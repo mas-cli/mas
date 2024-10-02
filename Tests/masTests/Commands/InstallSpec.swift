@@ -21,7 +21,7 @@ public class InstallSpec: QuickSpec {
                 expect {
                     try Mas.Install.parse([]).run(appLibrary: AppLibraryMock())
                 }
-                .to(beSuccess())
+                .toNot(throwError())
             }
         }
     }

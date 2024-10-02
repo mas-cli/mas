@@ -18,13 +18,6 @@ extension Mas {
 
         /// Runs the command.
         func run() throws {
-            let result = runInternal()
-            if case .failure = result {
-                try result.get()
-            }
-        }
-
-        func runInternal() -> Result<Void, MASError> {
             if #available(macOS 10.13, *) {
                 let accountService: ISAccountService = ISServiceProxy.genericShared().accountService
                 accountService.signOut()
@@ -33,8 +26,6 @@ extension Mas {
                 // https://github.com/mas-cli/mas/issues/129
                 CKAccountStore.shared().signOut()
             }
-
-            return .success(())
         }
     }
 }

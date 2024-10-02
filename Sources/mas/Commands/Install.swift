@@ -23,13 +23,10 @@ extension Mas {
 
         /// Runs the command.
         func run() throws {
-            let result = run(appLibrary: MasAppLibrary())
-            if case .failure = result {
-                try result.get()
-            }
+            try run(appLibrary: MasAppLibrary())
         }
 
-        func run(appLibrary: AppLibrary) -> Result<Void, MASError> {
+        func run(appLibrary: AppLibrary) throws {
             // Try to download applications with given identifiers and collect results
             let appIds = appIds.filter { appId in
                 if let product = appLibrary.installedApp(forId: appId), !force {
@@ -43,10 +40,8 @@ extension Mas {
             do {
                 try downloadAll(appIds).wait()
             } catch {
-                return .failure(error as? MASError ?? .downloadFailed(error: error as NSError))
+                throw error as? MASError ?? .downloadFailed(error: error as NSError)
             }
-
-            return .success(())
         }
     }
 }

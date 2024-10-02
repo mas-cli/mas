@@ -36,21 +36,16 @@ public class UninstallSpec: QuickSpec {
                 }
                 it("can't remove a missing app") {
                     expect {
-                        uninstall.run(appLibrary: mockLibrary)
+                        try uninstall.run(appLibrary: mockLibrary)
                     }
-                    .to(
-                        beFailure { error in
-                            expect(error) == .notInstalled
-                        }
-                    )
+                    .to(throwError(MASError.notInstalled))
                 }
                 it("finds an app") {
                     mockLibrary.installedApps.append(app)
-
                     expect {
-                        uninstall.run(appLibrary: mockLibrary)
+                        try uninstall.run(appLibrary: mockLibrary)
                     }
-                    .to(beSuccess())
+                    .toNot(throwError())
                 }
             }
             context("wet run") {
@@ -61,35 +56,25 @@ public class UninstallSpec: QuickSpec {
                 }
                 it("can't remove a missing app") {
                     expect {
-                        uninstall.run(appLibrary: mockLibrary)
+                        try uninstall.run(appLibrary: mockLibrary)
                     }
-                    .to(
-                        beFailure { error in
-                            expect(error) == .notInstalled
-                        }
-                    )
+                    .to(throwError(MASError.notInstalled))
                 }
                 it("removes an app") {
                     mockLibrary.installedApps.append(app)
-
                     expect {
-                        uninstall.run(appLibrary: mockLibrary)
+                        try uninstall.run(appLibrary: mockLibrary)
                     }
-                    .to(beSuccess())
+                    .toNot(throwError())
                 }
                 it("fails if there is a problem with the trash command") {
                     var brokenUninstall = app  // make mutable copy
                     brokenUninstall.bundlePath = "/dev/null"
                     mockLibrary.installedApps.append(brokenUninstall)
-
                     expect {
-                        uninstall.run(appLibrary: mockLibrary)
+                        try uninstall.run(appLibrary: mockLibrary)
                     }
-                    .to(
-                        beFailure { error in
-                            expect(error) == .uninstallFailed
-                        }
-                    )
+                    .to(throwError(MASError.uninstallFailed))
                 }
             }
         }

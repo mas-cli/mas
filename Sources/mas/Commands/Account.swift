@@ -17,27 +17,18 @@ extension Mas {
 
         /// Runs the command.
         func run() throws {
-            let result = runInternal()
-            if case .failure = result {
-                try result.get()
-            }
-        }
-
-        func runInternal() -> Result<Void, MASError> {
             if #available(macOS 12, *) {
                 // Account information is no longer available as of Monterey.
                 // https://github.com/mas-cli/mas/issues/417
-                return .failure(.notSupported)
+                throw MASError.notSupported
             }
 
             if let account = ISStoreAccount.primaryAccount {
                 print(String(describing: account.identifier))
             } else {
                 printError("Not signed in")
-                return .failure(.notSignedIn)
+                throw MASError.notSignedIn
             }
-
-            return .success(())
         }
     }
 }

@@ -17,23 +17,16 @@ extension Mas {
 
         /// Runs the command.
         func run() throws {
-            let result = run(appLibrary: MasAppLibrary())
-            if case .failure = result {
-                try result.get()
-            }
+            try run(appLibrary: MasAppLibrary())
         }
 
-        func run(appLibrary: AppLibrary) -> Result<Void, MASError> {
+        func run(appLibrary: AppLibrary) throws {
             let products = appLibrary.installedApps
             if products.isEmpty {
                 printError("No installed apps found")
-                return .success(())
+            } else {
+                print(AppListFormatter.format(products: products))
             }
-
-            let output = AppListFormatter.format(products: products)
-            print(output)
-
-            return .success(())
         }
     }
 }

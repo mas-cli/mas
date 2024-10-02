@@ -22,7 +22,7 @@ public class OutdatedSpec: QuickSpec {
                     try Mas.Outdated.parse(["--verbose"])
                         .run(appLibrary: AppLibraryMock(), storeSearch: StoreSearchMock())
                 }
-                .to(beSuccess())
+                .toNot(throwError())
             }
         }
     }

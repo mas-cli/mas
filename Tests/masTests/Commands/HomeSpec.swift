@@ -32,29 +32,20 @@ public class HomeSpec: QuickSpec {
                 expect {
                     try Mas.Home.parse(["--", "-999"]).run(storeSearch: storeSearch, openCommand: openCommand)
                 }
-                .to(
-                    beFailure { error in
-                        expect(error) == .searchFailed
-                    }
-                )
+                .to(throwError(MASError.searchFailed))
             }
             it("can't find app with unknown ID") {
                 expect {
                     try Mas.Home.parse(["999"]).run(storeSearch: storeSearch, openCommand: openCommand)
                 }
-                .to(
-                    beFailure { error in
-                        expect(error) == .noSearchResultsFound
-                    }
-                )
+                .to(throwError(MASError.noSearchResultsFound))
             }
             it("opens app on MAS Preview") {
                 storeSearch.apps[result.trackId] = result
-
                 expect {
                     try Mas.Home.parse([String(result.trackId)]).run(storeSearch: storeSearch, openCommand: openCommand)
                 }
-                .to(beSuccess())
+                .toNot(throwError())
                 expect(openCommand.arguments).toNot(beNil())
                 expect(openCommand.arguments!.first!) == result.trackViewUrl
             }

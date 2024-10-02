@@ -21,11 +21,7 @@ public class PurchaseSpec: QuickSpec {
                 expect {
                     try Mas.Purchase.parse(["999"]).run(appLibrary: AppLibraryMock())
                 }
-                .to(
-                    beFailure { error in
-                        expect(error) == .notSupported
-                    }
-                )
+                .to(throwError(MASError.notSupported))
             }
         }
     }

@@ -21,9 +21,9 @@ public class SignInSpec: QuickSpec {
         xdescribe("signin command") {
             xit("signs in") {
                 expect {
-                    try Mas.SignIn.parse(["", ""]).runInternal()
+                    try Mas.SignIn.parse(["", ""]).run()
                 }
-                .to(beSuccess())
+                .toNot(throwError())
             }
         }
     }

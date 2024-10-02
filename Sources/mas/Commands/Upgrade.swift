@@ -10,8 +10,6 @@ import ArgumentParser
 import Foundation
 import PromiseKit
 
-import enum Swift.Result
-
 extension Mas {
     /// Command which upgrades apps with new versions available in the Mac App Store.
     struct Upgrade: ParsableCommand {
@@ -24,24 +22,20 @@ extension Mas {
 
         /// Runs the command.
         func run() throws {
-            let result = run(appLibrary: MasAppLibrary(), storeSearch: MasStoreSearch())
-            if case .failure = result {
-                try result.get()
-            }
+            try run(appLibrary: MasAppLibrary(), storeSearch: MasStoreSearch())
         }
 
-        func run(appLibrary: AppLibrary, storeSearch: StoreSearch) -> Result<Void, MASError> {
+        func run(appLibrary: AppLibrary, storeSearch: StoreSearch) throws {
             let apps: [(installedApp: SoftwareProduct, storeApp: SearchResult)]
             do {
                 apps = try findOutdatedApps(appLibrary: appLibrary, storeSearch: storeSearch)
             } catch {
-                // Bubble up MASErrors
-                return .failure(error as? MASError ?? .searchFailed)
+                throw error as? MASError ?? .searchFailed
             }
 
             guard apps.count > 0 else {
                 printWarning("Nothing found to upgrade")
-                return .success(())
+                return
             }
 
             print("Upgrading \(apps.count) outdated application\(apps.count > 1 ? "s" : ""):")
@@ -53,10 +47,8 @@ extension Mas {
             do {
                 try downloadAll(appIds).wait()
             } catch {
-                return .failure(error as? MASError ?? .downloadFailed(error: error as NSError))
+                throw error as? MASError ?? .downloadFailed(error: error as NSError)
             }
-
-            return .success(())
         }
 
         private func findOutdatedApps(

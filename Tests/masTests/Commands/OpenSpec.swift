@@ -33,30 +33,21 @@ public class OpenSpec: QuickSpec {
                 expect {
                     try Mas.Open.parse(["--", "-999"]).run(storeSearch: storeSearch, openCommand: openCommand)
                 }
-                .to(
-                    beFailure { error in
-                        expect(error) == .searchFailed
-                    }
-                )
+                .to(throwError(MASError.searchFailed))
             }
             it("can't find app with unknown ID") {
                 expect {
                     try Mas.Open.parse(["999"]).run(storeSearch: storeSearch, openCommand: openCommand)
                 }
-                .to(
-                    beFailure { error in
-                        expect(error) == .noSearchResultsFound
-                    }
-                )
+                .to(throwError(MASError.noSearchResultsFound))
             }
             it("opens app in MAS") {
                 storeSearch.apps[result.trackId] = result
-
                 expect {
                     try Mas.Open.parse([result.trackId.description])
                         .run(storeSearch: storeSearch, openCommand: openCommand)
                 }
-                .to(beSuccess())
+                .toNot(throwError())
                 expect(openCommand.arguments).toNot(beNil())
                 let url = URL(string: openCommand.arguments!.first!)
                 expect(url).toNot(beNil())
@@ -66,7 +57,7 @@ public class OpenSpec: QuickSpec {
                 expect {
                     try Mas.Open.parse(["appstore"]).run(storeSearch: storeSearch, openCommand: openCommand)
                 }
-                .to(beSuccess())
+                .toNot(throwError())
                 expect(openCommand.arguments).toNot(beNil())
                 let url = URL(string: openCommand.arguments!.first!)
                 expect(url).toNot(beNil())
