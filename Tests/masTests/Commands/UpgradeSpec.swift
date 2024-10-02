@@ -6,6 +6,7 @@
 //  Copyright © 2018 mas-cli. All rights reserved.
 //
 
+import Foundation
 import Nimble
 import Quick
 
@@ -17,11 +18,14 @@ public class UpgradeSpec: QuickSpec {
             Mas.initialize()
         }
         describe("upgrade command") {
-            it("upgrades stuff") {
+            it("finds no upgrades") {
                 expect {
-                    try Mas.Upgrade.parse([]).run(appLibrary: AppLibraryMock(), storeSearch: StoreSearchMock())
+                    try captureStream(stderr) {
+                        try Mas.Upgrade.parse([])
+                            .run(appLibrary: AppLibraryMock(), storeSearch: StoreSearchMock())
+                    }
                 }
-                .toNot(throwError())
+                    == "Warning: Nothing found to upgrade\n"
             }
         }
     }

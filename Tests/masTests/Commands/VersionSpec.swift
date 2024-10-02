@@ -6,6 +6,7 @@
 //  Copyright © 2018 mas-cli. All rights reserved.
 //
 
+import Foundation
 import Nimble
 import Quick
 
@@ -19,9 +20,11 @@ public class VersionSpec: QuickSpec {
         describe("version command") {
             it("displays the current version") {
                 expect {
-                    try Mas.Version.parse([]).run()
+                    try captureStream(stdout) {
+                        try Mas.Version.parse([]).run()
+                    }
                 }
-                .toNot(throwError())
+                    == Package.version + "\n"
             }
         }
     }

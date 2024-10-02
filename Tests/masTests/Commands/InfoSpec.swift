@@ -6,6 +6,7 @@
 //  Copyright © 2018 mas-cli. All rights reserved.
 //
 
+import Foundation
 import Nimble
 import Quick
 
@@ -47,12 +48,12 @@ public class InfoSpec: QuickSpec {
                     version: "1.0"
                 )
                 storeSearch.apps[mockResult.trackId] = mockResult
-                let output = OutputListener()
                 expect {
-                    try Mas.Info.parse([String(mockResult.trackId)]).run(storeSearch: storeSearch)
+                    try captureStream(stdout) {
+                        try Mas.Info.parse([String(mockResult.trackId)]).run(storeSearch: storeSearch)
+                    }
                 }
-                .toNot(throwError())
-                expect(output.contents) == """
+                    == """
                     Awesome App 1.0 [2.0]
                     By: Awesome Dev
                     Released: 2019-01-07

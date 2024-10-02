@@ -6,6 +6,7 @@
 //  Copyright © 2018 mas-cli. All rights reserved.
 //
 
+import Foundation
 import Nimble
 import Quick
 
@@ -19,9 +20,11 @@ public class ListSpec: QuickSpec {
         describe("list command") {
             it("lists apps") {
                 expect {
-                    try Mas.List.parse([]).run(appLibrary: AppLibraryMock())
+                    try captureStream(stderr) {
+                        try Mas.List.parse([]).run(appLibrary: AppLibraryMock())
+                    }
                 }
-                .toNot(throwError())
+                    == "Error: No installed apps found\n"
             }
         }
     }
