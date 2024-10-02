@@ -12,7 +12,7 @@ import Quick
 @testable import mas
 
 public class InfoSpec: QuickSpec {
-    override public func spec() {
+    override public static func spec() {
         let result = SearchResult(
             currentVersionReleaseDate: "2019-01-07T18:53:13Z",
             fileSizeBytes: "1024",

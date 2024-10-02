@@ -12,7 +12,7 @@ import Quick
 @testable import mas
 
 public class VendorSpec: QuickSpec {
-    override public func spec() {
+    override public static func spec() {
         let result = SearchResult(
             trackId: 1111,
             trackViewUrl: "https://awesome.app",

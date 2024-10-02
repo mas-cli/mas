@@ -13,7 +13,7 @@ import Quick
 @testable import mas
 
 public class OpenSpec: QuickSpec {
-    override public func spec() {
+    override public static func spec() {
         let result = SearchResult(
             trackId: 1111,
             trackViewUrl: "fakescheme://some/url",
