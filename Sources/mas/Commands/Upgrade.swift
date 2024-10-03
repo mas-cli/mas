@@ -18,7 +18,7 @@ extension Mas {
         )
 
         @Argument(help: "app(s) to upgrade")
-        var apps: [String] = []
+        var appIds: [String] = []
 
         /// Runs the command.
         func run() throws {
@@ -43,9 +43,8 @@ extension Mas {
                 apps.map { "\($0.installedApp.appName) (\($0.installedApp.bundleVersion)) -> (\($0.storeApp.version))" }
                     .joined(separator: "\n"))
 
-            let appIds = apps.map(\.installedApp.itemIdentifier.uint64Value)
             do {
-                try downloadAll(appIds).wait()
+                try downloadAll(apps.map(\.installedApp.itemIdentifier.uint64Value)).wait()
             } catch {
                 throw error as? MASError ?? .downloadFailed(error: error as NSError)
             }
@@ -56,9 +55,9 @@ extension Mas {
             storeSearch: StoreSearch
         ) throws -> [(SoftwareProduct, SearchResult)] {
             let apps: [SoftwareProduct] =
-                apps.isEmpty
+                appIds.isEmpty
                 ? appLibrary.installedApps
-                : apps.compactMap {
+                : appIds.compactMap {
                     if let appId = UInt64($0) {
                         // if argument a UInt64, lookup app by id using argument
                         return appLibrary.installedApp(forId: appId)
