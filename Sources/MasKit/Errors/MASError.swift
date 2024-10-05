@@ -28,7 +28,7 @@ public enum MASError: Error, Equatable {
     case uninstallFailed
 
     case noData
-    case jsonParsing(error: NSError?)
+    case jsonParsing(data: Data?)
 }
 
 // MARK: - CustomStringConvertible
@@ -93,8 +93,16 @@ extension MASError: CustomStringConvertible {
         case .noData:
             return "Service did not return data"
 
-        case .jsonParsing:
-            return "Unable to parse response JSON"
+        case .jsonParsing(let data):
+            if let data {
+                if let unparsable = String(data: data, encoding: .utf8) {
+                    return "Unable to parse response as JSON: \n\(unparsable)"
+                } else {
+                    return "Received defective response"
+                }
+            } else {
+                return "Received empty response"
+            }
         }
     }
 }

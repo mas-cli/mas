@@ -108,7 +108,7 @@ class MasStoreSearch: StoreSearch {
             do {
                 return try JSONDecoder().decode(SearchResultList.self, from: data).results
             } catch {
-                throw MASError.jsonParsing(error: error as NSError)
+                throw MASError.jsonParsing(data: data)
             }
         }
     }
