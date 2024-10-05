@@ -8,7 +8,7 @@ We love pull requests from everyone. By participating in this project, you agree
 - [Open an issue](https://github.com/mas-cli/mas/issues/new) to simply ask a question or request a new feature.
 - Search for similar issues with the
 [ERROR MESSAGE](https://github.com/mas-cli/mas/issues?utf8=%E2%9C%93&q=is%3Aopen+ERROR+MESSAGE)
-you are exeriencing.
+you are experiencing.
 - If one doesn't exist, [open a new issue](https://github.com/mas-cli/mas/issues/new)
   - Clearly describe the issue including steps to reproduce when it is a bug.
   - Include the earliest version of `mas` that you know has the issue.

@@ -15,8 +15,8 @@ enum AppListFormatter {
 
     /// Formats text output with list results.
     ///
-    /// - Parameter products: List of sortware products app data.
-    /// - Returns: Multiliune text outoutp.
+    /// - Parameter products: List of software products app data.
+    /// - Returns: Multiline text output.
     static func format(products: [SoftwareProduct]) -> String {
         // find longest appName for formatting, default 50
         let maxLength = products.map(\.appNameOrBundleIdentifier.count).max() ?? nameColumnMinWidth

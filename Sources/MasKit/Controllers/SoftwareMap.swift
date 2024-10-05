@@ -6,7 +6,7 @@
 //  Copyright © 2020 mas-cli. All rights reserved.
 //
 
-/// Somewhat analygous to CKSoftwareMap
+/// Somewhat analogous to CKSoftwareMap
 protocol SoftwareMap {
     func allSoftwareProducts() -> [SoftwareProduct]
     func product(for bundleIdentifier: String) -> SoftwareProduct?

@@ -69,7 +69,7 @@ public struct LuckyCommand: CommandProtocol {
     ///
     /// - Parameters:
     ///   - appId: App identifier
-    ///   - options: command opetions.
+    ///   - options: command options.
     /// - Returns: Result of the operation.
     fileprivate func install(_ appId: UInt64, options: Options) -> Result<Void, MASError> {
         // Try to download applications with given identifiers and collect results

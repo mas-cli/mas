@@ -74,7 +74,7 @@ case let .success(data):
     print("The response returned successfully \(data)")
 
 case let .failure(error):
-    print("An error occured: \(error)")
+    print("An error occurred: \(error)")
 }
 
 // MARK: Organization

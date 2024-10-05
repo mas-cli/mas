@@ -28,9 +28,9 @@ protocol AppLibrary {
 
 /// Common logic
 extension AppLibrary {
-    /// Finds an app by name.
+    /// Finds an app by ID.
     ///
-    /// - Parameter id: MAS ID for app.
+    /// - Parameter forId: MAS ID for app.
     /// - Returns: Software Product of app if found; nil otherwise.
     func installedApp(forId identifier: UInt64) -> SoftwareProduct? {
         let appId = NSNumber(value: identifier)
