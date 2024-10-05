@@ -122,8 +122,8 @@ class MasStoreSearch: StoreSearch {
         firstly {
             networkManager.loadData(from: pageUrl)
         }.map { data in
-            let html = String(decoding: data, as: UTF8.self)
-            guard let capture = MasStoreSearch.appVersionExpression.firstMatch(in: html)?.captures[0],
+            let html = String(data: data, encoding: .utf8)
+            guard let capture = MasStoreSearch.appVersionExpression.firstMatch(in: html!)?.captures[0],
                 let version = Version(tolerant: capture)
             else {
                 return nil
