@@ -1,5 +1,5 @@
 //
-//  InstallCommandSpec.swift
+//  InstallSpec.swift
 //  masTests
 //
 //  Created by Ben Chatelain on 2018-12-28.

@@ -1,5 +1,5 @@
 //
-//  PurchaseCommandSpec.swift
+//  PurchaseSpec.swift
 //  masTests
 //
 //  Created by Maximilian Blochberger on 2020-03-21.
