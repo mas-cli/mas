@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -eu
 #
 # script/format
 # mas
@@ -6,34 +6,42 @@
 # Linting checks for development and CI.
 #
 # Automatically formats and fixes style violations using various tools.
-# Additionally runs `lint` to report any remaining style violations.
 #
 # Please keep in sync with script/lint.
 #
 
-echo "==> 🚨 Formatting mas"
+mas_dir="$(readlink -fn "$(dirname "${BASH_SOURCE:-"${0}"}")/..")"
 
-for LINTER in markdownlint shfmt swiftformat swiftlint; do
+if ! cd -- "${mas_dir}"; then
+  printf $'Error: Could not cd into mas directory: %s\n' "${mas_dir}" >&2
+  exit 1
+fi
+
+printf $'==> 🚨 Formatting mas\n'
+
+for LINTER in markdownlint shfmt swift-format swiftformat swiftlint; do
   if [[ ! -x "$(command -v ${LINTER})" ]]; then
-    echo "error: ${LINTER} is not installed. Run 'script/bootstrap' or 'brew install ${LINTER}'."
+    printf $'error: %s is not installed. Run \'script/bootstrap\' or \'brew install %s\'.\n' "${LINTER}" "${LINTER}"
     exit 1
   fi
 done
 
-echo
-echo "--> 🖊 Markdown"
-markdownlint --config .markdownlint.json --fix .github .
-
-echo
-echo "--> 🕊️ Swift"
 for SOURCE in Package.swift Sources Tests; do
-  swiftformat ${SOURCE}
-  swift run swift-format format --in-place --recursive ${SOURCE}
-  swiftlint lint --fix --strict ${SOURCE}
+  printf -- $'--> 🕊  %s swift-format\n' "${SOURCE}"
+  swift-format format --in-place --recursive "${SOURCE}"
+  printf -- $'--> 🕊  %s swiftformat\n' "${SOURCE}"
+  swiftformat "${SOURCE}"
+  printf -- $'--> 🕊  %s swiftlint\n' "${SOURCE}"
+  swiftlint --fix --strict "${SOURCE}"
 done
 
-echo
-echo "--> 📜 Bash"
-shfmt -i 2 -l -w contrib/ script/
+printf -- $'--> 📜 Bash shfmt\n'
+shfmt \
+  --write \
+  --list \
+  --indent 2 \
+  --case-indent \
+  contrib/ script/
 
-script/lint
+printf -- $'--> 〽️ Markdown\n'
+markdownlint --config .markdownlint.json --fix .github .

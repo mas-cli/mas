@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -eu
 #
 # script/test
 # mas
@@ -6,5 +6,13 @@
 # Runs mas tests.
 #
 
-echo "==> ✅ Testing"
+mas_dir="$(readlink -fn "$(dirname "${BASH_SOURCE:-"${0}"}")/..")"
+
+if ! cd -- "${mas_dir}"; then
+  printf $'Error: Could not cd into mas directory: %s\n' "${mas_dir}" >&2
+  exit 1
+fi
+
+printf $'==> ✅ Testing mas (%s)\n' "$(script/version)"
+
 swift test

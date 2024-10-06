@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -u
 #
 # script/lint
 # mas
@@ -10,32 +10,63 @@
 # Please keep in sync with script/format.
 #
 
-echo "==> 🚨 Linting mas"
+set -o pipefail
 
-for LINTER in git markdownlint periphery shfmt swiftformat swiftlint; do
-  if [[ ! -x "$(command -v ${LINTER})" ]]; then
-    echo "error: ${LINTER} is not installed. Run 'script/bootstrap' or 'brew install ${LINTER}'."
+mas_dir="$(readlink -fn "$(dirname "${BASH_SOURCE:-"${0}"}")/..")"
+
+if ! cd -- "${mas_dir}"; then
+  printf $'Error: Could not cd into mas directory: %s\n' "${mas_dir}" >&2
+  exit 1
+fi
+
+printf $'==> 🚨 Linting mas (%s)\n' "$(script/version)"
+
+for linter in git markdownlint periphery shellcheck shfmt swift-format swiftformat swiftlint; do
+  if [[ ! -x "$(command -v ${linter})" ]]; then
+    printf $'error: %s is not installed. Run \'script/bootstrap\' or \'brew install %s\'.\n' "${linter}" "${linter}"
     exit 1
   fi
 done
 
-echo "--> 🌳 Git"
-git diff --check
-
-echo
-echo "--> 🖊 Markdown"
-markdownlint --config .markdownlint.json .github .
-
-echo
-echo "--> 🕊️ Swift"
-for SOURCE in Package.swift Sources Tests; do
-  swiftformat --lint ${SOURCE}
-  swift run swift-format lint --recursive ${SOURCE}
-  swiftlint lint --strict ${SOURCE}
+exit_code=0
+for source in Package.swift Sources Tests; do
+  printf -- $'--> 🕊  %s swift-format\n' "${source}"
+  swift-format lint --strict --recursive "${source}"
+  ((exit_code |= "${?}"))
+  printf -- $'--> 🕊  %s swiftformat\n' "${source}"
+  script -q /dev/null swiftformat --lint --strict "${source}" |
+    (grep -vxE $'Running SwiftFormat\\.\\.\\.\r|\\(lint mode - no files will be changed\\.\\)\r|Reading (?:config|swift-version) file at .*|\033\[32mSwiftFormat completed in \\d+\\.\\d+s\\.\033\\[0m\r|0/\\d+ files require formatting\\.\r' || true)
+  ((exit_code |= "${?}"))
+  printf -- $'--> 🕊  %s swiftlint\n' "${source}"
+  swiftlint --strict --quiet "${source}" 2> \
+    >((grep -vxF $'warning: Configuration option \'allow_multiline_func\' in \'opening_brace\' rule is deprecated. Use the option \'ignore_multiline_function_signatures\' instead.' || true) >&2)
+  ((exit_code |= "${?}"))
 done
-periphery scan
 
-echo
-echo "--> 📜 Bash"
+printf -- $'--> 🐚 Bash shellcheck\n'
 shellcheck --shell=bash script/*
-shfmt -d -i 2 -l contrib/ script/
+((exit_code |= "${?}"))
+
+printf -- $'--> 📜 Bash shfmt\n'
+shfmt \
+  --diff \
+  --list \
+  --indent 2 \
+  --case-indent \
+  contrib/ script/
+((exit_code |= "${?}"))
+
+printf -- $'--> 〽️ Markdown\n'
+markdownlint --config .markdownlint.json .github .
+((exit_code |= "${?}"))
+
+printf -- $'--> 🌳 Git\n'
+PAGER='cat' git diff --check
+((exit_code |= "${?}"))
+
+printf -- $'--> 🌀 Periphery\n'
+script -q /dev/null periphery scan --strict --quiet --disable-update-check |
+  (grep -vxF $'\033[0;1;32m* \033[0;0m\033[0;1mNo unused code detected.\033[0;0m\r\n' || true)
+((exit_code |= "${?}"))
+
+exit "${exit_code}"
