@@ -25,6 +25,7 @@
 .build/
 .envrc
 .fseventsd
+.idea/
 .rubygems/
 .swiftpm/
 Carthage/
