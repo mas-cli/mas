@@ -66,10 +66,10 @@ public struct HomeCommand: CommandProtocol {
 }
 
 public struct HomeOptions: OptionsProtocol {
-    let appId: Int
+    let appId: UInt64
 
     static func create(_ appId: Int) -> HomeOptions {
-        HomeOptions(appId: appId)
+        HomeOptions(appId: UInt64(appId))
     }
 
     public static func evaluate(_ mode: CommandMode) -> Result<HomeOptions, CommandantError<MASError>> {

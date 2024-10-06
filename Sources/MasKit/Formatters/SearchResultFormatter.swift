@@ -26,9 +26,9 @@ enum SearchResultFormatter {
             let price = result.price ?? 0.0
 
             if includePrice {
-                output += String(format: "%12d  %@  $%5.2f  (%@)\n", appId, appName, price, version)
+                output += String(format: "%12lu  %@  $%5.2f  (%@)\n", appId, appName, price, version)
             } else {
-                output += String(format: "%12d  %@ (%@)\n", appId, appName, version)
+                output += String(format: "%12lu  %@ (%@)\n", appId, appName, version)
             }
         }
 

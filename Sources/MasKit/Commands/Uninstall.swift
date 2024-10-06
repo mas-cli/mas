@@ -60,15 +60,14 @@ public struct UninstallCommand: CommandProtocol {
 
 /// Options for the uninstall command.
 public struct UninstallOptions: OptionsProtocol {
-    /// Numeric app ID
-    let appId: Int
+    let appId: UInt64
 
     /// Flag indicating that removal shouldn't be performed
     let dryRun: Bool
 
     static func create(_ appId: Int) -> (_ dryRun: Bool) -> UninstallOptions {
         { dryRun in
-            UninstallOptions(appId: appId, dryRun: dryRun)
+            UninstallOptions(appId: UInt64(appId), dryRun: dryRun)
         }
     }
 

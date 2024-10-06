@@ -29,7 +29,7 @@ public struct InfoCommand: CommandProtocol {
     /// Runs the command.
     public func run(_ options: InfoOptions) -> Result<Void, MASError> {
         do {
-            guard let result = try storeSearch.lookup(app: options.appId).wait() else {
+            guard let result = try storeSearch.lookup(app: UInt64(options.appId)).wait() else {
                 return .failure(.noSearchResultsFound)
             }
 
@@ -47,10 +47,10 @@ public struct InfoCommand: CommandProtocol {
 }
 
 public struct InfoOptions: OptionsProtocol {
-    let appId: Int
+    let appId: UInt64
 
     static func create(_ appId: Int) -> InfoOptions {
-        InfoOptions(appId: appId)
+        InfoOptions(appId: UInt64(appId))
     }
 
     public static func evaluate(_ mode: CommandMode) -> Result<InfoOptions, CommandantError<MASError>> {

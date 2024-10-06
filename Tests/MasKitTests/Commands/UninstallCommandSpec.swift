@@ -18,7 +18,7 @@ public class UninstallCommandSpec: QuickSpec {
             MasKit.initialize()
         }
         describe("uninstall command") {
-            let appId = 12345
+            let appId: UInt64 = 12345
             let app = SoftwareProductMock(
                 appName: "Some App",
                 bundleIdentifier: "com.some.app",

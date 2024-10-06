@@ -81,7 +81,7 @@ public struct UpgradeCommand: CommandProtocol {
         let promises = apps.map { installedApp in
             // only upgrade apps whose local version differs from the store version
             firstly {
-                storeSearch.lookup(app: installedApp.itemIdentifier.intValue)
+                storeSearch.lookup(app: installedApp.itemIdentifier.uint64Value)
             }.map { result -> (SoftwareProduct, SearchResult)? in
                 guard let storeApp = result, installedApp.isOutdatedWhenComparedTo(storeApp) else {
                     return nil

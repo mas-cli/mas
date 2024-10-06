@@ -54,7 +54,7 @@ public class MasStoreSearchSpec: QuickSpec {
 
             context("when lookup used") {
                 it("can find slack") {
-                    let appId = 803_453_959
+                    let appId: UInt64 = 803_453_959
                     let networkSession = NetworkSessionMockFromFile(responseFile: "lookup/slack.json")
                     let storeSearch = MasStoreSearch(networkManager: NetworkManager(session: networkSession))
 

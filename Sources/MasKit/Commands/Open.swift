@@ -48,9 +48,9 @@ public struct OpenCommand: CommandProtocol {
                 return .success(())
             }
 
-            guard let appId = Int(options.appId)
+            guard let appId = UInt64(options.appId)
             else {
-                printError("Invalid app ID")
+                printError(String(format: "Invalid app ID: %@", options.appId))
                 return .failure(.noSearchResultsFound)
             }
 

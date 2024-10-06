@@ -11,7 +11,7 @@ import PromiseKit
 
 /// Protocol for searching the MAS catalog.
 protocol StoreSearch {
-    func lookup(app appId: Int) -> Promise<SearchResult?>
+    func lookup(app appId: UInt64) -> Promise<SearchResult?>
     func search(for appName: String) -> Promise<[SearchResult]>
 }
 
@@ -49,7 +49,7 @@ extension StoreSearch {
     ///
     /// - Parameter appId: MAS app identifier.
     /// - Returns: URL for the lookup service or nil if appId can't be encoded.
-    func lookupURL(forApp appId: Int, inCountry country: String?) -> URL? {
+    func lookupURL(forApp appId: UInt64, inCountry country: String?) -> URL? {
         guard var components = URLComponents(string: "https://itunes.apple.com/lookup") else {
             return nil
         }
