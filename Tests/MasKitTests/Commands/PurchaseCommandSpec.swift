@@ -20,11 +20,7 @@ public class PurchaseCommandSpec: QuickSpec {
             it("purchases apps") {
                 let cmd = PurchaseCommand()
                 let result = cmd.run(PurchaseCommand.Options(appIds: []))
-                expect(result)
-                    .to(
-                        beFailure { error in
-                            expect(error) == .notSupported
-                        })
+                expect(result).to(beSuccess())
             }
         }
     }
