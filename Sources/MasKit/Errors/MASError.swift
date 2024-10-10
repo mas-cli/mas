@@ -13,7 +13,7 @@ public enum MASError: Error, Equatable {
 
     case notSignedIn
     case signInFailed(error: NSError?)
-    case alreadySignedIn
+    case alreadySignedIn(asAccountId: String)
 
     case purchaseFailed(error: NSError?)
     case downloadFailed(error: NSError?)
@@ -52,8 +52,8 @@ extension MASError: CustomStringConvertible {
                 return "Sign in failed"
             }
 
-        case .alreadySignedIn:
-            return "Already signed in"
+        case .alreadySignedIn(let accountId):
+            return "Already signed in as \(accountId)"
 
         case .purchaseFailed(let error):
             if let error {

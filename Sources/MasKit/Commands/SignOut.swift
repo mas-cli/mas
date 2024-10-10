@@ -19,8 +19,7 @@ public struct SignOutCommand: CommandProtocol {
     /// Runs the command.
     public func run(_: Options) -> Result<Void, MASError> {
         if #available(macOS 10.13, *) {
-            let accountService: ISAccountService = ISServiceProxy.genericShared().accountService
-            accountService.signOut()
+            ISServiceProxy.genericShared().accountService.signOut()
         } else {
             // Using CKAccountStore to sign out does nothing on High Sierra
             // https://github.com/mas-cli/mas/issues/129

@@ -57,8 +57,8 @@ class MASErrorTestCase: XCTestCase {
     }
 
     func testAlreadySignedIn() {
-        error = .alreadySignedIn
-        XCTAssertEqual(error.description, "Already signed in")
+        error = .alreadySignedIn(asAccountId: "person@example.com")
+        XCTAssertEqual(error.description, "Already signed in as person@example.com")
     }
 
     func testPurchaseFailed() {

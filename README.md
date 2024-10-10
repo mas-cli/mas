@@ -163,7 +163,6 @@ To sign into the Mac App Store for the first time run `mas signin`.
 
 ```bash
 $ mas signin mas@example.com
-==> Signing in to Apple ID: mas@example.com
 Password:
 ```
 
@@ -171,15 +170,13 @@ If you experience issues signing in this way, you can ask to sign in using a gra
 (provided by Mac App Store application):
 
 ```bash
-$ mas signin --dialog mas@example.com
-==> Signing in to Apple ID: mas@example.com
+mas signin --dialog mas@example.com
 ```
 
 You can also embed your password in the command.
 
 ```bash
-$ mas signin mas@example.com 'ZdkM4f$gzF;gX3ABXNLf8KcCt.x.np'
-==> Signing in to Apple ID: mas@example.com
+mas signin mas@example.com 'ZdkM4f$gzF;gX3ABXNLf8KcCt.x.np'
 ```
 
 Use `mas signout` to sign out from the Mac App Store.
