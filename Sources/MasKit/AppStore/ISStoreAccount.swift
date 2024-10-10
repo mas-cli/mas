@@ -35,15 +35,18 @@ extension ISStoreAccount: StoreAccount {
             // https://github.com/mas-cli/mas/issues/164
             throw MASError.notSupported
         } else {
-            let primaryAccount = primaryAccount
-            if primaryAccount != nil {
-                throw MASError.alreadySignedIn(asAccountId: primaryAccount!.identifier)
+            if let account = primaryAccount, account.isSignedIn {
+                throw MASError.alreadySignedIn(asAccountId: account.identifier)
             }
 
             let password =
                 password.isEmpty && !systemDialog
                 ? String(validatingUTF8: getpass("Password: "))!
                 : password
+
+            guard !password.isEmpty || systemDialog else {
+                throw MASError.noPasswordProvided
+            }
 
             let accountService = ISServiceProxy.genericShared().accountService
             accountService.setStoreClient(ISStoreClient(storeClientType: 0))

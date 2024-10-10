@@ -12,6 +12,7 @@ public enum MASError: Error, Equatable {
     case notSupported
 
     case notSignedIn
+    case noPasswordProvided
     case signInFailed(error: NSError?)
     case alreadySignedIn(asAccountId: String)
 
@@ -37,62 +38,50 @@ extension MASError: CustomStringConvertible {
         switch self {
         case .notSignedIn:
             return "Not signed in"
-
+        case .noPasswordProvided:
+            return "No password provided"
         case .notSupported:
             return """
                 This command is not supported on this macOS version due to changes in macOS. \
                 For more information see: \
                 https://github.com/mas-cli/mas#%EF%B8%8F-known-issues
                 """
-
         case .signInFailed(let error):
             if let error {
                 return "Sign in failed: \(error.localizedDescription)"
             } else {
                 return "Sign in failed"
             }
-
         case .alreadySignedIn(let accountId):
             return "Already signed in as \(accountId)"
-
         case .purchaseFailed(let error):
             if let error {
                 return "Download request failed: \(error.localizedDescription)"
             } else {
                 return "Download request failed"
             }
-
         case .downloadFailed(let error):
             if let error {
                 return "Download failed: \(error.localizedDescription)"
             } else {
                 return "Download failed"
             }
-
         case .noDownloads:
             return "No downloads began"
-
         case .cancelled:
             return "Download cancelled"
-
         case .searchFailed:
             return "Search failed"
-
         case .noSearchResultsFound:
             return "No results found"
-
         case .noVendorWebsite:
             return "App does not have a vendor website"
-
         case .notInstalled:
             return "Not installed"
-
         case .uninstallFailed:
             return "Uninstall failed"
-
         case .noData:
             return "Service did not return data"
-
         case .jsonParsing:
             return "Unable to parse response JSON"
         }
