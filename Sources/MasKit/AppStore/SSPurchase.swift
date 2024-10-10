@@ -13,7 +13,7 @@ typealias SSPurchaseCompletion =
     (_ purchase: SSPurchase?, _ completed: Bool, _ error: Error?, _ response: SSPurchaseResponse?) -> Void
 
 extension SSPurchase {
-    convenience init(adamId: UInt64, account: StoreAccount?, purchase: Bool = false) {
+    convenience init?(adamId: UInt64, purchase: Bool = false) {
         self.init()
 
         var parameters: [String: Any] = [
@@ -41,9 +41,14 @@ extension SSPurchase {
 
         itemIdentifier = adamId
 
-        if let account {
-            accountIdentifier = account.dsID
-            appleID = account.identifier
+        if #unavailable(macOS 12) {
+            // Monterey obscures the user's App Store account information, but allows
+            // redownloads without passing the account to SSPurchase.
+            // https://github.com/mas-cli/mas/issues/417
+            if let storeAccount = ISStoreAccount.primaryAccount {
+                accountIdentifier = storeAccount.dsID
+                appleID = storeAccount.identifier
+            }
         }
 
         // Not sure if this is needed, but lets use it here.

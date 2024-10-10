@@ -63,19 +63,12 @@ private func downloadWithRetries(
 /// Only works for free apps. Defaults to false.
 /// - Returns: A promise the completes when the download is complete.
 private func download(_ appID: UInt64, purchase: Bool = false) -> Promise<Void> {
-    var storeAccount: StoreAccount?
-    if #unavailable(macOS 12) {
-        // Monterey obscured the user's account information, but still allows
-        // redownloads without passing it to SSPurchase.
-        // https://github.com/mas-cli/mas/issues/417
-        storeAccount = ISStoreAccount.primaryAccount
-        guard storeAccount != nil else {
-            return Promise(error: MASError.notSignedIn)
+    Promise<SSPurchase> { seal in
+        guard let purchase = SSPurchase(adamId: appID, purchase: purchase) else {
+            seal.reject(MASError.notSignedIn)
+            return
         }
-    }
 
-    return Promise<SSPurchase> { seal in
-        let purchase = SSPurchase(adamId: appID, account: storeAccount, purchase: purchase)
         purchase.perform { purchase, _, error, response in
             if let error {
                 seal.reject(MASError.purchaseFailed(error: error as NSError?))
