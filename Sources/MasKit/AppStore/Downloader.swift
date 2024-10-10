@@ -76,7 +76,6 @@ private func download(_ appID: UInt64, purchase: Bool = false) -> Promise<Void> 
             }
 
             guard response?.downloads.isEmpty == false, let purchase else {
-                print("No downloads")
                 seal.reject(MASError.noDownloads)
                 return
             }
