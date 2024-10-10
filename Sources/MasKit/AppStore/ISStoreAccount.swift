@@ -10,27 +10,26 @@ import CommerceKit
 import StoreFoundation
 
 extension ISStoreAccount: StoreAccount {
-    static var primaryAccount: StoreAccount? {
-        var account: ISStoreAccount?
-
+    static var primaryAccount: ISStoreAccount? {
         if #available(macOS 10.13, *) {
             let group = DispatchGroup()
             group.enter()
 
+            var account: ISStoreAccount?
             ISServiceProxy.genericShared().accountService.primaryAccount { storeAccount in
                 account = storeAccount
                 group.leave()
             }
 
             _ = group.wait(timeout: .now() + 30)
-        } else {
-            account = CKAccountStore.shared().primaryAccount
-        }
 
-        return account
+            return account
+        } else {
+            return CKAccountStore.shared().primaryAccount
+        }
     }
 
-    static func signIn(username: String, password: String, systemDialog: Bool = false) throws -> StoreAccount {
+    static func signIn(username: String, password: String, systemDialog: Bool = false) throws -> ISStoreAccount {
         if #available(macOS 10.13, *) {
             // Signing in is no longer possible as of High Sierra.
             // https://github.com/mas-cli/mas/issues/164

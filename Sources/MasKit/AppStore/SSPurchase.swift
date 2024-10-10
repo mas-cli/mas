@@ -13,7 +13,7 @@ typealias SSPurchaseCompletion =
     (_ purchase: SSPurchase?, _ completed: Bool, _ error: Error?, _ response: SSPurchaseResponse?) -> Void
 
 extension SSPurchase {
-    convenience init(adamId: UInt64, account: ISStoreAccount?, purchase: Bool = false) {
+    convenience init(adamId: UInt64, account: StoreAccount?, purchase: Bool = false) {
         self.init()
 
         var parameters: [String: Any] = [
