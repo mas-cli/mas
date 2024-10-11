@@ -13,9 +13,7 @@ typealias SSPurchaseCompletion =
     (_ purchase: SSPurchase?, _ completed: Bool, _ error: Error?, _ response: SSPurchaseResponse?) -> Void
 
 extension SSPurchase {
-    convenience init?(adamId: UInt64, purchase: Bool = false) {
-        self.init()
-
+    func perform(adamId: UInt64, purchase: Bool, _ completion: @escaping SSPurchaseCompletion) {
         var parameters: [String: Any] = [
             "productType": "C",
             "price": 0,
@@ -56,14 +54,10 @@ extension SSPurchase {
             isRedownload = false
         }
 
-        let downloadMetadata = SSDownloadMetadata()
+        downloadMetadata = SSDownloadMetadata()
         downloadMetadata.kind = "software"
         downloadMetadata.itemIdentifier = adamId
 
-        self.downloadMetadata = downloadMetadata
-    }
-
-    func perform(_ completion: @escaping SSPurchaseCompletion) {
         CKPurchaseController.shared().perform(self, withOptions: 0, completionHandler: completion)
     }
 }
