@@ -25,6 +25,7 @@ public struct SignInCommand: CommandProtocol {
                 password: options.password,
                 systemDialog: options.dialog
             )
+            .wait()
             return .success(())
         } catch {
             return .failure(error as? MASError ?? .signInFailed(error: error as NSError))

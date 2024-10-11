@@ -45,7 +45,7 @@ extension SSPurchase {
             // Monterey obscures the user's App Store account information, but allows
             // redownloads without passing the account to SSPurchase.
             // https://github.com/mas-cli/mas/issues/417
-            if let storeAccount = ISStoreAccount.primaryAccount {
+            if let storeAccount = try? ISStoreAccount.primaryAccount.wait() {
                 accountIdentifier = storeAccount.dsID
                 appleID = storeAccount.identifier
             }

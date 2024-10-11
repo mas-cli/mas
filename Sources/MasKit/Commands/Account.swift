@@ -24,11 +24,11 @@ public struct AccountCommand: CommandProtocol {
             return .failure(.notSupported)
         }
 
-        if let account = ISStoreAccount.primaryAccount {
-            print(account.identifier)
-        } else {
-            return .failure(.notSignedIn)
+        do {
+            print(try ISStoreAccount.primaryAccount.wait().identifier)
+            return .success(())
+        } catch {
+            return .failure(error as? MASError ?? .failed(error: error as NSError))
         }
-        return .success(())
     }
 }

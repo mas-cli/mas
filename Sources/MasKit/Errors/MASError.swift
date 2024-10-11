@@ -11,6 +11,8 @@ import Foundation
 public enum MASError: Error, Equatable {
     case notSupported
 
+    case failed(error: NSError?)
+
     case notSignedIn
     case noPasswordProvided
     case signInFailed(error: NSError?)
@@ -46,6 +48,12 @@ extension MASError: CustomStringConvertible {
                 For more information see: \
                 https://github.com/mas-cli/mas#%EF%B8%8F-known-issues
                 """
+        case .failed(let error):
+            if let error {
+                return "Failed: \(error.localizedDescription)"
+            } else {
+                return "Failed"
+            }
         case .signInFailed(let error):
             if let error {
                 return "Sign in failed: \(error.localizedDescription)"
