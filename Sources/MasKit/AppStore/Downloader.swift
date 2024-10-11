@@ -35,56 +35,22 @@ func downloadAll(_ appIDs: [UInt64], purchase: Bool = false) -> Promise<Void> {
 }
 
 private func downloadWithRetries(_ appID: UInt64, purchase: Bool = false, attempts: Int = 3) -> Promise<Void> {
-    download(appID, purchase: purchase).recover { error -> Promise<Void> in
-        guard attempts > 1 else {
-            throw error
-        }
-
-        // If the download failed due to network issues, try again. Otherwise, fail immediately.
-        guard case MASError.downloadFailed(let downloadError) = error,
-            case NSURLErrorDomain = downloadError?.domain
-        else {
-            throw error
-        }
-
-        let attempts = attempts - 1
-        printWarning((downloadError ?? error).localizedDescription)
-        printWarning("Trying again up to \(attempts) more \(attempts == 1 ? "time" : "times").")
-        return downloadWithRetries(appID, purchase: purchase, attempts: attempts)
-    }
-}
-
-/// Downloads an app, printing progress to the console.
-///
-/// - Parameter appID: The ID of the app to be downloaded
-/// - Parameter purchase: Flag indicating whether the app needs to be purchased. Only works for free apps.
-/// - Returns: A promise the completes when the download is complete.
-private func download(_ appID: UInt64, purchase: Bool) -> Promise<Void> {
-    Promise<SSPurchase> { seal in
-        SSPurchase().perform(adamId: appID, purchase: purchase) { purchase, _, error, response in
-            if let error {
-                seal.reject(MASError.purchaseFailed(error: error as NSError?))
-                return
+    SSPurchase().perform(adamId: appID, purchase: purchase)
+        .recover { error -> Promise<Void> in
+            guard attempts > 1 else {
+                throw error
             }
 
-            guard response?.downloads.isEmpty == false, let purchase else {
-                seal.reject(MASError.noDownloads)
-                return
+            // If the download failed due to network issues, try again. Otherwise, fail immediately.
+            guard case MASError.downloadFailed(let downloadError) = error,
+                case NSURLErrorDomain = downloadError?.domain
+            else {
+                throw error
             }
 
-            seal.fulfill(purchase)
+            let attempts = attempts - 1
+            printWarning((downloadError ?? error).localizedDescription)
+            printWarning("Trying again up to \(attempts) more \(attempts == 1 ? "time" : "times").")
+            return downloadWithRetries(appID, purchase: purchase, attempts: attempts)
         }
-    }.then { purchase -> Promise<Void> in
-        let observer = PurchaseDownloadObserver(purchase: purchase)
-        let download = Promise<Void> { seal in
-            observer.errorHandler = seal.reject
-            observer.completionHandler = seal.fulfill_
-        }
-
-        let downloadQueue = CKDownloadQueue.shared()
-        let observerID = downloadQueue.add(observer)
-        return download.ensure {
-            downloadQueue.remove(observerID)
-        }
-    }
 }

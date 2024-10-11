@@ -7,13 +7,11 @@
 //
 
 import CommerceKit
+import PromiseKit
 import StoreFoundation
 
-typealias SSPurchaseCompletion =
-    (_ purchase: SSPurchase?, _ completed: Bool, _ error: Error?, _ response: SSPurchaseResponse?) -> Void
-
 extension SSPurchase {
-    func perform(adamId: UInt64, purchase: Bool, _ completion: @escaping SSPurchaseCompletion) {
+    func perform(adamId: UInt64, purchase: Bool) -> Promise<Void> {
         var parameters: [String: Any] = [
             "productType": "C",
             "price": 0,
@@ -27,7 +25,6 @@ extension SSPurchase {
             parameters["pricingParameters"] = "STDQ"
 
         } else {
-            // is redownload, use existing functionality
             parameters["pricingParameters"] = "STDRDL"
         }
 
@@ -39,17 +36,7 @@ extension SSPurchase {
 
         itemIdentifier = adamId
 
-        if #unavailable(macOS 12) {
-            // Monterey obscures the user's App Store account information, but allows
-            // redownloads without passing the account to SSPurchase.
-            // https://github.com/mas-cli/mas/issues/417
-            if let storeAccount = try? ISStoreAccount.primaryAccount.wait() {
-                accountIdentifier = storeAccount.dsID
-                appleID = storeAccount.identifier
-            }
-        }
-
-        // Not sure if this is needed, but lets use it here.
+        // Not sure if this is needed…
         if purchase {
             isRedownload = false
         }
@@ -58,6 +45,50 @@ extension SSPurchase {
         downloadMetadata.kind = "software"
         downloadMetadata.itemIdentifier = adamId
 
-        CKPurchaseController.shared().perform(self, withOptions: 0, completionHandler: completion)
+        // Monterey obscures the user's App Store account, but allows
+        // redownloads without passing any account IDs to SSPurchase.
+        // https://github.com/mas-cli/mas/issues/417
+        if #available(macOS 12, *) {
+            return perform()
+        }
+
+        return
+            ISStoreAccount.primaryAccount
+            .then { storeAccount in
+                self.accountIdentifier = storeAccount.dsID
+                self.appleID = storeAccount.identifier
+                return self.perform()
+            }
+    }
+
+    private func perform() -> Promise<Void> {
+        Promise<SSPurchase> { seal in
+            CKPurchaseController.shared().perform(self, withOptions: 0) { purchase, _, error, response in
+                if let error {
+                    seal.reject(MASError.purchaseFailed(error: error as NSError?))
+                    return
+                }
+
+                guard response?.downloads.isEmpty == false, let purchase else {
+                    seal.reject(MASError.noDownloads)
+                    return
+                }
+
+                seal.fulfill(purchase)
+            }
+        }
+        .then { purchase in
+            let observer = PurchaseDownloadObserver(purchase: purchase)
+            let downloadQueue = CKDownloadQueue.shared()
+            let observerID = downloadQueue.add(observer)
+
+            return Promise<Void> { seal in
+                observer.errorHandler = seal.reject
+                observer.completionHandler = seal.fulfill_
+            }
+            .ensure {
+                downloadQueue.remove(observerID)
+            }
+        }
     }
 }
