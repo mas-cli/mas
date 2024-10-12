@@ -29,40 +29,36 @@ extension Mas {
         }
 
         func run(appLibrary: AppLibrary, storeSearch: StoreSearch) throws {
-            let promises = appLibrary.installedApps.map { installedApp in
-                firstly {
-                    storeSearch.lookup(app: installedApp.itemIdentifier.intValue)
-                }.done { storeApp in
-                    guard let storeApp else {
-                        if verbose {
-                            printWarning(
-                                """
-                                Identifier \(installedApp.itemIdentifier) not found in store. \
-                                Was expected to identify \(installedApp.appName).
-                                """
-                            )
+            _ = try when(
+                fulfilled:
+                    appLibrary.installedApps.map { installedApp in
+                        firstly {
+                            storeSearch.lookup(app: installedApp.itemIdentifier.intValue)
+                        }.done { storeApp in
+                            guard let storeApp else {
+                                if verbose {
+                                    printWarning(
+                                        """
+                                        Identifier \(installedApp.itemIdentifier) not found in store. \
+                                        Was expected to identify \(installedApp.appName).
+                                        """
+                                    )
+                                }
+                                return
+                            }
+
+                            if installedApp.isOutdatedWhenComparedTo(storeApp) {
+                                print(
+                                    """
+                                    \(installedApp.itemIdentifier) \(installedApp.appName) \
+                                    (\(installedApp.bundleVersion) -> \(storeApp.version))
+                                    """
+                                )
+                            }
                         }
-                        return
                     }
-
-                    if installedApp.isOutdatedWhenComparedTo(storeApp) {
-                        print(
-                            """
-                            \(installedApp.itemIdentifier) \(installedApp.appName) \
-                            (\(installedApp.bundleVersion) -> \(storeApp.version))
-                            """
-                        )
-                    }
-                }
-            }
-
-            _ = firstly {
-                when(fulfilled: promises)
-            }.map {
-                Result<Void, MASError>.success(())
-            }.recover { error in
-                .value(Result<Void, MASError>.failure(error as? MASError ?? .searchFailed))
-            }.wait()
+            )
+            .wait()
         }
     }
 }
