@@ -151,12 +151,15 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
 
+      # The mas-cli/homebrew-tap repo needs to be checked out using the current
+      # GitHub credentials in order to open a PR. However, the `brew tap` command
+      # must be run for Homebrew to see the dir as a tap.
       # This is necessary to avoid the following error:
       # Error: No available formula or cask with the name "mas-cli/tap/mas".
       - name: 🚰 Checkout mas tap
         run: |
           brew tap mas-cli/tap
-          rm -rf /opt/homebrew/Library/Taps/mas-cli/homebrew-tap
+          rm -rf /opt/homebrew/Library/Taps
           ln -s /opt/homebrew/Library/Taps Taps
 
       # Checkout with a token for write access
