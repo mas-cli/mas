@@ -159,8 +159,10 @@ jobs:
       - name: 🚰 Checkout mas tap
         run: |
           brew tap mas-cli/tap
+          brew tap
           rm -rf /opt/homebrew/Library/Taps
           ln -s /opt/homebrew/Library/Taps Taps
+          brew tap
 
       # Checkout with a token for write access
       - name: 🚰 Re-clone mas tap
