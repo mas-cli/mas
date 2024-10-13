@@ -158,10 +158,11 @@ jobs:
       # Error: No available formula or cask with the name "mas-cli/tap/mas".
       - name: 🚰 Checkout mas tap
         run: |
-          brew tap mas-cli/tap
-          brew tap
           rm -rf /opt/homebrew/Library/Taps
-          ln -s /opt/homebrew/Library/Taps Taps
+          mkdir Taps
+          ln -s Taps /opt/homebrew/Library/Taps
+          ls -l /opt/homebrew/Library/Taps
+          brew tap mas-cli/tap
           brew tap
 
       # Checkout with a token for write access
