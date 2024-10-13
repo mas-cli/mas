@@ -27,6 +27,7 @@ indent_style = tab
 
 # JSON files contain newlines inconsistently
 [*.json]
+indent_size = 2
 insert_final_newline = ignore
 
 # Makefiles always use tabs for indentation
