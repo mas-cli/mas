@@ -13,17 +13,18 @@ import Quick
 @testable import mas
 
 public class SearchResultSpec: QuickSpec {
-    override public func spec() {
+    override public static func spec() {
         beforeSuite {
             Mas.initialize()
         }
         describe("search result") {
             it("can parse things") {
-                let data = Data(from: "search/things-that-go-bump.json")
-                let decoder = JSONDecoder()
-                let result = try decoder.decode(SearchResult.self, from: data)
-
-                expect(result.bundleId) == "uikitformac.com.tinybop.thingamabops"
+                expect(
+                    try JSONDecoder()
+                        .decode(SearchResult.self, from: Data(from: "search/things-that-go-bump.json"))
+                        .bundleId
+                )
+                    == "uikitformac.com.tinybop.thingamabops"
             }
         }
     }

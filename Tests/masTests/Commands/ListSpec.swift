@@ -6,22 +6,25 @@
 //  Copyright © 2018 mas-cli. All rights reserved.
 //
 
+import Foundation
 import Nimble
 import Quick
 
 @testable import mas
 
 public class ListSpec: QuickSpec {
-    override public func spec() {
+    override public static func spec() {
         beforeSuite {
             Mas.initialize()
         }
         describe("list command") {
             it("lists apps") {
                 expect {
-                    try Mas.List.parse([]).run(appLibrary: AppLibraryMock())
+                    try captureStream(stderr) {
+                        try Mas.List.parse([]).run(appLibrary: AppLibraryMock())
+                    }
                 }
-                .toNot(throwError())
+                    == "Error: No installed apps found\n"
             }
         }
     }

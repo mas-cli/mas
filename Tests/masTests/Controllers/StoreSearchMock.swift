@@ -14,9 +14,7 @@ class StoreSearchMock: StoreSearch {
     var apps: [AppID: SearchResult] = [:]
 
     func search(for appName: String) -> Promise<[SearchResult]> {
-        let filtered = apps.filter { $1.trackName.contains(appName) }
-        let results = filtered.map { $1 }
-        return .value(results)
+        .value(apps.filter { $1.trackName.contains(appName) }.map { $1 })
     }
 
     func lookup(appID: AppID) -> Promise<SearchResult?> {

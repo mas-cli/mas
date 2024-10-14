@@ -12,25 +12,23 @@ import Quick
 @testable import mas
 
 public class MasStoreSearchSpec: QuickSpec {
-    override public func spec() {
+    override public static func spec() {
         beforeSuite {
             Mas.initialize()
         }
         describe("url string") {
             it("contains the app name") {
                 let appName = "myapp"
-                let urlString = MasStoreSearch().searchURL(for: appName, inCountry: "US")?.absoluteString
-                expect(urlString) == """
-                    https://itunes.apple.com/search?media=software&entity=macSoftware&term=\(appName)&country=US
-                    """
+                expect {
+                    MasStoreSearch().searchURL(for: appName, inCountry: "US")?.absoluteString
+                }
+                    == "https://itunes.apple.com/search?media=software&entity=macSoftware&term=\(appName)&country=US"
             }
             it("contains the encoded app name") {
-                let appName = "My App"
-                let appNameEncoded = "My%20App"
-                let urlString = MasStoreSearch().searchURL(for: appName, inCountry: "US")?.absoluteString
-                expect(urlString) == """
-                    https://itunes.apple.com/search?media=software&entity=macSoftware&term=\(appNameEncoded)&country=US
-                    """
+                expect {
+                    MasStoreSearch().searchURL(for: "My App", inCountry: "US")?.absoluteString
+                }
+                    == "https://itunes.apple.com/search?media=software&entity=macSoftware&term=My%20App&country=US"
             }
         }
         describe("store") {
@@ -39,16 +37,10 @@ public class MasStoreSearchSpec: QuickSpec {
                     let networkSession = NetworkSessionMockFromFile(responseFile: "search/slack.json")
                     let storeSearch = MasStoreSearch(networkManager: NetworkManager(session: networkSession))
 
-                    var results: [SearchResult]
-                    do {
-                        results = try storeSearch.search(for: "slack").wait()
-                        expect(results.count) == 39
-                    } catch {
-                        let maserror = error as! MASError
-                        if case .jsonParsing(let nserror) = maserror {
-                            fail("\(maserror) \(nserror!)")
-                        }
+                    expect {
+                        try storeSearch.search(for: "slack").wait()
                     }
+                    .to(haveCount(39))
                 }
             }
 
@@ -58,9 +50,9 @@ public class MasStoreSearchSpec: QuickSpec {
                     let networkSession = NetworkSessionMockFromFile(responseFile: "lookup/slack.json")
                     let storeSearch = MasStoreSearch(networkManager: NetworkManager(session: networkSession))
 
-                    var lookup: SearchResult?
+                    var result: SearchResult?
                     do {
-                        lookup = try storeSearch.lookup(appID: appID).wait()
+                        result = try storeSearch.lookup(appID: appID).wait()
                     } catch {
                         let maserror = error as! MASError
                         if case .jsonParsing(let nserror) = maserror {
@@ -68,7 +60,9 @@ public class MasStoreSearchSpec: QuickSpec {
                         }
                     }
 
-                    guard let result = lookup else { fatalError("lookup result was nil") }
+                    guard let result else {
+                        fatalError("lookup result was nil")
+                    }
 
                     expect(result.trackId) == appID
                     expect(result.bundleId) == "com.tinyspeck.slackmacgap"

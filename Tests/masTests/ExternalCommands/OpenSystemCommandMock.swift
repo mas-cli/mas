@@ -13,7 +13,7 @@ import Foundation
 class OpenSystemCommandMock: ExternalCommand {
     // Stub out protocol logic
     var succeeded = true
-    var arguments: [String]?
+    var arguments: [String] = []
 
     // unused
     var binaryPath = "/dev/null"

@@ -6,22 +6,26 @@
 //  Copyright © 2018 mas-cli. All rights reserved.
 //
 
+import Foundation
 import Nimble
 import Quick
 
 @testable import mas
 
 public class UpgradeSpec: QuickSpec {
-    override public func spec() {
+    override public static func spec() {
         beforeSuite {
             Mas.initialize()
         }
         describe("upgrade command") {
-            it("upgrades stuff") {
+            it("finds no upgrades") {
                 expect {
-                    try Mas.Upgrade.parse([]).run(appLibrary: AppLibraryMock(), storeSearch: StoreSearchMock())
+                    try captureStream(stderr) {
+                        try Mas.Upgrade.parse([])
+                            .run(appLibrary: AppLibraryMock(), storeSearch: StoreSearchMock())
+                    }
                 }
-                .toNot(throwError())
+                    == "Warning: Nothing found to upgrade\n"
             }
         }
     }

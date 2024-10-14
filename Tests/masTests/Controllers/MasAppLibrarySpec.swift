@@ -12,7 +12,7 @@ import Quick
 @testable import mas
 
 public class MasAppLibrarySpec: QuickSpec {
-    override public func spec() {
+    override public static func spec() {
         let library = MasAppLibrary(softwareMap: SoftwareMapMock(products: apps))
 
         beforeSuite {
@@ -20,12 +20,11 @@ public class MasAppLibrarySpec: QuickSpec {
         }
         describe("mas app library") {
             it("contains all installed apps") {
-                expect(library.installedApps.count) == apps.count
+                expect(library.installedApps).to(haveCount(apps.count))
                 expect(library.installedApps.first!.appName) == myApp.appName
             }
             it("can locate an app by bundle id") {
-                let app = library.installedApp(forBundleId: "com.example")!
-                expect(app.bundleIdentifier) == myApp.bundleIdentifier
+                expect(library.installedApp(forBundleId: "com.example")!.bundleIdentifier) == myApp.bundleIdentifier
             }
         }
     }

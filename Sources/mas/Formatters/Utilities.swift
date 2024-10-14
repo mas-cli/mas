@@ -13,63 +13,6 @@ import Foundation
 /// Terminal Control Sequence Indicator
 let csi = "\u{001B}["
 
-#if DEBUG
-
-    var printObserver: ((String) -> Void)?
-
-    // Override global print for testability.
-    // See masTests/OutputListener.swift.
-    func print(
-        _ items: Any...,
-        separator: String = " ",
-        terminator: String = "\n"
-    ) {
-        if let observer = printObserver {
-            let output =
-                items
-                .map { "\($0)" }
-                .joined(separator: separator)
-                .appending(terminator)
-            observer(output)
-        }
-
-        var prefix = ""
-        for item in items {
-            Swift.print(prefix, terminator: "")
-            Swift.print(item, terminator: "")
-            prefix = separator
-        }
-
-        Swift.print(terminator, terminator: "")
-    }
-
-    func print(
-        _ items: Any...,
-        separator: String = " ",
-        terminator: String = "\n",
-        to output: inout some TextOutputStream
-    ) {
-        if let observer = printObserver {
-            let output =
-                items
-                .map { "\($0)" }
-                .joined(separator: separator)
-                .appending(terminator)
-            observer(output)
-        }
-
-        var prefix = ""
-        for item in items {
-            Swift.print(prefix, terminator: "", to: &output)
-            Swift.print(item, terminator: "", to: &output)
-            prefix = separator
-        }
-
-        Swift.print(terminator, terminator: "", to: &output)
-    }
-
-#endif
-
 private var standardError = FileHandle.standardError
 
 extension FileHandle: TextOutputStream {
@@ -120,4 +63,31 @@ func clearLine() {
 
     print("\(csi)2K\(csi)0G", terminator: "")
     fflush(stdout)
+}
+
+func captureStream(
+    _ stream: UnsafeMutablePointer<FILE>,
+    encoding: String.Encoding = .utf8,
+    _ block: @escaping () throws -> Void
+) throws -> String {
+    let originalFd = fileno(stream)
+    let duplicateFd = dup(originalFd)
+    defer {
+        close(duplicateFd)
+    }
+
+    let pipe = Pipe()
+    dup2(pipe.fileHandleForWriting.fileDescriptor, originalFd)
+
+    do {
+        defer {
+            fflush(stream)
+            dup2(duplicateFd, originalFd)
+            pipe.fileHandleForWriting.closeFile()
+        }
+
+        try block()
+    }
+
+    return String(data: pipe.fileHandleForReading.readDataToEndOfFile(), encoding: encoding) ?? ""
 }

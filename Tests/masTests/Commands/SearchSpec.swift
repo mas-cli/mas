@@ -12,13 +12,7 @@ import Quick
 @testable import mas
 
 public class SearchSpec: QuickSpec {
-    override public func spec() {
-        let result = SearchResult(
-            trackId: 1111,
-            trackName: "slack",
-            trackViewUrl: "mas preview url",
-            version: "0.0"
-        )
+    override public static func spec() {
         let storeSearch = StoreSearchMock()
 
         beforeSuite {
@@ -29,7 +23,13 @@ public class SearchSpec: QuickSpec {
                 storeSearch.reset()
             }
             it("can find slack") {
-                storeSearch.apps[result.trackId] = result
+                let mockResult = SearchResult(
+                    trackId: 1111,
+                    trackName: "slack",
+                    trackViewUrl: "mas preview url",
+                    version: "0.0"
+                )
+                storeSearch.apps[mockResult.trackId] = mockResult
                 expect {
                     try Mas.Search.parse(["slack"]).run(storeSearch: storeSearch)
                 }

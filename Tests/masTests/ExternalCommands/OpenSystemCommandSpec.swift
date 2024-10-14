@@ -12,19 +12,17 @@ import Quick
 @testable import mas
 
 public class OpenSystemCommandSpec: QuickSpec {
-    override public func spec() {
+    override public static func spec() {
         beforeSuite {
             Mas.initialize()
         }
         describe("open system command") {
             context("binary path") {
                 it("defaults to the macOS open command") {
-                    let cmd = OpenSystemCommand()
-                    expect(cmd.binaryPath) == "/usr/bin/open"
+                    expect(OpenSystemCommand().binaryPath) == "/usr/bin/open"
                 }
                 it("can be overridden") {
-                    let cmd = OpenSystemCommand(binaryPath: "/dev/null")
-                    expect(cmd.binaryPath) == "/dev/null"
+                    expect(OpenSystemCommand(binaryPath: "/dev/null").binaryPath) == "/dev/null"
                 }
             }
         }
