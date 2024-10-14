@@ -4,13 +4,12 @@
 #
 # https://github.com/realm/SwiftLint#configuration
 #
-
+---
 disabled_rules:
 - non_optional_string_data_conversion
 - trailing_comma
-
 excluded:
 - docs
-
 opening_brace:
-  allow_multiline_func: true
+  ignore_multiline_function_signatures: true
+  ignore_multiline_statement_conditions: true

@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -eu
 #
 # script/bootstrap
 # mas
@@ -6,10 +6,17 @@
 # Installs development dependencies and builds project dependencies.
 #
 
+mas_dir="$(readlink -fn "$(dirname "${BASH_SOURCE:-"${0}"}")/..")"
+
+if ! cd -- "${mas_dir}"; then
+  printf $'Error: Could not cd into mas directory: %s\n' "${mas_dir}" >&2
+  exit 1
+fi
+
 main() {
   script/clean
 
-  echo "==> 👢 Bootstrapping"
+  printf $'==> 👢 Bootstrapping\n'
 
   # Install Homebrew tools
   rm -f Brewfile.lock.json
