@@ -11,7 +11,7 @@ import Foundation
 
 extension Mas {
     /// Displays app details. Uses the iTunes Lookup API:
-    /// https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/#lookup
+    /// https://performance-partners.apple.com/search-api
     struct Info: ParsableCommand {
         static let configuration = CommandConfiguration(
             abstract: "Display app information from the Mac App Store"

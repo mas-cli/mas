@@ -18,17 +18,16 @@ public class MasStoreSearchSpec: QuickSpec {
         }
         describe("url string") {
             it("contains the app name") {
-                let appName = "myapp"
                 expect {
-                    MasStoreSearch().searchURL(for: appName, inCountry: "US")?.absoluteString
+                    MasStoreSearch().searchURL(for: "myapp", inCountry: "US")?.absoluteString
                 }
-                    == "https://itunes.apple.com/search?media=software&entity=macSoftware&term=\(appName)&country=US"
+                    == "https://itunes.apple.com/search?media=software&entity=desktopSoftware&country=US&term=myapp"
             }
             it("contains the encoded app name") {
                 expect {
                     MasStoreSearch().searchURL(for: "My App", inCountry: "US")?.absoluteString
                 }
-                    == "https://itunes.apple.com/search?media=software&entity=macSoftware&term=My%20App&country=US"
+                    == "https://itunes.apple.com/search?media=software&entity=desktopSoftware&country=US&term=My%20App"
             }
         }
         describe("store") {

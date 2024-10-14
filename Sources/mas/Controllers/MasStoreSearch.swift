@@ -19,7 +19,7 @@ class MasStoreSearch: StoreSearch {
     // into the App Store. Instead, we'll make an educated guess that it matches the currently
     // selected locale in macOS. This obviously isn't always going to match, but it's probably
     // better than passing no "country" at all to the iTunes Search API.
-    // https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/
+    // https://performance-partners.apple.com/search-api
     private let country: String?
     private let networkManager: NetworkManager
 
@@ -40,7 +40,7 @@ class MasStoreSearch: StoreSearch {
     func search(for appName: String) -> Promise<[SearchResult]> {
         // Search for apps for compatible platforms, in order of preference.
         // Macs with Apple Silicon can run iPad and iPhone apps.
-        var entities = [Entity.macSoftware]
+        var entities = [Entity.desktopSoftware]
         if SysCtlSystemCommand.isAppleSilicon {
             entities += [.iPadSoftware, .iPhoneSoftware]
         }

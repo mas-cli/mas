@@ -10,7 +10,7 @@ import ArgumentParser
 
 extension Mas {
     /// Opens vendor's app page in a browser. Uses the iTunes Lookup API:
-    /// https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/#lookup
+    /// https://performance-partners.apple.com/search-api
     struct Vendor: ParsableCommand {
         static let configuration = CommandConfiguration(
             abstract: "Opens vendor's app page in a browser"
