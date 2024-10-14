@@ -58,11 +58,11 @@ extension Mas {
                 appIds.isEmpty
                 ? appLibrary.installedApps
                 : appIds.compactMap {
-                    if let appId = UInt64($0) {
-                        // if argument a UInt64, lookup app by id using argument
+                    if let appId = AppID($0) {
+                        // if argument an AppID, lookup app by id using argument
                         return appLibrary.installedApp(forId: appId)
                     } else {
-                        // if argument not a UInt64, lookup app by name using argument
+                        // if argument not an AppID, lookup app by name using argument
                         return appLibrary.installedApp(named: $0)
                     }
                 }
@@ -70,7 +70,7 @@ extension Mas {
             let promises = apps.map { installedApp in
                 // only upgrade apps whose local version differs from the store version
                 firstly {
-                    storeSearch.lookup(app: installedApp.itemIdentifier.intValue)
+                    storeSearch.lookup(app: installedApp.itemIdentifier.uint64Value)
                 }.map { result -> (SoftwareProduct, SearchResult)? in
                     guard let storeApp = result, installedApp.isOutdatedWhenComparedTo(storeApp) else {
                         return nil

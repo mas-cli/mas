@@ -17,7 +17,7 @@ extension Mas {
         )
 
         @Argument(help: "the app ID to show the vendor's website")
-        var appId: Int
+        var appId: AppID
 
         /// Runs the command.
         func run() throws {

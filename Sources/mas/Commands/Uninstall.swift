@@ -21,7 +21,7 @@ extension Mas {
         @Flag(help: "dry run")
         var dryRun = false
         @Argument(help: "ID of app to uninstall")
-        var appId: Int
+        var appId: AppID
 
         /// Runs the uninstall command.
         func run() throws {
@@ -29,8 +29,6 @@ extension Mas {
         }
 
         func run(appLibrary: AppLibrary) throws {
-            let appId = UInt64(appId)
-
             guard let product = appLibrary.installedApp(forId: appId) else {
                 throw MASError.notInstalled
             }

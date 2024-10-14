@@ -9,7 +9,6 @@
 import ArgumentParser
 import Foundation
 
-private let markerValue = "appstore"
 private let masScheme = "macappstore"
 
 extension Mas {
@@ -21,7 +20,7 @@ extension Mas {
         )
 
         @Argument(help: "the app ID")
-        var appId: String = markerValue
+        var appId: AppID?
 
         /// Runs the command.
         func run() throws {
@@ -30,16 +29,10 @@ extension Mas {
 
         func run(storeSearch: StoreSearch, openCommand: ExternalCommand) throws {
             do {
-                if appId == markerValue {
+                guard let appId else {
                     // If no app ID is given, just open the MAS GUI app
                     try openCommand.run(arguments: masScheme + "://")
                     return
-                }
-
-                guard let appId = Int(appId)
-                else {
-                    printError("Invalid app ID")
-                    throw MASError.noSearchResultsFound
                 }
 
                 guard let result = try storeSearch.lookup(app: appId).wait()

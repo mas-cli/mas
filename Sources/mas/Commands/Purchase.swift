@@ -16,7 +16,7 @@ extension Mas {
         )
 
         @Argument(help: "app ID(s) to install")
-        var appIds: [UInt64]
+        var appIds: [AppID]
 
         /// Runs the command.
         func run() throws {

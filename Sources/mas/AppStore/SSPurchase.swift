@@ -11,7 +11,7 @@ import PromiseKit
 import StoreFoundation
 
 extension SSPurchase {
-    func perform(adamId: UInt64, purchase: Bool) -> Promise<Void> {
+    func perform(adamId: AppID, purchase: Bool) -> Promise<Void> {
         var parameters: [String: Any] = [
             "productType": "C",
             "price": 0,

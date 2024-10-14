@@ -17,7 +17,7 @@ protocol AppLibrary {
     ///
     /// - Parameter forId: MAS ID for app.
     /// - Returns: Software Product of app if found; nil otherwise.
-    func installedApp(forId: UInt64) -> SoftwareProduct?
+    func installedApp(forId: AppID) -> SoftwareProduct?
 
     /// Uninstalls an app.
     ///
@@ -32,7 +32,7 @@ extension AppLibrary {
     ///
     /// - Parameter forId: MAS ID for app.
     /// - Returns: Software Product of app if found; nil otherwise.
-    func installedApp(forId identifier: UInt64) -> SoftwareProduct? {
+    func installedApp(forId identifier: AppID) -> SoftwareProduct? {
         let appId = NSNumber(value: identifier)
         return installedApps.first { $0.itemIdentifier == appId }
     }

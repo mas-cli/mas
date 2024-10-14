@@ -28,7 +28,7 @@ extension Mas {
         }
 
         func run(appLibrary: AppLibrary, storeSearch: StoreSearch) throws {
-            var appId: Int?
+            var appId: AppID?
 
             do {
                 let results = try storeSearch.search(for: appName).wait()
@@ -44,7 +44,7 @@ extension Mas {
 
             guard let identifier = appId else { fatalError() }
 
-            try install(UInt64(identifier), appLibrary: appLibrary)
+            try install(identifier, appLibrary: appLibrary)
         }
 
         /// Installs an app.
@@ -52,7 +52,7 @@ extension Mas {
         /// - Parameters:
         ///   - appId: App identifier
         ///   - appLibrary: Library of installed apps
-        fileprivate func install(_ appId: UInt64, appLibrary: AppLibrary) throws {
+        fileprivate func install(_ appId: AppID, appLibrary: AppLibrary) throws {
             // Try to download applications with given identifiers and collect results
             if let product = appLibrary.installedApp(forId: appId), !force {
                 printWarning("\(product.appName) is already installed")

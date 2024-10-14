@@ -17,7 +17,7 @@ import StoreFoundation
 /// Only works for free apps. Defaults to false.
 /// - Returns: A promise that completes when the downloads are complete. If any fail,
 /// the promise is rejected with the first error, after all remaining downloads are attempted.
-func downloadAll(_ appIDs: [UInt64], purchase: Bool = false) -> Promise<Void> {
+func downloadAll(_ appIDs: [AppID], purchase: Bool = false) -> Promise<Void> {
     var firstError: Error?
     return appIDs.reduce(Guarantee<Void>.value(())) { previous, appID in
         previous.then {
@@ -34,7 +34,7 @@ func downloadAll(_ appIDs: [UInt64], purchase: Bool = false) -> Promise<Void> {
     }
 }
 
-private func downloadWithRetries(_ appID: UInt64, purchase: Bool = false, attempts: Int = 3) -> Promise<Void> {
+private func downloadWithRetries(_ appID: AppID, purchase: Bool = false, attempts: Int = 3) -> Promise<Void> {
     SSPurchase().perform(adamId: appID, purchase: purchase)
         .recover { error -> Promise<Void> in
             guard attempts > 1 else {

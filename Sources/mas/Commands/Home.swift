@@ -17,7 +17,7 @@ extension Mas {
         )
 
         @Argument(help: "ID of app to show on MAS Preview")
-        var appId: Int
+        var appId: AppID
 
         /// Runs the command.
         func run() throws {
