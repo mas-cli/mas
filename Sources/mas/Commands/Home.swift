@@ -10,7 +10,7 @@ import ArgumentParser
 
 extension Mas {
     /// Opens app page on MAS Preview. Uses the iTunes Lookup API:
-    /// https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/#lookup
+    /// https://performance-partners.apple.com/search-api
     struct Home: ParsableCommand {
         static let configuration = CommandConfiguration(
             abstract: "Opens MAS Preview app page in a browser"
