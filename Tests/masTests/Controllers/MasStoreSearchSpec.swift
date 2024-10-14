@@ -21,13 +21,13 @@ public class MasStoreSearchSpec: QuickSpec {
                 expect {
                     MasStoreSearch().searchURL(for: "myapp", inCountry: "US")?.absoluteString
                 }
-                    == "https://itunes.apple.com/search?media=software&entity=desktopSoftware&term=myapp&country=US"
+                    == "https://itunes.apple.com/search?media=software&entity=desktopSoftware&country=US&term=myapp"
             }
             it("contains the encoded app name") {
                 expect {
                     MasStoreSearch().searchURL(for: "My App", inCountry: "US")?.absoluteString
                 }
-                    == "https://itunes.apple.com/search?media=software&entity=desktopSoftware&term=My%20App&country=US"
+                    == "https://itunes.apple.com/search?media=software&entity=desktopSoftware&country=US&term=My%20App"
             }
         }
         describe("store") {

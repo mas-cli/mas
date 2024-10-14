@@ -40,12 +40,13 @@ extension StoreSearch {
         components.queryItems = [
             URLQueryItem(name: "media", value: "software"),
             URLQueryItem(name: "entity", value: entity.rawValue),
-            URLQueryItem(name: "term", value: appName),
         ]
 
         if let country {
             components.queryItems!.append(URLQueryItem(name: "country", value: country))
         }
+
+        components.queryItems!.append(URLQueryItem(name: "term", value: appName))
 
         return components.url
     }
@@ -60,13 +61,15 @@ extension StoreSearch {
         }
 
         components.queryItems = [
-            URLQueryItem(name: "id", value: "\(appID)"),
+            URLQueryItem(name: "media", value: "software"),
             URLQueryItem(name: "entity", value: "desktopSoftware"),
         ]
 
         if let country {
             components.queryItems!.append(URLQueryItem(name: "country", value: country))
         }
+
+        components.queryItems!.append(URLQueryItem(name: "id", value: "\(appID)"))
 
         return components.url
     }
