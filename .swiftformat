@@ -11,6 +11,7 @@
 --disable blankLinesAroundMark
 --disable consecutiveSpaces
 --disable hoistPatternLet
+--disable hoistTry
 --disable indent
 --disable trailingCommas
 
