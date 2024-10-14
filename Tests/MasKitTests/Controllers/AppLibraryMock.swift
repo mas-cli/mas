@@ -27,7 +27,7 @@ class AppLibraryMock: AppLibrary {
     }
 }
 
-/// Members not part of the AppLibrary protocol that are only for test state managment.
+/// Members not part of the AppLibrary protocol that are only for test state management.
 extension AppLibraryMock {
     /// Clears out the list of installed apps.
     func reset() {

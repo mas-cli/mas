@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -eu
 #
 # script/build
 # mas
@@ -6,9 +6,16 @@
 # Builds the Swift Package.
 #
 
+mas_dir="$(readlink -fn "$(dirname "${BASH_SOURCE:-"${0}"}")/..")"
+
+if ! cd -- "${mas_dir}"; then
+  printf $'Error: Could not cd into mas directory: %s\n' "${mas_dir}" >&2
+  exit 1
+fi
+
 # Build for the host architecture by default.
 ARCH=()
-if [[ "$1" == '--universal' ]]; then
+if [[ "${#}" -gt 1 && "${1}" == '--universal' ]]; then
   ARCH=(--arch arm64 --arch x86_64)
 fi
 
@@ -21,6 +28,6 @@ fi
 echo "==> 🏗️ Building mas ($(script/version))"
 swift build \
   --configuration release \
-  "${ARCH[@]}" \
+  "${ARCH[@]+"${ARCH[@]}"}" \
   --disable-sandbox \
-  "${CACHE[@]}"
+  "${CACHE[@]+"${CACHE[@]}"}"

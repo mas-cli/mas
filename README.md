@@ -109,7 +109,6 @@ $ mas lucky twitter
 
 > Please note that this command will not allow you to install (or even purchase) an app for the first time:
 use the `purchase` command in that case.
-> ⛔ The `purchase` command is not supported as of macOS 10.15 Catalina. Please see [Known Issues](#%EF%B8%8F-known-issues).
 
 ```bash
 $ mas purchase 768053424
@@ -190,10 +189,9 @@ docs for more details.
 ## ⚠️ Known Issues
 
 Over time, Apple has changed the APIs used by `mas` to manage App Store apps, limiting its capabilities. Please sign in
-or purchase apps using the App Store app instead. Subsequent redownloads can be performed with `mas install`.
+using the App Store app instead. Subsequent redownloads can be performed with `mas install`.
 
 - ⛔️ The `signin` command is not supported as of macOS 10.13 High Sierra. [#164](https://github.com/mas-cli/mas/issues/164)
-- ⛔️ The `purchase` command is not supported as of macOS 10.15 Catalina. [#289](https://github.com/mas-cli/mas/issues/289)
 - ⛔️ The `account` command is not supported as of macOS 12 Monterey. [#417](https://github.com/mas-cli/mas/issues/417)
 
 The versions `mas` sees from the app bundles on your Mac don't always match the versions reported by the App Store for

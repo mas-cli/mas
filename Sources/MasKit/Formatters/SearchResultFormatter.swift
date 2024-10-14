@@ -13,7 +13,7 @@ enum SearchResultFormatter {
     /// Formats text output with search results.
     ///
     /// - Parameter results: Search results with app data
-    /// - Returns: Multiliune text outoutp.
+    /// - Returns: Multiline text output.
     static func format(results: [SearchResult], includePrice: Bool = false) -> String {
         // find longest appName for formatting, default 50
         let maxLength = results.map(\.trackName.count).max() ?? 50
