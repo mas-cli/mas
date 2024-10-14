@@ -40,7 +40,7 @@ class MasStoreSearch: StoreSearch {
     func search(for appName: String) -> Promise<[SearchResult]> {
         // Search for apps for compatible platforms, in order of preference.
         // Macs with Apple Silicon can run iPad and iPhone apps.
-        var entities = [Entity.macSoftware]
+        var entities = [Entity.desktopSoftware]
         if SysCtlSystemCommand.isAppleSilicon {
             entities += [.iPadSoftware, .iPhoneSoftware]
         }

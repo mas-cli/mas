@@ -16,6 +16,7 @@ protocol StoreSearch {
 }
 
 enum Entity: String {
+    case desktopSoftware
     case macSoftware
     case iPadSoftware
     case iPhoneSoftware = "software"
@@ -27,7 +28,11 @@ extension StoreSearch {
     ///
     /// - Parameter appName: MAS app identifier.
     /// - Returns: URL for the search service or nil if appName can't be encoded.
-    func searchURL(for appName: String, inCountry country: String?, ofEntity entity: Entity = .macSoftware) -> URL? {
+    func searchURL(
+        for appName: String,
+        inCountry country: String?,
+        ofEntity entity: Entity = .desktopSoftware
+    ) -> URL? {
         guard var components = URLComponents(string: "https://itunes.apple.com/search") else {
             return nil
         }
