@@ -11,7 +11,7 @@ import PromiseKit
 @testable import mas
 
 class StoreSearchMock: StoreSearch {
-    var apps: [Int: SearchResult] = [:]
+    var apps: [AppID: SearchResult] = [:]
 
     func search(for appName: String) -> Promise<[SearchResult]> {
         let filtered = apps.filter { $1.trackName.contains(appName) }
@@ -19,13 +19,8 @@ class StoreSearchMock: StoreSearch {
         return .value(results)
     }
 
-    func lookup(app appId: Int) -> Promise<SearchResult?> {
-        // Negative numbers are invalid
-        guard appId > 0 else {
-            return Promise(error: MASError.searchFailed)
-        }
-
-        guard let result = apps[appId]
+    func lookup(appID: AppID) -> Promise<SearchResult?> {
+        guard let result = apps[appID]
         else {
             return Promise(error: MASError.noSearchResultsFound)
         }

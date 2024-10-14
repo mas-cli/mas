@@ -19,7 +19,7 @@ extension Mas {
         @Flag(help: "force reinstall")
         var force = false
         @Argument(help: "app ID(s) to install")
-        var appIds: [UInt64]
+        var appIDs: [AppID]
 
         /// Runs the command.
         func run() throws {
@@ -28,8 +28,8 @@ extension Mas {
 
         func run(appLibrary: AppLibrary) throws {
             // Try to download applications with given identifiers and collect results
-            let appIds = appIds.filter { appId in
-                if let product = appLibrary.installedApp(forId: appId), !force {
+            let appIDs = appIDs.filter { appID in
+                if let product = appLibrary.installedApp(withAppID: appID), !force {
                     printWarning("\(product.appName) is already installed")
                     return false
                 }
@@ -38,7 +38,7 @@ extension Mas {
             }
 
             do {
-                try downloadAll(appIds).wait()
+                try downloadAll(appIDs).wait()
             } catch {
                 throw error as? MASError ?? .downloadFailed(error: error as NSError)
             }

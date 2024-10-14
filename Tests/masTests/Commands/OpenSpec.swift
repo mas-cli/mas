@@ -33,7 +33,7 @@ public class OpenSpec: QuickSpec {
                 expect {
                     try Mas.Open.parse(["--", "-999"]).run(storeSearch: storeSearch, openCommand: openCommand)
                 }
-                .to(throwError(MASError.searchFailed))
+                .to(throwError())
             }
             it("can't find app with unknown ID") {
                 expect {
@@ -55,7 +55,7 @@ public class OpenSpec: QuickSpec {
             }
             it("just opens MAS if no app specified") {
                 expect {
-                    try Mas.Open.parse(["appstore"]).run(storeSearch: storeSearch, openCommand: openCommand)
+                    try Mas.Open.parse([]).run(storeSearch: storeSearch, openCommand: openCommand)
                 }
                 .toNot(throwError())
                 expect(openCommand.arguments).toNot(beNil())

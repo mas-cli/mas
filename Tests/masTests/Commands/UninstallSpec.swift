@@ -18,18 +18,18 @@ public class UninstallSpec: QuickSpec {
             Mas.initialize()
         }
         describe("uninstall command") {
-            let appId = 12345
+            let appID: AppID = 12345
             let app = SoftwareProductMock(
                 appName: "Some App",
                 bundleIdentifier: "com.some.app",
                 bundlePath: "/tmp/Some.app",
                 bundleVersion: "1.0",
-                itemIdentifier: NSNumber(value: appId)
+                itemIdentifier: NSNumber(value: appID)
             )
             let mockLibrary = AppLibraryMock()
 
             context("dry run") {
-                let uninstall = try! Mas.Uninstall.parse(["--dry-run", String(appId)])
+                let uninstall = try! Mas.Uninstall.parse(["--dry-run", String(appID)])
 
                 beforeEach {
                     mockLibrary.reset()
@@ -49,7 +49,7 @@ public class UninstallSpec: QuickSpec {
                 }
             }
             context("wet run") {
-                let uninstall = try! Mas.Uninstall.parse([String(appId)])
+                let uninstall = try! Mas.Uninstall.parse([String(appID)])
 
                 beforeEach {
                     mockLibrary.reset()

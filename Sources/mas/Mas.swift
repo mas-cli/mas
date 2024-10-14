@@ -9,6 +9,8 @@
 import ArgumentParser
 import PromiseKit
 
+typealias AppID = UInt64
+
 @main
 struct Mas: ParsableCommand {
     static let configuration = CommandConfiguration(

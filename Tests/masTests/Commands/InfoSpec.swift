@@ -46,7 +46,7 @@ public class InfoSpec: QuickSpec {
                 expect {
                     try Mas.Info.parse(["--", "-999"]).run(storeSearch: storeSearch)
                 }
-                .to(throwError(MASError.searchFailed))
+                .to(throwError())
             }
             it("can't find app with unknown ID") {
                 expect {

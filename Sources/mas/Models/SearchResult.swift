@@ -14,7 +14,7 @@ struct SearchResult: Decodable {
     var price: Double?
     var sellerName: String
     var sellerUrl: String?
-    var trackId: Int
+    var trackId: AppID
     var trackName: String
     var trackViewUrl: String
     var version: String
@@ -27,7 +27,7 @@ struct SearchResult: Decodable {
         price: Double = 0.0,
         sellerName: String = "",
         sellerUrl: String = "",
-        trackId: Int = 0,
+        trackId: AppID = 0,
         trackName: String = "",
         trackViewUrl: String = "",
         version: String = ""

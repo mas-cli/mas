@@ -32,7 +32,7 @@ public class HomeSpec: QuickSpec {
                 expect {
                     try Mas.Home.parse(["--", "-999"]).run(storeSearch: storeSearch, openCommand: openCommand)
                 }
-                .to(throwError(MASError.searchFailed))
+                .to(throwError())
             }
             it("can't find app with unknown ID") {
                 expect {

@@ -15,9 +15,9 @@ protocol AppLibrary {
 
     /// Finds an app by ID.
     ///
-    /// - Parameter forId: MAS ID for app.
+    /// - Parameter withAppID: MAS ID for app.
     /// - Returns: Software Product of app if found; nil otherwise.
-    func installedApp(forId: UInt64) -> SoftwareProduct?
+    func installedApp(withAppID appID: AppID) -> SoftwareProduct?
 
     /// Uninstalls an app.
     ///
@@ -30,11 +30,11 @@ protocol AppLibrary {
 extension AppLibrary {
     /// Finds an app by ID.
     ///
-    /// - Parameter forId: MAS ID for app.
+    /// - Parameter withAppID: MAS ID for app.
     /// - Returns: Software Product of app if found; nil otherwise.
-    func installedApp(forId identifier: UInt64) -> SoftwareProduct? {
-        let appId = NSNumber(value: identifier)
-        return installedApps.first { $0.itemIdentifier == appId }
+    func installedApp(withAppID appID: AppID) -> SoftwareProduct? {
+        let appID = NSNumber(value: appID)
+        return installedApps.first { $0.itemIdentifier == appID }
     }
 
     /// Finds an app by name.

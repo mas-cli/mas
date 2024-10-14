@@ -53,7 +53,7 @@ class MasStoreSearch: StoreSearch {
         }
 
         // Combine the results, removing any duplicates.
-        var seenAppIDs = Set<Int>()
+        var seenAppIDs = Set<AppID>()
         return when(fulfilled: results).flatMapValues { $0 }.filterValues { result in
             seenAppIDs.insert(result.trackId).inserted
         }
@@ -61,12 +61,12 @@ class MasStoreSearch: StoreSearch {
 
     /// Looks up app details.
     ///
-    /// - Parameter appId: MAS ID of app
+    /// - Parameter appID: MAS ID of app
     /// - Returns: A Promise for the search result record of app, or nil if no apps match the ID,
     ///   or an Error if there is a problem with the network request.
-    func lookup(app appId: Int) -> Promise<SearchResult?> {
-        guard let url = lookupURL(forApp: appId, inCountry: country) else {
-            fatalError("Failed to build URL for \(appId)")
+    func lookup(appID: AppID) -> Promise<SearchResult?> {
+        guard let url = lookupURL(forAppID: appID, inCountry: country) else {
+            fatalError("Failed to build URL for \(appID)")
         }
         return firstly {
             loadSearchResults(url)
