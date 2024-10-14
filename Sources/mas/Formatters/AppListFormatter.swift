@@ -24,12 +24,12 @@ enum AppListFormatter {
         var output = ""
 
         for product in products {
-            let appId = product.itemIdentifier.stringValue
+            let appID = product.itemIdentifier.stringValue
                 .padding(toLength: idColumnMinWidth, withPad: " ", startingAt: 0)
             let appName = product.appNameOrBundleIdentifier.padding(toLength: maxLength, withPad: " ", startingAt: 0)
             let version = product.bundleVersion
 
-            output += "\(appId)  \(appName)  (\(version))\n"
+            output += "\(appID)  \(appName)  (\(version))\n"
         }
 
         return output.trimmingCharacters(in: .newlines)

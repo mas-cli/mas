@@ -20,7 +20,7 @@ extension Mas {
         )
 
         @Argument(help: "the app ID")
-        var appId: AppID?
+        var appID: AppID?
 
         /// Runs the command.
         func run() throws {
@@ -29,13 +29,13 @@ extension Mas {
 
         func run(storeSearch: StoreSearch, openCommand: ExternalCommand) throws {
             do {
-                guard let appId else {
+                guard let appID else {
                     // If no app ID is given, just open the MAS GUI app
                     try openCommand.run(arguments: masScheme + "://")
                     return
                 }
 
-                guard let result = try storeSearch.lookup(app: appId).wait()
+                guard let result = try storeSearch.lookup(appID: appID).wait()
                 else {
                     throw MASError.noSearchResultsFound
                 }

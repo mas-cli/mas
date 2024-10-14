@@ -19,8 +19,8 @@ class StoreSearchMock: StoreSearch {
         return .value(results)
     }
 
-    func lookup(app appId: AppID) -> Promise<SearchResult?> {
-        guard let result = apps[appId]
+    func lookup(appID: AppID) -> Promise<SearchResult?> {
+        guard let result = apps[appID]
         else {
             return Promise(error: MASError.noSearchResultsFound)
         }

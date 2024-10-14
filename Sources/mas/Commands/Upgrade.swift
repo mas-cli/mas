@@ -18,7 +18,7 @@ extension Mas {
         )
 
         @Argument(help: "app(s) to upgrade")
-        var appIds: [String] = []
+        var appIDs: [String] = []
 
         /// Runs the command.
         func run() throws {
@@ -55,12 +55,12 @@ extension Mas {
             storeSearch: StoreSearch
         ) throws -> [(SoftwareProduct, SearchResult)] {
             let apps: [SoftwareProduct] =
-                appIds.isEmpty
+                appIDs.isEmpty
                 ? appLibrary.installedApps
-                : appIds.compactMap {
-                    if let appId = AppID($0) {
+                : appIDs.compactMap {
+                    if let appID = AppID($0) {
                         // if argument an AppID, lookup app by id using argument
-                        return appLibrary.installedApp(forId: appId)
+                        return appLibrary.installedApp(withAppID: appID)
                     } else {
                         // if argument not an AppID, lookup app by name using argument
                         return appLibrary.installedApp(named: $0)
@@ -70,7 +70,7 @@ extension Mas {
             let promises = apps.map { installedApp in
                 // only upgrade apps whose local version differs from the store version
                 firstly {
-                    storeSearch.lookup(app: installedApp.itemIdentifier.uint64Value)
+                    storeSearch.lookup(appID: installedApp.itemIdentifier.uint64Value)
                 }.map { result -> (SoftwareProduct, SearchResult)? in
                     guard let storeApp = result, installedApp.isOutdatedWhenComparedTo(storeApp) else {
                         return nil

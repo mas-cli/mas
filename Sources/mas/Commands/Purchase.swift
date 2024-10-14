@@ -16,7 +16,7 @@ extension Mas {
         )
 
         @Argument(help: "app ID(s) to install")
-        var appIds: [AppID]
+        var appIDs: [AppID]
 
         /// Runs the command.
         func run() throws {
@@ -25,8 +25,8 @@ extension Mas {
 
         func run(appLibrary: AppLibrary) throws {
             // Try to download applications with given identifiers and collect results
-            let appIds = appIds.filter { appId in
-                if let product = appLibrary.installedApp(forId: appId) {
+            let appIDs = appIDs.filter { appID in
+                if let product = appLibrary.installedApp(withAppID: appID) {
                     printWarning("\(product.appName) has already been purchased.")
                     return false
                 }
@@ -35,7 +35,7 @@ extension Mas {
             }
 
             do {
-                try downloadAll(appIds, purchase: true).wait()
+                try downloadAll(appIDs, purchase: true).wait()
             } catch {
                 throw error as? MASError ?? .downloadFailed(error: error as NSError)
             }

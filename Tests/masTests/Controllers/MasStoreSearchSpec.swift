@@ -54,13 +54,13 @@ public class MasStoreSearchSpec: QuickSpec {
 
             context("when lookup used") {
                 it("can find slack") {
-                    let appId: AppID = 803_453_959
+                    let appID: AppID = 803_453_959
                     let networkSession = NetworkSessionMockFromFile(responseFile: "lookup/slack.json")
                     let storeSearch = MasStoreSearch(networkManager: NetworkManager(session: networkSession))
 
                     var lookup: SearchResult?
                     do {
-                        lookup = try storeSearch.lookup(app: appId).wait()
+                        lookup = try storeSearch.lookup(appID: appID).wait()
                     } catch {
                         let maserror = error as! MASError
                         if case .jsonParsing(let nserror) = maserror {
@@ -70,7 +70,7 @@ public class MasStoreSearchSpec: QuickSpec {
 
                     guard let result = lookup else { fatalError("lookup result was nil") }
 
-                    expect(result.trackId) == appId
+                    expect(result.trackId) == appID
                     expect(result.bundleId) == "com.tinyspeck.slackmacgap"
                     expect(result.price) == 0
                     expect(result.sellerName) == "Slack Technologies, Inc."

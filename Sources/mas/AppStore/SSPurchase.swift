@@ -11,11 +11,11 @@ import PromiseKit
 import StoreFoundation
 
 extension SSPurchase {
-    func perform(adamId: AppID, purchase: Bool) -> Promise<Void> {
+    func perform(appID: AppID, purchase: Bool) -> Promise<Void> {
         var parameters: [String: Any] = [
             "productType": "C",
             "price": 0,
-            "salableAdamId": adamId,
+            "salableAdamId": appID,
             "pg": "default",
             "appExtVrsId": 0,
         ]
@@ -34,7 +34,7 @@ extension SSPurchase {
             }
             .joined(separator: "&")
 
-        itemIdentifier = adamId
+        itemIdentifier = appID
 
         // Not sure if this is needed…
         if purchase {
@@ -43,7 +43,7 @@ extension SSPurchase {
 
         downloadMetadata = SSDownloadMetadata()
         downloadMetadata.kind = "software"
-        downloadMetadata.itemIdentifier = adamId
+        downloadMetadata.itemIdentifier = appID
 
         // Monterey obscures the user's App Store account, but allows
         // redownloads without passing any account IDs to SSPurchase.

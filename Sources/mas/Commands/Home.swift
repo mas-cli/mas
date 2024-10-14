@@ -17,7 +17,7 @@ extension Mas {
         )
 
         @Argument(help: "ID of app to show on MAS Preview")
-        var appId: AppID
+        var appID: AppID
 
         /// Runs the command.
         func run() throws {
@@ -26,7 +26,7 @@ extension Mas {
 
         func run(storeSearch: StoreSearch, openCommand: ExternalCommand) throws {
             do {
-                guard let result = try storeSearch.lookup(app: appId).wait() else {
+                guard let result = try storeSearch.lookup(appID: appID).wait() else {
                     throw MASError.noSearchResultsFound
                 }
 

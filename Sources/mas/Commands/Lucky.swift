@@ -28,7 +28,7 @@ extension Mas {
         }
 
         func run(appLibrary: AppLibrary, storeSearch: StoreSearch) throws {
-            var appId: AppID?
+            var appID: AppID?
 
             do {
                 let results = try storeSearch.search(for: appName).wait()
@@ -37,28 +37,30 @@ extension Mas {
                     throw MASError.noSearchResultsFound
                 }
 
-                appId = result.trackId
+                appID = result.trackId
             } catch {
                 throw error as? MASError ?? .searchFailed
             }
 
-            guard let identifier = appId else { fatalError() }
+            guard let appID else {
+                fatalError()
+            }
 
-            try install(identifier, appLibrary: appLibrary)
+            try install(appID: appID, appLibrary: appLibrary)
         }
 
         /// Installs an app.
         ///
         /// - Parameters:
-        ///   - appId: App identifier
+        ///   - appID: App identifier
         ///   - appLibrary: Library of installed apps
-        fileprivate func install(_ appId: AppID, appLibrary: AppLibrary) throws {
+        fileprivate func install(appID: AppID, appLibrary: AppLibrary) throws {
             // Try to download applications with given identifiers and collect results
-            if let product = appLibrary.installedApp(forId: appId), !force {
+            if let product = appLibrary.installedApp(withAppID: appID), !force {
                 printWarning("\(product.appName) is already installed")
             } else {
                 do {
-                    try downloadAll([appId]).wait()
+                    try downloadAll([appID]).wait()
                 } catch {
                     throw error as? MASError ?? .downloadFailed(error: error as NSError)
                 }
