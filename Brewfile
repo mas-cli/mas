@@ -3,6 +3,7 @@ brew "shellcheck"
 brew "shfmt"
 brew "swift-format"
 brew "swiftformat"
+brew "trash"
 
 # Already installed on GitHub Actions runner.
 # brew "swiftlint"
