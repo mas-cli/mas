@@ -44,7 +44,7 @@ extension Mas {
                     .joined(separator: "\n"))
 
             do {
-                try downloadAll(apps.map(\.installedApp.itemIdentifier.uint64Value)).wait()
+                try downloadAll(apps.map(\.installedApp.itemIdentifier.appIDValue)).wait()
             } catch {
                 throw error as? MASError ?? .downloadFailed(error: error as NSError)
             }
@@ -70,7 +70,7 @@ extension Mas {
             let promises = apps.map { installedApp in
                 // only upgrade apps whose local version differs from the store version
                 firstly {
-                    storeSearch.lookup(appID: installedApp.itemIdentifier.uint64Value)
+                    storeSearch.lookup(appID: installedApp.itemIdentifier.appIDValue)
                 }.map { result -> (SoftwareProduct, SearchResult)? in
                     guard let storeApp = result, installedApp.isOutdatedWhenComparedTo(storeApp) else {
                         return nil

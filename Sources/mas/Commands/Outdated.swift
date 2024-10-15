@@ -33,7 +33,7 @@ extension Mas {
                 fulfilled:
                     appLibrary.installedApps.map { installedApp in
                         firstly {
-                            storeSearch.lookup(appID: installedApp.itemIdentifier.uint64Value)
+                            storeSearch.lookup(appID: installedApp.itemIdentifier.appIDValue)
                         }.done { storeApp in
                             guard let storeApp else {
                                 if verbose {

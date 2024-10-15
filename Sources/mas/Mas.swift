@@ -7,9 +7,8 @@
 //
 
 import ArgumentParser
+import Foundation
 import PromiseKit
-
-typealias AppID = UInt64
 
 @main
 struct Mas: ParsableCommand {
@@ -54,5 +53,13 @@ struct Mas: ParsableCommand {
                 fatalError("PromiseKit event: \(event)")
             }
         }
+    }
+}
+
+typealias AppID = UInt64
+
+extension NSNumber {
+    var appIDValue: AppID {
+        uint64Value
     }
 }
