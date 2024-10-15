@@ -17,7 +17,7 @@ public class AccountSpec: QuickSpec {
         beforeSuite {
             Mas.initialize()
         }
-        // account command disabled since macOS 12 Monterey https://github.com/mas-cli/mas#%EF%B8%8F-known-issues
+        // account command disabled since macOS 12 Monterey https://github.com/mas-cli/mas#known-issues
         describe("Account command") {
             it("displays active account") {
                 expect {

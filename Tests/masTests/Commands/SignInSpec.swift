@@ -17,7 +17,7 @@ public class SignInSpec: QuickSpec {
         beforeSuite {
             Mas.initialize()
         }
-        // account command disabled since macOS 10.13 High Sierra https://github.com/mas-cli/mas#%EF%B8%8F-known-issues
+        // account command disabled since macOS 10.13 High Sierra https://github.com/mas-cli/mas#known-issues
         describe("signin command") {
             it("signs in") {
                 expect {
