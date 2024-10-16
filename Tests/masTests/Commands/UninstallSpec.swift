@@ -67,7 +67,7 @@ public class UninstallSpec: QuickSpec {
                             try uninstall.run(appLibrary: mockLibrary)
                         }
                     }
-                        == "        1111  slack (0.0)\n==> Some App /tmp/Some.app\n==> (not removed, dry run)\n"
+                        == "==> Some App /tmp/Some.app\n==> (not removed, dry run)\n"
                 }
                 it("fails if there is a problem with the trash command") {
                     var brokenUninstall = app  // make mutable copy
