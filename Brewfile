@@ -9,4 +9,6 @@ brew "trash"
 # brew "swiftlint"
 
 tap "peripheryapp/periphery"
-cask "periphery"
+if OS.mac? && MacOS.version >= :ventura
+  cask "periphery"
+end

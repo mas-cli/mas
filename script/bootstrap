@@ -13,22 +13,15 @@ if ! cd -- "${mas_dir}"; then
   exit 1
 fi
 
-main() {
-  script/clean
+script/clean
 
-  printf $'==> 👢 Bootstrapping\n'
+printf $'==> 👢 Bootstrapping (%s)\n' "$(script/version)"
 
-  # Install Homebrew tools
-  rm -f Brewfile.lock.json
-  brew bundle install --no-upgrade --verbose
+# Install Homebrew tools
+rm -f Brewfile.lock.json
+brew bundle install --no-upgrade --verbose
 
-  # Already installed on GitHub Actions runner.
-  if [[ ! -x "$(command -v swiftlint)" ]]; then
-    brew install swiftlint
-  fi
-
-  # Generate Package.swift
-  script/version
-}
-
-main
+# swiftlint is already installed on GitHub Actions runners.
+if [[ ! -x "$(command -v swiftlint)" ]]; then
+  brew install swiftlint
+fi
