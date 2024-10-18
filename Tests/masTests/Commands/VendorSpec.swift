@@ -12,7 +12,7 @@ import Quick
 @testable import mas
 
 public class VendorSpec: QuickSpec {
-    override public static func spec() {
+    override public func spec() {
         let storeSearch = StoreSearchMock()
         let openCommand = OpenSystemCommandMock()
 
