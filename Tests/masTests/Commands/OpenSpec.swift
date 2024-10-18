@@ -13,7 +13,7 @@ import Quick
 @testable import mas
 
 public class OpenSpec: QuickSpec {
-    override public static func spec() {
+    override public func spec() {
         let storeSearch = StoreSearchMock()
         let openCommand = OpenSystemCommandMock()
 

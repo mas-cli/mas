@@ -12,7 +12,7 @@ import Quick
 @testable import mas
 
 public class SignOutSpec: QuickSpec {
-    override public static func spec() {
+    override public func spec() {
         beforeSuite {
             Mas.initialize()
         }

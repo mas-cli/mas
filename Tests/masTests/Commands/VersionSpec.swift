@@ -13,7 +13,7 @@ import Quick
 @testable import mas
 
 public class VersionSpec: QuickSpec {
-    override public static func spec() {
+    override public func spec() {
         beforeSuite {
             Mas.initialize()
         }

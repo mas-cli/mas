@@ -13,7 +13,7 @@ import Quick
 
 // Deprecated test
 public class AccountSpec: QuickSpec {
-    override public static func spec() {
+    override public func spec() {
         beforeSuite {
             Mas.initialize()
         }
