@@ -14,7 +14,7 @@ extension ISStoreAccount: StoreAccount {
     static var primaryAccount: Promise<ISStoreAccount> {
         if #available(macOS 10.13, *) {
             return race(
-                Promise<ISStoreAccount> { seal in
+                Promise { seal in
                     ISServiceProxy.genericShared().accountService.primaryAccount { storeAccount in
                         seal.fulfill(storeAccount)
                     }
