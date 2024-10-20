@@ -160,7 +160,7 @@ jobs:
         run: |
           rm -rf /opt/homebrew/Library/Taps
           mkdir Taps
-          ln -s Taps /opt/homebrew/Library/Taps
+          ln -s $(realpath Taps) /opt/homebrew/Library/Taps
           ls -l /opt/homebrew/Library/Taps
           brew tap mas-cli/tap
           brew tap
