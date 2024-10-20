@@ -36,7 +36,7 @@ func downloadAll(_ appIDs: [AppID], purchase: Bool = false) -> Promise<Void> {
 
 private func downloadWithRetries(_ appID: AppID, purchase: Bool = false, attempts: Int = 3) -> Promise<Void> {
     SSPurchase().perform(appID: appID, purchase: purchase)
-        .recover { error -> Promise<Void> in
+        .recover { error in
             guard attempts > 1 else {
                 throw error
             }

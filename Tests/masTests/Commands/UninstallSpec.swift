@@ -70,7 +70,7 @@ public class UninstallSpec: QuickSpec {
                         == "==> Some App /tmp/Some.app\n==> (not removed, dry run)\n"
                 }
                 it("fails if there is a problem with the trash command") {
-                    var brokenUninstall = app  // make mutable copy
+                    var brokenUninstall = app
                     brokenUninstall.bundlePath = "/dev/null"
                     mockLibrary.installedApps.append(brokenUninstall)
                     expect {

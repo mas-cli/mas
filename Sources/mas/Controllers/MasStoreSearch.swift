@@ -45,7 +45,7 @@ class MasStoreSearch: StoreSearch {
             entities += [.iPadSoftware, .iPhoneSoftware]
         }
 
-        let results = entities.map { entity -> Promise<[SearchResult]> in
+        let results = entities.map { entity in
             guard let url = searchURL(for: appName, inCountry: country, ofEntity: entity) else {
                 fatalError("Failed to build URL for \(appName)")
             }
@@ -70,7 +70,8 @@ class MasStoreSearch: StoreSearch {
         }
         return firstly {
             loadSearchResults(url)
-        }.then { results -> Guarantee<SearchResult?> in
+        }
+        .then { results -> Guarantee<SearchResult?> in
             guard let result = results.first else {
                 return .value(nil)
             }
@@ -104,7 +105,8 @@ class MasStoreSearch: StoreSearch {
     private func loadSearchResults(_ url: URL) -> Promise<[SearchResult]> {
         firstly {
             networkManager.loadData(from: url)
-        }.map { data -> [SearchResult] in
+        }
+        .map { data in
             do {
                 return try JSONDecoder().decode(SearchResultList.self, from: data).results
             } catch {

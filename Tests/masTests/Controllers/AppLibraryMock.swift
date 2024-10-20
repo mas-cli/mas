@@ -9,7 +9,7 @@
 @testable import mas
 
 class AppLibraryMock: AppLibrary {
-    var installedApps = [SoftwareProduct]()
+    var installedApps: [SoftwareProduct] = []
 
     func uninstallApp(app: SoftwareProduct) throws {
         if !installedApps.contains(where: { product -> Bool in

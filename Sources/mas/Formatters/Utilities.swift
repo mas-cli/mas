@@ -69,7 +69,7 @@ func captureStream(
     _ stream: UnsafeMutablePointer<FILE>,
     encoding: String.Encoding = .utf8,
     _ block: @escaping () throws -> Void
-) throws -> String {
+) rethrows -> String {
     let originalFd = fileno(stream)
     let duplicateFd = dup(originalFd)
     defer {

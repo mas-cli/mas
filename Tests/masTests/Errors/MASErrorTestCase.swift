@@ -22,7 +22,7 @@ class MASErrorTestCase: XCTestCase {
     var localizedDescription: String {
         get { "dummy value" }
         set {
-            NSError.setUserInfoValueProvider(forDomain: errorDomain) { (_: Error, _: String) -> Any? in
+            NSError.setUserInfoValueProvider(forDomain: errorDomain) { _, _ in
                 newValue
             }
         }
