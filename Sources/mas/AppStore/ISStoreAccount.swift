@@ -10,6 +10,8 @@ import CommerceKit
 import PromiseKit
 import StoreFoundation
 
+private let timeout = 30.0
+
 extension ISStoreAccount: StoreAccount {
     static var primaryAccount: Promise<ISStoreAccount> {
         if #available(macOS 10.13, *) {
@@ -20,7 +22,7 @@ extension ISStoreAccount: StoreAccount {
                             seal.fulfill(storeAccount)
                         }
                 },
-                after(seconds: 30)
+                after(seconds: timeout)
                     .then {
                         Promise(error: MASError.notSignedIn)
                     }
@@ -79,7 +81,7 @@ extension ISStoreAccount: StoreAccount {
 
                     return race(
                         signInPromise,
-                        after(seconds: 30)
+                        after(seconds: timeout)
                             .then {
                                 Promise(error: MASError.signInFailed(error: nil))
                             }

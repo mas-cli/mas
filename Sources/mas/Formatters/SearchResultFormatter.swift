@@ -17,8 +17,10 @@ enum SearchResultFormatter {
     ///   - includePrice: Indicates whether to include prices in the output
     /// - Returns: Multiline text output.
     static func format(results: [SearchResult], includePrice: Bool = false) -> String {
-        // find longest appName for formatting, default 50
-        let maxLength = results.map(\.trackName.count).max() ?? 50
+        guard let maxLength = results.map(\.trackName.count).max() else {
+            return ""
+        }
+
         var output = ""
 
         for result in results {

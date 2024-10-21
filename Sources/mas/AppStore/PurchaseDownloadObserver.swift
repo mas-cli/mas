@@ -65,6 +65,7 @@ struct ProgressState {
     let phase: String
 
     var percentage: String {
+        // swiftlint:disable:next no_magic_numbers
         String(format: "%.1f%%", floor(percentComplete * 1000) / 10)
     }
 }
