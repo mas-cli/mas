@@ -24,7 +24,7 @@ struct SysCtlSystemCommand: ExternalCommand {
     }
 
     static var isAppleSilicon: Bool = {
-        let sysctl = SysCtlSystemCommand()
+        let sysctl = Self()
         do {
             // Returns 1 on Apple Silicon even when run in an Intel context in Rosetta.
             try sysctl.run(arguments: "-in", "hw.optional.arm64")

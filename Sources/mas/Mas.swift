@@ -36,7 +36,7 @@ struct Mas: ParsableCommand {
     )
 
     func validate() throws {
-        Mas.initialize()
+        Self.initialize()
     }
 
     static func initialize() {
