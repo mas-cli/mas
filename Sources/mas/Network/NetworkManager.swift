@@ -23,7 +23,9 @@ class NetworkManager {
         do {
             let url = URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("Library/Caches/com.mphys.mas-cli")
             try FileManager.default.removeItem(at: url)
-        } catch {}
+        } catch {
+            // Ignore
+        }
     }
 
     /// Loads data asynchronously.
