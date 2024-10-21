@@ -41,7 +41,8 @@ extension Mas {
             print("Upgrading \(apps.count) outdated application\(apps.count > 1 ? "s" : ""):")
             print(
                 apps.map { "\($0.installedApp.appName) (\($0.installedApp.bundleVersion)) -> (\($0.storeApp.version))" }
-                    .joined(separator: "\n"))
+                    .joined(separator: "\n")
+            )
 
             do {
                 try downloadAll(apps.map(\.installedApp.itemIdentifier.appIDValue)).wait()
@@ -71,7 +72,8 @@ extension Mas {
                 // only upgrade apps whose local version differs from the store version
                 firstly {
                     storeSearch.lookup(appID: installedApp.itemIdentifier.appIDValue)
-                }.map { result -> (SoftwareProduct, SearchResult)? in
+                }
+                .map { result -> (SoftwareProduct, SearchResult)? in
                     guard let storeApp = result, installedApp.isOutdatedWhenComparedTo(storeApp) else {
                         return nil
                     }

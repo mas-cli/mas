@@ -15,13 +15,15 @@ extension ISStoreAccount: StoreAccount {
         if #available(macOS 10.13, *) {
             return race(
                 Promise { seal in
-                    ISServiceProxy.genericShared().accountService.primaryAccount { storeAccount in
-                        seal.fulfill(storeAccount)
-                    }
+                    ISServiceProxy.genericShared().accountService
+                        .primaryAccount { storeAccount in
+                            seal.fulfill(storeAccount)
+                        }
                 },
-                after(seconds: 30).then {
-                    Promise(error: MASError.notSignedIn)
-                }
+                after(seconds: 30)
+                    .then {
+                        Promise(error: MASError.notSignedIn)
+                    }
             )
         } else {
             return .value(CKAccountStore.shared().primaryAccount)
@@ -76,9 +78,10 @@ extension ISStoreAccount: StoreAccount {
 
                         return race(
                             signInPromise,
-                            after(seconds: 30).then {
-                                Promise(error: MASError.signInFailed(error: nil))
-                            }
+                            after(seconds: 30)
+                                .then {
+                                    Promise(error: MASError.signInFailed(error: nil))
+                                }
                         )
                     }
                 }

@@ -18,7 +18,9 @@ private var standardError = FileHandle.standardError
 extension FileHandle: TextOutputStream {
     /// Appends the given string to the stream.
     public func write(_ string: String) {
-        guard let data = string.data(using: .utf8) else { return }
+        guard let data = string.data(using: .utf8) else {
+            return
+        }
         write(data)
     }
 }

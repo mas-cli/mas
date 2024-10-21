@@ -53,9 +53,11 @@ class MasStoreSearch: StoreSearch {
 
         // Combine the results, removing any duplicates.
         var seenAppIDs = Set<AppID>()
-        return when(fulfilled: results).flatMapValues { $0 }.filterValues { result in
-            seenAppIDs.insert(result.trackId).inserted
-        }
+        return when(fulfilled: results)
+            .flatMapValues { $0 }
+            .filterValues { result in
+                seenAppIDs.insert(result.trackId).inserted
+            }
     }
 
     /// Looks up app details.
@@ -75,14 +77,14 @@ class MasStoreSearch: StoreSearch {
                 return .value(nil)
             }
 
-            guard let pageUrl = URL(string: result.trackViewUrl)
-            else {
+            guard let pageUrl = URL(string: result.trackViewUrl) else {
                 return .value(result)
             }
 
             return firstly {
                 self.scrapeAppStoreVersion(pageUrl)
-            }.map { pageVersion in
+            }
+            .map { pageVersion in
                 guard let pageVersion,
                     let searchVersion = Version(tolerant: result.version),
                     pageVersion > searchVersion
@@ -94,7 +96,8 @@ class MasStoreSearch: StoreSearch {
                 var result = result
                 result.version = pageVersion.description
                 return result
-            }.recover { _ in
+            }
+            .recover { _ in
                 // If we were unable to scrape the App Store page, assume compatibility.
                 .value(result)
             }
@@ -120,7 +123,8 @@ class MasStoreSearch: StoreSearch {
     private func scrapeAppStoreVersion(_ pageUrl: URL) -> Promise<Version?> {
         firstly {
             networkManager.loadData(from: pageUrl)
-        }.map { data in
+        }
+        .map { data in
             guard let html = String(data: data, encoding: .utf8),
                 let capture = MasStoreSearch.appVersionExpression.firstMatch(in: html)?.captures[0],
                 let version = Version(tolerant: capture)

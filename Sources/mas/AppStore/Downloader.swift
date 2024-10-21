@@ -20,19 +20,23 @@ import StoreFoundation
 ///   the promise is rejected with the first error, after all remaining downloads are attempted.
 func downloadAll(_ appIDs: [AppID], purchase: Bool = false) -> Promise<Void> {
     var firstError: Error?
-    return appIDs.reduce(Guarantee.value(())) { previous, appID in
-        previous.then {
-            downloadWithRetries(appID, purchase: purchase).recover { error in
-                if firstError == nil {
-                    firstError = error
-                }
+    return
+        appIDs
+        .reduce(Guarantee.value(())) { previous, appID in
+            previous.then {
+                downloadWithRetries(appID, purchase: purchase)
+                    .recover { error in
+                        if firstError == nil {
+                            firstError = error
+                        }
+                    }
             }
         }
-    }.done {
-        if let error = firstError {
-            throw error
+        .done {
+            if let error = firstError {
+                throw error
+            }
         }
-    }
 }
 
 private func downloadWithRetries(_ appID: AppID, purchase: Bool = false, attempts: Int = 3) -> Promise<Void> {

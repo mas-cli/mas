@@ -35,13 +35,11 @@ extension Mas {
                     return
                 }
 
-                guard let result = try storeSearch.lookup(appID: appID).wait()
-                else {
+                guard let result = try storeSearch.lookup(appID: appID).wait() else {
                     throw MASError.noSearchResultsFound
                 }
 
-                guard var url = URLComponents(string: result.trackViewUrl)
-                else {
+                guard var url = URLComponents(string: result.trackViewUrl) else {
                     throw MASError.searchFailed
                 }
                 url.scheme = masScheme

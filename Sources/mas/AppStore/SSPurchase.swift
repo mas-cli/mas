@@ -23,7 +23,6 @@ extension SSPurchase {
         if purchase {
             parameters["macappinstalledconfirmed"] = 1
             parameters["pricingParameters"] = "STDQ"
-
         } else {
             parameters["pricingParameters"] = "STDRDL"
         }
@@ -63,19 +62,20 @@ extension SSPurchase {
 
     private func perform() -> Promise<Void> {
         Promise<SSPurchase> { seal in
-            CKPurchaseController.shared().perform(self, withOptions: 0) { purchase, _, error, response in
-                if let error {
-                    seal.reject(MASError.purchaseFailed(error: error as NSError?))
-                    return
-                }
+            CKPurchaseController.shared()
+                .perform(self, withOptions: 0) { purchase, _, error, response in
+                    if let error {
+                        seal.reject(MASError.purchaseFailed(error: error as NSError?))
+                        return
+                    }
 
-                guard response?.downloads.isEmpty == false, let purchase else {
-                    seal.reject(MASError.noDownloads)
-                    return
-                }
+                    guard response?.downloads.isEmpty == false, let purchase else {
+                        seal.reject(MASError.noDownloads)
+                        return
+                    }
 
-                seal.fulfill(purchase)
-            }
+                    seal.fulfill(purchase)
+                }
         }
         .then { purchase in
             let observer = PurchaseDownloadObserver(purchase: purchase)

@@ -22,8 +22,9 @@ class NetworkSessionMockFromFile: NetworkSessionMock {
     }
 
     override func loadData(from _: URL) -> Promise<Data> {
-        guard let fileURL = Bundle.url(for: responseFile)
-        else { fatalError("Unable to load file \(responseFile)") }
+        guard let fileURL = Bundle.url(for: responseFile) else {
+            fatalError("Unable to load file \(responseFile)")
+        }
 
         do {
             return .value(try Data(contentsOf: fileURL, options: .mappedIfSafe))

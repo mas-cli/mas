@@ -9,7 +9,8 @@
 import CommerceKit
 import StoreFoundation
 
-@objc class PurchaseDownloadObserver: NSObject, CKDownloadQueueObserver {
+@objc
+class PurchaseDownloadObserver: NSObject, CKDownloadQueueObserver {
     let purchase: SSPurchase
     var completionHandler: (() -> Void)?
     var errorHandler: ((MASError) -> Void)?
