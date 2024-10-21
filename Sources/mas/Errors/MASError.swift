@@ -51,29 +51,25 @@ extension MASError: CustomStringConvertible {
         case .failed(let error):
             if let error {
                 return "Failed: \(error.localizedDescription)"
-            } else {
-                return "Failed"
             }
+            return "Failed"
         case .signInFailed(let error):
             if let error {
                 return "Sign in failed: \(error.localizedDescription)"
-            } else {
-                return "Sign in failed"
             }
+            return "Sign in failed"
         case .alreadySignedIn(let accountId):
             return "Already signed in as \(accountId)"
         case .purchaseFailed(let error):
             if let error {
                 return "Download request failed: \(error.localizedDescription)"
-            } else {
-                return "Download request failed"
             }
+            return "Download request failed"
         case .downloadFailed(let error):
             if let error {
                 return "Download failed: \(error.localizedDescription)"
-            } else {
-                return "Download failed"
             }
+            return "Download failed"
         case .noDownloads:
             return "No downloads began"
         case .cancelled:
@@ -94,12 +90,10 @@ extension MASError: CustomStringConvertible {
             if let data {
                 if let unparsable = String(data: data, encoding: .utf8) {
                     return "Unable to parse response as JSON: \n\(unparsable)"
-                } else {
-                    return "Received defective response"
                 }
-            } else {
-                return "Received empty response"
+                return "Received defective response"
             }
+            return "Received empty response"
         }
     }
 }

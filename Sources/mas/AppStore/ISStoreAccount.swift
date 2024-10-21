@@ -25,9 +25,9 @@ extension ISStoreAccount: StoreAccount {
                         Promise(error: MASError.notSignedIn)
                     }
             )
-        } else {
-            return .value(CKAccountStore.shared().primaryAccount)
         }
+
+        return .value(CKAccountStore.shared().primaryAccount)
     }
 
     static func signIn(username: String, password: String, systemDialog: Bool) -> Promise<ISStoreAccount> {
@@ -70,20 +70,20 @@ extension ISStoreAccount: StoreAccount {
 
                     if systemDialog {
                         return signInPromise
-                    } else {
-                        context.demoMode = true
-                        context.demoAccountName = username
-                        context.demoAccountPassword = password
-                        context.demoAutologinMode = true
-
-                        return race(
-                            signInPromise,
-                            after(seconds: 30)
-                                .then {
-                                    Promise(error: MASError.signInFailed(error: nil))
-                                }
-                        )
                     }
+
+                    context.demoMode = true
+                    context.demoAccountName = username
+                    context.demoAccountPassword = password
+                    context.demoAutologinMode = true
+
+                    return race(
+                        signInPromise,
+                        after(seconds: 30)
+                            .then {
+                                Promise(error: MASError.signInFailed(error: nil))
+                            }
+                    )
                 }
         }
     }
