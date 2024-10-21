@@ -33,10 +33,12 @@ extension ISStoreAccount: StoreAccount {
     }
 
     static func signIn(username: String, password: String, systemDialog: Bool) -> Promise<ISStoreAccount> {
+        // swift-format-ignore: UseEarlyExits
         if #available(macOS 10.13, *) {
             // Signing in is no longer possible as of High Sierra.
             // https://github.com/mas-cli/mas/issues/164
             return Promise(error: MASError.notSupported)
+            // swiftlint:disable:next superfluous_else
         } else {
             return
                 primaryAccount
