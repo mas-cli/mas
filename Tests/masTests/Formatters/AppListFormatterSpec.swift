@@ -25,7 +25,7 @@ public class AppListsFormatterSpec: QuickSpec {
                 products = []
             }
             it("formats nothing as empty string") {
-                expect(format(products)) == ""
+                expect(format(products)).to(beEmpty())
             }
             it("can format a single product") {
                 let product = SoftwareProductMock(

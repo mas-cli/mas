@@ -33,7 +33,7 @@ extension Mas {
                 throw error as? MASError ?? .searchFailed
             }
 
-            guard apps.count > 0 else {
+            guard !apps.isEmpty else {
                 printWarning("Nothing found to upgrade")
                 return
             }

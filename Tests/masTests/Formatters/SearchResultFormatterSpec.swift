@@ -25,7 +25,7 @@ public class SearchResultsFormatterSpec: QuickSpec {
                 results = []
             }
             it("formats nothing as empty string") {
-                expect(format(results, false)) == ""
+                expect(format(results, false)).to(beEmpty())
             }
             it("can format a single result") {
                 let result = SearchResult(
