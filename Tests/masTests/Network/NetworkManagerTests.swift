@@ -11,7 +11,7 @@ import XCTest
 @testable import mas
 
 class NetworkManagerTests: XCTestCase {
-    override public func setUp() {
+    override func setUp() {
         super.setUp()
         Mas.initialize()
     }

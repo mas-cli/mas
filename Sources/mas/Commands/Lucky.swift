@@ -56,7 +56,7 @@ extension Mas {
         ///   - appID: App identifier
         ///   - appLibrary: Library of installed apps
         /// - Throws: Any error that occurs while attempting to install the app.
-        fileprivate func install(appID: AppID, appLibrary: AppLibrary) throws {
+        private func install(appID: AppID, appLibrary: AppLibrary) throws {
             // Try to download applications with given identifiers and collect results
             if let product = appLibrary.installedApp(withAppID: appID), !force {
                 printWarning("\(product.appName) is already installed")

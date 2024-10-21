@@ -13,15 +13,15 @@ import XCTest
 
 class MASErrorTestCase: XCTestCase {
     private let errorDomain = "MAS"
-    var error: MASError!
-    var nserror: NSError!
+    private var error: MASError!
+    private var nserror: NSError!
 
     /// Convenience property for setting the value which will be use for the localized description
     /// value of the next NSError created.
     ///
     /// Only used when the NSError does not have a user info
     /// entry for localized description.
-    var localizedDescription: String {
+    private var localizedDescription: String {
         get { "dummy value" }
         set {
             NSError.setUserInfoValueProvider(forDomain: errorDomain) { _, _ in
