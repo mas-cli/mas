@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// CLI command
+/// Represents a CLI command.
 protocol ExternalCommand {
     var binaryPath: String { get set }
 

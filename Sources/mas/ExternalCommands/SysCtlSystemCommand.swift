@@ -8,8 +8,9 @@
 
 import Foundation
 
-/// Wrapper for the external sysctl system command.
-/// https://ss64.com/osx/sysctl.html
+/// Wrapper for the external 'sysctl' system command.
+///
+/// See - https://ss64.com/osx/sysctl.html
 struct SysCtlSystemCommand: ExternalCommand {
     var binaryPath: String
 

@@ -9,11 +9,11 @@
 import Foundation
 import PromiseKit
 
-/// Network abstraction
+/// Network abstraction.
 class NetworkManager {
     private let session: NetworkSession
 
-    /// Designated initializer
+    /// Designated initializer.
     ///
     /// - Parameter session: A networking session.
     init(session: NetworkSession = URLSession(configuration: .ephemeral)) {
@@ -28,8 +28,7 @@ class NetworkManager {
 
     /// Loads data asynchronously.
     ///
-    /// - Parameters:
-    ///   - url: URL to load data from.
+    /// - Parameter url: URL from which to load data.
     /// - Returns: A Promise for the Data of the response.
     func loadData(from url: URL) -> Promise<Data> {
         session.loadData(from: url)

@@ -17,7 +17,9 @@ class MASErrorTestCase: XCTestCase {
     var nserror: NSError!
 
     /// Convenience property for setting the value which will be use for the localized description
-    /// value of the next NSError created. Only used when the NSError does not have a user info
+    /// value of the next NSError created.
+    ///
+    /// Only used when the NSError does not have a user info
     /// entry for localized description.
     var localizedDescription: String {
         get { "dummy value" }

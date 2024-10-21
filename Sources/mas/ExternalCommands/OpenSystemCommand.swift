@@ -8,8 +8,7 @@
 
 import Foundation
 
-/// Wrapper for the external open system command.
-/// https://ss64.com/osx/open.html
+/// Wrapper for the external 'open' system command (https://ss64.com/osx/open.html).
 struct OpenSystemCommand: ExternalCommand {
     var binaryPath: String
 

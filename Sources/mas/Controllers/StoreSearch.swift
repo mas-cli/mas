@@ -40,7 +40,10 @@ private enum URLAction {
 extension StoreSearch {
     /// Builds the search URL for an app.
     ///
-    /// - Parameter searchTerm: term for which to search in MAS.
+    /// - Parameters:
+    ///   - searchTerm: term for which to search in MAS.
+    ///   - country: 2-letter ISO region code of the MAS in which to search.
+    ///   - entity: OS platform of apps for which to search.
     /// - Returns: URL for the search service or nil if searchTerm can't be encoded.
     func searchURL(
         for searchTerm: String,
@@ -52,7 +55,10 @@ extension StoreSearch {
 
     /// Builds the lookup URL for an app.
     ///
-    /// - Parameter appID: MAS app identifier.
+    /// - Parameters:
+    ///   - appID: MAS app identifier.
+    ///   - country: 2-letter ISO region code of the MAS in which to search.
+    ///   - entity: OS platform of apps for which to search.
     /// - Returns: URL for the lookup service or nil if appID can't be encoded.
     func lookupURL(
         forAppID appID: AppID,

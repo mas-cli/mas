@@ -12,11 +12,12 @@ import StoreFoundation
 
 /// Downloads a list of apps, one after the other, printing progress to the console.
 ///
-/// - Parameter appIDs: The IDs of the apps to be downloaded
-/// - Parameter purchase: Flag indicating whether the apps needs to be purchased.
-/// Only works for free apps. Defaults to false.
+/// - Parameters:
+///   - appIDs: The IDs of the apps to be downloaded
+///   - purchase: Flag indicating whether the apps needs to be purchased.
+///     Only works for free apps. Defaults to false.
 /// - Returns: A promise that completes when the downloads are complete. If any fail,
-/// the promise is rejected with the first error, after all remaining downloads are attempted.
+///   the promise is rejected with the first error, after all remaining downloads are attempted.
 func downloadAll(_ appIDs: [AppID], purchase: Bool = false) -> Promise<Void> {
     var firstError: Error?
     return appIDs.reduce(Guarantee.value(())) { previous, appID in

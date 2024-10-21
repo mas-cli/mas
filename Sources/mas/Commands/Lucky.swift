@@ -10,8 +10,9 @@ import ArgumentParser
 import CommerceKit
 
 extension Mas {
-    /// Command which installs the first search result. This is handy as many MAS titles
-    /// can be long with embedded keywords.
+    /// Command which installs the first search result.
+    ///
+    /// This is handy as many MAS titles can be long with embedded keywords.
     struct Lucky: ParsableCommand {
         static let configuration = CommandConfiguration(
             abstract: "Install the first result from the Mac App Store"
@@ -54,6 +55,7 @@ extension Mas {
         /// - Parameters:
         ///   - appID: App identifier
         ///   - appLibrary: Library of installed apps
+        /// - Throws: Any error that occurs while attempting to install the app.
         fileprivate func install(appID: AppID, appLibrary: AppLibrary) throws {
             // Try to download applications with given identifiers and collect results
             if let product = appLibrary.installedApp(withAppID: appID), !force {

@@ -8,14 +8,15 @@
 
 import Foundation
 
-/// A collection of output formatting helpers
+// A collection of output formatting helpers
 
-/// Terminal Control Sequence Indicator
+/// Terminal Control Sequence Indicator.
 let csi = "\u{001B}["
 
 private var standardError = FileHandle.standardError
 
 extension FileHandle: TextOutputStream {
+    /// Appends the given string to the stream.
     public func write(_ string: String) {
         guard let data = string.data(using: .utf8) else { return }
         write(data)

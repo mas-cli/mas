@@ -10,9 +10,11 @@ import Foundation
 
 /// Formats text output for the search command.
 enum SearchResultFormatter {
-    /// Formats text output with search results.
+    /// Formats search results as text.
     ///
-    /// - Parameter results: Search results with app data
+    /// - Parameters:
+    ///   - results: Search results containing app data
+    ///   - includePrice: Indicates whether to include prices in the output
     /// - Returns: Multiline text output.
     static func format(results: [SearchResult], includePrice: Bool = false) -> String {
         // find longest appName for formatting, default 50

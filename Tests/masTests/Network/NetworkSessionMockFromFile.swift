@@ -21,11 +21,6 @@ class NetworkSessionMockFromFile: NetworkSessionMock {
         self.responseFile = responseFile
     }
 
-    /// Loads data from a file.
-    ///
-    /// - Parameters:
-    ///   - url: unused
-    ///   - completionHandler: Closure which is delivered either data or an error.
     override func loadData(from _: URL) -> Promise<Data> {
         guard let fileURL = Bundle.url(for: responseFile)
         else { fatalError("Unable to load file \(responseFile)") }

@@ -34,9 +34,8 @@ class MasStoreSearch: StoreSearch {
 
     /// Searches for an app.
     ///
-    /// - Parameter appName: MAS ID of app
-    /// - Parameter completion: A closure that receives the search results or an Error if there is a
-    ///   problem with the network request. Results array will be empty if there were no matches.
+    /// - Parameter searchTerm: a search term matched against app names
+    /// - Returns: A Promise of an Array of SearchResults matching searchTerm
     func search(for appName: String) -> Promise<[SearchResult]> {
         // Search for apps for compatible platforms, in order of preference.
         // Macs with Apple Silicon can run iPad and iPhone apps.
@@ -115,11 +114,9 @@ class MasStoreSearch: StoreSearch {
         }
     }
 
-    // App Store pages indicate:
-    // - compatibility with Macs with Apple Silicon
-    // - (often) a version that is newer than what is listed in search results
-    //
-    // We attempt to scrape this information here.
+    /// Scrape the app version from the App Store webpage at the given URL.
+    ///
+    /// App Store webpages frequently report a version that is newer than what is reported by the iTunes Search API.
     private func scrapeAppStoreVersion(_ pageUrl: URL) -> Promise<Version?> {
         firstly {
             networkManager.loadData(from: pageUrl)
