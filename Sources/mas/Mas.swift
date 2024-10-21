@@ -35,10 +35,6 @@ struct Mas: ParsableCommand {
         ]
     )
 
-    func validate() throws {
-        Self.initialize()
-    }
-
     static func initialize() {
         PromiseKit.conf.Q.map = .global()
         PromiseKit.conf.Q.return = .global()
@@ -53,6 +49,10 @@ struct Mas: ParsableCommand {
                 fatalError("PromiseKit event: \(event)")
             }
         }
+    }
+
+    func validate() throws {
+        Self.initialize()
     }
 }
 
