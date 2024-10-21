@@ -36,7 +36,7 @@ class MasStoreSearch: StoreSearch {
     ///
     /// - Parameter searchTerm: a search term matched against app names
     /// - Returns: A Promise of an Array of SearchResults matching searchTerm
-    func search(for appName: String) -> Promise<[SearchResult]> {
+    func search(for searchTerm: String) -> Promise<[SearchResult]> {
         // Search for apps for compatible platforms, in order of preference.
         // Macs with Apple Silicon can run iPad and iPhone apps.
         var entities = [Entity.desktopSoftware]
@@ -45,8 +45,8 @@ class MasStoreSearch: StoreSearch {
         }
 
         let results = entities.map { entity in
-            guard let url = searchURL(for: appName, inCountry: country, ofEntity: entity) else {
-                fatalError("Failed to build URL for \(appName)")
+            guard let url = searchURL(for: searchTerm, inCountry: country, ofEntity: entity) else {
+                fatalError("Failed to build URL for \(searchTerm)")
             }
             return loadSearchResults(url)
         }

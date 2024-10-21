@@ -58,14 +58,14 @@ extension Mas {
             let apps: [SoftwareProduct] =
                 appIDs.isEmpty
                 ? appLibrary.installedApps
-                : appIDs.compactMap {
-                    if let appID = AppID($0) {
+                : appIDs.compactMap { appID in
+                    if let appID = AppID(appID) {
                         // argument is an AppID, lookup app by id using argument
                         return appLibrary.installedApp(withAppID: appID)
                     }
 
                     // argument is not an AppID, lookup app by name using argument
-                    return appLibrary.installedApp(named: $0)
+                    return appLibrary.installedApp(named: appID)
                 }
 
             let promises = apps.map { installedApp in
