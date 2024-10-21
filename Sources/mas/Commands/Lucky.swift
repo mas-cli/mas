@@ -44,7 +44,7 @@ extension Mas {
             }
 
             guard let appID else {
-                fatalError()
+                fatalError("app ID returned from Apple is null")
             }
 
             try install(appID: appID, appLibrary: appLibrary)
