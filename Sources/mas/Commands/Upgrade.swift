@@ -55,7 +55,7 @@ extension Mas {
             appLibrary: AppLibrary,
             storeSearch: StoreSearch
         ) throws -> [(SoftwareProduct, SearchResult)] {
-            let apps: [SoftwareProduct] =
+            let apps =
                 appIDs.isEmpty
                 ? appLibrary.installedApps
                 : appIDs.compactMap { appID in
