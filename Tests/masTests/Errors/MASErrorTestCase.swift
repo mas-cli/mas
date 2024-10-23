@@ -114,7 +114,7 @@ class MASErrorTestCase: XCTestCase {
     }
 
     func testUninstallFailed() {
-        error = .uninstallFailed
+        error = .uninstallFailed(error: nil)
         XCTAssertEqual(error.description, "Uninstall failed")
     }
 

@@ -51,8 +51,7 @@ class MasAppLibrary: AppLibrary {
                 printInfo("App moved to trash: \(path)")
             }
         } catch {
-            printError("Unable to move app to trash.")
-            throw MASError.uninstallFailed
+            throw MASError.uninstallFailed(error: error as NSError)
         }
     }
 }

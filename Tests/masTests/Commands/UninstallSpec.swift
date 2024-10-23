@@ -78,7 +78,7 @@ public class UninstallSpec: QuickSpec {
                     expect {
                         try uninstall.run(appLibrary: mockLibrary)
                     }
-                    .to(throwError(MASError.uninstallFailed))
+                    .to(throwError(MASError.uninstallFailed(error: nil)))
                 }
             }
         }

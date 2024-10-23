@@ -28,7 +28,7 @@ enum MASError: Error, Equatable {
     case noVendorWebsite
 
     case notInstalled(appID: AppID)
-    case uninstallFailed
+    case uninstallFailed(error: NSError?)
     case macOSUserMustBeRoot
 
     case noData
@@ -83,7 +83,10 @@ extension MASError: CustomStringConvertible {
             return "App does not have a vendor website"
         case .notInstalled(let appID):
             return "No apps installed with app ID \(appID)"
-        case .uninstallFailed:
+        case .uninstallFailed(let error):
+            if let error {
+                return "Uninstall failed: \(error.localizedDescription)"
+            }
             return "Uninstall failed"
         case .macOSUserMustBeRoot:
             return "Apps installed from the Mac App Store require root permission to remove."

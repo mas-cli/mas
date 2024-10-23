@@ -44,7 +44,7 @@ extension Mas {
                         try appLibrary.uninstallApp(app: installedApp)
                     }
                 } catch {
-                    throw MASError.uninstallFailed
+                    throw error as? MASError ?? MASError.uninstallFailed(error: error as NSError)
                 }
             }
         }

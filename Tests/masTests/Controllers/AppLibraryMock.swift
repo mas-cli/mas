@@ -20,7 +20,7 @@ class AppLibraryMock: AppLibrary {
 
         // Special case for testing where we pretend the trash command failed
         if app.bundlePath == "/dev/null" {
-            throw MASError.uninstallFailed
+            throw MASError.uninstallFailed(error: nil)
         }
 
         // Success is the default, watch out for false positives!
