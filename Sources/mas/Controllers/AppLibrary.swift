@@ -22,20 +22,20 @@ protocol AppLibrary {
 
 /// Common logic
 extension AppLibrary {
-    /// Finds an app for appID.
+    /// Finds all installed instances of apps whose app ID is `appID`.
     ///
-    /// - Parameter appID: app ID for app.
-    /// - Returns: SoftwareProduct of app if found; nil otherwise.
-    func installedApp(withAppID appID: AppID) -> SoftwareProduct? {
+    /// - Parameter appID: app ID for app(s).
+    /// - Returns: [SoftwareProduct] of matching apps.
+    func installedApps(withAppID appID: AppID) -> [SoftwareProduct] {
         let appID = NSNumber(value: appID)
-        return installedApps.first { $0.itemIdentifier == appID }
+        return installedApps.filter { $0.itemIdentifier == appID }
     }
 
-    /// Finds an app by name.
+    /// Finds all installed instances of apps whose name is `appName`.
     ///
-    /// - Parameter appName: Full title of an app.
-    /// - Returns: Software Product of app if found; nil otherwise.
-    func installedApp(named appName: String) -> SoftwareProduct? {
-        installedApps.first { $0.appName == appName }
+    /// - Parameter appName: Full name of app(s).
+    /// - Returns: [SoftwareProduct] of matching apps.
+    func installedApps(named appName: String) -> [SoftwareProduct] {
+        installedApps.filter { $0.appName == appName }
     }
 }

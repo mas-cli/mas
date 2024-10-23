@@ -7,8 +7,7 @@
 //
 
 import ArgumentParser
-import CommerceKit
-import StoreFoundation
+import Foundation
 
 extension Mas {
     /// Command which uninstalls apps managed by the Mac App Store.
@@ -29,16 +28,21 @@ extension Mas {
         }
 
         func run(appLibrary: AppLibrary) throws {
-            guard let product = appLibrary.installedApp(withAppID: appID) else {
+            let installedApps = appLibrary.installedApps(withAppID: appID)
+            guard !installedApps.isEmpty else {
                 throw MASError.notInstalled
             }
 
             if dryRun {
-                printInfo("\(product.appName) \(product.bundlePath)")
+                for installedApp in installedApps {
+                    printInfo("\(installedApp.appName) \(installedApp.bundlePath)")
+                }
                 printInfo("(not removed, dry run)")
             } else {
                 do {
-                    try appLibrary.uninstallApp(app: product)
+                    for installedApp in installedApps {
+                        try appLibrary.uninstallApp(app: installedApp)
+                    }
                 } catch {
                     throw MASError.uninstallFailed
                 }

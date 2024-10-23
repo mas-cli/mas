@@ -29,8 +29,8 @@ extension Mas {
         func run(appLibrary: AppLibrary) throws {
             // Try to download applications with given identifiers and collect results
             let appIDs = appIDs.filter { appID in
-                if let product = appLibrary.installedApp(withAppID: appID), !force {
-                    printWarning("\(product.appName) is already installed")
+                if let appName = appLibrary.installedApps(withAppID: appID).first?.appName, !force {
+                    printWarning("\(appName) is already installed")
                     return false
                 }
 
