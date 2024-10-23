@@ -13,6 +13,8 @@ enum MASError: Error, Equatable {
 
     case failed(error: NSError?)
 
+    case runtimeError(String)
+
     case notSignedIn
     case noPasswordProvided
     case signInFailed(error: NSError?)
@@ -54,6 +56,8 @@ extension MASError: CustomStringConvertible {
                 return "Failed: \(error.localizedDescription)"
             }
             return "Failed"
+        case .runtimeError(let message):
+            return "Runtime Error: \(message)"
         case .signInFailed(let error):
             if let error {
                 return "Sign in failed: \(error.localizedDescription)"

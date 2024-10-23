@@ -28,6 +28,21 @@ extension Mas {
         }
 
         func run(appLibrary: AppLibrary) throws {
+            guard NSUserName() == "root" else {
+                throw MASError.macOSUserMustBeRoot
+            }
+
+            guard let username = getSudoUsername() else {
+                throw MASError.runtimeError("Could not determine the original username")
+            }
+
+            guard
+                let uid = getSudoUID(),
+                seteuid(uid) == 0
+            else {
+                throw MASError.runtimeError("Failed to switch effective user from 'root' to '\(username)'")
+            }
+
             let installedApps = appLibrary.installedApps(withAppID: appID)
             guard !installedApps.isEmpty else {
                 throw MASError.notInstalled(appID: appID)
@@ -39,13 +54,11 @@ extension Mas {
                 }
                 printInfo("(not removed, dry run)")
             } else {
-                do {
-                    for installedApp in installedApps {
-                        try appLibrary.uninstallApp(app: installedApp)
-                    }
-                } catch {
-                    throw error as? MASError ?? MASError.uninstallFailed(error: error as NSError)
+                guard seteuid(0) == 0 else {
+                    throw MASError.runtimeError("Failed to revert effective user from '\(username)' back to 'root'")
                 }
+
+                try appLibrary.uninstallApps(atPaths: installedApps.map(\.bundlePath))
             }
         }
     }

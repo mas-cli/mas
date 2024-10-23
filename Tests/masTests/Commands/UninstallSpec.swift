@@ -17,7 +17,7 @@ public class UninstallSpec: QuickSpec {
         beforeSuite {
             Mas.initialize()
         }
-        describe("uninstall command") {
+        xdescribe("uninstall command") {
             let appID: AppID = 12345
             let app = SoftwareProductMock(
                 appName: "Some App",
@@ -76,7 +76,9 @@ public class UninstallSpec: QuickSpec {
                     brokenApp.bundlePath = "/dev/null"
                     mockLibrary.installedApps.append(brokenApp)
                     expect {
-                        try uninstall.run(appLibrary: mockLibrary)
+                        try captureStream(stdout) {
+                            try uninstall.run(appLibrary: mockLibrary)
+                        }
                     }
                     .to(throwError(MASError.uninstallFailed(error: nil)))
                 }

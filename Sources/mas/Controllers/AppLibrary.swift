@@ -13,11 +13,11 @@ protocol AppLibrary {
     /// Entire set of installed apps.
     var installedApps: [SoftwareProduct] { get }
 
-    /// Uninstalls an app.
+    /// Uninstalls all apps located at any of the elements of `appPaths`.
     ///
-    /// - Parameter app: App to be removed.
-    /// - Throws: Error if there is a problem.
-    func uninstallApp(app: SoftwareProduct) throws
+    /// - Parameter appPaths: Paths to apps to be uninstalled.
+    /// - Throws: Error if any problem occurs.
+    func uninstallApps(atPaths appPaths: [String]) throws
 }
 
 /// Common logic
