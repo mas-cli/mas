@@ -44,15 +44,18 @@ extension Mas {
                 }
                 url.scheme = masScheme
 
+                guard let urlString = url.string else {
+                    printError("Unable to construct URL")
+                    throw MASError.searchFailed
+                }
                 do {
-                    try openCommand.run(arguments: url.string!)
+                    try openCommand.run(arguments: urlString)
                 } catch {
                     printError("Unable to launch open command")
                     throw MASError.searchFailed
                 }
                 if openCommand.failed {
-                    let reason = openCommand.process.terminationReason
-                    printError("Open failed: (\(reason)) \(openCommand.stderr)")
+                    printError("Open failed: (\(openCommand.process.terminationReason)) \(openCommand.stderr)")
                     throw MASError.searchFailed
                 }
             } catch {

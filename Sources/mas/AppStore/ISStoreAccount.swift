@@ -47,7 +47,7 @@ extension ISStoreAccount: StoreAccount {
 
                     let password =
                         password.isEmpty && !systemDialog
-                        ? String(validatingUTF8: getpass("Password: "))!
+                        ? String(validatingUTF8: getpass("Password: ")) ?? ""
                         : password
 
                     guard !password.isEmpty || systemDialog else {

@@ -78,16 +78,18 @@ extension StoreSearch {
             return nil
         }
 
-        components.queryItems = [
+        var queryItems = [
             URLQueryItem(name: "media", value: "software"),
             URLQueryItem(name: "entity", value: entity.rawValue),
         ]
 
         if let country {
-            components.queryItems!.append(URLQueryItem(name: "country", value: country))
+            queryItems.append(URLQueryItem(name: "country", value: country))
         }
 
-        components.queryItems!.append(URLQueryItem(name: action.queryItemName, value: queryItemValue))
+        queryItems.append(URLQueryItem(name: action.queryItemName, value: queryItemValue))
+
+        components.queryItems = queryItems
 
         return components.url
     }

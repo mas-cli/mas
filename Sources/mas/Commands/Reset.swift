@@ -61,7 +61,7 @@ extension Mas {
 
             if kill.terminationStatus != 0, debug {
                 let output = stderr.fileHandleForReading.readDataToEndOfFile()
-                printError("killall failed:\n\(String(data: output, encoding: String.Encoding.utf8)!)")
+                printError("killall failed:\n\(String(data: output, encoding: .utf8) ?? "Error info not available")")
             }
 
             // Wipe Download Directory
