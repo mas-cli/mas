@@ -13,12 +13,6 @@ protocol AppLibrary {
     /// Entire set of installed apps.
     var installedApps: [SoftwareProduct] { get }
 
-    /// Finds an app for appID.
-    ///
-    /// - Parameter appID: app ID for app.
-    /// - Returns: SoftwareProduct of app if found; nil otherwise.
-    func installedApp(withAppID appID: AppID) -> SoftwareProduct?
-
     /// Uninstalls an app.
     ///
     /// - Parameter app: App to be removed.
