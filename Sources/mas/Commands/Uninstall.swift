@@ -30,7 +30,7 @@ extension Mas {
         func run(appLibrary: AppLibrary) throws {
             let installedApps = appLibrary.installedApps(withAppID: appID)
             guard !installedApps.isEmpty else {
-                throw MASError.notInstalled
+                throw MASError.notInstalled(appID: appID)
             }
 
             if dryRun {

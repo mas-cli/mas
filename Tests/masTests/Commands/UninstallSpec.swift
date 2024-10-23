@@ -38,7 +38,7 @@ public class UninstallSpec: QuickSpec {
                     expect {
                         try uninstall.run(appLibrary: mockLibrary)
                     }
-                    .to(throwError(MASError.notInstalled))
+                    .to(throwError(MASError.notInstalled(appID: appID)))
                 }
                 it("finds an app") {
                     mockLibrary.installedApps.append(app)
@@ -58,7 +58,7 @@ public class UninstallSpec: QuickSpec {
                     expect {
                         try uninstall.run(appLibrary: mockLibrary)
                     }
-                    .to(throwError(MASError.notInstalled))
+                    .to(throwError(MASError.notInstalled(appID: appID)))
                 }
                 it("removes an app") {
                     mockLibrary.installedApps.append(app)

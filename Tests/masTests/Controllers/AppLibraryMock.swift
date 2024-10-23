@@ -15,7 +15,7 @@ class AppLibraryMock: AppLibrary {
         if !installedApps.contains(where: { product -> Bool in
             app.itemIdentifier == product.itemIdentifier
         }) {
-            throw MASError.notInstalled
+            throw MASError.notInstalled(appID: app.itemIdentifier.appIDValue)
         }
 
         // Special case for testing where we pretend the trash command failed
