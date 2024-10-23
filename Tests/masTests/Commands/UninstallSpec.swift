@@ -43,9 +43,11 @@ public class UninstallSpec: QuickSpec {
                 it("finds an app") {
                     mockLibrary.installedApps.append(app)
                     expect {
-                        try uninstall.run(appLibrary: mockLibrary)
+                        try captureStream(stdout) {
+                            try uninstall.run(appLibrary: mockLibrary)
+                        }
                     }
-                    .toNot(throwError())
+                        == "==> 'Some App' '/tmp/Some.app'\n==> (not removed, dry run)\n"
                 }
             }
             context("wet run") {
@@ -67,12 +69,12 @@ public class UninstallSpec: QuickSpec {
                             try uninstall.run(appLibrary: mockLibrary)
                         }
                     }
-                        == "==> Some App /tmp/Some.app\n==> (not removed, dry run)\n"
+                    .toNot(throwError())
                 }
                 it("fails if there is a problem with the trash command") {
-                    var brokenUninstall = app
-                    brokenUninstall.bundlePath = "/dev/null"
-                    mockLibrary.installedApps.append(brokenUninstall)
+                    var brokenApp = app
+                    brokenApp.bundlePath = "/dev/null"
+                    mockLibrary.installedApps.append(brokenApp)
                     expect {
                         try uninstall.run(appLibrary: mockLibrary)
                     }

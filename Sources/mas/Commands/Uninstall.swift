@@ -35,7 +35,7 @@ extension Mas {
 
             if dryRun {
                 for installedApp in installedApps {
-                    printInfo("\(installedApp.appName) \(installedApp.bundlePath)")
+                    printInfo("'\(installedApp.appName)' '\(installedApp.bundlePath)'")
                 }
                 printInfo("(not removed, dry run)")
             } else {

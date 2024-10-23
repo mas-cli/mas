@@ -29,6 +29,7 @@ enum MASError: Error, Equatable {
 
     case notInstalled(appID: AppID)
     case uninstallFailed
+    case macOSUserMustBeRoot
 
     case noData
     case jsonParsing(data: Data?)
@@ -84,6 +85,8 @@ extension MASError: CustomStringConvertible {
             return "No apps installed with app ID \(appID)"
         case .uninstallFailed:
             return "Uninstall failed"
+        case .macOSUserMustBeRoot:
+            return "Apps installed from the Mac App Store require root permission to remove."
         case .noData:
             return "Service did not return data"
         case .jsonParsing(let data):
