@@ -11,7 +11,7 @@ import Quick
 
 @testable import mas
 
-public class AppListsFormatterSpec: QuickSpec {
+public class AppListFormatterSpec: QuickSpec {
     override public func spec() {
         // static func reference
         let format = AppListFormatter.format(products:)
@@ -25,7 +25,7 @@ public class AppListsFormatterSpec: QuickSpec {
                 products = []
             }
             it("formats nothing as empty string") {
-                expect(format(products)) == ""
+                expect(format(products)).to(beEmpty())
             }
             it("can format a single product") {
                 let product = SoftwareProductMock(

@@ -33,7 +33,7 @@ extension Mas {
                 throw error as? MASError ?? .searchFailed
             }
 
-            guard apps.count > 0 else {
+            guard !apps.isEmpty else {
                 printWarning("Nothing found to upgrade")
                 return
             }
@@ -41,7 +41,8 @@ extension Mas {
             print("Upgrading \(apps.count) outdated application\(apps.count > 1 ? "s" : ""):")
             print(
                 apps.map { "\($0.installedApp.appName) (\($0.installedApp.bundleVersion)) -> (\($0.storeApp.version))" }
-                    .joined(separator: "\n"))
+                    .joined(separator: "\n")
+            )
 
             do {
                 try downloadAll(apps.map(\.installedApp.itemIdentifier.appIDValue)).wait()
@@ -54,24 +55,25 @@ extension Mas {
             appLibrary: AppLibrary,
             storeSearch: StoreSearch
         ) throws -> [(SoftwareProduct, SearchResult)] {
-            let apps: [SoftwareProduct] =
+            let apps =
                 appIDs.isEmpty
                 ? appLibrary.installedApps
-                : appIDs.compactMap {
-                    if let appID = AppID($0) {
-                        // if argument an AppID, lookup app by id using argument
+                : appIDs.compactMap { appID in
+                    if let appID = AppID(appID) {
+                        // argument is an AppID, lookup app by id using argument
                         return appLibrary.installedApp(withAppID: appID)
-                    } else {
-                        // if argument not an AppID, lookup app by name using argument
-                        return appLibrary.installedApp(named: $0)
                     }
+
+                    // argument is not an AppID, lookup app by name using argument
+                    return appLibrary.installedApp(named: appID)
                 }
 
             let promises = apps.map { installedApp in
                 // only upgrade apps whose local version differs from the store version
                 firstly {
                     storeSearch.lookup(appID: installedApp.itemIdentifier.appIDValue)
-                }.map { result -> (SoftwareProduct, SearchResult)? in
+                }
+                .map { result -> (SoftwareProduct, SearchResult)? in
                     guard let storeApp = result, installedApp.isOutdatedWhenComparedTo(storeApp) else {
                         return nil
                     }

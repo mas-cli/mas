@@ -8,4 +8,5 @@
 disabled_rules:
 - force_cast
 - force_try
-- function_body_length
+- implicitly_unwrapped_optional
+- no_magic_numbers

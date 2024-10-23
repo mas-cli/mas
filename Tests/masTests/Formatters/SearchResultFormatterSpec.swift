@@ -11,7 +11,7 @@ import Quick
 
 @testable import mas
 
-public class SearchResultsFormatterSpec: QuickSpec {
+public class SearchResultFormatterSpec: QuickSpec {
     override public func spec() {
         // static func reference
         let format = SearchResultFormatter.format(results:includePrice:)
@@ -25,7 +25,7 @@ public class SearchResultsFormatterSpec: QuickSpec {
                 results = []
             }
             it("formats nothing as empty string") {
-                expect(format(results, false)) == ""
+                expect(format(results, false)).to(beEmpty())
             }
             it("can format a single result") {
                 let result = SearchResult(

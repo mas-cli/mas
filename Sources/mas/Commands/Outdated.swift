@@ -10,8 +10,6 @@ import ArgumentParser
 import Foundation
 import PromiseKit
 
-import enum Swift.Result
-
 extension Mas {
     /// Command which displays a list of installed apps which have available updates
     /// ready to be installed from the Mac App Store.
@@ -34,7 +32,8 @@ extension Mas {
                     appLibrary.installedApps.map { installedApp in
                         firstly {
                             storeSearch.lookup(appID: installedApp.itemIdentifier.appIDValue)
-                        }.done { storeApp in
+                        }
+                        .done { storeApp in
                             guard let storeApp else {
                                 if verbose {
                                     printWarning(

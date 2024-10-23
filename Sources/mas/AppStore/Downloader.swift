@@ -12,31 +12,36 @@ import StoreFoundation
 
 /// Downloads a list of apps, one after the other, printing progress to the console.
 ///
-/// - Parameter appIDs: The IDs of the apps to be downloaded
-/// - Parameter purchase: Flag indicating whether the apps needs to be purchased.
-/// Only works for free apps. Defaults to false.
+/// - Parameters:
+///   - appIDs: The IDs of the apps to be downloaded
+///   - purchase: Flag indicating whether the apps needs to be purchased.
+///     Only works for free apps. Defaults to false.
 /// - Returns: A promise that completes when the downloads are complete. If any fail,
-/// the promise is rejected with the first error, after all remaining downloads are attempted.
+///   the promise is rejected with the first error, after all remaining downloads are attempted.
 func downloadAll(_ appIDs: [AppID], purchase: Bool = false) -> Promise<Void> {
     var firstError: Error?
-    return appIDs.reduce(Guarantee<Void>.value(())) { previous, appID in
-        previous.then {
-            downloadWithRetries(appID, purchase: purchase).recover { error in
-                if firstError == nil {
-                    firstError = error
-                }
+    return
+        appIDs
+        .reduce(Guarantee.value(())) { previous, appID in
+            previous.then {
+                downloadWithRetries(appID, purchase: purchase)
+                    .recover { error in
+                        if firstError == nil {
+                            firstError = error
+                        }
+                    }
             }
         }
-    }.done {
-        if let error = firstError {
-            throw error
+        .done {
+            if let error = firstError {
+                throw error
+            }
         }
-    }
 }
 
 private func downloadWithRetries(_ appID: AppID, purchase: Bool = false, attempts: Int = 3) -> Promise<Void> {
     SSPurchase().perform(appID: appID, purchase: purchase)
-        .recover { error -> Promise<Void> in
+        .recover { error in
             guard attempts > 1 else {
                 throw error
             }

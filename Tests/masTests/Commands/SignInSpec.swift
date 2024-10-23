@@ -11,7 +11,7 @@ import Quick
 
 @testable import mas
 
-// Deprecated test
+/// Deprecated test.
 public class SignInSpec: QuickSpec {
     override public func spec() {
         beforeSuite {

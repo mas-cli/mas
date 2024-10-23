@@ -10,7 +10,8 @@ import Foundation
 
 extension Data {
     /// Unsafe initializer for loading data from string paths.
-    /// - Parameter file: Relative path within the JSON folder
+    ///
+    /// - Parameter fileName: Relative path within the JSON folder
     init(from fileName: String) {
         let fileURL = Bundle.url(for: fileName)!
         try! self.init(contentsOf: fileURL, options: .mappedIfSafe)

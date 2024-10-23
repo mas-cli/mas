@@ -17,7 +17,7 @@ extension Mas {
             abstract: "Uninstall app installed from the Mac App Store"
         )
 
-        /// Flag indicating that removal shouldn't be performed
+        /// Flag indicating that removal shouldn't be performed.
         @Flag(help: "dry run")
         var dryRun = false
         @Argument(help: "ID of app to uninstall")

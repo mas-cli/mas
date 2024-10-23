@@ -9,7 +9,8 @@
 import CommerceKit
 import StoreFoundation
 
-@objc class PurchaseDownloadObserver: NSObject, CKDownloadQueueObserver {
+@objc
+class PurchaseDownloadObserver: NSObject, CKDownloadQueueObserver {
     let purchase: SSPurchase
     var completionHandler: (() -> Void)?
     var errorHandler: ((MASError) -> Void)?
@@ -64,6 +65,7 @@ struct ProgressState {
     let phase: String
 
     var percentage: String {
+        // swiftlint:disable:next no_magic_numbers
         String(format: "%.1f%%", floor(percentComplete * 1000) / 10)
     }
 }

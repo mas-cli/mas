@@ -5,11 +5,40 @@
 # https://github.com/realm/SwiftLint#configuration
 #
 ---
+opt_in_rules:
+- all
 disabled_rules:
-- non_optional_string_data_conversion
+- balanced_xctest_lifecycle
+- closure_body_length
+- contrasted_opening_brace
+- explicit_acl
+- explicit_enum_raw_value
+- explicit_top_level_acl
+- explicit_type_interface
+- file_header
+- file_name
+- final_test_case
+- force_unwrapping
+- function_body_length
+- inert_defer
+- legacy_objc_type
+- no_grouping_extension
+- number_separator
+- one_declaration_per_file
+- prefer_nimble
+- prefixed_toplevel_constant
+- quick_discouraged_call
+- quick_discouraged_pending_test
+- required_deinit
+- sorted_enum_cases
 - trailing_comma
-excluded:
-- docs
-opening_brace:
-  ignore_multiline_function_signatures: true
-  ignore_multiline_statement_conditions: true
+- unused_capture_list
+- vertical_whitespace_between_cases
+file_types_order:
+  order: [
+    [main_type],
+    [supporting_type],
+    [extension],
+    [preview_provider],
+    [library_content_provider]
+  ]

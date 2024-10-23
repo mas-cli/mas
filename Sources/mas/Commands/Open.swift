@@ -35,26 +35,27 @@ extension Mas {
                     return
                 }
 
-                guard let result = try storeSearch.lookup(appID: appID).wait()
-                else {
+                guard let result = try storeSearch.lookup(appID: appID).wait() else {
                     throw MASError.noSearchResultsFound
                 }
 
-                guard var url = URLComponents(string: result.trackViewUrl)
-                else {
+                guard var url = URLComponents(string: result.trackViewUrl) else {
                     throw MASError.searchFailed
                 }
                 url.scheme = masScheme
 
+                guard let urlString = url.string else {
+                    printError("Unable to construct URL")
+                    throw MASError.searchFailed
+                }
                 do {
-                    try openCommand.run(arguments: url.string!)
+                    try openCommand.run(arguments: urlString)
                 } catch {
                     printError("Unable to launch open command")
                     throw MASError.searchFailed
                 }
                 if openCommand.failed {
-                    let reason = openCommand.process.terminationReason
-                    printError("Open failed: (\(reason)) \(openCommand.stderr)")
+                    printError("Open failed: (\(openCommand.process.terminationReason)) \(openCommand.stderr)")
                     throw MASError.searchFailed
                 }
             } catch {

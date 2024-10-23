@@ -24,7 +24,7 @@ public class VersionSpec: QuickSpec {
                         try Mas.Version.parse([]).run()
                     }
                 }
-                    == Package.version + "\n"
+                    == "\(Package.version)\n"
             }
         }
     }

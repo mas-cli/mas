@@ -14,9 +14,10 @@ class MasAppLibrary: AppLibrary {
     private let softwareMap: SoftwareMap
 
     /// Array of installed software products.
-    lazy var installedApps: [SoftwareProduct] = softwareMap.allSoftwareProducts().filter { product in
-        product.bundlePath.starts(with: "/Applications/")
-    }
+    lazy var installedApps: [SoftwareProduct] = softwareMap.allSoftwareProducts()
+        .filter { product in
+            product.bundlePath.starts(with: "/Applications/")
+        }
 
     /// Internal initializer for providing a mock software map.
     /// - Parameter softwareMap: SoftwareMap to use

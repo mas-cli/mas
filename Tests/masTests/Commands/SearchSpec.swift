@@ -6,6 +6,7 @@
 //  Copyright © 2018 mas-cli. All rights reserved.
 //
 
+import Foundation
 import Nimble
 import Quick
 
@@ -31,9 +32,11 @@ public class SearchSpec: QuickSpec {
                 )
                 storeSearch.apps[mockResult.trackId] = mockResult
                 expect {
-                    try Mas.Search.parse(["slack"]).run(storeSearch: storeSearch)
+                    try captureStream(stdout) {
+                        try Mas.Search.parse(["slack"]).run(storeSearch: storeSearch)
+                    }
                 }
-                .toNot(throwError())
+                    == "        1111  slack (0.0)\n"
             }
             it("fails when searching for nonexistent app") {
                 expect {

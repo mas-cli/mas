@@ -18,11 +18,6 @@ class NetworkSessionMock: NetworkSession {
     var data: Data?
     var error: Error?
 
-    /// Immediately passes data and error to completion handler.
-    ///
-    /// - Parameters:
-    ///   - url: unused
-    ///   - completionHandler: Closure which is delivered either data or an error.
     func loadData(from _: URL) -> Promise<Data> {
         guard let data else {
             return Promise(error: error ?? MASError.noData)

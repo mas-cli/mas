@@ -34,10 +34,9 @@ class MasStoreSearch: StoreSearch {
 
     /// Searches for an app.
     ///
-    /// - Parameter appName: MAS ID of app
-    /// - Parameter completion: A closure that receives the search results or an Error if there is a
-    ///   problem with the network request. Results array will be empty if there were no matches.
-    func search(for appName: String) -> Promise<[SearchResult]> {
+    /// - Parameter searchTerm: a search term matched against app names
+    /// - Returns: A Promise of an Array of SearchResults matching searchTerm
+    func search(for searchTerm: String) -> Promise<[SearchResult]> {
         // Search for apps for compatible platforms, in order of preference.
         // Macs with Apple Silicon can run iPad and iPhone apps.
         var entities = [Entity.desktopSoftware]
@@ -45,18 +44,20 @@ class MasStoreSearch: StoreSearch {
             entities += [.iPadSoftware, .iPhoneSoftware]
         }
 
-        let results = entities.map { entity -> Promise<[SearchResult]> in
-            guard let url = searchURL(for: appName, inCountry: country, ofEntity: entity) else {
-                fatalError("Failed to build URL for \(appName)")
+        let results = entities.map { entity in
+            guard let url = searchURL(for: searchTerm, inCountry: country, ofEntity: entity) else {
+                fatalError("Failed to build URL for \(searchTerm)")
             }
             return loadSearchResults(url)
         }
 
         // Combine the results, removing any duplicates.
         var seenAppIDs = Set<AppID>()
-        return when(fulfilled: results).flatMapValues { $0 }.filterValues { result in
-            seenAppIDs.insert(result.trackId).inserted
-        }
+        return when(fulfilled: results)
+            .flatMapValues { $0 }
+            .filterValues { result in
+                seenAppIDs.insert(result.trackId).inserted
+            }
     }
 
     /// Looks up app details.
@@ -70,19 +71,20 @@ class MasStoreSearch: StoreSearch {
         }
         return firstly {
             loadSearchResults(url)
-        }.then { results -> Guarantee<SearchResult?> in
+        }
+        .then { results -> Guarantee<SearchResult?> in
             guard let result = results.first else {
                 return .value(nil)
             }
 
-            guard let pageUrl = URL(string: result.trackViewUrl)
-            else {
+            guard let pageUrl = URL(string: result.trackViewUrl) else {
                 return .value(result)
             }
 
             return firstly {
                 self.scrapeAppStoreVersion(pageUrl)
-            }.map { pageVersion in
+            }
+            .map { pageVersion in
                 guard let pageVersion,
                     let searchVersion = Version(tolerant: result.version),
                     pageVersion > searchVersion
@@ -94,7 +96,8 @@ class MasStoreSearch: StoreSearch {
                 var result = result
                 result.version = pageVersion.description
                 return result
-            }.recover { _ in
+            }
+            .recover { _ in
                 // If we were unable to scrape the App Store page, assume compatibility.
                 .value(result)
             }
@@ -104,7 +107,8 @@ class MasStoreSearch: StoreSearch {
     private func loadSearchResults(_ url: URL) -> Promise<[SearchResult]> {
         firstly {
             networkManager.loadData(from: url)
-        }.map { data -> [SearchResult] in
+        }
+        .map { data in
             do {
                 return try JSONDecoder().decode(SearchResultList.self, from: data).results
             } catch {
@@ -113,17 +117,16 @@ class MasStoreSearch: StoreSearch {
         }
     }
 
-    // App Store pages indicate:
-    // - compatibility with Macs with Apple Silicon
-    // - (often) a version that is newer than what is listed in search results
-    //
-    // We attempt to scrape this information here.
+    /// Scrape the app version from the App Store webpage at the given URL.
+    ///
+    /// App Store webpages frequently report a version that is newer than what is reported by the iTunes Search API.
     private func scrapeAppStoreVersion(_ pageUrl: URL) -> Promise<Version?> {
         firstly {
             networkManager.loadData(from: pageUrl)
-        }.map { data in
+        }
+        .map { data in
             guard let html = String(data: data, encoding: .utf8),
-                let capture = MasStoreSearch.appVersionExpression.firstMatch(in: html)?.captures[0],
+                let capture = Self.appVersionExpression.firstMatch(in: html)?.captures[0],
                 let version = Version(tolerant: capture)
             else {
                 return nil

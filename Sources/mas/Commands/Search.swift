@@ -9,8 +9,9 @@
 import ArgumentParser
 
 extension Mas {
-    /// Search the Mac App Store using the iTunes Search API:
-    /// https://performance-partners.apple.com/search-api
+    /// Search the Mac App Store using the iTunes Search API.
+    ///
+    /// See - https://performance-partners.apple.com/search-api
     struct Search: ParsableCommand {
         static let configuration = CommandConfiguration(
             abstract: "Search for apps from the Mac App Store"

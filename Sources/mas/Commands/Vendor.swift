@@ -26,13 +26,13 @@ extension Mas {
 
         func run(storeSearch: StoreSearch, openCommand: ExternalCommand) throws {
             do {
-                guard let result = try storeSearch.lookup(appID: appID).wait()
-                else {
+                guard let result = try storeSearch.lookup(appID: appID).wait() else {
                     throw MASError.noSearchResultsFound
                 }
 
-                guard let vendorWebsite = result.sellerUrl
-                else { throw MASError.noVendorWebsite }
+                guard let vendorWebsite = result.sellerUrl else {
+                    throw MASError.noVendorWebsite
+                }
 
                 do {
                     try openCommand.run(arguments: vendorWebsite)

@@ -19,12 +19,15 @@ protocol SoftwareProduct {
 }
 
 extension SoftwareProduct {
-    /// Returns bundleIdentifier if appName is empty string.
+    /// - Returns: bundleIdentifier if appName is empty string.
     var appNameOrBundleIdentifier: String {
         appName.isEmpty ? bundleIdentifier : appName
     }
 
-    /// Determines whether the app is considered outdated. Updates that require a higher OS version are excluded.
+    /// Determines whether the app is considered outdated.
+    ///
+    /// Updates that require a higher OS version are excluded.
+    ///
     /// - Parameter storeApp: App from search result.
     /// - Returns: true if the app is outdated; false otherwise.
     func isOutdatedWhenComparedTo(_ storeApp: SearchResult) -> Bool {
