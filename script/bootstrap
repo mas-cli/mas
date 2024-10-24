@@ -20,8 +20,3 @@ printf $'==> 👢 Bootstrapping (%s)\n' "$(script/version)"
 # Install Homebrew tools
 rm -f Brewfile.lock.json
 brew bundle install --no-upgrade --verbose
-
-# swiftlint is already installed on GitHub Actions runners.
-if [[ ! -x "$(command -v swiftlint)" ]]; then
-  brew install swiftlint
-fi

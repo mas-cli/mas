@@ -5,10 +5,8 @@ brew "swift-format"
 brew "swiftformat"
 brew "trash"
 
-# Already installed on GitHub Actions runner.
-# brew "swiftlint"
-
-tap "peripheryapp/periphery"
 if OS.mac? && MacOS.version >= :ventura
+  brew "swiftlint"
+  tap "peripheryapp/periphery"
   cask "periphery"
 end
