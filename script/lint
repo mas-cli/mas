@@ -30,14 +30,14 @@ done
 
 exit_code=0
 for source in Package.swift Sources Tests; do
-  printf -- $'--> 🕊  %s swift-format\n' "${source}"
+  printf -- $'--> 🦅 %s swift-format\n' "${source}"
   swift-format lint --strict --recursive "${source}"
   ((exit_code |= "${?}"))
-  printf -- $'--> 🕊  %s swiftformat\n' "${source}"
+  printf -- $'--> 🦅 %s swiftformat\n' "${source}"
   script -q /dev/null swiftformat --lint --strict "${source}" |
-    (grep -vxE $'Running SwiftFormat\\.\\.\\.\r|\\(lint mode - no files will be changed\\.\\)\r|Reading (?:config|swift-version) file at .*|\033\[32mSwiftFormat completed in \\d+\\.\\d+s\\.\033\\[0m\r|0/\\d+ files require formatting\\.\r' || true)
+    (grep -vxE '(?:\^D\x08{2})?Running SwiftFormat\.{3}\r|\(lint mode - no files will be changed\.\)\r|Reading (?:config|swift-version) file at .*|\x1b\[32mSwiftFormat completed in \d+\.\d+s\.\x1b\[0m\r|0/\d+ files require formatting\.\r' || true)
   ((exit_code |= "${?}"))
-  printf -- $'--> 🕊  %s swiftlint\n' "${source}"
+  printf -- $'--> 🦅 %s swiftlint\n' "${source}"
   swiftlint --strict --quiet "${source}" 2> \
     >((grep -vxF $'warning: Configuration option \'allow_multiline_func\' in \'opening_brace\' rule is deprecated. Use the option \'ignore_multiline_function_signatures\' instead.' || true) >&2)
   ((exit_code |= "${?}"))
@@ -66,7 +66,7 @@ PAGER='cat' git diff --check
 
 printf -- $'--> 🌀 Periphery\n'
 script -q /dev/null periphery scan --strict --quiet --disable-update-check |
-  (grep -vxF $'\033[0;1;32m* \033[0;0m\033[0;1mNo unused code detected.\033[0;0m\r\n' || true)
+  (grep -vxE '(?:\x1b\[0;1;32m|\^D\x08{2})\* (?:\x1b\[0;0m\x1b\[0;1m)?No unused code detected\.(?:\x1b\[0;0m)?\r' || true)
 ((exit_code |= "${?}"))
 
 exit "${exit_code}"
