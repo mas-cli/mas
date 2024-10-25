@@ -24,7 +24,7 @@ public class MasAppLibrarySpec: QuickSpec {
                 expect(library.installedApps.first!.appName) == myApp.appName
             }
             it("can locate an app by bundle id") {
-                expect(library.installedApp(forBundleId: "com.example")!.bundleIdentifier) == myApp.bundleIdentifier
+                expect(library.installedApp(forBundleID: "com.example")!.bundleIdentifier) == myApp.bundleIdentifier
             }
         }
     }
