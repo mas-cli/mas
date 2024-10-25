@@ -77,12 +77,12 @@ class MasStoreSearch: StoreSearch {
                 return .value(nil)
             }
 
-            guard let pageUrl = URL(string: result.trackViewUrl) else {
+            guard let pageURL = URL(string: result.trackViewUrl) else {
                 return .value(result)
             }
 
             return firstly {
-                self.scrapeAppStoreVersion(pageUrl)
+                self.scrapeAppStoreVersion(pageURL)
             }
             .map { pageVersion in
                 guard let pageVersion,
@@ -120,9 +120,9 @@ class MasStoreSearch: StoreSearch {
     /// Scrape the app version from the App Store webpage at the given URL.
     ///
     /// App Store webpages frequently report a version that is newer than what is reported by the iTunes Search API.
-    private func scrapeAppStoreVersion(_ pageUrl: URL) -> Promise<Version?> {
+    private func scrapeAppStoreVersion(_ pageURL: URL) -> Promise<Version?> {
         firstly {
-            networkManager.loadData(from: pageUrl)
+            networkManager.loadData(from: pageURL)
         }
         .map { data in
             guard let html = String(data: data, encoding: .utf8),
