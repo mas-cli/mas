@@ -19,14 +19,14 @@ extension Mas {
         @Flag(help: "Complete login with graphical dialog")
         var dialog = false
         @Argument(help: "Apple ID")
-        var username: String
+        var appleID: String
         @Argument(help: "Password")
         var password: String = ""
 
         /// Runs the command.
         func run() throws {
             do {
-                _ = try ISStoreAccount.signIn(username: username, password: password, systemDialog: dialog).wait()
+                _ = try ISStoreAccount.signIn(appleID: appleID, password: password, systemDialog: dialog).wait()
             } catch {
                 throw error as? MASError ?? MASError.signInFailed(error: error as NSError)
             }

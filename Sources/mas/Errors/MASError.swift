@@ -18,7 +18,7 @@ enum MASError: Error, Equatable {
     case notSignedIn
     case noPasswordProvided
     case signInFailed(error: NSError?)
-    case alreadySignedIn(asAccountId: String)
+    case alreadySignedIn(asAppleID: String)
 
     case purchaseFailed(error: NSError?)
     case downloadFailed(error: NSError?)
@@ -63,8 +63,8 @@ extension MASError: CustomStringConvertible {
                 return "Sign in failed: \(error.localizedDescription)"
             }
             return "Sign in failed"
-        case .alreadySignedIn(let accountId):
-            return "Already signed in as \(accountId)"
+        case .alreadySignedIn(let appleID):
+            return "Already signed in as \(appleID)"
         case .purchaseFailed(let error):
             if let error {
                 return "Download request failed: \(error.localizedDescription)"

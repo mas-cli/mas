@@ -32,7 +32,7 @@ extension ISStoreAccount: StoreAccount {
         return .value(CKAccountStore.shared().primaryAccount)
     }
 
-    static func signIn(username: String, password: String, systemDialog: Bool) -> Promise<ISStoreAccount> {
+    static func signIn(appleID: String, password: String, systemDialog: Bool) -> Promise<ISStoreAccount> {
         // swift-format-ignore: UseEarlyExits
         if #available(macOS 10.13, *) {
             // Signing in is no longer possible as of High Sierra.
@@ -44,7 +44,7 @@ extension ISStoreAccount: StoreAccount {
                 primaryAccount
                 .then { account -> Promise<ISStoreAccount> in
                     if account.isSignedIn {
-                        return Promise(error: MASError.alreadySignedIn(asAccountId: account.identifier))
+                        return Promise(error: MASError.alreadySignedIn(asAppleID: account.identifier))
                     }
 
                     let password =
@@ -57,7 +57,7 @@ extension ISStoreAccount: StoreAccount {
                     }
 
                     let context = ISAuthenticationContext(accountID: 0)
-                    context.appleIDOverride = username
+                    context.appleIDOverride = appleID
 
                     let signInPromise =
                         Promise<ISStoreAccount> { seal in
@@ -77,7 +77,7 @@ extension ISStoreAccount: StoreAccount {
                     }
 
                     context.demoMode = true
-                    context.demoAccountName = username
+                    context.demoAccountName = appleID
                     context.demoAccountPassword = password
                     context.demoAutologinMode = true
 
