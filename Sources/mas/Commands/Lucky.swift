@@ -21,7 +21,7 @@ extension Mas {
         @Flag(help: "force reinstall")
         var force = false
         @Argument(help: "the app name to install")
-        var appName: String
+        var searchTerm: String
 
         /// Runs the command.
         func run() throws {
@@ -32,7 +32,7 @@ extension Mas {
             var appID: AppID?
 
             do {
-                let results = try storeSearch.search(for: appName).wait()
+                let results = try storeSearch.search(for: searchTerm).wait()
                 guard let result = results.first else {
                     printError("No results found")
                     throw MASError.noSearchResultsFound

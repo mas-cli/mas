@@ -20,7 +20,7 @@ extension Mas {
         @Flag(help: "Show price of found apps")
         var price = false
         @Argument(help: "the app name to search")
-        var appName: String
+        var searchTerm: String
 
         func run() throws {
             try run(storeSearch: MasStoreSearch())
@@ -28,7 +28,7 @@ extension Mas {
 
         func run(storeSearch: StoreSearch) throws {
             do {
-                let results = try storeSearch.search(for: appName).wait()
+                let results = try storeSearch.search(for: searchTerm).wait()
                 if results.isEmpty {
                     throw MASError.noSearchResultsFound
                 }

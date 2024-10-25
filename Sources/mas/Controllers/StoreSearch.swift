@@ -12,7 +12,7 @@ import PromiseKit
 /// Protocol for searching the MAS catalog.
 protocol StoreSearch {
     func lookup(appID: AppID) -> Promise<SearchResult?>
-    func search(for appName: String) -> Promise<[SearchResult]>
+    func search(for searchTerm: String) -> Promise<[SearchResult]>
 }
 
 enum Entity: String {
