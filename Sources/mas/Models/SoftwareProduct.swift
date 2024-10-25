@@ -45,7 +45,8 @@ extension SoftwareProduct {
 
         // The App Store does not enforce semantic versioning, but we assume most apps follow versioning
         // schemes that increase numerically over time.
-        guard let semanticBundleVersion = Version(tolerant: bundleVersion),
+        guard
+            let semanticBundleVersion = Version(tolerant: bundleVersion),
             let semanticAppStoreVersion = Version(tolerant: storeApp.version)
         else {
             // If a version string can't be parsed as a Semantic Version, our best effort is to check for

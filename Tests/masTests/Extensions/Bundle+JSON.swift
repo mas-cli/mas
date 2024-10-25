@@ -30,7 +30,8 @@ extension Bundle {
             .bundleURL
             .deletingLastPathComponent()
             .appendingPathComponent("mas_masTests.bundle")
-        guard let bundle = Bundle(url: bundleURL),
+        guard
+            let bundle = Bundle(url: bundleURL),
             let url = bundle.url(for: fileName)
         else {
             fatalError("Unable to load file \(fileName)")

@@ -85,7 +85,8 @@ class MasStoreSearch: StoreSearch {
                 self.scrapeAppStoreVersion(pageURL)
             }
             .map { pageVersion in
-                guard let pageVersion,
+                guard
+                    let pageVersion,
                     let searchVersion = Version(tolerant: result.version),
                     pageVersion > searchVersion
                 else {
@@ -125,7 +126,8 @@ class MasStoreSearch: StoreSearch {
             networkManager.loadData(from: pageURL)
         }
         .map { data in
-            guard let html = String(data: data, encoding: .utf8),
+            guard
+                let html = String(data: data, encoding: .utf8),
                 let capture = Self.appVersionExpression.firstMatch(in: html)?.captures[0],
                 let version = Version(tolerant: capture)
             else {
