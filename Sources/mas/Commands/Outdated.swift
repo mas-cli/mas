@@ -10,7 +10,7 @@ import ArgumentParser
 import Foundation
 import PromiseKit
 
-extension Mas {
+extension MAS {
     /// Command which displays a list of installed apps which have available updates
     /// ready to be installed from the Mac App Store.
     struct Outdated: ParsableCommand {

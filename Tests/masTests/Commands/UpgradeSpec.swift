@@ -15,13 +15,13 @@ import Quick
 public class UpgradeSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
-            Mas.initialize()
+            MAS.initialize()
         }
         describe("upgrade command") {
             it("finds no upgrades") {
                 expect {
                     try captureStream(stderr) {
-                        try Mas.Upgrade.parse([])
+                        try MAS.Upgrade.parse([])
                             .run(appLibrary: AppLibraryMock(), storeSearch: StoreSearchMock())
                     }
                 }

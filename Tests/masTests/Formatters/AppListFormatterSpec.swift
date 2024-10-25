@@ -18,7 +18,7 @@ public class AppListFormatterSpec: QuickSpec {
         var products: [SoftwareProduct] = []
 
         beforeSuite {
-            Mas.initialize()
+            MAS.initialize()
         }
         describe("app list formatter") {
             beforeEach {

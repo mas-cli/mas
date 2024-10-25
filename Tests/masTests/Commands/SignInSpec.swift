@@ -15,13 +15,13 @@ import Quick
 public class SignInSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
-            Mas.initialize()
+            MAS.initialize()
         }
         // account command disabled since macOS 10.13 High Sierra https://github.com/mas-cli/mas#known-issues
         describe("signin command") {
             it("signs in") {
                 expect {
-                    try Mas.SignIn.parse(["", ""]).run()
+                    try MAS.SignIn.parse(["", ""]).run()
                 }
                 .to(throwError(MASError.notSupported))
             }

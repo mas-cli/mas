@@ -14,7 +14,7 @@ import Quick
 public class OpenSystemCommandSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
-            Mas.initialize()
+            MAS.initialize()
         }
         describe("open system command") {
             context("binary path") {

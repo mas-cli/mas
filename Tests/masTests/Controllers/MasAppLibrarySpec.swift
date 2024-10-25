@@ -16,7 +16,7 @@ public class MasAppLibrarySpec: QuickSpec {
         let library = MasAppLibrary(softwareMap: SoftwareMapMock(products: apps))
 
         beforeSuite {
-            Mas.initialize()
+            MAS.initialize()
         }
         describe("mas app library") {
             it("contains all installed apps") {

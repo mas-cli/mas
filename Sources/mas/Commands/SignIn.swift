@@ -9,7 +9,7 @@
 import ArgumentParser
 import StoreFoundation
 
-extension Mas {
+extension MAS {
     struct SignIn: ParsableCommand {
         static let configuration = CommandConfiguration(
             commandName: "signin",

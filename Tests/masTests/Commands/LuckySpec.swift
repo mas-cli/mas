@@ -17,12 +17,12 @@ public class LuckySpec: QuickSpec {
         let storeSearch = MasStoreSearch(networkManager: NetworkManager(session: networkSession))
 
         beforeSuite {
-            Mas.initialize()
+            MAS.initialize()
         }
         xdescribe("lucky command") {
             xit("installs the first app matching a search") {
                 expect {
-                    try Mas.Lucky.parse(["Slack"]).run(appLibrary: AppLibraryMock(), storeSearch: storeSearch)
+                    try MAS.Lucky.parse(["Slack"]).run(appLibrary: AppLibraryMock(), storeSearch: storeSearch)
                 }
                 .toNot(throwError())
             }

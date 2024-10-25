@@ -13,7 +13,7 @@ import XCTest
 class NetworkManagerTests: XCTestCase {
     override func setUp() {
         super.setUp()
-        Mas.initialize()
+        MAS.initialize()
     }
 
     func testSuccessfulAsyncResponse() throws {

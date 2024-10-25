@@ -10,7 +10,7 @@ import ArgumentParser
 import Foundation
 import PromiseKit
 
-extension Mas {
+extension MAS {
     /// Command which upgrades apps with new versions available in the Mac App Store.
     struct Upgrade: ParsableCommand {
         static let configuration = CommandConfiguration(

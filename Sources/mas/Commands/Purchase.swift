@@ -9,7 +9,7 @@
 import ArgumentParser
 import CommerceKit
 
-extension Mas {
+extension MAS {
     struct Purchase: ParsableCommand {
         static let configuration = CommandConfiguration(
             abstract: "Purchase and download free apps from the Mac App Store"

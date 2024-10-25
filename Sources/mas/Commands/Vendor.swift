@@ -8,7 +8,7 @@
 
 import ArgumentParser
 
-extension Mas {
+extension MAS {
     /// Opens vendor's app page in a browser. Uses the iTunes Lookup API:
     /// https://performance-partners.apple.com/search-api
     struct Vendor: ParsableCommand {

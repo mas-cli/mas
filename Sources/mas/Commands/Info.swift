@@ -9,7 +9,7 @@
 import ArgumentParser
 import Foundation
 
-extension Mas {
+extension MAS {
     /// Displays app details. Uses the iTunes Lookup API:
     /// https://performance-partners.apple.com/search-api
     struct Info: ParsableCommand {

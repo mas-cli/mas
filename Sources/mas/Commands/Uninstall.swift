@@ -9,7 +9,7 @@
 import ArgumentParser
 import Foundation
 
-extension Mas {
+extension MAS {
     /// Command which uninstalls apps managed by the Mac App Store.
     struct Uninstall: ParsableCommand {
         static let configuration = CommandConfiguration(

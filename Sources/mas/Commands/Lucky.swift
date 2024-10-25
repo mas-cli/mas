@@ -9,7 +9,7 @@
 import ArgumentParser
 import CommerceKit
 
-extension Mas {
+extension MAS {
     /// Command which installs the first search result.
     ///
     /// This is handy as many MAS titles can be long with embedded keywords.

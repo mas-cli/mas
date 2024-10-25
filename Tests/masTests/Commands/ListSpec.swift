@@ -15,13 +15,13 @@ import Quick
 public class ListSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
-            Mas.initialize()
+            MAS.initialize()
         }
         describe("list command") {
             it("lists apps") {
                 expect {
                     try captureStream(stderr) {
-                        try Mas.List.parse([]).run(appLibrary: AppLibraryMock())
+                        try MAS.List.parse([]).run(appLibrary: AppLibraryMock())
                     }
                 }
                     == "Error: No installed apps found\n"

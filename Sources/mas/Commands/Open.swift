@@ -11,7 +11,7 @@ import Foundation
 
 private let masScheme = "macappstore"
 
-extension Mas {
+extension MAS {
     /// Opens app page in MAS app. Uses the iTunes Lookup API:
     /// https://performance-partners.apple.com/search-api
     struct Open: ParsableCommand {

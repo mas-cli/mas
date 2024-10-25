@@ -15,7 +15,7 @@ import Quick
 public class SearchResultSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
-            Mas.initialize()
+            MAS.initialize()
         }
         describe("search result") {
             it("can parse things") {

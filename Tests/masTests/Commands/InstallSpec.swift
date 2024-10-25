@@ -14,12 +14,12 @@ import Quick
 public class InstallSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
-            Mas.initialize()
+            MAS.initialize()
         }
         xdescribe("install command") {
             xit("installs apps") {
                 expect {
-                    try Mas.Install.parse([]).run(appLibrary: AppLibraryMock())
+                    try MAS.Install.parse([]).run(appLibrary: AppLibraryMock())
                 }
                 .toNot(throwError())
             }

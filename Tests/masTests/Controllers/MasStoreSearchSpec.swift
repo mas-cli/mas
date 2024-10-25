@@ -14,7 +14,7 @@ import Quick
 public class MasStoreSearchSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
-            Mas.initialize()
+            MAS.initialize()
         }
         describe("url string") {
             it("contains the app name") {

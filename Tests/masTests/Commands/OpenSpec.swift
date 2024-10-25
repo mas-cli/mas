@@ -18,7 +18,7 @@ public class OpenSpec: QuickSpec {
         let openCommand = OpenSystemCommandMock()
 
         beforeSuite {
-            Mas.initialize()
+            MAS.initialize()
         }
         describe("open command") {
             beforeEach {
@@ -26,13 +26,13 @@ public class OpenSpec: QuickSpec {
             }
             it("fails to open app with invalid ID") {
                 expect {
-                    try Mas.Open.parse(["--", "-999"]).run(storeSearch: storeSearch, openCommand: openCommand)
+                    try MAS.Open.parse(["--", "-999"]).run(storeSearch: storeSearch, openCommand: openCommand)
                 }
                 .to(throwError())
             }
             it("can't find app with unknown ID") {
                 expect {
-                    try Mas.Open.parse(["999"]).run(storeSearch: storeSearch, openCommand: openCommand)
+                    try MAS.Open.parse(["999"]).run(storeSearch: storeSearch, openCommand: openCommand)
                 }
                 .to(throwError(MASError.noSearchResultsFound))
             }
@@ -44,7 +44,7 @@ public class OpenSpec: QuickSpec {
                 )
                 storeSearch.apps[mockResult.trackId] = mockResult
                 expect {
-                    try Mas.Open.parse([mockResult.trackId.description])
+                    try MAS.Open.parse([mockResult.trackId.description])
                         .run(storeSearch: storeSearch, openCommand: openCommand)
                     return openCommand.arguments
                 }
@@ -52,7 +52,7 @@ public class OpenSpec: QuickSpec {
             }
             it("just opens MAS if no app specified") {
                 expect {
-                    try Mas.Open.parse([]).run(storeSearch: storeSearch, openCommand: openCommand)
+                    try MAS.Open.parse([]).run(storeSearch: storeSearch, openCommand: openCommand)
                     return openCommand.arguments
                 }
                     == ["macappstore://"]

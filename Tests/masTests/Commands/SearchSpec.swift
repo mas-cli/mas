@@ -17,7 +17,7 @@ public class SearchSpec: QuickSpec {
         let storeSearch = StoreSearchMock()
 
         beforeSuite {
-            Mas.initialize()
+            MAS.initialize()
         }
         describe("search command") {
             beforeEach {
@@ -33,14 +33,14 @@ public class SearchSpec: QuickSpec {
                 storeSearch.apps[mockResult.trackId] = mockResult
                 expect {
                     try captureStream(stdout) {
-                        try Mas.Search.parse(["slack"]).run(storeSearch: storeSearch)
+                        try MAS.Search.parse(["slack"]).run(storeSearch: storeSearch)
                     }
                 }
                     == "        1111  slack (0.0)\n"
             }
             it("fails when searching for nonexistent app") {
                 expect {
-                    try Mas.Search.parse(["nonexistent"]).run(storeSearch: storeSearch)
+                    try MAS.Search.parse(["nonexistent"]).run(storeSearch: storeSearch)
                 }
                 .to(throwError(MASError.noSearchResultsFound))
             }

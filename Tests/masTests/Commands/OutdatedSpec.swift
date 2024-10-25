@@ -15,7 +15,7 @@ import Quick
 public class OutdatedSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
-            Mas.initialize()
+            MAS.initialize()
         }
         describe("outdated command") {
             it("displays apps with pending updates") {
@@ -48,7 +48,7 @@ public class OutdatedSpec: QuickSpec {
                 )
                 expect {
                     try captureStream(stdout) {
-                        try Mas.Outdated.parse([]).run(appLibrary: mockAppLibrary, storeSearch: mockStoreSearch)
+                        try MAS.Outdated.parse([]).run(appLibrary: mockAppLibrary, storeSearch: mockStoreSearch)
                     }
                 }
                     == "490461369 Bandwidth+ (1.27 -> 1.28)\n"

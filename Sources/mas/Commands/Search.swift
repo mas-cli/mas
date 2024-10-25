@@ -8,7 +8,7 @@
 
 import ArgumentParser
 
-extension Mas {
+extension MAS {
     /// Search the Mac App Store using the iTunes Search API.
     ///
     /// See - https://performance-partners.apple.com/search-api

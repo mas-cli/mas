@@ -9,7 +9,7 @@
 import ArgumentParser
 import StoreFoundation
 
-extension Mas {
+extension MAS {
     struct Account: ParsableCommand {
         static let configuration = CommandConfiguration(
             abstract: "Prints the primary account Apple ID"

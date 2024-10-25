@@ -17,7 +17,7 @@ public class InfoSpec: QuickSpec {
         let storeSearch = StoreSearchMock()
 
         beforeSuite {
-            Mas.initialize()
+            MAS.initialize()
         }
         describe("Info command") {
             beforeEach {
@@ -25,13 +25,13 @@ public class InfoSpec: QuickSpec {
             }
             it("fails to open app with invalid ID") {
                 expect {
-                    try Mas.Info.parse(["--", "-999"]).run(storeSearch: storeSearch)
+                    try MAS.Info.parse(["--", "-999"]).run(storeSearch: storeSearch)
                 }
                 .to(throwError())
             }
             it("can't find app with unknown ID") {
                 expect {
-                    try Mas.Info.parse(["999"]).run(storeSearch: storeSearch)
+                    try MAS.Info.parse(["999"]).run(storeSearch: storeSearch)
                 }
                 .to(throwError(MASError.noSearchResultsFound))
             }
@@ -50,7 +50,7 @@ public class InfoSpec: QuickSpec {
                 storeSearch.apps[mockResult.trackId] = mockResult
                 expect {
                     try captureStream(stdout) {
-                        try Mas.Info.parse([String(mockResult.trackId)]).run(storeSearch: storeSearch)
+                        try MAS.Info.parse([String(mockResult.trackId)]).run(storeSearch: storeSearch)
                     }
                 }
                     == """

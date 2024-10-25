@@ -9,7 +9,7 @@
 import ArgumentParser
 import CommerceKit
 
-extension Mas {
+extension MAS {
     /// Installs previously purchased apps from the Mac App Store.
     struct Install: ParsableCommand {
         static let configuration = CommandConfiguration(

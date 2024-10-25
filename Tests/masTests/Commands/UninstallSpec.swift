@@ -15,7 +15,7 @@ import Quick
 public class UninstallSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
-            Mas.initialize()
+            MAS.initialize()
         }
         xdescribe("uninstall command") {
             let appID: AppID = 12345
@@ -29,7 +29,7 @@ public class UninstallSpec: QuickSpec {
             let mockLibrary = AppLibraryMock()
 
             context("dry run") {
-                let uninstall = try! Mas.Uninstall.parse(["--dry-run", String(appID)])
+                let uninstall = try! MAS.Uninstall.parse(["--dry-run", String(appID)])
 
                 beforeEach {
                     mockLibrary.reset()
@@ -51,7 +51,7 @@ public class UninstallSpec: QuickSpec {
                 }
             }
             context("wet run") {
-                let uninstall = try! Mas.Uninstall.parse([String(appID)])
+                let uninstall = try! MAS.Uninstall.parse([String(appID)])
 
                 beforeEach {
                     mockLibrary.reset()

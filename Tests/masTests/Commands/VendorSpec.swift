@@ -17,7 +17,7 @@ public class VendorSpec: QuickSpec {
         let openCommand = OpenSystemCommandMock()
 
         beforeSuite {
-            Mas.initialize()
+            MAS.initialize()
         }
         describe("vendor command") {
             beforeEach {
@@ -25,13 +25,13 @@ public class VendorSpec: QuickSpec {
             }
             it("fails to open app with invalid ID") {
                 expect {
-                    try Mas.Vendor.parse(["--", "-999"]).run(storeSearch: storeSearch, openCommand: openCommand)
+                    try MAS.Vendor.parse(["--", "-999"]).run(storeSearch: storeSearch, openCommand: openCommand)
                 }
                 .to(throwError())
             }
             it("can't find app with unknown ID") {
                 expect {
-                    try Mas.Vendor.parse(["999"]).run(storeSearch: storeSearch, openCommand: openCommand)
+                    try MAS.Vendor.parse(["999"]).run(storeSearch: storeSearch, openCommand: openCommand)
                 }
                 .to(throwError(MASError.noSearchResultsFound))
             }
@@ -44,7 +44,7 @@ public class VendorSpec: QuickSpec {
                 )
                 storeSearch.apps[mockResult.trackId] = mockResult
                 expect {
-                    try Mas.Vendor.parse([String(mockResult.trackId)])
+                    try MAS.Vendor.parse([String(mockResult.trackId)])
                         .run(storeSearch: storeSearch, openCommand: openCommand)
                     return openCommand.arguments
                 }

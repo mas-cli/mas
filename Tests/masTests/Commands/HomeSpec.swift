@@ -17,7 +17,7 @@ public class HomeSpec: QuickSpec {
         let openCommand = OpenSystemCommandMock()
 
         beforeSuite {
-            Mas.initialize()
+            MAS.initialize()
         }
         describe("home command") {
             beforeEach {
@@ -25,13 +25,13 @@ public class HomeSpec: QuickSpec {
             }
             it("fails to open app with invalid ID") {
                 expect {
-                    try Mas.Home.parse(["--", "-999"]).run(storeSearch: storeSearch, openCommand: openCommand)
+                    try MAS.Home.parse(["--", "-999"]).run(storeSearch: storeSearch, openCommand: openCommand)
                 }
                 .to(throwError())
             }
             it("can't find app with unknown ID") {
                 expect {
-                    try Mas.Home.parse(["999"]).run(storeSearch: storeSearch, openCommand: openCommand)
+                    try MAS.Home.parse(["999"]).run(storeSearch: storeSearch, openCommand: openCommand)
                 }
                 .to(throwError(MASError.noSearchResultsFound))
             }
@@ -43,7 +43,7 @@ public class HomeSpec: QuickSpec {
                 )
                 storeSearch.apps[mockResult.trackId] = mockResult
                 expect {
-                    try Mas.Home.parse([String(mockResult.trackId)])
+                    try MAS.Home.parse([String(mockResult.trackId)])
                         .run(storeSearch: storeSearch, openCommand: openCommand)
                     return openCommand.arguments
                 }

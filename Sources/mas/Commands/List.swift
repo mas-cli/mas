@@ -8,7 +8,7 @@
 
 import ArgumentParser
 
-extension Mas {
+extension MAS {
     /// Command which lists all installed apps.
     struct List: ParsableCommand {
         static let configuration = CommandConfiguration(

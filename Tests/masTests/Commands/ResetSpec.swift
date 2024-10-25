@@ -14,12 +14,12 @@ import Quick
 public class ResetSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
-            Mas.initialize()
+            MAS.initialize()
         }
         describe("reset command") {
             it("resets the App Store state") {
                 expect {
-                    try Mas.Reset.parse([]).run()
+                    try MAS.Reset.parse([]).run()
                 }
                 .toNot(throwError())
             }
