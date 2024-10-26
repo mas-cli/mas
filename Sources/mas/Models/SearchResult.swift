@@ -9,10 +9,10 @@
 struct SearchResult: Decodable {
     var bundleId: String
     var currentVersionReleaseDate: String
-    var fileSizeBytes: String?
+    var fileSizeBytes: String
     var formattedPrice: String
     var minimumOsVersion: String
-    var price: Double?
+    var price: Double
     var sellerName: String
     var sellerUrl: String?
     var trackId: AppID
