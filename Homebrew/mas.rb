@@ -1,3 +1,7 @@
+# typed: strict
+# frozen_string_literal: true
+
+# mas command formula for homebrew-core tap.
 class Mas < Formula
   desc "Mac App Store command-line interface"
   homepage "https://github.com/mas-cli/mas"
