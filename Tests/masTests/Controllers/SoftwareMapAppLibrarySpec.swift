@@ -1,5 +1,5 @@
 //
-//  MasAppLibrarySpec.swift
+//  SoftwareMapAppLibrarySpec.swift
 //  masTests
 //
 //  Created by Ben Chatelain on 3/1/20.
@@ -11,12 +11,12 @@ import Quick
 
 @testable import mas
 
-public class MasAppLibrarySpec: QuickSpec {
+public class SoftwareMapAppLibrarySpec: QuickSpec {
     override public func spec() {
-        let library = MasAppLibrary(softwareMap: SoftwareMapMock(products: apps))
+        let library = SoftwareMapAppLibrary(softwareMap: MockSoftwareMap(products: apps))
 
         beforeSuite {
-            Mas.initialize()
+            MAS.initialize()
         }
         describe("mas app library") {
             it("contains all installed apps") {
@@ -24,14 +24,14 @@ public class MasAppLibrarySpec: QuickSpec {
                 expect(library.installedApps.first!.appName) == myApp.appName
             }
             it("can locate an app by bundle id") {
-                expect(library.installedApp(forBundleId: "com.example")!.bundleIdentifier) == myApp.bundleIdentifier
+                expect(library.installedApp(forBundleID: "com.example")!.bundleIdentifier) == myApp.bundleIdentifier
             }
         }
     }
 }
 
 // MARK: - Test Data
-let myApp = SoftwareProductMock(
+let myApp = MockSoftwareProduct(
     appName: "MyApp",
     bundleIdentifier: "com.example",
     bundlePath: "/Applications/MyApp.app",
@@ -41,8 +41,8 @@ let myApp = SoftwareProductMock(
 
 var apps: [SoftwareProduct] = [myApp]
 
-// MARK: - SoftwareMapMock
-struct SoftwareMapMock: SoftwareMap {
+// MARK: - MockSoftwareMap
+struct MockSoftwareMap: SoftwareMap {
     var products: [SoftwareProduct] = []
 
     func allSoftwareProducts() -> [SoftwareProduct] {

@@ -26,11 +26,12 @@ extension Bundle {
     static func url(for fileName: String) -> URL? {
         // The Swift Package Manager places resources in a separate bundle from the executable.
         // https://forums.swift.org/t/swift-5-3-spm-resources-in-tests-uses-wrong-bundle-path/37051
-        let bundleURL = Bundle(for: NetworkSessionMock.self)
+        let bundleURL = Bundle(for: MockNetworkSession.self)
             .bundleURL
             .deletingLastPathComponent()
             .appendingPathComponent("mas_masTests.bundle")
-        guard let bundle = Bundle(url: bundleURL),
+        guard
+            let bundle = Bundle(url: bundleURL),
             let url = bundle.url(for: fileName)
         else {
             fatalError("Unable to load file \(fileName)")

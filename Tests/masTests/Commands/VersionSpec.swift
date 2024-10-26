@@ -15,13 +15,13 @@ import Quick
 public class VersionSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
-            Mas.initialize()
+            MAS.initialize()
         }
         describe("version command") {
             it("displays the current version") {
                 expect {
                     try captureStream(stdout) {
-                        try Mas.Version.parse([]).run()
+                        try MAS.Version.parse([]).run()
                     }
                 }
                     == "\(Package.version)\n"

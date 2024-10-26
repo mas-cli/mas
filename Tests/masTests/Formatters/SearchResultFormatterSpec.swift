@@ -18,7 +18,7 @@ public class SearchResultFormatterSpec: QuickSpec {
         var results: [SearchResult] = []
 
         beforeSuite {
-            Mas.initialize()
+            MAS.initialize()
         }
         describe("search results formatter") {
             beforeEach {

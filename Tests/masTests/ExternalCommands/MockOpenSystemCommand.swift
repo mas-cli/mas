@@ -1,5 +1,5 @@
 //
-//  OpenSystemCommandMock.swift
+//  MockOpenSystemCommand.swift
 //  masTests
 //
 //  Created by Ben Chatelain on 1/4/19.
@@ -10,7 +10,7 @@ import Foundation
 
 @testable import mas
 
-class OpenSystemCommandMock: ExternalCommand {
+class MockOpenSystemCommand: ExternalCommand {
     // Stub out protocol logic
     var succeeded = true
     var arguments: [String] = []

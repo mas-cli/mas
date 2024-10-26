@@ -9,7 +9,7 @@
 import ArgumentParser
 import CommerceKit
 
-extension Mas {
+extension MAS {
     struct SignOut: ParsableCommand {
         static let configuration = CommandConfiguration(
             commandName: "signout",

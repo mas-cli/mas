@@ -9,7 +9,7 @@
 import ArgumentParser
 import CommerceKit
 
-extension Mas {
+extension MAS {
     /// Kills several macOS processes as a means to reset the app store.
     struct Reset: ParsableCommand {
         static let configuration = CommandConfiguration(

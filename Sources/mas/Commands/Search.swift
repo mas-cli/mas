@@ -8,7 +8,7 @@
 
 import ArgumentParser
 
-extension Mas {
+extension MAS {
     /// Search the Mac App Store using the iTunes Search API.
     ///
     /// See - https://performance-partners.apple.com/search-api
@@ -20,15 +20,15 @@ extension Mas {
         @Flag(help: "Show price of found apps")
         var price = false
         @Argument(help: "the app name to search")
-        var appName: String
+        var searchTerm: String
 
         func run() throws {
-            try run(storeSearch: MasStoreSearch())
+            try run(searcher: ITunesSearchAppStoreSearcher())
         }
 
-        func run(storeSearch: StoreSearch) throws {
+        func run(searcher: AppStoreSearcher) throws {
             do {
-                let results = try storeSearch.search(for: appName).wait()
+                let results = try searcher.search(for: searchTerm).wait()
                 if results.isEmpty {
                     throw MASError.noSearchResultsFound
                 }

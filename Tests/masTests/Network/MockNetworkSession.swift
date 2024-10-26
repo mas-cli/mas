@@ -1,5 +1,5 @@
 //
-//  NetworkSessionMock
+//  MockNetworkSession
 //  masTests
 //
 //  Created by Ben Chatelain on 11/13/18.
@@ -12,7 +12,7 @@ import PromiseKit
 @testable import mas
 
 /// Mock NetworkSession for testing.
-class NetworkSessionMock: NetworkSession {
+class MockNetworkSession: NetworkSession {
     // Properties that enable us to set exactly what data or error
     // we want our mocked URLSession to return for any request.
     var data: Data?

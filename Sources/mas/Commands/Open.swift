@@ -11,12 +11,12 @@ import Foundation
 
 private let masScheme = "macappstore"
 
-extension Mas {
+extension MAS {
     /// Opens app page in MAS app. Uses the iTunes Lookup API:
     /// https://performance-partners.apple.com/search-api
     struct Open: ParsableCommand {
         static let configuration = CommandConfiguration(
-            abstract: "Opens app page in AppStore.app"
+            abstract: "Opens app page in 'App Store.app'"
         )
 
         @Argument(help: "the app ID")
@@ -24,10 +24,10 @@ extension Mas {
 
         /// Runs the command.
         func run() throws {
-            try run(storeSearch: MasStoreSearch(), openCommand: OpenSystemCommand())
+            try run(searcher: ITunesSearchAppStoreSearcher(), openCommand: OpenSystemCommand())
         }
 
-        func run(storeSearch: StoreSearch, openCommand: ExternalCommand) throws {
+        func run(searcher: AppStoreSearcher, openCommand: ExternalCommand) throws {
             do {
                 guard let appID else {
                     // If no app ID is given, just open the MAS GUI app
@@ -35,7 +35,7 @@ extension Mas {
                     return
                 }
 
-                guard let result = try storeSearch.lookup(appID: appID).wait() else {
+                guard let result = try searcher.lookup(appID: appID).wait() else {
                     throw MASError.noSearchResultsFound
                 }
 

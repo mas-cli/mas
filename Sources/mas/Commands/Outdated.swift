@@ -10,7 +10,7 @@ import ArgumentParser
 import Foundation
 import PromiseKit
 
-extension Mas {
+extension MAS {
     /// Command which displays a list of installed apps which have available updates
     /// ready to be installed from the Mac App Store.
     struct Outdated: ParsableCommand {
@@ -23,15 +23,15 @@ extension Mas {
 
         /// Runs the command.
         func run() throws {
-            try run(appLibrary: MasAppLibrary(), storeSearch: MasStoreSearch())
+            try run(appLibrary: SoftwareMapAppLibrary(), searcher: ITunesSearchAppStoreSearcher())
         }
 
-        func run(appLibrary: AppLibrary, storeSearch: StoreSearch) throws {
+        func run(appLibrary: AppLibrary, searcher: AppStoreSearcher) throws {
             _ = try when(
                 fulfilled:
                     appLibrary.installedApps.map { installedApp in
                         firstly {
-                            storeSearch.lookup(appID: installedApp.itemIdentifier.appIDValue)
+                            searcher.lookup(appID: installedApp.itemIdentifier.appIDValue)
                         }
                         .done { storeApp in
                             guard let storeApp else {

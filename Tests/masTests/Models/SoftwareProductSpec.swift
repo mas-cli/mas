@@ -15,10 +15,10 @@ import Quick
 public class SoftwareProductSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
-            Mas.initialize()
+            MAS.initialize()
         }
         describe("software product") {
-            let app = SoftwareProductMock(
+            let app = MockSoftwareProduct(
                 appName: "App",
                 bundleIdentifier: "",
                 bundlePath: "",

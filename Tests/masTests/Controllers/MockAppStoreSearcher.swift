@@ -1,5 +1,5 @@
 //
-//  StoreSearchMock.swift
+//  MockAppStoreSearcher.swift
 //  masTests
 //
 //  Created by Ben Chatelain on 1/4/19.
@@ -10,11 +10,11 @@ import PromiseKit
 
 @testable import mas
 
-class StoreSearchMock: StoreSearch {
+class MockAppStoreSearcher: AppStoreSearcher {
     var apps: [AppID: SearchResult] = [:]
 
-    func search(for appName: String) -> Promise<[SearchResult]> {
-        .value(apps.filter { $1.trackName.contains(appName) }.map { $1 })
+    func search(for searchTerm: String) -> Promise<[SearchResult]> {
+        .value(apps.filter { $1.trackName.contains(searchTerm) }.map { $1 })
     }
 
     func lookup(appID: AppID) -> Promise<SearchResult?> {

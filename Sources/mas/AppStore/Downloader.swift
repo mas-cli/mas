@@ -47,7 +47,8 @@ private func downloadWithRetries(_ appID: AppID, purchase: Bool = false, attempt
             }
 
             // If the download failed due to network issues, try again. Otherwise, fail immediately.
-            guard case MASError.downloadFailed(let downloadError) = error,
+            guard
+                case MASError.downloadFailed(let downloadError) = error,
                 case NSURLErrorDomain = downloadError?.domain
             else {
                 throw error

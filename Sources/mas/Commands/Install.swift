@@ -9,7 +9,7 @@
 import ArgumentParser
 import CommerceKit
 
-extension Mas {
+extension MAS {
     /// Installs previously purchased apps from the Mac App Store.
     struct Install: ParsableCommand {
         static let configuration = CommandConfiguration(
@@ -23,7 +23,7 @@ extension Mas {
 
         /// Runs the command.
         func run() throws {
-            try run(appLibrary: MasAppLibrary())
+            try run(appLibrary: SoftwareMapAppLibrary())
         }
 
         func run(appLibrary: AppLibrary) throws {

@@ -1,5 +1,5 @@
 //
-//  AppLibraryMock.swift
+//  MockAppLibrary.swift
 //  masTests
 //
 //  Created by Ben Chatelain on 12/27/18.
@@ -8,7 +8,7 @@
 
 @testable import mas
 
-class AppLibraryMock: AppLibrary {
+class MockAppLibrary: AppLibrary {
     var installedApps: [SoftwareProduct] = []
 
     func uninstallApps(atPaths appPaths: [String]) throws {
@@ -20,7 +20,7 @@ class AppLibraryMock: AppLibrary {
 }
 
 /// Members not part of the AppLibrary protocol that are only for test state management.
-extension AppLibraryMock {
+extension MockAppLibrary {
     /// Clears out the list of installed apps.
     func reset() {
         installedApps = []

@@ -32,7 +32,7 @@ class MASErrorTestCase: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        Mas.initialize()
+        MAS.initialize()
         nserror = NSError(domain: errorDomain, code: 999)
         localizedDescription = "foo"
     }
@@ -59,7 +59,7 @@ class MASErrorTestCase: XCTestCase {
     }
 
     func testAlreadySignedIn() {
-        error = .alreadySignedIn(asAccountId: "person@example.com")
+        error = .alreadySignedIn(asAppleID: "person@example.com")
         XCTAssertEqual(error.description, "Already signed in as person@example.com")
     }
 

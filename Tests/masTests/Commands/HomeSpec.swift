@@ -13,25 +13,25 @@ import Quick
 
 public class HomeSpec: QuickSpec {
     override public func spec() {
-        let storeSearch = StoreSearchMock()
-        let openCommand = OpenSystemCommandMock()
+        let searcher = MockAppStoreSearcher()
+        let openCommand = MockOpenSystemCommand()
 
         beforeSuite {
-            Mas.initialize()
+            MAS.initialize()
         }
         describe("home command") {
             beforeEach {
-                storeSearch.reset()
+                searcher.reset()
             }
             it("fails to open app with invalid ID") {
                 expect {
-                    try Mas.Home.parse(["--", "-999"]).run(storeSearch: storeSearch, openCommand: openCommand)
+                    try MAS.Home.parse(["--", "-999"]).run(searcher: searcher, openCommand: openCommand)
                 }
                 .to(throwError())
             }
             it("can't find app with unknown ID") {
                 expect {
-                    try Mas.Home.parse(["999"]).run(storeSearch: storeSearch, openCommand: openCommand)
+                    try MAS.Home.parse(["999"]).run(searcher: searcher, openCommand: openCommand)
                 }
                 .to(throwError(MASError.noSearchResultsFound))
             }
@@ -41,10 +41,10 @@ public class HomeSpec: QuickSpec {
                     trackViewUrl: "mas preview url",
                     version: "0.0"
                 )
-                storeSearch.apps[mockResult.trackId] = mockResult
+                searcher.apps[mockResult.trackId] = mockResult
                 expect {
-                    try Mas.Home.parse([String(mockResult.trackId)])
-                        .run(storeSearch: storeSearch, openCommand: openCommand)
+                    try MAS.Home.parse([String(mockResult.trackId)])
+                        .run(searcher: searcher, openCommand: openCommand)
                     return openCommand.arguments
                 }
                     == [mockResult.trackViewUrl]

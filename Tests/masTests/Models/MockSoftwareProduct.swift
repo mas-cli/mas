@@ -1,5 +1,5 @@
 //
-//  SoftwareProductMock.swift
+//  MockSoftwareProduct.swift
 //  masTests
 //
 //  Created by Ben Chatelain on 12/27/18.
@@ -10,7 +10,7 @@ import Foundation
 
 @testable import mas
 
-struct SoftwareProductMock: SoftwareProduct {
+struct MockSoftwareProduct: SoftwareProduct {
     var appName: String
     var bundleIdentifier: String
     var bundlePath: String

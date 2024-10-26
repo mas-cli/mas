@@ -8,7 +8,7 @@
 
 import ArgumentParser
 
-extension Mas {
+extension MAS {
     /// Command which lists all installed apps.
     struct List: ParsableCommand {
         static let configuration = CommandConfiguration(
@@ -17,7 +17,7 @@ extension Mas {
 
         /// Runs the command.
         func run() throws {
-            try run(appLibrary: MasAppLibrary())
+            try run(appLibrary: SoftwareMapAppLibrary())
         }
 
         func run(appLibrary: AppLibrary) throws {

@@ -8,7 +8,7 @@
 
 import ArgumentParser
 
-extension Mas {
+extension MAS {
     /// Opens vendor's app page in a browser. Uses the iTunes Lookup API:
     /// https://performance-partners.apple.com/search-api
     struct Vendor: ParsableCommand {
@@ -21,12 +21,12 @@ extension Mas {
 
         /// Runs the command.
         func run() throws {
-            try run(storeSearch: MasStoreSearch(), openCommand: OpenSystemCommand())
+            try run(searcher: ITunesSearchAppStoreSearcher(), openCommand: OpenSystemCommand())
         }
 
-        func run(storeSearch: StoreSearch, openCommand: ExternalCommand) throws {
+        func run(searcher: AppStoreSearcher, openCommand: ExternalCommand) throws {
             do {
-                guard let result = try storeSearch.lookup(appID: appID).wait() else {
+                guard let result = try searcher.lookup(appID: appID).wait() else {
                     throw MASError.noSearchResultsFound
                 }
 

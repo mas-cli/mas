@@ -1,5 +1,5 @@
 //
-//  NetworkSessionMockFromFile.swift
+//  MockFromFileNetworkSession.swift
 //  masTests
 //
 //  Created by Ben Chatelain on 2019-01-05.
@@ -10,7 +10,7 @@ import Foundation
 import PromiseKit
 
 /// Mock NetworkSession for testing with saved JSON response payload files.
-class NetworkSessionMockFromFile: NetworkSessionMock {
+class MockFromFileNetworkSession: MockNetworkSession {
     /// Path to response payload file relative to test bundle.
     private let responseFile: String
 

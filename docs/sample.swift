@@ -90,11 +90,14 @@ private extension MyClass {
 guard let singleTest = somethingFailable() else { return }
 guard statementThatShouldBeTrue else { return }
 
-// If there is one long expression to guard or multiple expressions
-// move else to next line
-guard let oneItem = somethingFailable(),
+// If a guard clause requires multiple lines, chop down, then start `else` new line
+// In this case, always chop down else clause.
+guard
+    let oneItem = somethingFailable(),
     let secondItem = somethingFailable2()
-else { return }
+else {
+    return
+}
 
 // If the return in else is long, move to next line
 guard let something = somethingFailable() else {

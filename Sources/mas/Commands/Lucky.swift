@@ -9,7 +9,7 @@
 import ArgumentParser
 import CommerceKit
 
-extension Mas {
+extension MAS {
     /// Command which installs the first search result.
     ///
     /// This is handy as many MAS titles can be long with embedded keywords.
@@ -21,18 +21,18 @@ extension Mas {
         @Flag(help: "force reinstall")
         var force = false
         @Argument(help: "the app name to install")
-        var appName: String
+        var searchTerm: String
 
         /// Runs the command.
         func run() throws {
-            try run(appLibrary: MasAppLibrary(), storeSearch: MasStoreSearch())
+            try run(appLibrary: SoftwareMapAppLibrary(), searcher: ITunesSearchAppStoreSearcher())
         }
 
-        func run(appLibrary: AppLibrary, storeSearch: StoreSearch) throws {
+        func run(appLibrary: AppLibrary, searcher: AppStoreSearcher) throws {
             var appID: AppID?
 
             do {
-                let results = try storeSearch.search(for: appName).wait()
+                let results = try searcher.search(for: searchTerm).wait()
                 guard let result = results.first else {
                     printError("No results found")
                     throw MASError.noSearchResultsFound

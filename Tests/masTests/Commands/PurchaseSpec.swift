@@ -14,12 +14,12 @@ import Quick
 public class PurchaseSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
-            Mas.initialize()
+            MAS.initialize()
         }
         xdescribe("purchase command") {
             xit("purchases apps") {
                 expect {
-                    try Mas.Purchase.parse(["999"]).run(appLibrary: AppLibraryMock())
+                    try MAS.Purchase.parse(["999"]).run(appLibrary: MockAppLibrary())
                 }
                 .toNot(throwError())
             }

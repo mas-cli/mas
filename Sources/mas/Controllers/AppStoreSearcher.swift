@@ -1,5 +1,5 @@
 //
-//  StoreSearch.swift
+//  AppStoreSearcher.swift
 //  mas
 //
 //  Created by Ben Chatelain on 12/29/18.
@@ -10,9 +10,9 @@ import Foundation
 import PromiseKit
 
 /// Protocol for searching the MAS catalog.
-protocol StoreSearch {
+protocol AppStoreSearcher {
     func lookup(appID: AppID) -> Promise<SearchResult?>
-    func search(for appName: String) -> Promise<[SearchResult]>
+    func search(for searchTerm: String) -> Promise<[SearchResult]>
 }
 
 enum Entity: String {
@@ -37,7 +37,7 @@ private enum URLAction {
 }
 
 // MARK: - Common methods
-extension StoreSearch {
+extension AppStoreSearcher {
     /// Builds the search URL for an app.
     ///
     /// - Parameters:

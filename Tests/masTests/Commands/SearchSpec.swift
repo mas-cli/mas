@@ -14,14 +14,14 @@ import Quick
 
 public class SearchSpec: QuickSpec {
     override public func spec() {
-        let storeSearch = StoreSearchMock()
+        let searcher = MockAppStoreSearcher()
 
         beforeSuite {
-            Mas.initialize()
+            MAS.initialize()
         }
         describe("search command") {
             beforeEach {
-                storeSearch.reset()
+                searcher.reset()
             }
             it("can find slack") {
                 let mockResult = SearchResult(
@@ -30,17 +30,17 @@ public class SearchSpec: QuickSpec {
                     trackViewUrl: "mas preview url",
                     version: "0.0"
                 )
-                storeSearch.apps[mockResult.trackId] = mockResult
+                searcher.apps[mockResult.trackId] = mockResult
                 expect {
                     try captureStream(stdout) {
-                        try Mas.Search.parse(["slack"]).run(storeSearch: storeSearch)
+                        try MAS.Search.parse(["slack"]).run(searcher: searcher)
                     }
                 }
                     == "        1111  slack (0.0)\n"
             }
             it("fails when searching for nonexistent app") {
                 expect {
-                    try Mas.Search.parse(["nonexistent"]).run(storeSearch: storeSearch)
+                    try MAS.Search.parse(["nonexistent"]).run(searcher: searcher)
                 }
                 .to(throwError(MASError.noSearchResultsFound))
             }

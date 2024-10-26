@@ -14,24 +14,24 @@ import Quick
 
 public class InfoSpec: QuickSpec {
     override public func spec() {
-        let storeSearch = StoreSearchMock()
+        let searcher = MockAppStoreSearcher()
 
         beforeSuite {
-            Mas.initialize()
+            MAS.initialize()
         }
         describe("Info command") {
             beforeEach {
-                storeSearch.reset()
+                searcher.reset()
             }
             it("fails to open app with invalid ID") {
                 expect {
-                    try Mas.Info.parse(["--", "-999"]).run(storeSearch: storeSearch)
+                    try MAS.Info.parse(["--", "-999"]).run(searcher: searcher)
                 }
                 .to(throwError())
             }
             it("can't find app with unknown ID") {
                 expect {
-                    try Mas.Info.parse(["999"]).run(storeSearch: storeSearch)
+                    try MAS.Info.parse(["999"]).run(searcher: searcher)
                 }
                 .to(throwError(MASError.noSearchResultsFound))
             }
@@ -47,10 +47,10 @@ public class InfoSpec: QuickSpec {
                     trackViewUrl: "https://awesome.app",
                     version: "1.0"
                 )
-                storeSearch.apps[mockResult.trackId] = mockResult
+                searcher.apps[mockResult.trackId] = mockResult
                 expect {
                     try captureStream(stdout) {
-                        try Mas.Info.parse([String(mockResult.trackId)]).run(storeSearch: storeSearch)
+                        try MAS.Info.parse([String(mockResult.trackId)]).run(searcher: searcher)
                     }
                 }
                     == """

@@ -15,13 +15,13 @@ import Quick
 public class AccountSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
-            Mas.initialize()
+            MAS.initialize()
         }
         // account command disabled since macOS 12 Monterey https://github.com/mas-cli/mas#known-issues
         describe("Account command") {
             it("displays active account") {
                 expect {
-                    try Mas.Account.parse([]).run()
+                    try MAS.Account.parse([]).run()
                 }
                 .to(throwError(MASError.notSupported))
             }

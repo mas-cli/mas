@@ -15,7 +15,7 @@ import Quick
 public class OutdatedSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
-            Mas.initialize()
+            MAS.initialize()
         }
         describe("outdated command") {
             it("displays apps with pending updates") {
@@ -33,12 +33,12 @@ public class OutdatedSpec: QuickSpec {
                         trackViewUrl: "https://apps.apple.com/us/app/bandwidth/id490461369?mt=12&uo=4",
                         version: "1.28"
                     )
-                let mockStoreSearch = StoreSearchMock()
-                mockStoreSearch.apps[mockSearchResult.trackId] = mockSearchResult
+                let searcher = MockAppStoreSearcher()
+                searcher.apps[mockSearchResult.trackId] = mockSearchResult
 
-                let mockAppLibrary = AppLibraryMock()
+                let mockAppLibrary = MockAppLibrary()
                 mockAppLibrary.installedApps.append(
-                    SoftwareProductMock(
+                    MockSoftwareProduct(
                         appName: mockSearchResult.trackName,
                         bundleIdentifier: mockSearchResult.bundleId,
                         bundlePath: "/Applications/Bandwidth+.app",
@@ -48,7 +48,7 @@ public class OutdatedSpec: QuickSpec {
                 )
                 expect {
                     try captureStream(stdout) {
-                        try Mas.Outdated.parse([]).run(appLibrary: mockAppLibrary, storeSearch: mockStoreSearch)
+                        try MAS.Outdated.parse([]).run(appLibrary: mockAppLibrary, searcher: searcher)
                     }
                 }
                     == "490461369 Bandwidth+ (1.27 -> 1.28)\n"

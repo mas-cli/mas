@@ -1,5 +1,5 @@
 //
-//  MasStoreSearch.swift
+//  ITunesSearchAppStoreSearcher.swift
 //  mas
 //
 //  Created by Ben Chatelain on 12/29/18.
@@ -12,7 +12,7 @@ import Regex
 import Version
 
 /// Manages searching the MAS catalog through the iTunes Search and Lookup APIs.
-class MasStoreSearch: StoreSearch {
+class ITunesSearchAppStoreSearcher: AppStoreSearcher {
     private static let appVersionExpression = Regex(#"\"versionDisplay\"\:\"([^\"]+)\""#)
 
     // CommerceKit and StoreFoundation don't seem to expose the region of the Apple ID signed
@@ -77,15 +77,16 @@ class MasStoreSearch: StoreSearch {
                 return .value(nil)
             }
 
-            guard let pageUrl = URL(string: result.trackViewUrl) else {
+            guard let pageURL = URL(string: result.trackViewUrl) else {
                 return .value(result)
             }
 
             return firstly {
-                self.scrapeAppStoreVersion(pageUrl)
+                self.scrapeAppStoreVersion(pageURL)
             }
             .map { pageVersion in
-                guard let pageVersion,
+                guard
+                    let pageVersion,
                     let searchVersion = Version(tolerant: result.version),
                     pageVersion > searchVersion
                 else {
@@ -120,12 +121,13 @@ class MasStoreSearch: StoreSearch {
     /// Scrape the app version from the App Store webpage at the given URL.
     ///
     /// App Store webpages frequently report a version that is newer than what is reported by the iTunes Search API.
-    private func scrapeAppStoreVersion(_ pageUrl: URL) -> Promise<Version?> {
+    private func scrapeAppStoreVersion(_ pageURL: URL) -> Promise<Version?> {
         firstly {
-            networkManager.loadData(from: pageUrl)
+            networkManager.loadData(from: pageURL)
         }
         .map { data in
-            guard let html = String(data: data, encoding: .utf8),
+            guard
+                let html = String(data: data, encoding: .utf8),
                 let capture = Self.appVersionExpression.firstMatch(in: html)?.captures[0],
                 let version = Version(tolerant: capture)
             else {

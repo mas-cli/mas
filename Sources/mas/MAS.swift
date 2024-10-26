@@ -1,5 +1,5 @@
 //
-//  Mas.swift
+//  MAS.swift
 //  mas
 //
 //  Created by Chris Araman on 4/22/21.
@@ -11,7 +11,7 @@ import Foundation
 import PromiseKit
 
 @main
-struct Mas: ParsableCommand {
+struct MAS: ParsableCommand {
     static let configuration = CommandConfiguration(
         abstract: "Mac App Store command-line interface",
         subcommands: [
