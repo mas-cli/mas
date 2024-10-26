@@ -96,9 +96,8 @@ OLD_FILENAME="mas--${MAS_VERSION}.${CURRENT_PLATFORM}.bottle.tar.gz"
 # brew update
 
 # Audit formula
-brew install mas-cli/tap/mas
 brew list mas-cli/tap/mas
-brew audit --strict mas-cli/tap/mas
+brew audit --strict --verbose --formula --tap mas-cli/tap mas
 brew style mas-cli/tap/mas
 
 ################################################################################
