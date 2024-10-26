@@ -27,12 +27,11 @@ enum SearchResultFormatter {
             let appID = result.trackId
             let appName = result.trackName.padding(toLength: maxLength, withPad: " ", startingAt: 0)
             let version = result.version
-            let price = result.price ?? 0.0
 
             if includePrice {
-                output += String(format: "%12lu  %@  $%5.2f  (%@)\n", appID, appName, price, version)
+                output += String(format: "%12lu  %@  (%@)  %@\n", appID, appName, version, result.formattedPrice)
             } else {
-                output += String(format: "%12lu  %@ (%@)\n", appID, appName, version)
+                output += String(format: "%12lu  %@  (%@)\n", appID, appName, version)
             }
         }
 

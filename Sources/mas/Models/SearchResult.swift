@@ -10,6 +10,7 @@ struct SearchResult: Decodable {
     var bundleId: String
     var currentVersionReleaseDate: String
     var fileSizeBytes: String?
+    var formattedPrice: String
     var minimumOsVersion: String
     var price: Double?
     var sellerName: String
@@ -23,6 +24,7 @@ struct SearchResult: Decodable {
         bundleId: String = "",
         currentVersionReleaseDate: String = "",
         fileSizeBytes: String = "0",
+        formattedPrice: String = "0",
         minimumOsVersion: String = "",
         price: Double = 0.0,
         sellerName: String = "",
@@ -35,6 +37,7 @@ struct SearchResult: Decodable {
         self.bundleId = bundleId
         self.currentVersionReleaseDate = currentVersionReleaseDate
         self.fileSizeBytes = fileSizeBytes
+        self.formattedPrice = formattedPrice
         self.minimumOsVersion = minimumOsVersion
         self.price = price
         self.sellerName = sellerName

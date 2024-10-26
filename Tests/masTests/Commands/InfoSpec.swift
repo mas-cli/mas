@@ -39,8 +39,8 @@ public class InfoSpec: QuickSpec {
                 let mockResult = SearchResult(
                     currentVersionReleaseDate: "2019-01-07T18:53:13Z",
                     fileSizeBytes: "1024",
+                    formattedPrice: "$2.00",
                     minimumOsVersion: "10.14",
-                    price: 2.0,
                     sellerName: "Awesome Dev",
                     trackId: 1111,
                     trackName: "Awesome App",
@@ -54,7 +54,7 @@ public class InfoSpec: QuickSpec {
                     }
                 }
                     == """
-                    Awesome App 1.0 [2.0]
+                    Awesome App 1.0 [$2.00]
                     By: Awesome Dev
                     Released: 2019-01-07
                     Minimum OS: 10.14

@@ -36,7 +36,7 @@ public class SearchSpec: QuickSpec {
                         try MAS.Search.parse(["slack"]).run(searcher: searcher)
                     }
                 }
-                    == "        1111  slack (0.0)\n"
+                    == "        1111  slack  (0.0)\n"
             }
             it("fails when searching for nonexistent app") {
                 expect {
