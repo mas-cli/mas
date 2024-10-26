@@ -22,7 +22,7 @@ public class LuckySpec: QuickSpec {
         xdescribe("lucky command") {
             xit("installs the first app matching a search") {
                 expect {
-                    try MAS.Lucky.parse(["Slack"]).run(appLibrary: AppLibraryMock(), searcher: searcher)
+                    try MAS.Lucky.parse(["Slack"]).run(appLibrary: MockAppLibrary(), searcher: searcher)
                 }
                 .toNot(throwError())
             }

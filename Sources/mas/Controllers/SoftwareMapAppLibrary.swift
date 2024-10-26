@@ -1,5 +1,5 @@
 //
-//  MasAppLibrary.swift
+//  SoftwareMapAppLibrary.swift
 //  mas
 //
 //  Created by Ben Chatelain on 12/27/18.
@@ -10,7 +10,7 @@ import CommerceKit
 import ScriptingBridge
 
 /// Utility for managing installed apps.
-class MasAppLibrary: AppLibrary {
+class SoftwareMapAppLibrary: AppLibrary {
     /// CommerceKit's singleton manager of installed software.
     private let softwareMap: SoftwareMap
 

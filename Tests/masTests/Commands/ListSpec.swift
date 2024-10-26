@@ -21,7 +21,7 @@ public class ListSpec: QuickSpec {
             it("lists apps") {
                 expect {
                     try captureStream(stderr) {
-                        try MAS.List.parse([]).run(appLibrary: AppLibraryMock())
+                        try MAS.List.parse([]).run(appLibrary: MockAppLibrary())
                     }
                 }
                     == "Error: No installed apps found\n"

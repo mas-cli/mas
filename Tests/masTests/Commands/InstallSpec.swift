@@ -19,7 +19,7 @@ public class InstallSpec: QuickSpec {
         xdescribe("install command") {
             xit("installs apps") {
                 expect {
-                    try MAS.Install.parse([]).run(appLibrary: AppLibraryMock())
+                    try MAS.Install.parse([]).run(appLibrary: MockAppLibrary())
                 }
                 .toNot(throwError())
             }

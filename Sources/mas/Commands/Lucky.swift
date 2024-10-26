@@ -25,7 +25,7 @@ extension MAS {
 
         /// Runs the command.
         func run() throws {
-            try run(appLibrary: MasAppLibrary(), searcher: ITunesSearchAppStoreSearcher())
+            try run(appLibrary: SoftwareMapAppLibrary(), searcher: ITunesSearchAppStoreSearcher())
         }
 
         func run(appLibrary: AppLibrary, searcher: AppStoreSearcher) throws {

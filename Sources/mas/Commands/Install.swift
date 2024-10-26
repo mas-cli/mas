@@ -23,7 +23,7 @@ extension MAS {
 
         /// Runs the command.
         func run() throws {
-            try run(appLibrary: MasAppLibrary())
+            try run(appLibrary: SoftwareMapAppLibrary())
         }
 
         func run(appLibrary: AppLibrary) throws {

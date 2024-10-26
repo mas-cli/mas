@@ -1,5 +1,5 @@
 //
-//  MasAppLibrarySpec.swift
+//  SoftwareMapAppLibrarySpec.swift
 //  masTests
 //
 //  Created by Ben Chatelain on 3/1/20.
@@ -11,9 +11,9 @@ import Quick
 
 @testable import mas
 
-public class MasAppLibrarySpec: QuickSpec {
+public class SoftwareMapAppLibrarySpec: QuickSpec {
     override public func spec() {
-        let library = MasAppLibrary(softwareMap: SoftwareMapMock(products: apps))
+        let library = SoftwareMapAppLibrary(softwareMap: SoftwareMapMock(products: apps))
 
         beforeSuite {
             MAS.initialize()

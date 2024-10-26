@@ -26,7 +26,7 @@ public class UninstallSpec: QuickSpec {
                 bundleVersion: "1.0",
                 itemIdentifier: NSNumber(value: appID)
             )
-            let mockLibrary = AppLibraryMock()
+            let mockLibrary = MockAppLibrary()
 
             context("dry run") {
                 let uninstall = try! MAS.Uninstall.parse(["--dry-run", String(appID)])

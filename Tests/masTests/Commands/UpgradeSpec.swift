@@ -22,7 +22,7 @@ public class UpgradeSpec: QuickSpec {
                 expect {
                     try captureStream(stderr) {
                         try MAS.Upgrade.parse([])
-                            .run(appLibrary: AppLibraryMock(), searcher: MockAppStoreSearcher())
+                            .run(appLibrary: MockAppLibrary(), searcher: MockAppStoreSearcher())
                     }
                 }
                     == "Warning: Nothing found to upgrade\n"

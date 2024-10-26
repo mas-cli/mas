@@ -36,7 +36,7 @@ public class OutdatedSpec: QuickSpec {
                 let searcher = MockAppStoreSearcher()
                 searcher.apps[mockSearchResult.trackId] = mockSearchResult
 
-                let mockAppLibrary = AppLibraryMock()
+                let mockAppLibrary = MockAppLibrary()
                 mockAppLibrary.installedApps.append(
                     SoftwareProductMock(
                         appName: mockSearchResult.trackName,
