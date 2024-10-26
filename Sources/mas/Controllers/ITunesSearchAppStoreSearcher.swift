@@ -32,39 +32,11 @@ class ITunesSearchAppStoreSearcher: AppStoreSearcher {
         self.networkManager = networkManager
     }
 
-    /// Searches for an app.
-    ///
-    /// - Parameter searchTerm: a search term matched against app names
-    /// - Returns: A Promise of an Array of SearchResults matching searchTerm
-    func search(for searchTerm: String) -> Promise<[SearchResult]> {
-        // Search for apps for compatible platforms, in order of preference.
-        // Macs with Apple Silicon can run iPad and iPhone apps.
-        var entities = [Entity.desktopSoftware]
-        if SysCtlSystemCommand.isAppleSilicon {
-            entities += [.iPadSoftware, .iPhoneSoftware]
-        }
-
-        let results = entities.map { entity in
-            guard let url = searchURL(for: searchTerm, inCountry: country, ofEntity: entity) else {
-                fatalError("Failed to build URL for \(searchTerm)")
-            }
-            return loadSearchResults(url)
-        }
-
-        // Combine the results, removing any duplicates.
-        var seenAppIDs = Set<AppID>()
-        return when(fulfilled: results)
-            .flatMapValues { $0 }
-            .filterValues { result in
-                seenAppIDs.insert(result.trackId).inserted
-            }
-    }
-
     /// Looks up app details.
     ///
-    /// - Parameter appID: MAS ID of app
-    /// - Returns: A Promise for the search result record of app, or nil if no apps match the ID,
-    ///   or an Error if there is a problem with the network request.
+    /// - Parameter appID: App ID.
+    /// - Returns: A `Promise` for the `SearchResult` for the given `appID`, `nil` if no apps match,
+    ///   or an `Error` if any problems occur.
     func lookup(appID: AppID) -> Promise<SearchResult?> {
         guard let url = lookupURL(forAppID: appID, inCountry: country) else {
             fatalError("Failed to build URL for \(appID)")
@@ -105,6 +77,34 @@ class ITunesSearchAppStoreSearcher: AppStoreSearcher {
         }
     }
 
+    /// Searches for apps from the MAS.
+    ///
+    /// - Parameter searchTerm: Term for which to search in the MAS.
+    /// - Returns: A `Promise` of an `Array` of `SearchResult`s matching `searchTerm`.
+    func search(for searchTerm: String) -> Promise<[SearchResult]> {
+        // Search for apps for compatible platforms, in order of preference.
+        // Macs with Apple Silicon can run iPad and iPhone apps.
+        var entities = [Entity.desktopSoftware]
+        if SysCtlSystemCommand.isAppleSilicon {
+            entities += [.iPadSoftware, .iPhoneSoftware]
+        }
+
+        let results = entities.map { entity in
+            guard let url = searchURL(for: searchTerm, inCountry: country, ofEntity: entity) else {
+                fatalError("Failed to build URL for \(searchTerm)")
+            }
+            return loadSearchResults(url)
+        }
+
+        // Combine the results, removing any duplicates.
+        var seenAppIDs = Set<AppID>()
+        return when(fulfilled: results)
+            .flatMapValues { $0 }
+            .filterValues { result in
+                seenAppIDs.insert(result.trackId).inserted
+            }
+    }
+
     private func loadSearchResults(_ url: URL) -> Promise<[SearchResult]> {
         firstly {
             networkManager.loadData(from: url)
@@ -135,6 +135,83 @@ class ITunesSearchAppStoreSearcher: AppStoreSearcher {
             }
 
             return version
+        }
+    }
+
+    /// Builds the search URL for an app.
+    ///
+    /// - Parameters:
+    ///   - searchTerm: term for which to search in MAS.
+    ///   - country: 2-letter ISO region code of the MAS in which to search.
+    ///   - entity: OS platform of apps for which to search.
+    /// - Returns: URL for the search service or nil if searchTerm can't be encoded.
+    func searchURL(
+        for searchTerm: String,
+        inCountry country: String?,
+        ofEntity entity: Entity = .desktopSoftware
+    ) -> URL? {
+        url(.search, searchTerm, inCountry: country, ofEntity: entity)
+    }
+
+    /// Builds the lookup URL for an app.
+    ///
+    /// - Parameters:
+    ///   - appID: App ID.
+    ///   - country: 2-letter ISO region code of the MAS in which to search.
+    ///   - entity: OS platform of apps for which to search.
+    /// - Returns: URL for the lookup service or nil if appID can't be encoded.
+    private func lookupURL(
+        forAppID appID: AppID,
+        inCountry country: String?,
+        ofEntity entity: Entity = .desktopSoftware
+    ) -> URL? {
+        url(.lookup, String(appID), inCountry: country, ofEntity: entity)
+    }
+
+    private func url(
+        _ action: URLAction,
+        _ queryItemValue: String,
+        inCountry country: String?,
+        ofEntity entity: Entity = .desktopSoftware
+    ) -> URL? {
+        guard var components = URLComponents(string: "https://itunes.apple.com/\(action)") else {
+            return nil
+        }
+
+        var queryItems = [
+            URLQueryItem(name: "media", value: "software"),
+            URLQueryItem(name: "entity", value: entity.rawValue),
+        ]
+
+        if let country {
+            queryItems.append(URLQueryItem(name: "country", value: country))
+        }
+
+        queryItems.append(URLQueryItem(name: action.queryItemName, value: queryItemValue))
+
+        components.queryItems = queryItems
+
+        return components.url
+    }
+}
+
+enum Entity: String {
+    case desktopSoftware
+    case macSoftware
+    case iPadSoftware
+    case iPhoneSoftware = "software"
+}
+
+private enum URLAction {
+    case lookup
+    case search
+
+    var queryItemName: String {
+        switch self {
+        case .lookup:
+            return "id"
+        case .search:
+            return "term"
         }
     }
 }
