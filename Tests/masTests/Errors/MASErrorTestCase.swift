@@ -109,12 +109,12 @@ class MASErrorTestCase: XCTestCase {
     }
 
     func testNotInstalled() {
-        error = .notInstalled
-        XCTAssertEqual(error.description, "Not installed")
+        error = .notInstalled(appID: 123)
+        XCTAssertEqual(error.description, "No apps installed with app ID 123")
     }
 
     func testUninstallFailed() {
-        error = .uninstallFailed
+        error = .uninstallFailed(error: nil)
         XCTAssertEqual(error.description, "Uninstall failed")
     }
 

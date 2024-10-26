@@ -7,8 +7,7 @@
 //
 
 import ArgumentParser
-import CommerceKit
-import StoreFoundation
+import Foundation
 
 extension Mas {
     /// Command which uninstalls apps managed by the Mac App Store.
@@ -29,19 +28,37 @@ extension Mas {
         }
 
         func run(appLibrary: AppLibrary) throws {
-            guard let product = appLibrary.installedApp(withAppID: appID) else {
-                throw MASError.notInstalled
+            guard NSUserName() == "root" else {
+                throw MASError.macOSUserMustBeRoot
+            }
+
+            guard let username = getSudoUsername() else {
+                throw MASError.runtimeError("Could not determine the original username")
+            }
+
+            guard
+                let uid = getSudoUID(),
+                seteuid(uid) == 0
+            else {
+                throw MASError.runtimeError("Failed to switch effective user from 'root' to '\(username)'")
+            }
+
+            let installedApps = appLibrary.installedApps(withAppID: appID)
+            guard !installedApps.isEmpty else {
+                throw MASError.notInstalled(appID: appID)
             }
 
             if dryRun {
-                printInfo("\(product.appName) \(product.bundlePath)")
+                for installedApp in installedApps {
+                    printInfo("'\(installedApp.appName)' '\(installedApp.bundlePath)'")
+                }
                 printInfo("(not removed, dry run)")
             } else {
-                do {
-                    try appLibrary.uninstallApp(app: product)
-                } catch {
-                    throw MASError.uninstallFailed
+                guard seteuid(0) == 0 else {
+                    throw MASError.runtimeError("Failed to revert effective user from '\(username)' back to 'root'")
                 }
+
+                try appLibrary.uninstallApps(atPaths: installedApps.map(\.bundlePath))
             }
         }
     }

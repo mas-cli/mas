@@ -58,8 +58,8 @@ extension Mas {
         /// - Throws: Any error that occurs while attempting to install the app.
         private func install(appID: AppID, appLibrary: AppLibrary) throws {
             // Try to download applications with given identifiers and collect results
-            if let product = appLibrary.installedApp(withAppID: appID), !force {
-                printWarning("\(product.appName) is already installed")
+            if let appName = appLibrary.installedApps(withAppID: appID).first?.appName, !force {
+                printWarning("\(appName) is already installed")
             } else {
                 do {
                     try downloadAll([appID]).wait()

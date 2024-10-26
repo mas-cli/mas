@@ -13,6 +13,8 @@ enum MASError: Error, Equatable {
 
     case failed(error: NSError?)
 
+    case runtimeError(String)
+
     case notSignedIn
     case noPasswordProvided
     case signInFailed(error: NSError?)
@@ -27,8 +29,9 @@ enum MASError: Error, Equatable {
     case noSearchResultsFound
     case noVendorWebsite
 
-    case notInstalled
-    case uninstallFailed
+    case notInstalled(appID: AppID)
+    case uninstallFailed(error: NSError?)
+    case macOSUserMustBeRoot
 
     case noData
     case jsonParsing(data: Data?)
@@ -53,6 +56,8 @@ extension MASError: CustomStringConvertible {
                 return "Failed: \(error.localizedDescription)"
             }
             return "Failed"
+        case .runtimeError(let message):
+            return "Runtime Error: \(message)"
         case .signInFailed(let error):
             if let error {
                 return "Sign in failed: \(error.localizedDescription)"
@@ -80,10 +85,15 @@ extension MASError: CustomStringConvertible {
             return "No results found"
         case .noVendorWebsite:
             return "App does not have a vendor website"
-        case .notInstalled:
-            return "Not installed"
-        case .uninstallFailed:
+        case .notInstalled(let appID):
+            return "No apps installed with app ID \(appID)"
+        case .uninstallFailed(let error):
+            if let error {
+                return "Uninstall failed: \(error.localizedDescription)"
+            }
             return "Uninstall failed"
+        case .macOSUserMustBeRoot:
+            return "Apps installed from the Mac App Store require root permission to remove."
         case .noData:
             return "Service did not return data"
         case .jsonParsing(let data):

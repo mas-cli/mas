@@ -13,35 +13,29 @@ protocol AppLibrary {
     /// Entire set of installed apps.
     var installedApps: [SoftwareProduct] { get }
 
-    /// Finds an app for appID.
+    /// Uninstalls all apps located at any of the elements of `appPaths`.
     ///
-    /// - Parameter appID: app ID for app.
-    /// - Returns: SoftwareProduct of app if found; nil otherwise.
-    func installedApp(withAppID appID: AppID) -> SoftwareProduct?
-
-    /// Uninstalls an app.
-    ///
-    /// - Parameter app: App to be removed.
-    /// - Throws: Error if there is a problem.
-    func uninstallApp(app: SoftwareProduct) throws
+    /// - Parameter appPaths: Paths to apps to be uninstalled.
+    /// - Throws: Error if any problem occurs.
+    func uninstallApps(atPaths appPaths: [String]) throws
 }
 
 /// Common logic
 extension AppLibrary {
-    /// Finds an app for appID.
+    /// Finds all installed instances of apps whose app ID is `appID`.
     ///
-    /// - Parameter appID: app ID for app.
-    /// - Returns: SoftwareProduct of app if found; nil otherwise.
-    func installedApp(withAppID appID: AppID) -> SoftwareProduct? {
+    /// - Parameter appID: app ID for app(s).
+    /// - Returns: [SoftwareProduct] of matching apps.
+    func installedApps(withAppID appID: AppID) -> [SoftwareProduct] {
         let appID = NSNumber(value: appID)
-        return installedApps.first { $0.itemIdentifier == appID }
+        return installedApps.filter { $0.itemIdentifier == appID }
     }
 
-    /// Finds an app by name.
+    /// Finds all installed instances of apps whose name is `appName`.
     ///
-    /// - Parameter appName: Full title of an app.
-    /// - Returns: Software Product of app if found; nil otherwise.
-    func installedApp(named appName: String) -> SoftwareProduct? {
-        installedApps.first { $0.appName == appName }
+    /// - Parameter appName: Full name of app(s).
+    /// - Returns: [SoftwareProduct] of matching apps.
+    func installedApps(named appName: String) -> [SoftwareProduct] {
+        installedApps.filter { $0.appName == appName }
     }
 }

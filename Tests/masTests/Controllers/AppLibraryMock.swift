@@ -11,19 +11,11 @@
 class AppLibraryMock: AppLibrary {
     var installedApps: [SoftwareProduct] = []
 
-    func uninstallApp(app: SoftwareProduct) throws {
-        if !installedApps.contains(where: { product -> Bool in
-            app.itemIdentifier == product.itemIdentifier
-        }) {
-            throw MASError.notInstalled
-        }
-
+    func uninstallApps(atPaths appPaths: [String]) throws {
         // Special case for testing where we pretend the trash command failed
-        if app.bundlePath == "/dev/null" {
-            throw MASError.uninstallFailed
+        if appPaths.contains("/dev/null") {
+            throw MASError.uninstallFailed(error: nil)
         }
-
-        // Success is the default, watch out for false positives!
     }
 }
 
