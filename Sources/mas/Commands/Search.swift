@@ -17,9 +17,9 @@ extension MAS {
             abstract: "Search for apps from the Mac App Store"
         )
 
-        @Flag(help: "Show price of found apps")
+        @Flag(help: "Display the price of each app")
         var price = false
-        @Argument(help: "the app name to search")
+        @Argument(help: "Search term")
         var searchTerm: String
 
         func run() throws {

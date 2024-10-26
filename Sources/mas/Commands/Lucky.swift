@@ -15,12 +15,16 @@ extension MAS {
     /// This is handy as many MAS titles can be long with embedded keywords.
     struct Lucky: ParsableCommand {
         static let configuration = CommandConfiguration(
-            abstract: "Install the first result from the Mac App Store"
+            abstract:
+                """
+                Install the first app returned from searching the Mac App Store
+                (app must have been previously purchased)
+                """
         )
 
-        @Flag(help: "force reinstall")
+        @Flag(help: "Force reinstall")
         var force = false
-        @Argument(help: "the app name to install")
+        @Argument(help: "Search term")
         var searchTerm: String
 
         /// Runs the command.

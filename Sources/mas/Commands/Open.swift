@@ -16,10 +16,10 @@ extension MAS {
     /// https://performance-partners.apple.com/search-api
     struct Open: ParsableCommand {
         static let configuration = CommandConfiguration(
-            abstract: "Opens app page in 'App Store.app'"
+            abstract: "Open app page in 'App Store.app'"
         )
 
-        @Argument(help: "the app ID")
+        @Argument(help: "App ID")
         var appID: AppID?
 
         /// Runs the command.

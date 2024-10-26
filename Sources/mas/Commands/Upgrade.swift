@@ -14,11 +14,12 @@ extension MAS {
     /// Command which upgrades apps with new versions available in the Mac App Store.
     struct Upgrade: ParsableCommand {
         static let configuration = CommandConfiguration(
-            abstract: "Upgrade outdated apps from the Mac App Store"
+            abstract:
+                "Upgrade outdated app(s) installed from the Mac App Store for the Apple ID of the current macOS user"
         )
 
-        @Argument(help: "app(s) to upgrade")
-        var appIDs: [String] = []
+        @Argument(help: "App ID(s)/app name(s)")
+        var appIDOrNames: [String] = []
 
         /// Runs the command.
         func run() throws {
@@ -56,9 +57,9 @@ extension MAS {
             searcher: AppStoreSearcher
         ) throws -> [(SoftwareProduct, SearchResult)] {
             let apps =
-                appIDs.isEmpty
+                appIDOrNames.isEmpty
                 ? appLibrary.installedApps
-                : appIDs.flatMap { appID in
+                : appIDOrNames.flatMap { appID in
                     if let appID = AppID(appID) {
                         // argument is an AppID, lookup apps by id using argument
                         return appLibrary.installedApps(withAppID: appID)
