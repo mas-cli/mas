@@ -13,7 +13,7 @@ import Quick
 
 public class SoftwareMapAppLibrarySpec: QuickSpec {
     override public func spec() {
-        let library = SoftwareMapAppLibrary(softwareMap: SoftwareMapMock(products: apps))
+        let library = SoftwareMapAppLibrary(softwareMap: MockSoftwareMap(products: apps))
 
         beforeSuite {
             MAS.initialize()
@@ -31,7 +31,7 @@ public class SoftwareMapAppLibrarySpec: QuickSpec {
 }
 
 // MARK: - Test Data
-let myApp = SoftwareProductMock(
+let myApp = MockSoftwareProduct(
     appName: "MyApp",
     bundleIdentifier: "com.example",
     bundlePath: "/Applications/MyApp.app",
@@ -41,8 +41,8 @@ let myApp = SoftwareProductMock(
 
 var apps: [SoftwareProduct] = [myApp]
 
-// MARK: - SoftwareMapMock
-struct SoftwareMapMock: SoftwareMap {
+// MARK: - MockSoftwareMap
+struct MockSoftwareMap: SoftwareMap {
     var products: [SoftwareProduct] = []
 
     func allSoftwareProducts() -> [SoftwareProduct] {

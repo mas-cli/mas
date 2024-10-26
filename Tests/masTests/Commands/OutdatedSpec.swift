@@ -38,7 +38,7 @@ public class OutdatedSpec: QuickSpec {
 
                 let mockAppLibrary = MockAppLibrary()
                 mockAppLibrary.installedApps.append(
-                    SoftwareProductMock(
+                    MockSoftwareProduct(
                         appName: mockSearchResult.trackName,
                         bundleIdentifier: mockSearchResult.bundleId,
                         bundlePath: "/Applications/Bandwidth+.app",

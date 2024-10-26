@@ -13,7 +13,7 @@ import Quick
 
 public class LuckySpec: QuickSpec {
     override public func spec() {
-        let networkSession = NetworkSessionMockFromFile(responseFile: "search/slack.json")
+        let networkSession = MockFromFileNetworkSession(responseFile: "search/slack.json")
         let searcher = ITunesSearchAppStoreSearcher(networkManager: NetworkManager(session: networkSession))
 
         beforeSuite {

@@ -18,7 +18,7 @@ public class SoftwareProductSpec: QuickSpec {
             MAS.initialize()
         }
         describe("software product") {
-            let app = SoftwareProductMock(
+            let app = MockSoftwareProduct(
                 appName: "App",
                 bundleIdentifier: "",
                 bundlePath: "",

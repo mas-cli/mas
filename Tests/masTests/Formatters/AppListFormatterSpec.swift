@@ -28,7 +28,7 @@ public class AppListFormatterSpec: QuickSpec {
                 expect(format(products)).to(beEmpty())
             }
             it("can format a single product") {
-                let product = SoftwareProductMock(
+                let product = MockSoftwareProduct(
                     appName: "Awesome App",
                     bundleIdentifier: "",
                     bundlePath: "",
@@ -39,14 +39,14 @@ public class AppListFormatterSpec: QuickSpec {
             }
             it("can format two products") {
                 products = [
-                    SoftwareProductMock(
+                    MockSoftwareProduct(
                         appName: "Awesome App",
                         bundleIdentifier: "",
                         bundlePath: "",
                         bundleVersion: "19.2.1",
                         itemIdentifier: 12345
                     ),
-                    SoftwareProductMock(
+                    MockSoftwareProduct(
                         appName: "Even Better App",
                         bundleIdentifier: "",
                         bundlePath: "",

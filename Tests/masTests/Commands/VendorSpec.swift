@@ -14,7 +14,7 @@ import Quick
 public class VendorSpec: QuickSpec {
     override public func spec() {
         let searcher = MockAppStoreSearcher()
-        let openCommand = OpenSystemCommandMock()
+        let openCommand = MockOpenSystemCommand()
 
         beforeSuite {
             MAS.initialize()

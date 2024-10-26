@@ -18,7 +18,7 @@ class NetworkManagerTests: XCTestCase {
 
     func testSuccessfulAsyncResponse() throws {
         // Setup our objects
-        let session = NetworkSessionMock()
+        let session = MockNetworkSession()
         let manager = NetworkManager(session: session)
 
         // Create data and tell the session to always return it
@@ -35,7 +35,7 @@ class NetworkManagerTests: XCTestCase {
 
     func testSuccessfulSyncResponse() throws {
         // Setup our objects
-        let session = NetworkSessionMock()
+        let session = MockNetworkSession()
         let manager = NetworkManager(session: session)
 
         // Create data and tell the session to always return it
@@ -52,7 +52,7 @@ class NetworkManagerTests: XCTestCase {
 
     func testFailureAsyncResponse() {
         // Setup our objects
-        let session = NetworkSessionMock()
+        let session = MockNetworkSession()
         let manager = NetworkManager(session: session)
 
         session.error = MASError.noData
@@ -73,7 +73,7 @@ class NetworkManagerTests: XCTestCase {
 
     func testFailureSyncResponse() {
         // Setup our objects
-        let session = NetworkSessionMock()
+        let session = MockNetworkSession()
         let manager = NetworkManager(session: session)
 
         session.error = MASError.noData

@@ -33,7 +33,7 @@ public class ITunesSearchAppStoreSearcherSpec: QuickSpec {
         describe("store") {
             context("when searched") {
                 it("can find slack") {
-                    let networkSession = NetworkSessionMockFromFile(responseFile: "search/slack.json")
+                    let networkSession = MockFromFileNetworkSession(responseFile: "search/slack.json")
                     let searcher = ITunesSearchAppStoreSearcher(networkManager: NetworkManager(session: networkSession))
 
                     expect {
@@ -46,7 +46,7 @@ public class ITunesSearchAppStoreSearcherSpec: QuickSpec {
             context("when lookup used") {
                 it("can find slack") {
                     let appID: AppID = 803_453_959
-                    let networkSession = NetworkSessionMockFromFile(responseFile: "lookup/slack.json")
+                    let networkSession = MockFromFileNetworkSession(responseFile: "lookup/slack.json")
                     let searcher = ITunesSearchAppStoreSearcher(networkManager: NetworkManager(session: networkSession))
 
                     var result: SearchResult?

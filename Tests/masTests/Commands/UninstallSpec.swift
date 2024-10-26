@@ -19,7 +19,7 @@ public class UninstallSpec: QuickSpec {
         }
         xdescribe("uninstall command") {
             let appID: AppID = 12345
-            let app = SoftwareProductMock(
+            let app = MockSoftwareProduct(
                 appName: "Some App",
                 bundleIdentifier: "com.some.app",
                 bundlePath: "/tmp/Some.app",
