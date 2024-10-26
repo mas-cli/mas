@@ -18,7 +18,7 @@ enum AppInfoFormatter {
         let headline = [
             "\(app.trackName)",
             "\(app.version)",
-            "[\(app.price ?? 0)]",
+            "[\(app.formattedPrice)]",
         ]
         .joined(separator: " ")
 
@@ -27,7 +27,7 @@ enum AppInfoFormatter {
             "By: \(app.sellerName)",
             "Released: \(humanReadableDate(app.currentVersionReleaseDate))",
             "Minimum OS: \(app.minimumOsVersion)",
-            "Size: \(humanReadableSize(app.fileSizeBytes ?? "0"))",
+            "Size: \(humanReadableSize(app.fileSizeBytes))",
             "From: \(app.trackViewUrl)",
         ]
         .joined(separator: "\n")
