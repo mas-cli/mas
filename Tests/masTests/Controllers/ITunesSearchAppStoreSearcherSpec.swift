@@ -1,5 +1,5 @@
 //
-//  MasStoreSearchSpec.swift
+//  ITunesSearchAppStoreSearcherSpec.swift
 //  masTests
 //
 //  Created by Ben Chatelain on 1/4/19.
@@ -11,7 +11,7 @@ import Quick
 
 @testable import mas
 
-public class MasStoreSearchSpec: QuickSpec {
+public class ITunesSearchAppStoreSearcherSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
             MAS.initialize()
@@ -19,13 +19,13 @@ public class MasStoreSearchSpec: QuickSpec {
         describe("url string") {
             it("contains the app name") {
                 expect {
-                    MasStoreSearch().searchURL(for: "myapp", inCountry: "US")?.absoluteString
+                    ITunesSearchAppStoreSearcher().searchURL(for: "myapp", inCountry: "US")?.absoluteString
                 }
                     == "https://itunes.apple.com/search?media=software&entity=desktopSoftware&country=US&term=myapp"
             }
             it("contains the encoded app name") {
                 expect {
-                    MasStoreSearch().searchURL(for: "My App", inCountry: "US")?.absoluteString
+                    ITunesSearchAppStoreSearcher().searchURL(for: "My App", inCountry: "US")?.absoluteString
                 }
                     == "https://itunes.apple.com/search?media=software&entity=desktopSoftware&country=US&term=My%20App"
             }
@@ -34,10 +34,10 @@ public class MasStoreSearchSpec: QuickSpec {
             context("when searched") {
                 it("can find slack") {
                     let networkSession = NetworkSessionMockFromFile(responseFile: "search/slack.json")
-                    let storeSearch = MasStoreSearch(networkManager: NetworkManager(session: networkSession))
+                    let searcher = ITunesSearchAppStoreSearcher(networkManager: NetworkManager(session: networkSession))
 
                     expect {
-                        try storeSearch.search(for: "slack").wait()
+                        try searcher.search(for: "slack").wait()
                     }
                     .to(haveCount(39))
                 }
@@ -47,11 +47,11 @@ public class MasStoreSearchSpec: QuickSpec {
                 it("can find slack") {
                     let appID: AppID = 803_453_959
                     let networkSession = NetworkSessionMockFromFile(responseFile: "lookup/slack.json")
-                    let storeSearch = MasStoreSearch(networkManager: NetworkManager(session: networkSession))
+                    let searcher = ITunesSearchAppStoreSearcher(networkManager: NetworkManager(session: networkSession))
 
                     var result: SearchResult?
                     do {
-                        result = try storeSearch.lookup(appID: appID).wait()
+                        result = try searcher.lookup(appID: appID).wait()
                     } catch {
                         let maserror = error as! MASError
                         if case .jsonParsing(let nserror) = maserror {

@@ -33,8 +33,8 @@ public class OutdatedSpec: QuickSpec {
                         trackViewUrl: "https://apps.apple.com/us/app/bandwidth/id490461369?mt=12&uo=4",
                         version: "1.28"
                     )
-                let mockStoreSearch = StoreSearchMock()
-                mockStoreSearch.apps[mockSearchResult.trackId] = mockSearchResult
+                let searcher = MockAppStoreSearcher()
+                searcher.apps[mockSearchResult.trackId] = mockSearchResult
 
                 let mockAppLibrary = AppLibraryMock()
                 mockAppLibrary.installedApps.append(
@@ -48,7 +48,7 @@ public class OutdatedSpec: QuickSpec {
                 )
                 expect {
                     try captureStream(stdout) {
-                        try MAS.Outdated.parse([]).run(appLibrary: mockAppLibrary, storeSearch: mockStoreSearch)
+                        try MAS.Outdated.parse([]).run(appLibrary: mockAppLibrary, searcher: searcher)
                     }
                 }
                     == "490461369 Bandwidth+ (1.27 -> 1.28)\n"

@@ -22,12 +22,12 @@ extension MAS {
 
         /// Runs the command.
         func run() throws {
-            try run(storeSearch: MasStoreSearch())
+            try run(searcher: ITunesSearchAppStoreSearcher())
         }
 
-        func run(storeSearch: StoreSearch) throws {
+        func run(searcher: AppStoreSearcher) throws {
             do {
-                guard let result = try storeSearch.lookup(appID: appID).wait() else {
+                guard let result = try searcher.lookup(appID: appID).wait() else {
                     throw MASError.noSearchResultsFound
                 }
 

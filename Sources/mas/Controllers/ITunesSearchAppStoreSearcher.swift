@@ -1,5 +1,5 @@
 //
-//  MasStoreSearch.swift
+//  ITunesSearchAppStoreSearcher.swift
 //  mas
 //
 //  Created by Ben Chatelain on 12/29/18.
@@ -12,7 +12,7 @@ import Regex
 import Version
 
 /// Manages searching the MAS catalog through the iTunes Search and Lookup APIs.
-class MasStoreSearch: StoreSearch {
+class ITunesSearchAppStoreSearcher: AppStoreSearcher {
     private static let appVersionExpression = Regex(#"\"versionDisplay\"\:\"([^\"]+)\""#)
 
     // CommerceKit and StoreFoundation don't seem to expose the region of the Apple ID signed

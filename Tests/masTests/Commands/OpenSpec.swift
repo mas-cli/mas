@@ -14,7 +14,7 @@ import Quick
 
 public class OpenSpec: QuickSpec {
     override public func spec() {
-        let storeSearch = StoreSearchMock()
+        let searcher = MockAppStoreSearcher()
         let openCommand = OpenSystemCommandMock()
 
         beforeSuite {
@@ -22,17 +22,17 @@ public class OpenSpec: QuickSpec {
         }
         describe("open command") {
             beforeEach {
-                storeSearch.reset()
+                searcher.reset()
             }
             it("fails to open app with invalid ID") {
                 expect {
-                    try MAS.Open.parse(["--", "-999"]).run(storeSearch: storeSearch, openCommand: openCommand)
+                    try MAS.Open.parse(["--", "-999"]).run(searcher: searcher, openCommand: openCommand)
                 }
                 .to(throwError())
             }
             it("can't find app with unknown ID") {
                 expect {
-                    try MAS.Open.parse(["999"]).run(storeSearch: storeSearch, openCommand: openCommand)
+                    try MAS.Open.parse(["999"]).run(searcher: searcher, openCommand: openCommand)
                 }
                 .to(throwError(MASError.noSearchResultsFound))
             }
@@ -42,17 +42,17 @@ public class OpenSpec: QuickSpec {
                     trackViewUrl: "fakescheme://some/url",
                     version: "0.0"
                 )
-                storeSearch.apps[mockResult.trackId] = mockResult
+                searcher.apps[mockResult.trackId] = mockResult
                 expect {
                     try MAS.Open.parse([mockResult.trackId.description])
-                        .run(storeSearch: storeSearch, openCommand: openCommand)
+                        .run(searcher: searcher, openCommand: openCommand)
                     return openCommand.arguments
                 }
                     == ["macappstore://some/url"]
             }
             it("just opens MAS if no app specified") {
                 expect {
-                    try MAS.Open.parse([]).run(storeSearch: storeSearch, openCommand: openCommand)
+                    try MAS.Open.parse([]).run(searcher: searcher, openCommand: openCommand)
                     return openCommand.arguments
                 }
                     == ["macappstore://"]

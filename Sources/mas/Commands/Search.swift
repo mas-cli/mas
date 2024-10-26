@@ -23,12 +23,12 @@ extension MAS {
         var searchTerm: String
 
         func run() throws {
-            try run(storeSearch: MasStoreSearch())
+            try run(searcher: ITunesSearchAppStoreSearcher())
         }
 
-        func run(storeSearch: StoreSearch) throws {
+        func run(searcher: AppStoreSearcher) throws {
             do {
-                let results = try storeSearch.search(for: searchTerm).wait()
+                let results = try searcher.search(for: searchTerm).wait()
                 if results.isEmpty {
                     throw MASError.noSearchResultsFound
                 }

@@ -22,13 +22,13 @@ extension MAS {
 
         /// Runs the command.
         func run() throws {
-            try run(appLibrary: MasAppLibrary(), storeSearch: MasStoreSearch())
+            try run(appLibrary: MasAppLibrary(), searcher: ITunesSearchAppStoreSearcher())
         }
 
-        func run(appLibrary: AppLibrary, storeSearch: StoreSearch) throws {
+        func run(appLibrary: AppLibrary, searcher: AppStoreSearcher) throws {
             let apps: [(installedApp: SoftwareProduct, storeApp: SearchResult)]
             do {
-                apps = try findOutdatedApps(appLibrary: appLibrary, storeSearch: storeSearch)
+                apps = try findOutdatedApps(appLibrary: appLibrary, searcher: searcher)
             } catch {
                 throw error as? MASError ?? .searchFailed
             }
@@ -53,7 +53,7 @@ extension MAS {
 
         private func findOutdatedApps(
             appLibrary: AppLibrary,
-            storeSearch: StoreSearch
+            searcher: AppStoreSearcher
         ) throws -> [(SoftwareProduct, SearchResult)] {
             let apps =
                 appIDs.isEmpty
@@ -71,7 +71,7 @@ extension MAS {
             let promises = apps.map { installedApp in
                 // only upgrade apps whose local version differs from the store version
                 firstly {
-                    storeSearch.lookup(appID: installedApp.itemIdentifier.appIDValue)
+                    searcher.lookup(appID: installedApp.itemIdentifier.appIDValue)
                 }
                 .map { result -> (SoftwareProduct, SearchResult)? in
                     guard let storeApp = result, installedApp.isOutdatedWhenComparedTo(storeApp) else {

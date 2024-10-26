@@ -23,15 +23,15 @@ extension MAS {
 
         /// Runs the command.
         func run() throws {
-            try run(appLibrary: MasAppLibrary(), storeSearch: MasStoreSearch())
+            try run(appLibrary: MasAppLibrary(), searcher: ITunesSearchAppStoreSearcher())
         }
 
-        func run(appLibrary: AppLibrary, storeSearch: StoreSearch) throws {
+        func run(appLibrary: AppLibrary, searcher: AppStoreSearcher) throws {
             _ = try when(
                 fulfilled:
                     appLibrary.installedApps.map { installedApp in
                         firstly {
-                            storeSearch.lookup(appID: installedApp.itemIdentifier.appIDValue)
+                            searcher.lookup(appID: installedApp.itemIdentifier.appIDValue)
                         }
                         .done { storeApp in
                             guard let storeApp else {

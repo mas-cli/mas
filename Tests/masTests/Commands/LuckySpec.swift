@@ -14,7 +14,7 @@ import Quick
 public class LuckySpec: QuickSpec {
     override public func spec() {
         let networkSession = NetworkSessionMockFromFile(responseFile: "search/slack.json")
-        let storeSearch = MasStoreSearch(networkManager: NetworkManager(session: networkSession))
+        let searcher = ITunesSearchAppStoreSearcher(networkManager: NetworkManager(session: networkSession))
 
         beforeSuite {
             MAS.initialize()
@@ -22,7 +22,7 @@ public class LuckySpec: QuickSpec {
         xdescribe("lucky command") {
             xit("installs the first app matching a search") {
                 expect {
-                    try MAS.Lucky.parse(["Slack"]).run(appLibrary: AppLibraryMock(), storeSearch: storeSearch)
+                    try MAS.Lucky.parse(["Slack"]).run(appLibrary: AppLibraryMock(), searcher: searcher)
                 }
                 .toNot(throwError())
             }

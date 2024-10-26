@@ -46,7 +46,7 @@ complete -c mas -n "__fish_seen_subcommand_from help" -xa "list"
 complete -c mas -n "__fish_use_subcommand" -f -a lucky -d "Install the first result from the Mac App Store"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "lucky"
 ### open
-complete -c mas -n "__fish_use_subcommand" -f -a open -d "Opens app page in AppStore.app"
+complete -c mas -n "__fish_use_subcommand" -f -a open -d "Opens app page in 'App Store.app'"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "open"
 ### outdated
 complete -c mas -n "__fish_use_subcommand" -f -a outdated -d "Lists pending updates from the Mac App Store"
