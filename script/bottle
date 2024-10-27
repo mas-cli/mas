@@ -17,8 +17,8 @@ BOTTLE_DIR="$BUILD_DIR/bottles"
 VERSION=$(script/version)
 ROOT_URL="https://github.com/mas-cli/mas/releases/download/v${VERSION}"
 
-# Supports macOS 10.11 and later
-OS_NAMES=(arm64_monterey monterey arm64_big_sur big_sur catalina mojave high_sierra sierra el_capitan)
+# Supports macOS 10.13 and later
+OS_NAMES=(arm64_monterey monterey arm64_big_sur big_sur catalina mojave high_sierra)
 
 # Semantic version number split into a list using  Ugly, bash 3 compatible syntax
 IFS=" " read -r -a CURRENT_OS_VERSION <<<"$(sw_vers -productVersion | sed 's/\./ /g'))"

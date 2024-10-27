@@ -18,13 +18,7 @@ extension MAS {
 
         /// Runs the command.
         func run() throws {
-            if #available(macOS 10.13, *) {
-                ISServiceProxy.genericShared().accountService.signOut()
-            } else {
-                // Using CKAccountStore to sign out does nothing on High Sierra
-                // https://github.com/mas-cli/mas/issues/129
-                CKAccountStore.shared().signOut()
-            }
+            ISServiceProxy.genericShared().accountService.signOut()
         }
     }
 }

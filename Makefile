@@ -12,13 +12,7 @@ CMD_NAME = mas
 SHELL = /bin/sh
 PREFIX ?= /usr/local
 
-# trunk
-# SWIFT_VERSION = swift-DEVELOPMENT-SNAPSHOT-2020-04-23-a
-
-# Swift 5.3
-# SWIFT_VERSION = swift-5.3-DEVELOPMENT-SNAPSHOT-2020-04-21-a
-
-SWIFT_VERSION = 5.7
+SWIFT_VERSION = 5.7.1
 
 # set EXECUTABLE_DIRECTORY according to your specific environment
 # run swift build and see where the output executable is created
