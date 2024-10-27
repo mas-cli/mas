@@ -1,10 +1,17 @@
-#!/bin/bash -e
+#!/bin/bash -eu
 #
 # script/bootstrap
 # mas
 #
 # Installs development dependencies and builds project dependencies.
 #
+
+mas_dir="$(readlink -fn "$(dirname "${BASH_SOURCE:-"${0}"}")/..")"
+
+if ! cd -- "${mas_dir}"; then
+  printf $'Error: Could not cd into mas directory: %s\n' "${mas_dir}" >&2
+  exit 1
+fi
 
 function usage {
   echo "Usage: bootstrap [-f]"
@@ -26,35 +33,23 @@ while getopts "f" opt; do
   esac
 done
 
-main() {
-  script/clean
+script/clean
 
-  echo "==> 👢 Bootstrapping"
+printf $'==> 👢 Bootstrapping (%s)\n' "$(script/version)"
 
-  # Install Homebrew tools
-  if [[ "${frozen}" == "-f" ]]; then
-    # --no-lock Don't touch Brewfile.lock.json
-    brew bundle install --no-lock --no-upgrade --verbose
-  else
-    # Allow upgrades
-    rm -f Brewfile.lock.json
-    brew bundle install --verbose
-  fi
+# Install Homebrew tools
+if [[ "${frozen}" == "-f" ]]; then
+  # --no-lock Don't touch Brewfile.lock.json
+  brew bundle install --no-lock --no-upgrade --verbose
+else
+  # Allow upgrades
+  rm -f Brewfile.lock.json
+  brew bundle install --verbose
+fi
 
-  if [[ ! -x "$(command -v mise)" ]]; then
-    brew install mise
-  fi
-  mise settings set experimental true
-  mise install --verbose
-  mise list --verbose
-
-  # Already installed on GitHub Actions runner.
-  if [[ ! -x "$(command -v swiftlint)" ]]; then
-    brew install swiftlint
-  fi
-
-  # Generate Package.swift
-  script/version
-}
-
-main
+if [[ ! -x "$(command -v mise)" ]]; then
+  brew install mise
+fi
+mise settings set experimental true
+mise install --verbose
+mise list --verbose

@@ -25,6 +25,7 @@
 .build/
 .envrc
 .fseventsd
+.idea/
 .rubygems/
 .secrets
 .swiftpm/
@@ -32,6 +33,8 @@
 Carthage/
 DerivedData
 Pods/
+Sources/mas/Package.swift
+Sources/MasKit/Package.swift
 Temporary Items
 bin/
 build/

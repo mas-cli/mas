@@ -2,7 +2,7 @@
 --eventpath .github/event.json
 --container-architecture linux/amd64
 --log-prefix-job-id
---platform macos-14=-self-hosted
+--platform macos-15=-self-hosted
 --pull=false
 --reuse
 --secret-file .secrets

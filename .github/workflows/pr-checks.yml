@@ -14,7 +14,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   build-test:
-    runs-on: macos-14
+    runs-on: macos-15
     defaults:
       run:
         # Prefixes all `run` commands with the following command to force them to run outside Rosetta.

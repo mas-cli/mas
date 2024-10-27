@@ -5,20 +5,34 @@
 # https://github.com/nicklockwood/SwiftFormat#config-file
 #
 
---exclude docs/
-
 # Disabled rules
---disable blankLinesAroundMark
---disable consecutiveSpaces
+--disable hoistAwait
 --disable hoistPatternLet
+--disable hoistTry
+
+# Enable later
 --disable indent
 --disable trailingCommas
 
 # Enabled rules (disabled by default)
---enable trailingClosures
+#--enable acronyms
+#--enable blankLinesBetweenImports
+--enable blockComments
+--enable docComments
+--enable isEmpty
+--enable noExplicitOwnership
+#--enable organizeDeclarations
+--enable redundantProperty
+--enable sortSwitchCases
+--enable wrapConditionalBodies
+--enable wrapEnumCases
+--enable wrapMultilineConditionalAssignment
+--enable wrapSwitchCases
 
 # Rule options
 --commas always
 --extensionacl on-declarations
+--hexliteralcase lowercase
 --importgrouping testable-last
+--lineaftermarks false
 --ranges no-space

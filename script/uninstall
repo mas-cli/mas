@@ -15,4 +15,4 @@ fi
 
 echo "==> 🔥 Uninstalling mas from $PREFIX"
 
-trash "$PREFIX/bin/mas" || true
+trash -F "$PREFIX/bin/mas" || true

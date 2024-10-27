@@ -12,7 +12,7 @@ on:
     types: [published]
 jobs:
   start:
-    runs-on: macos-14
+    runs-on: macos-15
     outputs:
       dry_run: ${{ steps.dry_run.outputs.dry_run }}
       mas_version: ${{ steps.mas_version.outputs.mas_version }}
@@ -44,7 +44,7 @@ jobs:
           echo "RELEASE_BRANCH=releases/release-${{ github.event.release.tag_name }}" >>"$GITHUB_OUTPUT"
 
   prepare-release:
-    runs-on: macos-14
+    runs-on: macos-15
     needs: [start]
     steps:
       - uses: actions/checkout@v4
@@ -98,7 +98,7 @@ jobs:
             --body "This PR contains the changes from releasing version [${MAS_VERSION}](https://github.com/mas-cli/mas/releases/tag/${MAS_VERSION})."
 
   pkg-installer:
-    runs-on: macos-14
+    runs-on: macos-15
     needs: [start, prepare-release]
     steps:
       - uses: actions/checkout@v4
@@ -132,7 +132,7 @@ jobs:
             .build/mas.pkg
 
   homebrew-tap:
-    runs-on: macos-14
+    runs-on: macos-15
     needs: [start, prepare-release]
     steps:
       - name: 📺 Checkout mas repo
@@ -223,7 +223,7 @@ jobs:
             .build/bottles/mas-*.bottle.tar.gz
 
   homebrew-core:
-    runs-on: macos-14
+    runs-on: macos-15
     needs: [start, prepare-release, homebrew-tap]
     steps:
       - uses: actions/checkout@v4
@@ -244,4 +244,3 @@ jobs:
         run: |
           DRY_RUN=${DRY_RUN} \
             script/brew_core_update ${MAS_VERSION}
-
