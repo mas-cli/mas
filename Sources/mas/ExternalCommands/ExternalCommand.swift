@@ -56,15 +56,8 @@ extension ExternalCommand {
         process.standardOutput = stdoutPipe
         process.standardError = stderrPipe
         process.arguments = arguments
-
-        if #available(macOS 10.13, *) {
-            process.executableURL = URL(fileURLWithPath: binaryPath)
-            try process.run()
-        } else {
-            process.launchPath = binaryPath
-            process.launch()
-        }
-
+        process.executableURL = URL(fileURLWithPath: binaryPath)
+        try process.run()
         process.waitUntilExit()
     }
 }
