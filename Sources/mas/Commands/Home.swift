@@ -13,10 +13,10 @@ extension MAS {
     /// https://performance-partners.apple.com/search-api
     struct Home: ParsableCommand {
         static let configuration = CommandConfiguration(
-            abstract: "Opens MAS Preview app page in a browser"
+            abstract: "Open app's Mac App Store web page in the default web browser"
         )
 
-        @Argument(help: "ID of app to show on MAS Preview")
+        @Argument(help: "App ID")
         var appID: AppID
 
         /// Runs the command.

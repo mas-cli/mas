@@ -12,10 +12,10 @@ import CommerceKit
 extension MAS {
     struct Purchase: ParsableCommand {
         static let configuration = CommandConfiguration(
-            abstract: "Purchase and download free apps from the Mac App Store"
+            abstract: "\"Purchase\" and install free apps from the Mac App Store"
         )
 
-        @Argument(help: "app ID(s) to install")
+        @Argument(help: "App ID(s)")
         var appIDs: [AppID]
 
         /// Runs the command.

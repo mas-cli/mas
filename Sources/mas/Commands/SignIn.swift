@@ -13,10 +13,10 @@ extension MAS {
     struct SignIn: ParsableCommand {
         static let configuration = CommandConfiguration(
             commandName: "signin",
-            abstract: "Sign in to the Mac App Store"
+            abstract: "Sign in to an Apple ID in the Mac App Store"
         )
 
-        @Flag(help: "Complete login with graphical dialog")
+        @Flag(help: "Provide password via graphical dialog")
         var dialog = false
         @Argument(help: "Apple ID")
         var appleID: String

@@ -12,7 +12,7 @@ extension MAS {
     /// Command which displays the version of the mas tool.
     struct Version: ParsableCommand {
         static let configuration = CommandConfiguration(
-            abstract: "Print version number"
+            abstract: "Display version number"
         )
 
         /// Runs the command.

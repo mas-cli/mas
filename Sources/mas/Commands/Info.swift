@@ -17,7 +17,7 @@ extension MAS {
             abstract: "Display app information from the Mac App Store"
         )
 
-        @Argument(help: "ID of app to show info")
+        @Argument(help: "App ID")
         var appID: AppID
 
         /// Runs the command.

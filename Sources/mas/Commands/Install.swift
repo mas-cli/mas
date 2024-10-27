@@ -13,12 +13,12 @@ extension MAS {
     /// Installs previously purchased apps from the Mac App Store.
     struct Install: ParsableCommand {
         static let configuration = CommandConfiguration(
-            abstract: "Install from the Mac App Store"
+            abstract: "Install previously purchased app(s) from the Mac App Store"
         )
 
-        @Flag(help: "force reinstall")
+        @Flag(help: "Force reinstall")
         var force = false
-        @Argument(help: "app ID(s) to install")
+        @Argument(help: "App ID(s)")
         var appIDs: [AppID]
 
         /// Runs the command.

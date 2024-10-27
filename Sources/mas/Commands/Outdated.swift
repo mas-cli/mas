@@ -15,10 +15,10 @@ extension MAS {
     /// ready to be installed from the Mac App Store.
     struct Outdated: ParsableCommand {
         static let configuration = CommandConfiguration(
-            abstract: "Lists pending updates from the Mac App Store"
+            abstract: "List pending app updates from the Mac App Store for the Apple ID of the current macOS user"
         )
 
-        @Flag(help: "Show warnings about apps")
+        @Flag(help: "Display warnings about apps unknown to the Mac App Store")
         var verbose = false
 
         /// Runs the command.
