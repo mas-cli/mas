@@ -32,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mxcl/PromiseKit.git",
       "state" : {
-        "revision" : "8a98e31a47854d3180882c8068cc4d9381bf382d",
-        "version" : "6.22.1"
+        "revision" : "6fcc08077124e9747f1ec7bd8bb78f5caffe5a79",
+        "version" : "8.1.2"
       }
     },
     {
