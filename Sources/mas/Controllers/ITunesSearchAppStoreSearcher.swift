@@ -85,9 +85,9 @@ class ITunesSearchAppStoreSearcher: AppStoreSearcher {
         // Search for apps for compatible platforms, in order of preference.
         // Macs with Apple Silicon can run iPad and iPhone apps.
         var entities = [Entity.desktopSoftware]
-        if SysCtlSystemCommand.isAppleSilicon {
-            entities += [.iPadSoftware, .iPhoneSoftware]
-        }
+        #if arch(arm64)
+        entities += [.iPadSoftware, .iPhoneSoftware]
+        #endif
 
         let results = entities.map { entity in
             guard let url = searchURL(for: searchTerm, inCountry: country, ofEntity: entity) else {
