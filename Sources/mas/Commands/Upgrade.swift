@@ -15,7 +15,7 @@ extension MAS {
     struct Upgrade: ParsableCommand {
         static let configuration = CommandConfiguration(
             abstract:
-                "Upgrade outdated app(s) installed from the Mac App Store for the Apple ID of the current macOS user"
+                "Upgrade outdated app(s) installed from the Mac App Store"
         )
 
         @Argument(help: "App ID(s)/app name(s)")
