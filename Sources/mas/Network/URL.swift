@@ -21,11 +21,11 @@ extension URL {
                     seal.fulfill(())
                 }
             } else {
-                if NSWorkspace.shared.open(self) {
-                    seal.fulfill(())
-                } else {
-                    seal.reject(MASError.runtimeError("Failed to open \(self)"))
+                guard NSWorkspace.shared.open(self) else {
+                    throw MASError.runtimeError("Failed to open \(self)")
                 }
+
+                seal.fulfill(())
             }
         }
     }
