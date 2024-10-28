@@ -66,7 +66,7 @@ extension MAS {
                 printWarning("\(appName) is already installed")
             } else {
                 do {
-                    try downloadAll([appID]).wait()
+                    try downloadApps(withAppIDs: [appID]).wait()
                 } catch {
                     throw error as? MASError ?? .downloadFailed(error: error as NSError)
                 }

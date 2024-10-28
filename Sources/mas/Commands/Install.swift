@@ -38,7 +38,7 @@ extension MAS {
             }
 
             do {
-                try downloadAll(appIDs).wait()
+                try downloadApps(withAppIDs: appIDs).wait()
             } catch {
                 throw error as? MASError ?? .downloadFailed(error: error as NSError)
             }

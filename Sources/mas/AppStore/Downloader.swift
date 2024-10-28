@@ -14,17 +14,16 @@ import StoreFoundation
 ///
 /// - Parameters:
 ///   - appIDs: The IDs of the apps to be downloaded
-///   - purchase: Flag indicating whether the apps needs to be purchased.
-///     Only works for free apps. Defaults to false.
+///   - purchasing: Flag indicating if the apps will be purchased. Only works for free apps. Defaults to false.
 /// - Returns: A promise that completes when the downloads are complete. If any fail,
 ///   the promise is rejected with the first error, after all remaining downloads are attempted.
-func downloadAll(_ appIDs: [AppID], purchase: Bool = false) -> Promise<Void> {
+func downloadApps(withAppIDs appIDs: [AppID], purchasing: Bool = false) -> Promise<Void> {
     var firstError: Error?
     return
         appIDs
         .reduce(Guarantee.value(())) { previous, appID in
             previous.then {
-                downloadWithRetries(appID, purchase: purchase)
+                downloadApp(withAppID: appID, purchasing: purchasing)
                     .recover { error in
                         if firstError == nil {
                             firstError = error
@@ -39,10 +38,15 @@ func downloadAll(_ appIDs: [AppID], purchase: Bool = false) -> Promise<Void> {
         }
 }
 
-private func downloadWithRetries(_ appID: AppID, purchase: Bool = false, attempts: Int = 3) -> Promise<Void> {
-    SSPurchase().perform(appID: appID, purchase: purchase)
+private func downloadApp(
+    withAppID appID: AppID,
+    purchasing: Bool = false,
+    withAttemptCount attemptCount: UInt32 = 3
+) -> Promise<Void> {
+    SSPurchase()
+        .perform(appID: appID, purchasing: purchasing)
         .recover { error in
-            guard attempts > 1 else {
+            guard attemptCount > 1 else {
                 throw error
             }
 
@@ -54,9 +58,9 @@ private func downloadWithRetries(_ appID: AppID, purchase: Bool = false, attempt
                 throw error
             }
 
-            let attempts = attempts - 1
+            let attemptCount = attemptCount - 1
             printWarning((downloadError ?? error).localizedDescription)
-            printWarning("Trying again up to \(attempts) more \(attempts == 1 ? "time" : "times").")
-            return downloadWithRetries(appID, purchase: purchase, attempts: attempts)
+            printWarning("Trying again up to \(attemptCount) more \(attemptCount == 1 ? "time" : "times").")
+            return downloadApp(withAppID: appID, purchasing: purchasing, withAttemptCount: attemptCount)
         }
 }

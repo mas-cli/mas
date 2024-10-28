@@ -46,7 +46,7 @@ extension MAS {
             )
 
             do {
-                try downloadAll(apps.map(\.installedApp.itemIdentifier.appIDValue)).wait()
+                try downloadApps(withAppIDs: apps.map(\.installedApp.itemIdentifier.appIDValue)).wait()
             } catch {
                 throw error as? MASError ?? .downloadFailed(error: error as NSError)
             }
