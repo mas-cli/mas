@@ -12,7 +12,7 @@ extension MAS {
     /// Command which lists all installed apps.
     struct List: ParsableCommand {
         static let configuration = CommandConfiguration(
-            abstract: "List apps installed from the Mac App Store for the Apple ID of the current macOS user"
+            abstract: "List apps installed from the Mac App Store"
         )
 
         /// Runs the command.

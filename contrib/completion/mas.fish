@@ -40,7 +40,7 @@ complete -c mas -n "__fish_use_subcommand" -f -a install -d "Install previously 
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "install"
 complete -c mas -n "__fish_seen_subcommand_from install lucky" -l force -d "Force reinstall"
 ### list
-complete -c mas -n "__fish_use_subcommand" -f -a list -d "List apps installed from the Mac App Store for the Apple ID of the current macOS user"
+complete -c mas -n "__fish_use_subcommand" -f -a list -d "List apps installed from the Mac App Store"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "list"
 ### lucky
 complete -c mas -n "__fish_use_subcommand" -f -a lucky -d "Install the first app returned from searching the Mac App Store (app must have been previously purchased)"
@@ -49,7 +49,7 @@ complete -c mas -n "__fish_seen_subcommand_from help" -xa "lucky"
 complete -c mas -n "__fish_use_subcommand" -f -a open -d "Open app page in 'App Store.app'"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "open"
 ### outdated
-complete -c mas -n "__fish_use_subcommand" -f -a outdated -d "List pending app updates from the Mac App Store for the Apple ID of the current macOS user"
+complete -c mas -n "__fish_use_subcommand" -f -a outdated -d "List pending app updates from the Mac App Store"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "outdated"
 complete -c mas -n "__fish_seen_subcommand_from outdated" -l verbose -d "Display warnings about apps unknown to the Mac App Store"
 ### purchase
@@ -71,12 +71,12 @@ complete -c mas -n "__fish_seen_subcommand_from signin" -l dialog -d "Provide pa
 complete -c mas -n "__fish_use_subcommand" -f -a signout -d "Sign out of the Apple ID currently signed in in the Mac App Store"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "signout"
 ### uninstall
-complete -c mas -n "__fish_use_subcommand" -f -a uninstall -d "Uninstall app installed from the Mac App Store for the Apple ID of the current macOS user"
+complete -c mas -n "__fish_use_subcommand" -f -a uninstall -d "Uninstall app installed from the Mac App Store"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "uninstall"
 complete -c mas -n "__fish_seen_subcommand_from uninstall" -l dry-run -d "Perform dry run"
 complete -c mas -n "__fish_seen_subcommand_from uninstall" -x -a "(__fish_mas_list_installed)"
 ### upgrade
-complete -c mas -n "__fish_use_subcommand" -f -a upgrade -d "Upgrade outdated app(s) from the Mac App Store for the Apple ID of the current macOS user"
+complete -c mas -n "__fish_use_subcommand" -f -a upgrade -d "Upgrade outdated app(s) from the Mac App Store"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "upgrade"
 complete -c mas -n "__fish_seen_subcommand_from upgrade" -x -a "(__fish_mas_outdated_installed)"
 ### vendor

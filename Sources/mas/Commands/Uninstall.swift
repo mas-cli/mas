@@ -13,7 +13,7 @@ extension MAS {
     /// Command which uninstalls apps managed by the Mac App Store.
     struct Uninstall: ParsableCommand {
         static let configuration = CommandConfiguration(
-            abstract: "Uninstall app installed from the Mac App Store for the Apple ID of the current macOS user"
+            abstract: "Uninstall app installed from the Mac App Store"
         )
 
         /// Flag indicating that removal shouldn't be performed.
