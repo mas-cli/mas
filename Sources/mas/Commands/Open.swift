@@ -8,7 +8,6 @@
 
 import AppKit
 import ArgumentParser
-import Foundation
 import PromiseKit
 
 private let masScheme = "macappstore"
@@ -35,7 +34,7 @@ extension MAS {
                 try openMacAppStore().wait()
                 return
             }
-            try openInMacAppStore(pageForAppID: appID, searcher: searcher).wait()
+            try openInMacAppStore(pageForAppID: appID, searcher: searcher)
         }
     }
 }
@@ -63,32 +62,20 @@ private func openMacAppStore() -> Promise<Void> {
     }
 }
 
-private func openInMacAppStore(pageForAppID appID: AppID, searcher: AppStoreSearcher) -> Promise<Void> {
-    Promise { seal in
-        guard let result = try searcher.lookup(appID: appID).wait() else {
-            throw MASError.runtimeError("Unknown app ID \(appID)")
-        }
-
-        guard var urlComponents = URLComponents(string: result.trackViewUrl) else {
-            throw MASError.runtimeError("Unable to construct URL from: \(result.trackViewUrl)")
-        }
-
-        urlComponents.scheme = masScheme
-
-        guard let url = urlComponents.url else {
-            throw MASError.runtimeError("Unable to construct URL from: \(urlComponents)")
-        }
-
-        if #available(macOS 10.15, *) {
-            NSWorkspace.shared.open(url, configuration: NSWorkspace.OpenConfiguration()) { _, error in
-                if let error {
-                    seal.reject(error)
-                }
-                seal.fulfill(())
-            }
-        } else {
-            NSWorkspace.shared.open(url)
-            seal.fulfill(())
-        }
+private func openInMacAppStore(pageForAppID appID: AppID, searcher: AppStoreSearcher) throws {
+    guard let result = try searcher.lookup(appID: appID).wait() else {
+        throw MASError.runtimeError("Unknown app ID \(appID)")
     }
+
+    guard var urlComponents = URLComponents(string: result.trackViewUrl) else {
+        throw MASError.runtimeError("Unable to construct URL from: \(result.trackViewUrl)")
+    }
+
+    urlComponents.scheme = masScheme
+
+    guard let url = urlComponents.url else {
+        throw MASError.runtimeError("Unable to construct URL from: \(urlComponents)")
+    }
+
+    try url.open().wait()
 }

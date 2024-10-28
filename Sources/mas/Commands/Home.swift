@@ -7,6 +7,7 @@
 //
 
 import ArgumentParser
+import Foundation
 
 extension MAS {
     /// Opens app page on MAS Preview. Uses the iTunes Lookup API:
@@ -21,29 +22,19 @@ extension MAS {
 
         /// Runs the command.
         func run() throws {
-            try run(searcher: ITunesSearchAppStoreSearcher(), openCommand: OpenSystemCommand())
+            try run(searcher: ITunesSearchAppStoreSearcher())
         }
 
-        func run(searcher: AppStoreSearcher, openCommand: ExternalCommand) throws {
-            do {
-                guard let result = try searcher.lookup(appID: appID).wait() else {
-                    throw MASError.noSearchResultsFound
-                }
-
-                do {
-                    try openCommand.run(arguments: result.trackViewUrl)
-                } catch {
-                    printError("Unable to launch open command")
-                    throw MASError.searchFailed
-                }
-                if openCommand.failed {
-                    let reason = openCommand.process.terminationReason
-                    printError("Open failed: (\(reason)) \(openCommand.stderr)")
-                    throw MASError.searchFailed
-                }
-            } catch {
-                throw error as? MASError ?? .searchFailed
+        func run(searcher: AppStoreSearcher) throws {
+            guard let result = try searcher.lookup(appID: appID).wait() else {
+                throw MASError.noSearchResultsFound
             }
+
+            guard let url = URL(string: result.trackViewUrl) else {
+                throw MASError.runtimeError("Unable to construct URL from: \(result.trackViewUrl)")
+            }
+
+            try url.open().wait()
         }
     }
 }
