@@ -35,7 +35,6 @@ extension MAS {
             }
 
             guard !apps.isEmpty else {
-                printWarning("Nothing found to upgrade")
                 return
             }
 
@@ -59,14 +58,22 @@ extension MAS {
             let apps =
                 appIDOrNames.isEmpty
                 ? appLibrary.installedApps
-                : appIDOrNames.flatMap { appID in
-                    if let appID = AppID(appID) {
+                : appIDOrNames.flatMap { appIDOrName in
+                    if let appID = AppID(appIDOrName) {
                         // argument is an AppID, lookup apps by id using argument
-                        return appLibrary.installedApps(withAppID: appID)
+                        let installedApps = appLibrary.installedApps(withAppID: appID)
+                        if installedApps.isEmpty {
+                            printError("Unknown app ID \(appID)")
+                        }
+                        return installedApps
                     }
 
                     // argument is not an AppID, lookup apps by name using argument
-                    return appLibrary.installedApps(named: appID)
+                    let installedApps = appLibrary.installedApps(named: appIDOrName)
+                    if installedApps.isEmpty {
+                        printError("Unknown app name '\(appIDOrName)'")
+                    }
+                    return installedApps
                 }
 
             let promises = apps.map { installedApp in
