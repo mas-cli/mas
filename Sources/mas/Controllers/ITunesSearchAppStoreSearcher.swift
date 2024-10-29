@@ -35,7 +35,7 @@ class ITunesSearchAppStoreSearcher: AppStoreSearcher {
     /// - Parameter appID: App ID.
     /// - Returns: A `Promise` for the `SearchResult` for the given `appID` if `appID` is valid.
     ///   A `Promise` for `MASError.unknownAppID(appID)` if `appID` is invalid.
-    ///   An `Promise` for some other `Error` if any problems occur.
+    ///   A `Promise` for some other `Error` if any problems occur.
     func lookup(appID: AppID) -> Promise<SearchResult> {
         guard let url = lookupURL(forAppID: appID, inCountry: country) else {
             fatalError("Failed to build URL for \(appID)")
@@ -77,7 +77,7 @@ class ITunesSearchAppStoreSearcher: AppStoreSearcher {
     /// Searches for apps from the MAS.
     ///
     /// - Parameter searchTerm: Term for which to search in the MAS.
-    /// - Returns: A `Promise` of an `Array` of `SearchResult`s matching `searchTerm`.
+    /// - Returns: A `Promise` for an `Array` of `SearchResult`s matching `searchTerm`.
     func search(for searchTerm: String) -> Promise<[SearchResult]> {
         // Search for apps for compatible platforms, in order of preference.
         // Macs with Apple Silicon can run iPad and iPhone apps.
