@@ -18,7 +18,7 @@ extension MAS {
                 "Upgrade outdated app(s) installed from the Mac App Store"
         )
 
-        @Argument(help: "App ID(s)/app name(s)")
+        @Argument(help: ArgumentHelp("App ID/app name", valueName: "app-id-or-name"))
         var appIDOrNames: [String] = []
 
         /// Runs the command.

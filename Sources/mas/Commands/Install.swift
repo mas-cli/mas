@@ -18,7 +18,7 @@ extension MAS {
 
         @Flag(help: "Force reinstall")
         var force = false
-        @Argument(help: "App ID(s)")
+        @Argument(help: ArgumentHelp("App ID", valueName: "app-id"))
         var appIDs: [AppID]
 
         /// Runs the command.

@@ -15,7 +15,7 @@ extension MAS {
             abstract: "\"Purchase\" and install free apps from the Mac App Store"
         )
 
-        @Argument(help: "App ID(s)")
+        @Argument(help: ArgumentHelp("App ID", valueName: "app-id"))
         var appIDs: [AppID]
 
         /// Runs the command.
