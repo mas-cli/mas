@@ -32,49 +32,46 @@ class ITunesSearchAppStoreSearcher: AppStoreSearcher {
         self.networkManager = networkManager
     }
 
-    /// Looks up app details.
-    ///
     /// - Parameter appID: App ID.
-    /// - Returns: A `Promise` for the `SearchResult` for the given `appID`, `nil` if no apps match,
-    ///   or an `Error` if any problems occur.
-    func lookup(appID: AppID) -> Promise<SearchResult?> {
+    /// - Returns: A `Promise` for the `SearchResult` for the given `appID` if `appID` is valid.
+    ///   A `Promise` for `MASError.unknownAppID(appID)` if `appID` is invalid.
+    ///   An `Promise` for some other `Error` if any problems occur.
+    func lookup(appID: AppID) -> Promise<SearchResult> {
         guard let url = lookupURL(forAppID: appID, inCountry: country) else {
             fatalError("Failed to build URL for \(appID)")
         }
-        return firstly {
+        return
             loadSearchResults(url)
-        }
-        .then { results -> Guarantee<SearchResult?> in
-            guard let result = results.first else {
-                return .value(nil)
-            }
-
-            guard let pageURL = URL(string: result.trackViewUrl) else {
-                return .value(result)
-            }
-
-            return firstly {
-                self.scrapeAppStoreVersion(pageURL)
-            }
-            .map { pageVersion in
-                guard
-                    let pageVersion,
-                    let searchVersion = Version(tolerant: result.version),
-                    pageVersion > searchVersion
-                else {
-                    return result
+            .then { results -> Guarantee<SearchResult> in
+                guard let result = results.first else {
+                    throw MASError.unknownAppID(appID)
                 }
 
-                // Update the search result with the version from the App Store page.
-                var result = result
-                result.version = pageVersion.description
-                return result
+                guard let pageURL = URL(string: result.trackViewUrl) else {
+                    return .value(result)
+                }
+
+                return
+                    self.scrapeAppStoreVersion(pageURL)
+                    .map { pageVersion in
+                        guard
+                            let pageVersion,
+                            let searchVersion = Version(tolerant: result.version),
+                            pageVersion > searchVersion
+                        else {
+                            return result
+                        }
+
+                        // Update the search result with the version from the App Store page.
+                        var result = result
+                        result.version = pageVersion.description
+                        return result
+                    }
+                    .recover { _ in
+                        // If we were unable to scrape the App Store page, assume compatibility.
+                        .value(result)
+                    }
             }
-            .recover { _ in
-                // If we were unable to scrape the App Store page, assume compatibility.
-                .value(result)
-            }
-        }
     }
 
     /// Searches for apps from the MAS.
@@ -106,36 +103,32 @@ class ITunesSearchAppStoreSearcher: AppStoreSearcher {
     }
 
     private func loadSearchResults(_ url: URL) -> Promise<[SearchResult]> {
-        firstly {
-            networkManager.loadData(from: url)
-        }
-        .map { data in
-            do {
-                return try JSONDecoder().decode(SearchResultList.self, from: data).results
-            } catch {
-                throw MASError.jsonParsing(data: data)
+        networkManager.loadData(from: url)
+            .map { data in
+                do {
+                    return try JSONDecoder().decode(SearchResultList.self, from: data).results
+                } catch {
+                    throw MASError.jsonParsing(data: data)
+                }
             }
-        }
     }
 
     /// Scrape the app version from the App Store webpage at the given URL.
     ///
     /// App Store webpages frequently report a version that is newer than what is reported by the iTunes Search API.
     private func scrapeAppStoreVersion(_ pageURL: URL) -> Promise<Version?> {
-        firstly {
-            networkManager.loadData(from: pageURL)
-        }
-        .map { data in
-            guard
-                let html = String(data: data, encoding: .utf8),
-                let capture = Self.appVersionExpression.firstMatch(in: html)?.captures[0],
-                let version = Version(tolerant: capture)
-            else {
-                return nil
-            }
+        networkManager.loadData(from: pageURL)
+            .map { data in
+                guard
+                    let html = String(data: data, encoding: .utf8),
+                    let capture = Self.appVersionExpression.firstMatch(in: html)?.captures[0],
+                    let version = Version(tolerant: capture)
+                else {
+                    return nil
+                }
 
-            return version
-        }
+                return version
+            }
     }
 
     /// Builds the search URL for an app.

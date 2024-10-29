@@ -19,7 +19,7 @@ public class PurchaseSpec: QuickSpec {
         xdescribe("purchase command") {
             xit("purchases apps") {
                 expect {
-                    try MAS.Purchase.parse(["999"]).run(appLibrary: MockAppLibrary())
+                    try MAS.Purchase.parse(["999"]).run(appLibrary: MockAppLibrary(), searcher: MockAppStoreSearcher())
                 }
                 .toNot(throwError())
             }

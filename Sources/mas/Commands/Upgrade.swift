@@ -71,16 +71,19 @@ extension MAS {
 
             let promises = apps.map { installedApp in
                 // only upgrade apps whose local version differs from the store version
-                firstly {
-                    searcher.lookup(appID: installedApp.itemIdentifier.appIDValue)
-                }
-                .map { result -> (SoftwareProduct, SearchResult)? in
-                    guard let storeApp = result, installedApp.isOutdatedWhenComparedTo(storeApp) else {
-                        return nil
+                searcher.lookup(appID: installedApp.itemIdentifier.appIDValue)
+                    .map { storeApp -> (SoftwareProduct, SearchResult)? in
+                        guard installedApp.isOutdatedWhenComparedTo(storeApp) else {
+                            return nil
+                        }
+                        return (installedApp, storeApp)
                     }
-
-                    return (installedApp, storeApp)
-                }
+                    .recover { error -> Promise<(SoftwareProduct, SearchResult)?> in
+                        guard case MASError.unknownAppID = error else {
+                            return Promise(error: error)
+                        }
+                        return .value(nil)
+                    }
             }
 
             return try when(fulfilled: promises).wait().compactMap { $0 }

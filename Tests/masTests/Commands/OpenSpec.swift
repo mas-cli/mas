@@ -27,7 +27,7 @@ public class OpenSpec: QuickSpec {
                 expect {
                     try MAS.Open.parse(["999"]).run(searcher: searcher)
                 }
-                .to(throwError(MASError.noSearchResultsFound))
+                .to(throwError(MASError.unknownAppID(999)))
             }
         }
     }

@@ -23,10 +23,10 @@ extension MAS {
 
         /// Runs the command.
         func run() throws {
-            try run(appLibrary: SoftwareMapAppLibrary())
+            try run(appLibrary: SoftwareMapAppLibrary(), searcher: ITunesSearchAppStoreSearcher())
         }
 
-        func run(appLibrary: AppLibrary) throws {
+        func run(appLibrary: AppLibrary, searcher: AppStoreSearcher) throws {
             // Try to download applications with given identifiers and collect results
             let appIDs = appIDs.filter { appID in
                 if let appName = appLibrary.installedApps(withAppID: appID).first?.appName, !force {
@@ -38,7 +38,7 @@ extension MAS {
             }
 
             do {
-                try downloadApps(withAppIDs: appIDs).wait()
+                try downloadApps(withAppIDs: appIDs, verifiedBy: searcher).wait()
             } catch {
                 throw error as? MASError ?? .downloadFailed(error: error as NSError)
             }

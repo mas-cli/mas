@@ -63,9 +63,7 @@ private func openMacAppStore() -> Promise<Void> {
 }
 
 private func openInMacAppStore(pageForAppID appID: AppID, searcher: AppStoreSearcher) throws {
-    guard let result = try searcher.lookup(appID: appID).wait() else {
-        throw MASError.runtimeError("Unknown app ID \(appID)")
-    }
+    let result = try searcher.lookup(appID: appID).wait()
 
     guard var urlComponents = URLComponents(string: result.trackViewUrl) else {
         throw MASError.runtimeError("Unable to construct URL from: \(result.trackViewUrl)")

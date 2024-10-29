@@ -27,7 +27,7 @@ public class InfoSpec: QuickSpec {
                 expect {
                     try MAS.Info.parse(["999"]).run(searcher: searcher)
                 }
-                .to(throwError(MASError.noSearchResultsFound))
+                .to(throwError(MASError.unknownAppID(999)))
             }
             it("displays app details") {
                 let mockResult = SearchResult(

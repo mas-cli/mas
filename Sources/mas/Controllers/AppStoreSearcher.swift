@@ -14,9 +14,11 @@ protocol AppStoreSearcher {
     /// Looks up app details.
     ///
     /// - Parameter appID: App ID.
-    /// - Returns: A `Promise` for the `SearchResult` for the given `appID`, `nil` if no apps match,
-    ///   or an `Error` if any problems occur.
-    func lookup(appID: AppID) -> Promise<SearchResult?>
+    /// - Returns: A `Promise` for the `SearchResult` for the given `appID` if `appID` is valid.
+    ///   A `Promise` for `MASError.unknownAppID(appID)` if `appID` is invalid.
+    ///   An `Promise` for some other `Error` if any problems occur.
+    func lookup(appID: AppID) -> Promise<SearchResult>
+
     /// Searches for apps.
     ///
     /// - Parameter searchTerm: Term for which to search.

@@ -26,7 +26,7 @@ public class VendorSpec: QuickSpec {
                 expect {
                     try MAS.Vendor.parse(["999"]).run(searcher: searcher)
                 }
-                .to(throwError(MASError.noSearchResultsFound))
+                .to(throwError(MASError.unknownAppID(999)))
             }
         }
     }

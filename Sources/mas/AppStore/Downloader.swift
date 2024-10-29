@@ -10,10 +10,43 @@ import CommerceKit
 import PromiseKit
 import StoreFoundation
 
-/// Downloads a list of apps, one after the other, printing progress to the console.
+/// Sequentially downloads apps, printing progress to the console.
+///
+/// Verifies that each supplied app ID is valid before attempting to download.
 ///
 /// - Parameters:
-///   - appIDs: The IDs of the apps to be downloaded
+///   - unverifiedAppIDs: The app IDs of the apps to be verified and downloaded.
+///   - searcher: The `AppStoreSearcher` used to verify app IDs.
+///   - purchasing: Flag indicating if the apps will be purchased. Only works for free apps. Defaults to false.
+/// - Returns: A `Promise` that completes when the downloads are complete. If any fail,
+///   the promise is rejected with the first error, after all remaining downloads are attempted.
+func downloadApps(
+    withAppIDs unverifiedAppIDs: [AppID],
+    verifiedBy searcher: AppStoreSearcher,
+    purchasing: Bool = false
+) -> Promise<Void> {
+    when(resolved: unverifiedAppIDs.map { searcher.lookup(appID: $0) })
+        .then { results in
+            downloadApps(
+                withAppIDs:
+                    results.compactMap { result in
+                        switch result {
+                        case .fulfilled(let searchResult):
+                            return searchResult.trackId
+                        case .rejected(let error):
+                            printError(String(describing: error))
+                            return nil
+                        }
+                    },
+                purchasing: purchasing
+            )
+        }
+}
+
+/// Sequentially downloads apps, printing progress to the console.
+///
+/// - Parameters:
+///   - appIDs: The app IDs of the apps to be downloaded.
 ///   - purchasing: Flag indicating if the apps will be purchased. Only works for free apps. Defaults to false.
 /// - Returns: A promise that completes when the downloads are complete. If any fail,
 ///   the promise is rejected with the first error, after all remaining downloads are attempted.

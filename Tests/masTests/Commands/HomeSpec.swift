@@ -26,7 +26,7 @@ public class HomeSpec: QuickSpec {
                 expect {
                     try MAS.Home.parse(["999"]).run(searcher: searcher)
                 }
-                .to(throwError(MASError.noSearchResultsFound))
+                .to(throwError(MASError.unknownAppID(999)))
             }
         }
     }
