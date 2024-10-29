@@ -7,7 +7,6 @@
 //
 
 import ArgumentParser
-import Foundation
 import PromiseKit
 
 @main
@@ -53,13 +52,5 @@ struct MAS: ParsableCommand {
 
     func validate() throws {
         Self.initialize()
-    }
-}
-
-typealias AppID = UInt64
-
-extension NSNumber {
-    var appIDValue: AppID {
-        uint64Value
     }
 }
