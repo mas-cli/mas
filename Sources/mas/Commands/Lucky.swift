@@ -38,7 +38,6 @@ extension MAS {
             do {
                 let results = try searcher.search(for: searchTerm).wait()
                 guard let result = results.first else {
-                    printError("No results found")
                     throw MASError.noSearchResultsFound
                 }
 
