@@ -27,6 +27,9 @@ enum MASError: Error, Equatable {
 
     case searchFailed
     case noSearchResultsFound
+
+    case unknownAppID(AppID)
+
     case noVendorWebsite
 
     case notInstalled(appID: AppID)
@@ -82,7 +85,9 @@ extension MASError: CustomStringConvertible {
         case .searchFailed:
             return "Search failed"
         case .noSearchResultsFound:
-            return "No results found"
+            return "No apps found"
+        case .unknownAppID(let appID):
+            return appID.unknownMessage
         case .noVendorWebsite:
             return "App does not have a vendor website"
         case .notInstalled(let appID):

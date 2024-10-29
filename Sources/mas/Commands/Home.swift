@@ -26,9 +26,7 @@ extension MAS {
         }
 
         func run(searcher: AppStoreSearcher) throws {
-            guard let result = try searcher.lookup(appID: appID).wait() else {
-                throw MASError.noSearchResultsFound
-            }
+            let result = try searcher.lookup(appID: appID).wait()
 
             guard let url = URL(string: result.trackViewUrl) else {
                 throw MASError.runtimeError("Unable to construct URL from: \(result.trackViewUrl)")

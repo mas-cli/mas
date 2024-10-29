@@ -32,12 +32,12 @@ extension MAS {
                 throw MASError.macOSUserMustBeRoot
             }
 
-            guard let username = getSudoUsername() else {
+            guard let username = ProcessInfo.processInfo.sudoUsername else {
                 throw MASError.runtimeError("Could not determine the original username")
             }
 
             guard
-                let uid = getSudoUID(),
+                let uid = ProcessInfo.processInfo.sudoUID,
                 seteuid(uid) == 0
             else {
                 throw MASError.runtimeError("Failed to switch effective user from 'root' to '\(username)'")

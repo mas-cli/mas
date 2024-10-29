@@ -15,15 +15,15 @@ extension MAS {
             abstract: "\"Purchase\" and install free apps from the Mac App Store"
         )
 
-        @Argument(help: "App ID(s)")
+        @Argument(help: ArgumentHelp("App ID", valueName: "app-id"))
         var appIDs: [AppID]
 
         /// Runs the command.
         func run() throws {
-            try run(appLibrary: SoftwareMapAppLibrary())
+            try run(appLibrary: SoftwareMapAppLibrary(), searcher: ITunesSearchAppStoreSearcher())
         }
 
-        func run(appLibrary: AppLibrary) throws {
+        func run(appLibrary: AppLibrary, searcher: AppStoreSearcher) throws {
             // Try to download applications with given identifiers and collect results
             let appIDs = appIDs.filter { appID in
                 if let appName = appLibrary.installedApps(withAppID: appID).first?.appName {
@@ -35,7 +35,7 @@ extension MAS {
             }
 
             do {
-                try downloadAll(appIDs, purchase: true).wait()
+                try downloadApps(withAppIDs: appIDs, verifiedBy: searcher, purchasing: true).wait()
             } catch {
                 throw error as? MASError ?? .downloadFailed(error: error as NSError)
             }

@@ -27,11 +27,7 @@ extension MAS {
 
         func run(searcher: AppStoreSearcher) throws {
             do {
-                guard let result = try searcher.lookup(appID: appID).wait() else {
-                    throw MASError.noSearchResultsFound
-                }
-
-                print(AppInfoFormatter.format(app: result))
+                print(AppInfoFormatter.format(app: try searcher.lookup(appID: appID).wait()))
             } catch {
                 throw error as? MASError ?? .searchFailed
             }

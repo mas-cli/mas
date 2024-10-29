@@ -23,17 +23,11 @@ public class InfoSpec: QuickSpec {
             beforeEach {
                 searcher.reset()
             }
-            it("fails to open app with invalid ID") {
-                expect {
-                    try MAS.Info.parse(["--", "-999"]).run(searcher: searcher)
-                }
-                .to(throwError())
-            }
             it("can't find app with unknown ID") {
                 expect {
                     try MAS.Info.parse(["999"]).run(searcher: searcher)
                 }
-                .to(throwError(MASError.noSearchResultsFound))
+                .to(throwError(MASError.unknownAppID(999)))
             }
             it("displays app details") {
                 let mockResult = SearchResult(

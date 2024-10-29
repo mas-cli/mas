@@ -100,7 +100,7 @@ class MASErrorTestCase: XCTestCase {
 
     func testNoSearchResultsFound() {
         error = .noSearchResultsFound
-        XCTAssertEqual(error.description, "No results found")
+        XCTAssertEqual(error.description, "No apps found")
     }
 
     func testNoVendorWebsite() {

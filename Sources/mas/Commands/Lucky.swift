@@ -38,7 +38,6 @@ extension MAS {
             do {
                 let results = try searcher.search(for: searchTerm).wait()
                 guard let result = results.first else {
-                    printError("No results found")
                     throw MASError.noSearchResultsFound
                 }
 
@@ -66,7 +65,7 @@ extension MAS {
                 printWarning("\(appName) is already installed")
             } else {
                 do {
-                    try downloadAll([appID]).wait()
+                    try downloadApps(withAppIDs: [appID]).wait()
                 } catch {
                     throw error as? MASError ?? .downloadFailed(error: error as NSError)
                 }

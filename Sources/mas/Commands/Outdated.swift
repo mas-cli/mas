@@ -30,11 +30,22 @@ extension MAS {
             _ = try when(
                 fulfilled:
                     appLibrary.installedApps.map { installedApp in
-                        firstly {
-                            searcher.lookup(appID: installedApp.itemIdentifier.appIDValue)
-                        }
-                        .done { storeApp in
-                            guard let storeApp else {
+                        searcher.lookup(appID: installedApp.itemIdentifier.appIDValue)
+                            .done { storeApp in
+                                if installedApp.isOutdatedWhenComparedTo(storeApp) {
+                                    print(
+                                        """
+                                        \(installedApp.itemIdentifier) \(installedApp.appName) \
+                                        (\(installedApp.bundleVersion) -> \(storeApp.version))
+                                        """
+                                    )
+                                }
+                            }
+                            .recover { error in
+                                guard case MASError.unknownAppID = error else {
+                                    throw error
+                                }
+
                                 if verbose {
                                     printWarning(
                                         """
@@ -43,18 +54,7 @@ extension MAS {
                                         """
                                     )
                                 }
-                                return
                             }
-
-                            if installedApp.isOutdatedWhenComparedTo(storeApp) {
-                                print(
-                                    """
-                                    \(installedApp.itemIdentifier) \(installedApp.appName) \
-                                    (\(installedApp.bundleVersion) -> \(storeApp.version))
-                                    """
-                                )
-                            }
-                        }
                     }
             )
             .wait()

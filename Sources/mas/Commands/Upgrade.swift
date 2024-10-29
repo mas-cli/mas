@@ -18,7 +18,7 @@ extension MAS {
                 "Upgrade outdated app(s) installed from the Mac App Store"
         )
 
-        @Argument(help: "App ID(s)/app name(s)")
+        @Argument(help: ArgumentHelp("App ID/app name", valueName: "app-id-or-name"))
         var appIDOrNames: [String] = []
 
         /// Runs the command.
@@ -35,7 +35,6 @@ extension MAS {
             }
 
             guard !apps.isEmpty else {
-                printWarning("Nothing found to upgrade")
                 return
             }
 
@@ -46,7 +45,7 @@ extension MAS {
             )
 
             do {
-                try downloadAll(apps.map(\.installedApp.itemIdentifier.appIDValue)).wait()
+                try downloadApps(withAppIDs: apps.map(\.installedApp.itemIdentifier.appIDValue)).wait()
             } catch {
                 throw error as? MASError ?? .downloadFailed(error: error as NSError)
             }
@@ -59,28 +58,39 @@ extension MAS {
             let apps =
                 appIDOrNames.isEmpty
                 ? appLibrary.installedApps
-                : appIDOrNames.flatMap { appID in
-                    if let appID = AppID(appID) {
+                : appIDOrNames.flatMap { appIDOrName in
+                    if let appID = AppID(appIDOrName) {
                         // argument is an AppID, lookup apps by id using argument
-                        return appLibrary.installedApps(withAppID: appID)
+                        let installedApps = appLibrary.installedApps(withAppID: appID)
+                        if installedApps.isEmpty {
+                            printError(appID.unknownMessage)
+                        }
+                        return installedApps
                     }
 
                     // argument is not an AppID, lookup apps by name using argument
-                    return appLibrary.installedApps(named: appID)
+                    let installedApps = appLibrary.installedApps(named: appIDOrName)
+                    if installedApps.isEmpty {
+                        printError("Unknown app name '\(appIDOrName)'")
+                    }
+                    return installedApps
                 }
 
             let promises = apps.map { installedApp in
                 // only upgrade apps whose local version differs from the store version
-                firstly {
-                    searcher.lookup(appID: installedApp.itemIdentifier.appIDValue)
-                }
-                .map { result -> (SoftwareProduct, SearchResult)? in
-                    guard let storeApp = result, installedApp.isOutdatedWhenComparedTo(storeApp) else {
-                        return nil
+                searcher.lookup(appID: installedApp.itemIdentifier.appIDValue)
+                    .map { storeApp -> (SoftwareProduct, SearchResult)? in
+                        guard installedApp.isOutdatedWhenComparedTo(storeApp) else {
+                            return nil
+                        }
+                        return (installedApp, storeApp)
                     }
-
-                    return (installedApp, storeApp)
-                }
+                    .recover { error -> Promise<(SoftwareProduct, SearchResult)?> in
+                        guard case MASError.unknownAppID = error else {
+                            return Promise(error: error)
+                        }
+                        return .value(nil)
+                    }
             }
 
             return try when(fulfilled: promises).wait().compactMap { $0 }

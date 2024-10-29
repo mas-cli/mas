@@ -11,7 +11,7 @@ import PromiseKit
 import StoreFoundation
 
 extension SSPurchase {
-    func perform(appID: AppID, purchase: Bool) -> Promise<Void> {
+    func perform(appID: AppID, purchasing: Bool) -> Promise<Void> {
         var parameters: [String: Any] = [
             "productType": "C",
             "price": 0,
@@ -20,9 +20,11 @@ extension SSPurchase {
             "appExtVrsId": 0,
         ]
 
-        if purchase {
+        if purchasing {
             parameters["macappinstalledconfirmed"] = 1
             parameters["pricingParameters"] = "STDQ"
+            // Possibly unnecessary…
+            isRedownload = false
         } else {
             parameters["pricingParameters"] = "STDRDL"
         }
@@ -34,11 +36,6 @@ extension SSPurchase {
             .joined(separator: "&")
 
         itemIdentifier = appID
-
-        // Not sure if this is needed…
-        if purchase {
-            isRedownload = false
-        }
 
         downloadMetadata = SSDownloadMetadata()
         downloadMetadata.kind = "software"
