@@ -10,6 +10,12 @@ import Foundation
 
 typealias AppID = UInt64
 
+extension AppID {
+    var unknownMessage: String {
+        "Unknown app ID \(self)"
+    }
+}
+
 extension NSNumber {
     var appIDValue: AppID {
         uint64Value

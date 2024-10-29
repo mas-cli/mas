@@ -63,7 +63,7 @@ extension MAS {
                         // argument is an AppID, lookup apps by id using argument
                         let installedApps = appLibrary.installedApps(withAppID: appID)
                         if installedApps.isEmpty {
-                            printError("Unknown app ID \(appID)")
+                            printError(appID.unknownMessage)
                         }
                         return installedApps
                     }

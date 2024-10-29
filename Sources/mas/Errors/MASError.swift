@@ -87,7 +87,7 @@ extension MASError: CustomStringConvertible {
         case .noSearchResultsFound:
             return "No apps found"
         case .unknownAppID(let appID):
-            return "Unknown app ID \(appID)"
+            return appID.unknownMessage
         case .noVendorWebsite:
             return "App does not have a vendor website"
         case .notInstalled(let appID):
