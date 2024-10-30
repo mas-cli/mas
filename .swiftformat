@@ -31,7 +31,6 @@
 
 # Rule options
 --commas always
---extensionacl on-declarations
 --hexliteralcase lowercase
 --importgrouping testable-last
 --lineaftermarks false
