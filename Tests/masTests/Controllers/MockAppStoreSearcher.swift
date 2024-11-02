@@ -17,9 +17,9 @@ class MockAppStoreSearcher: AppStoreSearcher {
         .value(apps.filter { $1.trackName.contains(searchTerm) }.map { $1 })
     }
 
-    func lookup(appID: AppID) -> Promise<SearchResult?> {
+    func lookup(appID: AppID) -> Promise<SearchResult> {
         guard let result = apps[appID] else {
-            return Promise(error: MASError.noSearchResultsFound)
+            return Promise(error: MASError.unknownAppID(appID))
         }
 
         return .value(result)

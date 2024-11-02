@@ -13,18 +13,12 @@ extension MAS {
     struct SignOut: ParsableCommand {
         static let configuration = CommandConfiguration(
             commandName: "signout",
-            abstract: "Sign out of the Mac App Store"
+            abstract: "Sign out of the Apple ID currently signed in in the Mac App Store"
         )
 
         /// Runs the command.
         func run() throws {
-            if #available(macOS 10.13, *) {
-                ISServiceProxy.genericShared().accountService.signOut()
-            } else {
-                // Using CKAccountStore to sign out does nothing on High Sierra
-                // https://github.com/mas-cli/mas/issues/129
-                CKAccountStore.shared().signOut()
-            }
+            ISServiceProxy.genericShared().accountService.signOut()
         }
     }
 }

@@ -43,24 +43,6 @@ class SoftwareMapAppLibrary: AppLibrary {
     }
 }
 
-func getSudoUsername() -> String? {
-    ProcessInfo.processInfo.environment["SUDO_USER"]
-}
-
-func getSudoUID() -> uid_t? {
-    guard let uid = ProcessInfo.processInfo.environment["SUDO_UID"] else {
-        return nil
-    }
-    return uid_t(uid)
-}
-
-func getSudoGID() -> gid_t? {
-    guard let gid = ProcessInfo.processInfo.environment["SUDO_GID"] else {
-        return nil
-    }
-    return gid_t(gid)
-}
-
 private func getOwnerAndGroupOfItem(atPath path: String) throws -> (uid_t, gid_t) {
     do {
         let attributes = try FileManager.default.attributesOfItem(atPath: path)
@@ -75,11 +57,11 @@ private func getOwnerAndGroupOfItem(atPath path: String) throws -> (uid_t, gid_t
 }
 
 private func chown(paths: [String]) throws -> [String: (uid_t, gid_t)] {
-    guard let sudoUID = getSudoUID() else {
+    guard let sudoUID = ProcessInfo.processInfo.sudoUID else {
         throw MASError.runtimeError("Failed to get original uid")
     }
 
-    guard let sudoGID = getSudoGID() else {
+    guard let sudoGID = ProcessInfo.processInfo.sudoGID else {
         throw MASError.runtimeError("Failed to get original gid")
     }
 

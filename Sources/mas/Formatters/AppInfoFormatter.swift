@@ -47,12 +47,8 @@ enum AppInfoFormatter {
     /// - Parameter serverDate: String containing a date in ISO-8601 format.
     /// - Returns: Simple date format.
     private static func humanReadableDate(_ serverDate: String) -> String {
-        let serverDateFormatter = DateFormatter()
-        serverDateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        serverDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
-
-        let humanDateFormatter = DateFormatter()
-        humanDateFormatter.dateFormat = "yyyy-MM-dd"
-        return serverDateFormatter.date(from: serverDate).flatMap(humanDateFormatter.string(from:)) ?? ""
+        let humanDateFormatter = ISO8601DateFormatter()
+        humanDateFormatter.formatOptions = [.withFullDate]
+        return ISO8601DateFormatter().date(from: serverDate).map(humanDateFormatter.string(from:)) ?? ""
     }
 }

@@ -20,7 +20,7 @@ CORE_TAP_PATH="$(brew --repository homebrew/core)"
 MAS_VERSION=$(script/version)
 ROOT_URL="https://github.com/mas-cli/mas/releases/download/v${MAS_VERSION}"
 
-# Supports macOS 10.11 and later
+# Supports macOS 10.13 and later
 OS_NAMES=(
   sonoma
   arm64_sonoma

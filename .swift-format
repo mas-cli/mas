@@ -28,7 +28,7 @@
     "NeverForceUnwrap": true,
     "NeverUseForceTry": true,
     "NeverUseImplicitlyUnwrappedOptionals": true,
-    "NoAccessLevelOnExtensionDeclaration": true,
+    "NoAccessLevelOnExtensionDeclaration": false,
     "NoAssignmentInExpressions": true,
     "NoBlockComments": true,
     "NoCasesWithOnlyFallthrough": true,

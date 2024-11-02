@@ -22,6 +22,7 @@ disabled_rules:
   - function_body_length
   - inert_defer
   - legacy_objc_type
+- no_extension_access_modifier
   - no_grouping_extension
   - number_separator
   - one_declaration_per_file

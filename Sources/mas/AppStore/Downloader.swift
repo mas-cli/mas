@@ -10,21 +10,53 @@ import CommerceKit
 import PromiseKit
 import StoreFoundation
 
-/// Downloads a list of apps, one after the other, printing progress to the console.
+/// Sequentially downloads apps, printing progress to the console.
+///
+/// Verifies that each supplied app ID is valid before attempting to download.
 ///
 /// - Parameters:
-///   - appIDs: The IDs of the apps to be downloaded
-///   - purchase: Flag indicating whether the apps needs to be purchased.
-///     Only works for free apps. Defaults to false.
+///   - unverifiedAppIDs: The app IDs of the apps to be verified and downloaded.
+///   - searcher: The `AppStoreSearcher` used to verify app IDs.
+///   - purchasing: Flag indicating if the apps will be purchased. Only works for free apps. Defaults to false.
+/// - Returns: A `Promise` that completes when the downloads are complete. If any fail,
+///   the promise is rejected with the first error, after all remaining downloads are attempted.
+func downloadApps(
+    withAppIDs unverifiedAppIDs: [AppID],
+    verifiedBy searcher: AppStoreSearcher,
+    purchasing: Bool = false
+) -> Promise<Void> {
+    when(resolved: unverifiedAppIDs.map { searcher.lookup(appID: $0) })
+        .then { results in
+            downloadApps(
+                withAppIDs:
+                    results.compactMap { result in
+                        switch result {
+                        case .fulfilled(let searchResult):
+                            return searchResult.trackId
+                        case .rejected(let error):
+                            printError(String(describing: error))
+                            return nil
+                        }
+                    },
+                purchasing: purchasing
+            )
+        }
+}
+
+/// Sequentially downloads apps, printing progress to the console.
+///
+/// - Parameters:
+///   - appIDs: The app IDs of the apps to be downloaded.
+///   - purchasing: Flag indicating if the apps will be purchased. Only works for free apps. Defaults to false.
 /// - Returns: A promise that completes when the downloads are complete. If any fail,
 ///   the promise is rejected with the first error, after all remaining downloads are attempted.
-func downloadAll(_ appIDs: [AppID], purchase: Bool = false) -> Promise<Void> {
+func downloadApps(withAppIDs appIDs: [AppID], purchasing: Bool = false) -> Promise<Void> {
     var firstError: Error?
     return
         appIDs
         .reduce(Guarantee.value(())) { previous, appID in
             previous.then {
-                downloadWithRetries(appID, purchase: purchase)
+                downloadApp(withAppID: appID, purchasing: purchasing)
                     .recover { error in
                         if firstError == nil {
                             firstError = error
@@ -39,10 +71,15 @@ func downloadAll(_ appIDs: [AppID], purchase: Bool = false) -> Promise<Void> {
         }
 }
 
-private func downloadWithRetries(_ appID: AppID, purchase: Bool = false, attempts: Int = 3) -> Promise<Void> {
-    SSPurchase().perform(appID: appID, purchase: purchase)
+private func downloadApp(
+    withAppID appID: AppID,
+    purchasing: Bool = false,
+    withAttemptCount attemptCount: UInt32 = 3
+) -> Promise<Void> {
+    SSPurchase()
+        .perform(appID: appID, purchasing: purchasing)
         .recover { error in
-            guard attempts > 1 else {
+            guard attemptCount > 1 else {
                 throw error
             }
 
@@ -54,9 +91,9 @@ private func downloadWithRetries(_ appID: AppID, purchase: Bool = false, attempt
                 throw error
             }
 
-            let attempts = attempts - 1
+            let attemptCount = attemptCount - 1
             printWarning((downloadError ?? error).localizedDescription)
-            printWarning("Trying again up to \(attempts) more \(attempts == 1 ? "time" : "times").")
-            return downloadWithRetries(appID, purchase: purchase, attempts: attempts)
+            printWarning("Trying again up to \(attemptCount) more \(attemptCount == 1 ? "time" : "times").")
+            return downloadApp(withAppID: appID, purchasing: purchasing, withAttemptCount: attemptCount)
         }
 }

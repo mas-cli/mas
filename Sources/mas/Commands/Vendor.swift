@@ -7,47 +7,36 @@
 //
 
 import ArgumentParser
+import Foundation
 
 extension MAS {
     /// Opens vendor's app page in a browser. Uses the iTunes Lookup API:
     /// https://performance-partners.apple.com/search-api
     struct Vendor: ParsableCommand {
         static let configuration = CommandConfiguration(
-            abstract: "Opens vendor's app page in a browser"
+            abstract: "Open vendor's app web page in the default web browser"
         )
 
-        @Argument(help: "the app ID to show the vendor's website")
+        @Argument(help: "App ID")
         var appID: AppID
 
         /// Runs the command.
         func run() throws {
-            try run(searcher: ITunesSearchAppStoreSearcher(), openCommand: OpenSystemCommand())
+            try run(searcher: ITunesSearchAppStoreSearcher())
         }
 
-        func run(searcher: AppStoreSearcher, openCommand: ExternalCommand) throws {
-            do {
-                guard let result = try searcher.lookup(appID: appID).wait() else {
-                    throw MASError.noSearchResultsFound
-                }
+        func run(searcher: AppStoreSearcher) throws {
+            let result = try searcher.lookup(appID: appID).wait()
 
-                guard let vendorWebsite = result.sellerUrl else {
-                    throw MASError.noVendorWebsite
-                }
-
-                do {
-                    try openCommand.run(arguments: vendorWebsite)
-                } catch {
-                    printError("Unable to launch open command")
-                    throw MASError.searchFailed
-                }
-                if openCommand.failed {
-                    let reason = openCommand.process.terminationReason
-                    printError("Open failed: (\(reason)) \(openCommand.stderr)")
-                    throw MASError.searchFailed
-                }
-            } catch {
-                throw error as? MASError ?? .searchFailed
+            guard let urlString = result.sellerUrl else {
+                throw MASError.noVendorWebsite
             }
+
+            guard let url = URL(string: urlString) else {
+                throw MASError.runtimeError("Unable to construct URL from: \(urlString)")
+            }
+
+            try url.open().wait()
         }
     }
 }

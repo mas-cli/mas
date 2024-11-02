@@ -13,10 +13,10 @@ extension MAS {
     /// Kills several macOS processes as a means to reset the app store.
     struct Reset: ParsableCommand {
         static let configuration = CommandConfiguration(
-            abstract: "Resets the Mac App Store"
+            abstract: "Reset Mac App Store running processes"
         )
 
-        @Flag(help: "Enable debug mode")
+        @Flag(help: "Output debug information")
         var debug = false
 
         /// Runs the command.

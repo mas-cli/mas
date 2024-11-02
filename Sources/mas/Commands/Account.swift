@@ -12,7 +12,7 @@ import StoreFoundation
 extension MAS {
     struct Account: ParsableCommand {
         static let configuration = CommandConfiguration(
-            abstract: "Prints the primary account Apple ID"
+            abstract: "Display the Apple ID signed in in the Mac App Store"
         )
 
         /// Runs the command.

@@ -9,11 +9,16 @@
 import CommerceKit
 import StoreFoundation
 
+private let downloadingPhase: Int64 = 0
+private let installingPhase: Int64 = 1
+private let downloadedPhase: Int64 = 5
+
 @objc
 class PurchaseDownloadObserver: NSObject, CKDownloadQueueObserver {
     let purchase: SSPurchase
     var completionHandler: (() -> Void)?
     var errorHandler: ((MASError) -> Void)?
+    var priorPhaseType: Int64?
 
     init(purchase: SSPurchase) {
         self.purchase = purchase
@@ -30,6 +35,21 @@ class PurchaseDownloadObserver: NSObject, CKDownloadQueueObserver {
         if status.isFailed || status.isCancelled {
             queue.removeDownload(withItemIdentifier: download.metadata.itemIdentifier)
         } else {
+            if priorPhaseType != status.activePhase.phaseType {
+                switch status.activePhase.phaseType {
+                case downloadedPhase:
+                    if priorPhaseType == downloadingPhase {
+                        clearLine()
+                        printInfo("Downloaded \(download.progressDescription)")
+                    }
+                case installingPhase:
+                    clearLine()
+                    printInfo("Installing \(download.progressDescription)")
+                default:
+                    break
+                }
+                priorPhaseType = status.activePhase.phaseType
+            }
             progress(status.progressState)
         }
     }
@@ -39,7 +59,7 @@ class PurchaseDownloadObserver: NSObject, CKDownloadQueueObserver {
             return
         }
         clearLine()
-        printInfo("Downloading \(download.metadata.title)")
+        printInfo("Downloading \(download.progressDescription)")
     }
 
     func downloadQueue(_: CKDownloadQueue, changedWithRemoval download: SSDownload) {
@@ -56,7 +76,7 @@ class PurchaseDownloadObserver: NSObject, CKDownloadQueueObserver {
         } else if status.isCancelled {
             errorHandler?(.cancelled)
         } else {
-            printInfo("Installed \(download.metadata.title)")
+            printInfo("Installed \(download.progressDescription)")
             completionHandler?()
         }
     }
@@ -94,6 +114,12 @@ func progress(_ state: ProgressState) {
     fflush(stdout)
 }
 
+private extension SSDownload {
+    var progressDescription: String {
+        "\(metadata.title) (\(metadata.bundleVersion ?? "unknown version"))"
+    }
+}
+
 extension SSDownloadStatus {
     var progressState: ProgressState {
         ProgressState(percentComplete: percentComplete, phase: activePhase.phaseDescription)
@@ -103,9 +129,9 @@ extension SSDownloadStatus {
 extension SSDownloadPhase {
     var phaseDescription: String {
         switch phaseType {
-        case 0:
+        case downloadingPhase:
             return "Downloading"
-        case 1:
+        case installingPhase:
             return "Installing"
         default:
             return "Waiting"

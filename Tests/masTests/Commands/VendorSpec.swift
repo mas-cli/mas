@@ -14,7 +14,6 @@ import Quick
 public class VendorSpec: QuickSpec {
     override public func spec() {
         let searcher = MockAppStoreSearcher()
-        let openCommand = MockOpenSystemCommand()
 
         beforeSuite {
             MAS.initialize()
@@ -23,32 +22,11 @@ public class VendorSpec: QuickSpec {
             beforeEach {
                 searcher.reset()
             }
-            it("fails to open app with invalid ID") {
-                expect {
-                    try MAS.Vendor.parse(["--", "-999"]).run(searcher: searcher, openCommand: openCommand)
-                }
-                .to(throwError())
-            }
             it("can't find app with unknown ID") {
                 expect {
-                    try MAS.Vendor.parse(["999"]).run(searcher: searcher, openCommand: openCommand)
+                    try MAS.Vendor.parse(["999"]).run(searcher: searcher)
                 }
-                .to(throwError(MASError.noSearchResultsFound))
-            }
-            it("opens vendor app page in browser") {
-                let mockResult = SearchResult(
-                    sellerUrl: "https://awesome.app",
-                    trackId: 1111,
-                    trackViewUrl: "https://apps.apple.com/us/app/awesome/id1111?mt=12&uo=4",
-                    version: "0.0"
-                )
-                searcher.apps[mockResult.trackId] = mockResult
-                expect {
-                    try MAS.Vendor.parse([String(mockResult.trackId)])
-                        .run(searcher: searcher, openCommand: openCommand)
-                    return openCommand.arguments
-                }
-                    == [mockResult.sellerUrl]
+                .to(throwError(MASError.unknownAppID(999)))
             }
         }
     }

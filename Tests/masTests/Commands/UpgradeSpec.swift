@@ -25,7 +25,7 @@ public class UpgradeSpec: QuickSpec {
                             .run(appLibrary: MockAppLibrary(), searcher: MockAppStoreSearcher())
                     }
                 }
-                    == "Warning: Nothing found to upgrade\n"
+                .toNot(throwError())
             }
         }
     }

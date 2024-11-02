@@ -17,9 +17,9 @@ extension MAS {
         )
 
         /// Flag indicating that removal shouldn't be performed.
-        @Flag(help: "dry run")
+        @Flag(help: "Perform dry run")
         var dryRun = false
-        @Argument(help: "ID of app to uninstall")
+        @Argument(help: "App ID")
         var appID: AppID
 
         /// Runs the uninstall command.
@@ -32,12 +32,12 @@ extension MAS {
                 throw MASError.macOSUserMustBeRoot
             }
 
-            guard let username = getSudoUsername() else {
+            guard let username = ProcessInfo.processInfo.sudoUsername else {
                 throw MASError.runtimeError("Could not determine the original username")
             }
 
             guard
-                let uid = getSudoUID(),
+                let uid = ProcessInfo.processInfo.sudoUID,
                 seteuid(uid) == 0
             else {
                 throw MASError.runtimeError("Failed to switch effective user from 'root' to '\(username)'")

@@ -15,12 +15,16 @@ extension MAS {
     /// This is handy as many MAS titles can be long with embedded keywords.
     struct Lucky: ParsableCommand {
         static let configuration = CommandConfiguration(
-            abstract: "Install the first result from the Mac App Store"
+            abstract:
+                """
+                Install the first app returned from searching the Mac App Store
+                (app must have been previously purchased)
+                """
         )
 
-        @Flag(help: "force reinstall")
+        @Flag(help: "Force reinstall")
         var force = false
-        @Argument(help: "the app name to install")
+        @Argument(help: "Search term")
         var searchTerm: String
 
         /// Runs the command.
@@ -34,7 +38,6 @@ extension MAS {
             do {
                 let results = try searcher.search(for: searchTerm).wait()
                 guard let result = results.first else {
-                    printError("No results found")
                     throw MASError.noSearchResultsFound
                 }
 
@@ -62,7 +65,7 @@ extension MAS {
                 printWarning("\(appName) is already installed")
             } else {
                 do {
-                    try downloadAll([appID]).wait()
+                    try downloadApps(withAppIDs: [appID]).wait()
                 } catch {
                     throw error as? MASError ?? .downloadFailed(error: error as NSError)
                 }

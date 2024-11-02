@@ -17,13 +17,13 @@ public class ITunesSearchAppStoreSearcherSpec: QuickSpec {
             MAS.initialize()
         }
         describe("url string") {
-            it("contains the app name") {
+            it("contains the search term") {
                 expect {
                     ITunesSearchAppStoreSearcher().searchURL(for: "myapp", inCountry: "US")?.absoluteString
                 }
                     == "https://itunes.apple.com/search?media=software&entity=desktopSoftware&country=US&term=myapp"
             }
-            it("contains the encoded app name") {
+            it("contains the encoded search term") {
                 expect {
                     ITunesSearchAppStoreSearcher().searchURL(for: "My App", inCountry: "US")?.absoluteString
                 }
