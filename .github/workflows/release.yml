@@ -193,7 +193,6 @@ jobs:
           gh pr create \
             --assignee phatblat \
             --base main \
-            --draft \
             --head "${RELEASE_BRANCH}" \
             --title "🔖 Version ${MAS_VERSION}" \
             --body "This PR contains the changes from releasing version \
