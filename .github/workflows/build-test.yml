@@ -1,5 +1,5 @@
 #
-# .github/workflows/pr-checks.yml
+# .github/workflows/build-test.yml
 #
 # https://docs.github.com/en/actions/reference/environment-variables#default-environment-variables
 ---
