@@ -77,7 +77,7 @@ jobs:
           git add \
             "Homebrew/mas.rb" \
             "Homebrew/mas-tap.rb" \
-            "Sources/MasKit/Package.swift"
+            "Package.swift"
           git commit \
             --message="🔖 Version ${MAS_VERSION}"
           git push \
