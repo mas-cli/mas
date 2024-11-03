@@ -3,7 +3,7 @@
 #
 # https://docs.github.com/en/actions/reference/environment-variables#default-environment-variables
 ---
-name: pr-checks
+name: Build, Test, and Lint
 on:
   pull_request:
     branches: [main]
