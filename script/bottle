@@ -22,6 +22,8 @@ ROOT_URL="https://github.com/mas-cli/mas/releases/download/v${MAS_VERSION}"
 
 # Supports macOS 10.13 and later
 OS_NAMES=(
+  sequoia
+  arm64_sequoia
   sonoma
   arm64_sonoma
   ventura
@@ -46,6 +48,9 @@ echo "CURRENT_OS_VERSION_MAJOR: ${CURRENT_OS_VERSION_MAJOR}"
 echo "CURRENT_OS_VERSION_MINOR: ${CURRENT_OS_VERSION_MINOR}"
 
 case "${CURRENT_OS_VERSION_MAJOR}" in
+  15)
+    CURRENT_PLATFORM=sequoia
+    ;;
   14)
     CURRENT_PLATFORM=sonoma
     ;;
