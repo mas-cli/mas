@@ -83,20 +83,6 @@ jobs:
           git push \
             --set-upstream origin "${RELEASE_BRANCH}"
 
-      - name: ⤴️ Open release PR
-        env:
-          GH_TOKEN: ${{ github.token }}
-          MAS_VERSION: ${{ needs.start.outputs.mas_version }}
-          RELEASE_BRANCH: ${{ needs.start.outputs.release_branch }}
-        run: |
-          gh pr create \
-            --assignee phatblat \
-            --base main \
-            --draft \
-            --head "${RELEASE_BRANCH}" \
-            --title "🔖 Version ${MAS_VERSION}" \
-            --body "This PR contains the changes from releasing version [${MAS_VERSION}](https://github.com/mas-cli/mas/releases/tag/${MAS_VERSION})."
-
   pkg-installer:
     runs-on: macos-15
     needs: [start, prepare-release]
