@@ -39,6 +39,10 @@ jobs:
         run: |
           echo "MAS_VERSION=${{ github.event.release.tag_name }}" >>"$GITHUB_OUTPUT"
 
+      - id: pre_release
+        run: |
+          echo "PRE_RELEASE=$(grep -q '-' <<<"$MAS_VERSION" && echo 'true' || echo 'false')" >>"$GITHUB_OUTPUT"
+
       - id: release_branch
         run: |
           echo "RELEASE_BRANCH=releases/release-${{ github.event.release.tag_name }}" >>"$GITHUB_OUTPUT"
