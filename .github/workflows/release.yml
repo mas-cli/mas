@@ -227,6 +227,12 @@ jobs:
         run: |
           script/bootstrap -f
 
+      - name: 🔐 Configure HOMEBREW_GITHUB_API_TOKEN
+        env:
+          HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.HOMEBREW_GITHUB_API_TOKEN }}
+        run: |
+          export HOMEBREW_GITHUB_API_TOKEN=your_token_here >>/Users/runner/.bash_profile
+
       - name: 🔧 Configure Git Author
         run: |
           git config --global user.name 'masclibot'
