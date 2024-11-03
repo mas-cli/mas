@@ -16,6 +16,7 @@ jobs:
     outputs:
       dry_run: ${{ steps.dry_run.outputs.dry_run }}
       mas_version: ${{ steps.mas_version.outputs.mas_version }}
+      pre_release: ${{ steps.pre_release.outputs.pre_release }}
       release_branch: ${{ steps.release_branch.outputs.release_branch }}
     steps:
       # Logs event details and sets `DRY_RUN` env var
@@ -41,7 +42,7 @@ jobs:
 
       - id: pre_release
         run: |
-          echo "PRE_RELEASE=$(grep -q '-' <<<"$MAS_VERSION" && echo 'true' || echo 'false')" >>"$GITHUB_OUTPUT"
+          echo "PRE_RELEASE=$(grep -q '-' <<<$MAS_VERSION && echo 'true' || echo 'false')" >>"$GITHUB_OUTPUT"
 
       - id: release_branch
         run: |
