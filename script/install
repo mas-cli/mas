@@ -18,7 +18,7 @@ PREFIX=/usr/local
 while test -n "$1"; do
   if [[ "$1" == '--universal' ]]; then
     ARCH=universal
-    RELEASE=.build/apple/Products/Release
+    RELEASE=.build/release
   else
     # Override default prefix path with optional arg
     PREFIX="$1"
