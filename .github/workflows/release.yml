@@ -192,7 +192,8 @@ jobs:
             --draft \
             --head "${RELEASE_BRANCH}" \
             --title "🔖 Version ${MAS_VERSION}" \
-            --body "This PR contains the changes from releasing version [${MAS_VERSION}](https://github.com/mas-cli/mas/releases/tag/${MAS_VERSION})."
+            --body "This PR contains the changes from releasing version \
+              [${MAS_VERSION}](https://github.com/mas-cli/mas/releases/tag/${MAS_VERSION})."
 
       - name: 🚰 Update mas tap formula
         env:
