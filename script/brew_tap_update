@@ -7,12 +7,6 @@
 # https://github.com/mas-cli/homebrew-tap/blob/main/Formula/mas.rb
 #
 
-MAS_TAP_PATH="$(brew --repository mas-cli/tap)"
-MAS_TAP_FORMULA_FILE="${MAS_TAP_PATH}/Formula/mas.rb"
-
-PROJECT_PATH="$(git rev-parse --show-toplevel)"
-LOCAL_TAP_FORMULA_PATH="${PROJECT_PATH}/Homebrew/mas-tap.rb"
-
 function usage {
   echo "Usage: brew_tap_update [-d] v0.0 [sha1_hash]"
   echo "  -d option enables dry run mode"
@@ -24,26 +18,6 @@ function usage {
 # Max 3 arguments
 if [[ $# -gt 3 ]]; then
   usage 1>&2
-fi
-
-echo=''
-
-# Detect presence of `-d` dry run option
-while getopts "d" o; do
-  case "${o}" in
-    d)
-      echo='echo (DRY-RUN):'
-      ;;
-    *)
-      usage 1>&2
-      ;;
-  esac
-done
-
-# DRY_RUN environment variable
-# shellcheck disable=SC2153
-if [[ $DRY_RUN == 'true' ]]; then
-  echo='echo (DRY-RUN):'
 fi
 
 # arg 1 - version tag

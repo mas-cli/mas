@@ -130,7 +130,6 @@ popd
 
 echo "==> 🧪 Updating homebrew-core formula mas (${MAS_VERSION}, ${REVISION})"
 
-
 echo "Validating formula"
 brew bump-formula-pr \
   --tag="${MAS_VERSION}" \
