@@ -69,6 +69,11 @@ jobs:
         run: |
           script/version_bump "${MAS_VERSION}"
 
+      - name: 🔧 Configure Git Author
+        run: |
+          git config --global user.name 'masclibot'
+          git config --global user.email 'masclibot@users.noreply.github.com'
+
       - name: 💾 Commit changes
         env:
           MAS_VERSION: ${{ needs.start.outputs.mas_version }}
@@ -132,11 +137,6 @@ jobs:
         run: |
           script/bootstrap -f
 
-      - name: 🔧 Configure Git Credentials
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
-
       # The mas-cli/homebrew-tap repo needs to be checked out using the current
       # GitHub credentials in order to open a PR. However, the `brew tap` command
       # must be run for Homebrew to see the dir as a tap.
@@ -159,6 +159,11 @@ jobs:
           token: ${{ secrets.DEPLOY_TOKEN }}
           # brew --repository mas-cli/tap
           path: Taps/mas-cli/homebrew-tap
+
+      - name: 🔧 Configure Git Author
+        run: |
+          git config --global user.name 'masclibot'
+          git config --global user.email 'masclibot@users.noreply.github.com'
 
       - name: ⤴️ Open mas tap PR
         env:
@@ -221,6 +226,11 @@ jobs:
       - name: 👢 Bootstrap
         run: |
           script/bootstrap -f
+
+      - name: 🔧 Configure Git Author
+        run: |
+          git config --global user.name 'masclibot'
+          git config --global user.email 'masclibot@users.noreply.github.com'
 
       - name: 🍺 Update Homebrew mas formula
         env:
