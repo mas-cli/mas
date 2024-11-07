@@ -15,7 +15,7 @@ fi
 
 # Build for the host architecture by default.
 ARCH=()
-if [[ "${#}" -gt 1 && "${1}" == '--universal' ]]; then
+if [[ "${#}" -ge 1 && "${1}" == '--universal' ]]; then
   ARCH=(
     --arch arm64
     --arch x86_64
