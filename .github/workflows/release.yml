@@ -226,23 +226,19 @@ jobs:
   homebrew-core:
     runs-on: macos-15
     needs: [start, prepare-release, homebrew-tap]
-    env:
-      PRE_RELEASE: ${{ needs.start.outputs.pre_release }}
+    if: ${{ needs.start.outputs.pre_release == 'false' }}
     steps:
       - uses: actions/checkout@v4
-        if: env.PRE_RELEASE == 'false'
         with:
           # A fetch-depth of 0 includes all history and tags for script/version
           fetch-depth: 0
           ref: ${{ needs.start.outputs.release_branch }}
 
       - name: 👢 Bootstrap
-        if: env.PRE_RELEASE == 'false'
         run: |
           script/bootstrap -f
 
       - name: 🔧 Configure Git Author
-        if: env.PRE_RELEASE == 'false'
         run: |
           git config --global user.name 'masclibot'
           git config --global user.email 'masclibot@users.noreply.github.com'
@@ -253,7 +249,6 @@ jobs:
           HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.HOMEBREW_GITHUB_API_TOKEN }}
           DRY_RUN: ${{ needs.start.outputs.dry_run }}
           MAS_VERSION: ${{ needs.start.outputs.mas_version }}
-        if: env.PRE_RELEASE == 'false'
         run: |
           DRY_RUN=${DRY_RUN} \
             script/brew_core_update ${MAS_VERSION}
