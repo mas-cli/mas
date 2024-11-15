@@ -36,7 +36,3 @@ printf $'==> 👢 Bootstrapping (%s)\n' "$(script/version)"
 
 # shellcheck disable=SC2086
 brew bundle install ${frozen} --verbose
-
-mise settings set experimental true
-mise install --verbose
-mise list --verbose

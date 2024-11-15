@@ -1,5 +1,6 @@
+brew "act"
 brew "markdownlint-cli"
-brew "mise"
+brew "prettier"
 brew "sd"
 brew "shellcheck"
 brew "shfmt"
