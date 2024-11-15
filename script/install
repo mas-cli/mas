@@ -7,7 +7,7 @@
 #
 # NOTE: This script is called by the mas Homebrew formula so it has only system
 # dependencies aside from Swift.
-# https://github.com/Homebrew/homebrew-core/blob/master/Formula/mas.rb
+# https://github.com/Homebrew/homebrew-core/blob/master/Formula/m/mas.rb
 #
 
 ARCH=$(uname -m)
