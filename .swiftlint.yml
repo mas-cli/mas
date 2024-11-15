@@ -6,35 +6,35 @@
 #
 ---
 opt_in_rules:
-- all
+  - all
 disabled_rules:
-- balanced_xctest_lifecycle
-- closure_body_length
-- contrasted_opening_brace
-- explicit_acl
-- explicit_enum_raw_value
-- explicit_top_level_acl
-- explicit_type_interface
-- file_header
-- file_name
-- final_test_case
-- force_unwrapping
-- function_body_length
-- inert_defer
-- legacy_objc_type
-- no_extension_access_modifier
-- no_grouping_extension
-- number_separator
-- one_declaration_per_file
-- prefer_nimble
-- prefixed_toplevel_constant
-- quick_discouraged_call
-- quick_discouraged_pending_test
-- required_deinit
-- sorted_enum_cases
-- trailing_comma
-- unused_capture_list
-- vertical_whitespace_between_cases
+  - balanced_xctest_lifecycle
+  - closure_body_length
+  - contrasted_opening_brace
+  - explicit_acl
+  - explicit_enum_raw_value
+  - explicit_top_level_acl
+  - explicit_type_interface
+  - file_header
+  - file_name
+  - final_test_case
+  - force_unwrapping
+  - function_body_length
+  - inert_defer
+  - legacy_objc_type
+  - no_extension_access_modifier
+  - no_grouping_extension
+  - number_separator
+  - one_declaration_per_file
+  - prefer_nimble
+  - prefixed_toplevel_constant
+  - quick_discouraged_call
+  - quick_discouraged_pending_test
+  - required_deinit
+  - sorted_enum_cases
+  - trailing_comma
+  - unused_capture_list
+  - vertical_whitespace_between_cases
 file_types_order:
   order: [
     [main_type],

@@ -2,14 +2,14 @@
 # .github/workflows/build-test.yml
 #
 # https://docs.github.com/en/actions/reference/environment-variables#default-environment-variables
-
+---
 name: Build, Test, and Lint
 
 on:
-  push:
-    branches: [ main ]
   pull_request:
-    branches: [ main ]
+    branches: [main]
+  push:
+    branches: [main]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -17,6 +17,10 @@ concurrency:
 
 jobs:
   build-test:
+    name: Build, Test, and Lint
+
+    # https://github.com/actions/runner-images#available-images
+    runs-on: macos-15
 
     defaults:
       run:
@@ -26,28 +30,20 @@ jobs:
         # https://github.com/actions/virtual-environments/issues/2187#issuecomment-790507204
         shell: arch -arm64 bash --noprofile --norc -eo pipefail {0}
 
-    name: Build, Test, and Lint
-
-    # https://github.blog/changelog/2024-01-30-github-actions-introducing-the-new-m1-macos-runner-available-to-open-source
-    # https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners
-    # https://github.com/mas-cli/mas/actions/runners
-    runs-on: macos-15
-
     steps:
-    # https://github.com/actions/checkout#usage
-    - uses: actions/checkout@v4
-      with:
-        # A fetch-depth of 0 includes all history and tags for script/version
-        fetch-depth: 0
+      - uses: actions/checkout@v4
+        with:
+          # A fetch-depth of 0 includes all history and tags for script/version
+          fetch-depth: 0
 
-    - name: Bootstrap
-      run: script/bootstrap
+      - name: Bootstrap
+        run: script/bootstrap -f
 
-    - name: Build
-      run: script/build
+      - name: Build
+        run: script/build
 
-    - name: Test
-      run: script/test
+      - name: Test
+        run: script/test
 
-    - name: Lint
-      run: script/lint
+      - name: Lint
+        run: script/lint

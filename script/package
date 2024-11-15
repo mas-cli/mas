@@ -20,7 +20,7 @@ DISTRIBUTION_PLIST="Package/Distribution.plist"
 DSTROOT=.build/distributions
 script/install "$DSTROOT/usr/local" --universal
 
-VERSION=$(script/version)
+MAS_VERSION=$(script/version)
 
 echo "==> 📦 Assemble an installer package"
 
@@ -28,7 +28,7 @@ echo "==> 📦 Assemble an installer package"
 pkgbuild \
   --identifier "$IDENTIFIER" \
   --install-location "/" \
-  --version "$VERSION" \
+  --version "$MAS_VERSION" \
   --root "$DSTROOT" \
   "$COMPONENT_PACKAGE"
 

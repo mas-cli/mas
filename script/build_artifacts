@@ -6,9 +6,9 @@
 # Runs all related scripts for generating all artifacts.
 #
 
-VERSION=$(script/version)
+MAS_VERSION=$(script/version)
 
-echo "Building mas $VERSION artifacts"
+echo "Building mas $MAS_VERSION artifacts"
 
 script/clean
 script/build --universal

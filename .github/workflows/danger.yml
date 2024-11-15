@@ -1,17 +1,21 @@
-name: Danger
+#
+# .github/workflows/danger.yml
+#
+# https://docs.github.com/en/actions/reference/environment-variables#default-environment-variables
+---
+name: danger
 on:
   pull_request:
-    branches: [ main ]
+    branches: [main]
 jobs:
   danger:
-    name: Danger
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - name: Danger
-      # https://github.com/orgs/danger/packages/container/package/danger-swift
-      uses: docker://ghcr.io/danger/danger-swift:3.12.3
-      with:
-        args: --failOnErrors --no-publish-check
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v4
+      - name: Danger
+        # https://github.com/orgs/danger/packages/container/package/danger-swift
+        uses: docker://ghcr.io/danger/danger-swift:3.18.0
+        with:
+          args: --failOnErrors --no-publish-check
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -10,7 +10,7 @@
 
 CMD_NAME = mas
 SHELL = /bin/sh
-PREFIX ?= /usr/local
+PREFIX ?= $(shell brew --prefix)
 
 SWIFT_VERSION = 5.7.1
 
@@ -44,7 +44,7 @@ help: ## (default) Displays this message
 
 ################################################################################
 #
-# Targets
+# ℹ️ Info Targets
 #
 
 .PHONY: version
@@ -59,17 +59,35 @@ init: ## Installs tools.
 	- swiftenv install $(SWIFT_VERSION)
 	swiftenv local $(SWIFT_VERSION)
 
+################################################################################
+#
+# 👢 Bootstrap
+#
+
 .PHONY: bootstrap
 bootstrap: ## Installs tools.
+	script/bootstrap -f
+
+.PHONY: bootstrap-update
+bootstrap-update: ## Upgrades and installs tools.
 	script/bootstrap
+
+################################################################################
+#
+# 👩🏻‍💻 Development Targets
+#
 
 .PHONY: clean
 clean: ## Cleans built products.
 	script/clean
 
-.PHONY: updateHeaders
-updateHeaders: ## Updates private headers.
-	script/update_headers
+.PHONY: lint
+lint: ## Lints source code.
+	script/lint
+
+.PHONY: format
+format: ## Formats source code.
+	script/format
 
 .PHONY: build
 build: ## Builds the project.
@@ -84,41 +102,14 @@ test: build ## Runs tests.
 run: build
 	${EXECUTABLE_DIRECTORY}/${CMD_NAME} $(ARGS)
 
-.PHONY: install
-install: ## Installs the project.
-	script/install $(PREFIX)
+.PHONY: update-headers
+update-headers: ## Updates private macOS headers.
+	script/update_headers
 
-.PHONY: uninstall
-uninstall: ## Uninstalls the project.
-	script/uninstall
-
-.PHONY: format
-format: ## Formats source code.
-	script/format
-
-.PHONY: lint
-lint: ## Lints source code.
-	script/lint
-
-.PHONY: danger
-danger: ## Runs danger.
-	script/danger
-
-# Builds bottles
-.PHONY: bottles
-bottles: ## Builds bottles.
-	script/bottle
-
-.PHONY: bottle
-bottle: bottles ## Alias for bottles
-
-.PHONY: package
-package: build ## Packages the project.
-	script/package
-
-.PHONY: packageInstall
-packageInstall: package ## Installs the package.
-	script/package_install
+################################################################################
+#
+# 🕊️ Swift Package Targets
+#
 
 .PHONY: describe
 describe: ## Describes the Swift package.
@@ -135,3 +126,44 @@ dependencies: resolve ## Lists SwiftPM dependencies.
 .PHONY: update
 update: resolve ## Updates SwiftPM dependencies.
 	swift package update
+
+################################################################################
+#
+# 🚀 Release Targets
+#
+
+.PHONY: build-universal
+build-universal: ## Builds a "fat" universal binary.
+	script/build --universal
+
+.PHONY: install
+install: build ## Installs the binary.
+	script/install $(PREFIX)
+
+.PHONY: install-universal
+install-universal: build-universal ## Installs a universal binary.
+	script/install --universal
+
+.PHONY: uninstall
+uninstall: ## Uninstalls the binary.
+	script/uninstall
+
+.PHONY: package
+package: build ## Packages the project.
+	script/package
+
+.PHONY: package-install
+package-install: package ## Installs the package.
+	script/package_install
+
+.PHONY: bottle
+bottle: ## Builds Homebrew bottles.
+	script/bottle
+
+.PHONY: brew_formula_update
+brew_formula_update: ## Updates homebrew-core formula.
+	script/brew_formula_update
+
+.PHONY: brew_release_validate
+brew_release_validate: ## Builds Homebrew bottle for the current system.
+	script/brew_release_validate

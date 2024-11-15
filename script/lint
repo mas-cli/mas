@@ -19,9 +19,9 @@ if ! cd -- "${mas_dir}"; then
   exit 1
 fi
 
-printf $'==> 🚨 Linting mas (%s)\n' "$(script/version)"
+printf $'==> 🚨 Linting mas (%s)\n' "$(script/version --write)"
 
-for linter in git markdownlint periphery shellcheck shfmt swift-format swiftformat swiftlint; do
+for linter in git markdownlint periphery shellcheck shfmt swift-format swiftformat swiftlint yamllint; do
   if [[ ! -x "$(command -v ${linter})" ]]; then
     printf $'error: %s is not installed. Run \'script/bootstrap\' or \'brew install %s\'.\n' "${linter}" "${linter}"
     exit 1
@@ -62,6 +62,10 @@ markdownlint --config .markdownlint.json .github .
 
 printf -- $'--> 🌳 Git\n'
 PAGER='cat' git diff --check
+((exit_code |= "${?}"))
+
+printf -- $'--> 🖊 YAML\n'
+yamllint .
 ((exit_code |= "${?}"))
 
 printf -- $'--> 🌀 Periphery\n'

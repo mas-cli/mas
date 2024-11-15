@@ -19,7 +19,7 @@ fi
 
 printf $'==> 🚨 Formatting mas\n'
 
-for LINTER in markdownlint shfmt swift-format swiftformat swiftlint; do
+for LINTER in markdownlint prettier shfmt swift-format swiftformat swiftlint yamllint; do
   if [[ ! -x "$(command -v ${LINTER})" ]]; then
     printf $'error: %s is not installed. Run \'script/bootstrap\' or \'brew install %s\'.\n' "${LINTER}" "${LINTER}"
     exit 1
@@ -45,3 +45,7 @@ shfmt \
 
 printf -- $'--> 〽️ Markdown\n'
 markdownlint --config .markdownlint.json --fix .github .
+
+printf -- $'--> 🖊 YAML\n'
+# shellcheck disable=SC2046
+prettier --write $(yamllint --list-files .)

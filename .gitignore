@@ -27,15 +27,18 @@
 .fseventsd
 .idea/
 .rubygems/
+.secrets
 .swiftpm/
+.vscode/
 Carthage/
 DerivedData
 Pods/
+Sources/mas/Package.swift
+Sources/MasKit/Package.swift
 Temporary Items
 bin/
 build/
 default.profraw
+gha/
 releases/
 xcuserdata
-Sources/mas/Package.swift
-Sources/MasKit/Package.swift
