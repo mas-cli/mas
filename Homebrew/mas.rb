@@ -23,13 +23,8 @@ class Mas < Formula
     sha256 cellar: :any_skip_relocation, catalina:       "d241d3b9156b033f3d2c31684a44de726297e07fd9bd5e3ccc4c36e4f1c3baf3"
   end
 
+	depends_on xcode: ["14.2", :build]
   depends_on :macos
-  on_arm do
-    depends_on xcode: ["12.2", :build]
-  end
-  on_intel do
-    depends_on xcode: ["12.0", :build]
-  end
 
   def install
     system "script/build"
