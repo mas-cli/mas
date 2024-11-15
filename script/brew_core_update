@@ -4,7 +4,7 @@
 # mas
 #
 # Updates mas Homebrew core formula:
-# https://github.com/Homebrew/homebrew-core/blob/master/Formula/mas.rb
+# https://github.com/Homebrew/homebrew-core/blob/master/Formula/m/mas.rb
 #
 # brew bump-formula-pr --help
 #
