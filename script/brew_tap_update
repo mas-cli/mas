@@ -8,15 +8,14 @@
 #
 
 function usage {
-  echo "Usage: brew_tap_update [-d] v0.0 [sha1_hash]"
-  echo "  -d option enables dry run mode"
+  echo "Usage: brew_tap_update [<version_tag> [<sha1_hash>]]"
   echo "  version will be inferred using version script if not provided"
   echo "  sha will be inferred from the current commit if not provided"
   exit 1
 }
 
-# Max 3 arguments
-if [[ $# -gt 3 ]]; then
+# Max 2 arguments
+if [[ $# -gt 2 ]]; then
   usage 1>&2
 fi
 
