@@ -19,13 +19,12 @@ function usage {
   exit 1
 }
 
-frozen=''
-
 # Detect presence of `-f` frozen option
+frozen=
 while getopts "f" opt; do
   case "${opt}" in
     f)
-      frozen='-f'
+      frozen='--no-lock --no-upgrade'
       ;;
     *)
       usage 1>&2
@@ -35,15 +34,8 @@ done
 
 printf $'==> 👢 Bootstrapping (%s)\n' "$(script/version)"
 
-# Install Homebrew tools
-if [[ "${frozen}" == "-f" ]]; then
-  # --no-lock Don't touch Brewfile.lock.json
-  brew bundle install --no-lock --no-upgrade --verbose
-else
-  # Allow upgrades
-  rm -f Brewfile.lock.json
-  brew bundle install --verbose
-fi
+# shellcheck disable=SC2086
+brew bundle install ${frozen} --verbose
 
 mise settings set experimental true
 mise install --verbose
