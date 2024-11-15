@@ -22,7 +22,7 @@ if [[ "${#}" -ge 1 && "${1}" == '--universal' ]]; then
   )
 fi
 
-# Disable the manifest cache on Xcode 12.5 and later.
+# Disable the manifest cache.
 CACHE=()
 if [[ "$(swift build --help)" =~ manifest-cache ]]; then
   CACHE=(--manifest-cache none)
