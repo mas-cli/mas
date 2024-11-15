@@ -67,7 +67,7 @@ case "${CURRENT_OS_VERSION_MAJOR}" in
     CURRENT_PLATFORM=catalina
     ;;
   *)
-    echo "Unsupported macOS version. This script requires Catalina or better."
+    echo "Unsupported macOS version. This script requires Catalina or newer."
     exit 1
     ;;
 esac
