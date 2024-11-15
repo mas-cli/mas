@@ -149,8 +149,6 @@ if [[ $dry_run == '-d' ]]; then
   exit 0
 fi
 
-pushd "${CORE_TAP_PATH}"
-
 echo "Updating homebrew/core formula with a PR"
 
 brew bump-formula-pr \
@@ -162,5 +160,3 @@ brew bump-formula-pr \
   --no-browse \
   --fork-org mas-cli \
   mas
-
-popd
