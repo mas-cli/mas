@@ -28,14 +28,12 @@ if [[ $# -gt 3 ]]; then
   usage 1>&2
 fi
 
-echo=''
 dry_run=''
 
 # Detect presence of `-d` dry run option
 while getopts "d" o; do
   case "${o}" in
     d)
-      echo='echo (DRY-RUN):'
       dry_run='-d'
       ;;
     *)
@@ -48,7 +46,6 @@ shift $((OPTIND - 1))
 # DRY_RUN environment variable
 # shellcheck disable=SC2153
 if [[ $DRY_RUN == 'true' ]]; then
-  echo='echo (DRY-RUN):'
   dry_run='-d'
 fi
 
@@ -156,7 +153,7 @@ pushd "${CORE_TAP_PATH}"
 
 echo "Updating homebrew/core formula with a PR"
 
-$echo brew bump-formula-pr \
+brew bump-formula-pr \
   --tag="${MAS_VERSION}" \
   --revision="${REVISION}" \
   --strict \
