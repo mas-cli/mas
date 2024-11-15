@@ -18,6 +18,7 @@ jobs:
       mas_version: ${{ steps.mas_version.outputs.mas_version }}
       pre_release: ${{ steps.pre_release.outputs.pre_release }}
       release_branch: ${{ steps.release_branch.outputs.release_branch }}
+      tap_path: ${{ steps.tap_path.outputs.tap_path }}
     steps:
       # Logs event details and sets `DRY_RUN` env var
       # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
@@ -47,6 +48,10 @@ jobs:
       - id: release_branch
         run: |
           echo "RELEASE_BRANCH=releases/release-${{ github.event.release.tag_name }}" >>"$GITHUB_OUTPUT"
+
+      - id: tap_path
+        run: |
+          echo "TAP_PATH=\"$(brew --repo mas-cli/tap)\"" >>"$GITHUB_OUTPUT"
 
   prepare-release:
     runs-on: macos-15
@@ -148,11 +153,14 @@ jobs:
       # This is necessary to avoid the following error:
       # Error: No available formula or cask with the name "mas-cli/tap/mas".
       - name: 🚰 Checkout mas tap
+        env:
+          TAP_PATH: ${{ needs.start.outputs.tap_path }}
         run: |
-          rm -rf /opt/homebrew/Library/Taps
+          TAPS_PATH="$(realpath "$(brew --repo mas-cli/tap)/../..")"
+          rm -rf "${TAPS_PATH}"
           mkdir Taps
-          ln -s $(realpath Taps) /opt/homebrew/Library/Taps
-          ls -l /opt/homebrew/Library/Taps
+          ln -s "$(realpath Taps)" "${TAPS_PATH}"
+          ls -l "${TAPS_PATH}"
           brew tap mas-cli/tap
           brew tap
 
@@ -176,7 +184,7 @@ jobs:
           DRY_RUN: ${{ needs.start.outputs.dry_run }}
           RELEASE_BRANCH: ${{ needs.start.outputs.release_branch }}
           MAS_VERSION: ${{ needs.start.outputs.mas_version }}
-        working-directory: /opt/homebrew/Library/Taps/mas-cli/homebrew-tap
+        working-directory: ${{ needs.start.outputs.tap_path }}
         run: |
           git branch "${RELEASE_BRANCH}"
           git switch "${RELEASE_BRANCH}"
