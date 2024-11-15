@@ -60,12 +60,12 @@ printf -- $'--> 〽️ Markdown\n'
 markdownlint --config .markdownlint.json .github .
 ((exit_code |= "${?}"))
 
-printf -- $'--> 🌳 Git\n'
-PAGER='cat' git diff --check
+printf -- $'--> 📝 YAML\n'
+yamllint .
 ((exit_code |= "${?}"))
 
-printf -- $'--> 🖊 YAML\n'
-yamllint .
+printf -- $'--> 🌳 Git\n'
+PAGER='cat' git diff --check
 ((exit_code |= "${?}"))
 
 printf -- $'--> 🌀 Periphery\n'
