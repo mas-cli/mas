@@ -18,11 +18,8 @@ SWIFT_VERSION = 5.7.1
 # run swift build and see where the output executable is created
 
 # OS specific differences
-UNAME = ${shell uname}
-ARCH = ${shell uname -m}
-
-ifeq ($(UNAME), Darwin)
-PLATFORM = $(ARCH)-apple-macosx
+ifeq ($(shell uname), Darwin)
+PLATFORM = $(shell uname -m)-apple-macosx
 EXECUTABLE_DIRECTORY = ./.build/${PLATFORM}/debug
 endif
 
@@ -39,7 +36,7 @@ help: ## (default) Displays this message
 	@echo "mas Makefile"
 	@echo ""
 	@echo "Targets:"
-	@grep -E '^[a-zA-Z0-9_-]*:.*?##' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?##"}; {printf $(MAKEFILE_FMT), $$1, $$2}'
+	@grep -E '^[a-zA-Z0-9_-]*:.*?##' ${MAKEFILE_LIST} | awk 'BEGIN {FS = ":.*?##"}; {printf ${MAKEFILE_FMT}, $$1, $$2}'
 : # Hacky way to display a newline ##
 
 ################################################################################
@@ -56,8 +53,8 @@ version: ## Prints versions of tools used by this Makefile.
 
 .PHONY: init
 init: ## Installs tools.
-	- swiftenv install $(SWIFT_VERSION)
-	swiftenv local $(SWIFT_VERSION)
+	- swiftenv install ${SWIFT_VERSION}
+	swiftenv local ${SWIFT_VERSION}
 
 ################################################################################
 #
@@ -100,7 +97,7 @@ test: build ## Runs tests.
 # make run ARGS="asdf"
 .PHONY: run
 run: build
-	${EXECUTABLE_DIRECTORY}/${CMD_NAME} $(ARGS)
+	${EXECUTABLE_DIRECTORY}/${CMD_NAME} ${ARGS}
 
 .PHONY: update-headers
 update-headers: ## Updates private macOS headers.
@@ -138,7 +135,7 @@ build-universal: ## Builds a "fat" universal binary.
 
 .PHONY: install
 install: build ## Installs the binary.
-	script/install $(PREFIX)
+	script/install ${PREFIX}
 
 .PHONY: install-universal
 install-universal: build-universal ## Installs a universal binary.
