@@ -152,7 +152,7 @@ jobs:
       # must be run for Homebrew to see the dir as a tap.
       # This is necessary to avoid the following error:
       # Error: No available formula or cask with the name "mas-cli/tap/mas".
-      - name: 🚰 Checkout mas tap
+      - name: 🚰 Tap mas tap
         env:
           TAP_PATH: ${{ needs.start.outputs.tap_path }}
         run: |
@@ -160,9 +160,7 @@ jobs:
           rm -rf "${TAPS_PATH}"
           mkdir Taps
           ln -s "$(realpath Taps)" "${TAPS_PATH}"
-          ls -l "${TAPS_PATH}"
           brew tap mas-cli/tap
-          brew tap
 
       # Checkout with a token for write access
       - name: 🚰 Re-clone mas tap
@@ -170,7 +168,6 @@ jobs:
         with:
           repository: mas-cli/homebrew-tap
           token: ${{ secrets.DEPLOY_TOKEN }}
-          # brew --repository mas-cli/tap
           path: Taps/mas-cli/homebrew-tap
 
       - name: 🔧 Configure Git Author
