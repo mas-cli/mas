@@ -16,7 +16,7 @@ PROJECT_PATH="$(git rev-parse --show-toplevel)"
 LOCAL_MAS_FORMULA_PATH="${PROJECT_PATH}/Homebrew/mas.rb"
 
 function usage {
-  echo "Usage: brew_core_update [-d] v0.0 [sha1_hash]"
+  echo "Usage: brew_core_update [-d] [<version_tag> [<sha1_hash>]]"
   echo "  -d option enables dry run mode"
   echo "  version will be inferred using version script if not provided"
   echo "  sha will be inferred from the current commit if not provided"
