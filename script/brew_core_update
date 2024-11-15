@@ -141,7 +141,7 @@ brew bump-formula-pr \
 # brew exit status
 status=$?
 if [[ ${status} -ne 0 ]]; then
-  echo "Formula did not validate using 'brew bump-formula-pr'"
+  echo "Formula did not validate using 'brew bump-formula-pr'" 1>&2
   exit ${status}
 fi
 
