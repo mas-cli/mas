@@ -33,8 +33,6 @@ while getopts "f" opt; do
   esac
 done
 
-script/clean
-
 printf $'==> 👢 Bootstrapping (%s)\n' "$(script/version)"
 
 # Install Homebrew tools
