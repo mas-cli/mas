@@ -14,7 +14,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Danger
         # https://github.com/orgs/danger/packages/container/package/danger-swift
-        uses: docker://ghcr.io/danger/danger-swift:3.18.0
+        uses: docker://ghcr.io/danger/danger-swift:3.20.2
         with:
           args: --failOnErrors --no-publish-check
         env:
