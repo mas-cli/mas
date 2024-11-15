@@ -47,9 +47,6 @@ else
   brew bundle install --verbose
 fi
 
-if [[ ! -x "$(command -v mise)" ]]; then
-  brew install mise
-fi
 mise settings set experimental true
 mise install --verbose
 mise list --verbose
