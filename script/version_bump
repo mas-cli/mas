@@ -18,9 +18,9 @@ LOCAL_TAP_FORMULA_PATH=Homebrew/mas-tap.rb
 SWIFT_PACKAGE=Sources/mas/Package.swift
 
 function usage {
-  echo 'Usage: version_bump <version_tag> [<sha1_hash>]'
-  echo '  existing tag name'
-  echo '  sha will be inferred from the given tag if not provided'
+  echo 'Usage: version_bump <version_tag> [<sha1_hash>]' >&2
+  echo '  existing tag name' >&2
+  echo '  sha will be inferred from the given tag if not provided' >&2
   exit 1
 }
 
