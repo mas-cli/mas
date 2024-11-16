@@ -27,19 +27,19 @@ jobs:
         # This step will only run for a real 'release' event.
         if: ${{ github.event.release.name != '' }}
         run: |
-          echo "Triggered by a release publication event (wet run)"
-          echo "release.name: ${{ github.event.release.name }}"
-          echo "release.tag_name: ${{ github.event.release.tag_name }}"
-          echo "release.target_commitish: ${{ github.event.release.target_commitish }}"
-          echo -e "release.body: \n${{ github.event.release.body }}"
+          echo 'Triggered by a release publication event (wet run)'
+          echo 'release.name: ${{ github.event.release.name }}'
+          echo 'release.tag_name: ${{ github.event.release.tag_name }}'
+          echo 'release.target_commitish: ${{ github.event.release.target_commitish }}'
+          echo $'release.body: \n${{ github.event.release.body }}'
 
       - id: dry_run
         run: |
-          echo "DRY_RUN=false" >>"$GITHUB_OUTPUT"
+          echo DRY_RUN=false >>"${GITHUB_OUTPUT}"
 
       - id: mas_version
         run: |
-          echo "MAS_VERSION=${{ github.event.release.tag_name }}" >>"$GITHUB_OUTPUT"
+          echo 'MAS_VERSION=${{ github.event.release.tag_name }}' >>"${GITHUB_OUTPUT}"
 
       - id: pre_release
         run: |
@@ -47,11 +47,11 @@ jobs:
 
       - id: release_branch
         run: |
-          echo "RELEASE_BRANCH=releases/release-${{ github.event.release.tag_name }}" >>"$GITHUB_OUTPUT"
+          echo 'RELEASE_BRANCH=releases/release-${{ github.event.release.tag_name }}' >>"${GITHUB_OUTPUT}"
 
       - id: tap_path
         run: |
-          echo "TAP_PATH=\"$(brew --repo mas-cli/tap)\"" >>"$GITHUB_OUTPUT"
+          echo "TAP_PATH='$(brew --repo mas-cli/tap)'" >>"${GITHUB_OUTPUT}"
 
   prepare-release:
     runs-on: macos-15
@@ -90,9 +90,9 @@ jobs:
           RELEASE_BRANCH: ${{ needs.start.outputs.release_branch }}
         run: |
           git add \
-            "Homebrew/mas.rb" \
-            "Homebrew/mas-tap.rb" \
-            "Package.swift"
+            Homebrew/mas.rb \
+            Homebrew/mas-tap.rb \
+            Package.swift
           git commit \
             --message="🔖 Version ${MAS_VERSION}"
           git push \
