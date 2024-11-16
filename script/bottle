@@ -21,8 +21,7 @@ if ! cd -- "${mas_dir}"; then
   exit 1
 fi
 
-BUILD_DIR=.build
-BOTTLE_DIR="${BUILD_DIR}/bottles"
+BOTTLE_DIR=".build/bottles"
 CORE_TAP_PATH="$(brew --repo homebrew/core)"
 MAS_VERSION="$(script/version)"
 ROOT_URL="https://github.com/mas-cli/mas/releases/download/v${MAS_VERSION}"
@@ -46,15 +45,8 @@ OS_NAMES=(
   el_capitan
 )
 
-# Semantic version number split into a list using ugly, bash 3 compatible syntax
-IFS=' ' read -r -a CURRENT_OS_VERSION <<<"$(sw_vers -productVersion | sed 's/\./ /g')"
-CURRENT_OS_VERSION_MAJOR="${CURRENT_OS_VERSION[0]}"
-CURRENT_OS_VERSION_MINOR="${CURRENT_OS_VERSION[1]}"
-
-echo "CURRENT_OS_VERSION_MAJOR: ${CURRENT_OS_VERSION_MAJOR}"
-echo "CURRENT_OS_VERSION_MINOR: ${CURRENT_OS_VERSION_MINOR}"
-
-case "${CURRENT_OS_VERSION_MAJOR}" in
+macos_version="$(sw_vers -productVersion)"
+case "${macos_version%%.*}" in
   15)
     CURRENT_PLATFORM=sequoia
     ;;
