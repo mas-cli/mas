@@ -13,14 +13,14 @@ if ! cd -- "${mas_dir}"; then
   exit 1
 fi
 
-LOCAL_MAS_FORMULA_PATH="Homebrew/mas.rb"
-LOCAL_TAP_FORMULA_PATH="Homebrew/mas-tap.rb"
-SWIFT_PACKAGE="Sources/mas/Package.swift"
+LOCAL_MAS_FORMULA_PATH=Homebrew/mas.rb
+LOCAL_TAP_FORMULA_PATH=Homebrew/mas-tap.rb
+SWIFT_PACKAGE=Sources/mas/Package.swift
 
 function usage {
-  echo "Usage: version_bump <version_tag> [<sha1_hash>]"
-  echo "  existing tag name"
-  echo "  sha will be inferred from the given tag if not provided"
+  echo 'Usage: version_bump <version_tag> [<sha1_hash>]'
+  echo '  existing tag name'
+  echo '  sha will be inferred from the given tag if not provided'
   exit 1
 }
 

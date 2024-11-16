@@ -22,10 +22,10 @@ CORE_MAS_FORMULA_FILE="${CORE_TAP_PATH}/Formula/m/mas.rb"
 LOCAL_MAS_FORMULA_PATH=Homebrew/mas.rb
 
 function usage {
-  echo "Usage: brew_core_update [-d] [<version_tag> [<sha1_hash>]]"
-  echo "  -d option enables dry run mode"
-  echo "  version will be inferred using version script if not provided"
-  echo "  sha will be inferred from the current commit if not provided"
+  echo 'Usage: brew_core_update [-d] [<version_tag> [<sha1_hash>]]'
+  echo '  -d option enables dry run mode'
+  echo '  version will be inferred using version script if not provided'
+  echo '  sha will be inferred from the current commit if not provided'
   exit 1
 }
 
@@ -34,13 +34,13 @@ if [[ "${#}" -gt 3 ]]; then
   usage 1>&2
 fi
 
-dry_run=''
+dry_run=
 
 # Detect presence of `-d` dry run option
-while getopts "d" o; do
+while getopts 'd' o; do
   case "${o}" in
     d)
-      dry_run='-d'
+      dry_run=-d
       ;;
     *)
       usage 1>&2
@@ -52,7 +52,7 @@ shift "$((OPTIND - 1))"
 # DRY_RUN environment variable
 # shellcheck disable=SC2153
 if [[ "${DRY_RUN}" == 'true' ]]; then
-  dry_run='-d'
+  dry_run=-d
 fi
 
 # arg 1 - version tag
@@ -120,12 +120,12 @@ popd
 # Update Homebrew
 #
 
-# echo "Checking to see if this update can be a simple bump."
+# echo 'Checking to see if this update can be a simple bump.'
 # diff "${LOCAL_MAS_FORMULA_PATH}" "${CORE_MAS_FORMULA_FILE}"
 
 echo "==> 🧪 Updating homebrew-core formula mas (${MAS_VERSION}, ${REVISION})"
 
-echo "Validating formula"
+echo 'Validating formula'
 brew bump-formula-pr \
   --tag="${MAS_VERSION}" \
   --revision="${REVISION}" \
@@ -139,7 +139,7 @@ brew bump-formula-pr \
 # brew exit status
 status="${?}"
 if [[ "${status}" -ne 0 ]]; then
-  echo "Formula did not validate using 'brew bump-formula-pr'" 1>&2
+  echo $'Formula did not validate using \'brew bump-formula-pr\'' 1>&2
   exit "${status}"
 fi
 
@@ -147,7 +147,7 @@ if [[ "${dry_run}" == '-d' ]]; then
   exit 0
 fi
 
-echo "Updating homebrew/core formula with a PR"
+echo 'Updating homebrew/core formula with a PR'
 
 brew bump-formula-pr \
   --tag="${MAS_VERSION}" \
