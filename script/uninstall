@@ -7,11 +7,7 @@
 #
 
 # Override default prefix path with optional 1st arg
-if test -n "${1}"; then
-  PREFIX="${1}"
-else
-  PREFIX="$(brew --prefix)"
-fi
+PREFIX="${1:-"$(brew --prefix)"}"
 
 echo "==> 🔥 Uninstalling mas from ${PREFIX}"
 
