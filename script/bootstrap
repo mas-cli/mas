@@ -32,7 +32,7 @@ while getopts 'f' opt; do
   esac
 done
 
-printf $'==> 👢 Bootstrapping (%s)\n' "$(script/version)"
+printf $'==> 👢 Bootstrapping mas %s\n' "$(script/version)"
 
 # shellcheck disable=SC2086
 brew bundle install ${frozen} --verbose
