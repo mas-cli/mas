@@ -114,7 +114,7 @@ brew install --build-bottle mas-cli/tap/mas
 
 # Generate bottle do block, dropping last 2 lines
 brew bottle --verbose --no-rebuild --root-url="${ROOT_URL}" mas-cli/tap/mas
-if ! test -e "${OLD_FILENAME}"; then
+if [[ ! -e "${OLD_FILENAME}" ]]; then
   echo "Bottle not found: ${OLD_FILENAME}"
   echo "If an old version is showing in the log and filename, then make sure the formula has been updated in:"
   echo "${CORE_TAP_PATH}"

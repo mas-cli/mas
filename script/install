@@ -15,7 +15,7 @@ RELEASE=".build/${ARCH}-apple-macosx/release"
 MAS_VERSION="$(script/version)"
 PREFIX=/usr/local
 
-while test -n "${1}"; do
+while [[ -n "${1}" ]]; do
   if [[ "${1}" == '--universal' ]]; then
     ARCH=universal
     RELEASE=.build/release
