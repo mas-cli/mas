@@ -147,8 +147,7 @@ EOF
 
 # Fix filename
 for os in "${OS_NAMES[@]}"; do
-  new_filename="mas-${MAS_VERSION}.${os}.bottle.tar.gz"
-  cp -v "${OLD_FILENAME}" "${BOTTLE_DIR}/${new_filename}"
+  cp -v "${OLD_FILENAME}" "${BOTTLE_DIR}/mas-${MAS_VERSION}.${os}.bottle.tar.gz"
 
   # Append each os
   # BOTTLE_BLOCK="$(printf "${BOTTLE_BLOCK}\n  sha256 cellar: :any_skip_relocation, %-15s %s" "${os}:" "${SHA256}")"
