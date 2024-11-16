@@ -15,15 +15,15 @@ if ! cd -- "${mas_dir}"; then
 fi
 
 function usage {
-  echo 'Usage: brew_tap_update [<version_tag> [<sha1_hash>]]'
-  echo '  version will be inferred using version script if not provided'
-  echo '  sha will be inferred from the current commit if not provided'
+  echo 'Usage: brew_tap_update [<version_tag> [<sha1_hash>]]' >&2
+  echo '  version will be inferred using version script if not provided' >&2
+  echo '  sha will be inferred from the current commit if not provided' >&2
   exit 1
 }
 
 # Max 2 arguments
 if [[ "${#}" -gt 2 ]]; then
-  usage 1>&2
+  usage
 fi
 
 # arg 1 - version tag

@@ -14,8 +14,8 @@ if ! cd -- "${mas_dir}"; then
 fi
 
 function usage {
-  echo 'Usage: bootstrap [-f]'
-  echo '  -f option enables frozen mode'
+  echo 'Usage: bootstrap [-f]' >&2
+  echo '  -f option enables frozen mode' >&2
   exit 1
 }
 
@@ -27,7 +27,7 @@ while getopts 'f' opt; do
       frozen='--no-lock --no-upgrade'
       ;;
     *)
-      usage 1>&2
+      usage
       ;;
   esac
 done
