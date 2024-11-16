@@ -15,7 +15,7 @@ function usage {
 }
 
 # Max 2 arguments
-if [[ $# -gt 2 ]]; then
+if [[ "${#}" -gt 2 ]]; then
   usage 1>&2
 fi
 
@@ -33,7 +33,7 @@ if [[ -n "${2}" ]]; then
   REVISION="${2}"
 else
   # Derive revision from version. Fails if MAS_VERSION is not a tag.
-  REVISION=$(git rev-parse "${MAS_VERSION}")
+  REVISION="$(git rev-parse "${MAS_VERSION}")"
 fi
 
 echo "REVISION: ${REVISION}"
