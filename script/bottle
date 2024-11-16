@@ -76,33 +76,6 @@ if [[ "$(uname -m)" == 'arm64' ]]; then
   CURRENT_PLATFORM="arm64_${CURRENT_PLATFORM}"
 fi
 
-################################################################################
-#
-# Preflight checks
-#
-
-# # Uninstall if necessary
-# brew remove mas 2>/dev/null || true
-# brew remove mas-cli/tap/mas 2>/dev/null || true
-
-# # Uninstall if still found on path
-# if command -v mas >/dev/null; then
-#   script/uninstall || true
-# fi
-
-# Use formula from custom tap
-# brew tap mas-cli/tap
-# brew update
-
-# Audit formula
-brew audit --strict --verbose --formula --tap mas-cli/tap mas
-brew style Homebrew/mas-tap.rb
-
-################################################################################
-#
-# Build the formula for the current macOS version and architecture.
-#
-
 echo "==> 🍼 Bottling mas ${version} on ${CURRENT_PLATFORM} for ${OS_NAMES[*]}"
 brew install --build-bottle mas-cli/tap/mas
 
@@ -119,45 +92,10 @@ if [[ ! -e "${generated_bottle_filename}" ]]; then
   exit 1
 fi
 
-SHA256="$(shasum -a 256 "${generated_bottle_filename}" | cut -f 1 -d ' ' -)"
-
 mkdir -p "${BOTTLE_DIR}"
 
-# Start of bottle block
-BOTTLE_BLOCK="$(
-  cat <<-EOF
-bottle do
-  root_url "${ROOT_URL}"
-EOF
-)"
-
-################################################################################
-#
-# Copy the bottle for all macOS version + architecture combinations.
-#
-
-# Fix filename
 for os in "${OS_NAMES[@]}"; do
   cp -v "${generated_bottle_filename}" "${BOTTLE_DIR}/mas-${version}.${os}.bottle.tar.gz"
-
-  # Append each os
-  # BOTTLE_BLOCK="$(printf "${BOTTLE_BLOCK}\n  sha256 cellar: :any_skip_relocation, %-15s %s" "${os}:" "${SHA256}")"
-  BOTTLE_BLOCK="${BOTTLE_BLOCK}$(
-    cat <<-EOF
-
-    sha256 cellar: :any_skip_relocation, ${os}: "${SHA256}"
-EOF
-  )"
 done
 
-# End of bottle block
-BOTTLE_BLOCK="$(
-  cat <<-EOF
-
-end
-EOF
-)"
-
 rm "${generated_bottle_filename}"
-ls -l "${BOTTLE_DIR}"
-echo "${BOTTLE_BLOCK}"

@@ -19,7 +19,9 @@ if ! cd -- "${mas_dir}"; then
   exit 1
 fi
 
-printf $'==> 🚨 Linting mas %s\n' "$(script/version --write)"
+script/generate_version_info_for_swift
+
+printf $'==> 🚨 Linting mas %s\n' "$(script/version)"
 
 for linter in git markdownlint periphery shellcheck shfmt swift-format swiftformat swiftlint yamllint; do
   if [[ ! -x "$(command -v "${linter}")" ]]; then
