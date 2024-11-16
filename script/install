@@ -19,7 +19,6 @@ fi
 
 ARCH="$(uname -m)"
 RELEASE=".build/${ARCH}-apple-macosx/release"
-MAS_VERSION="$(script/version)"
 PREFIX=/usr/local
 
 while [[ -n "${1}" ]]; do
@@ -34,7 +33,7 @@ while [[ -n "${1}" ]]; do
   shift
 done
 
-echo "==> 📲 Installing mas (${MAS_VERSION}) for ${ARCH} to ${PREFIX}"
+echo "==> 📲 Installing mas $(script/version) for ${ARCH} to ${PREFIX}"
 ditto -v \
   "${RELEASE}/mas" \
   "${PREFIX}/bin/mas"

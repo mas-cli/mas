@@ -23,8 +23,8 @@ fi
 
 BOTTLE_DIR=".build/bottles"
 CORE_TAP_PATH="$(brew --repo homebrew/core)"
-MAS_VERSION="$(script/version)"
-ROOT_URL="https://github.com/mas-cli/mas/releases/download/v${MAS_VERSION}"
+version="$(script/version)"
+ROOT_URL="https://github.com/mas-cli/mas/releases/download/v${version}"
 
 # Supports macOS 10.13 and later
 OS_NAMES=(
@@ -76,8 +76,6 @@ if [[ "$(uname -m)" == 'arm64' ]]; then
   CURRENT_PLATFORM="arm64_${CURRENT_PLATFORM}"
 fi
 
-echo "CURRENT_PLATFORM: ${CURRENT_PLATFORM}"
-
 ################################################################################
 #
 # Preflight checks
@@ -105,14 +103,14 @@ brew style Homebrew/mas-tap.rb
 # Build the formula for the current macOS version and architecture.
 #
 
-echo "==> 🍼 Bottling mas ${MAS_VERSION} for: ${OS_NAMES[*]}"
+echo "==> 🍼 Bottling mas ${version} on ${CURRENT_PLATFORM} for ${OS_NAMES[*]}"
 brew install --build-bottle mas-cli/tap/mas
 
 # Generate bottle do block, dropping last 2 lines
 brew bottle --verbose --no-rebuild --root-url="${ROOT_URL}" mas-cli/tap/mas
 
 # Output filename from brew bottle
-generated_bottle_filename="mas--${MAS_VERSION}.${CURRENT_PLATFORM}.bottle.tar.gz"
+generated_bottle_filename="mas--${version}.${CURRENT_PLATFORM}.bottle.tar.gz"
 
 if [[ ! -e "${generated_bottle_filename}" ]]; then
   echo "Bottle not found: ${generated_bottle_filename}" >&2
@@ -140,7 +138,7 @@ EOF
 
 # Fix filename
 for os in "${OS_NAMES[@]}"; do
-  cp -v "${generated_bottle_filename}" "${BOTTLE_DIR}/mas-${MAS_VERSION}.${os}.bottle.tar.gz"
+  cp -v "${generated_bottle_filename}" "${BOTTLE_DIR}/mas-${version}.${os}.bottle.tar.gz"
 
   # Append each os
   # BOTTLE_BLOCK="$(printf "${BOTTLE_BLOCK}\n  sha256 cellar: :any_skip_relocation, %-15s %s" "${os}:" "${SHA256}")"

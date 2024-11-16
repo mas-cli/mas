@@ -13,9 +13,7 @@ if ! cd -- "${mas_dir}"; then
   exit 1
 fi
 
-MAS_VERSION="$(script/version)"
-
-echo "Building mas ${MAS_VERSION} artifacts"
+echo "==> 👑 Building mas $(script/version) artifacts"
 
 script/clean
 script/build --universal
