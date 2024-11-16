@@ -80,7 +80,7 @@ case "${CURRENT_OS_VERSION_MAJOR}" in
 esac
 
 # Prefix platform with architecture
-if [[ 'arm64' == "$(uname -m)" ]]; then
+if [[ "$(uname -m)" == 'arm64' ]]; then
   CURRENT_PLATFORM="arm64_${CURRENT_PLATFORM}"
 fi
 
