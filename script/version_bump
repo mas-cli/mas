@@ -32,11 +32,8 @@ fi
 MAS_VERSION="${1}"
 
 # arg 2 - revision (commit hash)
-if [[ "${#}" -ge 2 ]]; then
-  REVISION="${2}"
-else
-  REVISION="$(git rev-parse "${MAS_VERSION}")"
-fi
+# If arg 2 wasn't supplied or is empty, obtain revision from ${MAS_VERSION} version tag
+REVISION="${2:-"$(git rev-parse "${MAS_VERSION}")"}"
 
 echo "MAS_VERSION: ${MAS_VERSION}"
 echo "REVISION: ${REVISION}"

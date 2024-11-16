@@ -50,21 +50,13 @@ if [[ "${DRY_RUN}" == 'true' ]]; then
 fi
 
 # arg 1 - version tag
-if [[ -n "${1}" ]]; then
-  MAS_VERSION="${1}"
-else
-  MAS_VERSION="v$(script/version)"
-fi
+MAS_VERSION="${1:-"v$(script/version)"}"
 
 echo "MAS_VERSION: ${MAS_VERSION}"
 
 # arg 2 - revision (commit hash)
-if [[ -n "${2}" ]]; then
-  REVISION="${2}"
-else
-  # Derive revision from version. Fails if MAS_VERSION is not a tag.
-  REVISION="$(git rev-parse "${MAS_VERSION}")"
-fi
+# If arg 2 wasn't supplied or is empty, obtain revision from ${MAS_VERSION} version tag
+REVISION="${2:-"$(git rev-parse "${MAS_VERSION}")"}"
 
 echo "REVISION: ${REVISION}"
 
