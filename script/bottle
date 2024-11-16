@@ -74,7 +74,7 @@ case "${CURRENT_OS_VERSION_MAJOR}" in
     CURRENT_PLATFORM=catalina
     ;;
   *)
-    echo 'Unsupported macOS version. This script requires Catalina or newer.'
+    echo 'Unsupported macOS version. This script requires Catalina or newer.' >&2
     exit 1
     ;;
 esac
@@ -122,9 +122,9 @@ brew install --build-bottle mas-cli/tap/mas
 # Generate bottle do block, dropping last 2 lines
 brew bottle --verbose --no-rebuild --root-url="${ROOT_URL}" mas-cli/tap/mas
 if [[ ! -e "${OLD_FILENAME}" ]]; then
-  echo "Bottle not found: ${OLD_FILENAME}"
-  echo 'If an old version is showing in the log and filename, then make sure the formula has been updated in:'
-  echo "${CORE_TAP_PATH}"
+  echo "Bottle not found: ${OLD_FILENAME}" >&2
+  echo 'If an old version is showing in the log and filename, then make sure the formula has been updated in:' >&2
+  echo "${CORE_TAP_PATH}" >&2
   exit 1
 fi
 
