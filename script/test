@@ -13,6 +13,8 @@ if ! cd -- "${mas_dir}"; then
   exit 1
 fi
 
-printf $'==> ✅ Testing mas %s\n' "$(script/version --write)"
+script/generate_version_info_for_swift
+
+printf $'==> ✅ Testing mas %s\n' "$(script/version)"
 
 swift test

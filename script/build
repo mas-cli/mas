@@ -30,7 +30,9 @@ else
   CACHE=()
 fi
 
-echo "==> 🏗️ Building mas $(script/version --write)"
+script/generate_version_info_for_swift
+
+echo "==> 🏗️ Building mas $(script/version)"
 swift build \
   --configuration release \
   "${ARCH[@]+"${ARCH[@]}"}" \

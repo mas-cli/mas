@@ -17,7 +17,6 @@ jobs:
       dry_run: ${{ steps.dry_run.outputs.dry_run }}
       mas_version: ${{ steps.mas_version.outputs.mas_version }}
       pre_release: ${{ steps.pre_release.outputs.pre_release }}
-      release_branch: ${{ steps.release_branch.outputs.release_branch }}
       tap_path: ${{ steps.tap_path.outputs.tap_path }}
     steps:
       # Logs event details and sets `DRY_RUN` env var
@@ -45,68 +44,19 @@ jobs:
         run: |
           echo "PRE_RELEASE=$(grep -q '-' <<<"${MAS_VERSION}" && echo 'true' || echo 'false')" >>"${GITHUB_OUTPUT}"
 
-      - id: release_branch
-        run: |
-          echo 'RELEASE_BRANCH=releases/release-${{ github.event.release.tag_name }}' >>"${GITHUB_OUTPUT}"
-
       - id: tap_path
         run: |
           echo "TAP_PATH='$(brew --repo mas-cli/tap)'" >>"${GITHUB_OUTPUT}"
 
-  prepare-release:
-    runs-on: macos-15
-    needs: [start]
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          # A fetch-depth of 0 includes all history and tags for script/version
-          fetch-depth: 0
-
-      - name: 👢 Bootstrap
-        run: |
-          script/bootstrap -f
-
-      - name: 🔀 Create mas release branch
-        env:
-          RELEASE_BRANCH: ${{ needs.start.outputs.release_branch }}
-        run: |
-          git branch "${RELEASE_BRANCH}"
-          git switch "${RELEASE_BRANCH}"
-
-      - name: 🔖 Update version
-        env:
-          MAS_VERSION: ${{ needs.start.outputs.mas_version }}
-        run: |
-          script/generate_version_info_for_swift "${MAS_VERSION}"
-
-      - name: 🔧 Configure Git Author
-        run: |
-          git config --global user.name 'masclibot'
-          git config --global user.email 'masclibot@users.noreply.github.com'
-
-      - name: 💾 Commit changes
-        env:
-          MAS_VERSION: ${{ needs.start.outputs.mas_version }}
-          RELEASE_BRANCH: ${{ needs.start.outputs.release_branch }}
-        run: |
-          git add \
-            Homebrew/mas.rb \
-            Homebrew/mas-tap.rb \
-            Package.swift
-          git commit \
-            --message="🔖 Version ${MAS_VERSION}"
-          git push \
-            --set-upstream origin "${RELEASE_BRANCH}"
-
   pkg-installer:
     runs-on: macos-15
-    needs: [start, prepare-release]
+    needs: start
     steps:
       - uses: actions/checkout@v4
         with:
           # A fetch-depth of 0 includes all history and tags for script/version
           fetch-depth: 0
-          ref: ${{ needs.start.outputs.release_branch }}
+          ref: ${{ needs.start.outputs.mas_version }}
 
       - name: 👢 Bootstrap
         run: |
@@ -126,22 +76,21 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           DRY_RUN: ${{ needs.start.outputs.dry_run }}
-          MAS_VERSION: ${{ needs.start.outputs.mas_version }}
         if: ${{ needs.start.outputs.dry_run == 'false' }}
         run: |
-          gh release upload "${MAS_VERSION}" \
+          gh release upload '${{ needs.start.outputs.mas_version }}' \
             .build/mas.pkg
 
   homebrew-tap:
     runs-on: macos-15
-    needs: [start, prepare-release]
+    needs: start
     steps:
       - name: 📺 Checkout mas repo
         uses: actions/checkout@v4
         with:
           # A fetch-depth of 0 includes all history and tags for script/version
           fetch-depth: 0
-          ref: ${{ needs.start.outputs.release_branch }}
+          ref: ${{ needs.start.outputs.mas_version }}
 
       - name: 👢 Bootstrap
         run: |
@@ -179,60 +128,42 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
           DRY_RUN: ${{ needs.start.outputs.dry_run }}
-          RELEASE_BRANCH: ${{ needs.start.outputs.release_branch }}
-          MAS_VERSION: ${{ needs.start.outputs.mas_version }}
         working-directory: ${{ needs.start.outputs.tap_path }}
         run: |
-          git branch "${RELEASE_BRANCH}"
-          git switch "${RELEASE_BRANCH}"
-
-          cp -v \
-            "${GITHUB_WORKSPACE}/Homebrew/mas-tap.rb" \
-            Formula/mas.rb
-
-          git add Formula/mas.rb
-          git commit --message="🔖 Version ${MAS_VERSION}"
-
-          git push \
-            --set-upstream origin "${RELEASE_BRANCH}"
-
-          gh pr create \
-            --assignee phatblat \
-            --base main \
-            --head "${RELEASE_BRANCH}" \
-            --title "🔖 Version ${MAS_VERSION}" \
-            --body "This PR contains the changes from releasing version \
-              [${MAS_VERSION}](https://github.com/mas-cli/mas/releases/tag/${MAS_VERSION})."
+          brew bump-formula-pr \
+            --strict \
+            --online \
+            --tag '${{ needs.start.outputs.mas_version }}' \
+            --revision "$(git rev-list -n 1 '${{ needs.start.outputs.mas_version }}')" \
+            mas-cli/tap/mas
 
       - name: 🚰 Update mas tap formula
         env:
           GH_TOKEN: ${{ github.token }}
           DRY_RUN: ${{ needs.start.outputs.dry_run }}
-          MAS_VERSION: ${{ needs.start.outputs.mas_version }}
         run: |
           DRY_RUN="${DRY_RUN}" \
-            script/brew_tap_update "${MAS_VERSION}"
+            script/bottle
 
       - name: 🚀 Upload Bottles
         env:
           GH_TOKEN: ${{ github.token }}
           DRY_RUN: ${{ needs.start.outputs.dry_run }}
-          MAS_VERSION: ${{ needs.start.outputs.mas_version }}
         if: ${{ needs.start.outputs.dry_run == 'false' }}
         run: |
-          gh release upload "${MAS_VERSION}" \
+          gh release upload '${{ needs.start.outputs.mas_version }}' \
             .build/bottles/mas-*.bottle.tar.gz
 
   homebrew-core:
     runs-on: macos-15
-    needs: [start, prepare-release, homebrew-tap]
+    needs: [start, homebrew-tap]
     if: ${{ needs.start.outputs.pre_release == 'false' }}
     steps:
       - uses: actions/checkout@v4
         with:
           # A fetch-depth of 0 includes all history and tags for script/version
           fetch-depth: 0
-          ref: ${{ needs.start.outputs.release_branch }}
+          ref: ${{ needs.start.outputs.mas_version }}
 
       - name: 👢 Bootstrap
         run: |
@@ -248,7 +179,5 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.HOMEBREW_GITHUB_API_TOKEN }}
           DRY_RUN: ${{ needs.start.outputs.dry_run }}
-          MAS_VERSION: ${{ needs.start.outputs.mas_version }}
         run: |
-          DRY_RUN="${DRY_RUN}" \
-            script/brew_core_update "${MAS_VERSION}"
+          DRY_RUN="${DRY_RUN}" script/brew_core_update
