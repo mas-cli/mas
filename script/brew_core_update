@@ -24,7 +24,7 @@ function usage {
 }
 
 # Max 3 arguments
-if [[ $# -gt 3 ]]; then
+if [[ "${#}" -gt 3 ]]; then
   usage 1>&2
 fi
 
@@ -41,11 +41,11 @@ while getopts "d" o; do
       ;;
   esac
 done
-shift $((OPTIND - 1))
+shift "$((OPTIND - 1))"
 
 # DRY_RUN environment variable
 # shellcheck disable=SC2153
-if [[ $DRY_RUN == 'true' ]]; then
+if [[ "${DRY_RUN}" == 'true' ]]; then
   dry_run='-d'
 fi
 
@@ -63,7 +63,7 @@ if [[ -n "${2}" ]]; then
   REVISION="${2}"
 else
   # Derive revision from version. Fails if MAS_VERSION is not a tag.
-  REVISION=$(git rev-parse "${MAS_VERSION}")
+  REVISION="$(git rev-parse "${MAS_VERSION}")"
 fi
 
 echo "REVISION: ${REVISION}"
@@ -139,13 +139,13 @@ brew bump-formula-pr \
   mas
 
 # brew exit status
-status=$?
-if [[ ${status} -ne 0 ]]; then
+status="${?}"
+if [[ "${status}" -ne 0 ]]; then
   echo "Formula did not validate using 'brew bump-formula-pr'" 1>&2
-  exit ${status}
+  exit "${status}"
 fi
 
-if [[ $dry_run == '-d' ]]; then
+if [[ "${dry_run}" == '-d' ]]; then
   exit 0
 fi
 

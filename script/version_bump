@@ -24,7 +24,7 @@ function usage {
   exit 1
 }
 
-if [[ $# -lt 1 ]]; then
+if [[ "${#}" -lt 1 ]]; then
   usage
 fi
 
@@ -35,7 +35,7 @@ MAS_VERSION="${1}"
 if [[ "${#}" -ge 2 ]]; then
   REVISION="${2}"
 else
-  REVISION=$(git rev-parse "${MAS_VERSION}")
+  REVISION="$(git rev-parse "${MAS_VERSION}")"
 fi
 
 echo "MAS_VERSION: ${MAS_VERSION}"
@@ -53,7 +53,7 @@ echo
 cat "${SWIFT_PACKAGE}"
 
 # Write new version into brew formulae
-for file in ${LOCAL_MAS_FORMULA_PATH} ${LOCAL_TAP_FORMULA_PATH}; do
+for file in "${LOCAL_MAS_FORMULA_PATH}" "${LOCAL_TAP_FORMULA_PATH}"; do
   echo "${file}"
   sd '( +tag: +)"[^"]+"' "\$1\"${MAS_VERSION}\"" "${file}"
   sd '( +revision: +)"[^"]+"' "\$1\"${REVISION}\"" "${file}"
