@@ -2,38 +2,29 @@
 root = true
 
 [*]
-indent_style = space
-indent_size = 4
-end_of_line = lf
 charset = utf-8
-trim_trailing_whitespace = true
-insert_final_newline = true
-
-[script/*]
-indent_size = 2
-
-[*.{yml,yaml}]
-indent_size = 2
-
-# Use 2 spaces for Ruby files
-[{Podfile,Rakefile,script/*,*.{podspec,rb,yml}}]
-indent_size = 2
+end_of_line = lf
+indent_size = 4
 indent_style = space
-max_line_length = 80
+insert_final_newline = true
+trim_trailing_whitespace = true
 
-# Use tabs for property lists
-[*.plist]
-indent_style = tab
-
-# JSON files contain newlines inconsistently
 [*.json]
 indent_size = 2
-insert_final_newline = ignore
-
-# Makefiles always use tabs for indentation
-[Makefile]
-indent_style = tab
 
 # Trailing spaces have meaning in Markdown
 [*.md]
 trim_trailing_whitespace = false
+
+[*.plist]
+indent_style = tab
+
+[*.yml]
+indent_size = 2
+
+[Makefile]
+indent_style = tab
+
+[script/*]
+indent_size = 2
+max_line_length = 80
