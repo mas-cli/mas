@@ -86,9 +86,6 @@ fi
 
 echo "CURRENT_PLATFORM: ${CURRENT_PLATFORM}"
 
-# Output filename from build-bottle command
-OLD_FILENAME="mas--${MAS_VERSION}.${CURRENT_PLATFORM}.bottle.tar.gz"
-
 ################################################################################
 #
 # Preflight checks
@@ -121,14 +118,18 @@ brew install --build-bottle mas-cli/tap/mas
 
 # Generate bottle do block, dropping last 2 lines
 brew bottle --verbose --no-rebuild --root-url="${ROOT_URL}" mas-cli/tap/mas
-if [[ ! -e "${OLD_FILENAME}" ]]; then
-  echo "Bottle not found: ${OLD_FILENAME}" >&2
+
+# Output filename from brew bottle
+generated_bottle_filename="mas--${MAS_VERSION}.${CURRENT_PLATFORM}.bottle.tar.gz"
+
+if [[ ! -e "${generated_bottle_filename}" ]]; then
+  echo "Bottle not found: ${generated_bottle_filename}" >&2
   echo 'If an old version is showing in the log and filename, then make sure the formula has been updated in:' >&2
   echo "${CORE_TAP_PATH}" >&2
   exit 1
 fi
 
-SHA256="$(shasum -a 256 "${OLD_FILENAME}" | cut -f 1 -d ' ' -)"
+SHA256="$(shasum -a 256 "${generated_bottle_filename}" | cut -f 1 -d ' ' -)"
 
 mkdir -p "${BOTTLE_DIR}"
 
@@ -147,7 +148,7 @@ EOF
 
 # Fix filename
 for os in "${OS_NAMES[@]}"; do
-  cp -v "${OLD_FILENAME}" "${BOTTLE_DIR}/mas-${MAS_VERSION}.${os}.bottle.tar.gz"
+  cp -v "${generated_bottle_filename}" "${BOTTLE_DIR}/mas-${MAS_VERSION}.${os}.bottle.tar.gz"
 
   # Append each os
   # BOTTLE_BLOCK="$(printf "${BOTTLE_BLOCK}\n  sha256 cellar: :any_skip_relocation, %-15s %s" "${os}:" "${SHA256}")"
@@ -167,6 +168,6 @@ end
 EOF
 )"
 
-rm "${OLD_FILENAME}"
+rm "${generated_bottle_filename}"
 ls -l "${BOTTLE_DIR}"
 echo "${BOTTLE_BLOCK}"
