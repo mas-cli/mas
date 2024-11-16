@@ -17,9 +17,6 @@ if ! cd -- "${mas_dir}"; then
 fi
 
 CORE_TAP_PATH="$(brew --repo homebrew/core)"
-CORE_MAS_FORMULA_FILE="${CORE_TAP_PATH}/Formula/m/mas.rb"
-
-LOCAL_MAS_FORMULA_PATH=Homebrew/mas.rb
 
 function usage {
   echo 'Usage: brew_core_update [-d] [<version_tag> [<sha1_hash>]]'
@@ -93,7 +90,7 @@ brew update
 #
 
 # Update mas formula in core (temporary)
-cp -v "${LOCAL_MAS_FORMULA_PATH}" "${CORE_MAS_FORMULA_FILE}"
+cp -v Homebrew/mas.rb "${CORE_TAP_PATH}/Formula/m/mas.rb"
 
 # Install mas from source
 # HOMEBREW_NO_INSTALL_FROM_API:
@@ -119,9 +116,6 @@ popd
 #
 # Update Homebrew
 #
-
-# echo 'Checking to see if this update can be a simple bump.'
-# diff "${LOCAL_MAS_FORMULA_PATH}" "${CORE_MAS_FORMULA_FILE}"
 
 echo "==> 🧪 Updating homebrew-core formula mas (${MAS_VERSION}, ${REVISION})"
 
