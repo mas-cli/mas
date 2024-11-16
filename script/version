@@ -15,7 +15,7 @@ fi
 
 if [[ -z "${MAS_VERSION:-}" ]] && git describe >/dev/null 2>&1; then
   # Use last tag if MAS_VERSION environment variable is unset or empty
-  MAS_VERSION=$(git describe --abbrev=0 --tags 2>/dev/null || true)
+  MAS_VERSION="$(git describe --abbrev=0 --tags 2>/dev/null || true)"
 fi
 echo "${MAS_VERSION#v}"
 

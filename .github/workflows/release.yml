@@ -43,7 +43,7 @@ jobs:
 
       - id: pre_release
         run: |
-          echo "PRE_RELEASE=$(grep -q '-' <<<$MAS_VERSION && echo 'true' || echo 'false')" >>"$GITHUB_OUTPUT"
+          echo "PRE_RELEASE=$(grep -q '-' <<<"${MAS_VERSION}" && echo 'true' || echo 'false')" >>"${GITHUB_OUTPUT}"
 
       - id: release_branch
         run: |
@@ -129,7 +129,7 @@ jobs:
           MAS_VERSION: ${{ needs.start.outputs.mas_version }}
         if: ${{ needs.start.outputs.dry_run == 'false' }}
         run: |
-          gh release upload ${MAS_VERSION} \
+          gh release upload "${MAS_VERSION}" \
             .build/mas.pkg
 
   homebrew-tap:
@@ -187,7 +187,7 @@ jobs:
           git switch "${RELEASE_BRANCH}"
 
           cp -v \
-            ${GITHUB_WORKSPACE}/Homebrew/mas-tap.rb \
+            "${GITHUB_WORKSPACE}/Homebrew/mas-tap.rb" \
             Formula/mas.rb
 
           git add Formula/mas.rb
@@ -210,8 +210,8 @@ jobs:
           DRY_RUN: ${{ needs.start.outputs.dry_run }}
           MAS_VERSION: ${{ needs.start.outputs.mas_version }}
         run: |
-          DRY_RUN=${DRY_RUN} \
-            script/brew_tap_update ${MAS_VERSION}
+          DRY_RUN="${DRY_RUN}" \
+            script/brew_tap_update "${MAS_VERSION}"
 
       - name: 🚀 Upload Bottles
         env:
@@ -220,7 +220,7 @@ jobs:
           MAS_VERSION: ${{ needs.start.outputs.mas_version }}
         if: ${{ needs.start.outputs.dry_run == 'false' }}
         run: |
-          gh release upload ${MAS_VERSION} \
+          gh release upload "${MAS_VERSION}" \
             .build/bottles/mas-*.bottle.tar.gz
 
   homebrew-core:
@@ -250,5 +250,5 @@ jobs:
           DRY_RUN: ${{ needs.start.outputs.dry_run }}
           MAS_VERSION: ${{ needs.start.outputs.mas_version }}
         run: |
-          DRY_RUN=${DRY_RUN} \
-            script/brew_core_update ${MAS_VERSION}
+          DRY_RUN="${DRY_RUN}" \
+            script/brew_core_update "${MAS_VERSION}"
