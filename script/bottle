@@ -16,7 +16,7 @@
 
 BUILD_DIR="${PWD}/.build"
 BOTTLE_DIR="${BUILD_DIR}/bottles"
-CORE_TAP_PATH="$(brew --repository homebrew/core)"
+CORE_TAP_PATH="$(brew --repo homebrew/core)"
 MAS_VERSION=$(script/version)
 ROOT_URL="https://github.com/mas-cli/mas/releases/download/v${MAS_VERSION}"
 
@@ -121,7 +121,7 @@ if ! test -e "${OLD_FILENAME}"; then
   exit 1
 fi
 
-SHA256=$(shasum --algorithm 256 "${OLD_FILENAME}" | cut -f 1 -d ' ' -)
+SHA256=$(shasum -a 256 "${OLD_FILENAME}" | cut -f 1 -d ' ' -)
 
 mkdir -p "${BOTTLE_DIR}"
 
