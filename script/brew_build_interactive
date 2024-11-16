@@ -6,6 +6,13 @@
 # https://docs.brew.sh/Formula-Cookbook#check-the-build-system
 #
 
+mas_dir="$(readlink -fn "$(dirname "${BASH_SOURCE:-"${0}"}")/..")"
+
+if ! cd -- "${mas_dir}"; then
+  printf $'Error: Could not cd into mas directory: %s\n' "${mas_dir}" >&2
+  exit 1
+fi
+
 HOMEBREW_NO_INSTALL_FROM_API=1 \
   brew reinstall \
   --interactive mas
