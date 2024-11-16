@@ -14,18 +14,20 @@ if ! cd -- "${mas_dir}"; then
 fi
 
 # Build for the host architecture by default.
-ARCH=()
 if [[ "${#}" -ge 1 && "${1}" == '--universal' ]]; then
   ARCH=(
     --arch arm64
     --arch x86_64
   )
+else
+  ARCH=()
 fi
 
 # Disable the manifest cache.
-CACHE=()
 if [[ "$(swift build --help)" =~ manifest-cache ]]; then
   CACHE=(--manifest-cache none)
+else
+  CACHE=()
 fi
 
 echo "==> 🏗️ Building mas ($(script/version --write))"
