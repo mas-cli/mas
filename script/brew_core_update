@@ -19,16 +19,16 @@ fi
 CORE_TAP_PATH="$(brew --repo homebrew/core)"
 
 function usage {
-  echo 'Usage: brew_core_update [-d] [<version_tag> [<sha1_hash>]]'
-  echo '  -d option enables dry run mode'
-  echo '  version will be inferred using version script if not provided'
-  echo '  sha will be inferred from the current commit if not provided'
+  echo 'Usage: brew_core_update [-d] [<version_tag> [<sha1_hash>]]' >&2
+  echo '  -d option enables dry run mode' >&2
+  echo '  version will be inferred using version script if not provided' >&2
+  echo '  sha will be inferred from the current commit if not provided' >&2
   exit 1
 }
 
 # Max 3 arguments
 if [[ "${#}" -gt 3 ]]; then
-  usage 1>&2
+  usage
 fi
 
 dry_run=
@@ -40,7 +40,7 @@ while getopts 'd' o; do
       dry_run=-d
       ;;
     *)
-      usage 1>&2
+      usage
       ;;
   esac
 done
@@ -133,7 +133,7 @@ brew bump-formula-pr \
 # brew exit status
 status="${?}"
 if [[ "${status}" -ne 0 ]]; then
-  echo $'Formula did not validate using \'brew bump-formula-pr\'' 1>&2
+  echo $'Formula did not validate using \'brew bump-formula-pr\'' >&2
   exit "${status}"
 fi
 
