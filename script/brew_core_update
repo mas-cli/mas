@@ -9,11 +9,17 @@
 # brew bump-formula-pr --help
 #
 
+mas_dir="$(readlink -fn "$(dirname "${BASH_SOURCE:-"${0}"}")/..")"
+
+if ! cd -- "${mas_dir}"; then
+  printf $'Error: Could not cd into mas directory: %s\n' "${mas_dir}" >&2
+  exit 1
+fi
+
 CORE_TAP_PATH="$(brew --repo homebrew/core)"
 CORE_MAS_FORMULA_FILE="${CORE_TAP_PATH}/Formula/m/mas.rb"
 
-PROJECT_PATH="$(git rev-parse --show-toplevel)"
-LOCAL_MAS_FORMULA_PATH="${PROJECT_PATH}/Homebrew/mas.rb"
+LOCAL_MAS_FORMULA_PATH=Homebrew/mas.rb
 
 function usage {
   echo "Usage: brew_core_update [-d] [<version_tag> [<sha1_hash>]]"
