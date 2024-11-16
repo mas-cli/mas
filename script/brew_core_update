@@ -9,7 +9,7 @@
 # brew bump-formula-pr --help
 #
 
-CORE_TAP_PATH="$(brew --repository homebrew/core)"
+CORE_TAP_PATH="$(brew --repo homebrew/core)"
 CORE_MAS_FORMULA_FILE="${CORE_TAP_PATH}/Formula/m/mas.rb"
 
 PROJECT_PATH="$(git rev-parse --show-toplevel)"
