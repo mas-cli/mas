@@ -6,6 +6,13 @@
 # Runs class-dump to generate headers for Apple private frameworks.
 #
 
+mas_dir="$(readlink -fn "$(dirname "${BASH_SOURCE:-"${0}"}")/..")"
+
+if ! cd -- "${mas_dir}"; then
+  printf $'Error: Could not cd into mas directory: %s\n' "${mas_dir}" >&2
+  exit 1
+fi
+
 main() {
   check_class_dump
   extract_private_framework_headers "CommerceKit"

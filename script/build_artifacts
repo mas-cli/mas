@@ -6,6 +6,13 @@
 # Runs all related scripts for generating all artifacts.
 #
 
+mas_dir="$(readlink -fn "$(dirname "${BASH_SOURCE:-"${0}"}")/..")"
+
+if ! cd -- "${mas_dir}"; then
+  printf $'Error: Could not cd into mas directory: %s\n' "${mas_dir}" >&2
+  exit 1
+fi
+
 MAS_VERSION="$(script/version)"
 
 echo "Building mas ${MAS_VERSION} artifacts"

@@ -6,6 +6,13 @@
 # Removes mas from PREFIX.
 #
 
+mas_dir="$(readlink -fn "$(dirname "${BASH_SOURCE:-"${0}"}")/..")"
+
+if ! cd -- "${mas_dir}"; then
+  printf $'Error: Could not cd into mas directory: %s\n' "${mas_dir}" >&2
+  exit 1
+fi
+
 # Override default prefix path with optional 1st arg
 PREFIX="${1:-"$(brew --prefix)"}"
 

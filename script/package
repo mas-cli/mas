@@ -6,7 +6,14 @@
 # Builds macOS installer component and distribution packages.
 #
 
-BUILD_DIR="${PWD}/.build"
+mas_dir="$(readlink -fn "$(dirname "${BASH_SOURCE:-"${0}"}")/..")"
+
+if ! cd -- "${mas_dir}"; then
+  printf $'Error: Could not cd into mas directory: %s\n' "${mas_dir}" >&2
+  exit 1
+fi
+
+BUILD_DIR=.build
 COMPONENT_PACKAGE="${BUILD_DIR}/mas_components.pkg"
 DISTRIBUTION_PACKAGE="${BUILD_DIR}/mas.pkg"
 
@@ -17,7 +24,7 @@ IDENTIFIER="com.mphys.mas-cli"
 DISTRIBUTION_PLIST="Package/Distribution.plist"
 
 # Destination for install root
-DSTROOT=.build/distributions
+DSTROOT="${BUILD_DIR}/distributions"
 script/install "${DSTROOT}/usr/local" --universal
 
 MAS_VERSION="$(script/version)"

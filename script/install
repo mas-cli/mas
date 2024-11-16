@@ -10,6 +10,13 @@
 # https://github.com/Homebrew/homebrew-core/blob/master/Formula/m/mas.rb
 #
 
+mas_dir="$(readlink -fn "$(dirname "${BASH_SOURCE:-"${0}"}")/..")"
+
+if ! cd -- "${mas_dir}"; then
+  printf $'Error: Could not cd into mas directory: %s\n' "${mas_dir}" >&2
+  exit 1
+fi
+
 ARCH="$(uname -m)"
 RELEASE=".build/${ARCH}-apple-macosx/release"
 MAS_VERSION="$(script/version)"

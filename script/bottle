@@ -14,7 +14,14 @@
 # Variables
 #
 
-BUILD_DIR="${PWD}/.build"
+mas_dir="$(readlink -fn "$(dirname "${BASH_SOURCE:-"${0}"}")/..")"
+
+if ! cd -- "${mas_dir}"; then
+  printf $'Error: Could not cd into mas directory: %s\n' "${mas_dir}" >&2
+  exit 1
+fi
+
+BUILD_DIR=.build
 BOTTLE_DIR="${BUILD_DIR}/bottles"
 CORE_TAP_PATH="$(brew --repo homebrew/core)"
 MAS_VERSION="$(script/version)"

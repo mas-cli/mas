@@ -7,6 +7,13 @@
 # https://github.com/mas-cli/homebrew-tap/blob/main/Formula/mas.rb
 #
 
+mas_dir="$(readlink -fn "$(dirname "${BASH_SOURCE:-"${0}"}")/..")"
+
+if ! cd -- "${mas_dir}"; then
+  printf $'Error: Could not cd into mas directory: %s\n' "${mas_dir}" >&2
+  exit 1
+fi
+
 function usage {
   echo "Usage: brew_tap_update [<version_tag> [<sha1_hash>]]"
   echo "  version will be inferred using version script if not provided"
