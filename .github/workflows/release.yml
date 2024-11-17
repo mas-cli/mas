@@ -17,7 +17,6 @@ jobs:
       dry_run: ${{ steps.dry_run.outputs.dry_run }}
       mas_version: ${{ steps.mas_version.outputs.mas_version }}
       pre_release: ${{ steps.pre_release.outputs.pre_release }}
-      tap_path: ${{ steps.tap_path.outputs.tap_path }}
     steps:
       # Logs event details and sets `DRY_RUN` env var
       # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
@@ -43,10 +42,6 @@ jobs:
       - id: pre_release
         run: |
           echo "PRE_RELEASE=$(grep -q '-' <<<"${MAS_VERSION}" && echo 'true' || echo 'false')" >>"${GITHUB_OUTPUT}"
-
-      - id: tap_path
-        run: |
-          echo "TAP_PATH='$(brew --repo mas-cli/tap)'" >>"${GITHUB_OUTPUT}"
 
   pkg-installer:
     runs-on: macos-15
@@ -85,56 +80,19 @@ jobs:
     runs-on: macos-15
     needs: start
     steps:
-      - name: 📺 Checkout mas repo
-        uses: actions/checkout@v4
-        with:
-          # A fetch-depth of 0 includes all history and tags for script/version
-          fetch-depth: 0
-          ref: ${{ needs.start.outputs.mas_version }}
-
-      - name: 👢 Bootstrap
-        run: |
-          script/bootstrap -f
-
-      # The mas-cli/homebrew-tap repo needs to be checked out using the current
-      # GitHub credentials in order to open a PR. However, the `brew tap` command
-      # must be run for Homebrew to see the dir as a tap.
-      # This is necessary to avoid the following error:
-      # Error: No available formula or cask with the name "mas-cli/tap/mas".
-      - name: 🚰 Tap mas tap
+      - name: ⤴️ Bump mas tap formula
         env:
-          TAP_PATH: ${{ needs.start.outputs.tap_path }}
-        run: |
-          TAPS_PATH="$(realpath "$(brew --repo mas-cli/tap)/../..")"
-          rm -rf "${TAPS_PATH}"
-          mkdir Taps
-          ln -s "$(realpath Taps)" "${TAPS_PATH}"
-          brew tap mas-cli/tap
-
-      # Checkout with a token for write access
-      - name: 🚰 Re-clone mas tap
-        uses: actions/checkout@v4
-        with:
-          repository: mas-cli/homebrew-tap
-          token: ${{ secrets.DEPLOY_TOKEN }}
-          path: Taps/mas-cli/homebrew-tap
-
-      - name: 🔧 Configure Git Author
-        run: |
-          git config --global user.name 'masclibot'
-          git config --global user.email 'masclibot@users.noreply.github.com'
-
-      - name: ⤴️ Open mas tap PR
-        env:
-          GITHUB_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
           DRY_RUN: ${{ needs.start.outputs.dry_run }}
-        working-directory: ${{ needs.start.outputs.tap_path }}
+          HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.HOMEBREW_GITHUB_API_TOKEN }}
         run: |
           brew bump-formula-pr \
-            --strict \
-            --online \
             --tag '${{ needs.start.outputs.mas_version }}' \
             --revision "$(git rev-list -n 1 '${{ needs.start.outputs.mas_version }}')" \
+            --strict \
+            --verbose \
+            --online \
+            --no-browse \
+            ${{ needs.start.outputs.dry_run }} \
             mas-cli/tap/mas
 
   homebrew-core:
