@@ -5,7 +5,7 @@
 name: release
 defaults:
   run:
-    # Prefixes all `run` commands with the following command to force them to run outside Rosetta.
+    # Force all run commands to not use Rosetta 2
     shell: arch -arm64 /bin/bash --noprofile --norc -eo pipefail {0}
 on:
   release:
@@ -18,11 +18,8 @@ jobs:
       mas_version: ${{ steps.mas_version.outputs.mas_version }}
       pre_release: ${{ steps.pre_release.outputs.pre_release }}
     steps:
-      # Logs event details and sets `DRY_RUN` env var
-      # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
-      # https://docs.github.com/en/webhooks/webhook-events-and-payloads?actionType=published#release
       - name: 🔈 Log release event
-        # This step will only run for a real 'release' event.
+        # Run only for a real release event
         if: ${{ github.event.release.name != '' }}
         run: |
           echo 'Triggered by a release publication event (wet run)'
@@ -49,7 +46,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          # A fetch-depth of 0 includes all history and tags for script/version
+          # Include all history & tags for script/version
           fetch-depth: 0
           ref: ${{ needs.start.outputs.mas_version }}
 
@@ -57,8 +54,7 @@ jobs:
         run: |
           script/bootstrap -f
 
-      # Important to trigger a universal build first as package just works with
-      # the `mas` binary in finds in the build dir.
+      # Run a universal build to produce mas binary for package
       - name: 🏗️ Build Universal
         run: |
           script/build --universal
@@ -68,10 +64,9 @@ jobs:
           script/package
 
       - name: 🚀 Upload mas.pkg
+        if: ${{ needs.start.outputs.dry_run == 'false' }}
         env:
           GH_TOKEN: ${{ github.token }}
-          DRY_RUN: ${{ needs.start.outputs.dry_run }}
-        if: ${{ needs.start.outputs.dry_run == 'false' }}
         run: |
           gh release upload '${{ needs.start.outputs.mas_version }}' \
             .build/mas.pkg
@@ -82,7 +77,6 @@ jobs:
     steps:
       - name: ⤴️ Bump mas tap formula
         env:
-          DRY_RUN: ${{ needs.start.outputs.dry_run }}
           HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.HOMEBREW_GITHUB_API_TOKEN }}
         run: |
           brew bump-formula-pr \
@@ -96,13 +90,13 @@ jobs:
             mas-cli/tap/mas
 
   homebrew-core:
+    if: ${{ needs.start.outputs.pre_release == 'false' }}
     runs-on: macos-15
     needs: [start, homebrew-tap]
-    if: ${{ needs.start.outputs.pre_release == 'false' }}
     steps:
       - uses: actions/checkout@v4
         with:
-          # A fetch-depth of 0 includes all history and tags for script/version
+          # Include all history & tags for script/version
           fetch-depth: 0
           ref: ${{ needs.start.outputs.mas_version }}
 
@@ -113,6 +107,5 @@ jobs:
       - name: 🍺 Update homebrew-core mas formula
         env:
           HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.HOMEBREW_GITHUB_API_TOKEN }}
-          DRY_RUN: ${{ needs.start.outputs.dry_run }}
         run: |
-          script/brew_core_update
+          script/brew_core_update ${{ needs.start.outputs.dry_run }}

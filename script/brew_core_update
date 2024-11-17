@@ -42,12 +42,6 @@ while getopts 'd' o; do
 done
 shift "$((OPTIND - 1))"
 
-# DRY_RUN environment variable
-# shellcheck disable=SC2153
-if [[ "${DRY_RUN}" == 'true' ]]; then
-  dry_run=--dry-run
-fi
-
 version_tag="v$(script/version)"
 revision="$(git rev-parse "${version_tag}")"
 
