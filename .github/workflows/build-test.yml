@@ -1,7 +1,6 @@
 #
 # .github/workflows/build-test.yml
 #
-# https://docs.github.com/en/actions/reference/environment-variables#default-environment-variables
 ---
 name: Build, Test, and Lint
 
