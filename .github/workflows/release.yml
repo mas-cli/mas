@@ -77,7 +77,7 @@ jobs:
         env:
           MAS_VERSION: ${{ needs.start.outputs.mas_version }}
         run: |
-          script/version_bump "${MAS_VERSION}"
+          script/generate_version_info_for_swift "${MAS_VERSION}"
 
       - name: 🔧 Configure Git Author
         run: |
