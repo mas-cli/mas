@@ -14,19 +14,19 @@ jobs:
   start:
     runs-on: macos-15
     outputs:
-      dry_run: ${{ steps.dry_run.outputs.dry_run }}
-      mas_version: ${{ steps.mas_version.outputs.mas_version }}
-      pre_release: ${{ steps.pre_release.outputs.pre_release }}
+      dry_run: ${{steps.dry_run.outputs.dry_run}}
+      mas_version: ${{steps.mas_version.outputs.mas_version}}
+      pre_release: ${{steps.pre_release.outputs.pre_release}}
     steps:
       - name: 🔈 Log release event
         # Run only for a real release event
-        if: ${{ github.event.release.name != '' }}
+        if: ${{github.event.release.name != ''}}
         run: |
           echo 'Triggered by a release publication event (wet run)'
-          echo 'release.name: ${{ github.event.release.name }}'
-          echo 'release.tag_name: ${{ github.event.release.tag_name }}'
-          echo 'release.target_commitish: ${{ github.event.release.target_commitish }}'
-          echo $'release.body: \n${{ github.event.release.body }}'
+          echo 'release.name: ${{github.event.release.name}}'
+          echo 'release.tag_name: ${{github.event.release.tag_name}}'
+          echo 'release.target_commitish: ${{github.event.release.target_commitish}}'
+          echo $'release.body: \n${{github.event.release.body}}'
 
       - id: dry_run
         run: |
@@ -34,7 +34,7 @@ jobs:
 
       - id: mas_version
         run: |
-          echo 'MAS_VERSION=${{ github.event.release.tag_name }}' >>"${GITHUB_OUTPUT}"
+          echo 'MAS_VERSION=${{github.event.release.tag_name}}' >>"${GITHUB_OUTPUT}"
 
       - id: pre_release
         run: |
@@ -48,7 +48,7 @@ jobs:
         with:
           # Include all history & tags for script/version
           fetch-depth: 0
-          ref: ${{ needs.start.outputs.mas_version }}
+          ref: ${{needs.start.outputs.mas_version}}
 
       - name: 👢 Bootstrap
         run: |
@@ -64,11 +64,11 @@ jobs:
           script/package
 
       - name: 🚀 Upload mas.pkg
-        if: ${{ needs.start.outputs.dry_run == 'false' }}
+        if: ${{needs.start.outputs.dry_run == 'false'}}
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{github.token}}
         run: |
-          gh release upload '${{ needs.start.outputs.mas_version }}' \
+          gh release upload '${{needs.start.outputs.mas_version}}' \
             .build/mas.pkg
 
   homebrew-tap:
@@ -77,20 +77,20 @@ jobs:
     steps:
       - name: ⤴️ Bump mas tap formula
         env:
-          HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.HOMEBREW_GITHUB_API_TOKEN }}
+          HOMEBREW_GITHUB_API_TOKEN: ${{secrets.HOMEBREW_GITHUB_API_TOKEN}}
         run: |
           brew bump-formula-pr \
-            --tag '${{ needs.start.outputs.mas_version }}' \
-            --revision "$(git rev-list -n 1 '${{ needs.start.outputs.mas_version }}')" \
+            --tag '${{needs.start.outputs.mas_version}}' \
+            --revision "$(git rev-list -n 1 '${{needs.start.outputs.mas_version}}')" \
             --strict \
             --verbose \
             --online \
             --no-browse \
-            ${{ needs.start.outputs.dry_run }} \
+            ${{needs.start.outputs.dry_run}} \
             mas-cli/tap/mas
 
   homebrew-core:
-    if: ${{ needs.start.outputs.pre_release == 'false' }}
+    if: ${{needs.start.outputs.pre_release == 'false'}}
     runs-on: macos-15
     needs: [start, homebrew-tap]
     steps:
@@ -98,7 +98,7 @@ jobs:
         with:
           # Include all history & tags for script/version
           fetch-depth: 0
-          ref: ${{ needs.start.outputs.mas_version }}
+          ref: ${{needs.start.outputs.mas_version}}
 
       - name: 👢 Bootstrap
         run: |
@@ -106,6 +106,6 @@ jobs:
 
       - name: 🍺 Update homebrew-core mas formula
         env:
-          HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.HOMEBREW_GITHUB_API_TOKEN }}
+          HOMEBREW_GITHUB_API_TOKEN: ${{secrets.HOMEBREW_GITHUB_API_TOKEN}}
         run: |
-          script/brew_core_update ${{ needs.start.outputs.dry_run }}
+          script/brew_core_update ${{needs.start.outputs.dry_run}}
