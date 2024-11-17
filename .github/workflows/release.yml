@@ -110,15 +110,9 @@ jobs:
         run: |
           script/bootstrap -f
 
-      - name: 🔧 Configure Git Author
-        run: |
-          git config --global user.name 'masclibot'
-          git config --global user.email 'masclibot@users.noreply.github.com'
-
-      - name: 🍺 Update Homebrew mas formula
+      - name: 🍺 Update homebrew-core mas formula
         env:
-          GH_TOKEN: ${{ github.token }}
           HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.HOMEBREW_GITHUB_API_TOKEN }}
           DRY_RUN: ${{ needs.start.outputs.dry_run }}
         run: |
-          DRY_RUN="${DRY_RUN}" script/brew_core_update
+          script/brew_core_update
