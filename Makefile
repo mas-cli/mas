@@ -153,10 +153,6 @@ package: build ## Packages the project.
 package-install: package ## Installs the package.
 	script/package_install
 
-.PHONY: bottle
-bottle: ## Builds Homebrew bottles.
-	script/bottle
-
 .PHONY: brew_release_validate
 brew_release_validate: ## Validates Homebrew mas formula.
 	script/brew_release_validate
