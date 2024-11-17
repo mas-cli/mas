@@ -54,11 +54,11 @@ revision="$(git rev-parse "${version_tag}")"
 echo "==> 🧪 Updating mas homebrew-core formula to version tag ${version_tag} @ revision ${revision}"
 
 brew bump-formula-pr \
-  --tag="${version_tag}" \
-  --revision="${revision}" \
+  --tag "${version_tag}" \
+  --revision "${revision}" \
   --strict \
-  --verbose \
   --online \
+  --verbose \
   --no-browse \
   --fork-org mas-cli \
   ${dry_run} \
