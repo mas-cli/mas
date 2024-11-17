@@ -38,7 +38,7 @@ jobs:
 
       - id: pre_release
         run: |
-          echo "PRE_RELEASE=$(grep -q '-' <<<"${MAS_VERSION}" && echo 'true' || echo 'false')" >>"${GITHUB_OUTPUT}"
+          echo "PRE_RELEASE=$([[ "${MAS_VERSION}" == *-* ]] && echo true || echo false)" >>"${GITHUB_OUTPUT}"
 
   pkg-installer:
     runs-on: macos-15
