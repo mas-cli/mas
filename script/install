@@ -3,10 +3,11 @@
 # script/install
 # mas
 #
-# Installs mas into PREFIX.
+# Install mas into a bin folder under a prefix folder, defaulting to /usr/local.
 #
-# NOTE: This script is called by the mas Homebrew formula so it has only system
-# dependencies aside from Swift.
+# NOTE: This script is run by the mas Homebrew formula, so, aside from Swift, it
+# may only depend on system dependencies.
+#
 # https://github.com/Homebrew/homebrew-core/blob/master/Formula/m/mas.rb
 #
 
@@ -17,23 +18,22 @@ if ! cd -- "${mas_dir}"; then
   exit 1
 fi
 
-ARCH="$(uname -m)"
-RELEASE=".build/${ARCH}-apple-macosx/release"
-PREFIX=/usr/local
+arch="$(uname -m)"
+release=".build/${arch}-apple-macosx/release"
+prefix=/usr/local
 
 while [[ -n "${1}" ]]; do
   if [[ "${1}" == '--universal' ]]; then
-    ARCH=universal
-    RELEASE=.build/release
+    arch=universal
+    release=.build/apple/Products/Release
   else
-    # Override default prefix path with optional arg
-    PREFIX="${1}"
+    prefix="${1}"
   fi
 
   shift
 done
 
-echo "==> 📲 Installing mas $(script/version) for ${ARCH} to ${PREFIX}"
-ditto -v \
-  "${RELEASE}/mas" \
-  "${PREFIX}/bin/mas"
+printf $'==> 📲 Installing mas %s for %s to %s\n' \
+  "$(script/version)" "${arch}" "${prefix}"
+
+ditto -v "${release}/mas" "${prefix}/bin/mas"

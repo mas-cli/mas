@@ -139,7 +139,7 @@ install: build ## Installs the binary.
 
 .PHONY: install-universal
 install-universal: build-universal ## Installs a universal binary.
-	script/install --universal
+	script/install --universal ${PREFIX}
 
 .PHONY: uninstall
 uninstall: ## Uninstalls the binary.
