@@ -22,12 +22,12 @@ function usage {
 # Detect presence of `-f` frozen option
 while getopts 'f' opt; do
   case "${opt}" in
-    f)
-      frozen='--no-lock --no-upgrade'
-      ;;
-    *)
-      usage
-      ;;
+  f)
+    frozen='--no-lock --no-upgrade'
+    ;;
+  *)
+    usage
+    ;;
   esac
 done
 
