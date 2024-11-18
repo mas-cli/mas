@@ -28,9 +28,10 @@ jobs:
           echo $'release.body: \n${{github.event.release.body}}'
 
       - id: pre_release
+        env:
+          RELEASE_TAG: ${{github.event.release.tag_name}}
         run: |
-          printf $'PRE_RELEASE=%s\n' "$([[ '${{github.event.release.tag_name}}' == *-* ]] && echo true || echo false)" \
-            >>"${GITHUB_OUTPUT}"
+          printf $'PRE_RELEASE=%s\n' "$([[ "${RELEASE_TAG}" == *-* ]] && echo true || echo false)" >>"${GITHUB_OUTPUT}"
 
   pkg-installer:
     runs-on: macos-15
@@ -59,8 +60,9 @@ jobs:
         if: ${{!needs.start.outputs.dry_run}}
         env:
           GH_TOKEN: ${{github.token}}
+          RELEASE_TAG: ${{github.event.release.tag_name}}
         run: |
-          gh release upload '${{github.event.release.tag_name}}' .build/mas.pkg
+          gh release upload "${RELEASE_TAG}" .build/mas.pkg
 
   homebrew-tap:
     runs-on: macos-15
@@ -75,11 +77,12 @@ jobs:
       - name: ⤴️ Bump mas tap formula
         env:
           HOMEBREW_GITHUB_API_TOKEN: ${{secrets.HOMEBREW_GITHUB_API_TOKEN}}
+          RELEASE_TAG: ${{github.event.release.tag_name}}
         run: |
           brew tap mas-cli/tap
           brew bump-formula-pr \
-            --tag '${{github.event.release.tag_name}}' \
-            --revision "$(git rev-list -n 1 '${{github.event.release.tag_name}}')" \
+            --tag "${RELEASE_TAG}" \
+            --revision "$(git rev-list -n 1 "${RELEASE_TAG}")" \
             --no-fork \
             --no-browse \
             --online \
