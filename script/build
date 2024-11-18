@@ -15,19 +15,19 @@ fi
 
 # Build for the host architecture by default.
 if [[ "${#}" -ge 1 && "${1}" == '--universal' ]]; then
-  ARCH=(
+  arch=(
     --arch arm64
     --arch x86_64
   )
 else
-  ARCH=()
+  arch=()
 fi
 
 # Disable the manifest cache.
 if [[ "$(swift build --help)" =~ manifest-cache ]]; then
-  CACHE=(--manifest-cache none)
+  cache=(--manifest-cache none)
 else
-  CACHE=()
+  cache=()
 fi
 
 script/generate_version_info_for_swift
@@ -35,6 +35,6 @@ script/generate_version_info_for_swift
 echo "==> 🏗️ Building mas $(script/version)"
 swift build \
   --configuration release \
-  "${ARCH[@]+"${ARCH[@]}"}" \
+  "${arch[@]+"${arch[@]}"}" \
   --disable-sandbox \
-  "${CACHE[@]+"${CACHE[@]}"}"
+  "${cache[@]+"${cache[@]}"}"

@@ -19,20 +19,20 @@ fi
 
 printf $'==> 🚨 Formatting mas\n'
 
-for LINTER in markdownlint prettier shfmt swift-format swiftformat swiftlint yamllint; do
-  if [[ ! -x "$(command -v "${LINTER}")" ]]; then
-    printf $'error: %s is not installed. Run \'script/bootstrap\' or \'brew install %s\'.\n' "${LINTER}" "${LINTER}" >&2
+for linter in markdownlint prettier shfmt swift-format swiftformat swiftlint yamllint; do
+  if [[ ! -x "$(command -v "${linter}")" ]]; then
+    printf $'error: %s is not installed. Run \'script/bootstrap\' or \'brew install %s\'.\n' "${linter}" "${linter}" >&2
     exit 1
   fi
 done
 
-for SOURCE in Package.swift Sources Tests; do
-  printf -- $'--> 🕊  %s swift-format\n' "${SOURCE}"
-  swift-format format --in-place --recursive "${SOURCE}"
-  printf -- $'--> 🕊  %s swiftformat\n' "${SOURCE}"
-  swiftformat "${SOURCE}"
-  printf -- $'--> 🕊  %s swiftlint\n' "${SOURCE}"
-  swiftlint --fix --strict "${SOURCE}"
+for source in Package.swift Sources Tests; do
+  printf -- $'--> 🕊  %s swift-format\n' "${source}"
+  swift-format format --in-place --recursive "${source}"
+  printf -- $'--> 🕊  %s swiftformat\n' "${source}"
+  swiftformat "${source}"
+  printf -- $'--> 🕊  %s swiftlint\n' "${source}"
+  swiftlint --fix --strict "${source}"
 done
 
 printf -- $'--> 📜 Bash shfmt\n'
