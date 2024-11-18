@@ -32,12 +32,12 @@ dry_run=
 # Detect presence of `-d` dry run option
 while getopts 'd' o; do
   case "${o}" in
-    d)
-      dry_run=--dry-run
-      ;;
-    *)
-      usage
-      ;;
+  d)
+    dry_run=--dry-run
+    ;;
+  *)
+    usage
+    ;;
   esac
 done
 shift "$((OPTIND - 1))"
