@@ -23,12 +23,12 @@ function usage {
 frozen=
 while getopts 'f' opt; do
   case "${opt}" in
-    f)
-      frozen='--no-lock --no-upgrade'
-      ;;
-    *)
-      usage
-      ;;
+  f)
+    frozen='--no-lock --no-upgrade'
+    ;;
+  *)
+    usage
+    ;;
   esac
 done
 

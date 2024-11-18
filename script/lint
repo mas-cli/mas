@@ -54,7 +54,6 @@ shfmt \
   --diff \
   --list \
   --indent 2 \
-  --case-indent \
   contrib/ script/
 ((exit_code |= "${?}"))
 
