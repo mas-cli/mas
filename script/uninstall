@@ -3,7 +3,7 @@
 # script/uninstall
 # mas
 #
-# Removes mas from PREFIX.
+# Removes mas from a bin folder under a prefix folder, defaulting to /usr/local.
 #
 
 mas_dir="$(readlink -fn "$(dirname "${BASH_SOURCE:-"${0}"}")/..")"
@@ -14,8 +14,8 @@ if ! cd -- "${mas_dir}"; then
 fi
 
 # Override default prefix path with optional 1st arg
-PREFIX="${1:-"$(brew --prefix)"}"
+prefix="${1:-"$(brew --prefix)"}"
 
-echo "==> 🔥 Uninstalling mas from ${PREFIX}"
+echo "==> 🔥 Uninstalling mas from ${prefix}"
 
-trash -F "${PREFIX}/bin/mas" || true
+trash -F "${prefix}/bin/mas" || true

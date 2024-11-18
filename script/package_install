@@ -13,7 +13,7 @@ if ! cd -- "${mas_dir}"; then
   exit 1
 fi
 
-IDENTIFIER=com.mphys.mas-cli
+identifier=com.mphys.mas-cli
 
 echo '==> 📲 Installing mas'
 
@@ -21,6 +21,6 @@ sudo installer \
   -pkg .build/mas.pkg \
   -target /
 
-pkgutil --pkg-info "${IDENTIFIER}"
+pkgutil --pkg-info "${identifier}"
 
-pkgutil --files "${IDENTIFIER}"
+pkgutil --files "${identifier}"
