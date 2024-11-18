@@ -13,5 +13,5 @@ rules:
   truthy:
     allowed-values: ["true", "false"]
     check-keys: false
-    # Disables false positives on GHA workflow `on:`
+    # Disable false positives on GHA workflow `on:`
     level: warning

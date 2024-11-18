@@ -4,11 +4,11 @@
 
 A command-line interface for the Mac App Store. Designed for scripting and automation.
 
-[![GitHub Release](https://img.shields.io/github/release/mas-cli/mas.svg)](https://github.com/mas-cli/mas/releases)
+[![GitHub Release](https://img.shields.io/github/v/release/mas-cli/mas.svg)](https://github.com/mas-cli/mas/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](
     https://github.com/mas-cli/mas/blob/main/LICENSE
 )
-[![Swift 5](https://img.shields.io/badge/Language-Swift_5-orange.svg)](https://swift.org)
+[![Swift 5](https://img.shields.io/badge/Language-Swift_5-orange.svg)](https://www.swift.org)
 [![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 [![Build, Test, & Lint](https://github.com/mas-cli/mas/actions/workflows/build-test.yml/badge.svg?branch=main)](
     https://github.com/mas-cli/mas/actions/workflows/build-test.yml?query=branch%3Amain
@@ -18,7 +18,7 @@ A command-line interface for the Mac App Store. Designed for scripting and autom
 
 ### 🍺 Homebrew
 
-[Homebrew](http://brew.sh) is the preferred way to install:
+[Homebrew](https://brew.sh) is the preferred way to install:
 
 ```shell
 brew install mas
@@ -63,7 +63,7 @@ Without it, running mas might report errors similar to:
 To get Swift 5 support on macOS versions older than 10.14.4 (Mojave), you can:
 
 - Upgrade to macOS 10.14.4 (Mojave) or newer.
-- Install the [Swift 5 Runtime Support for Command Line Tools](https://support.apple.com/kb/DL1998).
+- Install the [Swift 5 Runtime Support for Command Line Tools](https://support.apple.com/en-us/106446).
 - Install Xcode 10.2 or newer to `/Applications/Xcode.app`.
 
 ## 🤳🏻 Usage
@@ -80,8 +80,7 @@ Alternatively, to find an app's app ID:
 1. Find the app in the Mac App Store
 2. Select `Share` > `Copy Link`
 3. Extract the app ID from the URL. e.g., the Mac App Store URL for Xcode,
-   [https://apps.apple.com/us/app/xcode/id497799835?mt=12](https://apps.apple.com/us/app/xcode/id497799835?mt=12),
-   has app ID `497799835`
+   <https://apps.apple.com/us/app/xcode/id497799835?mt=12>, has app ID `497799835`
 
 ### 🛍 Info from the Mac App Store
 
@@ -343,5 +342,5 @@ mas was created by [@argon](https://github.com/argon).
 Code is under the [MIT license](LICENSE).
 
 [homebrew-bundle]: https://github.com/Homebrew/homebrew-bundle
-[`softwareupdate(8)`]: https://www.unix.com/man-page/osx/8/softwareupdate/
+[`softwareupdate(8)`]: https://www.unix.com/man-page/osx/8/softwareupdate
 [Quick]: https://github.com/Quick/Quick
