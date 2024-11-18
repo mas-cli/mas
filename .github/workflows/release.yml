@@ -19,7 +19,7 @@ jobs:
       dry_run: ""
       pre_release: ${{steps.pre_release.outputs.pre_release}}
     steps:
-      - name: 🔈 Log release event
+      - name: 🔈 Log real release event
         # Run only for a real release event
         if: ${{github.event.release.name != ''}}
         run: |
@@ -37,7 +37,8 @@ jobs:
     runs-on: macos-15
     needs: start
     steps:
-      - uses: actions/checkout@v4
+      - name: 📺 Checkout mas repo
+        uses: actions/checkout@v4
         with:
           # Include all history & tags for script/version
           fetch-depth: 0
@@ -47,12 +48,11 @@ jobs:
         run: |
           script/bootstrap -f
 
-      # Run a universal build to produce mas binary for package
-      - name: 🏗️ Build Universal
+      - name: 🏗️ Build universal executable
         run: |
           script/build --universal
 
-      - name: 📦 macOS Package
+      - name: 📦 Package mas.pkg
         run: |
           script/package
 
@@ -67,13 +67,14 @@ jobs:
     runs-on: macos-15
     needs: start
     steps:
-      - uses: actions/checkout@v4
+      - name: 📺 Checkout mas repo
+        uses: actions/checkout@v4
         with:
           # Include all history & tags for script/version
           fetch-depth: 0
           ref: ${{env.RELEASE_TAG}}
 
-      - name: ⤴️ Bump mas tap formula
+      - name: 🚰 Bump mas-cli/tap/mas formula
         env:
           HOMEBREW_GITHUB_API_TOKEN: ${{secrets.HOMEBREW_GITHUB_API_TOKEN}}
         run: |
@@ -94,7 +95,8 @@ jobs:
     runs-on: macos-15
     needs: [start, homebrew-tap]
     steps:
-      - uses: actions/checkout@v4
+      - name: 📺 Checkout mas repo
+        uses: actions/checkout@v4
         with:
           # Include all history & tags for script/version
           fetch-depth: 0
@@ -104,7 +106,7 @@ jobs:
         run: |
           script/bootstrap -f
 
-      - name: 🍺 Update homebrew-core mas formula
+      - name: 🍺 Bump homebrew-core/mas formula
         env:
           HOMEBREW_GITHUB_API_TOKEN: ${{secrets.HOMEBREW_GITHUB_API_TOKEN}}
         run: |
