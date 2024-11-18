@@ -29,7 +29,8 @@ jobs:
 
       - id: pre_release
         run: |
-          echo "PRE_RELEASE=$([[ '${{github.event.release.tag_name}}' == *-* ]] && echo true || echo false)" >>"${GITHUB_OUTPUT}"
+          printf $'PRE_RELEASE=%s\n' "$([[ '${{github.event.release.tag_name}}' == *-* ]] && echo true || echo false)" \
+            >>"${GITHUB_OUTPUT}"
 
   pkg-installer:
     runs-on: macos-15
@@ -59,8 +60,7 @@ jobs:
         env:
           GH_TOKEN: ${{github.token}}
         run: |
-          gh release upload '${{github.event.release.tag_name}}' \
-            .build/mas.pkg
+          gh release upload '${{github.event.release.tag_name}}' .build/mas.pkg
 
   homebrew-tap:
     runs-on: macos-15
