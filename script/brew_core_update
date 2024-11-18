@@ -1,4 +1,4 @@
-#!/bin/bash -ex
+#!/bin/bash -e
 #
 # script/brew_core_update
 # mas
@@ -17,35 +17,31 @@ if ! cd -- "${mas_dir}"; then
 fi
 
 function usage {
-  echo 'Usage: brew_core_update [-d]' >&2
-  echo '  -d option enables dry run mode' >&2
+  printf $'Usage: brew_core_update [--dry-run]\n  --dry-run flag enables dry run mode\n' >&2
   exit 1
 }
 
-# Max 1 argument
-if [[ "${#}" -gt 1 ]]; then
-  usage
-fi
-
-dry_run=
-
-# Detect presence of `-d` dry run option
-while getopts 'd' o; do
-  case "${o}" in
-  d)
+# Parse arguments for --dry-run flag
+case "${#}" in
+0)
+  dry_run=
+  ;;
+1)
+  if [[ "${1}" = --dry-run ]]; then
     dry_run=--dry-run
-    ;;
-  *)
+  else
     usage
-    ;;
-  esac
-done
-shift "$((OPTIND - 1))"
+  fi
+  ;;
+*)
+  usage
+  ;;
+esac
 
 version_tag="v$(script/version)"
 revision="$(git rev-parse "${version_tag}")"
 
-echo "==> 🧪 Updating mas homebrew-core formula to version tag ${version_tag} @ revision ${revision}"
+printf $'==> 🧪%s Updating mas homebrew-core formula to version tag %s @ revision %s\n' "${dry_run:+ DRY RUN}" "${version_tag}" "${revision}"
 
 brew bump-formula-pr \
   --tag "${version_tag}" \

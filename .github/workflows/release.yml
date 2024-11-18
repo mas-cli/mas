@@ -14,7 +14,7 @@ jobs:
   start:
     runs-on: macos-15
     outputs:
-      dry_run: ${{steps.dry_run.outputs.dry_run}}
+      dry_run: ""
       pre_release: ${{steps.pre_release.outputs.pre_release}}
     steps:
       - name: 🔈 Log release event
@@ -26,10 +26,6 @@ jobs:
           echo 'release.tag_name: ${{github.event.release.tag_name}}'
           echo 'release.target_commitish: ${{github.event.release.target_commitish}}'
           echo $'release.body: \n${{github.event.release.body}}'
-
-      - id: dry_run
-        run: |
-          echo DRY_RUN=false >>"${GITHUB_OUTPUT}"
 
       - id: pre_release
         run: |
@@ -60,7 +56,7 @@ jobs:
           script/package
 
       - name: 🚀 Upload mas.pkg
-        if: ${{needs.start.outputs.dry_run == 'false'}}
+        if: ${{!needs.start.outputs.dry_run}}
         env:
           GH_TOKEN: ${{github.token}}
         run: |
