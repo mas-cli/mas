@@ -10,6 +10,8 @@ defaults:
 on:
   release:
     types: [published]
+env:
+  RELEASE_TAG: ${{github.event.release.tag_name}}
 jobs:
   start:
     runs-on: macos-15
@@ -23,13 +25,11 @@ jobs:
         run: |
           echo 'Triggered by a release publication event (wet run)'
           echo 'release.name: ${{github.event.release.name}}'
-          echo 'release.tag_name: ${{github.event.release.tag_name}}'
+          echo "release.tag_name: ${RELEASE_TAG}"
           echo 'release.target_commitish: ${{github.event.release.target_commitish}}'
           echo $'release.body: \n${{github.event.release.body}}'
 
       - id: pre_release
-        env:
-          RELEASE_TAG: ${{github.event.release.tag_name}}
         run: |
           printf $'PRE_RELEASE=%s\n' "$([[ "${RELEASE_TAG}" == *-* ]] && echo true || echo false)" >>"${GITHUB_OUTPUT}"
 
@@ -41,7 +41,7 @@ jobs:
         with:
           # Include all history & tags for script/version
           fetch-depth: 0
-          ref: ${{github.event.release.tag_name}}
+          ref: ${{env.RELEASE_TAG}}
 
       - name: 👢 Bootstrap
         run: |
@@ -60,7 +60,6 @@ jobs:
         if: ${{!needs.start.outputs.dry_run}}
         env:
           GH_TOKEN: ${{github.token}}
-          RELEASE_TAG: ${{github.event.release.tag_name}}
         run: |
           gh release upload "${RELEASE_TAG}" .build/mas.pkg
 
@@ -72,12 +71,11 @@ jobs:
         with:
           # Include all history & tags for script/version
           fetch-depth: 0
-          ref: ${{github.event.release.tag_name}}
+          ref: ${{env.RELEASE_TAG}}
 
       - name: ⤴️ Bump mas tap formula
         env:
           HOMEBREW_GITHUB_API_TOKEN: ${{secrets.HOMEBREW_GITHUB_API_TOKEN}}
-          RELEASE_TAG: ${{github.event.release.tag_name}}
         run: |
           brew tap mas-cli/tap
           brew bump-formula-pr \
@@ -100,7 +98,7 @@ jobs:
         with:
           # Include all history & tags for script/version
           fetch-depth: 0
-          ref: ${{github.event.release.tag_name}}
+          ref: ${{env.RELEASE_TAG}}
 
       - name: 👢 Bootstrap
         run: |
