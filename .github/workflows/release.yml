@@ -66,17 +66,25 @@ jobs:
     runs-on: macos-15
     needs: start
     steps:
+      - uses: actions/checkout@v4
+        with:
+          # Include all history & tags for script/version
+          fetch-depth: 0
+          ref: ${{github.event.release.tag_name}}
+
       - name: ⤴️ Bump mas tap formula
         env:
           HOMEBREW_GITHUB_API_TOKEN: ${{secrets.HOMEBREW_GITHUB_API_TOKEN}}
         run: |
+          brew tap mas-cli/tap
           brew bump-formula-pr \
             --tag '${{github.event.release.tag_name}}' \
             --revision "$(git rev-list -n 1 '${{github.event.release.tag_name}}')" \
+            --no-fork \
+            --no-browse \
+            --online \
             --strict \
             --verbose \
-            --online \
-            --no-browse \
             ${{needs.start.outputs.dry_run}} \
             mas-cli/tap/mas
 
