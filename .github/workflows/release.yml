@@ -15,7 +15,6 @@ jobs:
     runs-on: macos-15
     outputs:
       dry_run: ${{steps.dry_run.outputs.dry_run}}
-      mas_version: ${{steps.mas_version.outputs.mas_version}}
       pre_release: ${{steps.pre_release.outputs.pre_release}}
     steps:
       - name: 🔈 Log release event
@@ -32,13 +31,10 @@ jobs:
         run: |
           echo DRY_RUN=false >>"${GITHUB_OUTPUT}"
 
-      - id: mas_version
-        run: |
-          echo 'MAS_VERSION=${{github.event.release.tag_name}}' >>"${GITHUB_OUTPUT}"
-
       - id: pre_release
         run: |
-          echo "PRE_RELEASE=$([[ "${MAS_VERSION}" == *-* ]] && echo true || echo false)" >>"${GITHUB_OUTPUT}"
+          printf $'PRE_RELEASE=%s\n' "$([[ '${{github.event.release.tag_name}}' == *-* ]] && echo true || echo false)" \
+            >>"${GITHUB_OUTPUT}"
 
   pkg-installer:
     runs-on: macos-15
@@ -48,7 +44,7 @@ jobs:
         with:
           # Include all history & tags for script/version
           fetch-depth: 0
-          ref: ${{needs.start.outputs.mas_version}}
+          ref: ${{github.event.release.tag_name}}
 
       - name: 👢 Bootstrap
         run: |
@@ -68,8 +64,7 @@ jobs:
         env:
           GH_TOKEN: ${{github.token}}
         run: |
-          gh release upload '${{needs.start.outputs.mas_version}}' \
-            .build/mas.pkg
+          gh release upload '${{github.event.release.tag_name}}' .build/mas.pkg
 
   homebrew-tap:
     runs-on: macos-15
@@ -80,8 +75,8 @@ jobs:
           HOMEBREW_GITHUB_API_TOKEN: ${{secrets.HOMEBREW_GITHUB_API_TOKEN}}
         run: |
           brew bump-formula-pr \
-            --tag '${{needs.start.outputs.mas_version}}' \
-            --revision "$(git rev-list -n 1 '${{needs.start.outputs.mas_version}}')" \
+            --tag '${{github.event.release.tag_name}}' \
+            --revision "$(git rev-list -n 1 '${{github.event.release.tag_name}}')" \
             --strict \
             --verbose \
             --online \
@@ -98,7 +93,7 @@ jobs:
         with:
           # Include all history & tags for script/version
           fetch-depth: 0
-          ref: ${{needs.start.outputs.mas_version}}
+          ref: ${{github.event.release.tag_name}}
 
       - name: 👢 Bootstrap
         run: |
