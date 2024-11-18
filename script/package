@@ -13,19 +13,12 @@ if ! cd -- "${mas_dir}"; then
   exit 1
 fi
 
-BUILD_DIR=.build
-COMPONENT_PACKAGE="${BUILD_DIR}/mas_components.pkg"
-DISTRIBUTION_PACKAGE="${BUILD_DIR}/mas.pkg"
-
-IDENTIFIER=com.mphys.mas-cli
-
-# Distribution package definition
-# https://developer.apple.com/library/archive/documentation/DeveloperTools/Reference/DistributionDefinitionRef/Chapters/Distribution_XML_Ref.html
-DISTRIBUTION_PLIST=Package/Distribution.plist
+build_dir=.build
+distribution_package="${build_dir}/mas.pkg"
 
 # Destination for install root
-DSTROOT="${BUILD_DIR}/distributions"
-script/install "${DSTROOT}/usr/local" --universal
+dstroot="${build_dir}/distributions"
+script/install "${dstroot}/usr/local" --universal
 
 version="$(script/version)"
 
@@ -33,18 +26,18 @@ echo "==> 📦 Assembling installer package for mas ${version}"
 
 # Assemble macOS installer component package (aka 'product archive').
 pkgbuild \
-  --identifier "${IDENTIFIER}" \
+  --identifier com.mphys.mas-cli \
   --install-location '/' \
   --version "${version}" \
-  --root "${DSTROOT}" \
-  "${COMPONENT_PACKAGE}"
+  --root "${dstroot}" \
+  "${build_dir}/mas_components.pkg"
 
 # Build distribution package (aka 'product archive'). Not sure why, but this is how Carthage does it.
 # https://github.com/Carthage/Carthage/blob/master/Makefile#L69
 productbuild \
-  --distribution "${DISTRIBUTION_PLIST}" \
-  --package-path "${BUILD_DIR}" \
-  "${DISTRIBUTION_PACKAGE}"
+  --distribution Package/Distribution.plist \
+  --package-path "${build_dir}" \
+  "${distribution_package}"
 
 echo '==> 🔢 File Hash'
-shasum -a 256 "${DISTRIBUTION_PACKAGE}"
+shasum -a 256 "${distribution_package}"
