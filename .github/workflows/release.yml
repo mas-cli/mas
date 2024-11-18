@@ -21,7 +21,7 @@ jobs:
     steps:
       - name: 🔈 Log real release event
         # Run only for a real release event
-        if: ${{github.event.release.name != ''}}
+        if: ${{github.event.release.name}}
         run: |
           echo 'Triggered by a release publication event (wet run)'
           echo 'release.name: ${{github.event.release.name}}'
