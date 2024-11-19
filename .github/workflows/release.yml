@@ -12,26 +12,23 @@ on:
     types: [published]
 env:
   DRY_RUN: ""
+  GH_TOKEN: ${{github.token}}
+  HOMEBREW_GITHUB_API_TOKEN: ${{secrets.HOMEBREW_GITHUB_API_TOKEN}}
+  RELEASE_BODY: ${{github.event.release.body}}
+  RELEASE_COMMITISH: ${{github.event.release.target_commitish}}
+  RELEASE_NAME: ${{github.event.release.name}}
   RELEASE_TAG: ${{github.event.release.tag_name}}
 jobs:
-  start:
+  release:
     runs-on: macos-15
     steps:
       - name: 🔈 Log real release event
         # Run only for a real release event
-        if: ${{github.event.release.name}}
-        env:
-          RELEASE_NAME: ${{github.event.release.name}}
-          RELEASE_COMMITISH: ${{github.event.release.target_commitish}}
-          RELEASE_BODY: ${{github.event.release.body}}
+        if: ${{env.RELEASE_NAME}}
         run: |
           printf $'Triggered by release publication event:\nname: %s\ntag_name: %s\ntarget_commitish: %s\nbody:\n%s\n' \
             "${RELEASE_NAME}" "${RELEASE_TAG}" "${RELEASE_COMMITISH}" "${RELEASE_BODY}"
 
-  pkg-installer:
-    runs-on: macos-15
-    needs: start
-    steps:
       - name: 📺 Checkout mas repo
         uses: actions/checkout@v4
         with:
@@ -53,25 +50,10 @@ jobs:
 
       - name: 🚀 Upload mas.pkg
         if: ${{!env.DRY_RUN}}
-        env:
-          GH_TOKEN: ${{github.token}}
         run: |
           gh release upload "${RELEASE_TAG}" .build/mas.pkg
 
-  homebrew-tap:
-    runs-on: macos-15
-    needs: pkg-installer
-    steps:
-      - name: 📺 Checkout mas repo
-        uses: actions/checkout@v4
-        with:
-          # Include all history & tags for script/version
-          fetch-depth: 0
-          ref: ${{env.RELEASE_TAG}}
-
       - name: 🚰 Bump mas-cli/tap/mas formula
-        env:
-          HOMEBREW_GITHUB_API_TOKEN: ${{secrets.HOMEBREW_GITHUB_API_TOKEN}}
         run: |
           brew tap mas-cli/tap
           brew bump-formula-pr \
@@ -85,21 +67,8 @@ jobs:
             ${DRY_RUN} \
             mas-cli/tap/mas
 
-  homebrew-core:
-    # Bump homebrew-core/mas formula only if not a prerelease; all prerelease versions contain a '-'
-    if: ${{!contains(env.RELEASE_TAG, '-')}}
-    runs-on: macos-15
-    needs: homebrew-tap
-    steps:
-      - name: 📺 Checkout mas repo
-        uses: actions/checkout@v4
-        with:
-          # Include all history & tags for script/version
-          fetch-depth: 0
-          ref: ${{env.RELEASE_TAG}}
-
       - name: 🍺 Bump homebrew-core/mas formula
-        env:
-          HOMEBREW_GITHUB_API_TOKEN: ${{secrets.HOMEBREW_GITHUB_API_TOKEN}}
+        # Bump homebrew-core/mas formula only if not a prerelease; all prerelease versions contain a '-'
+        if: ${{!contains(env.RELEASE_TAG, '-')}}
         run: |
           script/brew_core_update ${DRY_RUN}
