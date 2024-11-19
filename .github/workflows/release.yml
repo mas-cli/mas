@@ -60,7 +60,7 @@ jobs:
 
   homebrew-tap:
     runs-on: macos-15
-    needs: start
+    needs: pkg-installer
     steps:
       - name: 📺 Checkout mas repo
         uses: actions/checkout@v4
