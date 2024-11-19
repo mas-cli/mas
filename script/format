@@ -40,7 +40,6 @@ shfmt \
   --write \
   --list \
   --indent 2 \
-  --case-indent \
   contrib/ script/
 
 printf -- $'--> 〽️ Markdown\n'
