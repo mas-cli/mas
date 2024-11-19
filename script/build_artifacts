@@ -13,7 +13,7 @@ if ! cd -- "${mas_dir}"; then
   exit 1
 fi
 
-echo "==> 👑 Building mas $(script/version) artifacts"
+printf $'==> 👑 Building mas %s artifacts\n' "$(script/version)"
 
 script/clean
 script/build --universal

@@ -22,7 +22,7 @@ script/install "${dstroot}/usr/local" --universal
 
 version="$(script/version)"
 
-echo "==> 📦 Assembling installer package for mas ${version}"
+printf $'==> 📦 Assembling installer package for mas %s\n' "${version}"
 
 # Assemble macOS installer component package (aka 'product archive').
 pkgbuild \
@@ -39,5 +39,5 @@ productbuild \
   --package-path "${build_dir}" \
   "${distribution_package}"
 
-echo '==> 🔢 File Hash'
+printf $'==> 🔢 File Hash\n'
 shasum -a 256 "${distribution_package}"

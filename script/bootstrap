@@ -14,8 +14,7 @@ if ! cd -- "${mas_dir}"; then
 fi
 
 function usage {
-  echo 'Usage: bootstrap [-f]' >&2
-  echo '  -f option enables frozen mode' >&2
+  printf $'Usage: bootstrap [-f]\n  -f option enables frozen mode\n' >&2
   exit 1
 }
 
