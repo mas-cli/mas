@@ -58,7 +58,7 @@ jobs:
           brew tap mas-cli/tap
           brew bump-formula-pr \
             --tag "${RELEASE_TAG}" \
-            --revision "$(git rev-list -n 1 "${RELEASE_TAG}")" \
+            --revision "$(git rev-parse "${RELEASE_TAG}")" \
             --no-fork \
             --no-browse \
             --online \
@@ -71,4 +71,13 @@ jobs:
         # Bump homebrew-core/mas formula only if not a prerelease; all prerelease versions contain a '-'
         if: ${{!contains(env.RELEASE_TAG, '-')}}
         run: |
-          script/brew_core_update ${DRY_RUN}
+          brew bump-formula-pr \
+            --tag "${RELEASE_TAG}" \
+            --revision "$(git rev-parse "${RELEASE_TAG}")" \
+            --fork-org mas-cli \
+            --no-browse \
+            --online \
+            --strict \
+            --verbose \
+            ${DRY_RUN} \
+            mas
