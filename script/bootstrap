@@ -19,6 +19,7 @@ function usage {
 }
 
 # Detect presence of `-f` frozen option
+frozen=
 while getopts 'f' opt; do
   case "${opt}" in
   f)
