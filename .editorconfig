@@ -22,9 +22,6 @@ indent_style = tab
 [*.yml]
 indent_size = 2
 
-[Makefile]
-indent_style = tab
-
 [script/*]
 indent_size = 2
 max_line_length = 80
