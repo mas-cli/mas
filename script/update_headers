@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -eu
 #
 # script/update_headers
 # mas
