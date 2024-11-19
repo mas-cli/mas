@@ -98,10 +98,6 @@ jobs:
           fetch-depth: 0
           ref: ${{env.RELEASE_TAG}}
 
-      - name: 👢 Bootstrap
-        run: |
-          script/bootstrap -f
-
       - name: 🍺 Bump homebrew-core/mas formula
         env:
           HOMEBREW_GITHUB_API_TOKEN: ${{secrets.HOMEBREW_GITHUB_API_TOKEN}}
