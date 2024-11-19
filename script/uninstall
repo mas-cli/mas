@@ -16,6 +16,6 @@ fi
 # Override default prefix path with optional 1st arg
 prefix="${1:-"$(brew --prefix)"}"
 
-echo "==> 🔥 Uninstalling mas from ${prefix}"
+printf $'==> 🔥 Uninstalling mas from %s\n' "${prefix}"
 
 trash -F "${prefix}/bin/mas" || true

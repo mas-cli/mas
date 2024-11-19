@@ -32,7 +32,8 @@ fi
 
 script/generate_version_info_for_swift
 
-echo "==> 🏗️ Building mas $(script/version)"
+printf $'==> 🏗️ Building mas %s\n' "$(script/version)"
+
 swift build \
   --configuration release \
   "${arch[@]+"${arch[@]}"}" \
