@@ -14,8 +14,7 @@ if ! cd -- "${mas_dir}"; then
 fi
 
 if ! command -v class-dump >/dev/null; then
-  echo 'class-dump is not installed.' >&2
-  echo 'Download from http://stevenygard.com/projects/class-dump/' >&2
+  printf $'class-dump is not installed.\nDownload from http://stevenygard.com/projects/class-dump/\n' >&2
   exit 1
 fi
 

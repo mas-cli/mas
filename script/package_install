@@ -15,7 +15,7 @@ fi
 
 identifier=com.mphys.mas-cli
 
-echo '==> 📲 Installing mas'
+printf $'==> 📲 Installing mas\n'
 
 sudo installer \
   -pkg .build/mas.pkg \
