@@ -11,12 +11,12 @@ on:
   release:
     types: [published]
 env:
+  DRY_RUN: ""
   RELEASE_TAG: ${{github.event.release.tag_name}}
 jobs:
   start:
     runs-on: macos-15
     outputs:
-      dry_run: ""
       pre_release: ${{steps.pre_release.outputs.pre_release}}
     steps:
       - name: 🔈 Log real release event
@@ -58,7 +58,7 @@ jobs:
           script/package
 
       - name: 🚀 Upload mas.pkg
-        if: ${{!needs.start.outputs.dry_run}}
+        if: ${{!env.DRY_RUN}}
         env:
           GH_TOKEN: ${{github.token}}
         run: |
@@ -88,7 +88,7 @@ jobs:
             --online \
             --strict \
             --verbose \
-            ${{needs.start.outputs.dry_run}} \
+            ${DRY_RUN} \
             mas-cli/tap/mas
 
   homebrew-core:
@@ -111,4 +111,4 @@ jobs:
         env:
           HOMEBREW_GITHUB_API_TOKEN: ${{secrets.HOMEBREW_GITHUB_API_TOKEN}}
         run: |
-          script/brew_core_update ${{needs.start.outputs.dry_run}}
+          script/brew_core_update ${DRY_RUN}
