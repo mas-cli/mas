@@ -15,12 +15,10 @@ fi
 
 build_dir=.build
 distribution_package="${build_dir}/mas.pkg"
-
-# Destination for install root
-dstroot="${build_dir}/distributions"
-script/install "${dstroot}/usr/local" --universal
-
+distributions_root="${build_dir}/distributions"
 version="$(script/version)"
+
+ditto -v "${build_dir}/apple/Products/Release/mas" "${distributions_root}/usr/local/bin/mas"
 
 printf $'==> 📦 Assembling installer package for mas %s\n' "${version}"
 
@@ -29,7 +27,7 @@ pkgbuild \
   --identifier com.mphys.mas-cli \
   --install-location '/' \
   --version "${version}" \
-  --root "${dstroot}" \
+  --root "${distributions_root}" \
   "${build_dir}/mas_components.pkg"
 
 # Build distribution package (aka 'product archive'). Not sure why, but this is how Carthage does it.
