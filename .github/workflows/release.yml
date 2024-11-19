@@ -16,8 +16,6 @@ env:
 jobs:
   start:
     runs-on: macos-15
-    outputs:
-      pre_release: ${{steps.pre_release.outputs.pre_release}}
     steps:
       - name: 🔈 Log real release event
         # Run only for a real release event
@@ -29,10 +27,6 @@ jobs:
         run: |
           printf $'Triggered by release publication event:\nname: %s\ntag_name: %s\ntarget_commitish: %s\nbody:\n%s\n' \
             "${RELEASE_NAME}" "${RELEASE_TAG}" "${RELEASE_COMMITISH}" "${RELEASE_BODY}"
-
-      - id: pre_release
-        run: |
-          printf $'PRE_RELEASE=%s\n' "$([[ "${RELEASE_TAG}" == *-* ]] && echo true || echo false)" >>"${GITHUB_OUTPUT}"
 
   pkg-installer:
     runs-on: macos-15
@@ -92,9 +86,10 @@ jobs:
             mas-cli/tap/mas
 
   homebrew-core:
-    if: ${{needs.start.outputs.pre_release == 'false'}}
+    # Bump homebrew-core/mas formula only if not a prerelease; all prerelease versions contain a '-'
+    if: ${{!contains(env.RELEASE_TAG, '-')}}
     runs-on: macos-15
-    needs: [start, homebrew-tap]
+    needs: homebrew-tap
     steps:
       - name: 📺 Checkout mas repo
         uses: actions/checkout@v4
