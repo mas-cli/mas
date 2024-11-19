@@ -19,8 +19,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - language: c-cpp
-            build-mode: manual
           - language: swift
             build-mode: manual
     steps:
