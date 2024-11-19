@@ -31,10 +31,6 @@ jobs:
 
       - name: 📺 Checkout mas repo
         uses: actions/checkout@v4
-        with:
-          # Include all history & tags for script/version
-          fetch-depth: 0
-          ref: ${{env.RELEASE_TAG}}
 
       - name: 👢 Bootstrap
         run: |
