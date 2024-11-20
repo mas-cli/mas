@@ -29,7 +29,7 @@ enum SearchResultFormatter {
             let version = result.version
 
             if includePrice {
-                output += String(format: "%12lu  %@  (%@)  %@\n", appID, appName, version, result.formattedPrice)
+                output += String(format: "%12lu  %@  (%@)  %@\n", appID, appName, version, result.displayPrice)
             } else {
                 output += String(format: "%12lu  %@  (%@)\n", appID, appName, version)
             }
