@@ -18,7 +18,7 @@ enum AppInfoFormatter {
         let headline = [
             "\(app.trackName)",
             "\(app.version)",
-            "[\(app.formattedPrice)]",
+            "[\(app.displayPrice)]",
         ]
         .joined(separator: " ")
 

@@ -10,15 +10,19 @@ struct SearchResult: Decodable {
     var bundleId: String
     var currentVersionReleaseDate: String
     var fileSizeBytes: String
-    var formattedPrice: String
+    var formattedPrice: String?
     var minimumOsVersion: String
-    var price: Double
+    var price: Double?
     var sellerName: String
     var sellerUrl: String?
     var trackId: AppID
     var trackName: String
     var trackViewUrl: String
     var version: String
+
+    var displayPrice: String {
+        formattedPrice ?? "Unknown"
+    }
 
     init(
         bundleId: String = "",
