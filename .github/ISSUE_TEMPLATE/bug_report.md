@@ -1,58 +1,58 @@
 ---
 name: Bug report
-about: Create a report to help us improve
-title: "\U0001F41B [BUG]"
+about: Report a bug
+title: ''
 labels: "\U0001F41B bug"
 assignees: ''
-
 ---
-
-
 ## Your Environment
 
-- `mas version`:
-- macOS version (`system_profiler SPSoftwareDataType -detailLevel mini`): 10.1...
+mas version:
+
+\<replace this text with the output of `mas version`\>
+
+macOS version:
+
+\<replace this text with the output of `sw_vers`\>
 
 ### mas Install Method
 
-- [] `brew install mas` (homebrew-core)
-- [] [mas-cli/tap](https://github.com/mas-cli/homebrew-tap)
-- [] `.pkg` installer from [releases](https://github.com/mas-cli/mas/releases)
-- [] Built from source
-  - Fork/branch: ? (e.g. mas-cli/main)
-  - Xcode version: 10.?
+[] `brew install mas` ([Homebrew core](https://github.com/Homebrew/homebrew-core))
 
-## Describe the Bug
+[] `brew install mas-cli/tap/mas` ([mas Homebrew custom tap](https://github.com/mas-cli/homebrew-tap))
 
-> A clear and concise description of what the bug is.
+[] [mas GitHub Releases](https://github.com/mas-cli/mas/releases)
 
-## To Reproduce
+- URL of installer:
 
-Steps to reproduce the behavior:
+[] Built from source
 
-1. Go to '...'
-1. Click on '....'
-1. Scroll down to '....'
-1. See error
+- git origin URL: \<e.g., GitHub fork URL, <https://github.com/mas-cli/mas>…\>
+- git revision:
+- git tag/branch:
+- Xcode version:
+
+## Bug Description
+
+## Steps to Reproduce
+
+1.
 
 ## Expected Behavior
 
-> A clear and concise description of what you expected to happen.
-
 ## Actual Behavior
 
-> A clear and concise description of what actually happened.
+## Shell Output, Screenshots…
 
-## Screenshots, Terminal Output
+\<copy & paste shell commands & output below\>
 
-> If applicable, add screenshots to help explain your problem.
-
-```bash
-$ mas command
-...
+```shell
+$ mas <command> …
+…
 ```
+
+\<attach screenshots only if cannot copy & paste\>
 
 ## Additional Context
 
-> Add any other context about the problem here.
-> Did it work in a previous version?
+\<e.g., did the bug occur in previous mas or macOS versions?>
