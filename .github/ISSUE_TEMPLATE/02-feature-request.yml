@@ -1,18 +1,33 @@
 ---
 name: Feature request
-about: Request a feature
-title: ''
+description: Request a feature.
 labels: "\U0001F195 feature request"
-assignees: ''
----
-## Problem(s) addressed
-
-## Proposed solution(s)
-
-## Alternative solution(s)
-
-## Additional context
-
-\<e.g., copied & pasted shell commands & output>
-
-\<e.g., screenshots only if cannot copy & paste>
+body:
+  - type: textarea
+    id: problems
+    attributes:
+      label: Problem(s) addressed
+      placeholder: Prefer copied & pasted commands & output instead of screenshots
+    validations:
+      required: true
+  - type: textarea
+    id: proposals
+    attributes:
+      label: Proposed solution(s)
+      placeholder: Prefer copied & pasted commands & output instead of screenshots
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternative solution(s)
+      placeholder: Prefer copied & pasted commands & output instead of screenshots
+    validations:
+      required: false
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      placeholder: Prefer copied & pasted commands & output instead of screenshots
+    validations:
+      required: false
