@@ -1,20 +1,18 @@
 ---
 name: Feature request
-about: Suggest an idea for this project
+about: Request a feature
 title: ''
 labels: "\U0001F195 feature request"
 assignees: ''
-
 ---
+## Problem(s) addressed
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+## Proposed solution(s)
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+## Alternative solution(s)
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+## Additional context
 
-**Additional context**
-Add any other context or screenshots about the feature request here.
+\<e.g., copied & pasted shell commands & output>
+
+\<e.g., screenshots only if cannot copy & paste>
