@@ -1,0 +1,96 @@
+---
+name: Bug Report
+description: Report a bug.
+labels: "\U0001F41B bug"
+body:
+  - type: input
+    id: mas-version
+    attributes:
+      label: mas version
+      description: The output of `mas version`
+      placeholder: ex. 1.8.7
+    validations:
+      required: true
+  - type: input
+    id: macos-version
+    attributes:
+      label: macOS version
+      description: The output of `sw_vers -productVersion`
+      placeholder: ex. 15.1.1
+    validations:
+      required: true
+  - type: input
+    id: macos-build
+    attributes:
+      label: macOS build version
+      description: The output of `sw_vers -buildVersion`
+      placeholder: ex. 24B2091
+    validations:
+      required: true
+  - type: dropdown
+    id: install-method
+    attributes:
+      label: mas installation method
+      options:
+        - Homebrew core (brew install mas)
+        - Homebrew custom tap (brew install mas-cli/tap/mas)
+        - GitHub Releases (https://github.com/mas-cli/mas/releases)
+        - Built from source
+        - Other
+      default: 0
+    validations:
+      required: true
+  - type: textarea
+    id: install-details
+    attributes:
+      label: mas installation details
+      # yamllint disable rule:trailing-spaces
+      value: |
+        <!--if you selected the "Other" installation method, provide details below-->
+
+        <!--if you installed from GitHub Releases, provide URL of installer below-->
+
+        <!--if you built from source, uncomment the following comment & provide all 4 values-->
+
+        <!--
+        - git origin URL: 
+        - git revision: 
+        - git tag/branch: 
+        - Xcode version: 
+        -->
+      # yamllint enable rule:trailing-spaces
+    validations:
+      required: false
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected behavior
+      placeholder: Prefer copied & pasted commands & output instead of screenshots
+    validations:
+      required: true
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Actual behavior
+      placeholder: Prefer copied & pasted commands & output instead of screenshots
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: |
+        Provide commands to reproduce the bug in the multiline shell block. Write non-shell steps as comments (`# …`).
+      value: |
+        ```shell
+
+        ```
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      placeholder: ex. Does the bug occur in other mas or macOS versions?
+    validations:
+      required: false

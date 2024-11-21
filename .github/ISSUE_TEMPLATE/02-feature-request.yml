@@ -1,0 +1,33 @@
+---
+name: Feature request
+description: Request a feature.
+labels: "\U0001F195 feature request"
+body:
+  - type: textarea
+    id: problems
+    attributes:
+      label: Problem(s) addressed
+      placeholder: Prefer copied & pasted commands & output instead of screenshots
+    validations:
+      required: true
+  - type: textarea
+    id: proposals
+    attributes:
+      label: Proposed solution(s)
+      placeholder: Prefer copied & pasted commands & output instead of screenshots
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternative solution(s)
+      placeholder: Prefer copied & pasted commands & output instead of screenshots
+    validations:
+      required: false
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      placeholder: Prefer copied & pasted commands & output instead of screenshots
+    validations:
+      required: false
