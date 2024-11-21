@@ -13,5 +13,5 @@ if ! cd -- "${mas_dir}"; then
   exit 1
 fi
 
-version_tag="$(git describe --abbrev=0 --tags 2>/dev/null)"
+version_tag="$(git describe --tags 2>/dev/null)"
 printf $'%s\n' "${version_tag#v}"
