@@ -65,8 +65,8 @@ func downloadApps(withAppIDs appIDs: [AppID], purchasing: Bool = false) -> Promi
             }
         }
         .done {
-            if let error = firstError {
-                throw error
+            if let firstError {
+                throw firstError
             }
         }
 }
