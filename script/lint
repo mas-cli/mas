@@ -57,7 +57,7 @@ shfmt \
 ((exit_code |= "${?}"))
 
 printf -- $'--> 〽️ Markdown\n'
-markdownlint --config .markdownlint.json .github .
+markdownlint --config .markdownlint.json . docs
 ((exit_code |= "${?}"))
 
 printf -- $'--> 📝 YAML\n'

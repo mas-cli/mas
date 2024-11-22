@@ -43,7 +43,7 @@ shfmt \
   contrib/ script/
 
 printf -- $'--> 〽️ Markdown\n'
-markdownlint --config .markdownlint.json --fix .github .
+markdownlint --config .markdownlint.json --fix . docs
 
 printf -- $'--> 🖊 YAML\n'
 # shellcheck disable=SC2046
