@@ -24,15 +24,15 @@ ditto -v "${build_dir}/apple/Products/Release/mas" "${distributions_root}/usr/lo
 
 printf $'==> 📦 Assembling installer package for mas %s\n' "${version}"
 
-# Assemble macOS installer component package (aka 'product archive').
+# Assemble macOS installer component package (aka product archive).
 pkgbuild \
   --identifier com.mphys.mas-cli \
-  --install-location '/' \
+  --install-location / \
   --version "${version}" \
   --root "${distributions_root}" \
   "${build_dir}/mas_components.pkg"
 
-# Build distribution package (aka 'product archive'). Not sure why, but this is how Carthage does it.
+# Build distribution package (aka product archive). Not sure why, but this is how Carthage does it.
 # https://github.com/Carthage/Carthage/blob/master/Makefile#L69
 productbuild \
   --distribution Package/Distribution.plist \

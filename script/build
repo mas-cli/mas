@@ -14,7 +14,7 @@ if ! cd -- "${mas_dir}"; then
 fi
 
 # Build for the host architecture by default.
-if [[ "${#}" -ge 1 && "${1}" == '--universal' ]]; then
+if [[ "${#}" -ge 1 && "${1}" == --universal ]]; then
   arch=(
     --arch arm64
     --arch x86_64
