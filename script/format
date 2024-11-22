@@ -30,7 +30,7 @@ for source in Package.swift Sources Tests; do
   printf -- $'--> 🦅 %s swiftformat\n' "${source}"
   swiftformat --strict "${source}"
   printf -- $'--> 🦅 %s swiftlint\n' "${source}"
-  swiftlint --fix --strict "${source}"
+  swiftlint --fix --quiet "${source}"
 done
 
 printf -- $'--> 📜 Bash shfmt\n'
