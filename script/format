@@ -3,8 +3,6 @@
 # script/format
 # mas
 #
-# Linting checks for development and CI.
-#
 # Automatically formats and fixes style violations using various tools.
 #
 # Please keep in sync with script/lint.
@@ -17,7 +15,7 @@ if ! cd -- "${mas_dir}"; then
   exit 1
 fi
 
-printf $'==> 🚨 Formatting mas\n'
+printf $'==> 🚨 Formatting mas %s\n' "$(script/version)"
 
 for linter in markdownlint prettier shfmt swift-format swiftformat swiftlint yamllint; do
   if [[ ! -x "$(command -v "${linter}")" ]]; then
