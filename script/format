@@ -8,6 +8,8 @@
 # Please keep in sync with script/lint.
 #
 
+set -o pipefail
+
 mas_dir="$(readlink -fn "$(dirname "${BASH_SOURCE:-"${0}"}")/..")"
 
 if ! cd -- "${mas_dir}"; then
@@ -28,7 +30,8 @@ for source in Package.swift Sources Tests; do
   printf -- $'--> 🦅 %s swift-format\n' "${source}"
   swift-format format --in-place --recursive "${source}"
   printf -- $'--> 🦅 %s swiftformat\n' "${source}"
-  swiftformat --strict "${source}"
+  script -q /dev/null swiftformat --strict "${source}" |
+    (grep -vxE '(?:\^D\x08{2})?Running SwiftFormat\.{3}\r|Reading (?:config|swift-version) file at .*|\x1b\[32mSwiftFormat completed in \d+\.\d+s\.\x1b\[0m\r|0/\d+ files formatted\.\r' || true)
   printf -- $'--> 🦅 %s swiftlint\n' "${source}"
   swiftlint --fix --quiet "${source}"
 done
