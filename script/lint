@@ -40,8 +40,7 @@ for source in Package.swift Sources Tests; do
     (grep -vxE '(?:\^D\x08{2})?Running SwiftFormat\.{3}\r|\(lint mode - no files will be changed\.\)\r|Reading (?:config|swift-version) file at .*|\x1b\[32mSwiftFormat completed in \d+\.\d+s\.\x1b\[0m\r|0/\d+ files require formatting\.\r' || true)
   ((exit_code |= "${?}"))
   printf -- $'--> 🦅 %s swiftlint\n' "${source}"
-  swiftlint --strict --quiet "${source}" 2> \
-    >((grep -vxF $'warning: Configuration option \'allow_multiline_func\' in \'opening_brace\' rule is deprecated. Use the option \'ignore_multiline_function_signatures\' instead.' || true) >&2)
+  swiftlint --strict --quiet "${source}"
   ((exit_code |= "${?}"))
 done
 
