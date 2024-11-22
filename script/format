@@ -28,7 +28,7 @@ for source in Package.swift Sources Tests; do
   printf -- $'--> 🦅 %s swift-format\n' "${source}"
   swift-format format --in-place --recursive "${source}"
   printf -- $'--> 🦅 %s swiftformat\n' "${source}"
-  swiftformat "${source}"
+  swiftformat --strict "${source}"
   printf -- $'--> 🦅 %s swiftlint\n' "${source}"
   swiftlint --fix --strict "${source}"
 done
