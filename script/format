@@ -48,4 +48,5 @@ markdownlint --config .markdownlint.json --fix . docs
 
 printf -- $'--> 📝 YAML\n'
 # shellcheck disable=SC2046
-prettier --write $(yamllint --list-files .)
+script -q /dev/null prettier --write $(yamllint --list-files .) |
+  (grep -vxE '.+ \d+ms \(unchanged\)\r' || true)
