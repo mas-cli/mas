@@ -34,7 +34,7 @@ jobs:
 
       - name: 👢 Bootstrap
         run: |
-          script/bootstrap -f
+          script/bootstrap
 
       - name: 📦 Build universal executable & package it in mas.pkg
         run: |

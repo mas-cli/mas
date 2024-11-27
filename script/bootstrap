@@ -5,6 +5,8 @@
 #
 # Installs development dependencies and builds project dependencies.
 #
+# Usage: bootstrap [<brew-bundle-install-argument>...]
+#
 
 mas_dir="$(readlink -fn "$(dirname "${BASH_SOURCE:-"${0}"}")/..")"
 
@@ -13,25 +15,7 @@ if ! cd -- "${mas_dir}"; then
   exit 1
 fi
 
-function usage {
-  printf $'Usage: bootstrap [-f]\n  -f option enables frozen mode\n' >&2
-  exit 1
-}
-
-# Detect presence of `-f` frozen option
-frozen=
-while getopts f opt; do
-  case "${opt}" in
-  f)
-    frozen='--no-lock --no-upgrade'
-    ;;
-  *)
-    usage
-    ;;
-  esac
-done
-
 printf $'==> 👢 Bootstrapping mas %s\n' "$(script/version)"
 
 # shellcheck disable=SC2086
-brew bundle install ${frozen} --verbose
+brew bundle install --verbose "${@:+"${@}"}"
