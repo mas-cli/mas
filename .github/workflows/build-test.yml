@@ -36,7 +36,7 @@ jobs:
           fetch-depth: 0
 
       - name: Bootstrap
-        run: script/bootstrap -f
+        run: script/bootstrap
 
       - name: Build
         run: script/build
