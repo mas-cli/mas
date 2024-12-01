@@ -1,14 +1,40 @@
 ---
 name: Bug Report
 description: Report a bug.
-labels: "\U0001F41B bug"
+labels: ["\U0001F41B bug"]
 body:
+  - type: markdown
+    attributes:
+      value: |
+        # Console command & output formatting
+
+        When providing commands & output, please use the following format (where `…` is a placeholder):
+
+        - Use a multiline console block: start with ```` ```console ````, end with ```` ``` ````, each on its own line
+        - Prefix each non-console step (or comment) with two hashes & a space: `## …`
+        - Remove shell prompts; instead, prefix each console command with a dollar sign & a space: `$ …`
+        - Prefix each output line beginning with `#`, `$`, `%`, or `>` with an additional instance of that <!--
+          --> character: `##…`, `$$…`, `%%…`, or `>>…`
+        - Write all other output lines without any prefix: `…`
+
+        e.g.:
+
+        ````text
+        ```console
+        ## In the Mac App Store GUI, …
+        $ mas list
+        123  App 1  (4.5.6)
+        124  App 2  (10.2)
+        ```
+        ````
+
+        # Environment
   - type: input
     id: mas-version
     attributes:
       label: mas version
       description: The output of `mas version`
-      placeholder: ex. 1.8.7
+      placeholder: "example: 1.8.7"
     validations:
       required: true
   - type: input
@@ -16,7 +42,7 @@ body:
     attributes:
       label: macOS version
       description: The output of `sw_vers -productVersion`
-      placeholder: ex. 15.1.1
+      placeholder: "example: 15.1.1"
     validations:
       required: true
   - type: input
@@ -24,7 +50,15 @@ body:
     attributes:
       label: macOS build version
       description: The output of `sw_vers -buildVersion`
-      placeholder: ex. 24B2091
+      placeholder: "example: 24B2091"
+    validations:
+      required: true
+  - type: input
+    id: processor
+    attributes:
+      label: Processor
+      description: The output of `sysctl -n machdep.cpu.brand_string`
+      placeholder: "example: Apple M1"
     validations:
       required: true
   - type: dropdown
@@ -61,18 +95,24 @@ body:
       # yamllint enable rule:trailing-spaces
     validations:
       required: false
+  - type: markdown
+    attributes:
+      value: |
+        # Issue
   - type: textarea
     id: expected-behavior
     attributes:
       label: Expected behavior
-      placeholder: Prefer copied & pasted commands & output instead of screenshots
+      placeholder: Prefer copied, pasted & formatted commands & output in a multiline console block (as instructed
+        above) instead of screenshots
     validations:
       required: true
   - type: textarea
     id: actual-behavior
     attributes:
       label: Actual behavior
-      placeholder: Prefer copied & pasted commands & output instead of screenshots
+      placeholder: Prefer copied, pasted & formatted commands & output in a multiline console block (as instructed
+        above) instead of screenshots
     validations:
       required: true
   - type: textarea
@@ -80,9 +120,10 @@ body:
     attributes:
       label: Steps to reproduce
       description: |
-        Provide commands to reproduce the bug in the multiline shell block. Write non-shell steps as comments (`# …`).
+        Copy, paste & format commands & output in the multiline console block (as instructed above) that reproduce <!--
+        --> the bug
       value: |
-        ```shell
+        ```console
 
         ```
     validations:
@@ -91,6 +132,6 @@ body:
     id: context
     attributes:
       label: Additional context
-      placeholder: ex. Does the bug occur in other mas or macOS versions?
+      placeholder: "example: Does the bug occur in other mas or macOS versions?"
     validations:
       required: false
