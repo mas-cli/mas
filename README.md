@@ -20,7 +20,7 @@ A command-line interface for the Mac App Store. Designed for scripting and autom
 
 [Homebrew](http://brew.sh) is the preferred way to install:
 
-```bash
+```shell
 brew install mas
 ```
 
@@ -30,7 +30,7 @@ brew install mas
 
 [MacPorts](https://www.macports.org/install.php) is an alternative way to install:
 
-```bash
+```shell
 sudo port install mas
 ```
 
@@ -46,7 +46,7 @@ for macOS 10.13+ (High Sierra or newer).
 
 To install mas from our tap:
 
-```bash
+```shell
 brew install mas-cli/tap/mas
 ```
 
@@ -93,7 +93,7 @@ neither for your macOS user, nor in the Mac App Store.
 `mas search <search-term>` searches by name for applications available from the Mac App Store.
 Providing the `--price` flag includes each app's price in the output.
 
-```bash
+```console
 $ mas search Xcode
 497799835 Xcode
 688199928 Docs for Xcode
@@ -105,7 +105,7 @@ $ mas search Xcode
 
 `mas info <app-id>` displays more detailed information about an application available from the Mac App Store.
 
-```bash
+```console
 $ mas info 497799835
 Xcode 16.0 [0.0]
 By: Apple Inc.
@@ -123,7 +123,7 @@ All the commands in this section require you to be logged into an Apple ID for y
 
 `mas list` displays all the applications on your Mac that were installed from the Mac App Store.
 
-```bash
+```console
 $ mas list
 497799835 Xcode       (15.4)
 640199958 Developer   (10.6.5)
@@ -134,7 +134,7 @@ $ mas list
 
 `mas outdated` displays all applications installed from the Mac App Store on your computer that have pending upgrades.
 
-```bash
+```console
 $ mas outdated
 497799835 Xcode (15.4 -> 16.0)
 640199958 Developer (10.6.5 -> 10.6.6)
@@ -156,7 +156,7 @@ All the commands in this section require you to be logged into an Apple ID in th
 > `purchase` is currently a misnomer, because it currently can only "purchase" free
 > apps. To purchase apps that cost money, please purchase them directly in the Mac App Store.
 
-```bash
+```console
 $ mas purchase 497799835
 ==> Downloading Xcode
 ==> Installed Xcode
@@ -167,7 +167,7 @@ $ mas purchase 497799835
 `mas install <app-id>…` installs apps that you have already gotten/"purchased" from the Mac App Store.
 Providing the `--force` flag re-installs the app even if it is already installed on your computer.
 
-```bash
+```console
 $ mas install 497799835
 ==> Downloading Xcode
 ==> Installed Xcode
@@ -178,7 +178,7 @@ $ mas install 497799835
 `mas lucky <search-term>` installs the first result that would be returned by `mas search <search-term>`.
 Like `mas install`, `mas lucky` can only install apps that have previously been gotten/"purchased".
 
-```bash
+```console
 $ mas lucky Xcode
 ==> Downloading Xcode
 ==> Installed Xcode
@@ -195,7 +195,7 @@ Use [`softwareupdate(8)`] to install system updates (e.g., Xcode Command Line To
 
 `mas upgrade` upgrades outdated apps installed from the Mac App Store. Without any arguments, it upgrades all such apps.
 
-```bash
+```console
 $ mas upgrade
 Upgrading 2 outdated applications:
 Xcode (15.4) -> (16.0)
@@ -208,7 +208,7 @@ Developer (10.6.5) -> (10.6.6)
 
 Upgrades can be performed selectively by providing app IDs to `mas upgrade`.
 
-```bash
+```console
 $ mas upgrade 715768417
 Upgrading 1 outdated application:
 Xcode (15.4) -> (16.0)
@@ -228,20 +228,20 @@ These commands do not interact with the Apple ID for which your macOS user is si
 
 On macOS 10.12 (Sierra) or older, `mas signin <apple-id>` signs in to the specified Apple ID in the Mac App Store.
 
-```bash
+```console
 $ mas signin mas@example.com
 Password:
 ```
 
 Providing the `--dialog` flag signs in using a graphical dialog provided by Mac App Store.
 
-```bash
+```shell
 mas signin --dialog mas@example.com
 ```
 
 You can also embed your password in the command.
 
-```bash
+```shell
 mas signin mas@example.com MyPassword
 ```
 
@@ -299,7 +299,7 @@ fix pasteboard behaviour which also works for mas.
 You should consider configuring `tmux` to use the wrapper but if you do not wish
 to do this it can be used on a one-off basis as follows:
 
-```bash
+```shell
 brew install reattach-to-user-namespace
 reattach-to-user-namespace mas install
 ```
@@ -319,7 +319,7 @@ All feedback is much appreciated! ✨
 
 You can build from Xcode by opening the root mas directory, or from the Terminal:
 
-```bash
+```shell
 script/bootstrap
 script/build
 ```
@@ -333,7 +333,7 @@ Since Xcode does not officially support tests for command-line tool targets,
 all logic is part of the mas target with tests in masTests.
 Tests are written using [Quick].
 
-```bash
+```shell
 script/test
 ```
 
