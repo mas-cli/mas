@@ -2,7 +2,6 @@ brew "act"
 brew "markdownlint-cli"
 brew "prettier"
 brew "shellcheck"
-brew "shfmt"
 brew "swiftformat"
 brew "yamllint"
 
