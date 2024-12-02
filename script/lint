@@ -1,4 +1,4 @@
-#!/bin/zsh -fu
+#!/bin/zsh -Ndfgku
 #
 # script/lint
 # mas
@@ -10,14 +10,7 @@
 # Please keep in sync with script/format.
 #
 
-set -o pipefail
-
-mas_dir="${0:a:h:h}"
-
-if ! cd -- "${mas_dir}"; then
-  printf $'Error: Could not cd into mas directory: %s\n' "${mas_dir}" >&2
-  exit 1
-fi
+. "${0:a:h}/_setup_script"
 
 script/generate_version_info_for_swift
 
@@ -57,7 +50,7 @@ yamllint .
 ((exit_code |= ${?}))
 
 printf -- $'--> 🌳 Git\n'
-PAGER='cat' git diff --check
+git diff --check
 ((exit_code |= ${?}))
 
 printf -- $'--> 🌀 Periphery\n'

@@ -1,4 +1,4 @@
-#!/bin/zsh -efu
+#!/bin/zsh -Ndefgku
 #
 # script/update_headers
 # mas
@@ -6,12 +6,7 @@
 # Runs class-dump to generate headers for Apple private frameworks.
 #
 
-mas_dir="${0:a:h:h}"
-
-if ! cd -- "${mas_dir}"; then
-  printf $'Error: Could not cd into mas directory: %s\n' "${mas_dir}" >&2
-  exit 1
-fi
+. "${0:a:h}/_setup_script"
 
 if ! command -v class-dump >/dev/null; then
   printf $'class-dump is not installed.\nDownload from http://stevenygard.com/projects/class-dump/\n' >&2
