@@ -1,4 +1,4 @@
-#!/bin/bash -eu
+#!/bin/zsh -efu
 #
 # script/generate_version_info_for_swift
 # mas
@@ -6,7 +6,7 @@
 # Generates a file to provide the mas version to Swift code.
 #
 
-mas_dir="$(readlink -fn "$(dirname "${BASH_SOURCE:-"${0}"}")/..")"
+mas_dir="${0:a:h:h}"
 
 if ! cd -- "${mas_dir}"; then
   printf $'Error: Could not cd into mas directory: %s\n' "${mas_dir}" >&2

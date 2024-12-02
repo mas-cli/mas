@@ -1,4 +1,4 @@
-#!/bin/bash -eu
+#!/bin/zsh -efu
 #
 # script/bootstrap
 # mas
@@ -8,7 +8,7 @@
 # Usage: bootstrap [<brew-bundle-install-argument>...]
 #
 
-mas_dir="$(readlink -fn "$(dirname "${BASH_SOURCE:-"${0}"}")/..")"
+mas_dir="${0:a:h:h}"
 
 if ! cd -- "${mas_dir}"; then
   printf $'Error: Could not cd into mas directory: %s\n' "${mas_dir}" >&2
@@ -17,5 +17,4 @@ fi
 
 printf $'==> 👢 Bootstrapping mas %s\n' "$(script/version)"
 
-# shellcheck disable=SC2086
-brew bundle install --verbose "${@:+"${@}"}"
+brew bundle install --verbose "${@}"

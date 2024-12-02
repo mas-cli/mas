@@ -1,4 +1,4 @@
-#!/bin/bash -eu
+#!/bin/zsh -efu
 #
 # script/version
 # mas
@@ -6,12 +6,11 @@
 # Displays the mas version.
 #
 
-mas_dir="$(readlink -fn "$(dirname "${BASH_SOURCE:-"${0}"}")/..")"
+mas_dir="${0:a:h:h}"
 
 if ! cd -- "${mas_dir}"; then
   printf $'Error: Could not cd into mas directory: %s\n' "${mas_dir}" >&2
   exit 1
 fi
 
-version_tag="$(git describe --tags 2>/dev/null)"
-printf $'%s\n' "${version_tag#v}"
+printf $'%s\n' "${"$(git describe --tags 2>/dev/null)"#v}"

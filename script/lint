@@ -1,4 +1,4 @@
-#!/bin/bash -u
+#!/bin/zsh -fu
 #
 # script/lint
 # mas
@@ -12,7 +12,7 @@
 
 set -o pipefail
 
-mas_dir="$(readlink -fn "$(dirname "${BASH_SOURCE:-"${0}"}")/..")"
+mas_dir="${0:a:h:h}"
 
 if ! cd -- "${mas_dir}"; then
   printf $'Error: Could not cd into mas directory: %s\n' "${mas_dir}" >&2
@@ -34,35 +34,35 @@ exit_code=0
 for source in Package.swift Sources Tests; do
   printf -- $'--> 🦅 %s swift-format\n' "${source}"
   swift-format lint --strict --recursive "${source}"
-  ((exit_code |= "${?}"))
+  ((exit_code |= ${?}))
   printf -- $'--> 🦅 %s swiftformat\n' "${source}"
   script -q /dev/null swiftformat --lint --strict "${source}" |
     (grep -vxE '(?:\^D\x08{2})?Running SwiftFormat\.{3}\r|\(lint mode - no files will be changed\.\)\r|Reading (?:config|swift-version) file at .*|\x1b\[32mSwiftFormat completed in \d+\.\d+s\.\x1b\[0m\r|0/\d+ files require formatting\.\r' || true)
-  ((exit_code |= "${?}"))
+  ((exit_code |= ${?}))
   printf -- $'--> 🦅 %s swiftlint\n' "${source}"
   swiftlint --strict --quiet "${source}"
-  ((exit_code |= "${?}"))
+  ((exit_code |= ${?}))
 done
 
-printf -- $'--> 🐚 Bash shellcheck\n'
-shellcheck --shell=bash script/*
-((exit_code |= "${?}"))
+printf -- $'--> 🐚 ShellCheck\n'
+shellcheck -s bash -o all -e SC2296,SC2301,SC2312 -a -P SCRIPTDIR script/**/*(.)
+((exit_code |= ${?}))
 
 printf -- $'--> 〽️ Markdown\n'
 markdownlint --config .markdownlint.json . docs
-((exit_code |= "${?}"))
+((exit_code |= ${?}))
 
 printf -- $'--> 📝 YAML\n'
 yamllint .
-((exit_code |= "${?}"))
+((exit_code |= ${?}))
 
 printf -- $'--> 🌳 Git\n'
 PAGER='cat' git diff --check
-((exit_code |= "${?}"))
+((exit_code |= ${?}))
 
 printf -- $'--> 🌀 Periphery\n'
 script -q /dev/null periphery scan --strict --quiet --disable-update-check |
   (grep -vxE '(?:\x1b\[0;1;32m|\^D\x08{2})\* (?:\x1b\[0;0m\x1b\[0;1m)?No unused code detected\.(?:\x1b\[0;0m)?\r' || true)
-((exit_code |= "${?}"))
+((exit_code |= ${?}))
 
 exit "${exit_code}"

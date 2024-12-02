@@ -6,7 +6,7 @@ name: release
 defaults:
   run:
     # Force all run commands to not use Rosetta 2
-    shell: arch -arm64 /bin/bash --noprofile --norc -eo pipefail {0}
+    shell: arch -arm64 /bin/zsh -ef --pipefail {0}
 on:
   release:
     types: [published]
