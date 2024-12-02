@@ -1,4 +1,4 @@
-#!/bin/zsh -efu
+#!/bin/zsh -Ndefgku
 #
 # script/generate_version_info_for_swift
 # mas
@@ -6,12 +6,7 @@
 # Generates a file to provide the mas version to Swift code.
 #
 
-mas_dir="${0:a:h:h}"
-
-if ! cd -- "${mas_dir}"; then
-  printf $'Error: Could not cd into mas directory: %s\n' "${mas_dir}" >&2
-  exit 1
-fi
+. "${0:a:h}/_setup_script"
 
 # Write version to Swift singleton
 cat <<EOF >Sources/mas/Package.swift

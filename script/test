@@ -1,4 +1,4 @@
-#!/bin/zsh -efu
+#!/bin/zsh -Ndefgku
 #
 # script/test
 # mas
@@ -6,14 +6,7 @@
 # Runs mas tests.
 #
 
-set -o pipefail
-
-mas_dir="${0:a:h:h}"
-
-if ! cd -- "${mas_dir}"; then
-  printf $'Error: Could not cd into mas directory: %s\n' "${mas_dir}" >&2
-  exit 1
-fi
+. "${0:a:h}/_setup_script"
 
 script/generate_version_info_for_swift
 
