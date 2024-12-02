@@ -103,7 +103,8 @@ body:
     id: expected-behavior
     attributes:
       label: Expected behavior
-      placeholder: Prefer copied, pasted & formatted commands & output in a multiline console block (as instructed
+      placeholder:
+        Prefer copied, pasted & formatted commands & output in a multiline console block (as instructed
         above) instead of screenshots
     validations:
       required: true
@@ -111,7 +112,8 @@ body:
     id: actual-behavior
     attributes:
       label: Actual behavior
-      placeholder: Prefer copied, pasted & formatted commands & output in a multiline console block (as instructed
+      placeholder:
+        Prefer copied, pasted & formatted commands & output in a multiline console block (as instructed
         above) instead of screenshots
     validations:
       required: true

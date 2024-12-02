@@ -33,7 +33,8 @@ body:
     id: problems
     attributes:
       label: Problem(s) addressed
-      placeholder: Prefer copied, pasted & formatted commands & output in a multiline console block (as instructed
+      placeholder:
+        Prefer copied, pasted & formatted commands & output in a multiline console block (as instructed
         above) instead of screenshots
     validations:
       required: true
@@ -41,7 +42,8 @@ body:
     id: proposals
     attributes:
       label: Proposed solution(s)
-      placeholder: Prefer copied, pasted & formatted commands & output in a multiline console block (as instructed
+      placeholder:
+        Prefer copied, pasted & formatted commands & output in a multiline console block (as instructed
         above) instead of screenshots
     validations:
       required: true
@@ -49,7 +51,8 @@ body:
     id: alternatives
     attributes:
       label: Alternative solution(s)
-      placeholder: Prefer copied, pasted & formatted commands & output in a multiline console block (as instructed
+      placeholder:
+        Prefer copied, pasted & formatted commands & output in a multiline console block (as instructed
         above) instead of screenshots
     validations:
       required: false
@@ -57,7 +60,8 @@ body:
     id: context
     attributes:
       label: Additional context
-      placeholder: Prefer copied, pasted & formatted commands & output in a multiline console block (as instructed
+      placeholder:
+        Prefer copied, pasted & formatted commands & output in a multiline console block (as instructed
         above) instead of screenshots
     validations:
       required: false
