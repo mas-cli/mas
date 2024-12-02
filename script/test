@@ -1,4 +1,4 @@
-#!/bin/bash -eu
+#!/bin/zsh -efu
 #
 # script/test
 # mas
@@ -8,7 +8,7 @@
 
 set -o pipefail
 
-mas_dir="$(readlink -fn "$(dirname "${BASH_SOURCE:-"${0}"}")/..")"
+mas_dir="${0:a:h:h}"
 
 if ! cd -- "${mas_dir}"; then
   printf $'Error: Could not cd into mas directory: %s\n' "${mas_dir}" >&2

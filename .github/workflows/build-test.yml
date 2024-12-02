@@ -27,7 +27,7 @@ jobs:
         # https://github.com/actions/runner/issues/805#issuecomment-942784948
         # https://github.com/rolpdog/cffi-mirror/blob/release-1.15/.github/workflows/ci.yaml#L81-L141
         # https://github.com/actions/runner-images/issues/2187#issuecomment-790507204
-        shell: arch -arm64 /bin/bash --noprofile --norc -eo pipefail {0}
+        shell: arch -arm64 /bin/zsh -ef --pipefail {0}
 
     steps:
       - uses: actions/checkout@v4

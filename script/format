@@ -1,4 +1,4 @@
-#!/bin/bash -eu
+#!/bin/zsh -efu
 #
 # script/format
 # mas
@@ -10,7 +10,7 @@
 
 set -o pipefail
 
-mas_dir="$(readlink -fn "$(dirname "${BASH_SOURCE:-"${0}"}")/..")"
+mas_dir="${0:a:h:h}"
 
 if ! cd -- "${mas_dir}"; then
   printf $'Error: Could not cd into mas directory: %s\n' "${mas_dir}" >&2
@@ -40,6 +40,5 @@ printf -- $'--> 〽️ Markdown\n'
 markdownlint --config .markdownlint.json --fix . docs
 
 printf -- $'--> 📝 YAML\n'
-# shellcheck disable=SC2046
-script -q /dev/null prettier --write $(yamllint --list-files .) |
+script -q /dev/null prettier --write "${(f)"$(yamllint --list-files .)"}" |
   (grep -vxE '.+ \d+ms \(unchanged\)\r' || true)

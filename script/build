@@ -1,4 +1,4 @@
-#!/bin/bash -eu
+#!/bin/zsh -efu
 #
 # script/build
 # mas
@@ -6,7 +6,7 @@
 # Builds the Swift Package.
 #
 
-mas_dir="$(readlink -fn "$(dirname "${BASH_SOURCE:-"${0}"}")/..")"
+mas_dir="${0:a:h:h}"
 
 if ! cd -- "${mas_dir}"; then
   printf $'Error: Could not cd into mas directory: %s\n' "${mas_dir}" >&2
@@ -36,6 +36,6 @@ printf $'==> 🏗️ Building mas %s\n' "$(script/version)"
 
 swift build \
   --configuration release \
-  "${arch[@]+"${arch[@]}"}" \
+  "${arch[@]}" \
   --disable-sandbox \
-  "${cache[@]+"${cache[@]}"}"
+  "${cache[@]}"
