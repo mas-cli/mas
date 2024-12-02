@@ -3,13 +3,13 @@
 #
 ---
 name: release
+on:
+  release:
+    types: [published]
 defaults:
   run:
     # Force all run commands to not use Rosetta 2
     shell: arch -arm64 /bin/zsh {0}
-on:
-  release:
-    types: [published]
 env:
   GH_TOKEN: ${{github.token}}
   HOMEBREW_GITHUB_API_TOKEN: ${{secrets.HOMEBREW_GITHUB_API_TOKEN}}
@@ -28,7 +28,7 @@ jobs:
           printf $'Triggered by release publication event:\nname: %s\ntag_name: %s\ntarget_commitish: %s\nbody:\n%s\n' \
             "${RELEASE_NAME}" "${RELEASE_TAG}" "${RELEASE_COMMITISH}" "${RELEASE_BODY}"
 
-      - name: 📺 Checkout mas repo
+      - name: 🛒 Checkout mas repo
         uses: actions/checkout@v4
 
       - name: 👢 Bootstrap
@@ -39,7 +39,7 @@ jobs:
         run: |
           script/package
 
-      - name: 🚀 Upload mas.pkg
+      - name: 📤 Upload mas.pkg
         run: |
           gh release upload "${RELEASE_TAG}" .build/mas.pkg
 

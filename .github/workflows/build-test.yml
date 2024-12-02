@@ -3,36 +3,26 @@
 #
 ---
 name: Build, Test, and Lint
-
 on:
   pull_request:
     branches: [main]
   push:
     branches: [main]
-
 concurrency:
   group: ${{github.workflow}}-${{github.ref}}
   cancel-in-progress: true
-
 jobs:
   build-test:
     name: Build, Test, and Lint
-
-    # https://github.com/actions/runner-images#available-images
     runs-on: macos-15
-
     defaults:
       run:
-        # Prefixes all `run` commands with the following command to force them to run outside Rosetta.
-        # https://github.com/actions/runner/issues/805#issuecomment-942784948
-        # https://github.com/rolpdog/cffi-mirror/blob/release-1.15/.github/workflows/ci.yaml#L81-L141
-        # https://github.com/actions/runner-images/issues/2187#issuecomment-790507204
+        # Force all run commands to not use Rosetta 2
         shell: arch -arm64 /bin/zsh {0}
-
     steps:
       - uses: actions/checkout@v4
         with:
-          # A fetch-depth of 0 includes all history and tags for script/version
+          # Include all history & tags for script/version
           fetch-depth: 0
 
       - name: Bootstrap
