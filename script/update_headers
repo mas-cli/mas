@@ -9,7 +9,7 @@
 . "${0:a:h}/_setup_script"
 
 if ! command -v class-dump >/dev/null; then
-  printf $'class-dump is not installed.\nDownload from http://stevenygard.com/projects/class-dump/\n' >&2
+  printf $'class-dump is not installed.\n\nDownload, build & install mas fork of class-dump from https://github.com/mas-cli/class-dump\n' >&2
   exit 1
 fi
 
