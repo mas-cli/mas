@@ -10,3 +10,4 @@
 
 swift package clean
 swift package reset
+rm -f Sources/mas/Package.swift
