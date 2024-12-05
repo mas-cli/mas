@@ -1,4 +1,4 @@
-#!/bin/bash -eu
+#!/bin/zsh -Ndefgku
 #
 # script/build
 # mas
@@ -6,31 +6,31 @@
 # Builds the Swift Package.
 #
 
-mas_dir="$(readlink -fn "$(dirname "${BASH_SOURCE:-"${0}"}")/..")"
-
-if ! cd -- "${mas_dir}"; then
-  printf $'Error: Could not cd into mas directory: %s\n' "${mas_dir}" >&2
-  exit 1
-fi
+. "${0:a:h}/_setup_script"
 
 # Build for the host architecture by default.
-ARCH=()
-if [[ "${#}" -ge 1 && "${1}" == '--universal' ]]; then
-  ARCH=(
+if [[ "${#}" -ge 1 && "${1}" == --universal ]]; then
+  arch=(
     --arch arm64
     --arch x86_64
   )
+else
+  arch=()
 fi
 
-# Disable the manifest cache on Xcode 12.5 and later.
-CACHE=()
+# Disable the manifest cache.
 if [[ "$(swift build --help)" =~ manifest-cache ]]; then
-  CACHE=(--manifest-cache none)
+  cache=(--manifest-cache none)
+else
+  cache=()
 fi
 
-echo "==> 🏗️ Building mas ($(script/version --write))"
+script/generate_version_info_for_swift
+
+printf $'==> 🏗️ Building mas %s\n' "$(script/version)"
+
 swift build \
   --configuration release \
-  "${ARCH[@]+"${ARCH[@]}"}" \
+  "${arch[@]}" \
   --disable-sandbox \
-  "${CACHE[@]+"${CACHE[@]}"}"
+  "${cache[@]}"
