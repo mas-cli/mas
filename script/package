@@ -13,7 +13,7 @@ distribution_package="${build_dir}/mas.pkg"
 distributions_root="${build_dir}/distributions"
 version="$(script/version)"
 
-script/build --universal
+script/build --arch arm64 --arch x86_64
 
 ditto -v "${build_dir}/apple/Products/Release/mas" "${distributions_root}/usr/local/bin/mas"
 
