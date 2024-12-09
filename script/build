@@ -8,29 +8,8 @@
 
 . "${0:a:h}/_setup_script"
 
-# Build for the host architecture by default.
-if [[ "${#}" -ge 1 && "${1}" == --universal ]]; then
-  arch=(
-    --arch arm64
-    --arch x86_64
-  )
-else
-  arch=()
-fi
-
-# Disable the manifest cache.
-if [[ "$(swift build --help)" =~ manifest-cache ]]; then
-  cache=(--manifest-cache none)
-else
-  cache=()
-fi
-
 script/generate_version_info_for_swift
 
 printf $'==> 🏗️ Building mas %s\n' "$(script/version)"
 
-swift build \
-  --configuration release \
-  "${arch[@]}" \
-  --disable-sandbox \
-  "${cache[@]}"
+swift build --configuration release "${@}"
