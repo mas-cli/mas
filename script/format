@@ -13,7 +13,7 @@
 printf $'==> 🚨 Formatting mas %s\n' "$(script/version)"
 
 for formatter in markdownlint prettier swift-format swiftformat swiftlint yamllint; do
-  if [[ ! -x "$(command -v "${formatter}")" ]]; then
+  if ! command -v "${formatter}" >/dev/null; then
     printf $'error: %s is not installed. Run \'script/bootstrap\' or \'brew install %s\'.\n' "${formatter}" "${formatter}" >&2
     exit 1
   fi

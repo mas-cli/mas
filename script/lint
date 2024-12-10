@@ -17,7 +17,7 @@ printf $'==> 🚨 Linting mas %s\n' "$(script/version)"
 script/generate_version_info_for_swift
 
 for linter in git markdownlint periphery shellcheck swift-format swiftformat swiftlint yamllint; do
-  if [[ ! -x "$(command -v "${linter}")" ]]; then
+  if ! command -v "${linter}" >/dev/null; then
     printf $'error: %s is not installed. Run \'script/bootstrap\' or \'brew install %s\'.\n' "${linter}" "${linter}" >&2
     exit 1
   fi
