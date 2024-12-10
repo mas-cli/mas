@@ -13,21 +13,11 @@ defaults:
 env:
   GH_TOKEN: ${{github.token}}
   HOMEBREW_GITHUB_API_TOKEN: ${{secrets.HOMEBREW_GITHUB_API_TOKEN}}
-  RELEASE_BODY: ${{github.event.release.body}}
-  RELEASE_COMMITISH: ${{github.event.release.target_commitish}}
-  RELEASE_NAME: ${{github.event.release.name}}
   RELEASE_TAG: ${{github.event.release.tag_name}}
 jobs:
   release:
     runs-on: macos-15
     steps:
-      - name: 🔈 Log real release event
-        # Run only for a real release event
-        if: ${{env.RELEASE_NAME}}
-        run: |
-          printf $'Triggered by release publication event:\nname: %s\ntag_name: %s\ntarget_commitish: %s\nbody:\n%s\n' \
-            "${RELEASE_NAME}" "${RELEASE_TAG}" "${RELEASE_COMMITISH}" "${RELEASE_BODY}"
-
       - name: 🛒 Checkout mas repo
         uses: actions/checkout@v4
 
