@@ -15,9 +15,9 @@ version="$(script/version)"
 
 script/build --arch arm64 --arch x86_64
 
-ditto -v "${build_dir}/apple/Products/Release/mas" "${distributions_root}/usr/local/bin/mas"
-
 printf $'==> 📦 Assembling installer package for mas %s\n' "${version}"
+
+ditto -v "${build_dir}/apple/Products/Release/mas" "${distributions_root}/usr/local/bin/mas"
 
 # Assemble macOS installer component package (aka product archive).
 pkgbuild \
