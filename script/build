@@ -8,8 +8,8 @@
 
 . "${0:a:h}/_setup_script"
 
-script/generate_version_info_for_swift
-
 printf $'==> 🏗️ Building mas %s\n' "$(script/version)"
+
+script/generate_version_info_for_swift
 
 swift build --configuration release "${@}"
