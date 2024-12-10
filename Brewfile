@@ -1,4 +1,3 @@
-brew "act"
 brew "markdownlint-cli"
 brew "prettier"
 brew "shellcheck"
