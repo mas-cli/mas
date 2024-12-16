@@ -13,7 +13,7 @@ defaults:
 env:
   GH_TOKEN: ${{github.token}}
   HOMEBREW_GITHUB_API_TOKEN: ${{secrets.HOMEBREW_GITHUB_API_TOKEN}}
-  RELEASE_TAG: ${{github.event.release.tag_name}}
+  TAG_NAME: ${{github.event.release.tag_name}}
 jobs:
   release:
     runs-on: macos-15
@@ -31,14 +31,14 @@ jobs:
 
       - name: 📤 Upload mas.pkg
         run: |
-          gh release upload "${RELEASE_TAG}" .build/mas.pkg
+          gh release upload "${TAG_NAME}" .build/mas.pkg
 
       - name: 🚰 Bump mas-cli/tap/mas formula
         run: |
           brew tap mas-cli/tap
           brew bump-formula-pr \
-            --tag "${RELEASE_TAG}" \
-            --revision "$(git rev-parse "${RELEASE_TAG}")" \
+            --tag "${TAG_NAME}" \
+            --revision "$(git rev-parse "${TAG_NAME}")" \
             --no-fork \
             --no-browse \
             --online \
@@ -48,11 +48,11 @@ jobs:
 
       - name: 🍺 Bump homebrew-core/mas formula
         # Bump homebrew-core/mas formula only if not a prerelease; all prerelease versions contain a '-'
-        if: ${{!contains(env.RELEASE_TAG, '-')}}
+        if: ${{!contains(env.TAG_NAME, '-')}}
         run: |
           brew bump-formula-pr \
-            --tag "${RELEASE_TAG}" \
-            --revision "$(git rev-parse "${RELEASE_TAG}")" \
+            --tag "${TAG_NAME}" \
+            --revision "$(git rev-parse "${TAG_NAME}")" \
             --fork-org mas-cli \
             --no-browse \
             --online \
