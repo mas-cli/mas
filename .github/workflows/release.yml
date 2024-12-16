@@ -11,8 +11,6 @@ defaults:
     # Force all run commands to not use Rosetta 2
     shell: arch -arm64 /bin/zsh {0}
 env:
-  GH_TOKEN: ${{github.token}}
-  HOMEBREW_GITHUB_API_TOKEN: ${{secrets.HOMEBREW_GITHUB_API_TOKEN}}
   TAG_NAME: ${{github.event.release.tag_name}}
 jobs:
   release:
