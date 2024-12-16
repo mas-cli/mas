@@ -11,6 +11,7 @@ defaults:
     # Force all run commands to not use Rosetta 2
     shell: arch -arm64 /bin/zsh {0}
 env:
+  PRERELEASE: ${{contains(github.event.release.tag_name, '-') && '--prerelease' || ''}}
   TAG_NAME: ${{github.event.release.tag_name}}
 jobs:
   release:
@@ -45,8 +46,7 @@ jobs:
             mas-cli/tap/mas
 
       - name: 🍺 Bump homebrew-core/mas formula
-        # Bump homebrew-core/mas formula only if not a prerelease; all prerelease versions contain a '-'
-        if: ${{!contains(env.TAG_NAME, '-')}}
+        if: ${{!env.PRERELEASE}}
         run: |
           brew bump-formula-pr \
             --tag "${TAG_NAME}" \
