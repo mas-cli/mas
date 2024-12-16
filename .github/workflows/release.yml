@@ -15,6 +15,7 @@ env:
   TAG_NAME: ${{github.event.release.tag_name}}
 jobs:
   release:
+    if: github.repository == 'mas-cli/mas'
     runs-on: macos-15
     steps:
       - name: 🛒 Checkout mas repo
