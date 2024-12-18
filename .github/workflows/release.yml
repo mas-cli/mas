@@ -4,13 +4,14 @@
 ---
 name: release
 on:
-  release:
-    types: [published]
+  push:
+    tags: ["**"]
 defaults:
   run:
     # Force all run commands to not use Rosetta 2
     shell: arch -arm64 /bin/zsh {0}
 env:
+  DEFAULT_BRANCH_NAME: ${{github.event.repository.default_branch}}
   PRERELEASE: ${{contains(github.event.release.tag_name, '-') && '--prerelease' || ''}}
   TAG_NAME: ${{github.event.release.tag_name}}
 jobs:
@@ -21,6 +22,30 @@ jobs:
       - name: 🛒 Checkout mas repo
         uses: actions/checkout@v4
 
+      - name: 🖋 Delete tag lacking valid signature
+        run: |
+          if ! git tag -v "${TAG_NAME}" &>|/dev/null; then
+            printf $'Error: Deleting tag %s because it does not have a valid signature\n' "${TAG_NAME}" >&2
+            git push -d origin "${TAG_NAME}"
+            exit 1
+          fi
+
+      - name: 🏷 Exit if not a version tag
+        run: |
+          if [[ ! "${TAG_NAME}" =~ '^v[[:digit:]]+(\.[[:digit:]]+)*(-(alpha|beta|rc)\.[[:digit:]]+)?$' ]]; then
+            printf $'Exiting because %s is not a version tag\n' "${TAG_NAME}"
+            exit 2
+          fi
+
+      - name: 🌳 Delete version tag not on main
+        run: |
+          if ! git merge-base --is-ancestor "${TAG_NAME}" "${DEFAULT_BRANCH_NAME}"; then
+            printf $'Error: Deleting version tag %s because it is not on the %s branch\n' "${TAG_NAME}" \
+              "${DEFAULT_BRANCH_NAME}" >&2
+            git push -d origin "${TAG_NAME}"
+            exit 3
+          fi
+
       - name: 👢 Bootstrap
         run: |
           script/bootstrap
@@ -28,6 +53,10 @@ jobs:
       - name: 📦 Build universal executable & package it in mas.pkg
         run: |
           script/package
+
+      - name: 📝 Create draft release
+        run: |
+          gh release create -d --generate-notes ${PRERELEASE} "${TAG_NAME}"
 
       - name: 📤 Upload mas.pkg
         run: |
@@ -45,16 +74,3 @@ jobs:
             --strict \
             --verbose \
             mas-cli/tap/mas
-
-      - name: 🍺 Bump homebrew-core/mas formula
-        if: ${{!env.PRERELEASE}}
-        run: |
-          brew bump-formula-pr \
-            --tag "${TAG_NAME}" \
-            --revision "$(git rev-parse "${TAG_NAME}")" \
-            --fork-org mas-cli \
-            --no-browse \
-            --online \
-            --strict \
-            --verbose \
-            mas
