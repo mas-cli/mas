@@ -13,7 +13,6 @@ defaults:
 env:
   DEFAULT_BRANCH_NAME: ${{github.event.repository.default_branch}}
   PRERELEASE: ${{contains(github.event.release.tag_name, '-') && '--prerelease' || ''}}
-  TAG_NAME: ${{github.event.release.tag_name}}
 jobs:
   tag-pushed:
     if: github.repository == 'mas-cli/mas'
@@ -24,25 +23,25 @@ jobs:
 
       - name: 🖋 Delete tag lacking valid signature
         run: |
-          if ! git tag -v "${TAG_NAME}" &>|/dev/null; then
-            printf $'Error: Deleting tag %s because it does not have a valid signature\n' "${TAG_NAME}" >&2
-            git push -d origin "${TAG_NAME}"
+          if ! git tag -v "${GITHUB_REF_NAME}" &>|/dev/null; then
+            printf $'Error: Deleting tag %s because it does not have a valid signature\n' "${GITHUB_REF_NAME}" >&2
+            git push -d origin "${GITHUB_REF_NAME}"
             exit 1
           fi
 
       - name: 🏷 Exit if not a version tag
         run: |
-          if [[ ! "${TAG_NAME}" =~ '^v[[:digit:]]+(\.[[:digit:]]+)*(-(alpha|beta|rc)\.[[:digit:]]+)?$' ]]; then
-            printf $'Exiting because %s is not a version tag\n' "${TAG_NAME}"
+          if [[ ! "${GITHUB_REF_NAME}" =~ '^v[[:digit:]]+(\.[[:digit:]]+)*(-(alpha|beta|rc)\.[[:digit:]]+)?$' ]]; then
+            printf $'Exiting because %s is not a version tag\n' "${GITHUB_REF_NAME}"
             exit 2
           fi
 
       - name: 🌳 Delete version tag not on main
         run: |
-          if ! git merge-base --is-ancestor "${TAG_NAME}" "${DEFAULT_BRANCH_NAME}"; then
-            printf $'Error: Deleting version tag %s because it is not on the %s branch\n' "${TAG_NAME}" \
+          if ! git merge-base --is-ancestor "${GITHUB_REF_NAME}" "${DEFAULT_BRANCH_NAME}"; then
+            printf $'Error: Deleting version tag %s because it is not on the %s branch\n' "${GITHUB_REF_NAME}" \
               "${DEFAULT_BRANCH_NAME}" >&2
-            git push -d origin "${TAG_NAME}"
+            git push -d origin "${GITHUB_REF_NAME}"
             exit 3
           fi
 
@@ -52,18 +51,18 @@ jobs:
 
       - name: 📝 Create draft release
         run: |
-          gh release create -d --generate-notes ${PRERELEASE} "${TAG_NAME}"
+          gh release create -d --generate-notes ${PRERELEASE} "${GITHUB_REF_NAME}"
 
       - name: 📤 Upload installer
         run: |
-          gh release upload "${TAG_NAME}" ".build/mas-${TAG_NAME#v}.pkg"
+          gh release upload "${GITHUB_REF_NAME}" ".build/mas-${GITHUB_REF_NAME#v}.pkg"
 
       - name: 🚰 Bump mas-cli/tap/mas formula
         run: |
           brew tap mas-cli/tap
           brew bump-formula-pr \
-            --tag "${TAG_NAME}" \
-            --revision "$(git rev-parse "${TAG_NAME}")" \
+            --tag "${GITHUB_REF_NAME}" \
+            --revision "$(git rev-parse "${GITHUB_REF_NAME}")" \
             --no-fork \
             --no-browse \
             --online \
