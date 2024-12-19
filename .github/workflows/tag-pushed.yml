@@ -12,7 +12,6 @@ defaults:
     shell: arch -arm64 /bin/zsh {0}
 env:
   DEFAULT_BRANCH_NAME: ${{github.event.repository.default_branch}}
-  PRERELEASE: ${{contains(github.event.release.tag_name, '-') && '--prerelease' || ''}}
 jobs:
   tag-pushed:
     if: github.repository == 'mas-cli/mas'
@@ -51,7 +50,7 @@ jobs:
 
       - name: 📝 Create draft release
         run: |
-          gh release create -d --generate-notes ${PRERELEASE} "${GITHUB_REF_NAME}"
+          gh release create -d --generate-notes ${"${GITHUB_REF_NAME//[^-]/}":+-p} "${GITHUB_REF_NAME}"
 
       - name: 📤 Upload installer
         run: |
