@@ -61,7 +61,7 @@ jobs:
           brew tap mas-cli/tap
           brew bump-formula-pr \
             --tag "${GITHUB_REF_NAME}" \
-            --revision "$(git rev-parse "${GITHUB_REF_NAME}")" \
+            --revision "${GITHUB_SHA}" \
             --no-fork \
             --no-browse \
             --online \
