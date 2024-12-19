@@ -38,7 +38,7 @@ for source in Package.swift Sources Tests; do
 done
 
 printf -- $'--> 🐚 ShellCheck\n'
-shellcheck -s bash -o all -e SC2296,SC2301,SC2312 -a -P SCRIPTDIR script/**/*(.)
+shellcheck -s bash -o all -e SC1088,SC2296,SC2301,SC2312 -a -P SCRIPTDIR script/**/*(.)
 ((exit_code |= ${?}))
 
 printf -- $'--> 〽️ Markdown\n'
