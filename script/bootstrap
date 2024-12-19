@@ -3,7 +3,7 @@
 # script/bootstrap
 # mas
 #
-# Installs development dependencies and builds project dependencies.
+# Installs dependencies for script/format & script/lint.
 #
 # Usage: bootstrap [<brew-bundle-install-argument>...]
 #
