@@ -50,7 +50,7 @@ jobs:
         run: |
           script/bootstrap
 
-      - name: 📦 Build universal executable & package it in mas.pkg
+      - name: 📦 Build universal executable & package it in an installer
         run: |
           script/package
 
@@ -58,9 +58,9 @@ jobs:
         run: |
           gh release create -d --generate-notes ${PRERELEASE} "${TAG_NAME}"
 
-      - name: 📤 Upload mas.pkg
+      - name: 📤 Upload installer
         run: |
-          gh release upload "${TAG_NAME}" .build/mas.pkg
+          gh release upload "${TAG_NAME}" ".build/mas-${TAG_NAME#v}.pkg"
 
       - name: 🚰 Bump mas-cli/tap/mas formula
         run: |
