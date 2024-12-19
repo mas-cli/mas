@@ -1,7 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <installer-gui-script minSpecVersion="2">
-    <pkg-ref id="com.mphys.mas-cli" version="1.0.0" onConclusion="none">mas_components.pkg</pkg-ref>
-    <domains enable_localSystem="true" enable_anywhere="true" enable_currentUserHome="false" />
+    <pkg-ref id="com.mphys.mas-cli">
+        <bundle-version/>
+    </pkg-ref>
+    <pkg-ref id="com.mphys.mas-cli" onConclusion="none">#mas_components.pkg</pkg-ref>
+    <domains enable_localSystem="true" enable_anywhere="true" enable_currentUserHome="false"/>
     <options customize="never" require-scripts="false"/>
     <volume-check>
         <allowed-os-versions>
