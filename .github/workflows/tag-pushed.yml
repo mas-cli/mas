@@ -10,8 +10,6 @@ defaults:
   run:
     # Force all run commands to not use Rosetta 2
     shell: arch -arm64 /bin/zsh {0}
-env:
-  DEFAULT_BRANCH_NAME: ${{github.event.repository.default_branch}}
 jobs:
   tag-pushed:
     if: github.repository == 'mas-cli/mas'
@@ -36,6 +34,8 @@ jobs:
           fi
 
       - name: 🌳 Delete version tag not on main
+        env:
+          DEFAULT_BRANCH_NAME: ${{github.event.repository.default_branch}}
         run: |
           if ! git merge-base --is-ancestor "${GITHUB_REF_NAME}" "${DEFAULT_BRANCH_NAME}"; then
             printf $'Error: Deleting version tag %s because it is not on the %s branch\n' "${GITHUB_REF_NAME}" \
