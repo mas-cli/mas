@@ -1,8 +1,8 @@
 #
-# .github/workflows/release.yml
+# .github/workflows/tag-pushed.yml
 #
 ---
-name: release
+name: tag-pushed
 on:
   push:
     tags: ["**"]
@@ -15,7 +15,7 @@ env:
   PRERELEASE: ${{contains(github.event.release.tag_name, '-') && '--prerelease' || ''}}
   TAG_NAME: ${{github.event.release.tag_name}}
 jobs:
-  release:
+  tag-pushed:
     if: github.repository == 'mas-cli/mas'
     runs-on: macos-15
     steps:
