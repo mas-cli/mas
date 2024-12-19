@@ -3,36 +3,29 @@
 # script/package
 # mas
 #
-# Builds macOS installer component and distribution packages.
+# Builds .pkg installer.
 #
 
 . "${0:a:h}/_setup_script"
 
-build_dir=.build
-distribution_package="${build_dir}/mas.pkg"
-distributions_root="${build_dir}/distributions"
-version="$(script/version)"
-
 script/build --arch arm64 --arch x86_64
+
+build_dir=.build
+destination_root="${build_dir}/destination"
+version="$(script/version)"
 
 printf $'==> 📦 Assembling installer package for mas %s\n' "${version}"
 
-ditto -v "${build_dir}/apple/Products/Release/mas" "${distributions_root}/usr/local/bin/mas"
+ditto -v "${build_dir}/apple/Products/Release/mas" "${destination_root}/mas"
 
-# Assemble macOS installer component package (aka product archive).
 pkgbuild \
   --identifier com.mphys.mas-cli \
-  --install-location / \
+  --install-location /usr/local/bin \
   --version "${version}" \
-  --root "${distributions_root}" \
+  --root "${destination_root}" \
   "${build_dir}/mas_components.pkg"
 
-# Build distribution package (aka product archive). Not sure why, but this is how Carthage does it.
-# https://github.com/Carthage/Carthage/blob/master/Makefile#L69
 productbuild \
   --distribution Package/Distribution.plist \
   --package-path "${build_dir}" \
-  "${distribution_package}"
-
-printf $'==> 🔢 File Hash\n'
-shasum -a 256 "${distribution_package}"
+  "${build_dir}/mas-${version}.pkg"
