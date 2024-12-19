@@ -4,7 +4,7 @@ We love pull requests from everyone. By participating in this project, you agree
 
 ## Getting Started
 
-- Make sure you have a [GitHub account](https://github.com/join).
+- Make sure you have a [GitHub account](https://github.com/signup).
 - [Open an issue](https://github.com/mas-cli/mas/issues/new) to simply ask a question or request a new feature.
 - Search for similar issues with the
 [ERROR MESSAGE](https://github.com/mas-cli/mas/issues?utf8=%E2%9C%93&q=is%3Aopen+ERROR+MESSAGE)
@@ -25,17 +25,18 @@ you are experiencing.
      `git checkout -b awesome-feature main`
   - Please avoid working [directly on the main branch](https://softwareengineering.stackexchange.com/questions/223400/when-should-i-stop-committing-to-master-on-new-projects).
   - Make commits of logical units.
-- Run script/format before committing your changes. Fix anything that isn't automatically fixed by the linters.
+- Run `script/format` before committing.
+- Run `script/lint` before committing. Fix all lint violations.
 - Push your topic branch to your fork and [submit a pull request](https://github.com/mas-cli/mas/compare/main...your-username:topic-branch).
 
 Some things that will increase the chance that your pull request is accepted:
 
-- Write tests. (Tests target is still [in progress](https://github.com/mas-cli/mas/issues/123))
+- Write tests.
   - If you need help with tests, feel free to open a PR in the meantime and just ask for some help.
-  - Add "[WIP]" to the title of your PR to indicate that it's not ready to be merged.
+- Add "[WIP]" to the title of your PR to indicate that it's not ready to be merged.
 - Follow our [style guide](docs/style.md).
-- Write a [good commit message](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html).
-  - Including [appropriate emoji](https://gitmoji.carloscuesta.me/) in the first line of commit messages is fun :wink:.
+- Write a [good commit message](https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html).
+  - Including [appropriate emoji](https://gitmoji.dev) in the first line of commit messages is fun :wink:.
 
 ## Becoming a Contributor
 
@@ -50,7 +51,7 @@ to this project, but must remain an owner. By becoming a contributor, you agree 
 
 ## Branching and Releases
 
-- This project follows [trunk-based development](https://trunkbaseddevelopment.com/), where `main` is our trunk.
+- This project follows [trunk-based development](https://trunkbaseddevelopment.com), where `main` is our trunk.
 - Release commits will be tagged in the format: `v1.2.3`.
 - Once releases are tagged, high-level release notes are published on the
 [releases](https://github.com/mas-cli/mas/releases) page.

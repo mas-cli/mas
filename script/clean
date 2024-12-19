@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/zsh -Ndefgku
 #
 # script/clean
 # mas
@@ -6,5 +6,8 @@
 # Deletes the build directory.
 #
 
+. "${0:a:h}/_setup_script"
+
 swift package clean
 swift package reset
+rm -f Sources/mas/Package.swift

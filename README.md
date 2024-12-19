@@ -2,13 +2,11 @@
 
 # mas
 
-A command-line interface for the Mac App Store. Designed for scripting and automation.
+A command-line interface for the Mac App Store. Designed for scripting & automation.
 
-[![GitHub Release](https://img.shields.io/github/release/mas-cli/mas.svg)](https://github.com/mas-cli/mas/releases)
-[![Software License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](
-    https://github.com/mas-cli/mas/blob/main/LICENSE
-)
-[![Swift 5](https://img.shields.io/badge/Language-Swift_5-orange.svg)](https://swift.org)
+[![GitHub Release](https://img.shields.io/github/v/release/mas-cli/mas.svg)](https://github.com/mas-cli/mas/releases)
+[![Software License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](LICENSE)
+[![Swift 5](https://img.shields.io/badge/Language-Swift_5-orange.svg)](https://www.swift.org)
 [![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 [![Build, Test, & Lint](https://github.com/mas-cli/mas/actions/workflows/build-test.yml/badge.svg?branch=main)](
     https://github.com/mas-cli/mas/actions/workflows/build-test.yml?query=branch%3Amain
@@ -18,7 +16,7 @@ A command-line interface for the Mac App Store. Designed for scripting and autom
 
 ### 🍺 Homebrew
 
-[Homebrew](http://brew.sh) is the preferred way to install:
+[Homebrew](https://brew.sh) is the preferred way to install:
 
 ```shell
 brew install mas
@@ -52,18 +50,19 @@ brew install mas-cli/tap/mas
 
 #### 🐙 GitHub Releases
 
-Alternatively, binaries and sources are available from the [GitHub Releases](https://github.com/mas-cli/mas/releases).
+Alternatively, binaries & sources are available from the [GitHub Releases](https://github.com/mas-cli/mas/releases).
 
 #### 🕊 Swift 5 Runtime Support
 
-mas requires Swift 5 runtime support. macOS 10.14.4 (Mojave) and newer include it, but earlier releases do not.
+mas requires Swift 5 runtime support. macOS 10.14.4 (Mojave) & newer include it, but earlier releases do not.
 Without it, running mas might report errors similar to:
+
 > dyld: Symbol not found: _$s11SubSequenceSlTl
 
 To get Swift 5 support on macOS versions older than 10.14.4 (Mojave), you can:
 
 - Upgrade to macOS 10.14.4 (Mojave) or newer.
-- Install the [Swift 5 Runtime Support for Command Line Tools](https://support.apple.com/kb/DL1998).
+- Install the [Swift 5 Runtime Support for Command Line Tools](https://support.apple.com/en-us/106446).
 - Install Xcode 10.2 or newer to `/Applications/Xcode.app`.
 
 ## 🤳🏻 Usage
@@ -71,17 +70,16 @@ To get Swift 5 support on macOS versions older than 10.14.4 (Mojave), you can:
 ### 🪪 App IDs
 
 Each application in the Mac App Store has an integer app identifier (app ID).
-mas commands accept app IDs as arguments and output App IDs to uniquely identify apps.
+mas commands accept app IDs as arguments & output App IDs to uniquely identify apps.
 
-`mas search` and `mas list` can be used to find the app IDs of relevant apps.
+`mas search` & `mas list` can be used to find the app IDs of relevant apps.
 
 Alternatively, to find an app's app ID:
 
 1. Find the app in the Mac App Store
 2. Select `Share` > `Copy Link`
-3. Extract the app ID from the URL. e.g., the Mac App Store URL for Xcode,
-   [https://apps.apple.com/us/app/xcode/id497799835?mt=12](https://apps.apple.com/us/app/xcode/id497799835?mt=12),
-   has app ID `497799835`
+3. Extract the app ID from the URL. e.g., the Mac App Store URL for Xcode
+   (<https://apps.apple.com/us/app/xcode/id497799835?mt=12>) has app ID `497799835`
 
 ### 🛍 Info from the Mac App Store
 
@@ -107,7 +105,7 @@ $ mas search Xcode
 
 ```console
 $ mas info 497799835
-Xcode 16.0 [0.0]
+Xcode 16.0 [Free]
 By: Apple Inc.
 Released: 2024-09-16
 Minimum OS: 14.5
@@ -189,7 +187,9 @@ $ mas lucky Xcode
 All the commands in this section require you to be logged into an Apple ID in the Mac App Store.
 
 > mas only installs/upgrades applications from the Mac App Store.
-Use [`softwareupdate(8)`] to install system updates (e.g., Xcode Command Line Tools, Safari, etc.)
+>
+> Use [`softwareupdate(8)`](https://www.unix.com/man-page/osx/8/softwareupdate) to install system updates (e.g., Xcode
+> Command Line Tools, Safari, etc.)
 
 #### `mas upgrade`
 
@@ -270,23 +270,16 @@ Over time, Apple has silently changed these frameworks, breaking some functional
       https://github.com/mas-cli/mas/issues/417
   )
 
-### 👀 Version Consistency
-
-mas might be using suboptimal app version sources to compare local app versions with Mac App Store app versions.
-That current sources are frequently consistent with the Mac App Store, but are infrequently inconsistent.
-This might cause symptoms like [#384](https://github.com/mas-cli/mas/issues/384) and
-[#387](https://github.com/mas-cli/mas/issues/387). mas will be updated soon to fix any such problems, if possible.
-
 ### ⏳ Eventual Consistency
 
 The Mac App Store operates on eventual consistency, so the versions seen by various parts of mas or the Mac App Store
-might be inconsistent for some period of time. This might cause symptoms like
-[#384](https://github.com/mas-cli/mas/issues/384) and [#387](https://github.com/mas-cli/mas/issues/387).
+might be inconsistent for short periods of time. This might cause symptoms like
+[#384](https://github.com/mas-cli/mas/issues/384) & [#387](https://github.com/mas-cli/mas/issues/387).
 
-### 📱 iOS and iPadOS Apps
+### 📱 iOS & iPadOS Apps
 
-Macs with Apple Silicon can install and run iOS and iPadOS apps from the Mac App Store. mas is not yet aware of these
-apps, and is not yet able to install or upgrade them. [#321](https://github.com/mas-cli/mas/issues/321)
+Apple Silicon Macs can install & run iOS & iPadOS apps from the Mac App Store. mas does not yet support such apps.
+[#321](https://github.com/mas-cli/mas/issues/321)
 
 ### 📺 Using `tmux`
 
@@ -320,18 +313,14 @@ All feedback is much appreciated! ✨
 You can build from Xcode by opening the root mas directory, or from the Terminal:
 
 ```shell
-script/bootstrap
 script/build
 ```
 
-Build output can be found in the `.build/` directory within the project.
+Build output can be found in the `.build` directory within the project.
 
 ## ✅ Tests
 
-The tests in this project are a recent work-in-progress.
-Since Xcode does not officially support tests for command-line tool targets,
-all logic is part of the mas target with tests in masTests.
-Tests are written using [Quick].
+Tests are written using [Quick](https://github.com/Quick/Quick) & [Nimble](https://github.com/Quick/Nimble).
 
 ```shell
 script/test
@@ -339,9 +328,8 @@ script/test
 
 ## 📄 License
 
-mas was created by [@argon](https://github.com/argon).
 Code is under the [MIT license](LICENSE).
 
+mas was created by [@argon](https://github.com/argon).
+
 [homebrew-bundle]: https://github.com/Homebrew/homebrew-bundle
-[`softwareupdate(8)`]: https://www.unix.com/man-page/osx/8/softwareupdate/
-[Quick]: https://github.com/Quick/Quick
