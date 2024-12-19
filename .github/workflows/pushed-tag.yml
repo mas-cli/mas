@@ -1,8 +1,8 @@
 #
-# .github/workflows/release.yml
+# .github/workflows/pushed-tag.yml
 #
 ---
-name: release
+name: pushed-tag
 on:
   push:
     tags: ["**"]
