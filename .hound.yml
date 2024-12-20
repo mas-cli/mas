@@ -2,7 +2,7 @@
 # .hound.yml
 # mas
 #
-# http://help.houndci.com/configuration/swiftlint
+# http://help.houndci.com/en/articles/2138528-swiftlint
 #
 ---
 fail_on_violations: false

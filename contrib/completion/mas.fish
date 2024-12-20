@@ -2,9 +2,9 @@
 
 function __fish_mas_list_available -d "Lists applications available to install from the Mac App Store"
     set query (commandline -ct)
-    if set results (command mas search $query 2>/dev/null)
+    if set results (command mas search "$query" 2>/dev/null)
         for res in $results
-            echo $res
+            echo "$res"
         end | string trim --left | string replace -r '\s+' '\t'
     end
 end

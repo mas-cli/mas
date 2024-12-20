@@ -1,55 +1,19 @@
-#!/bin/bash -eu
+#!/bin/zsh -Ndefgku
 #
 # script/bootstrap
 # mas
 #
-# Installs development dependencies and builds project dependencies.
+# Installs dependencies for script/format & script/lint.
+#
+# Usage: bootstrap [<brew-bundle-install-argument>...]
 #
 
-mas_dir="$(readlink -fn "$(dirname "${BASH_SOURCE:-"${0}"}")/..")"
+. "${0:a:h}/_setup_script"
 
-if ! cd -- "${mas_dir}"; then
-  printf $'Error: Could not cd into mas directory: %s\n' "${mas_dir}" >&2
-  exit 1
+printf $'==> 👢 Bootstrapping mas %s\n' "$(script/version)"
+
+if ! command -v brew >/dev/null; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-function usage {
-  echo "Usage: bootstrap [-f]"
-  echo "  -f option enables frozen mode"
-  exit 1
-}
-
-frozen=''
-
-# Detect presence of `-f` frozen option
-while getopts "f" opt; do
-  case "${opt}" in
-    f)
-      frozen='-f'
-      ;;
-    *)
-      usage 1>&2
-      ;;
-  esac
-done
-
-script/clean
-
-printf $'==> 👢 Bootstrapping (%s)\n' "$(script/version)"
-
-# Install Homebrew tools
-if [[ "${frozen}" == "-f" ]]; then
-  # --no-lock Don't touch Brewfile.lock.json
-  brew bundle install --no-lock --no-upgrade --verbose
-else
-  # Allow upgrades
-  rm -f Brewfile.lock.json
-  brew bundle install --verbose
-fi
-
-if [[ ! -x "$(command -v mise)" ]]; then
-  brew install mise
-fi
-mise settings set experimental true
-mise install --verbose
-mise list --verbose
+brew bundle install --verbose "${@}"
