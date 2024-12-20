@@ -59,6 +59,8 @@ jobs:
           gh release upload "${GITHUB_REF_NAME}" ".build/mas-${GITHUB_REF_NAME#v}.pkg"
 
       - name: 🚰 Bump mas-cli/tap/mas formula
+        env:
+          HOMEBREW_GITHUB_API_TOKEN: ${{secrets.HOMEBREW_GITHUB_API_TOKEN}}
         run: |
           brew tap mas-cli/tap
           brew bump-formula-pr \
