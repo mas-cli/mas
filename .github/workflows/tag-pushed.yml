@@ -18,11 +18,20 @@ jobs:
       GH_TOKEN: ${{github.token}}
     steps:
       - name: 🛒 Checkout mas repo
+        env:
+          GIT_CONFIG_COUNT: 1
+          GIT_CONFIG_KEY_0: init.defaultBranch
+          GIT_CONFIG_VALUE_0: ${{github.event.repository.default_branch}}
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: 🖋 Delete tag lacking valid signature
         run: |
-          if ! git tag -v "${GITHUB_REF_NAME}" &>|/dev/null; then
+          git fetch --tags --force
+          if [[ \
+          "$(git cat-file tag "${GITHUB_REF_NAME}")" != *'-----BEGIN SSH SIGNATURE-----'*'-----END SSH SIGNATURE-----' \
+          ]]; then
             printf $'Error: Deleting tag %s because it does not have a valid signature\n' "${GITHUB_REF_NAME}" >&2
             git push -d origin "${GITHUB_REF_NAME}"
             exit 1
@@ -39,6 +48,7 @@ jobs:
         env:
           DEFAULT_BRANCH_NAME: ${{github.event.repository.default_branch}}
         run: |
+          git fetch --force origin "${DEFAULT_BRANCH_NAME}:${DEFAULT_BRANCH_NAME}"
           if ! git merge-base --is-ancestor "${GITHUB_REF_NAME}" "${DEFAULT_BRANCH_NAME}"; then
             printf $'Error: Deleting version tag %s because it is not on the %s branch\n' "${GITHUB_REF_NAME}" \
               "${DEFAULT_BRANCH_NAME}" >&2
