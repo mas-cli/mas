@@ -23,12 +23,10 @@ jobs:
           GIT_CONFIG_KEY_0: init.defaultBranch
           GIT_CONFIG_VALUE_0: ${{github.event.repository.default_branch}}
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: 🖋 Delete tag lacking valid signature
         run: |
-          git fetch --tags --force
+          git fetch --force origin "${GITHUB_REF}:${GITHUB_REF}"
           if [[\
            "$(git cat-file tag "${GITHUB_REF_NAME}")" != *'-----BEGIN SSH SIGNATURE-----'*'-----END SSH SIGNATURE-----'\
            ]]; then
