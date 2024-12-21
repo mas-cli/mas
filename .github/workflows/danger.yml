@@ -10,7 +10,9 @@ jobs:
   danger:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Danger
         uses: docker://ghcr.io/danger/danger-swift:3.20.2
         with:
