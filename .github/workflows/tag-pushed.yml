@@ -9,7 +9,7 @@ on:
 defaults:
   run:
     # Force all run commands to not use Rosetta 2
-    shell: arch -arm64 /bin/zsh {0}
+    shell: arch -arm64 /bin/zsh -Negku {0}
 jobs:
   tag-pushed:
     if: github.repository == 'mas-cli/mas'
