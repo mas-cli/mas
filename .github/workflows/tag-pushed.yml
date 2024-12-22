@@ -12,12 +12,12 @@ defaults:
     shell: arch -arm64 /bin/zsh -Negku {0}
 jobs:
   tag-pushed:
-    if: github.repository == 'mas-cli/mas'
+    if: ${{!github.event.repository.fork}}
     runs-on: macos-15
-    env:
-      GH_TOKEN: ${{github.token}}
+    permissions:
+      contents: write
     steps:
-      - name: 🛒 Checkout mas repo
+      - name: 🛒 Checkout repo
         env:
           GIT_CONFIG_COUNT: 1
           GIT_CONFIG_KEY_0: init.defaultBranch
@@ -58,25 +58,13 @@ jobs:
         run: |
           script/package
 
-      - name: 📝 Create draft release
-        run: |
-          gh release create\
-           -d\
-           -t "${GITHUB_REF_NAME}: ${$(git tag -l "${GITHUB_REF_NAME}" --format='%(contents)')%%$'\n'*}"\
-           --generate-notes\
-          ${"${GITHUB_REF_NAME//[^-]/}":+ -p}\
-           "${GITHUB_REF_NAME}"
-
-      - name: 📤 Upload installer
-        run: |
-          gh release upload "${GITHUB_REF_NAME}" ".build/mas-${GITHUB_REF_NAME#v}.pkg"
-
-      - name: 🚰 Bump mas-cli/tap/mas formula
+      - name: 🚰 Bump custom tap formula
         env:
           HOMEBREW_GITHUB_API_TOKEN: ${{secrets.HOMEBREW_GITHUB_API_TOKEN}}
         run: |
-          brew tap mas-cli/tap
-          brew bump-formula-pr\
+          brew tap "${GITHUB_REPOSITORY_OWNER}/tap"
+          unsetopt errexit
+          bump_output="$(brew bump-formula-pr\
            --tag "${GITHUB_REF_NAME}"\
            --revision "${GITHUB_SHA}"\
            --no-fork\
@@ -84,4 +72,23 @@ jobs:
            --online\
            --strict\
            --verbose\
-           mas-cli/tap/mas
+           "${GITHUB_REPOSITORY_OWNER}/tap/mas"\
+           2>&1)"
+          exit_code="${?}"
+          setopt errexit
+          printf $'%s' "${bump_output}"
+          printf $'%s' "${${(f)bump_output}[-1]}" > .build/bump.url
+          exit "${exit_code}"
+
+      - name: 📝 Create draft release
+        env:
+          GH_TOKEN: ${{github.token}}
+        run: |
+          gh release create\
+           "${GITHUB_REF_NAME}"\
+           ".build/mas-${GITHUB_REF_NAME#v}.pkg"\
+           .build/bump.url\
+           -d\
+           -t "${GITHUB_REF_NAME}: ${$(git tag -l "${GITHUB_REF_NAME}" --format='%(contents)')%%$'\n'*}"\
+           --generate-notes\
+          ${"${GITHUB_REF_NAME//[^-]/}":+ -p}
