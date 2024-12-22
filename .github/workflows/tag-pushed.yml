@@ -76,8 +76,8 @@ jobs:
            2>&1)"
           exit_code="${?}"
           setopt errexit
-          printf $'%s' "${bump_output}"
-          printf $'%s' "${${(f)bump_output}[-1]}" > .build/bump.url
+          printf %s "${bump_output}"
+          printf %s "${${(f)bump_output}[-1]}" > .build/bump.url
           exit "${exit_code}"
 
       - name: 📝 Create draft release
