@@ -19,9 +19,16 @@ jobs:
         env:
           GH_TOKEN: ${{secrets.HOMEBREW_GITHUB_API_TOKEN}}
         run: |
-          gh release -R "${GITHUB_REPOSITORY}" download "${GITHUB_REF_NAME}" -p bump.url
-          gh pr edit "$(<bump.url)" --add-label pr-pull
-          gh release -R "${GITHUB_REPOSITORY}" delete-asset "${GITHUB_REF_NAME}" bump.url -y
+          unsetopt errexit
+          bump_url="$(gh release -R "${GITHUB_REPOSITORY}" download "${GITHUB_REF_NAME}" -p bump.url -O - 2>/dev/null)"
+          found_bump_url="${?}"
+          setopt errexit
+          if [[ "${found_bump_url}" -eq 0 ]]; then
+            [[ -n "${bump_url}" ]] && gh pr edit "${bump_url}" --add-label pr-pull
+            gh release -R "${GITHUB_REPOSITORY}" delete-asset "${GITHUB_REF_NAME}" bump.url -y
+          else
+            printf $'No custom tap formula bump PR URL found for tag\'%s\'\n' "${GITHUB_REF_NAME}"
+          fi
 
       - name: 🍺 Bump homebrew-core formula
         if: ${{!github.event.release.prerelease}}
