@@ -87,6 +87,6 @@ jobs:
            ".build/mas-${GITHUB_REF_NAME#v}.pkg"\
            .build/bump.url\
            -d\
+           ${"${GITHUB_REF_NAME//[^-]}":+-p}\
            -t "${GITHUB_REF_NAME}: ${$(git tag -l "${GITHUB_REF_NAME}" --format='%(contents)')%%$'\n'*}"\
-           --generate-notes\
-          ${"${GITHUB_REF_NAME//[^-]/}":+ -p}
+           --generate-notes
