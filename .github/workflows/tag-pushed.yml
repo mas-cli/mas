@@ -14,8 +14,6 @@ jobs:
   tag-pushed:
     if: ${{!github.event.repository.fork}}
     runs-on: macos-15
-    permissions:
-      contents: write
     steps:
       - name: 🛒 Checkout repo
         env:
