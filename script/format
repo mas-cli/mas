@@ -1,51 +1,37 @@
-#!/bin/bash -eu
+#!/bin/zsh -Ndefgku
 #
 # script/format
 # mas
-#
-# Linting checks for development and CI.
 #
 # Automatically formats and fixes style violations using various tools.
 #
 # Please keep in sync with script/lint.
 #
 
-mas_dir="$(readlink -fn "$(dirname "${BASH_SOURCE:-"${0}"}")/..")"
+. "${0:a:h}/_setup_script"
 
-if ! cd -- "${mas_dir}"; then
-  printf $'Error: Could not cd into mas directory: %s\n' "${mas_dir}" >&2
-  exit 1
-fi
+printf $'==> 🚨 Formatting mas %s\n' "$(script/version)"
 
-printf $'==> 🚨 Formatting mas\n'
-
-for LINTER in markdownlint prettier shfmt swift-format swiftformat swiftlint yamllint; do
-  if [[ ! -x "$(command -v ${LINTER})" ]]; then
-    printf $'error: %s is not installed. Run \'script/bootstrap\' or \'brew install %s\'.\n' "${LINTER}" "${LINTER}"
+for formatter in markdownlint prettier swift-format swiftformat swiftlint yamllint; do
+  if ! command -v "${formatter}" >/dev/null; then
+    printf $'error: %s is not installed. Run \'script/bootstrap\' or \'brew install %s\'.\n' "${formatter}" "${formatter}" >&2
     exit 1
   fi
 done
 
-for SOURCE in Package.swift Sources Tests; do
-  printf -- $'--> 🕊  %s swift-format\n' "${SOURCE}"
-  swift-format format --in-place --recursive "${SOURCE}"
-  printf -- $'--> 🕊  %s swiftformat\n' "${SOURCE}"
-  swiftformat "${SOURCE}"
-  printf -- $'--> 🕊  %s swiftlint\n' "${SOURCE}"
-  swiftlint --fix --strict "${SOURCE}"
+for source in Package.swift Sources Tests; do
+  printf -- $'--> 🦅 %s swift-format\n' "${source}"
+  swift-format format --in-place --recursive "${source}"
+  printf -- $'--> 🦅 %s swiftformat\n' "${source}"
+  script -q /dev/null swiftformat --strict "${source}" |
+    (grep -vxE '(?:\^D\x08{2})?Running SwiftFormat\.{3}\r|Reading (?:config|swift-version) file at .*|\x1b\[32mSwiftFormat completed in \d+\.\d+s\.\x1b\[0m\r|0/\d+ files formatted\.\r' || true)
+  printf -- $'--> 🦅 %s swiftlint\n' "${source}"
+  swiftlint --fix --quiet "${source}"
 done
 
-printf -- $'--> 📜 Bash shfmt\n'
-shfmt \
-  --write \
-  --list \
-  --indent 2 \
-  --case-indent \
-  contrib/ script/
-
 printf -- $'--> 〽️ Markdown\n'
-markdownlint --config .markdownlint.json --fix .github .
+markdownlint --config .markdownlint.json --fix . docs
 
-printf -- $'--> 🖊 YAML\n'
-# shellcheck disable=SC2046
-prettier --write $(yamllint --list-files .)
+printf -- $'--> 📝 YAML\n'
+script -q /dev/null prettier --write "${(f)"$(yamllint --list-files .)"}" |
+  (grep -vxE '.+ \d+ms \(unchanged\)\r' || true)

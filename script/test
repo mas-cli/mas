@@ -1,4 +1,4 @@
-#!/bin/bash -eu
+#!/bin/zsh -Ndefgku
 #
 # script/test
 # mas
@@ -6,13 +6,11 @@
 # Runs mas tests.
 #
 
-mas_dir="$(readlink -fn "$(dirname "${BASH_SOURCE:-"${0}"}")/..")"
+. "${0:a:h}/_setup_script"
 
-if ! cd -- "${mas_dir}"; then
-  printf $'Error: Could not cd into mas directory: %s\n' "${mas_dir}" >&2
-  exit 1
-fi
+printf $'==> ✅ Testing mas %s\n' "$(script/version)"
 
-printf $'==> ✅ Testing mas (%s)\n' "$(script/version --write)"
+script/generate_version_info_for_swift
 
-swift test
+script -q /dev/null swift test |
+  (grep -vxE $'Test Suite \'.+\' (?:started|passed) at \\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}\\.\\d{3}\\.?\\r|Test Case \'-\\[.+\\]\' (?:started|passed \\(\\d+\\.\\d+ seconds\\))\\.\\r|\\t Executed \\d+ tests?, with 0 failures \\(0 unexpected\\) in \\d+\\.\\d+ \\(\\d+\\.\\d+\\) seconds\\r' || true)

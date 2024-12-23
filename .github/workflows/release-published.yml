@@ -1,0 +1,39 @@
+#
+# .github/workflows/release-published.yml
+#
+---
+name: release-published
+on:
+  release:
+    types: [published]
+defaults:
+  run:
+    # Force all run commands to not use Rosetta 2
+    shell: arch -arm64 /bin/zsh -Negku {0}
+jobs:
+  release-published:
+    if: ${{!github.event.repository.fork}}
+    runs-on: macos-15
+    steps:
+      - name: 🚰 Apply pr-pull label to custom tap formula bump PR
+        env:
+          GH_TOKEN: ${{secrets.HOMEBREW_GITHUB_API_TOKEN}}
+        run: |
+          gh release -R "${GITHUB_REPOSITORY}" download "${GITHUB_REF_NAME}" -p bump.url
+          gh pr edit "$(<bump.url)" --add-label pr-pull
+          gh release -R "${GITHUB_REPOSITORY}" delete-asset "${GITHUB_REF_NAME}" bump.url -y
+
+      - name: 🍺 Bump homebrew-core formula
+        if: ${{!github.event.release.prerelease}}
+        env:
+          HOMEBREW_GITHUB_API_TOKEN: ${{secrets.HOMEBREW_GITHUB_API_TOKEN}}
+        run: |
+          brew bump-formula-pr\
+           --tag "${GITHUB_REF_NAME}"\
+           --revision "${GITHUB_SHA}"\
+           --fork-org "${GITHUB_REPOSITORY_OWNER}"\
+           --no-browse\
+           --online\
+           --strict\
+           --verbose\
+           mas

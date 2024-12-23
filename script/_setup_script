@@ -1,0 +1,42 @@
+#!/bin/zsh -Ndefgku
+#
+# script/_setup_script
+# mas
+#
+# Boilerplate setup for scripts.
+#
+
+\unalias -as
+setopt\
+ autopushd\
+ combiningchars\
+ extendedglob\
+ extendedhistory\
+ no_globalrcs\
+ histexpiredupsfirst\
+ histignorespace\
+ histverify\
+ incappendhistorytime\
+ interactivecomments\
+ pipefail\
+ no_rcs\
+ no_unset
+export HISTCHARS='!^#'
+export IFS=$' \t\n\0'
+export NULLCMD=cat
+export PAGER=cat
+export READNULLCMD=cat
+export TMPDIR="${"${TMPDIR:-/tmp/}"/%(#b)([^\/])/"${match[1]}"/}"
+export TMPPREFIX="${TMPPREFIX:-"${TMPDIR}"zsh}"
+unset CDPATH
+unset ENV
+unset KEYBOARD_HACK
+unset TMPSUFFIX
+unset WORDCHARS
+
+mas_dir="${0:a:h:h}"
+
+if ! cd -- "${mas_dir}"; then
+  printf $'Error: Could not cd into mas directory: %s\n' "${mas_dir}" >&2
+  exit 1
+fi
