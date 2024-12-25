@@ -58,9 +58,14 @@ jobs:
 
       - name: 🚰 Bump custom tap formula
         env:
-          HOMEBREW_GITHUB_API_TOKEN: ${{secrets.HOMEBREW_GITHUB_API_TOKEN}}
+          TOKEN_APP_ID: ${{secrets.TOKEN_APP_ID}}
+          TOKEN_APP_INSTALLATION_ID: ${{secrets.TOKEN_APP_INSTALLATION_ID}}
+          TOKEN_APP_PRIVATE_KEY: ${{secrets.TOKEN_APP_PRIVATE_KEY}}
         run: |
+          export HOMEBREW_GITHUB_API_TOKEN="$(script/generate_token)"
+
           brew tap "${GITHUB_REPOSITORY_OWNER}/tap"
+
           unsetopt errexit
           bump_output="$(brew bump-formula-pr\
            --tag "${GITHUB_REF_NAME}"\
@@ -74,8 +79,10 @@ jobs:
            2>&1)"
           exit_code="${?}"
           setopt errexit
+
           printf %s "${bump_output}"
           printf %s "${${(f)bump_output}[-1]}" > .build/bump.url
+
           exit "${exit_code}"
 
       - name: 📝 Create draft release
