@@ -15,18 +15,37 @@ jobs:
     if: ${{!github.event.repository.fork}}
     runs-on: macos-15
     steps:
+      - name: 🛒 Checkout repo
+        env:
+          GIT_CONFIG_COUNT: 1
+          GIT_CONFIG_KEY_0: init.defaultBranch
+          GIT_CONFIG_VALUE_0: ${{github.event.repository.default_branch}}
+        uses: actions/checkout@v4
+
       - name: 🚰 Apply pr-pull label to custom tap formula bump PR
         env:
-          GH_TOKEN: ${{secrets.HOMEBREW_GITHUB_API_TOKEN}}
+          TOKEN_APP_ID: ${{secrets.TOKEN_APP_ID}}
+          TOKEN_APP_INSTALLATION_ID: ${{secrets.TOKEN_APP_INSTALLATION_ID}}
+          TOKEN_APP_PRIVATE_KEY: ${{secrets.TOKEN_APP_PRIVATE_KEY}}
         run: |
-          gh release -R "${GITHUB_REPOSITORY}" download "${GITHUB_REF_NAME}" -p bump.url
-          gh pr edit "$(<bump.url)" --add-label pr-pull
-          gh release -R "${GITHUB_REPOSITORY}" delete-asset "${GITHUB_REF_NAME}" bump.url -y
+          export GH_TOKEN="$(script/generate_token)"
+
+          unsetopt errexit
+          bump_url="$(gh release -R "${GITHUB_REPOSITORY}" download "${GITHUB_REF_NAME}" -p bump.url -O - 2>/dev/null)"
+          found_bump_url="${?}"
+          setopt errexit
+
+          if [[ "${found_bump_url}" -eq 0 ]]; then
+            [[ -n "${bump_url}" ]] && gh pr edit "${bump_url}" --add-label pr-pull
+            gh release -R "${GITHUB_REPOSITORY}" delete-asset "${GITHUB_REF_NAME}" bump.url -y
+          else
+            printf $'No custom tap formula bump PR URL found for tag\'%s\'\n' "${GITHUB_REF_NAME}"
+          fi
 
       - name: 🍺 Bump homebrew-core formula
         if: ${{!github.event.release.prerelease}}
         env:
-          HOMEBREW_GITHUB_API_TOKEN: ${{secrets.HOMEBREW_GITHUB_API_TOKEN}}
+          HOMEBREW_GITHUB_API_TOKEN: ${{github.token}}
         run: |
           brew bump-formula-pr\
            --tag "${GITHUB_REF_NAME}"\

@@ -1,0 +1,57 @@
+#!/bin/zsh -Ndefgku
+#
+# script/release_start
+# mas
+#
+# Start the release process by creating & pushing a signed annotated version tag to the GitHub mas-cli/mas repo.
+#
+# Usage: release_start <version-tag-name> <version-title> [<version-ref>]
+#
+# <version-tag-name> must match the following zsh pattern:
+#
+# ^v[[:digit:]]+(\.[[:digit:]]+)*(-(alpha|beta|rc)\.[[:digit:]]+)?$
+#
+# <version-title> must may contain at most 64 characters, which may be only visible characters or spaces
+#
+# <version-ref> if optional value supplied, must be on the main branch; defaults to HEAD
+#
+
+. "${0:a:h}/_setup_script"
+
+tag="${1}"
+title="${2}"
+ref="${3:-HEAD}"
+
+printf $'==> 🚀 Starting release for mas %s\n\n' "${tag#v}"
+
+if [[ ! "${tag}" =~ '^v[[:digit:]]+(\.[[:digit:]]+)*(-(alpha|beta|rc)\.[[:digit:]]+)?$' ]]; then
+  printf $'\'%s\' is not a valid version tag\n' "${tag}" >&2
+  exit 1
+fi
+
+if [[ "${#title}" -gt 64 ]]; then
+  printf $'\'%s\' is too long for a version title, which may contain at most 64 characters\n' "${title}" >&2
+  exit 2
+fi
+
+if [[ "${title}" =~ [[:cntrl:]$'\t\n\r'] ]]; then
+  printf $'\'%s\' is not a valid version title, which may contain only visible characters or spaces\n' "${title}" >&2
+  exit 3
+fi
+
+# shellcheck disable=SC1009,SC1027,SC1036,SC1072,SC1073
+if [[ "${title}" = (' '*|*' ') ]]; then
+  printf $'\'%s\' is not a valid version title, which may not begin or end with a space\n' "${title}" >&2
+  exit 4
+fi
+
+if ! git merge-base --is-ancestor "${ref}" upstream/main; then
+  printf $'\'%s\' is not a valid reference for a version, which must be on the upstream/main branch\n' "${ref}" >&2
+  exit 5
+fi
+
+git tag -s "${tag}" -m "${title}" "${ref}"
+
+printf $'Created version tag \'%s\' with title \'%s\' for \'%s\'\n\n' "${tag}" "${title}" "${ref}"
+
+git push upstream tag "${tag}"

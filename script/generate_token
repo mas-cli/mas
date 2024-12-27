@@ -1,0 +1,23 @@
+#!/bin/zsh -Ndefgku
+#
+# script/generate_token
+# mas
+#
+# Generates a GitHub App installation access token for GitHub Workflows.
+#
+
+. "${0:a:h}/_setup_script"
+
+header=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9
+payload="${${$(printf '{"iss":%s,"iat":%s,"exp":%s}' "${TOKEN_APP_ID}" "$(("$(date +%s)" - 60))"\
+ "$(("$(date +%s)" + 540))" | base64)//[=$'\n']}//\/+/_-}"
+
+
+# shellcheck disable=SC1009,SC1036,SC1072,SC1073
+curl\
+ -sX POST\
+ -H "Authorization: Bearer ${header}.${payload}.${${$(printf %s "${header}.${payload}" |
+  openssl dgst -sha256 -sign =(printf %s "${TOKEN_APP_PRIVATE_KEY}") | base64)//[=$'\n']}//\/+/_-}"\
+ -H 'Accept: application/vnd.github+json'\
+  "https://api.github.com/app/installations/${TOKEN_APP_INSTALLATION_ID}/access_tokens" |
+ jq -r .token

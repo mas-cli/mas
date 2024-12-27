@@ -14,8 +14,6 @@ jobs:
   tag-pushed:
     if: ${{!github.event.repository.fork}}
     runs-on: macos-15
-    permissions:
-      contents: write
     steps:
       - name: 🛒 Checkout repo
         env:
@@ -56,13 +54,19 @@ jobs:
 
       - name: 📦 Build universal executable & package it in an installer
         run: |
+          sudo xcode-select -s /Applications/Xcode_16.2.app/Contents/Developer
           script/package
 
       - name: 🚰 Bump custom tap formula
         env:
-          HOMEBREW_GITHUB_API_TOKEN: ${{secrets.HOMEBREW_GITHUB_API_TOKEN}}
+          TOKEN_APP_ID: ${{secrets.TOKEN_APP_ID}}
+          TOKEN_APP_INSTALLATION_ID: ${{secrets.TOKEN_APP_INSTALLATION_ID}}
+          TOKEN_APP_PRIVATE_KEY: ${{secrets.TOKEN_APP_PRIVATE_KEY}}
         run: |
+          export HOMEBREW_GITHUB_API_TOKEN="$(script/generate_token)"
+
           brew tap "${GITHUB_REPOSITORY_OWNER}/tap"
+
           unsetopt errexit
           bump_output="$(brew bump-formula-pr\
            --tag "${GITHUB_REF_NAME}"\
@@ -76,8 +80,10 @@ jobs:
            2>&1)"
           exit_code="${?}"
           setopt errexit
+
           printf %s "${bump_output}"
           printf %s "${${(f)bump_output}[-1]}" > .build/bump.url
+
           exit "${exit_code}"
 
       - name: 📝 Create draft release
@@ -89,6 +95,6 @@ jobs:
            ".build/mas-${GITHUB_REF_NAME#v}.pkg"\
            .build/bump.url\
            -d\
+           ${"${GITHUB_REF_NAME//[^-]}":+-p}\
            -t "${GITHUB_REF_NAME}: ${$(git tag -l "${GITHUB_REF_NAME}" --format='%(contents)')%%$'\n'*}"\
-           --generate-notes\
-          ${"${GITHUB_REF_NAME//[^-]/}":+ -p}
+           --generate-notes
