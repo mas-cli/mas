@@ -23,14 +23,6 @@ struct SoftwareMapAppLibrary: AppLibrary {
             }
     }
 
-    /// Finds an app using a bundle identifier.
-    ///
-    /// - Parameter bundleID: Bundle identifier of app.
-    /// - Returns: `SoftwareProduct` for app if found; `nil` otherwise.
-    func installedApp(forBundleID bundleID: String) -> SoftwareProduct? {
-        softwareMap.product(for: bundleID)
-    }
-
     /// Uninstalls all apps located at any of the elements of `appPaths`.
     ///
     /// - Parameter appPaths: Paths to apps to be uninstalled.

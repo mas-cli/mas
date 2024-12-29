@@ -33,9 +33,6 @@ public class SoftwareMapAppLibrarySpec: QuickSpec {
                 expect(library.installedApps).to(haveCount(apps.count))
                 expect(library.installedApps.first!.appName) == myApp.appName
             }
-            it("can locate an app by bundle id") {
-                expect(library.installedApp(forBundleID: "com.example")!.bundleIdentifier) == myApp.bundleIdentifier
-            }
         }
     }
 }
@@ -46,12 +43,5 @@ struct MockSoftwareMap: SoftwareMap {
 
     func allSoftwareProducts() -> [SoftwareProduct] {
         products
-    }
-
-    func product(for bundleIdentifier: String) -> SoftwareProduct? {
-        for product in products where product.bundleIdentifier == bundleIdentifier {
-            return product
-        }
-        return nil
     }
 }
