@@ -11,33 +11,28 @@ import PromiseKit
 import Regex
 import Version
 
-/// Manages searching the MAS catalog through the iTunes Search and Lookup APIs.
+/// Manages searching the MAS catalog. Uses the iTunes Search and Lookup APIs:
+/// https://performance-partners.apple.com/search-api
 struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
     private static let appVersionExpression = Regex(#"\"versionDisplay\"\:\"([^\"]+)\""#)
 
-    // CommerceKit and StoreFoundation don't seem to expose the region of the Apple ID signed
-    // into the App Store. Instead, we'll make an educated guess that it matches the currently
-    // selected locale in macOS. This obviously isn't always going to match, but it's probably
-    // better than passing no "country" at all to the iTunes Search API.
-    // https://performance-partners.apple.com/search-api
-    private let country: String?
     private let networkManager: NetworkManager
 
     /// Designated initializer.
-    init(
-        country: String? = Locale.autoupdatingCurrent.regionCode,
-        networkManager: NetworkManager = NetworkManager()
-    ) {
-        self.country = country
+    init(networkManager: NetworkManager = NetworkManager()) {
         self.networkManager = networkManager
     }
 
-    /// - Parameter appID: App ID.
+    /// Looks up app details.
+    ///
+    /// - Parameters:
+    ///   - appID: App ID.
+    ///   - region: The `ISORegion` of the storefront in which to lookup apps.
     /// - Returns: A `Promise` for the `SearchResult` for the given `appID` if `appID` is valid.
     ///   A `Promise` for `MASError.unknownAppID(appID)` if `appID` is invalid.
     ///   A `Promise` for some other `Error` if any problems occur.
-    func lookup(appID: AppID) -> Promise<SearchResult> {
-        guard let url = lookupURL(forAppID: appID, inCountry: country) else {
+    func lookup(appID: AppID, inRegion region: ISORegion?) -> Promise<SearchResult> {
+        guard let url = lookupURL(forAppID: appID, inRegion: region) else {
             fatalError("Failed to build URL for \(appID)")
         }
         return
@@ -74,11 +69,13 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
             }
     }
 
-    /// Searches for apps from the MAS.
+    /// Searches for apps.
     ///
-    /// - Parameter searchTerm: Term for which to search in the MAS.
+    /// - Parameters:
+    ///   - searchTerm: Term for which to search.
+    ///   - region: The `ISORegion` of the storefront in which to search for apps.
     /// - Returns: A `Promise` for an `Array` of `SearchResult`s matching `searchTerm`.
-    func search(for searchTerm: String) -> Promise<[SearchResult]> {
+    func search(for searchTerm: String, inRegion region: ISORegion?) -> Promise<[SearchResult]> {
         // Search for apps for compatible platforms, in order of preference.
         // Macs with Apple Silicon can run iPad and iPhone apps.
         #if arch(arm64)
@@ -88,7 +85,7 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
         #endif
 
         let results = entities.map { entity in
-            guard let url = searchURL(for: searchTerm, inCountry: country, ofEntity: entity) else {
+            guard let url = searchURL(for: searchTerm, inRegion: region, ofEntity: entity) else {
                 fatalError("Failed to build URL for \(searchTerm)")
             }
             return loadSearchResults(url)
@@ -136,36 +133,36 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
     ///
     /// - Parameters:
     ///   - searchTerm: term for which to search in MAS.
-    ///   - country: 2-letter ISO region code of the MAS in which to search.
+    ///   - region: 2-letter ISO region code of the MAS in which to search.
     ///   - entity: OS platform of apps for which to search.
     /// - Returns: URL for the search service or nil if searchTerm can't be encoded.
     func searchURL(
         for searchTerm: String,
-        inCountry country: String?,
+        inRegion region: ISORegion?,
         ofEntity entity: Entity = .desktopSoftware
     ) -> URL? {
-        url(.search, searchTerm, inCountry: country, ofEntity: entity)
+        url(.search, searchTerm, inRegion: region, ofEntity: entity)
     }
 
     /// Builds the lookup URL for an app.
     ///
     /// - Parameters:
     ///   - appID: App ID.
-    ///   - country: 2-letter ISO region code of the MAS in which to search.
+    ///   - region: 2-letter ISO region code of the MAS in which to search.
     ///   - entity: OS platform of apps for which to search.
     /// - Returns: URL for the lookup service or nil if appID can't be encoded.
     private func lookupURL(
         forAppID appID: AppID,
-        inCountry country: String?,
+        inRegion region: ISORegion?,
         ofEntity entity: Entity = .desktopSoftware
     ) -> URL? {
-        url(.lookup, String(appID), inCountry: country, ofEntity: entity)
+        url(.lookup, String(appID), inRegion: region, ofEntity: entity)
     }
 
     private func url(
         _ action: URLAction,
         _ queryItemValue: String,
-        inCountry country: String?,
+        inRegion region: ISORegion?,
         ofEntity entity: Entity = .desktopSoftware
     ) -> URL? {
         guard var components = URLComponents(string: "https://itunes.apple.com/\(action)") else {
@@ -177,8 +174,8 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
             URLQueryItem(name: "entity", value: entity.rawValue),
         ]
 
-        if let country {
-            queryItems.append(URLQueryItem(name: "country", value: country))
+        if let region {
+            queryItems.append(URLQueryItem(name: "country", value: region.alpha2))
         }
 
         queryItems.append(URLQueryItem(name: action.queryItemName, value: queryItemValue))
