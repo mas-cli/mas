@@ -12,119 +12,81 @@ import XCTest
 @testable import mas
 
 class MASErrorTestCase: XCTestCase {
-    private let errorDomain = "MAS"
-    private var error: MASError!
-    private var nserror: NSError!
-
-    /// Convenience property for setting the value which will be use for the localized description
-    /// value of the next NSError created.
-    ///
-    /// Only used when the NSError does not have a user info
-    /// entry for localized description.
-    private var localizedDescription: String {
-        get { "dummy value" }
-        set {
-            NSError.setUserInfoValueProvider(forDomain: errorDomain) { _, _ in
-                newValue
-            }
-        }
-    }
+    private static let error = NSError(domain: "MAS", code: 999, userInfo: [NSLocalizedDescriptionKey: "foo"])
 
     override func setUp() {
         super.setUp()
         MAS.initialize()
-        nserror = NSError(domain: errorDomain, code: 999)
-        localizedDescription = "foo"
-    }
-
-    override func tearDown() {
-        nserror = nil
-        error = nil
-        super.tearDown()
     }
 
     func testNotSignedIn() {
-        error = .notSignedIn
-        XCTAssertEqual(error.description, "Not signed in")
+        XCTAssertEqual(MASError.notSignedIn.description, "Not signed in")
     }
 
     func testSignInFailed() {
-        error = .signInFailed(error: nil)
-        XCTAssertEqual(error.description, "Sign in failed")
+        XCTAssertEqual(MASError.signInFailed(error: nil).description, "Sign in failed")
     }
 
     func testSignInFailedError() {
-        error = .signInFailed(error: nserror)
-        XCTAssertEqual(error.description, "Sign in failed: foo")
+        XCTAssertEqual(MASError.signInFailed(error: Self.error).description, "Sign in failed: foo")
     }
 
     func testAlreadySignedIn() {
-        error = .alreadySignedIn(asAppleID: "person@example.com")
-        XCTAssertEqual(error.description, "Already signed in as person@example.com")
+        XCTAssertEqual(
+            MASError.alreadySignedIn(asAppleID: "person@example.com").description,
+            "Already signed in as person@example.com"
+        )
     }
 
     func testPurchaseFailed() {
-        error = .purchaseFailed(error: nil)
-        XCTAssertEqual(error.description, "Download request failed")
+        XCTAssertEqual(MASError.purchaseFailed(error: nil).description, "Download request failed")
     }
 
     func testPurchaseFailedError() {
-        error = .purchaseFailed(error: nserror)
-        XCTAssertEqual(error.description, "Download request failed: foo")
+        XCTAssertEqual(MASError.purchaseFailed(error: Self.error).description, "Download request failed: foo")
     }
 
     func testDownloadFailed() {
-        error = .downloadFailed(error: nil)
-        XCTAssertEqual(error.description, "Download failed")
+        XCTAssertEqual(MASError.downloadFailed(error: nil).description, "Download failed")
     }
 
     func testDownloadFailedError() {
-        error = .downloadFailed(error: nserror)
-        XCTAssertEqual(error.description, "Download failed: foo")
+        XCTAssertEqual(MASError.downloadFailed(error: Self.error).description, "Download failed: foo")
     }
 
     func testNoDownloads() {
-        error = .noDownloads
-        XCTAssertEqual(error.description, "No downloads began")
+        XCTAssertEqual(MASError.noDownloads.description, "No downloads began")
     }
 
     func testCancelled() {
-        error = .cancelled
-        XCTAssertEqual(error.description, "Download cancelled")
+        XCTAssertEqual(MASError.cancelled.description, "Download cancelled")
     }
 
     func testSearchFailed() {
-        error = .searchFailed
-        XCTAssertEqual(error.description, "Search failed")
+        XCTAssertEqual(MASError.searchFailed.description, "Search failed")
     }
 
     func testNoSearchResultsFound() {
-        error = .noSearchResultsFound
-        XCTAssertEqual(error.description, "No apps found")
+        XCTAssertEqual(MASError.noSearchResultsFound.description, "No apps found")
     }
 
     func testNoVendorWebsite() {
-        error = .noVendorWebsite
-        XCTAssertEqual(error.description, "App does not have a vendor website")
+        XCTAssertEqual(MASError.noVendorWebsite.description, "App does not have a vendor website")
     }
 
     func testNotInstalled() {
-        error = .notInstalled(appID: 123)
-        XCTAssertEqual(error.description, "No apps installed with app ID 123")
+        XCTAssertEqual(MASError.notInstalled(appID: 123).description, "No apps installed with app ID 123")
     }
 
     func testUninstallFailed() {
-        error = .uninstallFailed(error: nil)
-        XCTAssertEqual(error.description, "Uninstall failed")
+        XCTAssertEqual(MASError.uninstallFailed(error: nil).description, "Uninstall failed")
     }
 
     func testNoData() {
-        error = .noData
-        XCTAssertEqual(error.description, "Service did not return data")
+        XCTAssertEqual(MASError.noData.description, "Service did not return data")
     }
 
     func testJsonParsing() {
-        error = .jsonParsing(data: nil)
-        XCTAssertEqual(error.description, "Received empty response")
+        XCTAssertEqual(MASError.jsonParsing(data: nil).description, "Received empty response")
     }
 }

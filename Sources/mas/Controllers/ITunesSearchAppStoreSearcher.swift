@@ -12,7 +12,7 @@ import Regex
 import Version
 
 /// Manages searching the MAS catalog through the iTunes Search and Lookup APIs.
-class ITunesSearchAppStoreSearcher: AppStoreSearcher {
+struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
     private static let appVersionExpression = Regex(#"\"versionDisplay\"\:\"([^\"]+)\""#)
 
     // CommerceKit and StoreFoundation don't seem to expose the region of the Apple ID signed
@@ -52,7 +52,7 @@ class ITunesSearchAppStoreSearcher: AppStoreSearcher {
                 }
 
                 return
-                    self.scrapeAppStoreVersion(pageURL)
+                    scrapeAppStoreVersion(pageURL)
                     .map { pageVersion in
                         guard
                             let pageVersion,
@@ -81,9 +81,10 @@ class ITunesSearchAppStoreSearcher: AppStoreSearcher {
     func search(for searchTerm: String) -> Promise<[SearchResult]> {
         // Search for apps for compatible platforms, in order of preference.
         // Macs with Apple Silicon can run iPad and iPhone apps.
-        var entities = [Entity.desktopSoftware]
         #if arch(arm64)
-        entities += [.iPadSoftware, .iPhoneSoftware]
+        let entities = [Entity.desktopSoftware, .iPadSoftware, .iPhoneSoftware]
+        #else
+        let entities = [Entity.desktopSoftware]
         #endif
 
         let results = entities.map { entity in

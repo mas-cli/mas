@@ -15,10 +15,10 @@ private let downloadedPhase: Int64 = 5
 
 @objc
 class PurchaseDownloadObserver: NSObject, CKDownloadQueueObserver {
-    let purchase: SSPurchase
+    private let purchase: SSPurchase
     var completionHandler: (() -> Void)?
     var errorHandler: ((MASError) -> Void)?
-    var priorPhaseType: Int64?
+    private var priorPhaseType: Int64?
 
     init(purchase: SSPurchase) {
         self.purchase = purchase
@@ -99,16 +99,8 @@ func progress(_ state: ProgressState) {
     }
 
     let barLength = 60
-
     let completeLength = Int(state.percentComplete * Float(barLength))
-    var bar = ""
-    for index in 0..<barLength {
-        if index < completeLength {
-            bar += "#"
-        } else {
-            bar += "-"
-        }
-    }
+    let bar = (0..<barLength).map { $0 < completeLength ? "#" : "-" }.joined()
     clearLine()
     print("\(bar) \(state.percentage) \(state.phase)", terminator: "")
     fflush(stdout)

@@ -11,7 +11,7 @@ import Foundation
 // A collection of output formatting helpers
 
 /// Terminal Control Sequence Indicator.
-let csi = "\u{001B}["
+private let csi = "\u{001B}["
 
 private var standardError = FileHandle.standardError
 

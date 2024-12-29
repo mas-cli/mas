@@ -33,22 +33,22 @@ public class OutdatedSpec: QuickSpec {
                         trackViewUrl: "https://apps.apple.com/us/app/bandwidth/id490461369?mt=12&uo=4",
                         version: "1.28"
                     )
-                let searcher = MockAppStoreSearcher()
-                searcher.apps[mockSearchResult.trackId] = mockSearchResult
 
-                let mockAppLibrary = MockAppLibrary()
-                mockAppLibrary.installedApps.append(
-                    MockSoftwareProduct(
-                        appName: mockSearchResult.trackName,
-                        bundleIdentifier: mockSearchResult.bundleId,
-                        bundlePath: "/Applications/Bandwidth+.app",
-                        bundleVersion: "1.27",
-                        itemIdentifier: NSNumber(value: mockSearchResult.trackId)
-                    )
-                )
                 expect {
                     try captureStream(stdout) {
-                        try MAS.Outdated.parse([]).run(appLibrary: mockAppLibrary, searcher: searcher)
+                        try MAS.Outdated.parse([])
+                            .run(
+                                appLibrary: MockAppLibrary(
+                                    MockSoftwareProduct(
+                                        appName: mockSearchResult.trackName,
+                                        bundleIdentifier: mockSearchResult.bundleId,
+                                        bundlePath: "/Applications/Bandwidth+.app",
+                                        bundleVersion: "1.27",
+                                        itemIdentifier: NSNumber(value: mockSearchResult.trackId)
+                                    )
+                                ),
+                                searcher: MockAppStoreSearcher([mockSearchResult.trackId: mockSearchResult])
+                            )
                     }
                 }
                     == "490461369 Bandwidth+ (1.27 -> 1.28)\n"

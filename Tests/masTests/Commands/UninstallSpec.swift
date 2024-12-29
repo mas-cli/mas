@@ -26,25 +26,20 @@ public class UninstallSpec: QuickSpec {
                 bundleVersion: "1.0",
                 itemIdentifier: NSNumber(value: appID)
             )
-            let mockLibrary = MockAppLibrary()
 
             context("dry run") {
                 let uninstall = try! MAS.Uninstall.parse(["--dry-run", String(appID)])
 
-                beforeEach {
-                    mockLibrary.reset()
-                }
                 it("can't remove a missing app") {
                     expect {
-                        try uninstall.run(appLibrary: mockLibrary)
+                        try uninstall.run(appLibrary: MockAppLibrary())
                     }
                     .to(throwError(MASError.notInstalled(appID: appID)))
                 }
                 it("finds an app") {
-                    mockLibrary.installedApps.append(app)
                     expect {
                         try captureStream(stdout) {
-                            try uninstall.run(appLibrary: mockLibrary)
+                            try uninstall.run(appLibrary: MockAppLibrary(app))
                         }
                     }
                         == "==> 'Some App' '/tmp/Some.app'\n==> (not removed, dry run)\n"
@@ -53,20 +48,16 @@ public class UninstallSpec: QuickSpec {
             context("wet run") {
                 let uninstall = try! MAS.Uninstall.parse([String(appID)])
 
-                beforeEach {
-                    mockLibrary.reset()
-                }
                 it("can't remove a missing app") {
                     expect {
-                        try uninstall.run(appLibrary: mockLibrary)
+                        try uninstall.run(appLibrary: MockAppLibrary())
                     }
                     .to(throwError(MASError.notInstalled(appID: appID)))
                 }
                 it("removes an app") {
-                    mockLibrary.installedApps.append(app)
                     expect {
                         try captureStream(stdout) {
-                            try uninstall.run(appLibrary: mockLibrary)
+                            try uninstall.run(appLibrary: MockAppLibrary(app))
                         }
                     }
                     .toNot(throwError())
@@ -74,10 +65,9 @@ public class UninstallSpec: QuickSpec {
                 it("fails if there is a problem with the trash command") {
                     var brokenApp = app
                     brokenApp.bundlePath = "/dev/null"
-                    mockLibrary.installedApps.append(brokenApp)
                     expect {
                         try captureStream(stdout) {
-                            try uninstall.run(appLibrary: mockLibrary)
+                            try uninstall.run(appLibrary: MockAppLibrary(brokenApp))
                         }
                     }
                     .to(throwError(MASError.uninstallFailed(error: nil)))
