@@ -37,7 +37,7 @@ enum MASError: Error, Equatable {
     case macOSUserMustBeRoot
 
     case noData
-    case jsonParsing(data: Data?)
+    case jsonParsing(data: Data)
 }
 
 // MARK: - CustomStringConvertible
@@ -102,13 +102,10 @@ extension MASError: CustomStringConvertible {
         case .noData:
             return "Service did not return data"
         case .jsonParsing(let data):
-            if let data {
-                if let unparsable = String(data: data, encoding: .utf8) {
-                    return "Unable to parse response as JSON: \n\(unparsable)"
-                }
-                return "Received defective response"
+            if let unparsable = String(data: data, encoding: .utf8) {
+                return "Unable to parse response as JSON:\n\(unparsable)"
             }
-            return "Received empty response"
+            return "Received defective response"
         }
     }
 }
