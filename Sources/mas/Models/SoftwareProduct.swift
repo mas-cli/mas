@@ -34,7 +34,7 @@ extension SoftwareProduct {
     ///
     /// - Parameter storeApp: App from search result.
     /// - Returns: true if the app is outdated; false otherwise.
-    func isOutdatedWhenComparedTo(_ storeApp: SearchResult) -> Bool {
+    func isOutdated(comparedTo storeApp: SearchResult) -> Bool {
         // If storeApp requires a version of macOS newer than the running version, do not consider self outdated.
         if let osVersion = Version(tolerant: storeApp.minimumOsVersion) {
             let requiredVersion = OperatingSystemVersion(

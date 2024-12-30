@@ -32,16 +32,16 @@ public class SoftwareProductSpec: QuickSpec {
             let updateIos = SearchResult(minimumOsVersion: "99.0.0", version: "3.0.0")
 
             it("is not outdated when there is no new version available") {
-                expect(app.isOutdatedWhenComparedTo(currentApp)) == false
+                expect(app.isOutdated(comparedTo: currentApp)) == false
             }
             it("is outdated when there is a new version available") {
-                expect(app.isOutdatedWhenComparedTo(appUpdate)) == true
+                expect(app.isOutdated(comparedTo: appUpdate)) == true
             }
             it("is not outdated when the new version of mac-software requires a higher OS version") {
-                expect(app.isOutdatedWhenComparedTo(higherOs)) == false
+                expect(app.isOutdated(comparedTo: higherOs)) == false
             }
             it("is not outdated when the new version of software requires a higher OS version") {
-                expect(app.isOutdatedWhenComparedTo(updateIos)) == false
+                expect(app.isOutdated(comparedTo: updateIos)) == false
             }
         }
     }

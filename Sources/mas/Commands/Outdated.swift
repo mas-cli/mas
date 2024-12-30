@@ -32,7 +32,7 @@ extension MAS {
                     appLibrary.installedApps.map { installedApp in
                         searcher.lookup(appID: installedApp.itemIdentifier.appIDValue)
                             .done { storeApp in
-                                if installedApp.isOutdatedWhenComparedTo(storeApp) {
+                                if installedApp.isOutdated(comparedTo: storeApp) {
                                     print(
                                         """
                                         \(installedApp.itemIdentifier) \(installedApp.displayName) \
