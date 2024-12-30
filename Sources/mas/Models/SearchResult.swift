@@ -17,7 +17,9 @@ struct SearchResult: Decodable {
     var trackName = ""
     var trackViewUrl = ""
     var version = ""
+}
 
+extension SearchResult {
     var displayPrice: String {
         formattedPrice ?? "Unknown"
     }

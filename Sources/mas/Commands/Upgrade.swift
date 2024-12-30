@@ -39,12 +39,14 @@ extension MAS {
 
             print("Upgrading \(apps.count) outdated application\(apps.count > 1 ? "s" : ""):")
             print(
-                apps.map { "\($0.installedApp.appName) (\($0.installedApp.bundleVersion)) -> (\($0.storeApp.version))" }
-                    .joined(separator: "\n")
+                apps.map { installedApp, storeApp in
+                    "\(storeApp.trackName) (\(installedApp.bundleVersion)) -> (\(storeApp.version))"
+                }
+                .joined(separator: "\n")
             )
 
             do {
-                try downloadApps(withAppIDs: apps.map(\.installedApp.itemIdentifier.appIDValue)).wait()
+                try downloadApps(withAppIDs: apps.map(\.storeApp.trackId)).wait()
             } catch {
                 throw error as? MASError ?? .downloadFailed(error: error as NSError)
             }
