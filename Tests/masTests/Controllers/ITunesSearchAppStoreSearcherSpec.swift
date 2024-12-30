@@ -64,8 +64,6 @@ public class ITunesSearchAppStoreSearcherSpec: QuickSpec {
                     }
 
                     expect(result.trackId) == appID
-                    expect(result.bundleId) == "com.tinyspeck.slackmacgap"
-                    expect(result.price) == 0
                     expect(result.sellerName) == "Slack Technologies, Inc."
                     expect(result.sellerUrl) == "https://slack.com"
                     expect(result.trackName) == "Slack"

@@ -22,9 +22,9 @@ public class SearchResultSpec: QuickSpec {
                 expect(
                     try JSONDecoder()
                         .decode(SearchResult.self, from: Data(from: "search/things-that-go-bump.json"))
-                        .bundleId
+                        .trackId
                 )
-                    == "uikitformac.com.tinybop.thingamabops"
+                    == 1_472_954_003
             }
         }
     }

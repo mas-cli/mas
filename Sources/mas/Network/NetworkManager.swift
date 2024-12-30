@@ -10,7 +10,7 @@ import Foundation
 import PromiseKit
 
 /// Network abstraction.
-class NetworkManager {
+struct NetworkManager {
     private let session: NetworkSession
 
     /// Designated initializer.

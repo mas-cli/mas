@@ -11,7 +11,7 @@ import Foundation
 // A collection of output formatting helpers
 
 /// Terminal Control Sequence Indicator.
-let csi = "\u{001B}["
+private let csi = "\u{001B}["
 
 private var standardError = FileHandle.standardError
 
@@ -66,31 +66,4 @@ func clearLine() {
 
     print("\(csi)2K\(csi)0G", terminator: "")
     fflush(stdout)
-}
-
-func captureStream(
-    _ stream: UnsafeMutablePointer<FILE>,
-    encoding: String.Encoding = .utf8,
-    _ block: @escaping () throws -> Void
-) rethrows -> String {
-    let originalFd = fileno(stream)
-    let duplicateFd = dup(originalFd)
-    defer {
-        close(duplicateFd)
-    }
-
-    let pipe = Pipe()
-    dup2(pipe.fileHandleForWriting.fileDescriptor, originalFd)
-
-    do {
-        defer {
-            fflush(stream)
-            dup2(duplicateFd, originalFd)
-            pipe.fileHandleForWriting.closeFile()
-        }
-
-        try block()
-    }
-
-    return String(data: pipe.fileHandleForReading.readDataToEndOfFile(), encoding: encoding) ?? ""
 }

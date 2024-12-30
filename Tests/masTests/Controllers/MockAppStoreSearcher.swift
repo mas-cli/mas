@@ -10,8 +10,12 @@ import PromiseKit
 
 @testable import mas
 
-class MockAppStoreSearcher: AppStoreSearcher {
-    var apps: [AppID: SearchResult] = [:]
+struct MockAppStoreSearcher: AppStoreSearcher {
+    let apps: [AppID: SearchResult]
+
+    init(_ apps: [AppID: SearchResult] = [:]) {
+        self.apps = apps
+    }
 
     func search(for searchTerm: String) -> Promise<[SearchResult]> {
         .value(apps.filter { $1.trackName.contains(searchTerm) }.map { $1 })
@@ -23,9 +27,5 @@ class MockAppStoreSearcher: AppStoreSearcher {
         }
 
         return .value(result)
-    }
-
-    func reset() {
-        apps = [:]
     }
 }

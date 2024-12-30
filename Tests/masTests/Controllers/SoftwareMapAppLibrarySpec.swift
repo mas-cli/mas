@@ -13,6 +13,16 @@ import Quick
 
 public class SoftwareMapAppLibrarySpec: QuickSpec {
     override public func spec() {
+        let myApp = MockSoftwareProduct(
+            appName: "MyApp",
+            bundleIdentifier: "com.example",
+            bundlePath: "/Applications/MyApp.app",
+            bundleVersion: "1.0.0",
+            itemIdentifier: 1234
+        )
+
+        let apps = [myApp]
+
         let library = SoftwareMapAppLibrary(softwareMap: MockSoftwareMap(products: apps))
 
         beforeSuite {
@@ -23,36 +33,15 @@ public class SoftwareMapAppLibrarySpec: QuickSpec {
                 expect(library.installedApps).to(haveCount(apps.count))
                 expect(library.installedApps.first!.appName) == myApp.appName
             }
-            it("can locate an app by bundle id") {
-                expect(library.installedApp(forBundleID: "com.example")!.bundleIdentifier) == myApp.bundleIdentifier
-            }
         }
     }
 }
 
-// MARK: - Test Data
-let myApp = MockSoftwareProduct(
-    appName: "MyApp",
-    bundleIdentifier: "com.example",
-    bundlePath: "/Applications/MyApp.app",
-    bundleVersion: "1.0.0",
-    itemIdentifier: 1234
-)
-
-var apps: [SoftwareProduct] = [myApp]
-
 // MARK: - MockSoftwareMap
 struct MockSoftwareMap: SoftwareMap {
-    var products: [SoftwareProduct] = []
+    let products: [SoftwareProduct]
 
     func allSoftwareProducts() -> [SoftwareProduct] {
         products
-    }
-
-    func product(for bundleIdentifier: String) -> SoftwareProduct? {
-        for product in products where product.bundleIdentifier == bundleIdentifier {
-            return product
-        }
-        return nil
     }
 }

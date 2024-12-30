@@ -14,18 +14,13 @@ import Quick
 
 public class OpenSpec: QuickSpec {
     override public func spec() {
-        let searcher = MockAppStoreSearcher()
-
         beforeSuite {
             MAS.initialize()
         }
         describe("open command") {
-            beforeEach {
-                searcher.reset()
-            }
             it("can't find app with unknown ID") {
                 expect {
-                    try MAS.Open.parse(["999"]).run(searcher: searcher)
+                    try MAS.Open.parse(["999"]).run(searcher: MockAppStoreSearcher())
                 }
                 .to(throwError(MASError.unknownAppID(999)))
             }

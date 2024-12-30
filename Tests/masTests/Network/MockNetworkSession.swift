@@ -12,11 +12,21 @@ import PromiseKit
 @testable import mas
 
 /// Mock NetworkSession for testing.
-class MockNetworkSession: NetworkSession {
+struct MockNetworkSession: NetworkSession {
     // Properties that enable us to set exactly what data or error
     // we want our mocked URLSession to return for any request.
-    var data: Data?
-    var error: Error?
+    private let data: Data?
+    private let error: Error?
+
+    init(data: Data) {
+        self.data = data
+        error = nil
+    }
+
+    init(error: Error) {
+        self.error = error
+        data = nil
+    }
 
     func loadData(from _: URL) -> Promise<Data> {
         guard let data else {
