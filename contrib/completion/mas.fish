@@ -55,6 +55,9 @@ complete -c mas -n "__fish_seen_subcommand_from outdated" -l verbose -d "Display
 ### purchase
 complete -c mas -n "__fish_use_subcommand" -f -a purchase -d "\"Purchase\" and install free apps from the Mac App Store"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "purchase"
+### region
+complete -c mas -n "__fish_use_subcommand" -f -a region -d "Display the region of the Mac App Store"
+complete -c mas -n "__fish_seen_subcommand_from help" -xa "region"
 ### reset
 complete -c mas -n "__fish_use_subcommand" -f -a reset -d "Reset Mac App Store running processes"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "reset"

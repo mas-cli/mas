@@ -19,13 +19,23 @@ public class ITunesSearchAppStoreSearcherSpec: QuickSpec {
         describe("url string") {
             it("contains the search term") {
                 expect {
-                    ITunesSearchAppStoreSearcher().searchURL(for: "myapp", inCountry: "US")?.absoluteString
+                    ITunesSearchAppStoreSearcher()
+                        .searchURL(
+                            for: "myapp",
+                            inRegion: findISORegion(forAlpha2Code: "US")
+                        )?
+                        .absoluteString
                 }
                     == "https://itunes.apple.com/search?media=software&entity=desktopSoftware&country=US&term=myapp"
             }
             it("contains the encoded search term") {
                 expect {
-                    ITunesSearchAppStoreSearcher().searchURL(for: "My App", inCountry: "US")?.absoluteString
+                    ITunesSearchAppStoreSearcher()
+                        .searchURL(
+                            for: "My App",
+                            inRegion: findISORegion(forAlpha2Code: "US")
+                        )?
+                        .absoluteString
                 }
                     == "https://itunes.apple.com/search?media=software&entity=desktopSoftware&country=US&term=My%20App"
             }

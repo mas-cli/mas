@@ -23,6 +23,7 @@ struct MAS: ParsableCommand {
             Open.self,
             Outdated.self,
             Purchase.self,
+            Region.self,
             Reset.self,
             Search.self,
             SignIn.self,

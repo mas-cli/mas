@@ -17,15 +17,15 @@ struct MockAppStoreSearcher: AppStoreSearcher {
         self.apps = apps
     }
 
-    func search(for searchTerm: String) -> Promise<[SearchResult]> {
-        .value(apps.filter { $1.trackName.contains(searchTerm) }.map { $1 })
-    }
-
-    func lookup(appID: AppID) -> Promise<SearchResult> {
+    func lookup(appID: AppID, inRegion _: ISORegion?) -> Promise<SearchResult> {
         guard let result = apps[appID] else {
             return Promise(error: MASError.unknownAppID(appID))
         }
 
         return .value(result)
+    }
+
+    func search(for searchTerm: String, inRegion _: ISORegion?) -> Promise<[SearchResult]> {
+        .value(apps.filter { $1.trackName.contains(searchTerm) }.map { $1 })
     }
 }
