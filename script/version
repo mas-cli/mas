@@ -8,4 +8,6 @@
 
 . "${0:a:h}/_setup_script"
 
-printf $'%s\n' "${"$(git describe --tags 2>/dev/null)"#v}"
+printf $'%s%s\n'\
+ "${"$(git describe --tags 2>/dev/null)"#v}"\
+ "${"$(git diff-index HEAD --;git ls-files --exclude-standard --others)":++}"
