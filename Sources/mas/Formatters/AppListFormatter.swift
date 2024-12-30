@@ -11,25 +11,24 @@ import Foundation
 /// Formats text output for the search command.
 enum AppListFormatter {
     static let idColumnMinWidth = 10
-    static let nameColumnMinWidth = 50
 
     /// Formats text output with list results.
     ///
     /// - Parameter products: List of software products app data.
     /// - Returns: Multiline text output.
     static func format(products: [SoftwareProduct]) -> String {
-        // find longest appName for formatting, default 50
-        let maxLength = products.map(\.appNameOrBundleIdentifier.count).max() ?? nameColumnMinWidth
+        // find longest displayName for formatting
+        let maxLength = products.map(\.displayName.count).max() ?? 0
 
         var output = ""
 
         for product in products {
             let appID = product.itemIdentifier.stringValue
                 .padding(toLength: idColumnMinWidth, withPad: " ", startingAt: 0)
-            let appName = product.appNameOrBundleIdentifier.padding(toLength: maxLength, withPad: " ", startingAt: 0)
+            let displayName = product.displayName.padding(toLength: maxLength, withPad: " ", startingAt: 0)
             let version = product.bundleVersion
 
-            output += "\(appID)  \(appName)  (\(version))\n"
+            output += "\(appID)  \(displayName)  (\(version))\n"
         }
 
         return output.trimmingCharacters(in: .newlines)

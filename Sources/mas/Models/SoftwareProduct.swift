@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Regex
 import Version
 
 /// Protocol describing the members of CKSoftwareProduct used throughout mas.
@@ -18,10 +19,13 @@ protocol SoftwareProduct {
     var itemIdentifier: NSNumber { get set }
 }
 
+private let appNameFromBundlePathRegex = Regex(#"[^/]+(?=\.app$)"#)
+
 extension SoftwareProduct {
-    /// - Returns: bundleIdentifier if appName is empty string.
-    var appNameOrBundleIdentifier: String {
-        appName.isEmpty ? bundleIdentifier : appName
+    var displayName: String {
+        appName.isEmpty
+            ? appNameFromBundlePathRegex.firstMatch(in: bundlePath)?.matchedString ?? bundleIdentifier
+            : appName
     }
 
     /// Determines whether the app is considered outdated.

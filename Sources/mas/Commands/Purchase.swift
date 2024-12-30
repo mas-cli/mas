@@ -26,8 +26,8 @@ extension MAS {
         func run(appLibrary: AppLibrary, searcher: AppStoreSearcher) throws {
             // Try to download applications with given identifiers and collect results
             let appIDs = appIDs.filter { appID in
-                if let appName = appLibrary.installedApps(withAppID: appID).first?.appName {
-                    printWarning("\(appName) has already been purchased.")
+                if let displayName = appLibrary.installedApps(withAppID: appID).first?.displayName {
+                    printWarning("\(displayName) has already been purchased.")
                     return false
                 }
 
