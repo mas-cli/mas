@@ -21,11 +21,9 @@ public class OutdatedSpec: QuickSpec {
             it("displays apps with pending updates") {
                 let mockSearchResult =
                     SearchResult(
-                        bundleId: "au.id.haroldchu.mac.Bandwidth",
                         currentVersionReleaseDate: "2024-09-02T00:27:00Z",
                         fileSizeBytes: "998130",
                         minimumOsVersion: "10.13",
-                        price: 0,
                         sellerName: "Harold Chu",
                         sellerUrl: "https://example.com",
                         trackId: 490_461_369,
@@ -41,7 +39,7 @@ public class OutdatedSpec: QuickSpec {
                                 appLibrary: MockAppLibrary(
                                     MockSoftwareProduct(
                                         appName: mockSearchResult.trackName,
-                                        bundleIdentifier: mockSearchResult.bundleId,
+                                        bundleIdentifier: "au.id.haroldchu.mac.Bandwidth",
                                         bundlePath: "/Applications/Bandwidth+.app",
                                         bundleVersion: "1.27",
                                         itemIdentifier: NSNumber(value: mockSearchResult.trackId)
