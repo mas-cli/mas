@@ -2,10 +2,24 @@
 ---
 version: 2
 updates:
-  - package-ecosystem: "github-actions"
-    directory: "/"
+  - package-ecosystem: github-actions
     schedule:
-      interval: "daily"
+      interval: daily
+    directory: /
+    labels: [📚 dependencies]
     commit-message:
-      prefix: "⬆️"
-      include: "scope"
+      prefix: ⬆️
+      include: scope
+  - package-ecosystem: swift
+    schedule:
+      interval: daily
+    directory: /
+    ignore:
+      - dependency-name: nimble
+        update-types: major
+      - dependency-name: quick
+        update-types: major
+    labels: [📚 dependencies]
+    commit-message:
+      prefix: ⬆️
+      include: scope
