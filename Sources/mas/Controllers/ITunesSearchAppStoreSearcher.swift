@@ -14,7 +14,7 @@ import Version
 /// Manages searching the MAS catalog. Uses the iTunes Search and Lookup APIs:
 /// https://performance-partners.apple.com/search-api
 struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
-    private static let appVersionExpression = Regex(#"\"versionDisplay\"\:\"([^\"]+)\""#)
+    private static let appVersionRegex = Regex(#""versionDisplay":"([^"]+)""#)
 
     private let networkManager: NetworkManager
 
@@ -119,7 +119,7 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
             .map { data in
                 guard
                     let html = String(data: data, encoding: .utf8),
-                    let capture = Self.appVersionExpression.firstMatch(in: html)?.captures[0],
+                    let capture = Self.appVersionRegex.firstMatch(in: html)?.captures[0],
                     let version = Version(tolerant: capture)
                 else {
                     return nil

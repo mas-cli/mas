@@ -81,7 +81,7 @@ extension MAS {
                 // only upgrade apps whose local version differs from the store version
                 searcher.lookup(appID: installedApp.itemIdentifier.appIDValue)
                     .map { storeApp -> (SoftwareProduct, SearchResult)? in
-                        guard installedApp.isOutdatedWhenComparedTo(storeApp) else {
+                        guard installedApp.isOutdated(comparedTo: storeApp) else {
                             return nil
                         }
                         return (installedApp, storeApp)

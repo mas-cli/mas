@@ -60,14 +60,10 @@ public class ITunesSearchAppStoreSearcherSpec: QuickSpec {
                     let searcher = ITunesSearchAppStoreSearcher(networkManager: NetworkManager(session: networkSession))
 
                     var result: SearchResult?
-                    do {
+                    expect {
                         result = try searcher.lookup(appID: appID).wait()
-                    } catch {
-                        let maserror = error as! MASError
-                        if case .jsonParsing(let nserror) = maserror {
-                            fail("\(maserror) \(nserror!)")
-                        }
                     }
+                    .toNot(throwError())
 
                     guard let result else {
                         fatalError("lookup result was nil")
