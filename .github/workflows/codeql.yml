@@ -1,0 +1,47 @@
+#
+# .github/workflows/codeql.yml
+#
+---
+name: CodeQL
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: 44 14 * * 4
+  workflow_dispatch:
+jobs:
+  analyze:
+    name: Analyze ${{matrix.language}}
+    runs-on: macos-15
+    permissions:
+      security-events: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - language: actions
+            build-mode: none
+
+          - language: swift
+            build-mode: manual
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{matrix.language}}
+          build-mode: ${{matrix.build-mode}}
+          queries: ${{matrix.language == 'swift' && '+security-and-quality' || ''}}
+
+      - name: Build Swift
+        if: matrix.language == 'swift'
+        shell: bash
+        run: |
+          script/build
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: /language:${{matrix.language}}
