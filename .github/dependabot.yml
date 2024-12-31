@@ -2,10 +2,11 @@
 ---
 version: 2
 updates:
-  - package-ecosystem: "github-actions"
-    directory: "/"
+  - package-ecosystem: github-actions
     schedule:
-      interval: "daily"
+      interval: daily
+    directory: /
+    labels: [📚 dependencies]
     commit-message:
-      prefix: "⬆️"
-      include: "scope"
+      prefix: ⬆️
+      include: scope
