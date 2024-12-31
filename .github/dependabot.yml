@@ -10,3 +10,16 @@ updates:
     commit-message:
       prefix: ⬆️
       include: scope
+  - package-ecosystem: swift
+    schedule:
+      interval: daily
+    directory: /
+    ignore:
+      - dependency-name: nimble
+        update-types: major
+      - dependency-name: quick
+        update-types: major
+    labels: [📚 dependencies]
+    commit-message:
+      prefix: ⬆️
+      include: scope
