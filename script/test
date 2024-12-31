@@ -12,5 +12,5 @@ printf $'==> ✅ Testing mas %s\n' "$(script/version)"
 
 script/generate_version_info_for_swift
 
-script -q /dev/null swift test |
+script -q /dev/null swift test "${@}" |
   (grep -vxE $'Test Suite \'.+\' (?:started|passed) at \\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}\\.\\d{3}\\.?\\r|Test Case \'-\\[.+\\]\' (?:started|passed \\(\\d+\\.\\d+ seconds\\))\\.\\r|\\t Executed \\d+ tests?, with 0 failures \\(0 unexpected\\) in \\d+\\.\\d+ \\(\\d+\\.\\d+\\) seconds\\r' || true)
