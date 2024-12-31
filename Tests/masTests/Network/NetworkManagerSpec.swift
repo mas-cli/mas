@@ -1,5 +1,5 @@
 //
-//  NetworkManagerTests.swift
+//  NetworkManagerSpec.swift
 //  masTests
 //
 //  Created by Ben Chatelain on 1/5/19.
@@ -10,7 +10,7 @@ import XCTest
 
 @testable import mas
 
-class NetworkManagerTests: XCTestCase {
+class NetworkManagerSpec: XCTestCase {
     override func setUp() {
         super.setUp()
         MAS.initialize()

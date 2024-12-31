@@ -1,5 +1,5 @@
 //
-//  MASErrorTestCase.swift
+//  MASErrorSpec.swift
 //  masTests
 //
 //  Created by Ben Chatelain on 2/11/18.
@@ -11,7 +11,7 @@ import XCTest
 
 @testable import mas
 
-class MASErrorTestCase: XCTestCase {
+class MASErrorSpec: XCTestCase {
     private static let error = NSError(domain: "MAS", code: 999, userInfo: [NSLocalizedDescriptionKey: "foo"])
 
     override func setUp() {
