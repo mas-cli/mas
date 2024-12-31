@@ -6,63 +6,36 @@
 //  Copyright © 2019 mas-cli. All rights reserved.
 //
 
-import XCTest
+import Foundation
+import Nimble
+import Quick
 
 @testable import mas
 
-class NetworkManagerSpec: XCTestCase {
-    override func setUp() {
-        super.setUp()
-        MAS.initialize()
-    }
-
-    func testSuccessfulAsyncResponse() throws {
-        let data = Data([0, 1, 0, 1])
-        XCTAssertEqual(
-            try NetworkManager(session: MockNetworkSession(data: data))
-                .loadData(from: URL(fileURLWithPath: "url"))
-                .wait(),
-            data
-        )
-    }
-
-    func testSuccessfulSyncResponse() throws {
-        let data = Data([0, 1, 0, 1])
-        XCTAssertEqual(
-            try NetworkManager(session: MockNetworkSession(data: data))
-                .loadData(from: URL(fileURLWithPath: "url"))
-                .wait(),
-            data
-        )
-    }
-
-    func testFailureAsyncResponse() {
-        XCTAssertThrowsError(
-            try NetworkManager(session: MockNetworkSession(error: MASError.noData))
-                .loadData(from: URL(fileURLWithPath: "url"))
-                .wait()
-        ) { error in
-            guard let masError = error as? MASError else {
-                XCTFail("Error is of unexpected type.")
-                return
-            }
-
-            XCTAssertEqual(masError, MASError.noData)
+public class NetworkManagerSpec: QuickSpec {
+    override public func spec() {
+        beforeSuite {
+            MAS.initialize()
         }
-    }
-
-    func testFailureSyncResponse() {
-        XCTAssertThrowsError(
-            try NetworkManager(session: MockNetworkSession(error: MASError.noData))
-                .loadData(from: URL(fileURLWithPath: "url"))
-                .wait()
-        ) { error in
-            guard let error = error as? MASError else {
-                XCTFail("Error is of unexpected type.")
-                return
+        describe("network manager") {
+            it("returns data") {
+                let data = Data([0, 1, 0, 1])
+                expect(
+                    try NetworkManager(session: MockNetworkSession(data: data))
+                        .loadData(from: URL(fileURLWithPath: "url"))
+                        .wait()
+                )
+                    == data
             }
 
-            XCTAssertEqual(error, MASError.noData)
+            it("throws no data error") {
+                expect(
+                    try NetworkManager(session: MockNetworkSession(error: MASError.noData))
+                        .loadData(from: URL(fileURLWithPath: "url"))
+                        .wait()
+                )
+                .to(throwError(MASError.noData))
+            }
         }
     }
 }

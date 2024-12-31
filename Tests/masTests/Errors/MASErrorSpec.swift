@@ -7,86 +7,87 @@
 //
 
 import Foundation
-import XCTest
+import Nimble
+import Quick
 
 @testable import mas
 
-class MASErrorSpec: XCTestCase {
+public class MASErrorSpec: QuickSpec {
     private static let error = NSError(domain: "MAS", code: 999, userInfo: [NSLocalizedDescriptionKey: "foo"])
 
-    override func setUp() {
-        super.setUp()
-        MAS.initialize()
-    }
+    override public func spec() {
+        beforeSuite {
+            MAS.initialize()
+        }
+        describe("mas error") {
+            it("NotSignedIn") {
+                expect(MASError.notSignedIn.description) == "Not signed in"
+            }
 
-    func testNotSignedIn() {
-        XCTAssertEqual(MASError.notSignedIn.description, "Not signed in")
-    }
+            it("SignInFailed") {
+                expect(MASError.signInFailed(error: nil).description) == "Sign in failed"
+            }
 
-    func testSignInFailed() {
-        XCTAssertEqual(MASError.signInFailed(error: nil).description, "Sign in failed")
-    }
+            it("SignInFailedError") {
+                expect(MASError.signInFailed(error: Self.error).description) == "Sign in failed: foo"
+            }
 
-    func testSignInFailedError() {
-        XCTAssertEqual(MASError.signInFailed(error: Self.error).description, "Sign in failed: foo")
-    }
+            it("AlreadySignedIn") {
+                expect(MASError.alreadySignedIn(asAppleID: "person@example.com").description)
+                    == "Already signed in as person@example.com"
+            }
 
-    func testAlreadySignedIn() {
-        XCTAssertEqual(
-            MASError.alreadySignedIn(asAppleID: "person@example.com").description,
-            "Already signed in as person@example.com"
-        )
-    }
+            it("PurchaseFailed") {
+                expect(MASError.purchaseFailed(error: nil).description) == "Download request failed"
+            }
 
-    func testPurchaseFailed() {
-        XCTAssertEqual(MASError.purchaseFailed(error: nil).description, "Download request failed")
-    }
+            it("PurchaseFailedError") {
+                expect(MASError.purchaseFailed(error: Self.error).description) == "Download request failed: foo"
+            }
 
-    func testPurchaseFailedError() {
-        XCTAssertEqual(MASError.purchaseFailed(error: Self.error).description, "Download request failed: foo")
-    }
+            it("DownloadFailed") {
+                expect(MASError.downloadFailed(error: nil).description) == "Download failed"
+            }
 
-    func testDownloadFailed() {
-        XCTAssertEqual(MASError.downloadFailed(error: nil).description, "Download failed")
-    }
+            it("DownloadFailedError") {
+                expect(MASError.downloadFailed(error: Self.error).description) == "Download failed: foo"
+            }
 
-    func testDownloadFailedError() {
-        XCTAssertEqual(MASError.downloadFailed(error: Self.error).description, "Download failed: foo")
-    }
+            it("NoDownloads") {
+                expect(MASError.noDownloads.description) == "No downloads began"
+            }
 
-    func testNoDownloads() {
-        XCTAssertEqual(MASError.noDownloads.description, "No downloads began")
-    }
+            it("Cancelled") {
+                expect(MASError.cancelled.description) == "Download cancelled"
+            }
 
-    func testCancelled() {
-        XCTAssertEqual(MASError.cancelled.description, "Download cancelled")
-    }
+            it("SearchFailed") {
+                expect(MASError.searchFailed.description) == "Search failed"
+            }
 
-    func testSearchFailed() {
-        XCTAssertEqual(MASError.searchFailed.description, "Search failed")
-    }
+            it("NoSearchResultsFound") {
+                expect(MASError.noSearchResultsFound.description) == "No apps found"
+            }
 
-    func testNoSearchResultsFound() {
-        XCTAssertEqual(MASError.noSearchResultsFound.description, "No apps found")
-    }
+            it("NoVendorWebsite") {
+                expect(MASError.noVendorWebsite.description) == "App does not have a vendor website"
+            }
 
-    func testNoVendorWebsite() {
-        XCTAssertEqual(MASError.noVendorWebsite.description, "App does not have a vendor website")
-    }
+            it("NotInstalled") {
+                expect(MASError.notInstalled(appID: 123).description) == "No apps installed with app ID 123"
+            }
 
-    func testNotInstalled() {
-        XCTAssertEqual(MASError.notInstalled(appID: 123).description, "No apps installed with app ID 123")
-    }
+            it("UninstallFailed") {
+                expect(MASError.uninstallFailed(error: nil).description) == "Uninstall failed"
+            }
 
-    func testUninstallFailed() {
-        XCTAssertEqual(MASError.uninstallFailed(error: nil).description, "Uninstall failed")
-    }
+            it("NoData") {
+                expect(MASError.noData.description) == "Service did not return data"
+            }
 
-    func testNoData() {
-        XCTAssertEqual(MASError.noData.description, "Service did not return data")
-    }
-
-    func testJsonParsing() {
-        XCTAssertEqual(MASError.jsonParsing(data: Data()).description, "Unable to parse response as JSON:\n")
+            it("JsonParsing") {
+                expect(MASError.jsonParsing(data: Data()).description) == "Unable to parse response as JSON:\n"
+            }
+        }
     }
 }
