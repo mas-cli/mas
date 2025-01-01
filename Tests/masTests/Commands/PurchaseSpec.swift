@@ -17,7 +17,7 @@ public final class PurchaseSpec: QuickSpec {
             MAS.initialize()
         }
         xdescribe("purchase command") {
-            xit("purchases apps") {
+            it("purchases apps") {
                 expect {
                     try MAS.Purchase.parse(["999"]).run(appLibrary: MockAppLibrary(), searcher: MockAppStoreSearcher())
                 }
