@@ -20,15 +20,23 @@ public final class SearchResultListSpec: QuickSpec {
         describe("search result list") {
             it("can parse bbedit") {
                 expect(
-                    try JSONDecoder().decode(SearchResultList.self, from: Data(from: "search/bbedit.json")).resultCount
+                    consequencesOf(
+                        try JSONDecoder()
+                            .decode(SearchResultList.self, from: Data(from: "search/bbedit.json"))
+                            .resultCount
+                    )
                 )
-                    == 1
+                    == (1, nil, "", "")
             }
             it("can parse things") {
                 expect(
-                    try JSONDecoder().decode(SearchResultList.self, from: Data(from: "search/things.json")).resultCount
+                    consequencesOf(
+                        try JSONDecoder()
+                            .decode(SearchResultList.self, from: Data(from: "search/things.json"))
+                            .resultCount
+                    )
                 )
-                    == 50
+                    == (50, nil, "", "")
             }
         }
     }

@@ -18,26 +18,41 @@ public final class ITunesSearchAppStoreSearcherSpec: QuickSpec {
         }
         describe("url string") {
             it("contains the search term") {
-                expect {
-                    ITunesSearchAppStoreSearcher()
-                        .searchURL(
-                            for: "myapp",
-                            inRegion: findISORegion(forAlpha2Code: "US")
-                        )?
-                        .absoluteString
-                }
-                    == "https://itunes.apple.com/search?media=software&entity=desktopSoftware&country=US&term=myapp"
+                expect(
+                    consequencesOf(
+                        ITunesSearchAppStoreSearcher()
+                            .searchURL(
+                                for: "myapp",
+                                inRegion: findISORegion(forAlpha2Code: "US")
+                            )?
+                            .absoluteString
+                    )
+                )
+                    == (
+                        "https://itunes.apple.com/search?media=software&entity=desktopSoftware&country=US&term=myapp",
+                        nil,
+                        "",
+                        ""
+                    )
             }
             it("contains the encoded search term") {
-                expect {
-                    ITunesSearchAppStoreSearcher()
-                        .searchURL(
-                            for: "My App",
-                            inRegion: findISORegion(forAlpha2Code: "US")
-                        )?
-                        .absoluteString
-                }
-                    == "https://itunes.apple.com/search?media=software&entity=desktopSoftware&country=US&term=My%20App"
+                expect(
+                    consequencesOf(
+                        ITunesSearchAppStoreSearcher()
+                            .searchURL(
+                                for: "My App",
+                                inRegion: findISORegion(forAlpha2Code: "US")
+                            )?
+                            .absoluteString
+                    )
+                )
+                    == (
+                        // swiftlint:disable:next line_length
+                        "https://itunes.apple.com/search?media=software&entity=desktopSoftware&country=US&term=My%20App",
+                        nil,
+                        "",
+                        ""
+                    )
             }
         }
         describe("store") {
@@ -46,10 +61,11 @@ public final class ITunesSearchAppStoreSearcherSpec: QuickSpec {
                     let networkSession = MockFromFileNetworkSession(responseFile: "search/slack.json")
                     let searcher = ITunesSearchAppStoreSearcher(networkManager: NetworkManager(session: networkSession))
 
-                    expect {
-                        try searcher.search(for: "slack").wait()
-                    }
-                    .to(haveCount(39))
+                    let consequences = consequencesOf(try searcher.search(for: "slack").wait())
+                    expect(consequences.value).to(haveCount(39))
+                    expect(consequences.error) == nil
+                    expect(consequences.stdout).to(beEmpty())
+                    expect(consequences.stderr).to(beEmpty())
                 }
             }
 
@@ -59,13 +75,12 @@ public final class ITunesSearchAppStoreSearcherSpec: QuickSpec {
                     let networkSession = MockFromFileNetworkSession(responseFile: "lookup/slack.json")
                     let searcher = ITunesSearchAppStoreSearcher(networkManager: NetworkManager(session: networkSession))
 
-                    var result: SearchResult?
-                    expect {
-                        result = try searcher.lookup(appID: appID).wait()
-                    }
-                    .toNot(throwError())
+                    let consequences = consequencesOf(try searcher.lookup(appID: appID).wait())
+                    expect(consequences.error) == nil
+                    expect(consequences.stdout).to(beEmpty())
+                    expect(consequences.stderr).to(beEmpty())
 
-                    guard let result else {
+                    guard let result = consequences.value else {
                         fatalError("lookup result was nil")
                     }
 

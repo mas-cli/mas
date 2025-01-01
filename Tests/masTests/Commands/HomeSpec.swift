@@ -18,10 +18,8 @@ public final class HomeSpec: QuickSpec {
         }
         describe("home command") {
             it("can't find app with unknown ID") {
-                expect {
-                    try MAS.Home.parse(["999"]).run(searcher: MockAppStoreSearcher())
-                }
-                .to(throwError(MASError.unknownAppID(999)))
+                expect(consequencesOf(try MAS.Home.parse(["999"]).run(searcher: MockAppStoreSearcher())))
+                    == (MASError.unknownAppID(999), "", "")
             }
         }
     }

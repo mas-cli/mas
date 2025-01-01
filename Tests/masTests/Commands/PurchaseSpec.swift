@@ -18,10 +18,13 @@ public final class PurchaseSpec: QuickSpec {
         }
         xdescribe("purchase command") {
             it("purchases apps") {
-                expect {
-                    try MAS.Purchase.parse(["999"]).run(appLibrary: MockAppLibrary(), searcher: MockAppStoreSearcher())
-                }
-                .toNot(throwError())
+                expect(
+                    consequencesOf(
+                        try MAS.Purchase.parse(["999"])
+                            .run(appLibrary: MockAppLibrary(), searcher: MockAppStoreSearcher())
+                    )
+                )
+                    == (nil, "", "")
             }
         }
     }

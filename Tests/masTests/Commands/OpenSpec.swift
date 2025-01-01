@@ -6,7 +6,6 @@
 //  Copyright © 2019 mas-cli. All rights reserved.
 //
 
-import Foundation
 import Nimble
 import Quick
 
@@ -19,10 +18,8 @@ public final class OpenSpec: QuickSpec {
         }
         describe("open command") {
             it("can't find app with unknown ID") {
-                expect {
-                    try MAS.Open.parse(["999"]).run(searcher: MockAppStoreSearcher())
-                }
-                .to(throwError(MASError.unknownAppID(999)))
+                expect(consequencesOf(try MAS.Open.parse(["999"]).run(searcher: MockAppStoreSearcher())))
+                    == (MASError.unknownAppID(999), "", "")
             }
         }
     }

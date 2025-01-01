@@ -21,7 +21,7 @@ public final class AppListFormatterSpec: QuickSpec {
         }
         describe("app list formatter") {
             it("formats nothing as empty string") {
-                expect(format([])).to(beEmpty())
+                expect(consequencesOf(format([]))) == ("", nil, "", "")
             }
             it("can format a single product") {
                 let product = MockSoftwareProduct(
@@ -31,30 +31,32 @@ public final class AppListFormatterSpec: QuickSpec {
                     bundleVersion: "19.2.1",
                     itemIdentifier: 12345
                 )
-                expect(format([product])) == "12345       Awesome App  (19.2.1)"
+                expect(consequencesOf(format([product]))) == ("12345       Awesome App  (19.2.1)", nil, "", "")
             }
             it("can format two products") {
                 expect(
-                    format(
-                        [
-                            MockSoftwareProduct(
-                                appName: "Awesome App",
-                                bundleIdentifier: "",
-                                bundlePath: "",
-                                bundleVersion: "19.2.1",
-                                itemIdentifier: 12345
-                            ),
-                            MockSoftwareProduct(
-                                appName: "Even Better App",
-                                bundleIdentifier: "",
-                                bundlePath: "",
-                                bundleVersion: "1.2.0",
-                                itemIdentifier: 67890
-                            ),
-                        ]
+                    consequencesOf(
+                        format(
+                            [
+                                MockSoftwareProduct(
+                                    appName: "Awesome App",
+                                    bundleIdentifier: "",
+                                    bundlePath: "",
+                                    bundleVersion: "19.2.1",
+                                    itemIdentifier: 12345
+                                ),
+                                MockSoftwareProduct(
+                                    appName: "Even Better App",
+                                    bundleIdentifier: "",
+                                    bundlePath: "",
+                                    bundleVersion: "1.2.0",
+                                    itemIdentifier: 67890
+                                ),
+                            ]
+                        )
                     )
                 )
-                    == "12345       Awesome App      (19.2.1)\n67890       Even Better App  (1.2.0)"
+                    == ("12345       Awesome App      (19.2.1)\n67890       Even Better App  (1.2.0)", nil, "", "")
             }
         }
     }

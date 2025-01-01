@@ -21,10 +21,10 @@ public final class LuckySpec: QuickSpec {
         }
         xdescribe("lucky command") {
             it("installs the first app matching a search") {
-                expect {
-                    try MAS.Lucky.parse(["Slack"]).run(appLibrary: MockAppLibrary(), searcher: searcher)
-                }
-                .toNot(throwError())
+                expect(
+                    consequencesOf(try MAS.Lucky.parse(["Slack"]).run(appLibrary: MockAppLibrary(), searcher: searcher))
+                )
+                    == (nil, "", "")
             }
         }
     }

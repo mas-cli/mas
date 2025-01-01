@@ -6,7 +6,6 @@
 //  Copyright © 2018 mas-cli. All rights reserved.
 //
 
-import Foundation
 import Nimble
 import Quick
 
@@ -19,10 +18,8 @@ public final class InfoSpec: QuickSpec {
         }
         describe("Info command") {
             it("can't find app with unknown ID") {
-                expect {
-                    try MAS.Info.parse(["999"]).run(searcher: MockAppStoreSearcher())
-                }
-                .to(throwError(MASError.unknownAppID(999)))
+                expect(consequencesOf(try MAS.Info.parse(["999"]).run(searcher: MockAppStoreSearcher())))
+                    == (MASError.unknownAppID(999), "", "")
             }
             it("displays app details") {
                 let mockResult = SearchResult(
@@ -36,21 +33,25 @@ public final class InfoSpec: QuickSpec {
                     trackViewUrl: "https://awesome.app",
                     version: "1.0"
                 )
-                expect {
-                    try captureStream(stdout) {
+                expect(
+                    consequencesOf(
                         try MAS.Info.parse([String(mockResult.trackId)])
                             .run(searcher: MockAppStoreSearcher([mockResult.trackId: mockResult]))
-                    }
-                }
-                    == """
-                    Awesome App 1.0 [$2.00]
-                    By: Awesome Dev
-                    Released: 2019-01-07
-                    Minimum OS: 10.14
-                    Size: 1 KB
-                    From: https://awesome.app
+                    )
+                )
+                    == (
+                        nil,
+                        """
+                        Awesome App 1.0 [$2.00]
+                        By: Awesome Dev
+                        Released: 2019-01-07
+                        Minimum OS: 10.14
+                        Size: 1 KB
+                        From: https://awesome.app
 
-                    """
+                        """,
+                        ""
+                    )
             }
         }
     }

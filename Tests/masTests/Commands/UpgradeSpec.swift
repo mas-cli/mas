@@ -6,7 +6,6 @@
 //  Copyright © 2018 mas-cli. All rights reserved.
 //
 
-import Foundation
 import Nimble
 import Quick
 
@@ -19,13 +18,13 @@ public final class UpgradeSpec: QuickSpec {
         }
         describe("upgrade command") {
             it("finds no upgrades") {
-                expect {
-                    try captureStream(stderr) {
+                expect(
+                    consequencesOf(
                         try MAS.Upgrade.parse([])
                             .run(appLibrary: MockAppLibrary(), searcher: MockAppStoreSearcher())
-                    }
-                }
-                .toNot(throwError())
+                    )
+                )
+                    == (nil, "", "")
             }
         }
     }

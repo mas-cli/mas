@@ -9,4 +9,5 @@ disabled_rules:
   - force_cast
   - force_try
   - implicitly_unwrapped_optional
+  - large_tuple
   - no_magic_numbers

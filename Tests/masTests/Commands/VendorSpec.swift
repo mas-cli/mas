@@ -18,10 +18,8 @@ public final class VendorSpec: QuickSpec {
         }
         describe("vendor command") {
             it("can't find app with unknown ID") {
-                expect {
-                    try MAS.Vendor.parse(["999"]).run(searcher: MockAppStoreSearcher())
-                }
-                .to(throwError(MASError.unknownAppID(999)))
+                expect(consequencesOf(try MAS.Vendor.parse(["999"]).run(searcher: MockAppStoreSearcher())))
+                    == (MASError.unknownAppID(999), "", "")
             }
         }
     }

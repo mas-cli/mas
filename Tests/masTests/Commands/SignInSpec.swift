@@ -17,13 +17,10 @@ public final class SignInSpec: QuickSpec {
         beforeSuite {
             MAS.initialize()
         }
-        // signin command disabled since macOS 10.13 High Sierra: https://github.com/mas-cli/mas#known-issues
         describe("signin command") {
             it("signs in") {
-                expect {
-                    try MAS.SignIn.parse(["", ""]).run()
-                }
-                .to(throwError(MASError.notSupported))
+                expect(consequencesOf(try MAS.SignIn.parse(["", ""]).run()))
+                    == (MASError.notSupported, "", "")
             }
         }
     }

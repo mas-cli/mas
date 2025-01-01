@@ -20,11 +20,13 @@ public final class SearchResultSpec: QuickSpec {
         describe("search result") {
             it("can parse things") {
                 expect(
-                    try JSONDecoder()
-                        .decode(SearchResult.self, from: Data(from: "search/things-that-go-bump.json"))
-                        .trackId
+                    consequencesOf(
+                        try JSONDecoder()
+                            .decode(SearchResult.self, from: Data(from: "search/things-that-go-bump.json"))
+                            .trackId
+                    )
                 )
-                    == 1_472_954_003
+                    == (1_472_954_003, nil, "", "")
             }
         }
     }

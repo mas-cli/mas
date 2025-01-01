@@ -18,10 +18,8 @@ public final class SignOutSpec: QuickSpec {
         }
         describe("signout command") {
             it("signs out") {
-                expect {
-                    try MAS.SignOut.parse([]).run()
-                }
-                .toNot(throwError())
+                expect(consequencesOf(try MAS.SignOut.parse([]).run()))
+                    == (nil, "", "")
             }
         }
     }

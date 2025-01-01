@@ -18,10 +18,12 @@ public final class InstallSpec: QuickSpec {
         }
         xdescribe("install command") {
             it("installs apps") {
-                expect {
-                    try MAS.Install.parse([]).run(appLibrary: MockAppLibrary(), searcher: MockAppStoreSearcher())
-                }
-                .toNot(throwError())
+                expect(
+                    consequencesOf(
+                        try MAS.Install.parse([]).run(appLibrary: MockAppLibrary(), searcher: MockAppStoreSearcher())
+                    )
+                )
+                    == (nil, "", "")
             }
         }
     }
