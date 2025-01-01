@@ -11,7 +11,7 @@ import Quick
 
 @testable import mas
 
-public class InstallSpec: QuickSpec {
+public final class InstallSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
             MAS.initialize()

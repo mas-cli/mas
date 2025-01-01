@@ -11,7 +11,7 @@ import Quick
 
 @testable import mas
 
-public class SearchResultFormatterSpec: QuickSpec {
+public final class SearchResultFormatterSpec: QuickSpec {
     override public func spec() {
         // static func reference
         let format = SearchResultFormatter.format(results:includePrice:)

@@ -16,7 +16,6 @@ disabled_rules:
   - explicit_type_interface
   - file_header
   - file_name
-  - final_test_case
   - force_unwrapping
   - function_body_length
   - inert_defer

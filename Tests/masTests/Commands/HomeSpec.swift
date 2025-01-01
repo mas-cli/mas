@@ -11,7 +11,7 @@ import Quick
 
 @testable import mas
 
-public class HomeSpec: QuickSpec {
+public final class HomeSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
             MAS.initialize()

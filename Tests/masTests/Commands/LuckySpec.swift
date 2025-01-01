@@ -11,7 +11,7 @@ import Quick
 
 @testable import mas
 
-public class LuckySpec: QuickSpec {
+public final class LuckySpec: QuickSpec {
     override public func spec() {
         let networkSession = MockFromFileNetworkSession(responseFile: "search/slack.json")
         let searcher = ITunesSearchAppStoreSearcher(networkManager: NetworkManager(session: networkSession))

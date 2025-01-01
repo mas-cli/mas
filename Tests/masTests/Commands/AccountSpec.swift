@@ -12,7 +12,7 @@ import Quick
 @testable import mas
 
 /// Deprecated test.
-public class AccountSpec: QuickSpec {
+public final class AccountSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
             MAS.initialize()

@@ -11,7 +11,7 @@ import Quick
 
 @testable import mas
 
-public class ITunesSearchAppStoreSearcherSpec: QuickSpec {
+public final class ITunesSearchAppStoreSearcherSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
             MAS.initialize()

@@ -12,7 +12,7 @@ import Quick
 
 @testable import mas
 
-public class SearchResultListSpec: QuickSpec {
+public final class SearchResultListSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
             MAS.initialize()
