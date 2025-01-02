@@ -6,25 +6,20 @@
 //  Copyright © 2018 mas-cli. All rights reserved.
 //
 
-import Foundation
 import Nimble
 import Quick
 
 @testable import mas
 
-public class VersionSpec: QuickSpec {
+public final class VersionSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
             MAS.initialize()
         }
         describe("version command") {
             it("displays the current version") {
-                expect {
-                    try captureStream(stdout) {
-                        try MAS.Version.parse([]).run()
-                    }
-                }
-                    == "\(Package.version)\n"
+                expect(consequencesOf(try MAS.Version.parse([]).run()))
+                    == (nil, "\(Package.version)\n", "")
             }
         }
     }

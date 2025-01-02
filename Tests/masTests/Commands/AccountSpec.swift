@@ -11,19 +11,15 @@ import Quick
 
 @testable import mas
 
-/// Deprecated test.
-public class AccountSpec: QuickSpec {
+public final class AccountSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
             MAS.initialize()
         }
-        // account command disabled since macOS 12 Monterey https://github.com/mas-cli/mas#known-issues
-        describe("Account command") {
-            it("displays active account") {
-                expect {
-                    try MAS.Account.parse([]).run()
-                }
-                .to(throwError(MASError.notSupported))
+        describe("account command") {
+            it("displays not supported warning") {
+                expect(consequencesOf(try MAS.Account.parse([]).run()))
+                    == (error: MASError.notSupported, stdout: "", stderr: "")
             }
         }
     }

@@ -11,17 +11,19 @@ import Quick
 
 @testable import mas
 
-public class InstallSpec: QuickSpec {
+public final class InstallSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
             MAS.initialize()
         }
         xdescribe("install command") {
-            xit("installs apps") {
-                expect {
-                    try MAS.Install.parse([]).run(appLibrary: MockAppLibrary(), searcher: MockAppStoreSearcher())
-                }
-                .toNot(throwError())
+            it("installs apps") {
+                expect(
+                    consequencesOf(
+                        try MAS.Install.parse([]).run(appLibrary: MockAppLibrary(), searcher: MockAppStoreSearcher())
+                    )
+                )
+                    == (nil, "", "")
             }
         }
     }

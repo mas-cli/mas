@@ -11,17 +11,15 @@ import Quick
 
 @testable import mas
 
-public class SignOutSpec: QuickSpec {
+public final class SignOutSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
             MAS.initialize()
         }
         describe("signout command") {
             it("signs out") {
-                expect {
-                    try MAS.SignOut.parse([]).run()
-                }
-                .toNot(throwError())
+                expect(consequencesOf(try MAS.SignOut.parse([]).run()))
+                    == (nil, "", "")
             }
         }
     }

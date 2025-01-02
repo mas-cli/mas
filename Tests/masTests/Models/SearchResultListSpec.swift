@@ -12,7 +12,7 @@ import Quick
 
 @testable import mas
 
-public class SearchResultListSpec: QuickSpec {
+public final class SearchResultListSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
             MAS.initialize()
@@ -20,15 +20,23 @@ public class SearchResultListSpec: QuickSpec {
         describe("search result list") {
             it("can parse bbedit") {
                 expect(
-                    try JSONDecoder().decode(SearchResultList.self, from: Data(from: "search/bbedit.json")).resultCount
+                    consequencesOf(
+                        try JSONDecoder()
+                            .decode(SearchResultList.self, from: Data(from: "search/bbedit.json"))
+                            .resultCount
+                    )
                 )
-                    == 1
+                    == (1, nil, "", "")
             }
             it("can parse things") {
                 expect(
-                    try JSONDecoder().decode(SearchResultList.self, from: Data(from: "search/things.json")).resultCount
+                    consequencesOf(
+                        try JSONDecoder()
+                            .decode(SearchResultList.self, from: Data(from: "search/things.json"))
+                            .resultCount
+                    )
                 )
-                    == 50
+                    == (50, nil, "", "")
             }
         }
     }

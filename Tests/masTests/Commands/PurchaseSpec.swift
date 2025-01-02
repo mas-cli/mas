@@ -11,17 +11,20 @@ import Quick
 
 @testable import mas
 
-public class PurchaseSpec: QuickSpec {
+public final class PurchaseSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
             MAS.initialize()
         }
         xdescribe("purchase command") {
-            xit("purchases apps") {
-                expect {
-                    try MAS.Purchase.parse(["999"]).run(appLibrary: MockAppLibrary(), searcher: MockAppStoreSearcher())
-                }
-                .toNot(throwError())
+            it("purchases apps") {
+                expect(
+                    consequencesOf(
+                        try MAS.Purchase.parse(["999"])
+                            .run(appLibrary: MockAppLibrary(), searcher: MockAppStoreSearcher())
+                    )
+                )
+                    == (nil, "", "")
             }
         }
     }

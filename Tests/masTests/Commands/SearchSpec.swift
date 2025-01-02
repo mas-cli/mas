@@ -6,13 +6,12 @@
 //  Copyright © 2018 mas-cli. All rights reserved.
 //
 
-import Foundation
 import Nimble
 import Quick
 
 @testable import mas
 
-public class SearchSpec: QuickSpec {
+public final class SearchSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
             MAS.initialize()
@@ -25,19 +24,17 @@ public class SearchSpec: QuickSpec {
                     trackViewUrl: "mas preview url",
                     version: "0.0"
                 )
-                expect {
-                    try captureStream(stdout) {
+                expect(
+                    consequencesOf(
                         try MAS.Search.parse(["slack"])
                             .run(searcher: MockAppStoreSearcher([mockResult.trackId: mockResult]))
-                    }
-                }
-                    == "        1111  slack  (0.0)\n"
+                    )
+                )
+                    == (nil, "        1111  slack  (0.0)\n", "")
             }
             it("fails when searching for nonexistent app") {
-                expect {
-                    try MAS.Search.parse(["nonexistent"]).run(searcher: MockAppStoreSearcher())
-                }
-                .to(throwError(MASError.noSearchResultsFound))
+                expect(consequencesOf(try MAS.Search.parse(["nonexistent"]).run(searcher: MockAppStoreSearcher())))
+                    == (MASError.noSearchResultsFound, "", "")
             }
         }
     }

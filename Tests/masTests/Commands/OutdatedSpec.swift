@@ -12,7 +12,7 @@ import Quick
 
 @testable import mas
 
-public class OutdatedSpec: QuickSpec {
+public final class OutdatedSpec: QuickSpec {
     override public func spec() {
         beforeSuite {
             MAS.initialize()
@@ -32,8 +32,8 @@ public class OutdatedSpec: QuickSpec {
                         version: "1.28"
                     )
 
-                expect {
-                    try captureStream(stdout) {
+                expect(
+                    consequencesOf(
                         try MAS.Outdated.parse([])
                             .run(
                                 appLibrary: MockAppLibrary(
@@ -47,9 +47,9 @@ public class OutdatedSpec: QuickSpec {
                                 ),
                                 searcher: MockAppStoreSearcher([mockSearchResult.trackId: mockSearchResult])
                             )
-                    }
-                }
-                    == "490461369 Bandwidth+ (1.27 -> 1.28)\n"
+                    )
+                )
+                    == (nil, "490461369 Bandwidth+ (1.27 -> 1.28)\n", "")
             }
         }
     }

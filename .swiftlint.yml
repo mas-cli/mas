@@ -8,7 +8,6 @@
 opt_in_rules:
   - all
 disabled_rules:
-  - balanced_xctest_lifecycle
   - closure_body_length
   - contrasted_opening_brace
   - explicit_acl
@@ -17,7 +16,6 @@ disabled_rules:
   - explicit_type_interface
   - file_header
   - file_name
-  - final_test_case
   - force_unwrapping
   - function_body_length
   - inert_defer
@@ -26,7 +24,6 @@ disabled_rules:
   - no_grouping_extension
   - number_separator
   - one_declaration_per_file
-  - prefer_nimble
   - prefixed_toplevel_constant
   - quick_discouraged_call
   - quick_discouraged_pending_test
