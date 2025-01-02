@@ -12,13 +12,14 @@ import StoreFoundation
 
 extension SSPurchase {
     func perform(appID: AppID, purchasing: Bool) -> Promise<Void> {
-        var parameters: [String: Any] = [
-            "productType": "C",
-            "price": 0,
-            "salableAdamId": appID,
-            "pg": "default",
-            "appExtVrsId": 0,
-        ]
+        var parameters =
+            [
+                "productType": "C",
+                "price": 0,
+                "salableAdamId": appID,
+                "pg": "default",
+                "appExtVrsId": 0,
+            ] as [String: Any]
 
         if purchasing {
             parameters["macappinstalledconfirmed"] = 1
@@ -75,17 +76,7 @@ extension SSPurchase {
                 }
         }
         .then { purchase in
-            let observer = PurchaseDownloadObserver(purchase: purchase)
-            let downloadQueue = CKDownloadQueue.shared()
-            let observerID = downloadQueue.add(observer)
-
-            return Promise<Void> { seal in
-                observer.errorHandler = seal.reject
-                observer.completionHandler = seal.fulfill_
-            }
-            .ensure {
-                downloadQueue.remove(observerID)
-            }
+            PurchaseDownloadObserver(purchase: purchase).observeDownloadQueue()
         }
     }
 }

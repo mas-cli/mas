@@ -1,5 +1,7 @@
 {
+  "indentBlankLines": false,
   "indentConditionalCompilationBlocks": false,
+  "indentSwitchCaseLabels": false,
   "indentation": {
     "spaces": 4
   },
@@ -12,10 +14,11 @@
   "maximumBlankLines": 1,
   "multiElementCollectionTrailingCommas": true,
   "prioritizeKeepingFunctionOutputTogether": true,
+  "reflowMultilineStringLiterals": true,
   "respectsExistingLineBreaks": true,
   "rules": {
     "AllPublicDeclarationsHaveDocumentation": true,
-    "AlwaysUseLiteralForEmptyCollectionInit": true,
+    "AlwaysUseLiteralForEmptyCollectionInit": false,
     "AlwaysUseLowerCamelCase": true,
     "AmbiguousTrailingClosureOverload": true,
     "BeginDocumentationCommentWithOneLineSummary": true,
@@ -57,6 +60,6 @@
   },
   "spacesAroundRangeFormationOperators": false,
   "spacesBeforeEndOfLineComments": 1,
-  "TrailingComma": false,
+  "tabWidth": 4,
   "version": 1
 }

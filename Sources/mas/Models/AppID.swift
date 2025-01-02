@@ -16,6 +16,7 @@ extension AppID {
     }
 }
 
+// swiftlint:disable:next legacy_objc_type
 extension NSNumber {
     var appIDValue: AppID {
         uint64Value
