@@ -26,36 +26,35 @@ extension MAS {
         }
 
         func run(appLibrary: AppLibrary, searcher: AppStoreSearcher) throws {
-            let apps: [(installedApp: SoftwareProduct, storeApp: SearchResult)]
             do {
-                apps = try findOutdatedApps(appLibrary: appLibrary, searcher: searcher)
+                let apps = try findOutdatedApps(appLibrary: appLibrary, searcher: searcher)
+
+                guard !apps.isEmpty else {
+                    return
+                }
+
+                print("Upgrading \(apps.count) outdated application\(apps.count > 1 ? "s" : ""):")
+                print(
+                    apps.map { installedApp, storeApp in
+                        "\(storeApp.trackName) (\(installedApp.bundleVersion)) -> (\(storeApp.version))"
+                    }
+                    .joined(separator: "\n")
+                )
+
+                do {
+                    try downloadApps(withAppIDs: apps.map(\.storeApp.trackId)).wait()
+                } catch {
+                    throw error as? MASError ?? .downloadFailed(error: error as NSError)
+                }
             } catch {
                 throw error as? MASError ?? .searchFailed
-            }
-
-            guard !apps.isEmpty else {
-                return
-            }
-
-            print("Upgrading \(apps.count) outdated application\(apps.count > 1 ? "s" : ""):")
-            print(
-                apps.map { installedApp, storeApp in
-                    "\(storeApp.trackName) (\(installedApp.bundleVersion)) -> (\(storeApp.version))"
-                }
-                .joined(separator: "\n")
-            )
-
-            do {
-                try downloadApps(withAppIDs: apps.map(\.storeApp.trackId)).wait()
-            } catch {
-                throw error as? MASError ?? .downloadFailed(error: error as NSError)
             }
         }
 
         private func findOutdatedApps(
             appLibrary: AppLibrary,
             searcher: AppStoreSearcher
-        ) throws -> [(SoftwareProduct, SearchResult)] {
+        ) throws -> [(installedApp: SoftwareProduct, storeApp: SearchResult)] {
             let apps =
                 appIDOrNames.isEmpty
                 ? appLibrary.installedApps
