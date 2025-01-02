@@ -16,6 +16,7 @@ protocol SoftwareProduct {
     var bundleIdentifier: String { get set }
     var bundlePath: String { get set }
     var bundleVersion: String { get set }
+    // swiftlint:disable:next legacy_objc_type
     var itemIdentifier: NSNumber { get set }
 }
 

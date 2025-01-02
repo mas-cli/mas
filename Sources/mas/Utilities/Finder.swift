@@ -2,7 +2,7 @@
 // swiftlint:disable:next blanket_disable_command
 // swiftlint:disable attributes discouraged_none_name file_length file_types_order identifier_name
 // swiftlint:disable:next blanket_disable_command
-// swiftlint:disable implicitly_unwrapped_optional line_length missing_docs
+// swiftlint:disable implicitly_unwrapped_optional legacy_objc_type line_length missing_docs
 import AppKit
 import ScriptingBridge
 

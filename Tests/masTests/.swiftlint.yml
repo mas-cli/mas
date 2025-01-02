@@ -6,8 +6,14 @@
 #
 ---
 disabled_rules:
+  - closure_body_length
   - force_cast
   - force_try
+  - function_body_length
   - implicitly_unwrapped_optional
   - large_tuple
+  - legacy_objc_type
   - no_magic_numbers
+  - quick_discouraged_call
+  - quick_discouraged_pending_test
+  - required_deinit
