@@ -13,15 +13,21 @@ import Foundation
 /// Terminal Control Sequence Indicator.
 private let csi = "\u{001B}["
 
-private var standardError = FileHandle.standardError
+private var standardError = FileHandleTextOutputStream(FileHandle.standardError)
 
-extension FileHandle: TextOutputStream {
+private struct FileHandleTextOutputStream: TextOutputStream {
+    private let fileHandle: FileHandle
+
+    init(_ fileHandle: FileHandle) {
+        self.fileHandle = fileHandle
+    }
+
     /// Appends the given string to the stream.
-    public func write(_ string: String) {
+    func write(_ string: String) {
         guard let data = string.data(using: .utf8) else {
             return
         }
-        write(data)
+        fileHandle.write(data)
     }
 }
 
