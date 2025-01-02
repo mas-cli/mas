@@ -9,11 +9,11 @@
 struct SearchResult: Decodable {
     var currentVersionReleaseDate = ""
     var fileSizeBytes = "0"
-    var formattedPrice: String? = "0"
+    var formattedPrice = "0" as String?
     var minimumOsVersion = ""
     var sellerName = ""
-    var sellerUrl: String? = ""
-    var trackId: AppID = 0
+    var sellerUrl = "" as String?
+    var trackId = 0 as AppID
     var trackName = ""
     var trackViewUrl = ""
     var version = ""

@@ -18,7 +18,7 @@ extension MAS {
         )
 
         @Argument(help: ArgumentHelp("App ID/app name", valueName: "app-id-or-name"))
-        var appIDOrNames: [String] = []
+        var appIDOrNames = [String]()
 
         /// Runs the command.
         func run() throws {

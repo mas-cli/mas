@@ -13,7 +13,6 @@ disabled_rules:
   - implicitly_unwrapped_optional
   - large_tuple
   - legacy_objc_type
-  - no_magic_numbers
   - quick_discouraged_call
   - quick_discouraged_pending_test
   - required_deinit

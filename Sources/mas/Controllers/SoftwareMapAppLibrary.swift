@@ -65,7 +65,7 @@ private func chown(paths: [String]) throws -> [String: (uid_t, gid_t)] {
         dict[path] = try getOwnerAndGroupOfItem(atPath: path)
     }
 
-    var chownedIDsByPath: [String: (uid_t, gid_t)] = [:]
+    var chownedIDsByPath = [String: (uid_t, gid_t)]()
     for (path, ownerIDs) in ownerIDsByPath {
         guard chown(path, sudoUID, sudoGID) == 0 else {
             for (chownedPath, chownedIDs) in chownedIDsByPath

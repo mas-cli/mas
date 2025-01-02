@@ -14,7 +14,7 @@ import Quick
 
 public final class UninstallSpec: QuickSpec {
     override public func spec() {
-        let appID: AppID = 12345
+        let appID = 12345 as AppID
         let app = MockSoftwareProduct(
             appName: "Some App",
             bundleIdentifier: "com.some.app",

@@ -21,6 +21,7 @@ disabled_rules:
   - inert_defer
   - no_extension_access_modifier
   - no_grouping_extension
+  - no_magic_numbers
   - prefixed_toplevel_constant
   - sorted_enum_cases
   - unused_capture_list

@@ -10,9 +10,9 @@ import CommerceKit
 import PromiseKit
 import StoreFoundation
 
-private let downloadingPhase: Int64 = 0
-private let installingPhase: Int64 = 1
-private let downloadedPhase: Int64 = 5
+private let downloadingPhase = 0 as Int64
+private let installingPhase = 1 as Int64
+private let downloadedPhase = 5 as Int64
 
 class PurchaseDownloadObserver: CKDownloadQueueObserver {
     private let purchase: SSPurchase
@@ -91,7 +91,6 @@ private struct ProgressState {
     let phase: String
 
     var percentage: String {
-        // swiftlint:disable:next no_magic_numbers
         String(format: "%.1f%%", floor(percentComplete * 1000) / 10)
     }
 }

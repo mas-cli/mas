@@ -12,13 +12,14 @@ import StoreFoundation
 
 extension SSPurchase {
     func perform(appID: AppID, purchasing: Bool) -> Promise<Void> {
-        var parameters: [String: Any] = [
-            "productType": "C",
-            "price": 0,
-            "salableAdamId": appID,
-            "pg": "default",
-            "appExtVrsId": 0,
-        ]
+        var parameters =
+            [
+                "productType": "C",
+                "price": 0,
+                "salableAdamId": appID,
+                "pg": "default",
+                "appExtVrsId": 0,
+            ] as [String: Any]
 
         if purchasing {
             parameters["macappinstalledconfirmed"] = 1

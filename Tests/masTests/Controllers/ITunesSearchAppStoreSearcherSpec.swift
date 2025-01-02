@@ -71,7 +71,7 @@ public final class ITunesSearchAppStoreSearcherSpec: QuickSpec {
 
             context("when lookup used") {
                 it("can find slack") {
-                    let appID: AppID = 803_453_959
+                    let appID = 803_453_959 as AppID
                     let networkSession = MockFromFileNetworkSession(responseFile: "lookup/slack.json")
                     let searcher = ITunesSearchAppStoreSearcher(networkManager: NetworkManager(session: networkSession))
 
