@@ -12,7 +12,7 @@ import StoreFoundation
 
 private let timeout = 30.0
 
-extension ISStoreAccount: StoreAccount {
+extension ISStoreAccount {
     static var primaryAccount: Promise<ISStoreAccount> {
         race(
             Promise { seal in
