@@ -7,21 +7,25 @@
 //
 
 import CommerceKit
+import PromiseKit
 import StoreFoundation
 
 private let downloadingPhase: Int64 = 0
 private let installingPhase: Int64 = 1
 private let downloadedPhase: Int64 = 5
 
-@objc
-class PurchaseDownloadObserver: NSObject, CKDownloadQueueObserver {
+class PurchaseDownloadObserver: CKDownloadQueueObserver {
     private let purchase: SSPurchase
-    var completionHandler: (() -> Void)?
-    var errorHandler: ((MASError) -> Void)?
+    private var completionHandler: (() -> Void)?
+    private var errorHandler: ((MASError) -> Void)?
     private var priorPhaseType: Int64?
 
     init(purchase: SSPurchase) {
         self.purchase = purchase
+    }
+
+    deinit {
+        // do nothing
     }
 
     func downloadQueue(_ queue: CKDownloadQueue, statusChangedFor download: SSDownload) {
@@ -82,7 +86,7 @@ class PurchaseDownloadObserver: NSObject, CKDownloadQueueObserver {
     }
 }
 
-struct ProgressState {
+private struct ProgressState {
     let percentComplete: Float
     let phase: String
 
@@ -92,7 +96,7 @@ struct ProgressState {
     }
 }
 
-func progress(_ state: ProgressState) {
+private func progress(_ state: ProgressState) {
     // Don't display the progress bar if we're not on a terminal
     guard isatty(fileno(stdout)) != 0 else {
         return
@@ -112,13 +116,13 @@ private extension SSDownload {
     }
 }
 
-extension SSDownloadStatus {
+private extension SSDownloadStatus {
     var progressState: ProgressState {
         ProgressState(percentComplete: percentComplete, phase: activePhase.phaseDescription)
     }
 }
 
-extension SSDownloadPhase {
+private extension SSDownloadPhase {
     var phaseDescription: String {
         switch phaseType {
         case downloadingPhase:
@@ -127,6 +131,20 @@ extension SSDownloadPhase {
             return "Installing"
         default:
             return "Waiting"
+        }
+    }
+}
+
+extension PurchaseDownloadObserver {
+    func observeDownloadQueue(_ downloadQueue: CKDownloadQueue = CKDownloadQueue.shared()) -> Promise<Void> {
+        let observerID = downloadQueue.add(self)
+
+        return Promise<Void> { seal in
+            errorHandler = seal.reject
+            completionHandler = seal.fulfill_
+        }
+        .ensure {
+            downloadQueue.remove(observerID)
         }
     }
 }

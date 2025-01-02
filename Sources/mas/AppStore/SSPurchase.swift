@@ -75,17 +75,7 @@ extension SSPurchase {
                 }
         }
         .then { purchase in
-            let observer = PurchaseDownloadObserver(purchase: purchase)
-            let downloadQueue = CKDownloadQueue.shared()
-            let observerID = downloadQueue.add(observer)
-
-            return Promise<Void> { seal in
-                observer.errorHandler = seal.reject
-                observer.completionHandler = seal.fulfill_
-            }
-            .ensure {
-                downloadQueue.remove(observerID)
-            }
+            PurchaseDownloadObserver(purchase: purchase).observeDownloadQueue()
         }
     }
 }
