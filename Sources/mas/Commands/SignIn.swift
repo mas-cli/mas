@@ -21,7 +21,7 @@ extension MAS {
         @Argument(help: "Apple ID")
         var appleID: String
         @Argument(help: "Password")
-        var password: String = ""
+        var password = ""
 
         /// Runs the command.
         func run() throws {
