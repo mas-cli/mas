@@ -57,7 +57,7 @@ jobs:
       - name: 📦 Build universal executable & package it in an installer
         run: |
           sudo xcode-select -s /Applications/Xcode_16.2.app/Contents/Developer
-          script/package
+          script/package package
 
       - name: 🚰 Bump custom tap formula
         env:

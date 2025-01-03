@@ -6,9 +6,74 @@ body:
   - type: markdown
     attributes:
       value: |
-        # Console command & output formatting
+        # Configuration
+  - type: textarea
+    id: config
+    attributes:
+      label: mas config
+      description: The output of `mas config --markdown`
+      value: |
+        <!--
+        If `mas config --markdown` runs without error, replace the contents of this text area with its output.
 
-        When providing commands & output, please use the following format (where `…` is a placeholder):
+        Otherwise, your mas version does not have `mas config`, so provide the following:
+        -->
+
+        ### Output of `mas version`
+        <!--Example: "1.8.8"-->
+
+        ### Output of `sw_vers -productVersion`
+        <!--Example: "15.1.1"-->
+
+        ### Output of `sw_vers -buildVersion`
+        <!--Example: "24B2091"-->
+
+        ### Output of `sysctl -n machdep.cpu.brand_string`
+        <!--Example: "Apple M1"-->
+
+        ### Installation method (delete the incorrect ones)
+
+        - Homebrew core (via `brew install mas`)
+        - Homebrew custom tap (via `brew install mas-cli/tap/mas`)
+        - GitHub Releases (from <https://github.com/mas-cli/mas/releases>)
+        - Built from source (provide info about build)
+        - Other
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        # Issue
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug description
+      placeholder:
+        Include expected & actual output, as well as other pertinent info.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: |
+        Copy, paste & format commands & output in the console block (as instructed below)
+      value: |
+        ```console
+
+        ```
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        # Console command & output formatting instructions
+
+        Provide console commands & output as copied, pasted & formatted text, instead of as screenshots.
+
+        If long descriptive text or screenshots of dialogs or apps are necessary, provide them between console blocks.
+
+        Format commands & output as follows (where `…` is a placeholder):
 
         - Use a multiline console block: start with ```` ```console ````, end with ```` ``` ````, each on its own line
         - Prefix each non-console step (or comment) with two hashes & a space: `## …`
@@ -27,113 +92,3 @@ body:
         124  App 2  (10.2)
         ```
         ````
-
-        # Environment
-  - type: input
-    id: mas-version
-    attributes:
-      label: mas version
-      description: The output of `mas version`
-      placeholder: "example: 1.8.7"
-    validations:
-      required: true
-  - type: input
-    id: macos-version
-    attributes:
-      label: macOS version
-      description: The output of `sw_vers -productVersion`
-      placeholder: "example: 15.1.1"
-    validations:
-      required: true
-  - type: input
-    id: macos-build
-    attributes:
-      label: macOS build version
-      description: The output of `sw_vers -buildVersion`
-      placeholder: "example: 24B2091"
-    validations:
-      required: true
-  - type: input
-    id: processor
-    attributes:
-      label: Processor
-      description: The output of `sysctl -n machdep.cpu.brand_string`
-      placeholder: "example: Apple M1"
-    validations:
-      required: true
-  - type: dropdown
-    id: install-method
-    attributes:
-      label: mas installation method
-      options:
-        - Homebrew core (brew install mas)
-        - Homebrew custom tap (brew install mas-cli/tap/mas)
-        - GitHub Releases (https://github.com/mas-cli/mas/releases)
-        - Built from source
-        - Other
-      default: 0
-    validations:
-      required: true
-  - type: textarea
-    id: install-details
-    attributes:
-      label: mas installation details
-      # yamllint disable rule:trailing-spaces
-      value: |
-        <!--if you selected the "Other" installation method, provide details below-->
-
-        <!--if you installed from GitHub Releases, provide URL of installer below-->
-
-        <!--if you built from source, uncomment the following comment & provide all 4 values-->
-
-        <!--
-        - git origin URL: 
-        - git revision: 
-        - git tag/branch: 
-        - Xcode version: 
-        -->
-      # yamllint enable rule:trailing-spaces
-    validations:
-      required: false
-  - type: markdown
-    attributes:
-      value: |
-        # Issue
-  - type: textarea
-    id: expected-behavior
-    attributes:
-      label: Expected behavior
-      placeholder:
-        Prefer copied, pasted & formatted commands & output in a multiline console block (as instructed
-        above) instead of screenshots
-    validations:
-      required: true
-  - type: textarea
-    id: actual-behavior
-    attributes:
-      label: Actual behavior
-      placeholder:
-        Prefer copied, pasted & formatted commands & output in a multiline console block (as instructed
-        above) instead of screenshots
-    validations:
-      required: true
-  - type: textarea
-    id: reproduction
-    attributes:
-      label: Steps to reproduce
-      description: |
-        Copy, paste & format commands & output in the multiline console block (as instructed above) that reproduce <!--
-        --> the bug
-      value: |
-        ```console
-
-        ```
-    validations:
-      required: true
-  - type: textarea
-    id: context
-    attributes:
-      label: Additional context
-      placeholder: "example: Does the bug occur in other mas or macOS versions?"
-    validations:
-      required: false

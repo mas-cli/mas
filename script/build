@@ -10,6 +10,6 @@
 
 printf $'==> 🏗️ Building mas %s\n' "$(script/version)"
 
-script/generate_package_swift
+script/generate_package_swift "${1:-}"
 
-swift build --configuration release "${@}"
+swift build --configuration release "${@:2}"

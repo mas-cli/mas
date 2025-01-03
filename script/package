@@ -8,7 +8,7 @@
 
 . "${0:a:h}/_setup_script"
 
-script/build --arch arm64 --arch x86_64
+script/build "${1:-}" --arch arm64 --arch x86_64
 
 build_dir=.build
 destination_root="${build_dir}/destination"

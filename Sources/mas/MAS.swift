@@ -15,6 +15,7 @@ struct MAS: ParsableCommand {
         abstract: "Mac App Store command-line interface",
         subcommands: [
             Account.self,
+            Config.self,
             Home.self,
             Info.self,
             Install.self,
