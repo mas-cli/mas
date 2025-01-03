@@ -25,6 +25,10 @@ complete -c mas -f
 ### account
 complete -c mas -n "__fish_use_subcommand" -f -a account -d "Display the Apple ID signed in in the Mac App Store"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "account"
+### config
+complete -c mas -n "__fish_use_subcommand" -f -a config -d "Display mas config & related system info"
+complete -c mas -n "__fish_seen_subcommand_from help" -xa "config"
+complete -c mas -n "__fish_seen_subcommand_from config" -l markdown -d "Output as Markdown"
 ### help
 complete -c mas -n "__fish_use_subcommand" -f -a help -d "Display general or command-specific help"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "help"

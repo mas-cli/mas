@@ -35,7 +35,7 @@ jobs:
         run: script/bootstrap
 
       - name: Build
-        run: script/build
+        run: script/build build-test
 
       - name: Test
         run: script/test
