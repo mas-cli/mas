@@ -14,7 +14,7 @@
 
 printf $'==> 🚨 Linting mas %s\n' "$(script/version)"
 
-script/generate_version_info_for_swift
+script/generate_package_swift
 
 for linter in git markdownlint periphery shellcheck swift-format swiftformat swiftlint yamllint; do
   if ! command -v "${linter}" >/dev/null; then
