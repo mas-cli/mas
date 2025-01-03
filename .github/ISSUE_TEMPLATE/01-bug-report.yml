@@ -19,25 +19,30 @@ body:
         Otherwise, your mas version does not have `mas config`, so provide the following:
         -->
 
-        ### Output of `mas version`
+        ### mas version (output of `mas version`)
         <!--Example: "1.8.8"-->
 
-        ### Output of `sw_vers -productVersion`
+
+        ### macOS version (output of `sw_vers -productVersion`)
         <!--Example: "15.1.1"-->
 
-        ### Output of `sw_vers -buildVersion`
+
+        ### macOS build (output of `sw_vers -buildVersion`)
         <!--Example: "24B2091"-->
 
-        ### Output of `sysctl -n machdep.cpu.brand_string`
+
+        ### CPU (output of `sysctl -n machdep.cpu.brand_string`)
         <!--Example: "Apple M1"-->
 
-        ### Installation method (delete the incorrect ones)
 
-        - Homebrew core (via `brew install mas`)
-        - Homebrew custom tap (via `brew install mas-cli/tap/mas`)
-        - GitHub Releases (from <https://github.com/mas-cli/mas/releases>)
-        - Built from source (provide info about build)
-        - Other
+        ### Installation method
+        <!--Delete the incorrect ones.-->
+
+        Homebrew core (via `brew install mas`)
+        Homebrew custom tap (via `brew install mas-cli/tap/mas`)
+        GitHub Releases (from <https://github.com/mas-cli/mas/releases>)
+        Built from source (provide info about build)
+        Other
     validations:
       required: true
   - type: markdown
@@ -48,16 +53,14 @@ body:
     id: description
     attributes:
       label: Bug description
-      placeholder:
-        Include expected & actual output, as well as other pertinent info.
+      description: Expected & actual output; other pertinent info
     validations:
       required: true
   - type: textarea
     id: reproduction
     attributes:
       label: Steps to reproduce
-      description: |
-        Copy, paste & format commands & output in the console block (as instructed below)
+      description: Copy, paste & format commands & output in the console block (as instructed below)
       value: |
         ```console
 
@@ -77,7 +80,7 @@ body:
 
         - Use a multiline console block: start with ```` ```console ````, end with ```` ``` ````, each on its own line
         - Prefix each non-console step (or comment) with two hashes & a space: `## …`
-        - Remove shell prompts; instead, prefix each console command with a dollar sign & a space: `$ …`
+        - Remove custom shell prompts; instead, prefix each console command with a dollar sign & a space: `$ …`
         - Prefix each output line beginning with `#`, `$`, `%`, or `>` with an additional instance of that <!--
           --> character: `##…`, `$$…`, `%%…`, or `>>…`
         - Write all other output lines without any prefix: `…`
