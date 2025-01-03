@@ -29,19 +29,19 @@ extension MAS {
             print(
                 """
                 mas ▁▁▁▁ \(Package.version)
+                arch ▁▁▁ \(configStringValue("hw.machine"))
                 from ▁▁▁ \(Package.installMethod)
                 origin ▁ \(Package.gitOrigin)
                 rev ▁▁▁▁ \(Package.gitRevision)
-                swift ▁▁ \(Package.swiftVersion)
                 driver ▁ \(Package.swiftDriverVersion)
+                swift ▁▁ \(Package.swiftVersion)
                 region ▁ \(Storefront.isoRegion?.alpha2 ?? unknown)
                 macos ▁▁ \(
                     ProcessInfo.processInfo.operatingSystemVersionString.dropFirst(8)
                         .replacingOccurrences(of: "Build ", with: "")
                 )
-                mac ▁▁▁▁ \(macModel())
-                cpu ▁▁▁▁ \(cpuBrandString())
-                arch ▁▁▁ \(architecture())
+                mac ▁▁▁▁ \(configStringValue("hw.product"))
+                cpu ▁▁▁▁ \(configStringValue("machdep.cpu.brand_string"))
                 """
             )
             if markdown {
@@ -51,34 +51,8 @@ extension MAS {
     }
 }
 
-private func macModel() -> String {
-    var name = [CTL_HW, HW_MODEL]
-
-    var size = 0
-    guard sysctl(&name, u_int(name.count), nil, &size, nil, 0) == 0 else {
-        perror("sysctl")
-        return unknown
-    }
-
-    var buffer = [CChar](repeating: 0, count: size)
-    guard sysctl(&name, u_int(name.count), &buffer, &size, nil, 0) == 0 else {
-        perror("sysctl")
-        return unknown
-    }
-
-    return String(cString: buffer)
-}
-
-private func cpuBrandString() -> String {
-    configValue("machdep.cpu.brand_string")
-}
-
-private func architecture() -> String {
-    configValue("hw.machine")
-}
-
-private func configValue(_ name: String) -> String {
-    var size = 0
+private func configStringValue(_ name: String) -> String {
+    var size = MemoryLayout<Int32>.size
     guard sysctlbyname(name, nil, &size, nil, 0) == 0 else {
         perror("sysctlbyname")
         return unknown
