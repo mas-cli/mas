@@ -11,7 +11,7 @@ body:
     id: config
     attributes:
       label: mas config
-      description: The output of `mas config --markdown`
+      description: Output of `mas config --markdown`
       value: |
         <!--
         If `mas config --markdown` runs without error, replace the contents of this text area with its output.
@@ -60,7 +60,8 @@ body:
     id: reproduction
     attributes:
       label: Steps to reproduce
-      description: Copy, paste & format commands & output in the console block (as instructed below)
+      description: |
+        Copied, pasted & formatted commands & output in console blocks (as instructed below); instructions; screenshots
       value: |
         ```console
 
@@ -78,7 +79,7 @@ body:
 
         Format commands & output as follows (where `…` is a placeholder):
 
-        - Use a multiline console block: start with ```` ```console ````, end with ```` ``` ````, each on its own line
+        - Use a console block: start with ```` ```console ````, end with ```` ``` ````, each on its own line
         - Prefix each non-console step (or comment) with two hashes & a space: `## …`
         - Remove custom shell prompts; instead, prefix each console command with a dollar sign & a space: `$ …`
         - Prefix each output line beginning with `#`, `$`, `%`, or `>` with an additional instance of that <!--
@@ -89,9 +90,11 @@ body:
 
         ````text
         ```console
-        ## In the Mac App Store GUI, …
+        ## In the Mac App Store GUI, click on…
         $ mas list
         123  App 1  (4.5.6)
         124  App 2  (10.2)
+        $ mas outdated
+        123 App 1 (4.5.6 -> 4.5.7)
         ```
         ````
