@@ -28,7 +28,17 @@ jobs:
             build-mode: manual
     steps:
       - name: Checkout repository
+        env:
+          GIT_CONFIG_COUNT: 1
+          GIT_CONFIG_KEY_0: init.defaultBranch
+          GIT_CONFIG_VALUE_0: ${{github.event.repository.default_branch}}
         uses: actions/checkout@v4
+        with:
+          # Include all history & tags for script/version
+          fetch-depth: 0
+
+      - name: Setup repo
+        run: script/setup_workflow_repo
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3

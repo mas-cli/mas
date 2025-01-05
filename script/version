@@ -8,6 +8,17 @@
 
 . "${0:a:h}/_setup_script"
 
-printf $'%s%s\n'\
+branch="${"$(git rev-parse --abbrev-ref HEAD)":/main}"
+
+if [[ "${branch}" = HEAD ]]; then
+  if git merge-base --is-ancestor HEAD main; then
+    branch=
+  else
+    branch="${"${(@)"${(fnO)"$(git branch --format '%(ahead-behind:HEAD) %(refname:short)')"}"[1]}"##* }"
+  fi
+fi
+
+printf $'%s%s%s\n'\
+ "${branch:+"${branch}-"}"\
  "${"$(git describe --tags 2>/dev/null)"#v}"\
  "${"$(git diff-index HEAD --;git ls-files --exclude-standard --others)":+"${MAS_DIRTY_INDICATOR-+}"}"
