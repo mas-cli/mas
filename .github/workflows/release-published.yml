@@ -25,6 +25,12 @@ jobs:
           GIT_CONFIG_KEY_0: init.defaultBranch
           GIT_CONFIG_VALUE_0: ${{github.event.repository.default_branch}}
         uses: actions/checkout@v4
+        with:
+          # Include all history & tags for script/version
+          fetch-depth: 0
+
+      - name: 🔧 Setup repo
+        run: script/setup_workflow_repo
 
       - name: 🚰 Apply pr-pull label to custom tap formula bump PR
         env:

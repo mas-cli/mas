@@ -31,6 +31,9 @@ jobs:
           # Include all history & tags for script/version
           fetch-depth: 0
 
+      - name: Setup repo
+        run: script/setup_workflow_repo
+
       - name: Bootstrap
         run: script/bootstrap
 
