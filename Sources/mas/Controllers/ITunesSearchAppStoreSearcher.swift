@@ -8,14 +8,10 @@
 
 import Foundation
 import PromiseKit
-import Regex
-import Version
 
 /// Manages searching the MAS catalog. Uses the iTunes Search and Lookup APIs:
 /// https://performance-partners.apple.com/search-api
 struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
-    private static let appVersionRegex = Regex(#""versionDisplay":"([^"]+)""#)
-
     private let networkManager: NetworkManager
 
     /// Designated initializer.
@@ -35,37 +31,12 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
         guard let url = lookupURL(forAppID: appID, inRegion: region) else {
             fatalError("Failed to build URL for \(appID)")
         }
-        return
-            loadSearchResults(url)
+        return loadSearchResults(url)
             .then { results -> Guarantee<SearchResult> in
                 guard let result = results.first else {
                     throw MASError.unknownAppID(appID)
                 }
-
-                guard let pageURL = URL(string: result.trackViewUrl) else {
-                    return .value(result)
-                }
-
-                return
-                    scrapeAppStoreVersion(pageURL)
-                    .map { pageVersion in
-                        guard
-                            let pageVersion,
-                            let searchVersion = Version(tolerant: result.version),
-                            pageVersion > searchVersion
-                        else {
-                            return result
-                        }
-
-                        // Update the search result with the version from the App Store page.
-                        var result = result
-                        result.version = pageVersion.description
-                        return result
-                    }
-                    .recover { _ in
-                        // If we were unable to scrape the App Store page, assume compatibility.
-                        .value(result)
-                    }
+                return .value(result)
             }
     }
 
@@ -108,24 +79,6 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
                 } catch {
                     throw MASError.jsonParsing(data: data)
                 }
-            }
-    }
-
-    /// Scrape the app version from the App Store webpage at the given URL.
-    ///
-    /// App Store webpages frequently report a version that is newer than what is reported by the iTunes Search API.
-    private func scrapeAppStoreVersion(_ pageURL: URL) -> Promise<Version?> {
-        networkManager.loadData(from: pageURL)
-            .map { data in
-                guard
-                    let html = String(data: data, encoding: .utf8),
-                    let capture = Self.appVersionRegex.firstMatch(in: html)?.captures[0],
-                    let version = Version(tolerant: capture)
-                else {
-                    return nil
-                }
-
-                return version
             }
     }
 
