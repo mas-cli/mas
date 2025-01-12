@@ -8,7 +8,6 @@
 
 import CommerceKit
 import PromiseKit
-import StoreFoundation
 
 private let downloadingPhase = 0 as Int64
 private let installingPhase = 1 as Int64

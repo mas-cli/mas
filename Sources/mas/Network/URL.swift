@@ -7,7 +7,6 @@
 //
 
 import AppKit
-import Foundation
 import PromiseKit
 
 extension URL {

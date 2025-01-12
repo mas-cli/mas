@@ -6,8 +6,6 @@
 //  Copyright © 2019 mas-cli. All rights reserved.
 //
 
-import Foundation
-
 /// Formats text output for the search command.
 enum AppListFormatter {
     static let idColumnMinWidth = 10

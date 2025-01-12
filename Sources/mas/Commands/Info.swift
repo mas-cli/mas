@@ -7,7 +7,6 @@
 //
 
 import ArgumentParser
-import Foundation
 
 extension MAS {
     /// Displays app details. Uses the iTunes Lookup API:

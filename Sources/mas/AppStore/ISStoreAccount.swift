@@ -8,7 +8,6 @@
 
 import CommerceKit
 import PromiseKit
-import StoreFoundation
 
 private let timeout = 30.0
 

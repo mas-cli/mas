@@ -7,7 +7,7 @@
 //
 
 import ArgumentParser
-import CommerceKit
+import Foundation
 
 extension MAS {
     /// Installs previously purchased apps from the Mac App Store.

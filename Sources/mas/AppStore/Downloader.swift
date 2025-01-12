@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 Andrew Naylor. All rights reserved.
 //
 
-import CommerceKit
 import PromiseKit
 import StoreFoundation
 

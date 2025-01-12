@@ -7,7 +7,7 @@
 //
 
 import ArgumentParser
-import CommerceKit
+import Foundation
 
 extension MAS {
     /// Command which installs the first search result.

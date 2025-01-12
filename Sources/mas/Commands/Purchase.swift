@@ -7,7 +7,7 @@
 //
 
 import ArgumentParser
-import CommerceKit
+import Foundation
 
 extension MAS {
     struct Purchase: ParsableCommand {

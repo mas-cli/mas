@@ -6,7 +6,6 @@
 //  Copyright © 2018 mas-cli. All rights reserved.
 //
 
-import Foundation
 import PromiseKit
 
 /// Protocol for searching the MAS catalog.
