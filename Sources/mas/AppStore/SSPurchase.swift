@@ -8,7 +8,6 @@
 
 import CommerceKit
 import PromiseKit
-import StoreFoundation
 
 extension SSPurchase {
     func perform(appID: AppID, purchasing: Bool) -> Promise<Void> {

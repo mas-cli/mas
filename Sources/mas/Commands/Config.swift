@@ -7,7 +7,7 @@
 //
 
 import ArgumentParser
-import CommerceKit
+import Foundation
 
 private let unknown = "unknown"
 
