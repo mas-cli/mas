@@ -60,10 +60,11 @@ jobs:
             exit 3
           fi
 
+      - name: 🛠 Select Xcode 16.2
+        run: sudo xcode-select -s /Applications/Xcode_16.2.app/Contents/Developer
+
       - name: 📦 Build universal executable & package it in an installer
-        run: |
-          sudo xcode-select -s /Applications/Xcode_16.2.app/Contents/Developer
-          script/package package
+        run: script/package package
 
       - name: 🚰 Bump custom tap formula
         env:

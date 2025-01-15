@@ -27,7 +27,7 @@ jobs:
           - language: swift
             build-mode: manual
     steps:
-      - name: Checkout repository
+      - name: 🛒 Checkout repo
         env:
           GIT_CONFIG_COUNT: 1
           GIT_CONFIG_KEY_0: init.defaultBranch
@@ -37,23 +37,23 @@ jobs:
           # Include all history & tags for script/version
           fetch-depth: 0
 
-      - name: Setup repo
+      - name: 🔧 Setup repo
         run: script/setup_workflow_repo
 
-      - name: Initialize CodeQL
+      - name: 🔩 Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
           languages: ${{matrix.language}}
           build-mode: ${{matrix.build-mode}}
           queries: ${{matrix.language == 'swift' && '+security-and-quality' || ''}}
 
-      - name: Build Swift
+      - name: 🏗 Build Swift
         if: matrix.language == 'swift'
         shell: bash
         run: |
           script/build codeql
 
-      - name: Perform CodeQL Analysis
+      - name: 🔍 Perform CodeQL analysis
         uses: github/codeql-action/analyze@v3
         with:
           category: /language:${{matrix.language}}

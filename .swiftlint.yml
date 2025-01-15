@@ -13,6 +13,7 @@ disabled_rules:
   # eventually enable
   - file_header
   - one_declaration_per_file
+  - prefer_key_path
   - trailing_comma
   # never enable
   - contrasted_opening_brace

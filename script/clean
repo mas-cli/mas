@@ -3,10 +3,12 @@
 # script/clean
 # mas
 #
-# Deletes the build directory.
+# Deletes the build directory & other generated files.
 #
 
 . "${0:a:h}/_setup_script"
+
+printf $'==> 🗑 Cleaning mas %s\n' "$(script/version)"
 
 swift package clean
 swift package reset
