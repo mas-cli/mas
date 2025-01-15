@@ -21,7 +21,7 @@ jobs:
         # Force all run commands to not use Rosetta 2
         shell: arch -arm64 /bin/zsh -Negku {0}
     steps:
-      - name: Checkout
+      - name: 🛒 Checkout repo
         env:
           GIT_CONFIG_COUNT: 1
           GIT_CONFIG_KEY_0: init.defaultBranch
@@ -31,17 +31,20 @@ jobs:
           # Include all history & tags for script/version
           fetch-depth: 0
 
-      - name: Setup repo
+      - name: 🔧 Setup repo
         run: script/setup_workflow_repo
 
-      - name: Bootstrap
+      - name: 🛠 Select Xcode 16.2
+        run: sudo xcode-select -s /Applications/Xcode_16.2.app/Contents/Developer
+
+      - name: 👢 Bootstrap
         run: script/bootstrap
 
-      - name: Build
+      - name: 🏗 Build
         run: script/build build-test
 
-      - name: Test
+      - name: 🧪 Test
         run: script/test
 
-      - name: Lint
+      - name: 🚨 Lint
         run: script/lint
