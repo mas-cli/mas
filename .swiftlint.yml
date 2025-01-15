@@ -2,6 +2,8 @@
 # .swiftlint.yml
 # mas
 #
+# SwiftLint 0.58.0
+#
 # https://github.com/realm/SwiftLint#configuration
 #
 ---
@@ -18,13 +20,11 @@ disabled_rules:
   - explicit_enum_raw_value
   - explicit_top_level_acl
   - explicit_type_interface
-  - inert_defer
   - no_extension_access_modifier
   - no_grouping_extension
   - no_magic_numbers
   - prefixed_toplevel_constant
   - sorted_enum_cases
-  - unused_capture_list
   - vertical_whitespace_between_cases
 file_name:
   excluded: [Finder.swift, Utilities.swift]
