@@ -308,7 +308,7 @@ If mas doesn't work for you as expected (e.g. you can't install/upgrade apps), r
 If the issue persists, please [file a bug](https://github.com/mas-cli/mas/issues/new).
 All feedback is much appreciated! ✨
 
-## ℹ️ Build from source
+## 🏗 Build from source
 
 You can build from Xcode by opening the root mas directory, or from the Terminal:
 
@@ -318,7 +318,7 @@ script/build
 
 Build output can be found in the `.build` directory within the project.
 
-## ✅ Tests
+## 🧪 Tests
 
 Tests are written using [Quick](https://github.com/Quick/Quick) & [Nimble](https://github.com/Quick/Nimble).
 
