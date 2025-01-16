@@ -8,7 +8,7 @@
 
 . "${0:a:h}/_setup_script"
 
-printf $'==> 🏗️ Building mas %s\n' "$(script/version)"
+printf $'==> 🏗​ Building mas %s\n' "$(script/version)"
 
 script/generate_package_swift "${1:-}"
 
