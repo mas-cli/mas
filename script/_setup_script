@@ -6,7 +6,7 @@
 # Boilerplate setup for scripts.
 #
 
-\unalias -as
+builtin unalias -as
 setopt\
  autopushd\
  combiningchars\
