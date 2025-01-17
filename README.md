@@ -34,7 +34,7 @@ sudo port install mas
 
 ⚠️ macOS 10.15 (Catalina) or newer is required to install mas from MacPorts.
 
-### ☎️ Older macOS Versions
+### 🧮 Older macOS Versions
 
 #### 🍻 Custom Homebrew tap
 
@@ -263,10 +263,10 @@ docs for more details.
 mas uses multiple undocumented Apple private frameworks to implement much of its functionality.
 Over time, Apple has silently changed these frameworks, breaking some functionality. Known issues include:
 
-- ⛔️ The `signin` command is not supported on macOS 10.13 (High Sierra) or newer. [#164](
+- ⛔ The `signin` command is not supported on macOS 10.13 (High Sierra) or newer. [#164](
       https://github.com/mas-cli/mas/issues/164
   )
-- ⛔️ The `account` command is not supported on macOS 12 (Monterey) or newer. [#417](
+- ⛔ The `account` command is not supported on macOS 12 (Monterey) or newer. [#417](
       https://github.com/mas-cli/mas/issues/417
   )
 
