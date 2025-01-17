@@ -65,7 +65,7 @@ To get Swift 5 support on macOS versions older than 10.14.4 (Mojave), you can:
 - Install the [Swift 5 Runtime Support for Command Line Tools](https://support.apple.com/en-us/106446).
 - Install Xcode 10.2 or newer to `/Applications/Xcode.app`.
 
-## 🤳🏻 Usage
+## 🤳 Usage
 
 ### 🪪 App IDs
 
