@@ -10,10 +10,8 @@ import StoreKit
 
 enum Storefront {
     static var isoRegion: ISORegion? {
-        if #available(macOS 10.15, *) {
-            if let storefront = SKPaymentQueue.default().storefront {
-                return findISORegion(forAlpha3Code: storefront.countryCode)
-            }
+        if let storefront = SKPaymentQueue.default().storefront {
+            return findISORegion(forAlpha3Code: storefront.countryCode)
         }
 
         guard let alpha2 = Locale.autoupdatingCurrent.regionCode else {

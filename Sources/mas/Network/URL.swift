@@ -12,18 +12,10 @@ import PromiseKit
 extension URL {
     func open() -> Promise<Void> {
         Promise { seal in
-            if #available(macOS 10.15, *) {
-                NSWorkspace.shared.open(self, configuration: NSWorkspace.OpenConfiguration()) { _, error in
-                    if let error {
-                        seal.reject(error)
-                    }
-                    seal.fulfill(())
+            NSWorkspace.shared.open(self, configuration: NSWorkspace.OpenConfiguration()) { _, error in
+                if let error {
+                    seal.reject(error)
                 }
-            } else {
-                guard NSWorkspace.shared.open(self) else {
-                    throw MASError.runtimeError("Failed to open \(self)")
-                }
-
                 seal.fulfill(())
             }
         }

@@ -38,7 +38,7 @@ productbuild \
     <options customize="never" require-scripts="false"/>
     <volume-check>
         <allowed-os-versions>
-            <os-version min="10.13"/>
+            <os-version min="10.15"/>
         </allowed-os-versions>
     </volume-check>
     <choices-outline>
