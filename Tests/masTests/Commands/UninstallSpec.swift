@@ -13,7 +13,7 @@ import Quick
 @testable import mas
 
 public final class UninstallSpec: QuickSpec {
-    override public func spec() {
+    override public static func spec() {
         let appID = 12345 as AppID
         let app = MockSoftwareProduct(
             appName: "Some App",

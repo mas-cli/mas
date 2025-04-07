@@ -12,7 +12,7 @@ import Quick
 @testable import mas
 
 public final class SoftwareProductSpec: QuickSpec {
-    override public func spec() {
+    override public static func spec() {
         let app = MockSoftwareProduct(
             appName: "App",
             bundleIdentifier: "",
