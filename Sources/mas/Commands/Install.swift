@@ -11,7 +11,7 @@ import Foundation
 
 extension MAS {
     /// Installs previously purchased apps from the Mac App Store.
-    struct Install: ParsableCommand {
+    struct Install: AsyncParsableCommand {
         static let configuration = CommandConfiguration(
             abstract: "Install previously purchased app(s) from the Mac App Store"
         )
@@ -22,11 +22,11 @@ extension MAS {
         var appIDs: [AppID]
 
         /// Runs the command.
-        func run() throws {
-            try run(appLibrary: SoftwareMapAppLibrary(), searcher: ITunesSearchAppStoreSearcher())
+        func run() async throws {
+            try await run(appLibrary: SoftwareMapAppLibrary(), searcher: ITunesSearchAppStoreSearcher())
         }
 
-        func run(appLibrary: AppLibrary, searcher: AppStoreSearcher) throws {
+        func run(appLibrary: AppLibrary, searcher: AppStoreSearcher) async throws {
             // Try to download applications with given identifiers and collect results
             let appIDs = appIDs.filter { appID in
                 if let displayName = appLibrary.installedApps(withAppID: appID).first?.displayName, !force {
@@ -38,7 +38,7 @@ extension MAS {
             }
 
             do {
-                try downloadApps(withAppIDs: appIDs, verifiedBy: searcher).wait()
+                try await downloadApps(withAppIDs: appIDs, verifiedBy: searcher)
             } catch {
                 throw error as? MASError ?? .downloadFailed(error: error as NSError)
             }

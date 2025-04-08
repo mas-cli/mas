@@ -13,9 +13,6 @@ import Quick
 
 public final class AccountSpec: QuickSpec {
     override public static func spec() {
-        beforeSuite {
-            MAS.initialize()
-        }
         describe("account command") {
             it("displays not supported warning") {
                 expect(consequencesOf(try MAS.Account.parse([]).run()))

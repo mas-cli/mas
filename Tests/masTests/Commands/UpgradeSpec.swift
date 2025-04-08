@@ -11,16 +11,13 @@ import Quick
 
 @testable import mas
 
-public final class UpgradeSpec: QuickSpec {
+public final class UpgradeSpec: AsyncSpec {
     override public static func spec() {
-        beforeSuite {
-            MAS.initialize()
-        }
         describe("upgrade command") {
             it("finds no upgrades") {
-                expect(
-                    consequencesOf(
-                        try MAS.Upgrade.parse([])
+                await expecta(
+                    await consequencesOf(
+                        try await MAS.Upgrade.parse([])
                             .run(appLibrary: MockAppLibrary(), searcher: MockAppStoreSearcher())
                     )
                 )

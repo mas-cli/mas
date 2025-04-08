@@ -13,9 +13,6 @@ import Quick
 
 public final class ListSpec: QuickSpec {
     override public static func spec() {
-        beforeSuite {
-            MAS.initialize()
-        }
         describe("list command") {
             it("lists apps") {
                 expect(consequencesOf(try MAS.List.parse([]).run(appLibrary: MockAppLibrary())))

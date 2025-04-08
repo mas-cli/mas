@@ -13,9 +13,6 @@ import Quick
 
 public final class VersionSpec: QuickSpec {
     override public static func spec() {
-        beforeSuite {
-            MAS.initialize()
-        }
         describe("version command") {
             it("displays the current version") {
                 expect(consequencesOf(try MAS.Version.parse([]).run()))

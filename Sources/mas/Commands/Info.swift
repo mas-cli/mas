@@ -11,7 +11,7 @@ import ArgumentParser
 extension MAS {
     /// Displays app details. Uses the iTunes Lookup API:
     /// https://performance-partners.apple.com/search-api
-    struct Info: ParsableCommand {
+    struct Info: AsyncParsableCommand {
         static let configuration = CommandConfiguration(
             abstract: "Display app information from the Mac App Store"
         )
@@ -20,13 +20,13 @@ extension MAS {
         var appID: AppID
 
         /// Runs the command.
-        func run() throws {
-            try run(searcher: ITunesSearchAppStoreSearcher())
+        func run() async throws {
+            try await run(searcher: ITunesSearchAppStoreSearcher())
         }
 
-        func run(searcher: AppStoreSearcher) throws {
+        func run(searcher: AppStoreSearcher) async throws {
             do {
-                print(AppInfoFormatter.format(app: try searcher.lookup(appID: appID).wait()))
+                print(AppInfoFormatter.format(app: try await searcher.lookup(appID: appID)))
             } catch {
                 throw error as? MASError ?? .searchFailed
             }

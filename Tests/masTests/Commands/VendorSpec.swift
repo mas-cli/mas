@@ -11,14 +11,13 @@ import Quick
 
 @testable import mas
 
-public final class VendorSpec: QuickSpec {
+public final class VendorSpec: AsyncSpec {
     override public static func spec() {
-        beforeSuite {
-            MAS.initialize()
-        }
         describe("vendor command") {
             it("can't find app with unknown ID") {
-                expect(consequencesOf(try MAS.Vendor.parse(["999"]).run(searcher: MockAppStoreSearcher())))
+                await expecta(
+                    await consequencesOf(try await MAS.Vendor.parse(["999"]).run(searcher: MockAppStoreSearcher()))
+                )
                     == (MASError.unknownAppID(999), "", "")
             }
         }

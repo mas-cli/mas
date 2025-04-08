@@ -12,11 +12,8 @@ import Quick
 
 @testable import mas
 
-public final class OutdatedSpec: QuickSpec {
+public final class OutdatedSpec: AsyncSpec {
     override public static func spec() {
-        beforeSuite {
-            MAS.initialize()
-        }
         describe("outdated command") {
             it("displays apps with pending updates") {
                 let mockSearchResult =
@@ -32,9 +29,9 @@ public final class OutdatedSpec: QuickSpec {
                         version: "1.28"
                     )
 
-                expect(
-                    consequencesOf(
-                        try MAS.Outdated.parse([])
+                await expecta(
+                    await consequencesOf(
+                        try await MAS.Outdated.parse([])
                             .run(
                                 appLibrary: MockAppLibrary(
                                     MockSoftwareProduct(

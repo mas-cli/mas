@@ -7,10 +7,9 @@
 //
 
 import CommerceKit
-import PromiseKit
 
 extension SSPurchase {
-    func perform(appID: AppID, purchasing: Bool) -> Promise<Void> {
+    func perform(appID: AppID, purchasing: Bool) async throws {
         var parameters =
             [
                 "productType": "C",
@@ -44,38 +43,28 @@ extension SSPurchase {
         // Monterey obscures the user's App Store account, but allows
         // redownloads without passing any account IDs to SSPurchase.
         // https://github.com/mas-cli/mas/issues/417
-        if #available(macOS 12, *) {
-            return perform()
+        if #unavailable(macOS 12) {
+            let storeAccount = try ISStoreAccount.primaryAccount
+            accountIdentifier = storeAccount.dsID
+            appleID = storeAccount.identifier
         }
 
-        return
-            ISStoreAccount.primaryAccount
-            .then { storeAccount in
-                self.accountIdentifier = storeAccount.dsID
-                self.appleID = storeAccount.identifier
-                return self.perform()
-            }
+        try await perform()
     }
 
-    private func perform() -> Promise<Void> {
-        Promise<SSPurchase> { seal in
+    private func perform() async throws {
+        let _: Void = try await withCheckedThrowingContinuation { continuation in
             CKPurchaseController.shared()
                 .perform(self, withOptions: 0) { purchase, _, error, response in
                     if let error {
-                        seal.reject(MASError.purchaseFailed(error: error as NSError?))
-                        return
+                        continuation.resume(throwing: MASError.purchaseFailed(error: error as NSError?))
+                    } else if response?.downloads.isEmpty == false, let purchase {
+                        PurchaseDownloadObserver(purchase: purchase).observeDownloadQueue()
+                        continuation.resume()
+                    } else {
+                        continuation.resume(throwing: MASError.noDownloads)
                     }
-
-                    guard response?.downloads.isEmpty == false, let purchase else {
-                        seal.reject(MASError.noDownloads)
-                        return
-                    }
-
-                    seal.fulfill(purchase)
                 }
-        }
-        .then { purchase in
-            PurchaseDownloadObserver(purchase: purchase).observeDownloadQueue()
         }
     }
 }

@@ -7,17 +7,9 @@
 //
 
 import AppKit
-import PromiseKit
 
 extension URL {
-    func open() -> Promise<Void> {
-        Promise { seal in
-            NSWorkspace.shared.open(self, configuration: NSWorkspace.OpenConfiguration()) { _, error in
-                if let error {
-                    seal.reject(error)
-                }
-                seal.fulfill(())
-            }
-        }
+    func open() async throws {
+        try await NSWorkspace.shared.open(self, configuration: NSWorkspace.OpenConfiguration())
     }
 }

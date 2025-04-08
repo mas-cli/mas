@@ -8,11 +8,10 @@
 
 import ArgumentParser
 import Foundation
-import PromiseKit
 
 extension MAS {
     /// Command which upgrades apps with new versions available in the Mac App Store.
-    struct Upgrade: ParsableCommand {
+    struct Upgrade: AsyncParsableCommand {
         static let configuration = CommandConfiguration(
             abstract: "Upgrade outdated app(s) installed from the Mac App Store"
         )
@@ -21,13 +20,13 @@ extension MAS {
         var appIDOrNames = [String]()
 
         /// Runs the command.
-        func run() throws {
-            try run(appLibrary: SoftwareMapAppLibrary(), searcher: ITunesSearchAppStoreSearcher())
+        func run() async throws {
+            try await run(appLibrary: SoftwareMapAppLibrary(), searcher: ITunesSearchAppStoreSearcher())
         }
 
-        func run(appLibrary: AppLibrary, searcher: AppStoreSearcher) throws {
+        func run(appLibrary: AppLibrary, searcher: AppStoreSearcher) async throws {
             do {
-                let apps = try findOutdatedApps(appLibrary: appLibrary, searcher: searcher)
+                let apps = try await findOutdatedApps(appLibrary: appLibrary, searcher: searcher)
 
                 guard !apps.isEmpty else {
                     return
@@ -42,7 +41,7 @@ extension MAS {
                 )
 
                 do {
-                    try downloadApps(withAppIDs: apps.map(\.storeApp.trackId)).wait()
+                    try await downloadApps(withAppIDs: apps.map(\.storeApp.trackId))
                 } catch {
                     throw error as? MASError ?? .downloadFailed(error: error as NSError)
                 }
@@ -54,7 +53,7 @@ extension MAS {
         private func findOutdatedApps(
             appLibrary: AppLibrary,
             searcher: AppStoreSearcher
-        ) throws -> [(installedApp: SoftwareProduct, storeApp: SearchResult)] {
+        ) async throws -> [(installedApp: SoftwareProduct, storeApp: SearchResult)] {
             let apps =
                 appIDOrNames.isEmpty
                 ? appLibrary.installedApps
@@ -76,24 +75,14 @@ extension MAS {
                     return installedApps
                 }
 
-            let promises = apps.map { installedApp in
-                // only upgrade apps whose local version differs from the store version
-                searcher.lookup(appID: installedApp.itemIdentifier.appIDValue)
-                    .map { storeApp -> (SoftwareProduct, SearchResult)? in
-                        guard installedApp.isOutdated(comparedTo: storeApp) else {
-                            return nil
-                        }
-                        return (installedApp, storeApp)
-                    }
-                    .recover { error -> Promise<(SoftwareProduct, SearchResult)?> in
-                        guard case MASError.unknownAppID = error else {
-                            return Promise(error: error)
-                        }
-                        return .value(nil)
-                    }
+            var outdatedApps: [(SoftwareProduct, SearchResult)] = []
+            for installedApp in apps {
+                let storeApp = try await searcher.lookup(appID: installedApp.itemIdentifier.appIDValue)
+                if installedApp.isOutdated(comparedTo: storeApp) {
+                    outdatedApps.append((installedApp, storeApp))
+                }
             }
-
-            return try when(fulfilled: promises).wait().compactMap { $0 }
+            return outdatedApps
         }
     }
 }

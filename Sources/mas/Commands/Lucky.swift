@@ -13,7 +13,7 @@ extension MAS {
     /// Command which installs the first search result.
     ///
     /// This is handy as many MAS titles can be long with embedded keywords.
-    struct Lucky: ParsableCommand {
+    struct Lucky: AsyncParsableCommand {
         static let configuration = CommandConfiguration(
             abstract:
                 """
@@ -28,15 +28,15 @@ extension MAS {
         var searchTerm: String
 
         /// Runs the command.
-        func run() throws {
-            try run(appLibrary: SoftwareMapAppLibrary(), searcher: ITunesSearchAppStoreSearcher())
+        func run() async throws {
+            try await run(appLibrary: SoftwareMapAppLibrary(), searcher: ITunesSearchAppStoreSearcher())
         }
 
-        func run(appLibrary: AppLibrary, searcher: AppStoreSearcher) throws {
+        func run(appLibrary: AppLibrary, searcher: AppStoreSearcher) async throws {
             var appID: AppID?
 
             do {
-                let results = try searcher.search(for: searchTerm).wait()
+                let results = try await searcher.search(for: searchTerm)
                 guard let result = results.first else {
                     throw MASError.noSearchResultsFound
                 }
@@ -50,7 +50,7 @@ extension MAS {
                 fatalError("app ID returned from Apple is null")
             }
 
-            try install(appID: appID, appLibrary: appLibrary)
+            try await install(appID: appID, appLibrary: appLibrary)
         }
 
         /// Installs an app.
@@ -59,13 +59,13 @@ extension MAS {
         ///   - appID: App identifier
         ///   - appLibrary: Library of installed apps
         /// - Throws: Any error that occurs while attempting to install the app.
-        private func install(appID: AppID, appLibrary: AppLibrary) throws {
+        private func install(appID: AppID, appLibrary: AppLibrary) async throws {
             // Try to download applications with given identifiers and collect results
             if let displayName = appLibrary.installedApps(withAppID: appID).first?.displayName, !force {
                 printWarning("\(displayName) is already installed")
             } else {
                 do {
-                    try downloadApps(withAppIDs: [appID]).wait()
+                    try await downloadApps(withAppIDs: [appID])
                 } catch {
                     throw error as? MASError ?? .downloadFailed(error: error as NSError)
                 }

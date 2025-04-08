@@ -7,21 +7,9 @@
 //
 
 import Foundation
-import PromiseKit
 
 extension URLSession: NetworkSession {
-    func loadData(from url: URL) -> Promise<Data> {
-        Promise { seal in
-            dataTask(with: url) { data, _, error in
-                if let data {
-                    seal.fulfill(data)
-                } else if let error {
-                    seal.reject(error)
-                } else {
-                    seal.reject(MASError.noData)
-                }
-            }
-            .resume()
-        }
+    func loadData(from url: URL) async throws -> (Data, URLResponse) {
+        try await data(from: url)
     }
 }

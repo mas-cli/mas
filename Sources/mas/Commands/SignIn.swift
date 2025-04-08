@@ -26,7 +26,7 @@ extension MAS {
         /// Runs the command.
         func run() throws {
             do {
-                _ = try ISStoreAccount.signIn(appleID: appleID, password: password, systemDialog: dialog).wait()
+                _ = try ISStoreAccount.signIn(appleID: appleID, password: password, systemDialog: dialog)
             } catch {
                 throw error as? MASError ?? MASError.signInFailed(error: error as NSError)
             }

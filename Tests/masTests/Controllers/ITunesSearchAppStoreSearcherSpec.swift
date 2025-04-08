@@ -11,15 +11,12 @@ import Quick
 
 @testable import mas
 
-public final class ITunesSearchAppStoreSearcherSpec: QuickSpec {
+public final class ITunesSearchAppStoreSearcherSpec: AsyncSpec {
     override public static func spec() {
-        beforeSuite {
-            MAS.initialize()
-        }
         describe("url string") {
             it("contains the search term") {
-                expect(
-                    consequencesOf(
+                await expecta(
+                    await consequencesOf(
                         ITunesSearchAppStoreSearcher()
                             .searchURL(
                                 for: "myapp",
@@ -36,8 +33,8 @@ public final class ITunesSearchAppStoreSearcherSpec: QuickSpec {
                     )
             }
             it("contains the encoded search term") {
-                expect(
-                    consequencesOf(
+                await expecta(
+                    await consequencesOf(
                         ITunesSearchAppStoreSearcher()
                             .searchURL(
                                 for: "My App",
@@ -61,11 +58,11 @@ public final class ITunesSearchAppStoreSearcherSpec: QuickSpec {
                     let networkSession = MockFromFileNetworkSession(responseFile: "search/slack.json")
                     let searcher = ITunesSearchAppStoreSearcher(networkManager: NetworkManager(session: networkSession))
 
-                    let consequences = consequencesOf(try searcher.search(for: "slack").wait())
-                    expect(consequences.value).to(haveCount(39))
-                    expect(consequences.error) == nil
-                    expect(consequences.stdout).to(beEmpty())
-                    expect(consequences.stderr).to(beEmpty())
+                    let consequences = await consequencesOf(try await searcher.search(for: "slack"))
+                    await expecta(consequences.value).to(haveCount(39))
+                    await expecta(consequences.error) == nil
+                    await expecta(consequences.stdout).to(beEmpty())
+                    await expecta(consequences.stderr).to(beEmpty())
                 }
             }
 
@@ -75,21 +72,21 @@ public final class ITunesSearchAppStoreSearcherSpec: QuickSpec {
                     let networkSession = MockFromFileNetworkSession(responseFile: "lookup/slack.json")
                     let searcher = ITunesSearchAppStoreSearcher(networkManager: NetworkManager(session: networkSession))
 
-                    let consequences = consequencesOf(try searcher.lookup(appID: appID).wait())
-                    expect(consequences.error) == nil
-                    expect(consequences.stdout).to(beEmpty())
-                    expect(consequences.stderr).to(beEmpty())
+                    let consequences = await consequencesOf(try await searcher.lookup(appID: appID))
+                    await expecta(consequences.error) == nil
+                    await expecta(consequences.stdout).to(beEmpty())
+                    await expecta(consequences.stderr).to(beEmpty())
 
                     guard let result = consequences.value else {
                         fatalError("lookup result was nil")
                     }
 
-                    expect(result.trackId) == appID
-                    expect(result.sellerName) == "Slack Technologies, Inc."
-                    expect(result.sellerUrl) == "https://slack.com"
-                    expect(result.trackName) == "Slack"
-                    expect(result.trackViewUrl) == "https://itunes.apple.com/us/app/slack/id803453959?mt=12&uo=4"
-                    expect(result.version) == "3.3.3"
+                    await expecta(result.trackId) == appID
+                    await expecta(result.sellerName) == "Slack Technologies, Inc."
+                    await expecta(result.sellerUrl) == "https://slack.com"
+                    await expecta(result.trackName) == "Slack"
+                    await expecta(result.trackViewUrl) == "https://itunes.apple.com/us/app/slack/id803453959?mt=12&uo=4"
+                    await expecta(result.version) == "3.3.3"
                 }
             }
         }

@@ -12,7 +12,7 @@ import Foundation
 extension MAS {
     /// Opens vendor's app page in a browser. Uses the iTunes Lookup API:
     /// https://performance-partners.apple.com/search-api
-    struct Vendor: ParsableCommand {
+    struct Vendor: AsyncParsableCommand {
         static let configuration = CommandConfiguration(
             abstract: "Open vendor's app web page in the default web browser"
         )
@@ -21,12 +21,12 @@ extension MAS {
         var appID: AppID
 
         /// Runs the command.
-        func run() throws {
-            try run(searcher: ITunesSearchAppStoreSearcher())
+        func run() async throws {
+            try await run(searcher: ITunesSearchAppStoreSearcher())
         }
 
-        func run(searcher: AppStoreSearcher) throws {
-            let result = try searcher.lookup(appID: appID).wait()
+        func run(searcher: AppStoreSearcher) async throws {
+            let result = try await searcher.lookup(appID: appID)
 
             guard let urlString = result.sellerUrl else {
                 throw MASError.noVendorWebsite
@@ -36,7 +36,7 @@ extension MAS {
                 throw MASError.runtimeError("Unable to construct URL from: \(urlString)")
             }
 
-            try url.open().wait()
+            try await url.open()
         }
     }
 }

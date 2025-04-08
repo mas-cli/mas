@@ -24,3 +24,9 @@ extension SearchResult {
         formattedPrice ?? "?"
     }
 }
+
+extension SearchResult: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(trackId)
+    }
+}

@@ -11,16 +11,13 @@ import Quick
 
 @testable import mas
 
-public final class PurchaseSpec: QuickSpec {
+public final class PurchaseSpec: AsyncSpec {
     override public static func spec() {
-        beforeSuite {
-            MAS.initialize()
-        }
         xdescribe("purchase command") {
             it("purchases apps") {
-                expect(
-                    consequencesOf(
-                        try MAS.Purchase.parse(["999"])
+                await expecta(
+                    await consequencesOf(
+                        try await MAS.Purchase.parse(["999"])
                             .run(appLibrary: MockAppLibrary(), searcher: MockAppStoreSearcher())
                     )
                 )

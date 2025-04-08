@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import PromiseKit
 
 /// Network abstraction.
 struct NetworkManager {
@@ -28,11 +27,7 @@ struct NetworkManager {
         }
     }
 
-    /// Loads data asynchronously.
-    ///
-    /// - Parameter url: URL from which to load data.
-    /// - Returns: A Promise for the Data of the response.
-    func loadData(from url: URL) -> Promise<Data> {
-        session.loadData(from: url)
+    func loadData(from url: URL) async throws -> (Data, URLResponse) {
+        try await session.loadData(from: url)
     }
 }
