@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import PromiseKit
 
 /// Manages searching the MAS catalog. Uses the iTunes Search and Lookup APIs:
 /// https://performance-partners.apple.com/search-api
@@ -24,20 +23,18 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
     /// - Parameters:
     ///   - appID: App ID.
     ///   - region: The `ISORegion` of the storefront in which to lookup apps.
-    /// - Returns: A `Promise` for the `SearchResult` for the given `appID` if `appID` is valid.
-    ///   A `Promise` for `MASError.unknownAppID(appID)` if `appID` is invalid.
-    ///   A `Promise` for some other `Error` if any problems occur.
-    func lookup(appID: AppID, inRegion region: ISORegion?) -> Promise<SearchResult> {
+    /// - Returns: A `SearchResult` for the given `appID` if `appID` is valid.
+    /// - Throws: A `MASError.unknownAppID(appID)` if `appID` is invalid.
+    ///   Some other `Error` if any problems occur.
+    func lookup(appID: AppID, inRegion region: ISORegion?) async throws -> SearchResult {
         guard let url = lookupURL(forAppID: appID, inRegion: region) else {
             fatalError("Failed to build URL for \(appID)")
         }
-        return loadSearchResults(url)
-            .then { results -> Guarantee<SearchResult> in
-                guard let result = results.first else {
-                    throw MASError.unknownAppID(appID)
-                }
-                return .value(result)
-            }
+        let results = try await loadSearchResults(url)
+        guard let result = results.first else {
+            throw MASError.unknownAppID(appID)
+        }
+        return result
     }
 
     /// Searches for apps.
@@ -45,8 +42,9 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
     /// - Parameters:
     ///   - searchTerm: Term for which to search.
     ///   - region: The `ISORegion` of the storefront in which to search for apps.
-    /// - Returns: A `Promise` for an `Array` of `SearchResult`s matching `searchTerm`.
-    func search(for searchTerm: String, inRegion region: ISORegion?) -> Promise<[SearchResult]> {
+    /// - Returns: An `Array` of `SearchResult`s matching `searchTerm`.
+    /// - Throws: An `Error` if any problems occur.
+    func search(for searchTerm: String, inRegion region: ISORegion?) async throws -> [SearchResult] {
         // Search for apps for compatible platforms, in order of preference.
         // Macs with Apple Silicon can run iPad and iPhone apps.
         #if arch(arm64)
@@ -55,31 +53,24 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
         let entities = [Entity.desktopSoftware]
         #endif
 
-        let results = entities.map { entity in
+        var appSet = Set<SearchResult>()
+        for entity in entities {
             guard let url = searchURL(for: searchTerm, inRegion: region, ofEntity: entity) else {
                 fatalError("Failed to build URL for \(searchTerm)")
             }
-            return loadSearchResults(url)
+            appSet.formUnion(try await loadSearchResults(url))
         }
 
-        // Combine the results, removing any duplicates.
-        var seenAppIDs = Set<AppID>()
-        return when(fulfilled: results)
-            .flatMapValues { $0 }
-            .filterValues { result in
-                seenAppIDs.insert(result.trackId).inserted
-            }
+        return Array(appSet)
     }
 
-    private func loadSearchResults(_ url: URL) -> Promise<[SearchResult]> {
-        networkManager.loadData(from: url)
-            .map { data in
-                do {
-                    return try JSONDecoder().decode(SearchResultList.self, from: data).results
-                } catch {
-                    throw MASError.jsonParsing(data: data)
-                }
-            }
+    private func loadSearchResults(_ url: URL) async throws -> [SearchResult] {
+        let (data, _) = try await networkManager.loadData(from: url)
+        do {
+            return try JSONDecoder().decode(SearchResultList.self, from: data).results
+        } catch {
+            throw MASError.jsonParsing(data: data)
+        }
     }
 
     /// Builds the search URL for an app.

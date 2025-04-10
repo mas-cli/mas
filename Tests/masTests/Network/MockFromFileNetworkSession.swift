@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import PromiseKit
 
 @testable import mas
 
@@ -23,12 +22,7 @@ struct MockFromFileNetworkSession: NetworkSession {
         self.responseFile = responseFile
     }
 
-    func loadData(from _: URL) -> Promise<Data> {
-        do {
-            return .value(try Data(contentsOf: Bundle.url(for: responseFile), options: .mappedIfSafe))
-        } catch {
-            print("Error opening file: \(error)")
-            return Promise(error: error)
-        }
+    func loadData(from _: URL) throws -> (Data, URLResponse) {
+        (try Data(contentsOf: Bundle.url(for: responseFile), options: .mappedIfSafe), URLResponse())
     }
 }

@@ -11,14 +11,13 @@ import Quick
 
 @testable import mas
 
-public final class InfoSpec: QuickSpec {
+public final class InfoSpec: AsyncSpec {
     override public static func spec() {
-        beforeSuite {
-            MAS.initialize()
-        }
         describe("Info command") {
             it("can't find app with unknown ID") {
-                expect(consequencesOf(try MAS.Info.parse(["999"]).run(searcher: MockAppStoreSearcher())))
+                await expecta(
+                    await consequencesOf(try await MAS.Info.parse(["999"]).run(searcher: MockAppStoreSearcher()))
+                )
                     == (MASError.unknownAppID(999), "", "")
             }
             it("displays app details") {
@@ -33,9 +32,9 @@ public final class InfoSpec: QuickSpec {
                     trackViewUrl: "https://awesome.app",
                     version: "1.0"
                 )
-                expect(
-                    consequencesOf(
-                        try MAS.Info.parse([String(mockResult.trackId)])
+                await expecta(
+                    await consequencesOf(
+                        try await MAS.Info.parse([String(mockResult.trackId)])
                             .run(searcher: MockAppStoreSearcher([mockResult.trackId: mockResult]))
                     )
                 )

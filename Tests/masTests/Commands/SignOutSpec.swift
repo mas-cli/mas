@@ -13,9 +13,6 @@ import Quick
 
 public final class SignOutSpec: QuickSpec {
     override public static func spec() {
-        beforeSuite {
-            MAS.initialize()
-        }
         describe("signout command") {
             it("signs out") {
                 expect(consequencesOf(try MAS.SignOut.parse([]).run()))

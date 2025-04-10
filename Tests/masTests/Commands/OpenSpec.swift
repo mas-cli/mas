@@ -11,14 +11,13 @@ import Quick
 
 @testable import mas
 
-public final class OpenSpec: QuickSpec {
+public final class OpenSpec: AsyncSpec {
     override public static func spec() {
-        beforeSuite {
-            MAS.initialize()
-        }
         describe("open command") {
             it("can't find app with unknown ID") {
-                expect(consequencesOf(try MAS.Open.parse(["999"]).run(searcher: MockAppStoreSearcher())))
+                await expecta(
+                    await consequencesOf(try await MAS.Open.parse(["999"]).run(searcher: MockAppStoreSearcher()))
+                )
                     == (MASError.unknownAppID(999), "", "")
             }
         }

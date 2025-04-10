@@ -11,7 +11,7 @@ import ArgumentParser
 extension MAS {
     /// Search the Mac App Store. Uses the iTunes Search API:
     /// https://performance-partners.apple.com/search-api
-    struct Search: ParsableCommand {
+    struct Search: AsyncParsableCommand {
         static let configuration = CommandConfiguration(
             abstract: "Search for apps from the Mac App Store"
         )
@@ -21,13 +21,13 @@ extension MAS {
         @Argument(help: "Search term")
         var searchTerm: String
 
-        func run() throws {
-            try run(searcher: ITunesSearchAppStoreSearcher())
+        func run() async throws {
+            try await run(searcher: ITunesSearchAppStoreSearcher())
         }
 
-        func run(searcher: AppStoreSearcher) throws {
+        func run(searcher: AppStoreSearcher) async throws {
             do {
-                let results = try searcher.search(for: searchTerm).wait()
+                let results = try await searcher.search(for: searchTerm)
                 if results.isEmpty {
                     throw MASError.noSearchResultsFound
                 }

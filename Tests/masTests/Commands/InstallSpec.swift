@@ -11,16 +11,17 @@ import Quick
 
 @testable import mas
 
-public final class InstallSpec: QuickSpec {
+public final class InstallSpec: AsyncSpec {
     override public static func spec() {
-        beforeSuite {
-            MAS.initialize()
-        }
         xdescribe("install command") {
             it("installs apps") {
-                expect(
-                    consequencesOf(
-                        try MAS.Install.parse([]).run(appLibrary: MockAppLibrary(), searcher: MockAppStoreSearcher())
+                await expecta(
+                    await consequencesOf(
+                        try await MAS.Install.parse([])
+                            .run(
+                                appLibrary: MockAppLibrary(),
+                                searcher: MockAppStoreSearcher()
+                            )
                     )
                 )
                     == (nil, "", "")

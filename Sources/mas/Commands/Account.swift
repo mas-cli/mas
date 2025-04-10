@@ -24,7 +24,7 @@ extension MAS {
             }
 
             do {
-                print(try ISStoreAccount.primaryAccount.wait().identifier)
+                print(try ISStoreAccount.primaryAccount.identifier)
             } catch {
                 throw error as? MASError ?? MASError.failed(error: error as NSError)
             }

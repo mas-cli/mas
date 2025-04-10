@@ -12,15 +12,12 @@ import Quick
 
 @testable import mas
 
-public final class SearchResultSpec: QuickSpec {
+public final class SearchResultSpec: AsyncSpec {
     override public static func spec() {
-        beforeSuite {
-            MAS.initialize()
-        }
         describe("search result") {
             it("can parse things") {
-                expect(
-                    consequencesOf(
+                await expecta(
+                    await consequencesOf(
                         try JSONDecoder()
                             .decode(SearchResult.self, from: Data(from: "search/things-that-go-bump.json"))
                             .trackId

@@ -37,15 +37,6 @@
       }
     },
     {
-      "identity" : "promisekit",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/mxcl/PromiseKit.git",
-      "state" : {
-        "revision" : "2bc44395edb4f8391902a9ff7c220471882a4d07",
-        "version" : "8.2.0"
-      }
-    },
-    {
       "identity" : "quick",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Quick/Quick.git",

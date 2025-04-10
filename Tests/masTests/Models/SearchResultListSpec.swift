@@ -12,15 +12,12 @@ import Quick
 
 @testable import mas
 
-public final class SearchResultListSpec: QuickSpec {
+public final class SearchResultListSpec: AsyncSpec {
     override public static func spec() {
-        beforeSuite {
-            MAS.initialize()
-        }
         describe("search result list") {
             it("can parse bbedit") {
-                expect(
-                    consequencesOf(
+                await expecta(
+                    await consequencesOf(
                         try JSONDecoder()
                             .decode(SearchResultList.self, from: Data(from: "search/bbedit.json"))
                             .resultCount
@@ -29,8 +26,8 @@ public final class SearchResultListSpec: QuickSpec {
                     == (1, nil, "", "")
             }
             it("can parse things") {
-                expect(
-                    consequencesOf(
+                await expecta(
+                    await consequencesOf(
                         try JSONDecoder()
                             .decode(SearchResultList.self, from: Data(from: "search/things.json"))
                             .resultCount

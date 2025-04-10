@@ -7,8 +7,7 @@
 //
 
 import Foundation
-import PromiseKit
 
 protocol NetworkSession {
-    func loadData(from url: URL) -> Promise<Data>
+    func loadData(from url: URL) async throws -> (Data, URLResponse)
 }

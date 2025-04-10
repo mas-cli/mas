@@ -11,14 +11,13 @@ import Quick
 
 @testable import mas
 
-public final class HomeSpec: QuickSpec {
+public final class HomeSpec: AsyncSpec {
     override public static func spec() {
-        beforeSuite {
-            MAS.initialize()
-        }
         describe("home command") {
             it("can't find app with unknown ID") {
-                expect(consequencesOf(try MAS.Home.parse(["999"]).run(searcher: MockAppStoreSearcher())))
+                await expecta(
+                    await consequencesOf(try await MAS.Home.parse(["999"]).run(searcher: MockAppStoreSearcher()))
+                )
                     == (MASError.unknownAppID(999), "", "")
             }
         }

@@ -7,7 +7,6 @@
 //
 
 import CommerceKit
-import PromiseKit
 
 private let downloadingPhase = 0 as Int64
 private let installingPhase = 1 as Int64
@@ -134,15 +133,14 @@ private extension SSDownloadPhase {
 }
 
 extension PurchaseDownloadObserver {
-    func observeDownloadQueue(_ downloadQueue: CKDownloadQueue = CKDownloadQueue.shared()) -> Promise<Void> {
+    func observeDownloadQueue(_ downloadQueue: CKDownloadQueue = CKDownloadQueue.shared()) {
         let observerID = downloadQueue.add(self)
-
-        return Promise<Void> { seal in
-            errorHandler = seal.reject
-            completionHandler = seal.fulfill_
-        }
-        .ensure {
+        completionHandler = {
             downloadQueue.remove(observerID)
+        }
+        errorHandler = { _ in
+            downloadQueue.remove(observerID)
+            // ROSS: throw error handler argument
         }
     }
 }

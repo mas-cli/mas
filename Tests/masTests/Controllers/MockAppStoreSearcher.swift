@@ -6,8 +6,6 @@
 //  Copyright © 2019 mas-cli. All rights reserved.
 //
 
-import PromiseKit
-
 @testable import mas
 
 struct MockAppStoreSearcher: AppStoreSearcher {
@@ -17,15 +15,15 @@ struct MockAppStoreSearcher: AppStoreSearcher {
         self.apps = apps
     }
 
-    func lookup(appID: AppID, inRegion _: ISORegion?) -> Promise<SearchResult> {
+    func lookup(appID: AppID, inRegion _: ISORegion?) throws -> SearchResult {
         guard let result = apps[appID] else {
-            return Promise(error: MASError.unknownAppID(appID))
+            throw MASError.unknownAppID(appID)
         }
 
-        return .value(result)
+        return result
     }
 
-    func search(for searchTerm: String, inRegion _: ISORegion?) -> Promise<[SearchResult]> {
-        .value(apps.filter { $1.trackName.contains(searchTerm) }.map { $1 })
+    func search(for searchTerm: String, inRegion _: ISORegion?) -> [SearchResult] {
+        apps.filter { $1.trackName.contains(searchTerm) }.map { $1 }
     }
 }
