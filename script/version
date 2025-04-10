@@ -14,7 +14,7 @@ if [[ "${branch}" = HEAD ]]; then
   if git merge-base --is-ancestor HEAD main; then
     branch=
   else
-    branch="${"${(@)"${(fnO)"$(git branch --format '%(ahead-behind:HEAD) %(refname:short)')"}"[1]}"##* }"
+    branch="${"${(@)"${(fnO)"$(git branch --contains HEAD --format '%(ahead-behind:HEAD) %(refname:short)')"}"[1]}"##* }"
   fi
 fi
 
