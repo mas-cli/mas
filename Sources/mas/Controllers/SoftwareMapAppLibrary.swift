@@ -10,24 +10,14 @@ import CommerceKit
 import ScriptingBridge
 
 /// Utility for managing installed apps.
-class SoftwareMapAppLibrary: AppLibrary {
-    /// CommerceKit's singleton manager of installed software.
-    private let softwareMap: SoftwareMap
-
+struct SoftwareMapAppLibrary: AppLibrary {
     /// Array of installed software products.
-    lazy var installedApps = softwareMap.allSoftwareProducts()
-        .filter { product in
-            product.bundlePath.starts(with: "/Applications/")
-        }
+    let installedApps: [SoftwareProduct]
 
     /// Internal initializer for providing a mock software map.
     /// - Parameter softwareMap: SoftwareMap to use
-    init(softwareMap: SoftwareMap = CKSoftwareMap.shared()) {
-        self.softwareMap = softwareMap
-    }
-
-    deinit {
-        // do nothing
+    init(softwareMap: SoftwareMap = SpotlightSoftwareMap()) async {
+        installedApps = await softwareMap.allSoftwareProducts()
     }
 
     /// Uninstalls all apps located at any of the elements of `appPaths`.

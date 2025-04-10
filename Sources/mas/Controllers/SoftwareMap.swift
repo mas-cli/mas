@@ -8,5 +8,5 @@
 
 /// Somewhat analogous to CKSoftwareMap.
 protocol SoftwareMap {
-    func allSoftwareProducts() -> [SoftwareProduct]
+    func allSoftwareProducts() async -> [SoftwareProduct]
 }

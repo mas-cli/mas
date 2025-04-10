@@ -11,7 +11,7 @@ import Foundation
 
 extension MAS {
     /// Command which uninstalls apps managed by the Mac App Store.
-    struct Uninstall: ParsableCommand {
+    struct Uninstall: AsyncParsableCommand {
         static let configuration = CommandConfiguration(
             abstract: "Uninstall app installed from the Mac App Store"
         )
@@ -23,8 +23,8 @@ extension MAS {
         var appID: AppID
 
         /// Runs the uninstall command.
-        func run() throws {
-            try run(appLibrary: SoftwareMapAppLibrary())
+        func run() async throws {
+            try run(appLibrary: await SoftwareMapAppLibrary())
         }
 
         func run(appLibrary: AppLibrary) throws {

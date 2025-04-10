@@ -21,7 +21,7 @@ public final class AppListFormatterSpec: AsyncSpec {
                 await expecta(await consequencesOf(format([]))) == ("", nil, "", "")
             }
             it("can format a single product") {
-                let product = MockSoftwareProduct(
+                let product = SimpleSoftwareProduct(
                     appName: "Awesome App",
                     bundleIdentifier: "",
                     bundlePath: "",
@@ -36,14 +36,14 @@ public final class AppListFormatterSpec: AsyncSpec {
                     await consequencesOf(
                         format(
                             [
-                                MockSoftwareProduct(
+                                SimpleSoftwareProduct(
                                     appName: "Awesome App",
                                     bundleIdentifier: "",
                                     bundlePath: "",
                                     bundleVersion: "19.2.1",
                                     itemIdentifier: 12345
                                 ),
-                                MockSoftwareProduct(
+                                SimpleSoftwareProduct(
                                     appName: "Even Better App",
                                     bundleIdentifier: "",
                                     bundlePath: "",

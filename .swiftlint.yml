@@ -16,6 +16,7 @@ disabled_rules:
   - prefer_key_path
   - trailing_comma
   # never enable
+  - closure_body_length
   - contrasted_opening_brace
   - explicit_acl
   - explicit_enum_raw_value
