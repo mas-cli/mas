@@ -15,7 +15,7 @@ import Quick
 public final class UninstallSpec: AsyncSpec {
     override public static func spec() {
         let appID = 12345 as AppID
-        let app = MockSoftwareProduct(
+        let app = SimpleSoftwareProduct(
             appName: "Some App",
             bundleIdentifier: "com.some.app",
             bundlePath: "/tmp/Some.app",

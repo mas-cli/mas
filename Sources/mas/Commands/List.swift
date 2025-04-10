@@ -10,14 +10,14 @@ import ArgumentParser
 
 extension MAS {
     /// Command which lists all installed apps.
-    struct List: ParsableCommand {
+    struct List: AsyncParsableCommand {
         static let configuration = CommandConfiguration(
             abstract: "List apps installed from the Mac App Store"
         )
 
         /// Runs the command.
-        func run() throws {
-            try run(appLibrary: SoftwareMapAppLibrary())
+        func run() async throws {
+            try run(appLibrary: await SoftwareMapAppLibrary())
         }
 
         func run(appLibrary: AppLibrary) throws {

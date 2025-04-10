@@ -10,6 +10,10 @@ import CommerceKit
 
 extension CKSoftwareMap: SoftwareMap {
     func allSoftwareProducts() -> [SoftwareProduct] {
-        allProducts() ?? []
+        allProducts()?
+            .filter { product in
+                product.bundlePath.starts(with: "/Applications/")
+            }
+            ?? []
     }
 }

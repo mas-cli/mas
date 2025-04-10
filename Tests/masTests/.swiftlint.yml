@@ -8,7 +8,6 @@
 #
 ---
 disabled_rules:
-  - closure_body_length
   - force_cast
   - force_try
   - function_body_length

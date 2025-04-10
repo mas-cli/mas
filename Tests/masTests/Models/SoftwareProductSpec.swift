@@ -13,7 +13,7 @@ import Quick
 
 public final class SoftwareProductSpec: AsyncSpec {
     override public static func spec() {
-        let app = MockSoftwareProduct(
+        let app = SimpleSoftwareProduct(
             appName: "App",
             bundleIdentifier: "",
             bundlePath: "",

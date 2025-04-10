@@ -23,7 +23,7 @@ extension MAS {
 
         /// Runs the command.
         func run() async throws {
-            try await run(appLibrary: SoftwareMapAppLibrary(), searcher: ITunesSearchAppStoreSearcher())
+            try await run(appLibrary: await SoftwareMapAppLibrary(), searcher: ITunesSearchAppStoreSearcher())
         }
 
         func run(appLibrary: AppLibrary, searcher: AppStoreSearcher) async throws {
