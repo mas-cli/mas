@@ -18,6 +18,7 @@ struct SoftwareMapAppLibrary: AppLibrary {
     /// - Parameter softwareMap: SoftwareMap to use
     init(softwareMap: SoftwareMap = SpotlightSoftwareMap()) async {
         installedApps = await softwareMap.allSoftwareProducts()
+            .sorted { $0.appName.caseInsensitiveCompare($1.appName) == .orderedAscending }
     }
 
     /// Uninstalls all apps located at any of the elements of `appPaths`.
