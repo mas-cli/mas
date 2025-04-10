@@ -1,3 +1,4 @@
+// swift-format-ignore-file
 //
 //  SpotlightSoftwareMap.swift
 //  mas
@@ -35,7 +36,8 @@ struct SpotlightSoftwareMap: SoftwareMap {
 
                             return SimpleSoftwareProduct(
                                 appName:
-                                    result.value(forAttribute: "_kMDItemDisplayNameWithExtensions") as? String ?? "",
+                                    (result.value(forAttribute: "_kMDItemDisplayNameWithExtensions") as? String ?? "")
+                                    .removeSuffix(".app"),
                                 bundleIdentifier:
                                     result.value(forAttribute: kMDItemCFBundleIdentifier as String) as? String ?? "",
                                 bundlePath:
@@ -53,5 +55,13 @@ struct SpotlightSoftwareMap: SoftwareMap {
                 query.start()
             }
         }
+    }
+}
+
+private extension String {
+    func removeSuffix(_ suffix: String) -> String {
+        hasSuffix(suffix)
+            ? String(dropLast(suffix.count))
+            : self
     }
 }
