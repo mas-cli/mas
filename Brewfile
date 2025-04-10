@@ -5,8 +5,7 @@ brew "swiftformat"
 brew "yamllint"
 
 if OS.mac? && MacOS.version >= :ventura
+  brew "periphery"
   brew "swift-format"
   brew "swiftlint"
-  tap "peripheryapp/periphery"
-  cask "periphery"
 end
