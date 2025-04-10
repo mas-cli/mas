@@ -40,7 +40,7 @@ sudo port install mas
 
 We provide a [custom Homebrew tap](https://github.com/mas-cli/homebrew-tap) with pre-built bottles
 for all macOS versions since 10.11 (El Capitan). The newest versions of mas, however, are only available
-for macOS 10.13+ (High Sierra or newer).
+for macOS 10.15+ (Catalina or newer).
 
 To install mas from our tap:
 

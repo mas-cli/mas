@@ -48,15 +48,10 @@ private func openMacAppStore() -> Promise<Void> {
             throw MASError.notSupported
         }
 
-        if #available(macOS 10.15, *) {
-            NSWorkspace.shared.openApplication(at: appURL, configuration: NSWorkspace.OpenConfiguration()) { _, error in
-                if let error {
-                    seal.reject(error)
-                }
-                seal.fulfill(())
+        NSWorkspace.shared.openApplication(at: appURL, configuration: NSWorkspace.OpenConfiguration()) { _, error in
+            if let error {
+                seal.reject(error)
             }
-        } else {
-            try NSWorkspace.shared.launchApplication(at: appURL, configuration: [:])
             seal.fulfill(())
         }
     }
