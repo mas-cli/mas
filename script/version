@@ -8,7 +8,18 @@
 
 . "${0:a:h}/_setup_script"
 
-branch="${"$(git rev-parse --abbrev-ref HEAD)":/main}"
+# Check if on a tag
+tag_at_head=$(git describe --exact-match --tags HEAD 2>/dev/null)
+if [[ -n "$tag_at_head" ]]; then
+  # Show version without branch prefix
+  printf $'%s\n' "${tag_at_head#v}"
+  exit 0
+fi
+
+branch="$(git rev-parse --abbrev-ref HEAD)"
+if [[ "${branch}" == "main" ]]; then
+  branch=""
+fi
 
 if [[ "${branch}" = HEAD ]]; then
   if git merge-base --is-ancestor HEAD main; then
