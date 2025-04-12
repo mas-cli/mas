@@ -25,7 +25,7 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
     ///   - region: The `ISORegion` of the storefront in which to lookup apps.
     /// - Returns: A `SearchResult` for the given `appID` if `appID` is valid.
     /// - Throws: A `MASError.unknownAppID(appID)` if `appID` is invalid.
-    ///   Some other `Error` if any problems occur.
+    ///   Some other `Error` if any other problem occurs.
     func lookup(appID: AppID, inRegion region: ISORegion?) async throws -> SearchResult {
         guard let url = lookupURL(forAppID: appID, inRegion: region) else {
             fatalError("Failed to build URL for \(appID)")
@@ -43,7 +43,7 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
     ///   - searchTerm: Term for which to search.
     ///   - region: The `ISORegion` of the storefront in which to search for apps.
     /// - Returns: An `Array` of `SearchResult`s matching `searchTerm`.
-    /// - Throws: An `Error` if any problems occur.
+    /// - Throws: An `Error` if any problem occurs.
     func search(for searchTerm: String, inRegion region: ISORegion?) async throws -> [SearchResult] {
         // Search for apps for compatible platforms, in order of preference.
         // Macs with Apple Silicon can run iPad and iPhone apps.
@@ -77,7 +77,7 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
     ///
     /// - Parameters:
     ///   - searchTerm: term for which to search in MAS.
-    ///   - region: 2-letter ISO region code of the MAS in which to search.
+    ///   - region: The `ISORegion` of the storefront in which to lookup apps.
     ///   - entity: OS platform of apps for which to search.
     /// - Returns: URL for the search service or nil if searchTerm can't be encoded.
     func searchURL(
@@ -92,7 +92,7 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
     ///
     /// - Parameters:
     ///   - appID: App ID.
-    ///   - region: 2-letter ISO region code of the MAS in which to search.
+    ///   - region: The `ISORegion` of the storefront in which to lookup apps.
     ///   - entity: OS platform of apps for which to search.
     /// - Returns: URL for the lookup service or nil if appID can't be encoded.
     private func lookupURL(
