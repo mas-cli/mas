@@ -57,10 +57,16 @@ extension SSPurchase {
             CKPurchaseController.shared()
                 .perform(self, withOptions: 0) { purchase, _, error, response in
                     if let error {
-                        continuation.resume(throwing: MASError.purchaseFailed(error: error as NSError?))
+                        continuation.resume(throwing: MASError.purchaseFailed(error: error as NSError))
                     } else if response?.downloads.isEmpty == false, let purchase {
-                        PurchaseDownloadObserver(purchase: purchase).observeDownloadQueue()
-                        continuation.resume()
+                        Task {
+                            do {
+                                try await PurchaseDownloadObserver(purchase: purchase).observeDownloadQueue()
+                                continuation.resume()
+                            } catch {
+                                continuation.resume(throwing: MASError.purchaseFailed(error: error as NSError))
+                            }
+                        }
                     } else {
                         continuation.resume(throwing: MASError.noDownloads)
                     }
