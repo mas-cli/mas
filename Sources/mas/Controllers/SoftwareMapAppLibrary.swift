@@ -24,7 +24,7 @@ struct SoftwareMapAppLibrary: AppLibrary {
     /// Uninstalls all apps located at any of the elements of `appPaths`.
     ///
     /// - Parameter appPaths: Paths to apps to be uninstalled.
-    /// - Throws: Error if any problem occurs.
+    /// - Throws: An `Error` if any problem occurs.
     func uninstallApps(atPaths appPaths: [String]) throws {
         try delete(pathsFromOwnerIDsByPath: try chown(paths: appPaths))
     }
