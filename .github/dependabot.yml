@@ -14,9 +14,6 @@ updates:
     schedule:
       interval: daily
     directory: /
-    ignore:
-      - dependency-name: quick
-        update-types: [major, minor]
     labels: [📚 dependencies]
     commit-message:
       prefix: ⬆️
