@@ -10,6 +10,7 @@ import CommerceKit
 
 private let downloadingPhase = 0 as Int64
 private let installingPhase = 1 as Int64
+private let initialPhase = 4 as Int64
 private let downloadedPhase = 5 as Int64
 
 class PurchaseDownloadObserver: CKDownloadQueueObserver {
@@ -39,6 +40,11 @@ class PurchaseDownloadObserver: CKDownloadQueueObserver {
         } else {
             if priorPhaseType != status.activePhase.phaseType {
                 switch status.activePhase.phaseType {
+                case downloadingPhase:
+                    if priorPhaseType == initialPhase {
+                        clearLine()
+                        printInfo("Downloading \(download.progressDescription)")
+                    }
                 case downloadedPhase:
                     if priorPhaseType == downloadingPhase {
                         clearLine()
@@ -56,12 +62,8 @@ class PurchaseDownloadObserver: CKDownloadQueueObserver {
         }
     }
 
-    func downloadQueue(_: CKDownloadQueue, changedWithAddition download: SSDownload) {
-        guard download.metadata.itemIdentifier == purchase.itemIdentifier else {
-            return
-        }
-        clearLine()
-        printInfo("Downloading \(download.progressDescription)")
+    func downloadQueue(_: CKDownloadQueue, changedWithAddition _: SSDownload) {
+        // do nothing
     }
 
     func downloadQueue(_: CKDownloadQueue, changedWithRemoval download: SSDownload) {
@@ -74,7 +76,7 @@ class PurchaseDownloadObserver: CKDownloadQueueObserver {
 
         clearLine()
         if status.isFailed {
-            errorHandler?(.downloadFailed(error: status.error as NSError?))
+            errorHandler?(.downloadFailed(error: status.error as NSError))
         } else if status.isCancelled {
             errorHandler?(.cancelled)
         } else {
@@ -133,14 +135,17 @@ private extension SSDownloadPhase {
 }
 
 extension PurchaseDownloadObserver {
-    func observeDownloadQueue(_ downloadQueue: CKDownloadQueue = CKDownloadQueue.shared()) {
+    func observeDownloadQueue(_ downloadQueue: CKDownloadQueue = CKDownloadQueue.shared()) async throws {
         let observerID = downloadQueue.add(self)
-        completionHandler = {
-            downloadQueue.remove(observerID)
-        }
-        errorHandler = { _ in
-            downloadQueue.remove(observerID)
-            // ROSS: throw error handler argument
+        defer { downloadQueue.remove(observerID) }
+
+        try await withCheckedThrowingContinuation { continuation in
+            completionHandler = {
+                continuation.resume()
+            }
+            errorHandler = { error in
+                continuation.resume(throwing: error)
+            }
         }
     }
 }
