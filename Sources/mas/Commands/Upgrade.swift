@@ -16,6 +16,9 @@ extension MAS {
             abstract: "Upgrade outdated app(s) installed from the Mac App Store"
         )
 
+        @Flag(help: "Display warnings about apps unknown to the Mac App Store")
+        var verbose = false
+
         @Argument(help: ArgumentHelp("App ID/app name", valueName: "app-id-or-name"))
         var appIDOrNames = [String]()
 
@@ -25,35 +28,31 @@ extension MAS {
         }
 
         func run(appLibrary: AppLibrary, searcher: AppStoreSearcher) async throws {
+            let apps = await findOutdatedApps(appLibrary: appLibrary, searcher: searcher)
+
+            guard !apps.isEmpty else {
+                return
+            }
+
+            print("Upgrading \(apps.count) outdated application\(apps.count > 1 ? "s" : ""):")
+            print(
+                apps.map { installedApp, storeApp in
+                    "\(storeApp.trackName) (\(installedApp.bundleVersion)) -> (\(storeApp.version))"
+                }
+                .joined(separator: "\n")
+            )
+
             do {
-                let apps = try await findOutdatedApps(appLibrary: appLibrary, searcher: searcher)
-
-                guard !apps.isEmpty else {
-                    return
-                }
-
-                print("Upgrading \(apps.count) outdated application\(apps.count > 1 ? "s" : ""):")
-                print(
-                    apps.map { installedApp, storeApp in
-                        "\(storeApp.trackName) (\(installedApp.bundleVersion)) -> (\(storeApp.version))"
-                    }
-                    .joined(separator: "\n")
-                )
-
-                do {
-                    try await downloadApps(withAppIDs: apps.map(\.storeApp.trackId))
-                } catch {
-                    throw error as? MASError ?? .downloadFailed(error: error as NSError)
-                }
+                try await downloadApps(withAppIDs: apps.map(\.storeApp.trackId))
             } catch {
-                throw error as? MASError ?? .searchFailed
+                throw error as? MASError ?? .downloadFailed(error: error as NSError)
             }
         }
 
         private func findOutdatedApps(
             appLibrary: AppLibrary,
             searcher: AppStoreSearcher
-        ) async throws -> [(installedApp: SoftwareProduct, storeApp: SearchResult)] {
+        ) async -> [(installedApp: SoftwareProduct, storeApp: SearchResult)] {
             let apps =
                 appIDOrNames.isEmpty
                 ? appLibrary.installedApps
@@ -75,11 +74,27 @@ extension MAS {
                     return installedApps
                 }
 
-            var outdatedApps: [(SoftwareProduct, SearchResult)] = []
+            var outdatedApps = [(SoftwareProduct, SearchResult)]()
             for installedApp in apps {
-                let storeApp = try await searcher.lookup(appID: installedApp.itemIdentifier.appIDValue)
-                if installedApp.isOutdated(comparedTo: storeApp) {
-                    outdatedApps.append((installedApp, storeApp))
+                do {
+                    let storeApp = try await searcher.lookup(appID: installedApp.itemIdentifier.appIDValue)
+                    if installedApp.isOutdated(comparedTo: storeApp) {
+                        outdatedApps.append((installedApp, storeApp))
+                    }
+                } catch {
+                    guard case MASError.unknownAppID = error else {
+                        printError(String(describing: error))
+                        continue
+                    }
+
+                    if verbose {
+                        printWarning(
+                            """
+                            Identifier \(installedApp.itemIdentifier) not found in store. \
+                            Was expected to identify \(installedApp.displayName).
+                            """
+                        )
+                    }
                 }
             }
             return outdatedApps

@@ -73,7 +73,7 @@ private func chown(paths: [String]) throws -> [String: (uid_t, gid_t)] {
 }
 
 private func delete(pathsFromOwnerIDsByPath ownerIDsByPath: [String: (uid_t, gid_t)]) throws {
-    guard let finder: FinderApplication = SBApplication(bundleIdentifier: "com.apple.finder") else {
+    guard let finder = SBApplication(bundleIdentifier: "com.apple.finder") as FinderApplication? else {
         throw MASError.runtimeError("Failed to obtain Finder access: com.apple.finder does not exist")
     }
 
