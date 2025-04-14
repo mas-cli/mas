@@ -19,7 +19,6 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.5.0"),
         .package(url: "https://github.com/funky-monkey/IsoCountryCodes.git", from: "1.0.2"),
         .package(url: "https://github.com/mxcl/Version.git", from: "2.1.0"),
-        .package(url: "https://github.com/sharplet/Regex.git", from: "2.1.1"),
     ],
     targets: [
         .executableTarget(
@@ -27,7 +26,6 @@ let package = Package(
             dependencies: [
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 "IsoCountryCodes",
-                "Regex",
                 "Version",
             ],
             swiftSettings: [
