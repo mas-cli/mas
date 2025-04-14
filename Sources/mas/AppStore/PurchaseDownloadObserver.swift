@@ -14,13 +14,13 @@ private let initialPhase = 4 as Int64
 private let downloadedPhase = 5 as Int64
 
 class PurchaseDownloadObserver: CKDownloadQueueObserver {
-    private let purchase: SSPurchase
+    private let appID: AppID
     private var completionHandler: (() -> Void)?
     private var errorHandler: ((MASError) -> Void)?
     private var priorPhaseType: Int64?
 
-    init(purchase: SSPurchase) {
-        self.purchase = purchase
+    init(appID: AppID) {
+        self.appID = appID
     }
 
     deinit {
@@ -29,7 +29,7 @@ class PurchaseDownloadObserver: CKDownloadQueueObserver {
 
     func downloadQueue(_ queue: CKDownloadQueue, statusChangedFor download: SSDownload) {
         guard
-            download.metadata.itemIdentifier == purchase.itemIdentifier,
+            download.metadata.itemIdentifier == appID,
             let status = download.status
         else {
             return
@@ -68,7 +68,7 @@ class PurchaseDownloadObserver: CKDownloadQueueObserver {
 
     func downloadQueue(_: CKDownloadQueue, changedWithRemoval download: SSDownload) {
         guard
-            download.metadata.itemIdentifier == purchase.itemIdentifier,
+            download.metadata.itemIdentifier == appID,
             let status = download.status
         else {
             return
