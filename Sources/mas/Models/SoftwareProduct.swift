@@ -21,10 +21,6 @@ protocol SoftwareProduct {
 }
 
 extension SoftwareProduct {
-    var displayName: String {
-        appName
-    }
-
     /// Determines whether the app is considered outdated.
     ///
     /// Updates that require a higher OS version are excluded.

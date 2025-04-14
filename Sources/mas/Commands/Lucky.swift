@@ -61,8 +61,8 @@ extension MAS {
         /// - Throws: Any error that occurs while attempting to install the app.
         private func install(appID: AppID, appLibrary: AppLibrary) async throws {
             // Try to download applications with given identifiers and collect results
-            if let displayName = appLibrary.installedApps(withAppID: appID).first?.displayName, !force {
-                printWarning("\(displayName) is already installed")
+            if let appName = appLibrary.installedApps(withAppID: appID).first?.appName, !force {
+                printWarning("\(appName) is already installed")
             } else {
                 do {
                     try await downloadApps(withAppIDs: [appID])

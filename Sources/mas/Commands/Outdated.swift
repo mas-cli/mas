@@ -31,7 +31,7 @@ extension MAS {
                     if installedApp.isOutdated(comparedTo: storeApp) {
                         print(
                             """
-                            \(installedApp.itemIdentifier) \(installedApp.displayName) \
+                            \(installedApp.itemIdentifier) \(installedApp.appName) \
                             (\(installedApp.bundleVersion) -> \(storeApp.version))
                             """
                         )
@@ -41,7 +41,7 @@ extension MAS {
                         printWarning(
                             """
                             Identifier \(installedApp.itemIdentifier) not found in store. \
-                            Was expected to identify \(installedApp.displayName).
+                            Was expected to identify \(installedApp.appName).
                             """
                         )
                     }

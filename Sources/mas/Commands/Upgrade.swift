@@ -91,7 +91,7 @@ extension MAS {
                         printWarning(
                             """
                             Identifier \(installedApp.itemIdentifier) not found in store. \
-                            Was expected to identify \(installedApp.displayName).
+                            Was expected to identify \(installedApp.appName).
                             """
                         )
                     }
