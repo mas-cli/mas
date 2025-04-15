@@ -93,7 +93,7 @@ extension MAS {
                         )
                     }
                 } catch {
-                    printError(String(describing: error))
+                    printError(error)
                 }
             }
             return outdatedApps
