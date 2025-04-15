@@ -23,7 +23,7 @@ struct NetworkManager {
             let url = URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("Library/Caches/com.mphys.mas-cli")
             try FileManager.default.removeItem(at: url)
         } catch {
-            // Ignore
+            // do nothing
         }
     }
 

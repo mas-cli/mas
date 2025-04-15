@@ -25,8 +25,10 @@ extension MAS {
 
             do {
                 print(try ISStoreAccount.primaryAccount.identifier)
+            } catch let error as MASError {
+                throw error
             } catch {
-                throw error as? MASError ?? MASError.failed(error: error as NSError)
+                throw MASError.failed(error: error as NSError)
             }
         }
     }

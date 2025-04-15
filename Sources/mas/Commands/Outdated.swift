@@ -36,11 +36,11 @@ extension MAS {
                             """
                         )
                     }
-                } catch MASError.unknownAppID(_) {
+                } catch MASError.unknownAppID(let unknownAppID) {
                     if verbose {
                         printWarning(
                             """
-                            Identifier \(installedApp.itemIdentifier) not found in store. \
+                            Identifier \(unknownAppID) not found in store. \
                             Was expected to identify \(installedApp.appName).
                             """
                         )

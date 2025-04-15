@@ -34,8 +34,10 @@ extension MAS {
 
                 let output = SearchResultFormatter.format(results: results, includePrice: price)
                 print(output)
+            } catch let error as MASError {
+                throw error
             } catch {
-                throw error as? MASError ?? .searchFailed
+                throw MASError.searchFailed
             }
         }
     }
