@@ -21,8 +21,7 @@ enum AppListFormatter {
         var output = ""
 
         for product in products {
-            let appID = product.itemIdentifier.stringValue
-                .padding(toLength: idColumnMinWidth, withPad: " ", startingAt: 0)
+            let appID = product.appID.description.padding(toLength: idColumnMinWidth, withPad: " ", startingAt: 0)
             let appName = product.appName.padding(toLength: maxLength, withPad: " ", startingAt: 0)
             let version = product.bundleVersion
 

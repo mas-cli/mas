@@ -11,13 +11,12 @@ import Version
 
 /// Protocol describing the members of CKSoftwareProduct used throughout mas.
 protocol SoftwareProduct: Sendable {
+    var appID: AppID { get set }
     var appName: String { get }
     // periphery:ignore
     var bundleIdentifier: String { get set }
     var bundlePath: String { get set }
     var bundleVersion: String { get set }
-    // swiftlint:disable:next legacy_objc_type
-    var itemIdentifier: NSNumber { get set }
 }
 
 extension SoftwareProduct {

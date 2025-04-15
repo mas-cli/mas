@@ -79,7 +79,7 @@ extension MAS {
             var outdatedApps = [(SoftwareProduct, SearchResult)]()
             for installedApp in apps {
                 do {
-                    let storeApp = try await searcher.lookup(appID: installedApp.itemIdentifier.appIDValue)
+                    let storeApp = try await searcher.lookup(appID: installedApp.appID)
                     if installedApp.isOutdated(comparedTo: storeApp) {
                         outdatedApps.append((installedApp, storeApp))
                     }

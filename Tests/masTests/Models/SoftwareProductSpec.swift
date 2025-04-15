@@ -14,11 +14,11 @@ import Quick
 public final class SoftwareProductSpec: AsyncSpec {
     override public static func spec() {
         let app = SimpleSoftwareProduct(
+            appID: 111,
             appName: "App",
             bundleIdentifier: "",
             bundlePath: "",
-            bundleVersion: "1.0.0",
-            itemIdentifier: 111
+            bundleVersion: "1.0.0"
         )
 
         describe("software product") {

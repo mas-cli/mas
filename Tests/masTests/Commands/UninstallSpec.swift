@@ -16,11 +16,11 @@ public final class UninstallSpec: AsyncSpec {
     override public static func spec() {
         let appID = 12345 as AppID
         let app = SimpleSoftwareProduct(
+            appID: appID,
             appName: "Some App",
             bundleIdentifier: "com.some.app",
             bundlePath: "/tmp/Some.app",
-            bundleVersion: "1.0",
-            itemIdentifier: NSNumber(value: appID)
+            bundleVersion: "1.0"
         )
 
         xdescribe("uninstall command") {

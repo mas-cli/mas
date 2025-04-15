@@ -27,9 +27,7 @@ extension AppLibrary {
     /// - Parameter appID: app ID for app(s).
     /// - Returns: [SoftwareProduct] of matching apps.
     func installedApps(withAppID appID: AppID) -> [SoftwareProduct] {
-        // swiftlint:disable:next legacy_objc_type
-        let appID = NSNumber(value: appID)
-        return installedApps.filter { $0.itemIdentifier == appID }
+        installedApps.filter { $0.appID == appID }
     }
 
     /// Finds all installed instances of apps whose name is `appName`.

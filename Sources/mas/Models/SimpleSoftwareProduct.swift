@@ -9,10 +9,9 @@
 import Foundation
 
 struct SimpleSoftwareProduct: SoftwareProduct {
+    var appID: AppID
     var appName: String
     var bundleIdentifier: String
     var bundlePath: String
     var bundleVersion: String
-    // swiftlint:disable:next legacy_objc_type
-    var itemIdentifier: NSNumber
 }
