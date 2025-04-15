@@ -11,13 +11,11 @@ import StoreKit
 enum Storefront {
     static var isoRegion: ISORegion? {
         if let storefront = SKPaymentQueue.default().storefront {
-            return findISORegion(forAlpha3Code: storefront.countryCode)
+            findISORegion(forAlpha3Code: storefront.countryCode)
+        } else if let alpha2 = Locale.autoupdatingCurrent.regionCode {
+            findISORegion(forAlpha2Code: alpha2)
+        } else {
+            nil
         }
-
-        guard let alpha2 = Locale.autoupdatingCurrent.regionCode else {
-            return nil
-        }
-
-        return findISORegion(forAlpha2Code: alpha2)
     }
 }

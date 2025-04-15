@@ -23,10 +23,10 @@ extension Bundle {
     /// - Parameter fileName: Name of file to locate.
     /// - Returns: URL to file.
     static func url(for fileName: String) -> URL {
-        guard let url = Bundle.module.url(forResource: fileName, withExtension: nil, subdirectory: "JSON") else {
+        if let url = Bundle.module.url(forResource: fileName, withExtension: nil, subdirectory: "JSON") {
+            url
+        } else {
             fatalError("Unable to load file \(fileName)")
         }
-
-        return url
     }
 }

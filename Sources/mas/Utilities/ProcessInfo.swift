@@ -14,16 +14,18 @@ extension ProcessInfo {
     }
 
     var sudoUID: uid_t? {
-        guard let uid = environment["SUDO_UID"] else {
-            return nil
+        if let uid = environment["SUDO_UID"] {
+            uid_t(uid)
+        } else {
+            nil
         }
-        return uid_t(uid)
     }
 
     var sudoGID: gid_t? {
-        guard let gid = environment["SUDO_GID"] else {
-            return nil
+        if let gid = environment["SUDO_GID"] {
+            gid_t(gid)
+        } else {
+            nil
         }
-        return gid_t(gid)
     }
 }

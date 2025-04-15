@@ -41,6 +41,8 @@ file_types_order:
     ]
 number_separator:
   minimum_length: 6
+opening_brace:
+  ignore_multiline_statement_conditions: true
 type_contents_order:
   order:
     [
