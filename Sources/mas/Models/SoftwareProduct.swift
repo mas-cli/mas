@@ -10,7 +10,7 @@ import Foundation
 import Version
 
 /// Protocol describing the members of CKSoftwareProduct used throughout mas.
-protocol SoftwareProduct {
+protocol SoftwareProduct: Sendable {
     var appName: String { get }
     // periphery:ignore
     var bundleIdentifier: String { get set }

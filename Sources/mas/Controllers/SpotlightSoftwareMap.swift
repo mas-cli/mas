@@ -9,51 +9,63 @@
 
 import Foundation
 
-struct SpotlightSoftwareMap: SoftwareMap {
+class SpotlightSoftwareMap: SoftwareMap {
+    private var observer: NSObjectProtocol?
+
+    deinit {
+        // do nothing
+    }
+
+    @MainActor
     func allSoftwareProducts() async -> [SoftwareProduct] {
-        await withCheckedContinuation { continuation in
-            DispatchQueue.main.async {
-                let query = NSMetadataQuery()
-                query.predicate = NSPredicate(format: "kMDItemAppStoreAdamID LIKE '*'")
-                query.searchScopes = ["/Applications"]
+        defer {
+            if let observer {
+                NotificationCenter.default.removeObserver(observer)
+            }
+        }
 
-                var observer: NSObjectProtocol?
-                observer = NotificationCenter.default.addObserver(
-                    forName: Notification.Name.NSMetadataQueryDidFinishGathering,
-                    object: query,
-                    queue: .main
-                ) { [weak observer] _ in
-                    query.stop()
-                    if let observer {
-                        NotificationCenter.default.removeObserver(observer)
-                    }
+        let query = NSMetadataQuery()
+        query.predicate = NSPredicate(format: "kMDItemAppStoreAdamID LIKE '*'")
+        query.searchScopes = ["/Applications"]
 
-                    continuation.resume(
-                        returning: query.results.compactMap { result in
-                            guard let result = result as? NSMetadataItem else {
-                                return nil
-                            }
-
-                            return SimpleSoftwareProduct(
-                                appName:
-                                    (result.value(forAttribute: "_kMDItemDisplayNameWithExtensions") as? String ?? "")
-                                    .removeSuffix(".app"),
-                                bundleIdentifier:
-                                    result.value(forAttribute: kMDItemCFBundleIdentifier as String) as? String ?? "",
-                                bundlePath:
-                                    result.value(forAttribute: kMDItemPath as String) as? String ?? "",
-                                bundleVersion:
-                                    result.value(forAttribute: kMDItemVersion as String) as? String ?? "",
-                                itemIdentifier:
-                                    // swiftlint:disable:next legacy_objc_type
-                                    result.value(forAttribute: "kMDItemAppStoreAdamID") as? NSNumber ?? 0
-                            )
-                        }
-                    )
+        return await withCheckedContinuation { continuation in
+            observer = NotificationCenter.default.addObserver(
+                forName: .NSMetadataQueryDidFinishGathering,
+                object: query,
+                queue: nil
+            ) { notification in
+                guard let query = notification.object as? NSMetadataQuery else {
+                    continuation.resume(returning: [])
+                    return
                 }
 
-                query.start()
+                query.stop()
+
+                continuation.resume(
+                    returning: query.results.compactMap { result in
+                        guard let result = result as? NSMetadataItem else {
+                            return nil
+                        }
+
+                        return SimpleSoftwareProduct(
+                            appName:
+                                (result.value(forAttribute: "_kMDItemDisplayNameWithExtensions") as? String ?? "")
+                                .removeSuffix(".app"),
+                            bundleIdentifier:
+                                result.value(forAttribute: kMDItemCFBundleIdentifier as String) as? String ?? "",
+                            bundlePath:
+                                result.value(forAttribute: kMDItemPath as String) as? String ?? "",
+                            bundleVersion:
+                                result.value(forAttribute: kMDItemVersion as String) as? String ?? "",
+                            itemIdentifier:
+                                // swiftlint:disable:next legacy_objc_type
+                                result.value(forAttribute: "kMDItemAppStoreAdamID") as? NSNumber ?? 0
+                        )
+                    }
+                )
             }
+
+            query.start()
         }
     }
 }
