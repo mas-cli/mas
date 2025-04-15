@@ -9,4 +9,4 @@
 import StoreFoundation
 
 // MARK: - SoftwareProduct
-extension CKSoftwareProduct: SoftwareProduct {}
+extension CKSoftwareProduct: SoftwareProduct, @retroactive @unchecked Sendable {}

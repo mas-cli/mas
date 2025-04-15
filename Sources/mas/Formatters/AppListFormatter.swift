@@ -15,18 +15,18 @@ enum AppListFormatter {
     /// - Parameter products: List of software products app data.
     /// - Returns: Multiline text output.
     static func format(products: [SoftwareProduct]) -> String {
-        // find longest displayName for formatting
-        let maxLength = products.map(\.displayName.count).max() ?? 0
+        // find longest appName for formatting
+        let maxLength = products.map(\.appName.count).max() ?? 0
 
         var output = ""
 
         for product in products {
             let appID = product.itemIdentifier.stringValue
                 .padding(toLength: idColumnMinWidth, withPad: " ", startingAt: 0)
-            let displayName = product.displayName.padding(toLength: maxLength, withPad: " ", startingAt: 0)
+            let appName = product.appName.padding(toLength: maxLength, withPad: " ", startingAt: 0)
             let version = product.bundleVersion
 
-            output += "\(appID)  \(displayName)  (\(version))\n"
+            output += "\(appID)  \(appName)  (\(version))\n"
         }
 
         return output.trimmingCharacters(in: .newlines)

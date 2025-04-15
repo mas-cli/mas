@@ -46,15 +46,6 @@
       }
     },
     {
-      "identity" : "regex",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/sharplet/Regex.git",
-      "state" : {
-        "revision" : "76c2b73d4281d77fc3118391877efd1bf972f515",
-        "version" : "2.1.1"
-      }
-    },
-    {
       "identity" : "swift-argument-parser",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-argument-parser.git",

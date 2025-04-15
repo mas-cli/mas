@@ -52,7 +52,7 @@ extension MAS {
 }
 
 private func configStringValue(_ name: String) -> String {
-    var size = MemoryLayout<Int32>.size
+    var size = 0
     guard sysctlbyname(name, nil, &size, nil, 0) == 0 else {
         perror("sysctlbyname")
         return unknown
@@ -64,5 +64,5 @@ private func configStringValue(_ name: String) -> String {
         return unknown
     }
 
-    return String(cString: buffer)
+    return String(cString: buffer, encoding: .utf8) ?? unknown
 }

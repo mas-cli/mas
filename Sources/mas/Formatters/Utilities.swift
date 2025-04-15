@@ -13,55 +13,61 @@ import Foundation
 /// Terminal Control Sequence Indicator.
 private let csi = "\u{001B}["
 
-private var standardError = FileHandleTextOutputStream(FileHandle.standardError)
+// periphery:ignore
+func print(_ items: Any..., to fileHandle: FileHandle, separator: String = " ", terminator: String = "\n") {
+    print(message(items, separator: separator, terminator: terminator), to: fileHandle)
+}
 
-private struct FileHandleTextOutputStream: TextOutputStream {
-    private let fileHandle: FileHandle
-
-    init(_ fileHandle: FileHandle) {
-        self.fileHandle = fileHandle
-    }
-
-    /// Appends the given string to the stream.
-    func write(_ string: String) {
-        guard let data = string.data(using: .utf8) else {
-            return
-        }
+func print(_ message: String, to fileHandle: FileHandle) {
+    if let data = message.data(using: .utf8) {
         fileHandle.write(data)
     }
 }
 
-/// Prints a message to stdout prefixed with a blue arrow.
-func printInfo(_ message: String) {
+/// Prints to stdout prefixed with a blue arrow.
+func printInfo(_ items: Any..., separator: String = " ", terminator: String = "\n") {
     guard isatty(fileno(stdout)) != 0 else {
-        print("==> \(message)")
+        print("==> \(message(items, separator: separator, terminator: terminator))", terminator: "")
         return
     }
 
     // Blue bold arrow, Bold text
-    print("\(csi)1;34m==>\(csi)0m \(csi)1m\(message)\(csi)0m")
+    print(
+        "\(csi)1;34m==>\(csi)0m \(csi)1m\(message(items, separator: separator, terminator: terminator))\(csi)0m",
+        terminator: ""
+    )
 }
 
-/// Prints a message to stderr prefixed with "Warning:" underlined in yellow.
-func printWarning(_ message: String) {
+/// Prints to stderr prefixed with "Warning:" underlined in yellow.
+func printWarning(_ items: Any..., separator: String = " ", terminator: String = "\n") {
     guard isatty(fileno(stderr)) != 0 else {
-        print("Warning: \(message)", to: &standardError)
+        print("Warning: \(message(items, separator: separator, terminator: terminator))", to: FileHandle.standardError)
         return
     }
 
     // Yellow, underlined "Warning:" prefix
-    print("\(csi)4;33mWarning:\(csi)0m \(message)", to: &standardError)
+    print(
+        "\(csi)4;33mWarning:\(csi)0m \(message(items, separator: separator, terminator: terminator))",
+        to: FileHandle.standardError
+    )
 }
 
-/// Prints a message to stderr prefixed with "Error:" underlined in red.
-func printError(_ message: String) {
+/// Prints to stderr prefixed with "Error:" underlined in red.
+func printError(_ items: Any..., separator: String = " ", terminator: String = "\n") {
     guard isatty(fileno(stderr)) != 0 else {
-        print("Error: \(message)", to: &standardError)
+        print("Error: \(message(items, separator: separator, terminator: terminator))", to: FileHandle.standardError)
         return
     }
 
     // Red, underlined "Error:" prefix
-    print("\(csi)4;31mError:\(csi)0m \(message)", to: &standardError)
+    print(
+        "\(csi)4;31mError:\(csi)0m \(message(items, separator: separator, terminator: terminator))",
+        to: FileHandle.standardError
+    )
+}
+
+private func message(_ items: Any..., separator: String = " ", terminator: String = "\n") -> String {
+    items.map { String(describing: $0) }.joined(separator: separator).appending(terminator)
 }
 
 /// Flushes stdout.
