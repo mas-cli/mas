@@ -8,7 +8,6 @@
 
 import StoreFoundation
 
-// MARK: - SoftwareProduct
 extension CKSoftwareProduct: SoftwareProduct, @retroactive @unchecked Sendable {
     var appID: AppID {
         get { itemIdentifier.appIDValue }
