@@ -45,67 +45,73 @@ extension MASError: CustomStringConvertible {
     var description: String {
         switch self {
         case .notSignedIn:
-            return "Not signed in"
+            "Not signed in"
         case .noPasswordProvided:
-            return "No password provided"
+            "No password provided"
         case .notSupported:
-            return """
-                This command is not supported on this macOS version due to changes in macOS. \
-                For more information see: \
-                https://github.com/mas-cli/mas#known-issues
-                """
+            """
+            This command is not supported on this macOS version due to changes in macOS. \
+            For more information see: \
+            https://github.com/mas-cli/mas#known-issues
+            """
         case .failed(let error):
             if let error {
-                return "Failed: \(error.localizedDescription)"
+                "Failed: \(error.localizedDescription)"
+            } else {
+                "Failed"
             }
-            return "Failed"
         case .runtimeError(let message):
-            return "Runtime Error: \(message)"
+            "Runtime Error: \(message)"
         case .signInFailed(let error):
             if let error {
-                return "Sign in failed: \(error.localizedDescription)"
+                "Sign in failed: \(error.localizedDescription)"
+            } else {
+                "Sign in failed"
             }
-            return "Sign in failed"
         case .alreadySignedIn(let appleID):
-            return "Already signed in as \(appleID)"
+            "Already signed in as \(appleID)"
         case .purchaseFailed(let error):
             if let error {
-                return "Download request failed: \(error.localizedDescription)"
+                "Download request failed: \(error.localizedDescription)"
+            } else {
+                "Download request failed"
             }
-            return "Download request failed"
         case .downloadFailed(let error):
             if let error {
-                return "Download failed: \(error.localizedDescription)"
+                "Download failed: \(error.localizedDescription)"
+            } else {
+                "Download failed"
             }
-            return "Download failed"
         case .noDownloads:
-            return "No downloads began"
+            "No downloads began"
         case .cancelled:
-            return "Download cancelled"
+            "Download cancelled"
         case .searchFailed:
-            return "Search failed"
+            "Search failed"
         case .noSearchResultsFound:
-            return "No apps found"
+            "No apps found"
         case .unknownAppID(let appID):
-            return appID.unknownMessage
+            appID.unknownMessage
         case .noVendorWebsite:
-            return "App does not have a vendor website"
+            "App does not have a vendor website"
         case .notInstalled(let appID):
-            return "No apps installed with app ID \(appID)"
+            "No apps installed with app ID \(appID)"
         case .uninstallFailed(let error):
             if let error {
-                return "Uninstall failed: \(error.localizedDescription)"
+                "Uninstall failed: \(error.localizedDescription)"
+            } else {
+                "Uninstall failed"
             }
-            return "Uninstall failed"
         case .macOSUserMustBeRoot:
-            return "Apps installed from the Mac App Store require root permission to remove."
+            "Apps installed from the Mac App Store require root permission to remove."
         case .noData:
-            return "Service did not return data"
+            "Service did not return data"
         case .jsonParsing(let data):
             if let unparsable = String(data: data, encoding: .utf8) {
-                return "Unable to parse response as JSON:\n\(unparsable)"
+                "Unable to parse response as JSON:\n\(unparsable)"
+            } else {
+                "Unable to parse response as JSON"
             }
-            return "Received defective response"
         }
     }
 }
