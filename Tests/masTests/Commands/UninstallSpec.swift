@@ -25,32 +25,50 @@ public final class UninstallSpec: AsyncSpec {
 
         xdescribe("uninstall command") {
             context("dry run") {
-                let uninstall = try! MAS.Uninstall.parse(["--dry-run", String(appID)])
-
                 it("can't remove a missing app") {
-                    await expecta(await consequencesOf(try uninstall.run(appLibrary: MockAppLibrary())))
+                    await expecta(
+                        await consequencesOf(
+                            try await MAS.Uninstall.parse(["--dry-run", String(appID)])
+                                .run(appLibrary: MockAppLibrary())
+                        )
+                    )
                         == (MASError.notInstalled(appID: appID), "", "")
                 }
                 it("finds an app") {
-                    await expecta(await consequencesOf(try uninstall.run(appLibrary: MockAppLibrary(app))))
+                    await expecta(
+                        await consequencesOf(
+                            try await MAS.Uninstall.parse(["--dry-run", String(appID)])
+                                .run(appLibrary: MockAppLibrary(app))
+                        )
+                    )
                         == (nil, "==> 'Some App' '/tmp/Some.app'\n==> (not removed, dry run)\n", "")
                 }
             }
             context("wet run") {
-                let uninstall = try! MAS.Uninstall.parse([String(appID)])
-
                 it("can't remove a missing app") {
-                    await expecta(await consequencesOf(try uninstall.run(appLibrary: MockAppLibrary())))
+                    await expecta(
+                        await consequencesOf(
+                            try await MAS.Uninstall.parse([String(appID)]).run(appLibrary: MockAppLibrary())
+                        )
+                    )
                         == (MASError.notInstalled(appID: appID), "", "")
                 }
                 it("removes an app") {
-                    await expecta(await consequencesOf(try uninstall.run(appLibrary: MockAppLibrary(app))))
+                    await expecta(
+                        await consequencesOf(
+                            try await MAS.Uninstall.parse([String(appID)]).run(appLibrary: MockAppLibrary(app))
+                        )
+                    )
                         == (nil, "", "")
                 }
                 it("fails if there is a problem with the trash command") {
                     var brokenApp = app
                     brokenApp.bundlePath = "/dev/null"
-                    await expecta(await consequencesOf(try uninstall.run(appLibrary: MockAppLibrary(brokenApp))))
+                    await expecta(
+                        await consequencesOf(
+                            try await MAS.Uninstall.parse([String(appID)]).run(appLibrary: MockAppLibrary(brokenApp))
+                        )
+                    )
                         == (MASError.uninstallFailed(error: nil), "", "")
                 }
             }

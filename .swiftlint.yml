@@ -13,10 +13,8 @@ disabled_rules:
   # eventually enable
   - file_header
   - one_declaration_per_file
-  - prefer_key_path
   - trailing_comma
   # never enable
-  - closure_body_length
   - contrasted_opening_brace
   - explicit_acl
   - explicit_enum_raw_value
@@ -28,6 +26,8 @@ disabled_rules:
   - prefixed_toplevel_constant
   - sorted_enum_cases
   - vertical_whitespace_between_cases
+closure_body_length:
+  warning: 40
 file_name:
   excluded: [Finder.swift, Utilities.swift]
 file_types_order:

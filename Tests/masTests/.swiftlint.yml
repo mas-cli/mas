@@ -7,12 +7,16 @@
 # https://github.com/realm/SwiftLint#configuration
 #
 ---
+opt_in_rules:
+  - closure_body_length
 disabled_rules:
-  - force_cast
   - force_try
-  - function_body_length
-  - implicitly_unwrapped_optional
-  - large_tuple
-  - quick_discouraged_call
   - quick_discouraged_pending_test
   - required_deinit
+closure_body_length:
+  warning: 80
+function_body_length:
+  warning: 80
+large_tuple:
+  warning: 5
+  error: 10
