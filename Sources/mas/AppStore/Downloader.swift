@@ -65,7 +65,7 @@ private func downloadApp(withAppID appID: AppID, purchasing: Bool, withAttemptCo
 
         let attemptCount = attemptCount - 1
         printWarning(downloadError.localizedDescription)
-        printWarning("Trying again up to \(attemptCount) more \(attemptCount == 1 ? "time" : "times").")
+        printWarning("Retrying… \(attemptCount) attempt\(attemptCount == 1 ? "" : "s") remaining.")
         try await downloadApp(withAppID: appID, purchasing: purchasing, withAttemptCount: attemptCount)
     }
 }
