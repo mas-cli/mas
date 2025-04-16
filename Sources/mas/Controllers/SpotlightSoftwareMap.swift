@@ -42,20 +42,20 @@ class SpotlightSoftwareMap: SoftwareMap {
 
                 continuation.resume(
                     returning: query.results.compactMap { result in
-                        if let result = result as? NSMetadataItem {
+                        if let item = result as? NSMetadataItem {
                             // swift-format-ignore
                             SimpleSoftwareProduct(
                                 appID:
-                                    result.value(forAttribute: "kMDItemAppStoreAdamID") as? AppID ?? 0,
+                                    item.value(forAttribute: "kMDItemAppStoreAdamID") as? AppID ?? 0,
                                 appName:
-                                    (result.value(forAttribute: "_kMDItemDisplayNameWithExtensions") as? String ?? "")
+                                    (item.value(forAttribute: "_kMDItemDisplayNameWithExtensions") as? String ?? "")
                                     .removeSuffix(".app"),
                                 bundleIdentifier:
-                                    result.value(forAttribute: kMDItemCFBundleIdentifier as String) as? String ?? "",
+                                    item.value(forAttribute: kMDItemCFBundleIdentifier as String) as? String ?? "",
                                 bundlePath:
-                                    result.value(forAttribute: kMDItemPath as String) as? String ?? "",
+                                    item.value(forAttribute: kMDItemPath as String) as? String ?? "",
                                 bundleVersion:
-                                    result.value(forAttribute: kMDItemVersion as String) as? String ?? ""
+                                    item.value(forAttribute: kMDItemVersion as String) as? String ?? ""
                             )
                         } else {
                             nil
