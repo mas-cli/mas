@@ -57,13 +57,14 @@ private func downloadApp(withAppID appID: AppID, purchasing: Bool, withAttemptCo
         // If the download failed due to network issues, try again. Otherwise, fail immediately.
         guard
             case MASError.downloadFailed(let downloadError) = error,
-            case NSURLErrorDomain = downloadError?.domain
+            let downloadError,
+            downloadError.domain == NSURLErrorDomain
         else {
             throw error
         }
 
         let attemptCount = attemptCount - 1
-        printWarning((downloadError ?? error).localizedDescription)
+        printWarning(downloadError.localizedDescription)
         printWarning("Trying again up to \(attemptCount) more \(attemptCount == 1 ? "time" : "times").")
         try await downloadApp(withAppID: appID, purchasing: purchasing, withAttemptCount: attemptCount)
     }
