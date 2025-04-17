@@ -8,10 +8,10 @@
 
 import CommerceKit
 
-private let downloadingPhase = 0 as Int64
-private let installingPhase = 1 as Int64
-private let initialPhase = 4 as Int64
-private let downloadedPhase = 5 as Int64
+private let downloadingPhaseType = 0 as Int64
+private let installingPhaseType = 1 as Int64
+private let initialPhaseType = 4 as Int64
+private let downloadedPhaseType = 5 as Int64
 
 class PurchaseDownloadObserver: CKDownloadQueueObserver {
     private let appID: AppID
@@ -40,17 +40,17 @@ class PurchaseDownloadObserver: CKDownloadQueueObserver {
         } else {
             if priorPhaseType != status.activePhase.phaseType {
                 switch status.activePhase.phaseType {
-                case downloadingPhase:
-                    if priorPhaseType == initialPhase {
+                case downloadingPhaseType:
+                    if priorPhaseType == initialPhaseType {
                         clearLine()
                         printInfo("Downloading \(download.progressDescription)")
                     }
-                case downloadedPhase:
-                    if priorPhaseType == downloadingPhase {
+                case downloadedPhaseType:
+                    if priorPhaseType == downloadingPhaseType {
                         clearLine()
                         printInfo("Downloaded \(download.progressDescription)")
                     }
-                case installingPhase:
+                case installingPhaseType:
                     clearLine()
                     printInfo("Installing \(download.progressDescription)")
                 default:
@@ -124,9 +124,9 @@ private extension SSDownloadStatus {
 private extension SSDownloadPhase {
     var phaseDescription: String {
         switch phaseType {
-        case downloadingPhase:
+        case downloadingPhaseType:
             "Downloading"
-        case installingPhase:
+        case installingPhaseType:
             "Installing"
         default:
             "Waiting"
