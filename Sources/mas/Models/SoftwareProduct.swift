@@ -42,16 +42,18 @@ extension SoftwareProduct {
 
         // The App Store does not enforce semantic versioning, but we assume most apps follow versioning
         // schemes that increase numerically over time.
-        guard
-            let semanticBundleVersion = Version(tolerant: bundleVersion),
-            let semanticAppStoreVersion = Version(tolerant: storeApp.version)
-        else {
-            // If a version string can't be parsed as a Semantic Version, our best effort is to check for
-            // equality. The only version that matters is the one in the App Store.
-            // https://semver.org
-            return bundleVersion != storeApp.version
-        }
-
-        return semanticBundleVersion < semanticAppStoreVersion
+        // swift-format-ignore
+        return
+            if
+                let semanticBundleVersion = Version(tolerant: bundleVersion),
+                let semanticAppStoreVersion = Version(tolerant: storeApp.version)
+            {
+                semanticBundleVersion < semanticAppStoreVersion
+            } else {
+                // If a version string can't be parsed as a Semantic Version, our best effort is to
+                // check for equality. The only version that matters is the one in the App Store.
+                // https://semver.org
+                bundleVersion != storeApp.version
+            }
     }
 }

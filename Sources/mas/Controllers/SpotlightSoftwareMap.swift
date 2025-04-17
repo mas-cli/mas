@@ -1,4 +1,3 @@
-// swift-format-ignore-file
 //
 //  SpotlightSoftwareMap.swift
 //  mas
@@ -43,24 +42,25 @@ class SpotlightSoftwareMap: SoftwareMap {
 
                 continuation.resume(
                     returning: query.results.compactMap { result in
-                        guard let result = result as? NSMetadataItem else {
-                            return nil
+                        if let result = result as? NSMetadataItem {
+                            // swift-format-ignore
+                            SimpleSoftwareProduct(
+                                appName:
+                                    (result.value(forAttribute: "_kMDItemDisplayNameWithExtensions") as? String ?? "")
+                                    .removeSuffix(".app"),
+                                bundleIdentifier:
+                                    result.value(forAttribute: kMDItemCFBundleIdentifier as String) as? String ?? "",
+                                bundlePath:
+                                    result.value(forAttribute: kMDItemPath as String) as? String ?? "",
+                                bundleVersion:
+                                    result.value(forAttribute: kMDItemVersion as String) as? String ?? "",
+                                itemIdentifier:
+                                    // swiftlint:disable:next legacy_objc_type
+                                    result.value(forAttribute: "kMDItemAppStoreAdamID") as? NSNumber ?? 0
+                            )
+                        } else {
+                            nil
                         }
-
-                        return SimpleSoftwareProduct(
-                            appName:
-                                (result.value(forAttribute: "_kMDItemDisplayNameWithExtensions") as? String ?? "")
-                                .removeSuffix(".app"),
-                            bundleIdentifier:
-                                result.value(forAttribute: kMDItemCFBundleIdentifier as String) as? String ?? "",
-                            bundlePath:
-                                result.value(forAttribute: kMDItemPath as String) as? String ?? "",
-                            bundleVersion:
-                                result.value(forAttribute: kMDItemVersion as String) as? String ?? "",
-                            itemIdentifier:
-                                // swiftlint:disable:next legacy_objc_type
-                                result.value(forAttribute: "kMDItemAppStoreAdamID") as? NSNumber ?? 0
-                        )
                     }
                 )
             }

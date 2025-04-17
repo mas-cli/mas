@@ -125,11 +125,11 @@ private extension SSDownloadPhase {
     var phaseDescription: String {
         switch phaseType {
         case downloadingPhase:
-            return "Downloading"
+            "Downloading"
         case installingPhase:
-            return "Installing"
+            "Installing"
         default:
-            return "Waiting"
+            "Waiting"
         }
     }
 }

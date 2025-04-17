@@ -144,9 +144,9 @@ private enum URLAction {
     var queryItemName: String {
         switch self {
         case .lookup:
-            return "id"
+            "id"
         case .search:
-            return "term"
+            "term"
         }
     }
 }
