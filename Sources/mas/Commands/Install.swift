@@ -39,8 +39,10 @@ extension MAS {
 
             do {
                 try await downloadApps(withAppIDs: appIDs, verifiedBy: searcher)
+            } catch let error as MASError {
+                throw error
             } catch {
-                throw error as? MASError ?? .downloadFailed(error: error as NSError)
+                throw MASError.downloadFailed(error: error as NSError)
             }
         }
     }

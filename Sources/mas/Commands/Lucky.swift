@@ -42,8 +42,10 @@ extension MAS {
                 }
 
                 appID = result.trackId
+            } catch let error as MASError {
+                throw error
             } catch {
-                throw error as? MASError ?? .searchFailed
+                throw MASError.searchFailed
             }
 
             guard let appID else {
@@ -66,8 +68,10 @@ extension MAS {
             } else {
                 do {
                     try await downloadApps(withAppIDs: [appID])
+                } catch let error as MASError {
+                    throw error
                 } catch {
-                    throw error as? MASError ?? .downloadFailed(error: error as NSError)
+                    throw MASError.downloadFailed(error: error as NSError)
                 }
             }
         }

@@ -15,15 +15,13 @@ enum AppInfoFormatter {
     /// - Parameter app: Search result with app data.
     /// - Returns: Multiline text output.
     static func format(app: SearchResult) -> String {
-        let headline = [
-            "\(app.trackName)",
-            "\(app.version)",
-            "[\(app.displayPrice)]",
-        ]
-        .joined(separator: " ")
-
-        return [
-            headline,
+        [
+            [
+                "\(app.trackName)",
+                "\(app.version)",
+                "[\(app.displayPrice)]",
+            ]
+            .joined(separator: " "),
             "By: \(app.sellerName)",
             "Released: \(humanReadableDate(app.currentVersionReleaseDate))",
             "Minimum OS: \(app.minimumOsVersion)",
@@ -38,8 +36,7 @@ enum AppInfoFormatter {
     /// - Parameter size: Numeric string.
     /// - Returns: Formatted file size description.
     private static func humanReadableSize(_ size: String) -> String {
-        let bytesSize = Int64(size) ?? 0
-        return ByteCountFormatter.string(fromByteCount: bytesSize, countStyle: .file)
+        ByteCountFormatter.string(fromByteCount: Int64(size) ?? 0, countStyle: .file)
     }
 
     /// Formats a date in  format.

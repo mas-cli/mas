@@ -40,7 +40,6 @@ enum MASError: Error, Equatable {
     case jsonParsing(data: Data)
 }
 
-// MARK: - CustomStringConvertible
 extension MASError: CustomStringConvertible {
     var description: String {
         switch self {

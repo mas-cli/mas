@@ -26,44 +26,41 @@ func print(_ message: String, to fileHandle: FileHandle) {
 
 /// Prints to stdout prefixed with a blue arrow.
 func printInfo(_ items: Any..., separator: String = " ", terminator: String = "\n") {
-    guard isatty(fileno(stdout)) != 0 else {
+    if isatty(fileno(stdout)) != 0 {
+        // Blue bold arrow, Bold text
+        print(
+            "\(csi)1;34m==>\(csi)0m \(csi)1m\(message(items, separator: separator, terminator: terminator))\(csi)0m",
+            terminator: ""
+        )
+    } else {
         print("==> \(message(items, separator: separator, terminator: terminator))", terminator: "")
-        return
     }
-
-    // Blue bold arrow, Bold text
-    print(
-        "\(csi)1;34m==>\(csi)0m \(csi)1m\(message(items, separator: separator, terminator: terminator))\(csi)0m",
-        terminator: ""
-    )
 }
 
 /// Prints to stderr prefixed with "Warning:" underlined in yellow.
 func printWarning(_ items: Any..., separator: String = " ", terminator: String = "\n") {
-    guard isatty(fileno(stderr)) != 0 else {
+    if isatty(fileno(stderr)) != 0 {
+        // Yellow, underlined "Warning:" prefix
+        print(
+            "\(csi)4;33mWarning:\(csi)0m \(message(items, separator: separator, terminator: terminator))",
+            to: FileHandle.standardError
+        )
+    } else {
         print("Warning: \(message(items, separator: separator, terminator: terminator))", to: FileHandle.standardError)
-        return
     }
-
-    // Yellow, underlined "Warning:" prefix
-    print(
-        "\(csi)4;33mWarning:\(csi)0m \(message(items, separator: separator, terminator: terminator))",
-        to: FileHandle.standardError
-    )
 }
 
 /// Prints to stderr prefixed with "Error:" underlined in red.
 func printError(_ items: Any..., separator: String = " ", terminator: String = "\n") {
-    guard isatty(fileno(stderr)) != 0 else {
+    if isatty(fileno(stderr)) != 0 {
+        // Red, underlined "Error:" prefix
+        print(
+            "\(csi)4;31mError:\(csi)0m \(message(items, separator: separator, terminator: terminator))",
+            to: FileHandle.standardError
+        )
+    } else {
         print("Error: \(message(items, separator: separator, terminator: terminator))", to: FileHandle.standardError)
-        return
     }
-
-    // Red, underlined "Error:" prefix
-    print(
-        "\(csi)4;31mError:\(csi)0m \(message(items, separator: separator, terminator: terminator))",
-        to: FileHandle.standardError
-    )
 }
 
 private func message(_ items: Any..., separator: String = " ", terminator: String = "\n") -> String {
@@ -72,10 +69,8 @@ private func message(_ items: Any..., separator: String = " ", terminator: Strin
 
 /// Flushes stdout.
 func clearLine() {
-    guard isatty(fileno(stdout)) != 0 else {
-        return
+    if isatty(fileno(stdout)) != 0 {
+        print("\(csi)2K\(csi)0G", terminator: "")
+        fflush(stdout)
     }
-
-    print("\(csi)2K\(csi)0G", terminator: "")
-    fflush(stdout)
 }

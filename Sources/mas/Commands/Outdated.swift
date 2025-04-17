@@ -27,20 +27,20 @@ extension MAS {
         func run(appLibrary: AppLibrary, searcher: AppStoreSearcher) async throws {
             for installedApp in appLibrary.installedApps {
                 do {
-                    let storeApp = try await searcher.lookup(appID: installedApp.itemIdentifier.appIDValue)
+                    let storeApp = try await searcher.lookup(appID: installedApp.appID)
                     if installedApp.isOutdated(comparedTo: storeApp) {
                         print(
                             """
-                            \(installedApp.itemIdentifier) \(installedApp.appName) \
+                            \(installedApp.appID) \(installedApp.appName) \
                             (\(installedApp.bundleVersion) -> \(storeApp.version))
                             """
                         )
                     }
-                } catch MASError.unknownAppID(_) {
+                } catch MASError.unknownAppID(let unknownAppID) {
                     if verbose {
                         printWarning(
                             """
-                            Identifier \(installedApp.itemIdentifier) not found in store. \
+                            Identifier \(unknownAppID) not found in store. \
                             Was expected to identify \(installedApp.appName).
                             """
                         )

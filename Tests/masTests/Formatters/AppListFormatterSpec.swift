@@ -22,11 +22,11 @@ public final class AppListFormatterSpec: AsyncSpec {
             }
             it("can format a single product") {
                 let product = SimpleSoftwareProduct(
+                    appID: 12345,
                     appName: "Awesome App",
                     bundleIdentifier: "",
                     bundlePath: "",
-                    bundleVersion: "19.2.1",
-                    itemIdentifier: 12345
+                    bundleVersion: "19.2.1"
                 )
                 await expecta(await consequencesOf(format([product])))
                     == ("12345       Awesome App  (19.2.1)", nil, "", "")
@@ -37,18 +37,18 @@ public final class AppListFormatterSpec: AsyncSpec {
                         format(
                             [
                                 SimpleSoftwareProduct(
+                                    appID: 12345,
                                     appName: "Awesome App",
                                     bundleIdentifier: "",
                                     bundlePath: "",
-                                    bundleVersion: "19.2.1",
-                                    itemIdentifier: 12345
+                                    bundleVersion: "19.2.1"
                                 ),
                                 SimpleSoftwareProduct(
+                                    appID: 67890,
                                     appName: "Even Better App",
                                     bundleIdentifier: "",
                                     bundlePath: "",
-                                    bundleVersion: "1.2.0",
-                                    itemIdentifier: 67890
+                                    bundleVersion: "1.2.0"
                                 ),
                             ]
                         )

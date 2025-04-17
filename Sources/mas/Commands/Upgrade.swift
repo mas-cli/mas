@@ -44,8 +44,10 @@ extension MAS {
 
             do {
                 try await downloadApps(withAppIDs: apps.map(\.storeApp.trackId))
+            } catch let error as MASError {
+                throw error
             } catch {
-                throw error as? MASError ?? .downloadFailed(error: error as NSError)
+                throw MASError.downloadFailed(error: error as NSError)
             }
         }
 
@@ -77,24 +79,21 @@ extension MAS {
             var outdatedApps = [(SoftwareProduct, SearchResult)]()
             for installedApp in apps {
                 do {
-                    let storeApp = try await searcher.lookup(appID: installedApp.itemIdentifier.appIDValue)
+                    let storeApp = try await searcher.lookup(appID: installedApp.appID)
                     if installedApp.isOutdated(comparedTo: storeApp) {
                         outdatedApps.append((installedApp, storeApp))
                     }
-                } catch {
-                    guard case MASError.unknownAppID = error else {
-                        printError(String(describing: error))
-                        continue
-                    }
-
+                } catch MASError.unknownAppID(let unknownAppID) {
                     if verbose {
                         printWarning(
                             """
-                            Identifier \(installedApp.itemIdentifier) not found in store. \
+                            Identifier \(unknownAppID) not found in store. \
                             Was expected to identify \(installedApp.appName).
                             """
                         )
                     }
+                } catch {
+                    printError(error)
                 }
             }
             return outdatedApps

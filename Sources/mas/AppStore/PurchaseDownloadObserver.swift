@@ -8,16 +8,16 @@
 
 import CommerceKit
 
-private let downloadingPhase = 0 as Int64
-private let installingPhase = 1 as Int64
-private let initialPhase = 4 as Int64
-private let downloadedPhase = 5 as Int64
+private let downloadingPhaseType = 0 as Int64
+private let installingPhaseType = 1 as Int64
+private let initialPhaseType = 4 as Int64
+private let downloadedPhaseType = 5 as Int64
 
 class PurchaseDownloadObserver: CKDownloadQueueObserver {
     private let appID: AppID
     private var completionHandler: (() -> Void)?
     private var errorHandler: ((MASError) -> Void)?
-    private var priorPhaseType: Int64?
+    private var prevPhaseType: Int64?
 
     init(appID: AppID) {
         self.appID = appID
@@ -38,25 +38,27 @@ class PurchaseDownloadObserver: CKDownloadQueueObserver {
         if status.isFailed || status.isCancelled {
             queue.removeDownload(withItemIdentifier: download.metadata.itemIdentifier)
         } else {
-            if priorPhaseType != status.activePhase.phaseType {
-                switch status.activePhase.phaseType {
-                case downloadingPhase:
-                    if priorPhaseType == initialPhase {
+            let currPhaseType = status.activePhase.phaseType
+            let prevPhaseType = prevPhaseType
+            if prevPhaseType != currPhaseType {
+                switch currPhaseType {
+                case downloadingPhaseType:
+                    if prevPhaseType == initialPhaseType {
                         clearLine()
                         printInfo("Downloading \(download.progressDescription)")
                     }
-                case downloadedPhase:
-                    if priorPhaseType == downloadingPhase {
+                case downloadedPhaseType:
+                    if prevPhaseType == downloadingPhaseType {
                         clearLine()
                         printInfo("Downloaded \(download.progressDescription)")
                     }
-                case installingPhase:
+                case installingPhaseType:
                     clearLine()
                     printInfo("Installing \(download.progressDescription)")
                 default:
                     break
                 }
-                priorPhaseType = status.activePhase.phaseType
+                self.prevPhaseType = currPhaseType
             }
             progress(status.progressState)
         }
@@ -124,9 +126,9 @@ private extension SSDownloadStatus {
 private extension SSDownloadPhase {
     var phaseDescription: String {
         switch phaseType {
-        case downloadingPhase:
+        case downloadingPhaseType:
             "Downloading"
-        case installingPhase:
+        case installingPhaseType:
             "Installing"
         default:
             "Waiting"
@@ -137,13 +139,19 @@ private extension SSDownloadPhase {
 extension PurchaseDownloadObserver {
     func observeDownloadQueue(_ downloadQueue: CKDownloadQueue = CKDownloadQueue.shared()) async throws {
         let observerID = downloadQueue.add(self)
-        defer { downloadQueue.remove(observerID) }
+        defer {
+            downloadQueue.remove(observerID)
+        }
 
         try await withCheckedThrowingContinuation { continuation in
             completionHandler = {
+                self.completionHandler = nil
+                self.errorHandler = nil
                 continuation.resume()
             }
             errorHandler = { error in
+                self.completionHandler = nil
+                self.errorHandler = nil
                 continuation.resume(throwing: error)
             }
         }

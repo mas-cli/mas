@@ -35,11 +35,11 @@ public final class OutdatedSpec: AsyncSpec {
                             .run(
                                 appLibrary: MockAppLibrary(
                                     SimpleSoftwareProduct(
+                                        appID: mockSearchResult.trackId,
                                         appName: mockSearchResult.trackName,
                                         bundleIdentifier: "au.id.haroldchu.mac.Bandwidth",
                                         bundlePath: "/Applications/Bandwidth+.app",
-                                        bundleVersion: "1.27",
-                                        itemIdentifier: NSNumber(value: mockSearchResult.trackId)
+                                        bundleVersion: "1.27"
                                     )
                                 ),
                                 searcher: MockAppStoreSearcher([mockSearchResult.trackId: mockSearchResult])

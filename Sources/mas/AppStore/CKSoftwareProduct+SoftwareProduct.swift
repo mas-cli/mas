@@ -8,5 +8,10 @@
 
 import StoreFoundation
 
-// MARK: - SoftwareProduct
-extension CKSoftwareProduct: SoftwareProduct, @retroactive @unchecked Sendable {}
+extension CKSoftwareProduct: SoftwareProduct, @retroactive @unchecked Sendable {
+    var appID: AppID {
+        get { itemIdentifier.appIDValue }
+        // swiftlint:disable:next legacy_objc_type
+        set { itemIdentifier = NSNumber(value: newValue) }
+    }
+}
