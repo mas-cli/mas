@@ -139,7 +139,9 @@ private extension SSDownloadPhase {
 extension PurchaseDownloadObserver {
     func observeDownloadQueue(_ downloadQueue: CKDownloadQueue = CKDownloadQueue.shared()) async throws {
         let observerID = downloadQueue.add(self)
-        defer { downloadQueue.remove(observerID) }
+        defer {
+            downloadQueue.remove(observerID)
+        }
 
         try await withCheckedThrowingContinuation { continuation in
             completionHandler = {
