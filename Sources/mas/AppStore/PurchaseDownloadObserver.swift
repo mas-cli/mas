@@ -38,8 +38,10 @@ class PurchaseDownloadObserver: CKDownloadQueueObserver {
         if status.isFailed || status.isCancelled {
             queue.removeDownload(withItemIdentifier: download.metadata.itemIdentifier)
         } else {
-            if prevPhaseType != status.activePhase.phaseType {
-                switch status.activePhase.phaseType {
+            let currPhaseType = status.activePhase.phaseType
+            let prevPhaseType = prevPhaseType
+            if prevPhaseType != currPhaseType {
+                switch currPhaseType {
                 case downloadingPhaseType:
                     if prevPhaseType == initialPhaseType {
                         clearLine()
@@ -56,7 +58,7 @@ class PurchaseDownloadObserver: CKDownloadQueueObserver {
                 default:
                     break
                 }
-                prevPhaseType = status.activePhase.phaseType
+                self.prevPhaseType = currPhaseType
             }
             progress(status.progressState)
         }
