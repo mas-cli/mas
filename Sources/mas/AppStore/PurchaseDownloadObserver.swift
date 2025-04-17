@@ -145,9 +145,13 @@ extension PurchaseDownloadObserver {
 
         try await withCheckedThrowingContinuation { continuation in
             completionHandler = {
+                self.completionHandler = nil
+                self.errorHandler = nil
                 continuation.resume()
             }
             errorHandler = { error in
+                self.completionHandler = nil
+                self.errorHandler = nil
                 continuation.resume(throwing: error)
             }
         }
