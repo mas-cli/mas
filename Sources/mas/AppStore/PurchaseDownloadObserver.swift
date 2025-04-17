@@ -17,7 +17,7 @@ class PurchaseDownloadObserver: CKDownloadQueueObserver {
     private let appID: AppID
     private var completionHandler: (() -> Void)?
     private var errorHandler: ((MASError) -> Void)?
-    private var priorPhaseType: Int64?
+    private var prevPhaseType: Int64?
 
     init(appID: AppID) {
         self.appID = appID
@@ -38,15 +38,15 @@ class PurchaseDownloadObserver: CKDownloadQueueObserver {
         if status.isFailed || status.isCancelled {
             queue.removeDownload(withItemIdentifier: download.metadata.itemIdentifier)
         } else {
-            if priorPhaseType != status.activePhase.phaseType {
+            if prevPhaseType != status.activePhase.phaseType {
                 switch status.activePhase.phaseType {
                 case downloadingPhaseType:
-                    if priorPhaseType == initialPhaseType {
+                    if prevPhaseType == initialPhaseType {
                         clearLine()
                         printInfo("Downloading \(download.progressDescription)")
                     }
                 case downloadedPhaseType:
-                    if priorPhaseType == downloadingPhaseType {
+                    if prevPhaseType == downloadingPhaseType {
                         clearLine()
                         printInfo("Downloaded \(download.progressDescription)")
                     }
@@ -56,7 +56,7 @@ class PurchaseDownloadObserver: CKDownloadQueueObserver {
                 default:
                     break
                 }
-                priorPhaseType = status.activePhase.phaseType
+                prevPhaseType = status.activePhase.phaseType
             }
             progress(status.progressState)
         }
