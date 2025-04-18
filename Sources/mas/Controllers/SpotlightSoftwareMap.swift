@@ -25,7 +25,20 @@ class SpotlightSoftwareMap: SoftwareMap {
 
         let query = NSMetadataQuery()
         query.predicate = NSPredicate(format: "kMDItemAppStoreAdamID LIKE '*'")
-        query.searchScopes = ["/Applications"]
+
+        do {
+            query.searchScopes =
+                try FileManager.default
+                .contentsOfDirectory(at: URL(fileURLWithPath: "/Volumes"), includingPropertiesForKeys: [])
+                .compactMap { url in
+                    let applicationsURL = url.appendingPathComponent("Applications")
+                    return applicationsURL.hasDirectoryPath
+                        ? applicationsURL
+                        : nil
+                }
+        } catch {
+            query.searchScopes = ["/Applications"]
+        }
 
         return await withCheckedContinuation { continuation in
             observer = NotificationCenter.default.addObserver(
