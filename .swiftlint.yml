@@ -39,6 +39,8 @@ file_types_order:
       [preview_provider],
       [library_content_provider],
     ]
+function_body_length:
+  warning: 55
 number_separator:
   minimum_length: 6
 opening_brace:
