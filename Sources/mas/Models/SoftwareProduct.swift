@@ -9,7 +9,7 @@
 import Foundation
 import Version
 
-/// Protocol describing the members of CKSoftwareProduct used throughout mas.
+/// Protocol describing the members of an installed MAS app.
 protocol SoftwareProduct: Sendable {
     var appID: AppID { get }
     var appName: String { get }
