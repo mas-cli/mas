@@ -15,8 +15,8 @@ public final class ITunesSearchAppStoreSearcherSpec: AsyncSpec {
     override public static func spec() {
         describe("url string") {
             it("contains the search term") {
-                await expecta(
-                    await consequencesOf(
+                expect(
+                    consequencesOf(
                         ITunesSearchAppStoreSearcher()
                             .searchURL(
                                 for: "myapp",
@@ -33,8 +33,8 @@ public final class ITunesSearchAppStoreSearcherSpec: AsyncSpec {
                     )
             }
             it("contains the encoded search term") {
-                await expecta(
-                    await consequencesOf(
+                expect(
+                    consequencesOf(
                         ITunesSearchAppStoreSearcher()
                             .searchURL(
                                 for: "My App",
@@ -59,10 +59,10 @@ public final class ITunesSearchAppStoreSearcherSpec: AsyncSpec {
                     let searcher = ITunesSearchAppStoreSearcher(networkManager: NetworkManager(session: networkSession))
 
                     let consequences = await consequencesOf(try await searcher.search(for: "slack"))
-                    await expecta(consequences.value).to(haveCount(39))
-                    await expecta(consequences.error) == nil
-                    await expecta(consequences.stdout).to(beEmpty())
-                    await expecta(consequences.stderr).to(beEmpty())
+                    expect(consequences.value).to(haveCount(39))
+                    expect(consequences.error) == nil
+                    expect(consequences.stdout).to(beEmpty())
+                    expect(consequences.stderr).to(beEmpty())
                 }
             }
 
@@ -73,20 +73,20 @@ public final class ITunesSearchAppStoreSearcherSpec: AsyncSpec {
                     let searcher = ITunesSearchAppStoreSearcher(networkManager: NetworkManager(session: networkSession))
 
                     let consequences = await consequencesOf(try await searcher.lookup(appID: appID))
-                    await expecta(consequences.error) == nil
-                    await expecta(consequences.stdout).to(beEmpty())
-                    await expecta(consequences.stderr).to(beEmpty())
+                    expect(consequences.error) == nil
+                    expect(consequences.stdout).to(beEmpty())
+                    expect(consequences.stderr).to(beEmpty())
 
                     guard let result = consequences.value else {
                         fatalError("lookup result was nil")
                     }
 
-                    await expecta(result.trackId) == appID
-                    await expecta(result.sellerName) == "Slack Technologies, Inc."
-                    await expecta(result.sellerUrl) == "https://slack.com"
-                    await expecta(result.trackName) == "Slack"
-                    await expecta(result.trackViewUrl) == "https://itunes.apple.com/us/app/slack/id803453959?mt=12&uo=4"
-                    await expecta(result.version) == "3.3.3"
+                    expect(result.trackId) == appID
+                    expect(result.sellerName) == "Slack Technologies, Inc."
+                    expect(result.sellerUrl) == "https://slack.com"
+                    expect(result.trackName) == "Slack"
+                    expect(result.trackViewUrl) == "https://itunes.apple.com/us/app/slack/id803453959?mt=12&uo=4"
+                    expect(result.version) == "3.3.3"
                 }
             }
         }

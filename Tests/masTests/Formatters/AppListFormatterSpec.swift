@@ -11,14 +11,14 @@ import Quick
 
 @testable import mas
 
-public final class AppListFormatterSpec: AsyncSpec {
+public final class AppListFormatterSpec: QuickSpec {
     override public static func spec() {
         // static func reference
         let format = AppListFormatter.format(products:)
 
         describe("app list formatter") {
             it("formats nothing as empty string") {
-                await expecta(await consequencesOf(format([]))) == ("", nil, "", "")
+                expect(consequencesOf(format([]))) == ("", nil, "", "")
             }
             it("can format a single product") {
                 let product = SimpleSoftwareProduct(
@@ -28,12 +28,12 @@ public final class AppListFormatterSpec: AsyncSpec {
                     bundlePath: "",
                     bundleVersion: "19.2.1"
                 )
-                await expecta(await consequencesOf(format([product])))
+                expect(consequencesOf(format([product])))
                     == ("12345       Awesome App  (19.2.1)", nil, "", "")
             }
             it("can format two products") {
-                await expecta(
-                    await consequencesOf(
+                expect(
+                    consequencesOf(
                         format(
                             [
                                 SimpleSoftwareProduct(
