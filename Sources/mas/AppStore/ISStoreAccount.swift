@@ -10,12 +10,10 @@ import CommerceKit
 
 extension ISStoreAccount {
     static var primaryAccount: ISStoreAccount {
-        get throws {
-            guard let account = ISServiceProxy.genericShared().storeClient?.primaryAccount else {
-                throw MASError.notSignedIn
+        get async {
+            await withCheckedContinuation { continuation in
+                ISServiceProxy.genericShared().accountService.primaryAccount { continuation.resume(returning: $0) }
             }
-
-            return account
         }
     }
 }

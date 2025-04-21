@@ -11,11 +11,11 @@ import Quick
 
 @testable import mas
 
-public final class AccountSpec: QuickSpec {
+public final class AccountSpec: AsyncSpec {
     override public static func spec() {
         describe("account command") {
             it("displays not supported warning") {
-                expect(consequencesOf(try MAS.Account.parse([]).run()))
+                await expecta(await consequencesOf(try await MAS.Account.parse([]).run()))
                     == (error: MASError.notSupported, stdout: "", stderr: "")
             }
         }
