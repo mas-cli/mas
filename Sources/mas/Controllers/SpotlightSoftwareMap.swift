@@ -64,11 +64,11 @@ class SpotlightSoftwareMap: SoftwareMap {
                                     (item.value(forAttribute: "_kMDItemDisplayNameWithExtensions") as? String ?? "")
                                     .removeSuffix(".app"),
                                 bundleIdentifier:
-                                    item.value(forAttribute: kMDItemCFBundleIdentifier as String) as? String ?? "",
+                                    item.value(forAttribute: NSMetadataItemCFBundleIdentifierKey) as? String ?? "",
                                 bundlePath:
-                                    item.value(forAttribute: kMDItemPath as String) as? String ?? "",
+                                    item.value(forAttribute: NSMetadataItemPathKey) as? String ?? "",
                                 bundleVersion:
-                                    item.value(forAttribute: kMDItemVersion as String) as? String ?? ""
+                                    item.value(forAttribute: NSMetadataItemVersionKey) as? String ?? ""
                             )
                         } else {
                             nil
