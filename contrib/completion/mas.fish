@@ -23,7 +23,7 @@ end
 complete -c mas -f
 
 ### account
-complete -c mas -n "__fish_use_subcommand" -f -a account -d "Display the Apple ID signed in in the Mac App Store"
+complete -c mas -n "__fish_use_subcommand" -f -a account -d "Display the Apple Account signed in to the Mac App Store"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "account"
 ### config
 complete -c mas -n "__fish_use_subcommand" -f -a config -d "Display mas config & related system info"
@@ -71,11 +71,11 @@ complete -c mas -n "__fish_use_subcommand" -f -a search -d "Search for apps from
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "search"
 complete -c mas -n "__fish_seen_subcommand_from search" -l price -d "Display the price of each app"
 ### signin
-complete -c mas -n "__fish_use_subcommand" -f -a signin -d "Sign in to an Apple ID in the Mac App Store"
+complete -c mas -n "__fish_use_subcommand" -f -a signin -d "Sign in to an Apple Account in the Mac App Store"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "signin"
 complete -c mas -n "__fish_seen_subcommand_from signin" -l dialog -d "Provide password via graphical dialog"
 ### signout
-complete -c mas -n "__fish_use_subcommand" -f -a signout -d "Sign out of the Apple ID currently signed in in the Mac App Store"
+complete -c mas -n "__fish_use_subcommand" -f -a signout -d "Sign out of the Apple Account currently signed in to the Mac App Store"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "signout"
 ### uninstall
 complete -c mas -n "__fish_use_subcommand" -f -a uninstall -d "Uninstall app installed from the Mac App Store"

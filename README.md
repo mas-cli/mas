@@ -83,7 +83,7 @@ Alternatively, to find an app's app ID:
 
 ### 🛍 Info from the Mac App Store
 
-None of the commands in this section require you to be logged into an Apple ID,
+None of the commands in this section require you to be logged into an Apple Account,
 neither for your macOS user, nor in the Mac App Store.
 
 #### `mas search`
@@ -115,7 +115,7 @@ From: https://apps.apple.com/us/app/xcode/id497799835?mt=12&uo=4
 
 ### 📚 Info from Your Local App Library
 
-All the commands in this section require you to be logged into an Apple ID for your macOS user.
+All the commands in this section require you to be logged into an Apple Account for your macOS user.
 
 #### `mas list`
 
@@ -142,10 +142,10 @@ Run [`mas upgrade`](#mas-upgrade) to install pending upgrades.
 
 ### ⬇️ Installing Apps
 
-All the commands in this section require you to be logged into an Apple ID in the Mac App Store.
+All the commands in this section require you to be logged into an Apple Account in the Mac App Store.
 
-> Depending on your Apple ID settings, you might need to re-authenticate yourself in the Mac App Store to perform a
-> purchase, install, lucky, or upgrade, even if you are already signed in to an Apple ID in the Mac App Store.
+> Depending on your Apple Account settings, you might need to re-authenticate yourself in the Mac App Store to perform a
+> purchase, install, lucky, or upgrade, even if you are already signed in to an Apple Account in the Mac App Store.
 
 #### `mas purchase`
 
@@ -184,7 +184,7 @@ $ mas lucky Xcode
 
 ### 🆕 Upgrading Apps
 
-All the commands in this section require you to be logged into an Apple ID in the Mac App Store.
+All the commands in this section require you to be logged into an Apple Account in the Mac App Store.
 
 > mas only installs/upgrades applications from the Mac App Store.
 >
@@ -218,15 +218,15 @@ Xcode (15.4) -> (16.0)
 
 ### Mac App Store Account Management
 
-All the commands in this section interact with the Apple ID for which you are signed in in the Mac App Store.
-These commands do not interact with the Apple ID for which your macOS user is signed in.
+All the commands in this section interact with the Apple Account for which you are signed in to the Mac App Store.
+These commands do not interact with the Apple Account for which your macOS user is signed in.
 
 #### `mas signin`
 
 > ⛔ The `signin` command is not supported on macOS 10.13 (High Sierra) or newer. On those macOS versions, please
 > sign in via the Mac App Store instead. Please see [Known Issues](#known-issues).
 
-On macOS 10.12 (Sierra) or older, `mas signin <apple-id>` signs in to the specified Apple ID in the Mac App Store.
+On macOS 10.12 (Sierra) or older, `mas signin <apple-id>` signs in to the specified Apple Account in the Mac App Store.
 
 ```console
 $ mas signin mas@example.com
@@ -247,7 +247,7 @@ mas signin mas@example.com MyPassword
 
 #### `mas signout`
 
-`mas signout` signs out from the current Apple ID in the Mac App Store.
+`mas signout` signs out from the current Apple Account in the Mac App Store.
 
 ## 🍺 Homebrew integration
 
@@ -301,7 +301,7 @@ reattach-to-user-namespace mas install
 
 If you see the following error, it's probably because you haven't yet "purchased" the app through the Mac App Store.
 See [#46](https://github.com/mas-cli/mas/issues/46#issuecomment-248581233).
-> This redownload is not available for this Apple ID either because it was bought by a different user or the
+> This redownload is not available for this Apple Account either because it was bought by a different user or the
 > item was refunded or cancelled.
 
 If mas doesn't work for you as expected (e.g. you can't install/upgrade apps), run `mas reset`, then try again.
