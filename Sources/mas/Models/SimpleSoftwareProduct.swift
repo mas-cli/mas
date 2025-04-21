@@ -9,9 +9,9 @@
 import Foundation
 
 struct SimpleSoftwareProduct: SoftwareProduct {
-    var appID: AppID
-    var appName: String
-    var bundleIdentifier: String
-    var bundlePath: String
-    var bundleVersion: String
+    let appID: AppID
+    let appName: String
+    let bundleIdentifier: String
+    let bundlePath: String
+    let bundleVersion: String
 }
