@@ -4,11 +4,9 @@
 //
 
 module CommerceKit {
-    header "CKAccountStore.h"
     header "CKDownloadDirectory.h"
     header "CKDownloadQueueObserver.h"
     header "CKPurchaseController.h"
-    header "CKSoftwareMap.h"
 
     export *
 }

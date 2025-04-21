@@ -6,7 +6,6 @@
 //  Copyright © 2020 mas-cli. All rights reserved.
 //
 
-/// Somewhat analogous to CKSoftwareMap.
 protocol SoftwareMap {
     func allSoftwareProducts() async -> [SoftwareProduct]
 }
