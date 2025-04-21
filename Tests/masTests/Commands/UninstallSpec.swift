@@ -61,16 +61,6 @@ public final class UninstallSpec: AsyncSpec {
                     )
                         == (nil, "", "")
                 }
-                it("fails if there is a problem with the trash command") {
-                    var brokenApp = app
-                    brokenApp.bundlePath = "/dev/null"
-                    await expecta(
-                        await consequencesOf(
-                            try await MAS.Uninstall.parse([String(appID)]).run(appLibrary: MockAppLibrary(brokenApp))
-                        )
-                    )
-                        == (MASError.uninstallFailed(error: nil), "", "")
-                }
             }
         }
     }

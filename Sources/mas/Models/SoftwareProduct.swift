@@ -11,12 +11,12 @@ import Version
 
 /// Protocol describing the members of CKSoftwareProduct used throughout mas.
 protocol SoftwareProduct: Sendable {
-    var appID: AppID { get set }
+    var appID: AppID { get }
     var appName: String { get }
     // periphery:ignore
-    var bundleIdentifier: String { get set }
-    var bundlePath: String { get set }
-    var bundleVersion: String { get set }
+    var bundleIdentifier: String { get }
+    var bundlePath: String { get }
+    var bundleVersion: String { get }
 }
 
 extension SoftwareProduct {
