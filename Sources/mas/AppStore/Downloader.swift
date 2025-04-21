@@ -71,9 +71,10 @@ private func downloadApp(withAppID appID: AppID, purchasing: Bool, withAttemptCo
 }
 
 private func downloadApp(withAppID appID: AppID, purchasing: Bool = false) async throws {
+    let purchase = await SSPurchase(appID: appID, purchasing: purchasing)
     _ = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
         CKPurchaseController.shared()
-            .perform(SSPurchase(appID: appID, purchasing: purchasing), withOptions: 0) { _, _, error, response in
+            .perform(purchase, withOptions: 0) { _, _, error, response in
                 if let error {
                     continuation.resume(throwing: MASError.purchaseFailed(error: error as NSError))
                 } else if response?.downloads.isEmpty == false {

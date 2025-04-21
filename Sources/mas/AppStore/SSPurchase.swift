@@ -9,7 +9,7 @@
 import CommerceKit
 
 extension SSPurchase {
-    convenience init(appID: AppID, purchasing: Bool) {
+    convenience init(appID: AppID, purchasing: Bool) async {
         self.init()
 
         var parameters =
@@ -46,13 +46,9 @@ extension SSPurchase {
         // redownloads without passing any account IDs to SSPurchase.
         // https://github.com/mas-cli/mas/issues/417
         if #unavailable(macOS 12) {
-            do {
-                let storeAccount = try ISStoreAccount.primaryAccount
-                accountIdentifier = storeAccount.dsID
-                appleID = storeAccount.identifier
-            } catch {
-                // do nothing
-            }
+            let storeAccount = await ISStoreAccount.primaryAccount
+            accountIdentifier = storeAccount.dsID
+            appleID = storeAccount.identifier
         }
     }
 }

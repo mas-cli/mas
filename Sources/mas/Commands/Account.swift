@@ -10,26 +10,20 @@ import ArgumentParser
 import StoreFoundation
 
 extension MAS {
-    struct Account: ParsableCommand {
+    struct Account: AsyncParsableCommand {
         static let configuration = CommandConfiguration(
             abstract: "Display the Apple ID signed in in the Mac App Store"
         )
 
         /// Runs the command.
-        func run() throws {
+        func run() async throws {
             if #available(macOS 12, *) {
                 // Account information is no longer available as of Monterey.
                 // https://github.com/mas-cli/mas/issues/417
                 throw MASError.notSupported
             }
 
-            do {
-                print(try ISStoreAccount.primaryAccount.identifier)
-            } catch let error as MASError {
-                throw error
-            } catch {
-                throw MASError.failed(error: error as NSError)
-            }
+            print(await ISStoreAccount.primaryAccount.identifier)
         }
     }
 }

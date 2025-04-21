@@ -18,6 +18,7 @@ extension MAS {
 
         @Flag(help: "Provide password via graphical dialog")
         var dialog = false
+        // periphery:ignore
         @Argument(help: "Apple ID")
         var appleID: String
         @Argument(help: "Password")
@@ -25,13 +26,9 @@ extension MAS {
 
         /// Runs the command.
         func run() throws {
-            do {
-                _ = try ISStoreAccount.signIn(appleID: appleID, password: password, systemDialog: dialog)
-            } catch let error as MASError {
-                throw error
-            } catch {
-                throw MASError.signInFailed(error: error as NSError)
-            }
+            // Signing in is no longer possible as of High Sierra.
+            // https://github.com/mas-cli/mas/issues/164
+            throw MASError.notSupported
         }
     }
 }

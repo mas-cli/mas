@@ -10,18 +10,10 @@ import CommerceKit
 
 extension ISStoreAccount {
     static var primaryAccount: ISStoreAccount {
-        get throws {
-            guard let account = ISServiceProxy.genericShared().storeClient?.primaryAccount else {
-                throw MASError.notSignedIn
+        get async {
+            await withCheckedContinuation { continuation in
+                ISServiceProxy.genericShared().accountService.primaryAccount { continuation.resume(returning: $0) }
             }
-
-            return account
         }
-    }
-
-    static func signIn(appleID _: String, password _: String, systemDialog _: Bool) throws -> ISStoreAccount {
-        // Signing in is no longer possible as of High Sierra.
-        // https://github.com/mas-cli/mas/issues/164
-        throw MASError.notSupported
     }
 }
