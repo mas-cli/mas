@@ -18,10 +18,4 @@ extension ISStoreAccount {
             return account
         }
     }
-
-    static func signIn(appleID _: String, password _: String, systemDialog _: Bool) throws -> ISStoreAccount {
-        // Signing in is no longer possible as of High Sierra.
-        // https://github.com/mas-cli/mas/issues/164
-        throw MASError.notSupported
-    }
 }
