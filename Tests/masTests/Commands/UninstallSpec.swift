@@ -12,7 +12,7 @@ import Quick
 
 @testable import mas
 
-public final class UninstallSpec: AsyncSpec {
+public final class UninstallSpec: QuickSpec {
     override public static func spec() {
         let appID = 12345 as AppID
         let app = SimpleSoftwareProduct(
@@ -26,18 +26,18 @@ public final class UninstallSpec: AsyncSpec {
         xdescribe("uninstall command") {
             context("dry run") {
                 it("can't remove a missing app") {
-                    await expecta(
-                        await consequencesOf(
-                            try await MAS.Uninstall.parse(["--dry-run", String(appID)])
+                    expect(
+                        consequencesOf(
+                            try MAS.Uninstall.parse(["--dry-run", String(appID)])
                                 .run(appLibrary: MockAppLibrary())
                         )
                     )
                         == (MASError.notInstalled(appID: appID), "", "")
                 }
                 it("finds an app") {
-                    await expecta(
-                        await consequencesOf(
-                            try await MAS.Uninstall.parse(["--dry-run", String(appID)])
+                    expect(
+                        consequencesOf(
+                            try MAS.Uninstall.parse(["--dry-run", String(appID)])
                                 .run(appLibrary: MockAppLibrary(app))
                         )
                     )
@@ -46,17 +46,17 @@ public final class UninstallSpec: AsyncSpec {
             }
             context("wet run") {
                 it("can't remove a missing app") {
-                    await expecta(
-                        await consequencesOf(
-                            try await MAS.Uninstall.parse([String(appID)]).run(appLibrary: MockAppLibrary())
+                    expect(
+                        consequencesOf(
+                            try MAS.Uninstall.parse([String(appID)]).run(appLibrary: MockAppLibrary())
                         )
                     )
                         == (MASError.notInstalled(appID: appID), "", "")
                 }
                 it("removes an app") {
-                    await expecta(
-                        await consequencesOf(
-                            try await MAS.Uninstall.parse([String(appID)]).run(appLibrary: MockAppLibrary(app))
+                    expect(
+                        consequencesOf(
+                            try MAS.Uninstall.parse([String(appID)]).run(appLibrary: MockAppLibrary(app))
                         )
                     )
                         == (nil, "", "")

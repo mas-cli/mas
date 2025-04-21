@@ -11,14 +11,14 @@ import Quick
 
 @testable import mas
 
-public final class SearchResultFormatterSpec: AsyncSpec {
+public final class SearchResultFormatterSpec: QuickSpec {
     override public static func spec() {
         // static func reference
         let format = SearchResultFormatter.format(results:includePrice:)
 
         describe("search results formatter") {
             it("formats nothing as empty string") {
-                await expecta(await consequencesOf(format([], false))) == ("", nil, "", "")
+                expect(consequencesOf(format([], false))) == ("", nil, "", "")
             }
             it("can format a single result") {
                 let result = SearchResult(
@@ -27,7 +27,7 @@ public final class SearchResultFormatterSpec: AsyncSpec {
                     trackName: "Awesome App",
                     version: "19.2.1"
                 )
-                await expecta(await consequencesOf(format([result], false)))
+                expect(consequencesOf(format([result], false)))
                     == ("       12345  Awesome App  (19.2.1)", nil, "", "")
             }
             it("can format a single result with price") {
@@ -37,12 +37,12 @@ public final class SearchResultFormatterSpec: AsyncSpec {
                     trackName: "Awesome App",
                     version: "19.2.1"
                 )
-                await expecta(await consequencesOf(format([result], true)))
+                expect(consequencesOf(format([result], true)))
                     == ("       12345  Awesome App  (19.2.1)  $9.87", nil, "", "")
             }
             it("can format a two results") {
-                await expecta(
-                    await consequencesOf(
+                expect(
+                    consequencesOf(
                         format(
                             [
                                 SearchResult(
@@ -65,8 +65,8 @@ public final class SearchResultFormatterSpec: AsyncSpec {
                     == ("       12345  Awesome App      (19.2.1)\n       67890  Even Better App  (1.2.0)", nil, "", "")
             }
             it("can format a two results with prices") {
-                await expecta(
-                    await consequencesOf(
+                expect(
+                    consequencesOf(
                         format(
                             [
                                 SearchResult(
