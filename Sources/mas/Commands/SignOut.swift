@@ -13,7 +13,7 @@ extension MAS {
     struct SignOut: ParsableCommand {
         static let configuration = CommandConfiguration(
             commandName: "signout",
-            abstract: "Sign out of the Apple ID currently signed in in the Mac App Store"
+            abstract: "Sign out of the Apple Account currently signed in to the Mac App Store"
         )
 
         /// Runs the command.
