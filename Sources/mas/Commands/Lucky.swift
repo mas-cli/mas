@@ -64,7 +64,7 @@ extension MAS {
         private func install(appID: AppID, appLibrary: AppLibrary) async throws {
             // Try to download applications with given identifiers and collect results
             if let appName = appLibrary.installedApps(withAppID: appID).first?.appName, !force {
-                printWarning("\(appName) is already installed")
+                printWarning(appName, "is already installed")
             } else {
                 do {
                     try await downloadApps(withAppIDs: [appID])

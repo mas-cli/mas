@@ -45,16 +45,16 @@ class PurchaseDownloadObserver: CKDownloadQueueObserver {
                 case downloadingPhaseType:
                     if prevPhaseType == initialPhaseType {
                         clearLine()
-                        printInfo("Downloading \(download.progressDescription)")
+                        printInfo("Downloading", download.progressDescription)
                     }
                 case downloadedPhaseType:
                     if prevPhaseType == downloadingPhaseType {
                         clearLine()
-                        printInfo("Downloaded \(download.progressDescription)")
+                        printInfo("Downloaded", download.progressDescription)
                     }
                 case installingPhaseType:
                     clearLine()
-                    printInfo("Installing \(download.progressDescription)")
+                    printInfo("Installing", download.progressDescription)
                 default:
                     break
                 }
@@ -82,7 +82,7 @@ class PurchaseDownloadObserver: CKDownloadQueueObserver {
         } else if status.isCancelled {
             errorHandler?(.cancelled)
         } else {
-            printInfo("Installed \(download.progressDescription)")
+            printInfo("Installed", download.progressDescription)
             completionHandler?()
         }
     }
@@ -107,7 +107,7 @@ private func progress(_ state: ProgressState) {
     let completeLength = Int(state.percentComplete * Float(barLength))
     let bar = (0..<barLength).map { $0 < completeLength ? "#" : "-" }.joined()
     clearLine()
-    print("\(bar) \(state.percentage) \(state.phase)", terminator: "")
+    print(bar, state.percentage, state.phase, terminator: "")
     fflush(stdout)
 }
 
