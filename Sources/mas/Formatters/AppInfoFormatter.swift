@@ -15,20 +15,14 @@ enum AppInfoFormatter {
     /// - Parameter app: Search result with app data.
     /// - Returns: Multiline text output.
     static func format(app: SearchResult) -> String {
-        [
-            [
-                "\(app.trackName)",
-                "\(app.version)",
-                "[\(app.displayPrice)]",
-            ]
-            .joined(separator: " "),
-            "By: \(app.sellerName)",
-            "Released: \(humanReadableDate(app.currentVersionReleaseDate))",
-            "Minimum OS: \(app.minimumOsVersion)",
-            "Size: \(humanReadableSize(app.fileSizeBytes))",
-            "From: \(app.trackViewUrl)",
-        ]
-        .joined(separator: "\n")
+        """
+        \(app.trackName) \(app.version) [\(app.displayPrice)]
+        By: \(app.sellerName)
+        Released: \(humanReadableDate(app.currentVersionReleaseDate))
+        Minimum OS: \(app.minimumOsVersion)
+        Size: \(humanReadableSize(app.fileSizeBytes))
+        From: \(app.trackViewUrl)
+        """
     }
 
     /// Formats a file size.

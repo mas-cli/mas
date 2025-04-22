@@ -30,19 +30,26 @@ extension MAS {
                     let storeApp = try await searcher.lookup(appID: installedApp.appID)
                     if installedApp.isOutdated(comparedTo: storeApp) {
                         print(
-                            """
-                            \(installedApp.appID) \(installedApp.appName) \
-                            (\(installedApp.bundleVersion) -> \(storeApp.version))
-                            """
+                            installedApp.appID,
+                            " ",
+                            installedApp.appName,
+                            " (",
+                            installedApp.bundleVersion,
+                            " -> ",
+                            storeApp.version,
+                            ")",
+                            separator: ""
                         )
                     }
                 } catch MASError.unknownAppID(let unknownAppID) {
                     if verbose {
                         printWarning(
-                            """
-                            Identifier \(unknownAppID) not found in store. \
-                            Was expected to identify \(installedApp.appName).
-                            """
+                            "Identifier ",
+                            unknownAppID,
+                            " not found in store. Was expected to identify ",
+                            installedApp.appName,
+                            ".",
+                            separator: ""
                         )
                     }
                 }

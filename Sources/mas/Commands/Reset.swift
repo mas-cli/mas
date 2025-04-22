@@ -61,7 +61,11 @@ extension MAS {
 
             if kill.terminationStatus != 0, debug {
                 let output = stderr.fileHandleForReading.readDataToEndOfFile()
-                printError("killall failed:\n\(String(data: output, encoding: .utf8) ?? "Error info not available")")
+                printError(
+                    "killall failed:",
+                    String(data: output, encoding: .utf8) ?? "Error info not available",
+                    separator: "\n"
+                )
             }
 
             // Wipe Download Directory
@@ -70,7 +74,7 @@ extension MAS {
                     try FileManager.default.removeItem(atPath: directory)
                 } catch {
                     if debug {
-                        printError("removeItemAtPath:\"\(directory)\" failed, \(error)")
+                        printError("removeItemAtPath:\"", directory, "\" failed, ", error, separator: "")
                     }
                 }
             }

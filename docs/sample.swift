@@ -71,9 +71,9 @@ func doSomeWork() -> Response {
 
 switch response {
 case .success(let data):
-    print("The response returned successfully \(data)")
+    print("The response returned successfully", data)
 case .failure(let error):
-    print("An error occurred: \(error)")
+    print("An error occurred:", error)
 }
 
 // MARK: Organization

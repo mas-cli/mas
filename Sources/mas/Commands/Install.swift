@@ -30,7 +30,7 @@ extension MAS {
             // Try to download applications with given identifiers and collect results
             let appIDs = appIDs.filter { appID in
                 if let appName = appLibrary.installedApps(withAppID: appID).first?.appName, !force {
-                    printWarning("\(appName) is already installed")
+                    printWarning(appName, "is already installed")
                     return false
                 }
 

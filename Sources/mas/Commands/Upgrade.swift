@@ -34,12 +34,16 @@ extension MAS {
                 return
             }
 
-            print("Upgrading \(apps.count) outdated application\(apps.count > 1 ? "s" : ""):")
             print(
+                "Upgrading ",
+                apps.count,
+                " outdated application",
+                apps.count > 1 ? "s:\n" : ":\n",
                 apps.map { installedApp, storeApp in
                     "\(storeApp.trackName) (\(installedApp.bundleVersion)) -> (\(storeApp.version))"
                 }
-                .joined(separator: "\n")
+                .joined(separator: "\n"),
+                separator: ""
             )
 
             do {
@@ -71,7 +75,7 @@ extension MAS {
                     // argument is not an AppID, lookup apps by name using argument
                     let installedApps = appLibrary.installedApps(named: appIDOrName)
                     if installedApps.isEmpty {
-                        printError("Unknown app name '\(appIDOrName)'")
+                        printError("Unknown app name '", appIDOrName, "'", separator: "")
                     }
                     return installedApps
                 }
@@ -86,10 +90,12 @@ extension MAS {
                 } catch MASError.unknownAppID(let unknownAppID) {
                     if verbose {
                         printWarning(
-                            """
-                            Identifier \(unknownAppID) not found in store. \
-                            Was expected to identify \(installedApp.appName).
-                            """
+                            "Identifier ",
+                            unknownAppID,
+                            " not found in store. Was expected to identify ",
+                            installedApp.appName,
+                            ".",
+                            separator: ""
                         )
                     }
                 } catch {

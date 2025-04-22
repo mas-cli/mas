@@ -61,7 +61,15 @@ private func chown(paths: [String]) throws -> [String: (uid_t, gid_t)] {
         guard chown(path, sudoUID, sudoGID) == 0 else {
             for (chownedPath, chownedIDs) in chownedIDsByPath
             where chown(chownedPath, chownedIDs.0, chownedIDs.1) != 0 {
-                printError("Failed to revert ownership of '\(path)' back to uid \(chownedIDs.0) & gid \(chownedIDs.1)")
+                printError(
+                    "Failed to revert ownership of '",
+                    path,
+                    "' back to uid ",
+                    chownedIDs.0,
+                    " & gid ",
+                    chownedIDs.1,
+                    separator: ""
+                )
             }
             throw MASError.runtimeError("Failed to change ownership of '\(path)' to uid \(sudoUID) & gid \(sudoGID)")
         }
@@ -118,7 +126,7 @@ private func delete(pathsFromOwnerIDsByPath ownerIDsByPath: [String: (uid_t, gid
         }
 
         let deletedPath = deletedURL.path
-        print("Deleted '\(path)' to '\(deletedPath)'")
+        print("Deleted '", path, "' to '", deletedPath, "'", separator: "")
         guard chown(deletedPath, uid, gid) == 0 else {
             throw MASError.runtimeError(
                 "Failed to revert ownership of deleted '\(deletedPath)' back to uid \(uid) & gid \(gid)"
