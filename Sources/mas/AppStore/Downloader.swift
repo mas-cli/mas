@@ -7,7 +7,6 @@
 //
 
 import CommerceKit
-import StoreFoundation
 
 /// Sequentially downloads apps, printing progress to the console.
 ///

@@ -7,7 +7,6 @@
 //
 
 import ArgumentParser
-import StoreFoundation
 
 extension MAS {
     struct SignIn: ParsableCommand {
