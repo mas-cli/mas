@@ -6,7 +6,6 @@
 //  Copyright © 2018 mas-cli. All rights reserved.
 //
 
-import CommerceKit
 import ScriptingBridge
 
 /// Utility for managing installed apps.

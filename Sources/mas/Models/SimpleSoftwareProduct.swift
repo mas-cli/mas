@@ -6,8 +6,6 @@
 //  Copyright © 2025 mas-cli. All rights reserved.
 //
 
-import Foundation
-
 struct SimpleSoftwareProduct: SoftwareProduct {
     let appID: AppID
     let appName: String
