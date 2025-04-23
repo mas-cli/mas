@@ -27,18 +27,17 @@ extension MAS {
         }
 
         func run(installedApps: [InstalledApp], searcher: AppStoreSearcher) async throws {
-            // Try to download applications with given identifiers and collect results
-            let appIDs = appIDs.filter { appID in
-                if let appName = installedApps.first(where: { $0.id == appID })?.name, !force {
-                    printWarning(appName, "is already installed")
-                    return false
-                }
-
-                return true
-            }
-
             do {
-                try await downloadApps(withAppIDs: appIDs, verifiedBy: searcher)
+                try await downloadApps(
+                    withAppIDs: appIDs.filter { appID in
+                        if let appName = installedApps.first(where: { $0.id == appID })?.name, !force {
+                            printWarning(appName, "is already installed")
+                            return false
+                        }
+                        return true
+                    },
+                    verifiedBy: searcher
+                )
             } catch let error as MASError {
                 throw error
             } catch {
