@@ -15,20 +15,19 @@ enum AppListFormatter {
     /// - Parameter installedApps: List of installed apps.
     /// - Returns: Multiline text output.
     static func format(_ installedApps: [InstalledApp]) -> String {
-        // find longest name for formatting
-        let maxLength = installedApps.map(\.name.count).max() ?? 0
-
-        var output = ""
-
-        for installedApp in installedApps {
-            output += """
-                \(installedApp.id.description.padding(toLength: idColumnMinWidth, withPad: " ", startingAt: 0))  \
-                \(installedApp.name.padding(toLength: maxLength, withPad: " ", startingAt: 0))  \
-                (\(installedApp.version))
-
-                """
+        // longest app name for right space padding
+        guard let maxAppNameLength = installedApps.map(\.name.count).max() else {
+            return ""
         }
 
-        return output.trimmingCharacters(in: .newlines)
+        return
+            installedApps.map { installedApp in
+                """
+                \(installedApp.id.description.padding(toLength: idColumnMinWidth, withPad: " ", startingAt: 0))  \
+                \(installedApp.name.padding(toLength: maxAppNameLength, withPad: " ", startingAt: 0))  \
+                (\(installedApp.version))
+                """
+            }
+            .joined(separator: "\n")
     }
 }
