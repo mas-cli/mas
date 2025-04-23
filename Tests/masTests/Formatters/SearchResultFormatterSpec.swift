@@ -14,7 +14,7 @@ import Quick
 public final class SearchResultFormatterSpec: QuickSpec {
     override public static func spec() {
         // static func reference
-        let format = SearchResultFormatter.format(results:includePrice:)
+        let format = SearchResultFormatter.format(_:includePrice:)
 
         describe("search results formatter") {
             it("formats nothing as empty string") {
