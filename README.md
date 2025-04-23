@@ -297,6 +297,26 @@ brew install reattach-to-user-namespace
 reattach-to-user-namespace mas install
 ```
 
+### `mas list` returns no results
+
+From 2.0 onwards, mas relies on Spotlight and therefore on macOS' *Metadata Server*
+(also called `mds`) to associate an application with its app ID. `mds` is a
+collection of background processes responsible for indexing the file system and
+providing this metadata to Spotlight.
+
+You can check that an app exposes its app ID by running `mdls` on the app bundle.
+
+```console
+$ mdls /Applications/WhatsApp.app | grep kMDItemAppStoreAdamID
+kMDItemAppStoreAdamID                   = 310633997
+```
+
+Given an app ID, you can find the path to the app by running `mdfind`:
+```console
+$ mdfind 'kMDItemAppStoreAdamID == 310633997'
+/Applications/WhatsApp.app
+```
+
 ## 🚫 When something doesn't work
 
 If you see the following error, it's probably because you haven't yet "purchased" the app through the Mac App Store.
