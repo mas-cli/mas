@@ -12,6 +12,50 @@ A command-line interface for the Mac App Store. Designed for scripting & automat
     https://github.com/mas-cli/mas/actions/workflows/build-test.yml?query=branch%3Amain
 )
 
+---
+
+<!-- toc -->
+
+- [📲 Installation](#%F0%9F%93%B2-installation)
+  * [🍺 Homebrew](#%F0%9F%8D%BA-homebrew)
+  * [🔌 MacPorts](#%F0%9F%94%8C-macports)
+  * [🧮 Older macOS Versions](#%F0%9F%A7%AE-older-macos-versions)
+    + [🍻 Custom Homebrew tap](#%F0%9F%8D%BB-custom-homebrew-tap)
+    + [🐙 GitHub Releases](#%F0%9F%90%99-github-releases)
+    + [🕊 Swift 5 Runtime Support](#%F0%9F%95%8A-swift-5-runtime-support)
+- [🤳 Usage](#%F0%9F%A4%B3-usage)
+  * [🪪 App IDs](#%F0%9F%AA%AA-app-ids)
+  * [🛍 Info from the Mac App Store](#%F0%9F%9B%8D-info-from-the-mac-app-store)
+    + [`mas search`](#mas-search)
+    + [`mas info`](#mas-info)
+  * [📚 Info from Your Local App Library](#%F0%9F%93%9A-info-from-your-local-app-library)
+    + [`mas list`](#mas-list)
+    + [`mas outdated`](#mas-outdated)
+  * [⬇️ Installing Apps](#%E2%AC%87%EF%B8%8F-installing-apps)
+    + [`mas purchase`](#mas-purchase)
+    + [`mas install`](#mas-install)
+    + [`mas lucky`](#mas-lucky)
+  * [🆕 Upgrading Apps](#%F0%9F%86%95-upgrading-apps)
+    + [`mas upgrade`](#mas-upgrade)
+  * [Mac App Store Account Management](#mac-app-store-account-management)
+    + [`mas signin`](#mas-signin)
+    + [`mas signout`](#mas-signout)
+- [🍺 Homebrew integration](#%F0%9F%8D%BA-homebrew-integration)
+- [⚠️ Known Issues](#-%E2%9A%A0%EF%B8%8F-known-issues)
+  * [💥 Changed Apple Private Frameworks](#%F0%9F%92%A5-changed-apple-private-frameworks)
+  * [⏳ Eventual Consistency](#%E2%8F%B3-eventual-consistency)
+  * [📱 iOS & iPadOS Apps](#%F0%9F%93%B1-ios--ipados-apps)
+  * [📺 Using `tmux`](#%F0%9F%93%BA-using-tmux)
+- [🚫 When something doesn't work](#%F0%9F%9A%AB-when-something-doesnt-work)
+- [🏗 Build from source](#%F0%9F%8F%97-build-from-source)
+- [🧪 Tests](#%F0%9F%A7%AA-tests)
+- [📄 License](#%F0%9F%93%84-license)
+
+<!-- tocstop -->
+
+---
+
+
 ## 📲 Installation
 
 ### 🍺 Homebrew
