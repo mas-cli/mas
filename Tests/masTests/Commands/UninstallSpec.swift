@@ -27,8 +27,7 @@ public final class UninstallSpec: QuickSpec {
                 it("can't remove a missing app") {
                     expect(
                         consequencesOf(
-                            try MAS.Uninstall.parse(["--dry-run", String(appID)])
-                                .run(appLibrary: MockAppLibrary())
+                            try MAS.Uninstall.parse(["--dry-run", String(appID)]).run(installedApps: [])
                         )
                     )
                         == (MASError.notInstalled(appID: appID), "", "")
@@ -36,8 +35,7 @@ public final class UninstallSpec: QuickSpec {
                 it("finds an app") {
                     expect(
                         consequencesOf(
-                            try MAS.Uninstall.parse(["--dry-run", String(appID)])
-                                .run(appLibrary: MockAppLibrary(app))
+                            try MAS.Uninstall.parse(["--dry-run", String(appID)]).run(installedApps: [app])
                         )
                     )
                         == (nil, "==> 'Some App' '/tmp/Some.app'\n==> (not removed, dry run)\n", "")
@@ -47,7 +45,7 @@ public final class UninstallSpec: QuickSpec {
                 it("can't remove a missing app") {
                     expect(
                         consequencesOf(
-                            try MAS.Uninstall.parse([String(appID)]).run(appLibrary: MockAppLibrary())
+                            try MAS.Uninstall.parse([String(appID)]).run(installedApps: [])
                         )
                     )
                         == (MASError.notInstalled(appID: appID), "", "")
@@ -55,7 +53,7 @@ public final class UninstallSpec: QuickSpec {
                 it("removes an app") {
                     expect(
                         consequencesOf(
-                            try MAS.Uninstall.parse([String(appID)]).run(appLibrary: MockAppLibrary(app))
+                            try MAS.Uninstall.parse([String(appID)]).run(installedApps: [app])
                         )
                     )
                         == (nil, "", "")

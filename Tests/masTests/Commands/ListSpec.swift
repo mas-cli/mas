@@ -15,7 +15,7 @@ public final class ListSpec: QuickSpec {
     override public static func spec() {
         describe("list command") {
             it("lists apps") {
-                expect(consequencesOf(try MAS.List.parse([]).run(appLibrary: MockAppLibrary())))
+                expect(consequencesOf(try MAS.List.parse([]).run(installedApps: [])))
                     == (nil, "", "Error: No installed apps found\n")
             }
         }

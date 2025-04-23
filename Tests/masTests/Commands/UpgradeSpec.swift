@@ -17,8 +17,7 @@ public final class UpgradeSpec: AsyncSpec {
             it("finds no upgrades") {
                 await expecta(
                     await consequencesOf(
-                        try await MAS.Upgrade.parse([])
-                            .run(appLibrary: MockAppLibrary(), searcher: MockAppStoreSearcher())
+                        try await MAS.Upgrade.parse([]).run(installedApps: [], searcher: MockAppStoreSearcher())
                     )
                 )
                     == (nil, "", "")

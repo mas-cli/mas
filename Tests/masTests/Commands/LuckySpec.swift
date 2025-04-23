@@ -20,7 +20,7 @@ public final class LuckySpec: AsyncSpec {
             it("installs the first app matching a search") {
                 await expecta(
                     await consequencesOf(
-                        try await MAS.Lucky.parse(["Slack"]).run(appLibrary: MockAppLibrary(), searcher: searcher)
+                        try await MAS.Lucky.parse(["Slack"]).run(installedApps: [], searcher: searcher)
                     )
                 )
                     == (nil, "", "")

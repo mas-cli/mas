@@ -8,15 +8,10 @@
 
 import Foundation
 
-class SpotlightSoftwareMap: SoftwareMap {
-    private var observer: NSObjectProtocol?
-
-    deinit {
-        // do nothing
-    }
-
-    @MainActor
-    func installedApps() async -> [InstalledApp] {
+@MainActor // swiftlint:disable:next attributes
+var installedApps: [InstalledApp] {
+    get async {
+        var observer: NSObjectProtocol?
         defer {
             if let observer {
                 NotificationCenter.default.removeObserver(observer)
@@ -54,26 +49,29 @@ class SpotlightSoftwareMap: SoftwareMap {
                 query.stop()
 
                 continuation.resume(
-                    returning: query.results.compactMap { result in
-                        if let item = result as? NSMetadataItem {
-                            // swift-format-ignore
-                            SimpleInstalledApp(
-                                id:
-                                    item.value(forAttribute: "kMDItemAppStoreAdamID") as? AppID ?? 0,
-                                name:
-                                    (item.value(forAttribute: "_kMDItemDisplayNameWithExtensions") as? String ?? "")
-                                    .removingSuffix(".app"),
-                                bundleID:
-                                    item.value(forAttribute: NSMetadataItemCFBundleIdentifierKey) as? String ?? "",
-                                path:
-                                    item.value(forAttribute: NSMetadataItemPathKey) as? String ?? "",
-                                version:
-                                    item.value(forAttribute: NSMetadataItemVersionKey) as? String ?? ""
-                            )
-                        } else {
-                            nil
+                    returning:
+                        query.results
+                        .compactMap { result in
+                            if let item = result as? NSMetadataItem {
+                                // swift-format-ignore
+                                SimpleInstalledApp(
+                                    id:
+                                        item.value(forAttribute: "kMDItemAppStoreAdamID") as? AppID ?? 0,
+                                    name:
+                                        (item.value(forAttribute: "_kMDItemDisplayNameWithExtensions") as? String ?? "")
+                                        .removingSuffix(".app"),
+                                    bundleID:
+                                        item.value(forAttribute: NSMetadataItemCFBundleIdentifierKey) as? String ?? "",
+                                    path:
+                                        item.value(forAttribute: NSMetadataItemPathKey) as? String ?? "",
+                                    version:
+                                        item.value(forAttribute: NSMetadataItemVersionKey) as? String ?? ""
+                                )
+                            } else {
+                                nil
+                            }
                         }
-                    }
+                        .sorted { $0.name.caseInsensitiveCompare($1.name) == .orderedAscending }
                 )
             }
 

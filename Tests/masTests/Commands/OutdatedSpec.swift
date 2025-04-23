@@ -32,7 +32,7 @@ public final class OutdatedSpec: AsyncSpec {
                     await consequencesOf(
                         try await MAS.Outdated.parse([])
                             .run(
-                                appLibrary: MockAppLibrary(
+                                installedApps: [
                                     SimpleInstalledApp(
                                         id: mockSearchResult.trackId,
                                         name: mockSearchResult.trackName,
@@ -40,7 +40,7 @@ public final class OutdatedSpec: AsyncSpec {
                                         path: "/Applications/Bandwidth+.app",
                                         version: "1.27"
                                     )
-                                ),
+                                ],
                                 searcher: MockAppStoreSearcher([mockSearchResult.trackId: mockSearchResult])
                             )
                     )

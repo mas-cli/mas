@@ -21,11 +21,11 @@ extension MAS {
 
         /// Runs the command.
         func run() async throws {
-            try await run(appLibrary: await SoftwareMapAppLibrary(), searcher: ITunesSearchAppStoreSearcher())
+            try await run(installedApps: await installedApps, searcher: ITunesSearchAppStoreSearcher())
         }
 
-        func run(appLibrary: AppLibrary, searcher: AppStoreSearcher) async throws {
-            for installedApp in appLibrary.installedApps {
+        func run(installedApps: [InstalledApp], searcher: AppStoreSearcher) async throws {
+            for installedApp in installedApps {
                 do {
                     let storeApp = try await searcher.lookup(appID: installedApp.id)
                     if installedApp.isOutdated(comparedTo: storeApp) {
