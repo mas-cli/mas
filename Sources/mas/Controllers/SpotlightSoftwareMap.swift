@@ -62,7 +62,7 @@ class SpotlightSoftwareMap: SoftwareMap {
                                     item.value(forAttribute: "kMDItemAppStoreAdamID") as? AppID ?? 0,
                                 appName:
                                     (item.value(forAttribute: "_kMDItemDisplayNameWithExtensions") as? String ?? "")
-                                    .removeSuffix(".app"),
+                                    .removingSuffix(".app"),
                                 bundleIdentifier:
                                     item.value(forAttribute: NSMetadataItemCFBundleIdentifierKey) as? String ?? "",
                                 bundlePath:
@@ -83,9 +83,9 @@ class SpotlightSoftwareMap: SoftwareMap {
 }
 
 private extension String {
-    func removeSuffix(_ suffix: String) -> String {
+    func removingSuffix(_ suffix: Self) -> Self {
         hasSuffix(suffix)
-            ? String(dropLast(suffix.count))
+            ? Self(dropLast(suffix.count))
             : self
     }
 }
