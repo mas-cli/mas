@@ -7,9 +7,9 @@
 //
 
 struct SimpleInstalledApp: InstalledApp {
-    let appID: AppID
-    let appName: String
-    let bundleIdentifier: String
-    let bundlePath: String
-    let bundleVersion: String
+    let id: AppID
+    let name: String
+    let bundleID: String
+    let path: String
+    let version: String
 }

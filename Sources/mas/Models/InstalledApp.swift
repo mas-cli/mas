@@ -11,12 +11,12 @@ import Version
 
 /// Protocol describing the members of an installed MAS app.
 protocol InstalledApp: Sendable {
-    var appID: AppID { get }
-    var appName: String { get }
+    var id: AppID { get }
+    var name: String { get }
     // periphery:ignore
-    var bundleIdentifier: String { get }
-    var bundlePath: String { get }
-    var bundleVersion: String { get }
+    var bundleID: String { get }
+    var path: String { get }
+    var version: String { get }
 }
 
 extension InstalledApp {
@@ -44,7 +44,7 @@ extension InstalledApp {
         // swift-format-ignore
         return
             if
-                let semanticBundleVersion = Version(tolerant: bundleVersion),
+                let semanticBundleVersion = Version(tolerant: version),
                 let semanticAppStoreVersion = Version(tolerant: storeApp.version)
             {
                 semanticBundleVersion < semanticAppStoreVersion
@@ -52,7 +52,7 @@ extension InstalledApp {
                 // If a version string can't be parsed as a Semantic Version, our best effort is to
                 // check for equality. The only version that matters is the one in the App Store.
                 // https://semver.org
-                bundleVersion != storeApp.version
+                version != storeApp.version
             }
     }
 }

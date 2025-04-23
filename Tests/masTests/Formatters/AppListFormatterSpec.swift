@@ -22,11 +22,11 @@ public final class AppListFormatterSpec: QuickSpec {
             }
             it("can format a single installed app") {
                 let installedApp = SimpleInstalledApp(
-                    appID: 12345,
-                    appName: "Awesome App",
-                    bundleIdentifier: "",
-                    bundlePath: "",
-                    bundleVersion: "19.2.1"
+                    id: 12345,
+                    name: "Awesome App",
+                    bundleID: "",
+                    path: "",
+                    version: "19.2.1"
                 )
                 expect(consequencesOf(format([installedApp])))
                     == ("12345       Awesome App  (19.2.1)", nil, "", "")
@@ -37,18 +37,18 @@ public final class AppListFormatterSpec: QuickSpec {
                         format(
                             [
                                 SimpleInstalledApp(
-                                    appID: 12345,
-                                    appName: "Awesome App",
-                                    bundleIdentifier: "",
-                                    bundlePath: "",
-                                    bundleVersion: "19.2.1"
+                                    id: 12345,
+                                    name: "Awesome App",
+                                    bundleID: "",
+                                    path: "",
+                                    version: "19.2.1"
                                 ),
                                 SimpleInstalledApp(
-                                    appID: 67890,
-                                    appName: "Even Better App",
-                                    bundleIdentifier: "",
-                                    bundlePath: "",
-                                    bundleVersion: "1.2.0"
+                                    id: 67890,
+                                    name: "Even Better App",
+                                    bundleID: "",
+                                    path: "",
+                                    version: "1.2.0"
                                 ),
                             ]
                         )

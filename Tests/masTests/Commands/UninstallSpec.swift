@@ -15,11 +15,11 @@ public final class UninstallSpec: QuickSpec {
     override public static func spec() {
         let appID = 12345 as AppID
         let app = SimpleInstalledApp(
-            appID: appID,
-            appName: "Some App",
-            bundleIdentifier: "com.some.app",
-            bundlePath: "/tmp/Some.app",
-            bundleVersion: "1.0"
+            id: appID,
+            name: "Some App",
+            bundleID: "com.some.app",
+            path: "/tmp/Some.app",
+            version: "1.0"
         )
 
         xdescribe("uninstall command") {

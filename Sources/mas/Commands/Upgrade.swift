@@ -40,7 +40,7 @@ extension MAS {
                 " outdated application",
                 apps.count > 1 ? "s:\n" : ":\n",
                 apps.map { installedApp, storeApp in
-                    "\(storeApp.trackName) (\(installedApp.bundleVersion)) -> (\(storeApp.version))"
+                    "\(storeApp.trackName) (\(installedApp.version)) -> (\(storeApp.version))"
                 }
                 .joined(separator: "\n"),
                 separator: ""
@@ -83,7 +83,7 @@ extension MAS {
             var outdatedApps = [(InstalledApp, SearchResult)]()
             for installedApp in apps {
                 do {
-                    let storeApp = try await searcher.lookup(appID: installedApp.appID)
+                    let storeApp = try await searcher.lookup(appID: installedApp.id)
                     if installedApp.isOutdated(comparedTo: storeApp) {
                         outdatedApps.append((installedApp, storeApp))
                     }
@@ -93,7 +93,7 @@ extension MAS {
                             "Identifier ",
                             unknownAppID,
                             " not found in store. Was expected to identify ",
-                            installedApp.appName,
+                            installedApp.name,
                             ".",
                             separator: ""
                         )

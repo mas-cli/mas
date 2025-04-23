@@ -25,7 +25,7 @@ extension AppLibrary {
     /// - Parameter appID: app ID for app(s).
     /// - Returns: [InstalledApp] of matching apps.
     func installedApps(withAppID appID: AppID) -> [InstalledApp] {
-        installedApps.filter { $0.appID == appID }
+        installedApps.filter { $0.id == appID }
     }
 
     /// Finds all installed instances of apps whose name is `appName`.
@@ -33,6 +33,6 @@ extension AppLibrary {
     /// - Parameter appName: Full name of app(s).
     /// - Returns: [InstalledApp] of matching apps.
     func installedApps(named appName: String) -> [InstalledApp] {
-        installedApps.filter { $0.appName == appName }
+        installedApps.filter { $0.name == appName }
     }
 }

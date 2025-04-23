@@ -58,16 +58,16 @@ class SpotlightSoftwareMap: SoftwareMap {
                         if let item = result as? NSMetadataItem {
                             // swift-format-ignore
                             SimpleInstalledApp(
-                                appID:
+                                id:
                                     item.value(forAttribute: "kMDItemAppStoreAdamID") as? AppID ?? 0,
-                                appName:
+                                name:
                                     (item.value(forAttribute: "_kMDItemDisplayNameWithExtensions") as? String ?? "")
                                     .removingSuffix(".app"),
-                                bundleIdentifier:
+                                bundleID:
                                     item.value(forAttribute: NSMetadataItemCFBundleIdentifierKey) as? String ?? "",
-                                bundlePath:
+                                path:
                                     item.value(forAttribute: NSMetadataItemPathKey) as? String ?? "",
-                                bundleVersion:
+                                version:
                                     item.value(forAttribute: NSMetadataItemVersionKey) as? String ?? ""
                             )
                         } else {

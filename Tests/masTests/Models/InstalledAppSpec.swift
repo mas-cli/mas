@@ -14,11 +14,11 @@ import Quick
 public final class InstalledAppSpec: QuickSpec {
     override public static func spec() {
         let app = SimpleInstalledApp(
-            appID: 111,
-            appName: "App",
-            bundleIdentifier: "",
-            bundlePath: "",
-            bundleVersion: "1.0.0"
+            id: 111,
+            name: "App",
+            bundleID: "",
+            path: "",
+            version: "1.0.0"
         )
 
         describe("installed app") {

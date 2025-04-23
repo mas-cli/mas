@@ -50,7 +50,7 @@ extension MAS {
 
             if dryRun {
                 for installedApp in installedApps {
-                    printInfo("'", installedApp.appName, "' '", installedApp.bundlePath, "'", separator: "")
+                    printInfo("'", installedApp.name, "' '", installedApp.path, "'", separator: "")
                 }
                 printInfo("(not removed, dry run)")
             } else {
@@ -58,7 +58,7 @@ extension MAS {
                     throw MASError.runtimeError("Failed to revert effective user from '\(username)' back to 'root'")
                 }
 
-                try appLibrary.uninstallApps(atPaths: installedApps.map(\.bundlePath))
+                try appLibrary.uninstallApps(atPaths: installedApps.map(\.path))
             }
         }
     }

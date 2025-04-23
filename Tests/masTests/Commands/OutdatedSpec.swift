@@ -34,11 +34,11 @@ public final class OutdatedSpec: AsyncSpec {
                             .run(
                                 appLibrary: MockAppLibrary(
                                     SimpleInstalledApp(
-                                        appID: mockSearchResult.trackId,
-                                        appName: mockSearchResult.trackName,
-                                        bundleIdentifier: "au.id.haroldchu.mac.Bandwidth",
-                                        bundlePath: "/Applications/Bandwidth+.app",
-                                        bundleVersion: "1.27"
+                                        id: mockSearchResult.trackId,
+                                        name: mockSearchResult.trackName,
+                                        bundleID: "au.id.haroldchu.mac.Bandwidth",
+                                        path: "/Applications/Bandwidth+.app",
+                                        version: "1.27"
                                     )
                                 ),
                                 searcher: MockAppStoreSearcher([mockSearchResult.trackId: mockSearchResult])
