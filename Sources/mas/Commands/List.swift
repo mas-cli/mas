@@ -21,11 +21,11 @@ extension MAS {
         }
 
         func run(appLibrary: AppLibrary) throws {
-            let products = appLibrary.installedApps
-            if products.isEmpty {
+            let installedApps = appLibrary.installedApps
+            if installedApps.isEmpty {
                 printError("No installed apps found")
             } else {
-                print(AppListFormatter.format(products: products))
+                print(AppListFormatter.format(installedApps))
             }
         }
     }

@@ -9,7 +9,7 @@
 /// Utility for managing installed apps.
 protocol AppLibrary {
     /// Entire set of installed apps.
-    var installedApps: [SoftwareProduct] { get }
+    var installedApps: [InstalledApp] { get }
 
     /// Uninstalls all apps located at any of the elements of `appPaths`.
     ///
@@ -23,16 +23,16 @@ extension AppLibrary {
     /// Finds all installed instances of apps whose app ID is `appID`.
     ///
     /// - Parameter appID: app ID for app(s).
-    /// - Returns: [SoftwareProduct] of matching apps.
-    func installedApps(withAppID appID: AppID) -> [SoftwareProduct] {
+    /// - Returns: [InstalledApp] of matching apps.
+    func installedApps(withAppID appID: AppID) -> [InstalledApp] {
         installedApps.filter { $0.appID == appID }
     }
 
     /// Finds all installed instances of apps whose name is `appName`.
     ///
     /// - Parameter appName: Full name of app(s).
-    /// - Returns: [SoftwareProduct] of matching apps.
-    func installedApps(named appName: String) -> [SoftwareProduct] {
+    /// - Returns: [InstalledApp] of matching apps.
+    func installedApps(named appName: String) -> [InstalledApp] {
         installedApps.filter { $0.appName == appName }
     }
 }

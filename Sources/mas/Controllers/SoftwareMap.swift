@@ -7,5 +7,5 @@
 //
 
 protocol SoftwareMap {
-    func allSoftwareProducts() async -> [SoftwareProduct]
+    func installedApps() async -> [InstalledApp]
 }

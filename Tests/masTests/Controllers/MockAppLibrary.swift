@@ -9,9 +9,9 @@
 @testable import mas
 
 struct MockAppLibrary: AppLibrary {
-    let installedApps: [SoftwareProduct]
+    let installedApps: [InstalledApp]
 
-    init(_ installedApps: SoftwareProduct...) {
+    init(_ installedApps: InstalledApp...) {
         self.installedApps = installedApps
     }
 

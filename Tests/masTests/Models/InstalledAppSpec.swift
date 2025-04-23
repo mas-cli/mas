@@ -1,5 +1,5 @@
 //
-//  SoftwareProductSpec.swift
+//  InstalledAppSpec.swift
 //  masTests
 //
 //  Created by Ben Chatelain on 9/30/21.
@@ -11,9 +11,9 @@ import Quick
 
 @testable import mas
 
-public final class SoftwareProductSpec: QuickSpec {
+public final class InstalledAppSpec: QuickSpec {
     override public static func spec() {
-        let app = SimpleSoftwareProduct(
+        let app = SimpleInstalledApp(
             appID: 111,
             appName: "App",
             bundleIdentifier: "",
@@ -21,7 +21,7 @@ public final class SoftwareProductSpec: QuickSpec {
             bundleVersion: "1.0.0"
         )
 
-        describe("software product") {
+        describe("installed app") {
             it("is not outdated when there is no new version available") {
                 expect(consequencesOf(app.isOutdated(comparedTo: SearchResult(version: "1.0.0"))))
                     == (false, nil, "", "")

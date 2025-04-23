@@ -1,5 +1,5 @@
 //
-//  SoftwareProduct.swift
+//  InstalledApp.swift
 //  mas
 //
 //  Created by Ben Chatelain on 12/27/18.
@@ -10,7 +10,7 @@ import Foundation
 import Version
 
 /// Protocol describing the members of an installed MAS app.
-protocol SoftwareProduct: Sendable {
+protocol InstalledApp: Sendable {
     var appID: AppID { get }
     var appName: String { get }
     // periphery:ignore
@@ -19,7 +19,7 @@ protocol SoftwareProduct: Sendable {
     var bundleVersion: String { get }
 }
 
-extension SoftwareProduct {
+extension InstalledApp {
     /// Determines whether the app is considered outdated.
     ///
     /// Updates that require a higher OS version are excluded.

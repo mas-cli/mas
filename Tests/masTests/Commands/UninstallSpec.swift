@@ -14,7 +14,7 @@ import Quick
 public final class UninstallSpec: QuickSpec {
     override public static func spec() {
         let appID = 12345 as AppID
-        let app = SimpleSoftwareProduct(
+        let app = SimpleInstalledApp(
             appID: appID,
             appName: "Some App",
             bundleIdentifier: "com.some.app",

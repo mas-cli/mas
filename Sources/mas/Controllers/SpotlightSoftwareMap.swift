@@ -16,7 +16,7 @@ class SpotlightSoftwareMap: SoftwareMap {
     }
 
     @MainActor
-    func allSoftwareProducts() async -> [SoftwareProduct] {
+    func installedApps() async -> [InstalledApp] {
         defer {
             if let observer {
                 NotificationCenter.default.removeObserver(observer)
@@ -57,7 +57,7 @@ class SpotlightSoftwareMap: SoftwareMap {
                     returning: query.results.compactMap { result in
                         if let item = result as? NSMetadataItem {
                             // swift-format-ignore
-                            SimpleSoftwareProduct(
+                            SimpleInstalledApp(
                                 appID:
                                     item.value(forAttribute: "kMDItemAppStoreAdamID") as? AppID ?? 0,
                                 appName:

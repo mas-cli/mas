@@ -58,7 +58,7 @@ extension MAS {
         private func findOutdatedApps(
             appLibrary: AppLibrary,
             searcher: AppStoreSearcher
-        ) async -> [(installedApp: SoftwareProduct, storeApp: SearchResult)] {
+        ) async -> [(installedApp: InstalledApp, storeApp: SearchResult)] {
             let apps =
                 appIDOrNames.isEmpty
                 ? appLibrary.installedApps
@@ -80,7 +80,7 @@ extension MAS {
                     return installedApps
                 }
 
-            var outdatedApps = [(SoftwareProduct, SearchResult)]()
+            var outdatedApps = [(InstalledApp, SearchResult)]()
             for installedApp in apps {
                 do {
                     let storeApp = try await searcher.lookup(appID: installedApp.appID)

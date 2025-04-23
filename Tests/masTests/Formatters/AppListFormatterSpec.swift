@@ -14,36 +14,36 @@ import Quick
 public final class AppListFormatterSpec: QuickSpec {
     override public static func spec() {
         // static func reference
-        let format = AppListFormatter.format(products:)
+        let format = AppListFormatter.format(_:)
 
         describe("app list formatter") {
             it("formats nothing as empty string") {
                 expect(consequencesOf(format([]))) == ("", nil, "", "")
             }
-            it("can format a single product") {
-                let product = SimpleSoftwareProduct(
+            it("can format a single installed app") {
+                let installedApp = SimpleInstalledApp(
                     appID: 12345,
                     appName: "Awesome App",
                     bundleIdentifier: "",
                     bundlePath: "",
                     bundleVersion: "19.2.1"
                 )
-                expect(consequencesOf(format([product])))
+                expect(consequencesOf(format([installedApp])))
                     == ("12345       Awesome App  (19.2.1)", nil, "", "")
             }
-            it("can format two products") {
+            it("can format two installed apps") {
                 expect(
                     consequencesOf(
                         format(
                             [
-                                SimpleSoftwareProduct(
+                                SimpleInstalledApp(
                                     appID: 12345,
                                     appName: "Awesome App",
                                     bundleIdentifier: "",
                                     bundlePath: "",
                                     bundleVersion: "19.2.1"
                                 ),
-                                SimpleSoftwareProduct(
+                                SimpleInstalledApp(
                                     appID: 67890,
                                     appName: "Even Better App",
                                     bundleIdentifier: "",

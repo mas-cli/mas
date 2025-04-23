@@ -10,13 +10,13 @@ import ScriptingBridge
 
 /// Utility for managing installed apps.
 struct SoftwareMapAppLibrary: AppLibrary {
-    /// Array of installed software products.
-    let installedApps: [SoftwareProduct]
+    /// Array of installed apps.
+    let installedApps: [InstalledApp]
 
     /// Internal initializer for providing a mock software map.
     /// - Parameter softwareMap: SoftwareMap to use
     init(softwareMap: SoftwareMap = SpotlightSoftwareMap()) async {
-        installedApps = await softwareMap.allSoftwareProducts()
+        installedApps = await softwareMap.installedApps()
             .sorted { $0.appName.caseInsensitiveCompare($1.appName) == .orderedAscending }
     }
 
