@@ -299,22 +299,37 @@ reattach-to-user-namespace mas install
 
 ### `mas list` returns no results
 
-From 2.0 onwards, mas relies on Spotlight and therefore on macOS' *Metadata Server*
-(also called `mds`) to associate an application with its app ID. `mds` is a
-collection of background processes responsible for indexing the file system and
-providing this metadata to Spotlight.
+mas 2.0.0+ sources data for installed MAS apps from masOS's Spotlight metadata store.
 
-You can check that an app exposes its app ID by running `mdls` on the app bundle.
+mas can only interact with MAS apps if they have been indexed by the Spotlight Metadata Server
+(aka MDS) background processes.
+
+You can check if an MAS app has been indexed in the metadata store by running:
 
 ```console
-$ mdls /Applications/WhatsApp.app | grep kMDItemAppStoreAdamID
-kMDItemAppStoreAdamID                   = 310633997
+## General format:
+$ mdls -rn kMDItemAppStoreAdamID /path/to/app
+## Outputs nothing if the app is not indexed
+## Outputs the app ID if the app is indexed
+
+## Example:
+$ mdls -rn kMDItemAppStoreAdamID /Applications/WhatsApp.app
+310633997
 ```
 
-Given an app ID, you can find the path to the app by running `mdfind`:
+If an app has been indexed in the metadata store, given its app ID, you can find the path to the
+app by running:
+
 ```console
 $ mdfind 'kMDItemAppStoreAdamID == 310633997'
 /Applications/WhatsApp.app
+```
+
+If any of your MAS apps are not indexed, you can enable/rebuild the metadata store for all file
+system volumes by running:
+
+```shell
+sudo mdutil -Eai on
 ```
 
 ## 🚫 When something doesn't work
