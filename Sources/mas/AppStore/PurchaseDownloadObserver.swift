@@ -137,7 +137,7 @@ private extension SSDownloadPhase {
 }
 
 extension PurchaseDownloadObserver {
-    func observeDownloadQueue(_ downloadQueue: CKDownloadQueue = CKDownloadQueue.shared()) async throws {
+    func observeDownloadQueue(_ downloadQueue: CKDownloadQueue = .shared()) async throws {
         let observerID = downloadQueue.add(self)
         defer {
             downloadQueue.remove(observerID)

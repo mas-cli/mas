@@ -14,25 +14,22 @@ enum SearchResultFormatter {
     ///   - results: Search results containing app data
     ///   - includePrice: Indicates whether to include prices in the output
     /// - Returns: Multiline text output.
-    static func format(results: [SearchResult], includePrice: Bool = false) -> String {
-        guard let maxLength = results.map(\.trackName.count).max() else {
+    static func format(_ results: [SearchResult], includePrice: Bool = false) -> String {
+        // longest app name for right space padding
+        guard let maxAppNameLength = results.map(\.trackName.count).max() else {
             return ""
         }
 
-        var output = ""
+        return
+            results.map { result in
+                let appID = result.trackId
+                let appName = result.trackName.padding(toLength: maxAppNameLength, withPad: " ", startingAt: 0)
+                let version = result.version
 
-        for result in results {
-            let appID = result.trackId
-            let appName = result.trackName.padding(toLength: maxLength, withPad: " ", startingAt: 0)
-            let version = result.version
-
-            if includePrice {
-                output += String(format: "%12lu  %@  (%@)  %@\n", appID, appName, version, result.displayPrice)
-            } else {
-                output += String(format: "%12lu  %@  (%@)\n", appID, appName, version)
+                return includePrice
+                    ? String(format: "%12lu  %@  (%@)  %@", appID, appName, version, result.displayPrice)
+                    : String(format: "%12lu  %@  (%@)", appID, appName, version)
             }
-        }
-
-        return output.trimmingCharacters(in: .newlines)
+            .joined(separator: "\n")
     }
 }

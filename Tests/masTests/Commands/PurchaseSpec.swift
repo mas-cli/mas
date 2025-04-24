@@ -17,8 +17,7 @@ public final class PurchaseSpec: AsyncSpec {
             it("purchases apps") {
                 await expecta(
                     await consequencesOf(
-                        try await MAS.Purchase.parse(["999"])
-                            .run(appLibrary: MockAppLibrary(), searcher: MockAppStoreSearcher())
+                        try await MAS.Purchase.parse(["999"]).run(installedApps: [], searcher: MockAppStoreSearcher())
                     )
                 )
                     == (nil, "", "")

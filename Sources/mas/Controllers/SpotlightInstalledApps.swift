@@ -1,5 +1,5 @@
 //
-//  SpotlightSoftwareMap.swift
+//  SpotlightInstalledApps.swift
 //  mas
 //
 //  Created by Ross Goldberg on 2025-04-09.
@@ -8,15 +8,10 @@
 
 import Foundation
 
-class SpotlightSoftwareMap: SoftwareMap {
-    private var observer: NSObjectProtocol?
-
-    deinit {
-        // do nothing
-    }
-
-    @MainActor
-    func allSoftwareProducts() async -> [SoftwareProduct] {
+@MainActor // swiftlint:disable:next attributes
+var installedApps: [InstalledApp] {
+    get async {
+        var observer: NSObjectProtocol?
         defer {
             if let observer {
                 NotificationCenter.default.removeObserver(observer)
@@ -54,26 +49,29 @@ class SpotlightSoftwareMap: SoftwareMap {
                 query.stop()
 
                 continuation.resume(
-                    returning: query.results.compactMap { result in
-                        if let item = result as? NSMetadataItem {
-                            // swift-format-ignore
-                            SimpleSoftwareProduct(
-                                appID:
-                                    item.value(forAttribute: "kMDItemAppStoreAdamID") as? AppID ?? 0,
-                                appName:
-                                    (item.value(forAttribute: "_kMDItemDisplayNameWithExtensions") as? String ?? "")
-                                    .removeSuffix(".app"),
-                                bundleIdentifier:
-                                    item.value(forAttribute: NSMetadataItemCFBundleIdentifierKey) as? String ?? "",
-                                bundlePath:
-                                    item.value(forAttribute: NSMetadataItemPathKey) as? String ?? "",
-                                bundleVersion:
-                                    item.value(forAttribute: NSMetadataItemVersionKey) as? String ?? ""
-                            )
-                        } else {
-                            nil
+                    returning:
+                        query.results
+                        .compactMap { result in
+                            if let item = result as? NSMetadataItem {
+                                // swift-format-ignore
+                                InstalledApp(
+                                    id:
+                                        item.value(forAttribute: "kMDItemAppStoreAdamID") as? AppID ?? 0,
+                                    name:
+                                        (item.value(forAttribute: "_kMDItemDisplayNameWithExtensions") as? String ?? "")
+                                        .removingSuffix(".app"),
+                                    bundleID:
+                                        item.value(forAttribute: NSMetadataItemCFBundleIdentifierKey) as? String ?? "",
+                                    path:
+                                        item.value(forAttribute: NSMetadataItemPathKey) as? String ?? "",
+                                    version:
+                                        item.value(forAttribute: NSMetadataItemVersionKey) as? String ?? ""
+                                )
+                            } else {
+                                nil
+                            }
                         }
-                    }
+                        .sorted { $0.name.caseInsensitiveCompare($1.name) == .orderedAscending }
                 )
             }
 
@@ -83,9 +81,9 @@ class SpotlightSoftwareMap: SoftwareMap {
 }
 
 private extension String {
-    func removeSuffix(_ suffix: String) -> String {
+    func removingSuffix(_ suffix: Self) -> Self {
         hasSuffix(suffix)
-            ? String(dropLast(suffix.count))
+            ? Self(dropLast(suffix.count))
             : self
     }
 }

@@ -13,7 +13,7 @@ private let unknown = "unknown"
 
 extension MAS {
     /// Displays mas config & related system info.
-    struct Config: ParsableCommand {
+    struct Config: AsyncParsableCommand {
         static let configuration = CommandConfiguration(
             abstract: "Display mas config & related system info"
         )
@@ -22,7 +22,7 @@ extension MAS {
         var markdown = false
 
         /// Runs the command.
-        func run() throws {
+        func run() async throws {
             if markdown {
                 print("```text")
             }
@@ -35,7 +35,7 @@ extension MAS {
                 rev ▁▁▁▁ \(Package.gitRevision)
                 driver ▁ \(Package.swiftDriverVersion)
                 swift ▁▁ \(Package.swiftVersion)
-                region ▁ \(Storefront.isoRegion?.alpha2 ?? unknown)
+                region ▁ \(await isoRegion?.alpha2 ?? unknown)
                 macos ▁▁ \(
                     ProcessInfo.processInfo.operatingSystemVersionString.dropFirst(8)
                         .replacingOccurrences(of: "Build ", with: "")

@@ -1,5 +1,5 @@
 //
-//  SoftwareProduct.swift
+//  InstalledApp.swift
 //  mas
 //
 //  Created by Ben Chatelain on 12/27/18.
@@ -9,17 +9,16 @@
 import Foundation
 import Version
 
-/// Protocol describing the members of an installed MAS app.
-protocol SoftwareProduct: Sendable {
-    var appID: AppID { get }
-    var appName: String { get }
+struct InstalledApp: Sendable {
+    let id: AppID
+    let name: String
     // periphery:ignore
-    var bundleIdentifier: String { get }
-    var bundlePath: String { get }
-    var bundleVersion: String { get }
+    let bundleID: String
+    let path: String
+    let version: String
 }
 
-extension SoftwareProduct {
+extension InstalledApp {
     /// Determines whether the app is considered outdated.
     ///
     /// Updates that require a higher OS version are excluded.
@@ -44,7 +43,7 @@ extension SoftwareProduct {
         // swift-format-ignore
         return
             if
-                let semanticBundleVersion = Version(tolerant: bundleVersion),
+                let semanticBundleVersion = Version(tolerant: version),
                 let semanticAppStoreVersion = Version(tolerant: storeApp.version)
             {
                 semanticBundleVersion < semanticAppStoreVersion
@@ -52,7 +51,7 @@ extension SoftwareProduct {
                 // If a version string can't be parsed as a Semantic Version, our best effort is to
                 // check for equality. The only version that matters is the one in the App Store.
                 // https://semver.org
-                bundleVersion != storeApp.version
+                version != storeApp.version
             }
     }
 }

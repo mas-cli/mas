@@ -24,11 +24,11 @@ extension MAS {
 
         /// Runs the command.
         func run() async throws {
-            try await run(appLibrary: await SoftwareMapAppLibrary(), searcher: ITunesSearchAppStoreSearcher())
+            try await run(installedApps: await installedApps, searcher: ITunesSearchAppStoreSearcher())
         }
 
-        func run(appLibrary: AppLibrary, searcher: AppStoreSearcher) async throws {
-            let apps = await findOutdatedApps(appLibrary: appLibrary, searcher: searcher)
+        func run(installedApps: [InstalledApp], searcher: AppStoreSearcher) async throws {
+            let apps = await findOutdatedApps(installedApps: installedApps, searcher: searcher)
 
             guard !apps.isEmpty else {
                 return
@@ -40,7 +40,7 @@ extension MAS {
                 " outdated application",
                 apps.count > 1 ? "s:\n" : ":\n",
                 apps.map { installedApp, storeApp in
-                    "\(storeApp.trackName) (\(installedApp.bundleVersion)) -> (\(storeApp.version))"
+                    "\(storeApp.trackName) (\(installedApp.version)) -> (\(storeApp.version))"
                 }
                 .joined(separator: "\n"),
                 separator: ""
@@ -56,16 +56,16 @@ extension MAS {
         }
 
         private func findOutdatedApps(
-            appLibrary: AppLibrary,
+            installedApps: [InstalledApp],
             searcher: AppStoreSearcher
-        ) async -> [(installedApp: SoftwareProduct, storeApp: SearchResult)] {
+        ) async -> [(installedApp: InstalledApp, storeApp: SearchResult)] {
             let apps =
                 appIDOrNames.isEmpty
-                ? appLibrary.installedApps
+                ? installedApps
                 : appIDOrNames.flatMap { appIDOrName in
                     if let appID = AppID(appIDOrName) {
                         // argument is an AppID, lookup apps by id using argument
-                        let installedApps = appLibrary.installedApps(withAppID: appID)
+                        let installedApps = installedApps.filter { $0.id == appID }
                         if installedApps.isEmpty {
                             printError(appID.unknownMessage)
                         }
@@ -73,17 +73,17 @@ extension MAS {
                     }
 
                     // argument is not an AppID, lookup apps by name using argument
-                    let installedApps = appLibrary.installedApps(named: appIDOrName)
+                    let installedApps = installedApps.filter { $0.name == appIDOrName }
                     if installedApps.isEmpty {
                         printError("Unknown app name '", appIDOrName, "'", separator: "")
                     }
                     return installedApps
                 }
 
-            var outdatedApps = [(SoftwareProduct, SearchResult)]()
+            var outdatedApps = [(InstalledApp, SearchResult)]()
             for installedApp in apps {
                 do {
-                    let storeApp = try await searcher.lookup(appID: installedApp.appID)
+                    let storeApp = try await searcher.lookup(appID: installedApp.id)
                     if installedApp.isOutdated(comparedTo: storeApp) {
                         outdatedApps.append((installedApp, storeApp))
                     }
@@ -93,7 +93,7 @@ extension MAS {
                             "Identifier ",
                             unknownAppID,
                             " not found in store. Was expected to identify ",
-                            installedApp.appName,
+                            installedApp.name,
                             ".",
                             separator: ""
                         )

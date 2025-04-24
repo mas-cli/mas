@@ -20,22 +20,22 @@ extension MAS {
 
         /// Runs the command.
         func run() async throws {
-            try await run(appLibrary: await SoftwareMapAppLibrary(), searcher: ITunesSearchAppStoreSearcher())
+            try await run(installedApps: await installedApps, searcher: ITunesSearchAppStoreSearcher())
         }
 
-        func run(appLibrary: AppLibrary, searcher: AppStoreSearcher) async throws {
-            // Try to download applications with given identifiers and collect results
-            let appIDs = appIDs.filter { appID in
-                if let appName = appLibrary.installedApps(withAppID: appID).first?.appName {
-                    printWarning(appName, "has already been purchased.")
-                    return false
-                }
-
-                return true
-            }
-
+        func run(installedApps: [InstalledApp], searcher: AppStoreSearcher) async throws {
             do {
-                try await downloadApps(withAppIDs: appIDs, verifiedBy: searcher, purchasing: true)
+                try await downloadApps(
+                    withAppIDs: appIDs.filter { appID in
+                        if let appName = installedApps.first(where: { $0.id == appID })?.name {
+                            printWarning(appName, "has already been purchased.")
+                            return false
+                        }
+                        return true
+                    },
+                    verifiedBy: searcher,
+                    purchasing: true
+                )
             } catch let error as MASError {
                 throw error
             } catch {

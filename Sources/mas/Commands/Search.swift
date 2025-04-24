@@ -32,7 +32,7 @@ extension MAS {
                     throw MASError.noSearchResultsFound
                 }
 
-                print(SearchResultFormatter.format(results: results, includePrice: price))
+                print(SearchResultFormatter.format(results, includePrice: price))
             } catch let error as MASError {
                 throw error
             } catch {

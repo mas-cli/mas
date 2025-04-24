@@ -17,11 +17,7 @@ public final class InstallSpec: AsyncSpec {
             it("installs apps") {
                 await expecta(
                     await consequencesOf(
-                        try await MAS.Install.parse([])
-                            .run(
-                                appLibrary: MockAppLibrary(),
-                                searcher: MockAppStoreSearcher()
-                            )
+                        try await MAS.Install.parse([]).run(installedApps: [], searcher: MockAppStoreSearcher())
                     )
                 )
                     == (nil, "", "")

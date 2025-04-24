@@ -17,15 +17,14 @@ extension MAS {
 
         /// Runs the command.
         func run() async throws {
-            try run(appLibrary: await SoftwareMapAppLibrary())
+            try run(installedApps: await installedApps)
         }
 
-        func run(appLibrary: AppLibrary) throws {
-            let products = appLibrary.installedApps
-            if products.isEmpty {
+        func run(installedApps: [InstalledApp]) throws {
+            if installedApps.isEmpty {
                 printError("No installed apps found")
             } else {
-                print(AppListFormatter.format(products: products))
+                print(AppListFormatter.format(installedApps))
             }
         }
     }

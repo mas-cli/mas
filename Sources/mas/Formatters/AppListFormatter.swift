@@ -12,22 +12,22 @@ enum AppListFormatter {
 
     /// Formats text output with list results.
     ///
-    /// - Parameter products: List of software products app data.
+    /// - Parameter installedApps: List of installed apps.
     /// - Returns: Multiline text output.
-    static func format(products: [SoftwareProduct]) -> String {
-        // find longest appName for formatting
-        let maxLength = products.map(\.appName.count).max() ?? 0
-
-        var output = ""
-
-        for product in products {
-            let appID = product.appID.description.padding(toLength: idColumnMinWidth, withPad: " ", startingAt: 0)
-            let appName = product.appName.padding(toLength: maxLength, withPad: " ", startingAt: 0)
-            let version = product.bundleVersion
-
-            output += "\(appID)  \(appName)  (\(version))\n"
+    static func format(_ installedApps: [InstalledApp]) -> String {
+        // longest app name for right space padding
+        guard let maxAppNameLength = installedApps.map(\.name.count).max() else {
+            return ""
         }
 
-        return output.trimmingCharacters(in: .newlines)
+        return
+            installedApps.map { installedApp in
+                """
+                \(installedApp.id.description.padding(toLength: idColumnMinWidth, withPad: " ", startingAt: 0))  \
+                \(installedApp.name.padding(toLength: maxAppNameLength, withPad: " ", startingAt: 0))  \
+                (\(installedApp.version))
+                """
+            }
+            .joined(separator: "\n")
     }
 }
