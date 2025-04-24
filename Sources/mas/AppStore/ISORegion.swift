@@ -7,6 +7,7 @@
 //
 
 import IsoCountryCodes
+import StoreKit
 
 // periphery:ignore
 protocol ISORegion {
@@ -22,6 +23,16 @@ protocol ISORegion {
 }
 
 extension IsoCountryInfo: ISORegion {}
+
+var isoRegion: ISORegion? {
+    if let storefront = SKPaymentQueue.default().storefront {
+        findISORegion(forAlpha3Code: storefront.countryCode)
+    } else if let alpha2 = Locale.autoupdatingCurrent.regionCode {
+        findISORegion(forAlpha2Code: alpha2)
+    } else {
+        nil
+    }
+}
 
 func findISORegion(forAlpha2Code alpha2Code: String) -> ISORegion? {
     let alpha2Code = alpha2Code.uppercased()

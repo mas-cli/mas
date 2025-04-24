@@ -17,7 +17,7 @@ extension MAS {
 
         /// Runs the command.
         func run() throws {
-            guard let region = Storefront.isoRegion else {
+            guard let region = isoRegion else {
                 throw MASError.runtimeError("Could not obtain Mac App Store region")
             }
 
