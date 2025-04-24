@@ -25,12 +25,24 @@ protocol ISORegion {
 extension IsoCountryInfo: ISORegion {}
 
 var isoRegion: ISORegion? {
-    if let storefront = SKPaymentQueue.default().storefront {
-        findISORegion(forAlpha3Code: storefront.countryCode)
-    } else if let alpha2 = Locale.autoupdatingCurrent.regionCode {
-        findISORegion(forAlpha2Code: alpha2)
-    } else {
-        nil
+    get async {
+        if let alpha3 = await alpha3 {
+            findISORegion(forAlpha3Code: alpha3)
+        } else if let alpha2 = Locale.autoupdatingCurrent.regionCode {
+            findISORegion(forAlpha2Code: alpha2)
+        } else {
+            nil
+        }
+    }
+}
+
+private var alpha3: String? {
+    get async {
+        if #available(macOS 12, *) {
+            await Storefront.current?.countryCode
+        } else {
+            SKPaymentQueue.default().storefront?.countryCode
+        }
     }
 }
 

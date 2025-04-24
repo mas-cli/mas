@@ -10,14 +10,14 @@ import ArgumentParser
 
 extension MAS {
     /// Command which interacts with the current region for the Mac App Store.
-    struct Region: ParsableCommand {
+    struct Region: AsyncParsableCommand {
         static let configuration = CommandConfiguration(
             abstract: "Display the region of the Mac App Store"
         )
 
         /// Runs the command.
-        func run() throws {
-            guard let region = isoRegion else {
+        func run() async throws {
+            guard let region = await isoRegion else {
                 throw MASError.runtimeError("Could not obtain Mac App Store region")
             }
 
