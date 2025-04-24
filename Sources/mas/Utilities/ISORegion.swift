@@ -8,16 +8,6 @@
 
 import IsoCountryCodes
 
-func findISORegion(forAlpha2Code alpha2Code: String) -> ISORegion? {
-    let alpha2Code = alpha2Code.uppercased()
-    return IsoCountries.allCountries.first { $0.alpha2 == alpha2Code }
-}
-
-func findISORegion(forAlpha3Code alpha3Code: String) -> ISORegion? {
-    let alpha3Code = alpha3Code.uppercased()
-    return IsoCountries.allCountries.first { $0.alpha3 == alpha3Code }
-}
-
 // periphery:ignore
 protocol ISORegion {
     var name: String { get }
@@ -32,3 +22,13 @@ protocol ISORegion {
 }
 
 extension IsoCountryInfo: ISORegion {}
+
+func findISORegion(forAlpha2Code alpha2Code: String) -> ISORegion? {
+    let alpha2Code = alpha2Code.uppercased()
+    return IsoCountries.allCountries.first { $0.alpha2 == alpha2Code }
+}
+
+func findISORegion(forAlpha3Code alpha3Code: String) -> ISORegion? {
+    let alpha3Code = alpha3Code.uppercased()
+    return IsoCountries.allCountries.first { $0.alpha3 == alpha3Code }
+}
