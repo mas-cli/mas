@@ -28,7 +28,7 @@ var isoRegion: ISORegion? {
     get async {
         if let alpha3 = await alpha3 {
             findISORegion(forAlpha3Code: alpha3)
-        } else if let alpha2 = Locale.autoupdatingCurrent.regionCode {
+        } else if let alpha2 {
             findISORegion(forAlpha2Code: alpha2)
         } else {
             nil
@@ -43,6 +43,14 @@ private var alpha3: String? {
         } else {
             SKPaymentQueue.default().storefront?.countryCode
         }
+    }
+}
+
+private var alpha2: String? {
+    if #available(macOS 13, *) {
+        Locale.autoupdatingCurrent.region?.identifier
+    } else {
+        Locale.autoupdatingCurrent.regionCode
     }
 }
 
