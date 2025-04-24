@@ -1,5 +1,5 @@
 //
-//  SpotlightSoftwareMap.swift
+//  SpotlightInstalledApps.swift
 //  mas
 //
 //  Created by Ross Goldberg on 2025-04-09.

@@ -29,7 +29,7 @@ disabled_rules:
 closure_body_length:
   warning: 40
 file_name:
-  excluded: [Finder.swift, SpotlightSoftwareMap.swift, Utilities.swift]
+  excluded: [Finder.swift, SpotlightInstalledApps.swift, Utilities.swift]
 file_types_order:
   order:
     [
