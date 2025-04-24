@@ -9,14 +9,13 @@
 import Foundation
 import Version
 
-/// Protocol describing the members of an installed MAS app.
-protocol InstalledApp: Sendable {
-    var id: AppID { get }
-    var name: String { get }
+struct InstalledApp: Sendable {
+    let id: AppID
+    let name: String
     // periphery:ignore
-    var bundleID: String { get }
-    var path: String { get }
-    var version: String { get }
+    let bundleID: String
+    let path: String
+    let version: String
 }
 
 extension InstalledApp {

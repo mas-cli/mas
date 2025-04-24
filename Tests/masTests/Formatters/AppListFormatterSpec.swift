@@ -21,7 +21,7 @@ public final class AppListFormatterSpec: QuickSpec {
                 expect(consequencesOf(format([]))) == ("", nil, "", "")
             }
             it("can format a single installed app") {
-                let installedApp = SimpleInstalledApp(
+                let installedApp = InstalledApp(
                     id: 12345,
                     name: "Awesome App",
                     bundleID: "",
@@ -36,14 +36,14 @@ public final class AppListFormatterSpec: QuickSpec {
                     consequencesOf(
                         format(
                             [
-                                SimpleInstalledApp(
+                                InstalledApp(
                                     id: 12345,
                                     name: "Awesome App",
                                     bundleID: "",
                                     path: "",
                                     version: "19.2.1"
                                 ),
-                                SimpleInstalledApp(
+                                InstalledApp(
                                     id: 67890,
                                     name: "Even Better App",
                                     bundleID: "",

@@ -13,7 +13,7 @@ import Quick
 
 public final class InstalledAppSpec: QuickSpec {
     override public static func spec() {
-        let app = SimpleInstalledApp(
+        let app = InstalledApp(
             id: 111,
             name: "App",
             bundleID: "",

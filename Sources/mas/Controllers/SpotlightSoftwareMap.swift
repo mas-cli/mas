@@ -54,7 +54,7 @@ var installedApps: [InstalledApp] {
                         .compactMap { result in
                             if let item = result as? NSMetadataItem {
                                 // swift-format-ignore
-                                SimpleInstalledApp(
+                                InstalledApp(
                                     id:
                                         item.value(forAttribute: "kMDItemAppStoreAdamID") as? AppID ?? 0,
                                     name:
