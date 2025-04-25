@@ -8,7 +8,7 @@
 
 import CommerceKit
 
-extension ISStoreAccount: @retroactive @unchecked Sendable {
+extension ISStoreAccount: @unchecked Sendable {
     @MainActor // swiftlint:disable:next attributes
     static var primaryAccount: ISStoreAccount {
         get async {
