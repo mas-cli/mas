@@ -314,12 +314,12 @@ brew install reattach-to-user-namespace
 reattach-to-user-namespace mas install
 ```
 
-### 📭 `mas list` returns no results
+### 📭 `mas list`, `mas outdated`, `mas uninstall`, or `mas upgrade` does not detect installed apps
 
 mas 2.0.0+ sources data for installed Mac App Store apps from macOS's Spotlight metadata store.
 
-mas can only interact with Mac App Store apps if they have been indexed by the Spotlight
-Metadata Server (aka MDS) background processes.
+mas can only interact with installed Mac App Store apps if they have been indexed by the
+Spotlight Metadata Server (aka MDS) background processes.
 
 You can check if a Mac App Store app has been indexed in the metadata store by running:
 
