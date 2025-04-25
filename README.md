@@ -130,7 +130,7 @@ $ mas list
 
 #### `mas outdated`
 
-`mas outdated` displays all applications installed from the Mac App Store on your computer that have pending upgrades.
+`mas outdated` displays all applications installed from the Mac App Store on your Mac that have pending upgrades.
 
 ```console
 $ mas outdated
@@ -163,7 +163,7 @@ $ mas purchase 497799835
 #### `mas install`
 
 `mas install <app-id>…` installs apps that you have already gotten/"purchased" from the Mac App Store.
-Providing the `--force` flag re-installs the app even if it is already installed on your computer.
+Providing the `--force` flag re-installs the app even if it is already installed on your Mac.
 
 ```console
 $ mas install 497799835
