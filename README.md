@@ -297,6 +297,41 @@ brew install reattach-to-user-namespace
 reattach-to-user-namespace mas install
 ```
 
+### `mas list` returns no results
+
+mas 2.0.0+ sources data for installed MAS apps from masOS's Spotlight metadata store.
+
+mas can only interact with MAS apps if they have been indexed by the Spotlight Metadata Server
+(aka MDS) background processes.
+
+You can check if an MAS app has been indexed in the metadata store by running:
+
+```console
+## General format:
+$ mdls -rn kMDItemAppStoreAdamID /path/to/app
+## Outputs nothing if the app is not indexed
+## Outputs the app ID if the app is indexed
+
+## Example:
+$ mdls -rn kMDItemAppStoreAdamID /Applications/WhatsApp.app
+310633997
+```
+
+If an app has been indexed in the metadata store, given its app ID, you can find the path to the
+app by running:
+
+```console
+$ mdfind 'kMDItemAppStoreAdamID == 310633997'
+/Applications/WhatsApp.app
+```
+
+If any of your MAS apps are not indexed, you can enable/rebuild the metadata store for all file
+system volumes by running:
+
+```shell
+sudo mdutil -Eai on
+```
+
 ## 🚫 When something doesn't work
 
 If you see the following error, it's probably because you haven't yet "purchased" the app through the Mac App Store.
