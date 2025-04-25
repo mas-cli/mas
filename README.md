@@ -38,11 +38,11 @@ sudo port install mas
 
 #### 🍻 Custom Homebrew tap
 
-We provide a [custom Homebrew tap](https://github.com/mas-cli/homebrew-tap) with pre-built bottles
+The [mas custom Homebrew tap](https://github.com/mas-cli/homebrew-tap) provides pre-built bottles
 for all macOS versions since 10.11 (El Capitan). The newest versions of mas, however, are only available
 for macOS 10.15+ (Catalina or newer).
 
-To install mas from our tap:
+To install mas from the custom tap:
 
 ```shell
 brew install mas-cli/tap/mas
@@ -84,7 +84,7 @@ Alternatively, to find an app's app ID:
 ### 🛍 Info from the Mac App Store
 
 None of the commands in this section require you to be logged into an Apple Account,
-neither for your macOS user, nor in the Mac App Store.
+neither for your macOS user nor in the Mac App Store.
 
 #### `mas search`
 
@@ -287,19 +287,19 @@ mas operates via the same system services as the Mac App Store. These exist as
 separate processes with communication through XPC. As a result of this, mas
 experiences similar problems as the pasteboard when running inside `tmux`. A
 [wrapper tool exists](https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard) to
-fix pasteboard behaviour which also works for mas.
+fix pasteboard behavior which also works for mas.
 
-You should consider configuring `tmux` to use the wrapper but if you do not wish
-to do this it can be used on a one-off basis as follows:
+You should consider configuring `tmux` to use the wrapper, but, if you do not wish
+to do this, it can be used on a one-off basis as follows:
 
 ```shell
 brew install reattach-to-user-namespace
 reattach-to-user-namespace mas install
 ```
 
-### `mas list` returns no results
+### 📭 `mas list` returns no results
 
-mas 2.0.0+ sources data for installed MAS apps from masOS's Spotlight metadata store.
+mas 2.0.0+ sources data for installed MAS apps from macOS's Spotlight metadata store.
 
 mas can only interact with MAS apps if they have been indexed by the Spotlight Metadata Server
 (aka MDS) background processes.
@@ -337,9 +337,9 @@ sudo mdutil -Eai on
 If you see the following error, it's probably because you haven't yet "purchased" the app through the Mac App Store.
 See [#46](https://github.com/mas-cli/mas/issues/46#issuecomment-248581233).
 > This redownload is not available for this Apple Account either because it was bought by a different user or the
-> item was refunded or cancelled.
+> item was refunded or canceled.
 
-If mas doesn't work for you as expected (e.g. you can't install/upgrade apps), run `mas reset`, then try again.
+If mas doesn't work for you as expected (e.g., you can't install/upgrade apps), run `mas reset`, then try again.
 If the issue persists, please [file a bug](https://github.com/mas-cli/mas/issues/new).
 All feedback is much appreciated! ✨
 
