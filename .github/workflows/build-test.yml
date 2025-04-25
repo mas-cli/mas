@@ -34,8 +34,8 @@ jobs:
       - name: 🔧 Setup repo
         run: script/setup_workflow_repo
 
-      - name: 🛠 Select Xcode 16.2
-        run: sudo xcode-select -s /Applications/Xcode_16.2.app/Contents/Developer
+      - name: 🛠 Select Xcode 16.3
+        run: sudo xcode-select -s /Applications/Xcode_16.3.app/Contents/Developer
 
       - name: 👢 Bootstrap
         run: script/bootstrap
