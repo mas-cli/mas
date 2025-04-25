@@ -22,7 +22,16 @@ extension MAS {
 
         func run(installedApps: [InstalledApp]) throws {
             if installedApps.isEmpty {
-                printError("No installed apps found")
+                printError(
+                    """
+                    No installed apps found
+
+                    If this is unexpected, the following command line should fix it by
+                    (re)creating the Spotlight index (which might take some time):
+
+                    sudo mdutil -Eai on
+                    """
+                )
             } else {
                 print(AppListFormatter.format(installedApps))
             }
