@@ -51,18 +51,3 @@ jobs:
           else
             printf $'No custom tap formula bump PR URL found for tag\'%s\'\n' "${GITHUB_REF_NAME}"
           fi
-
-      - name: 🍺 Bump homebrew-core formula
-        if: ${{!github.event.release.prerelease}}
-        env:
-          HOMEBREW_GITHUB_API_TOKEN: ${{github.token}}
-        run: |
-          brew bump-formula-pr\
-           --tag "${GITHUB_REF_NAME}"\
-           --revision "${GITHUB_SHA}"\
-           --fork-org "${GITHUB_REPOSITORY_OWNER}"\
-           --no-browse\
-           --online\
-           --strict\
-           --verbose\
-           mas
