@@ -49,9 +49,8 @@ extension MASError: CustomStringConvertible {
             "No password provided"
         case .notSupported:
             """
-            This command is not supported on this macOS version due to changes in macOS. \
-            For more information see: \
-            https://github.com/mas-cli/mas#known-issues
+            This command is not supported on this macOS version due to changes in macOS.
+            See: https://github.com/mas-cli/mas#known-issues
             """
         case .failed(let error):
             if let error {
