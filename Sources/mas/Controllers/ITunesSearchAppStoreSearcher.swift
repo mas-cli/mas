@@ -11,11 +11,11 @@ import Foundation
 /// Manages searching the MAS catalog. Uses the iTunes Search and Lookup APIs:
 /// https://performance-partners.apple.com/search-api
 struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
-	private let networkManager: NetworkManager
+	private let networkSession: NetworkSession
 
 	/// Designated initializer.
-	init(networkManager: NetworkManager = NetworkManager()) {
-		self.networkManager = networkManager
+	init(networkSession: NetworkSession = URLSession(configuration: .ephemeral)) {
+		self.networkSession = networkSession
 	}
 
 	/// Looks up app details.
@@ -65,7 +65,7 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 	}
 
 	private func loadSearchResults(_ url: URL) async throws -> [SearchResult] {
-		let (data, _) = try await networkManager.loadData(from: url)
+		let (data, _) = try await networkSession.data(from: url)
 		do {
 			return try JSONDecoder().decode(SearchResultList.self, from: data).results
 		} catch {
