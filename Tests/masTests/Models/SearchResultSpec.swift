@@ -13,18 +13,18 @@ import Quick
 @testable import mas
 
 public final class SearchResultSpec: QuickSpec {
-    override public static func spec() {
-        describe("search result") {
-            it("can parse things") {
-                expect(
-                    consequencesOf(
-                        try JSONDecoder()
-                            .decode(SearchResult.self, from: Data(from: "search/things-that-go-bump.json"))
-                            .trackId
-                    )
-                )
-                    == (1_472_954_003, nil, "", "")
-            }
-        }
-    }
+	override public static func spec() {
+		describe("search result") {
+			it("can parse things") {
+				expect(
+					consequencesOf(
+						try JSONDecoder()
+							.decode(SearchResult.self, from: Data(from: "search/things-that-go-bump.json"))
+							.trackId
+					)
+				)
+					== (1_472_954_003, nil, "", "")
+			}
+		}
+	}
 }

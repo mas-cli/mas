@@ -12,21 +12,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ISStoreAccount : NSObject <NSSecureCoding>
 {
-    NSTimer *_tokenInvalidTimer;
-    BOOL _isSignedIn;
-    BOOL _isManagedStudent;
-    BOOL _primary;
-    long long _touchIDState;
-    NSNumber *_dsID;
-    NSString *_identifier;
-    long long _kind;
-    NSString *_creditString;
-    NSString *_storeFront;
-    NSString *_password;
-    NSString *_token;
-    long long _URLBagType;
-    NSDate *_tokenIssuedDate;
-    NSTimer *_tokenExpirationTimer;
+	NSTimer *_tokenInvalidTimer;
+	BOOL _isSignedIn;
+	BOOL _isManagedStudent;
+	BOOL _primary;
+	long long _touchIDState;
+	NSNumber *_dsID;
+	NSString *_identifier;
+	long long _kind;
+	NSString *_creditString;
+	NSString *_storeFront;
+	NSString *_password;
+	NSString *_token;
+	long long _URLBagType;
+	NSDate *_tokenIssuedDate;
+	NSTimer *_tokenExpirationTimer;
 }
 
 + (id)migratePersistedStoreDictionary:(id)arg1;

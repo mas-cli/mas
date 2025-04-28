@@ -10,15 +10,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ISAuthenticationResponse : NSObject <NSSecureCoding>
 {
-    NSString *_token;
-    unsigned long long _urlBagType;
-    NSString *_storeFront;
-    BOOL _isManagedStudent;
-    unsigned long long _URLBagType;
-    NSString *_accountIdentifier;
-    long long _accountKind;
-    NSString *_creditString;
-    NSNumber *_dsID;
+	NSString *_token;
+	unsigned long long _urlBagType;
+	NSString *_storeFront;
+	BOOL _isManagedStudent;
+	unsigned long long _URLBagType;
+	NSString *_accountIdentifier;
+	long long _accountKind;
+	NSString *_creditString;
+	NSNumber *_dsID;
 }
 
 + (BOOL)supportsSecureCoding;

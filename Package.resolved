@@ -1,68 +1,68 @@
 {
-  "pins" : [
-    {
-      "identity" : "cwlcatchexception",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/mattgallagher/CwlCatchException.git",
-      "state" : {
-        "revision" : "07b2ba21d361c223e25e3c1e924288742923f08c",
-        "version" : "2.2.1"
-      }
-    },
-    {
-      "identity" : "cwlpreconditiontesting",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/mattgallagher/CwlPreconditionTesting.git",
-      "state" : {
-        "revision" : "0139c665ebb45e6a9fbdb68aabfd7c39f3fe0071",
-        "version" : "2.2.2"
-      }
-    },
-    {
-      "identity" : "isocountrycodes",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/funky-monkey/IsoCountryCodes.git",
-      "state" : {
-        "revision" : "c571f2133f32d56f6ef4af0d210bd1fc7adf6a02",
-        "version" : "1.0.2"
-      }
-    },
-    {
-      "identity" : "nimble",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Quick/Nimble.git",
-      "state" : {
-        "revision" : "7795df4fff1a9cd231fe4867ae54f4dc5f5734f9",
-        "version" : "13.7.1"
-      }
-    },
-    {
-      "identity" : "quick",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Quick/Quick.git",
-      "state" : {
-        "revision" : "26529ff2209c40ae50fd642b031f930d9d68ea02",
-        "version" : "7.5.0"
-      }
-    },
-    {
-      "identity" : "swift-argument-parser",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-argument-parser.git",
-      "state" : {
-        "revision" : "41982a3656a71c768319979febd796c6fd111d5c",
-        "version" : "1.5.0"
-      }
-    },
-    {
-      "identity" : "version",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/mxcl/Version.git",
-      "state" : {
-        "revision" : "303a0f916772545e1e8667d3104f83be708a723c",
-        "version" : "2.1.0"
-      }
-    }
-  ],
-  "version" : 2
+	"pins" : [
+		{
+			"identity" : "cwlcatchexception",
+			"kind" : "remoteSourceControl",
+			"location" : "https://github.com/mattgallagher/CwlCatchException.git",
+			"state" : {
+				"revision" : "07b2ba21d361c223e25e3c1e924288742923f08c",
+				"version" : "2.2.1"
+			}
+		},
+		{
+			"identity" : "cwlpreconditiontesting",
+			"kind" : "remoteSourceControl",
+			"location" : "https://github.com/mattgallagher/CwlPreconditionTesting.git",
+			"state" : {
+				"revision" : "0139c665ebb45e6a9fbdb68aabfd7c39f3fe0071",
+				"version" : "2.2.2"
+			}
+		},
+		{
+			"identity" : "isocountrycodes",
+			"kind" : "remoteSourceControl",
+			"location" : "https://github.com/funky-monkey/IsoCountryCodes.git",
+			"state" : {
+				"revision" : "c571f2133f32d56f6ef4af0d210bd1fc7adf6a02",
+				"version" : "1.0.2"
+			}
+		},
+		{
+			"identity" : "nimble",
+			"kind" : "remoteSourceControl",
+			"location" : "https://github.com/Quick/Nimble.git",
+			"state" : {
+				"revision" : "7795df4fff1a9cd231fe4867ae54f4dc5f5734f9",
+				"version" : "13.7.1"
+			}
+		},
+		{
+			"identity" : "quick",
+			"kind" : "remoteSourceControl",
+			"location" : "https://github.com/Quick/Quick.git",
+			"state" : {
+				"revision" : "26529ff2209c40ae50fd642b031f930d9d68ea02",
+				"version" : "7.5.0"
+			}
+		},
+		{
+			"identity" : "swift-argument-parser",
+			"kind" : "remoteSourceControl",
+			"location" : "https://github.com/apple/swift-argument-parser.git",
+			"state" : {
+				"revision" : "41982a3656a71c768319979febd796c6fd111d5c",
+				"version" : "1.5.0"
+			}
+		},
+		{
+			"identity" : "version",
+			"kind" : "remoteSourceControl",
+			"location" : "https://github.com/mxcl/Version.git",
+			"state" : {
+				"revision" : "303a0f916772545e1e8667d3104f83be708a723c",
+				"version" : "2.1.0"
+			}
+		}
+	],
+	"version" : 2
 }

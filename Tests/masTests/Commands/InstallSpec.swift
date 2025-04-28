@@ -12,16 +12,16 @@ import Quick
 @testable import mas
 
 public final class InstallSpec: AsyncSpec {
-    override public static func spec() {
-        xdescribe("install command") {
-            it("installs apps") {
-                await expecta(
-                    await consequencesOf(
-                        try await MAS.Install.parse([]).run(installedApps: [], searcher: MockAppStoreSearcher())
-                    )
-                )
-                    == (nil, "", "")
-            }
-        }
-    }
+	override public static func spec() {
+		xdescribe("install command") {
+			it("installs apps") {
+				await expecta(
+					await consequencesOf(
+						try await MAS.Install.parse([]).run(installedApps: [], searcher: MockAppStoreSearcher())
+					)
+				)
+					== (nil, "", "")
+			}
+		}
+	}
 }

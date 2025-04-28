@@ -4,16 +4,16 @@
 //
 
 module StoreFoundation {
-    header "ISAccountService.h"
-    header "ISAuthenticationContext.h"
-    header "ISStoreAccount.h"
-    header "ISStoreClient.h"
-    header "SSDownload.h"
-    header "SSDownloadMetadata.h"
-    header "SSDownloadPhase.h"
-    header "SSDownloadStatus.h"
-    header "SSPurchase.h"
-    header "SSPurchaseResponse.h"
+	header "ISAccountService.h"
+	header "ISAuthenticationContext.h"
+	header "ISStoreAccount.h"
+	header "ISStoreClient.h"
+	header "SSDownload.h"
+	header "SSDownloadMetadata.h"
+	header "SSDownloadPhase.h"
+	header "SSDownloadStatus.h"
+	header "SSPurchase.h"
+	header "SSPurchaseResponse.h"
 
-    export *
+	export *
 }

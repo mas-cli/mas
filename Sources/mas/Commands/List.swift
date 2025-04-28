@@ -9,32 +9,32 @@
 import ArgumentParser
 
 extension MAS {
-    /// Command which lists all installed apps.
-    struct List: AsyncParsableCommand {
-        static let configuration = CommandConfiguration(
-            abstract: "List apps installed from the Mac App Store"
-        )
+	/// Command which lists all installed apps.
+	struct List: AsyncParsableCommand {
+		static let configuration = CommandConfiguration(
+			abstract: "List apps installed from the Mac App Store"
+		)
 
-        /// Runs the command.
-        func run() async throws {
-            try run(installedApps: await installedApps)
-        }
+		/// Runs the command.
+		func run() async throws {
+			try run(installedApps: await installedApps)
+		}
 
-        func run(installedApps: [InstalledApp]) throws {
-            if installedApps.isEmpty {
-                printError(
-                    """
-                    No installed apps found
+		func run(installedApps: [InstalledApp]) throws {
+			if installedApps.isEmpty {
+				printError(
+					"""
+					No installed apps found
 
-                    If this is unexpected, the following command line should fix it by
-                    (re)creating the Spotlight index (which might take some time):
+					If this is unexpected, the following command line should fix it by
+					(re)creating the Spotlight index (which might take some time):
 
-                    sudo mdutil -Eai on
-                    """
-                )
-            } else {
-                print(AppListFormatter.format(installedApps))
-            }
-        }
-    }
+					sudo mdutil -Eai on
+					"""
+				)
+			} else {
+				print(AppListFormatter.format(installedApps))
+			}
+		}
+	}
 }

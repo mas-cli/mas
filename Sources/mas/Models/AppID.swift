@@ -9,7 +9,7 @@
 typealias AppID = UInt64
 
 extension AppID {
-    var unknownMessage: String {
-        "Unknown app ID \(self)"
-    }
+	var unknownMessage: String {
+		"Unknown app ID \(self)"
+	}
 }

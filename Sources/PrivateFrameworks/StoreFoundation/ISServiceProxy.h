@@ -16,7 +16,7 @@ typedef void (^ISErrorHandler)(NSError * __nonnull error);
 
 @interface ISServiceProxy : NSObject
 {
-    ISStoreClient *_storeClient;
+	ISStoreClient *_storeClient;
 }
 
 + (ISServiceProxy * __nonnull)genericSharedProxy;

@@ -13,12 +13,12 @@ import Quick
 
 /// Deprecated test.
 public final class SignInSpec: QuickSpec {
-    override public static func spec() {
-        describe("signin command") {
-            it("signs in") {
-                expect(consequencesOf(try MAS.SignIn.parse(["", ""]).run()))
-                    == (MASError.notSupported, "", "")
-            }
-        }
-    }
+	override public static func spec() {
+		describe("signin command") {
+			it("signs in") {
+				expect(consequencesOf(try MAS.SignIn.parse(["", ""]).run()))
+					== (MASError.notSupported, "", "")
+			}
+		}
+	}
 }

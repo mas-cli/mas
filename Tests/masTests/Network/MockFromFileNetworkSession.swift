@@ -12,17 +12,17 @@ import Foundation
 
 /// Mock NetworkSession for testing with saved JSON response payload files.
 struct MockFromFileNetworkSession: NetworkSession {
-    /// Path to response payload file relative to test bundle.
-    private let responseFile: String
+	/// Path to response payload file relative to test bundle.
+	private let responseFile: String
 
-    /// Initializes a mock URL session with a file for the response.
-    ///
-    /// - Parameter responseFile: Name of file containing JSON response body.
-    init(responseFile: String) {
-        self.responseFile = responseFile
-    }
+	/// Initializes a mock URL session with a file for the response.
+	///
+	/// - Parameter responseFile: Name of file containing JSON response body.
+	init(responseFile: String) {
+		self.responseFile = responseFile
+	}
 
-    func loadData(from _: URL) throws -> (Data, URLResponse) {
-        (try Data(contentsOf: Bundle.url(for: responseFile), options: .mappedIfSafe), URLResponse())
-    }
+	func loadData(from _: URL) throws -> (Data, URLResponse) {
+		(try Data(contentsOf: Bundle.url(for: responseFile), options: .mappedIfSafe), URLResponse())
+	}
 }

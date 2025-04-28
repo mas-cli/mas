@@ -12,24 +12,24 @@ import Quick
 @testable import mas
 
 public final class ListSpec: QuickSpec {
-    override public static func spec() {
-        describe("list command") {
-            it("lists apps") {
-                expect(consequencesOf(try MAS.List.parse([]).run(installedApps: [])))
-                    == (
-                        nil,
-                        "",
-                        """
-                        Error: No installed apps found
+	override public static func spec() {
+		describe("list command") {
+			it("lists apps") {
+				expect(consequencesOf(try MAS.List.parse([]).run(installedApps: [])))
+					== (
+						nil,
+						"",
+						"""
+						Error: No installed apps found
 
-                        If this is unexpected, the following command line should fix it by
-                        (re)creating the Spotlight index (which might take some time):
+						If this is unexpected, the following command line should fix it by
+						(re)creating the Spotlight index (which might take some time):
 
-                        sudo mdutil -Eai on
+						sudo mdutil -Eai on
 
-                        """
-                    )
-            }
-        }
-    }
+						"""
+					)
+			}
+		}
+	}
 }

@@ -12,16 +12,16 @@ import Quick
 @testable import mas
 
 public final class UpgradeSpec: AsyncSpec {
-    override public static func spec() {
-        describe("upgrade command") {
-            it("finds no upgrades") {
-                await expecta(
-                    await consequencesOf(
-                        try await MAS.Upgrade.parse([]).run(installedApps: [], searcher: MockAppStoreSearcher())
-                    )
-                )
-                    == (nil, "", "")
-            }
-        }
-    }
+	override public static func spec() {
+		describe("upgrade command") {
+			it("finds no upgrades") {
+				await expecta(
+					await consequencesOf(
+						try await MAS.Upgrade.parse([]).run(installedApps: [], searcher: MockAppStoreSearcher())
+					)
+				)
+					== (nil, "", "")
+			}
+		}
+	}
 }

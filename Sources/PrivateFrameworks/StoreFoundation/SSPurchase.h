@@ -12,29 +12,29 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SSPurchase : NSObject <NSSecureCoding, NSCopying>
 {
-    NSNumber *_accountIdentifier;
-    NSString *_appleID;
-    NSString *_buyParameters;
-    SSDownloadMetadata *_downloadMetadata;
-    NSString *_uniqueIdentifier;
-    BOOL _isUpdate;
-    long long _purchaseType;
-    BOOL _checkPreflightAterPurchase;
-    NSData *_receiptData;
-    NSString *_parentalControls;
-    BOOL _isRedownload;
-    BOOL _isVPP;
-    BOOL _shouldBeInstalledAfterLogout;
-    BOOL _isCancelled;
-    BOOL _isDSIDLessPurchase;
-    NSString *_sortableAccountIdentifier;
-    unsigned long long _itemIdentifier;
+	NSNumber *_accountIdentifier;
+	NSString *_appleID;
+	NSString *_buyParameters;
+	SSDownloadMetadata *_downloadMetadata;
+	NSString *_uniqueIdentifier;
+	BOOL _isUpdate;
+	long long _purchaseType;
+	BOOL _checkPreflightAterPurchase;
+	NSData *_receiptData;
+	NSString *_parentalControls;
+	BOOL _isRedownload;
+	BOOL _isVPP;
+	BOOL _shouldBeInstalledAfterLogout;
+	BOOL _isCancelled;
+	BOOL _isDSIDLessPurchase;
+	NSString *_sortableAccountIdentifier;
+	unsigned long long _itemIdentifier;
 
-    // CDUnknownBlockType _authFallbackHandler;
-    
-    ISOperation *_purchaseOperation;
-    NSDictionary *_responseDialog;
-    NSDictionary *_dsidLessOptions;
+	// CDUnknownBlockType _authFallbackHandler;
+
+	ISOperation *_purchaseOperation;
+	NSDictionary *_responseDialog;
+	NSDictionary *_dsidLessOptions;
 }
 
 + (id)purchasesGroupedByAccountIdentifierWithPurchases:(id)arg1;

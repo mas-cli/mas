@@ -17,24 +17,24 @@ printf $'==> 🚨 Linting mas %s\n' "$(script/version)"
 script/generate_package_swift lint
 
 for linter in git markdownlint periphery shellcheck swift-format swiftformat swiftlint yamllint; do
-  if ! command -v "${linter}" >/dev/null; then
-    printf $'error: %s is not installed. Run \'script/bootstrap\' or \'brew install %s\'.\n' "${linter}" "${linter}" >&2
-    exit 1
-  fi
+	if ! command -v "${linter}" >/dev/null; then
+		printf $'error: %s is not installed. Run \'script/bootstrap\' or \'brew install %s\'.\n' "${linter}" "${linter}" >&2
+		exit 1
+	fi
 done
 
 exit_code=0
 for source in Package.swift Sources Tests; do
-  printf -- $'--> 🦅 %s swift-format\n' "${source}"
-  swift-format lint --strict --recursive "${source}"
-  ((exit_code |= ${?}))
-  printf -- $'--> 🦅 %s swiftformat\n' "${source}"
-  script -q /dev/null swiftformat --lint --strict "${source}" |
-   (grep -vxE '(?:\^D\x08{2})?Running SwiftFormat\.{3}\r|\(lint mode - no files will be changed\.\)\r|Reading (?:config|swift-version) file at .*|\x1b\[32mSwiftFormat completed in \d+(?:\.\d+)?s\.\x1b\[0m\r|0/\d+ files require formatting\.\r' || true)
-  ((exit_code |= ${?}))
-  printf -- $'--> 🦅 %s swiftlint\n' "${source}"
-  swiftlint --strict --quiet "${source}"
-  ((exit_code |= ${?}))
+	printf -- $'--> 🦅 %s swift-format\n' "${source}"
+	swift-format lint --strict --recursive "${source}"
+	((exit_code |= ${?}))
+	printf -- $'--> 🦅 %s swiftformat\n' "${source}"
+	script -q /dev/null swiftformat --lint --strict "${source}" |
+	 (grep -vxE '(?:\^D\x08{2})?Running SwiftFormat\.{3}\r|\(lint mode - no files will be changed\.\)\r|Reading (?:config|swift-version) file at .*|\x1b\[32mSwiftFormat completed in \d+(?:\.\d+)?s\.\x1b\[0m\r|0/\d+ files require formatting\.\r' || true)
+	((exit_code |= ${?}))
+	printf -- $'--> 🦅 %s swiftlint\n' "${source}"
+	swiftlint --strict --quiet "${source}"
+	((exit_code |= ${?}))
 done
 
 printf -- $'--> 🐚 ShellCheck\n'
@@ -43,8 +43,8 @@ shellcheck -s bash -o all -e SC1088,SC1102,SC2066,SC2296,SC2299,SC2300,SC2301,SC
 
 printf -- $'--> 💤 zsh syntax\n'
 for script in script/**/*(.); do
-  /bin/zsh -n "${script}"
-  ((exit_code |= ${?}))
+	/bin/zsh -n "${script}"
+	((exit_code |= ${?}))
 done
 
 printf -- $'--> 〽️ Markdown\n'

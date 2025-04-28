@@ -7,6 +7,6 @@
 //
 
 struct SearchResultList: Decodable {
-    var resultCount: Int
-    var results: [SearchResult]
+	var resultCount: Int
+	var results: [SearchResult]
 }

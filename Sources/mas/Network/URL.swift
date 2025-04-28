@@ -9,7 +9,7 @@
 import AppKit
 
 extension URL {
-    func open() async throws {
-        try await NSWorkspace.shared.open(self, configuration: NSWorkspace.OpenConfiguration())
-    }
+	func open() async throws {
+		try await NSWorkspace.shared.open(self, configuration: NSWorkspace.OpenConfiguration())
+	}
 }

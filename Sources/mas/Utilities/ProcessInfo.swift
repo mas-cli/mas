@@ -9,23 +9,23 @@
 import Foundation
 
 extension ProcessInfo {
-    var sudoUsername: String? {
-        environment["SUDO_USER"]
-    }
+	var sudoUsername: String? {
+		environment["SUDO_USER"]
+	}
 
-    var sudoUID: uid_t? {
-        if let uid = environment["SUDO_UID"] {
-            uid_t(uid)
-        } else {
-            nil
-        }
-    }
+	var sudoUID: uid_t? {
+		if let uid = environment["SUDO_UID"] {
+			uid_t(uid)
+		} else {
+			nil
+		}
+	}
 
-    var sudoGID: gid_t? {
-        if let gid = environment["SUDO_GID"] {
-            gid_t(gid)
-        } else {
-            nil
-        }
-    }
+	var sudoGID: gid_t? {
+		if let gid = environment["SUDO_GID"] {
+			gid_t(gid)
+		} else {
+			nil
+		}
+	}
 }

@@ -12,12 +12,12 @@ import Quick
 @testable import mas
 
 public final class VersionSpec: QuickSpec {
-    override public static func spec() {
-        describe("version command") {
-            it("displays the current version") {
-                expect(consequencesOf(try MAS.Version.parse([]).run()))
-                    == (nil, "\(Package.version)\n", "")
-            }
-        }
-    }
+	override public static func spec() {
+		describe("version command") {
+			it("displays the current version") {
+				expect(consequencesOf(try MAS.Version.parse([]).run()))
+					== (nil, "\(Package.version)\n", "")
+			}
+		}
+	}
 }
