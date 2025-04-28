@@ -30,26 +30,26 @@ productbuild\
  --distribution =(cat <<'END'
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <installer-gui-script minSpecVersion="2">
-    <pkg-ref id="com.mphys.mas-cli">
-        <bundle-version/>
-    </pkg-ref>
-    <pkg-ref id="com.mphys.mas-cli" onConclusion="none">#mas_components.pkg</pkg-ref>
-    <domains enable_localSystem="true" enable_anywhere="true" enable_currentUserHome="false"/>
-    <options customize="never" require-scripts="false"/>
-    <volume-check>
-        <allowed-os-versions>
-            <os-version min="10.15"/>
-        </allowed-os-versions>
-    </volume-check>
-    <choices-outline>
-        <line choice="default">
-            <line choice="com.mphys.mas-cli"/>
-        </line>
-    </choices-outline>
-    <choice id="default"/>
-    <choice id="com.mphys.mas-cli" visible="false">
-        <pkg-ref id="com.mphys.mas-cli"/>
-    </choice>
+	<pkg-ref id="com.mphys.mas-cli">
+		<bundle-version/>
+	</pkg-ref>
+	<pkg-ref id="com.mphys.mas-cli" onConclusion="none">#mas_components.pkg</pkg-ref>
+	<domains enable_localSystem="true" enable_anywhere="true" enable_currentUserHome="false"/>
+	<options customize="never" require-scripts="false"/>
+	<volume-check>
+		<allowed-os-versions>
+			<os-version min="10.15"/>
+		</allowed-os-versions>
+	</volume-check>
+	<choices-outline>
+		<line choice="default">
+			<line choice="com.mphys.mas-cli"/>
+		</line>
+	</choices-outline>
+	<choice id="default"/>
+	<choice id="com.mphys.mas-cli" visible="false">
+		<pkg-ref id="com.mphys.mas-cli"/>
+	</choice>
 </installer-gui-script>
 END
 )\

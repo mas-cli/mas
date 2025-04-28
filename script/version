@@ -11,11 +11,11 @@
 branch="${"$(git rev-parse --abbrev-ref HEAD)":/main}"
 
 if [[ "${branch}" = HEAD ]]; then
-  if ! git show-ref --verify --quiet refs/heads/main || git merge-base --is-ancestor HEAD main; then
-    branch=
-  else
-    branch="${"${(@)"${(fnO)"$(git branch --contains HEAD --format '%(ahead-behind:HEAD) %(refname:short)')"}"[1]}"##* }"
-  fi
+	if ! git show-ref --verify --quiet refs/heads/main || git merge-base --is-ancestor HEAD main; then
+		branch=
+	else
+		branch="${"${(@)"${(fnO)"$(git branch --contains HEAD --format '%(ahead-behind:HEAD) %(refname:short)')"}"[1]}"##* }"
+	fi
 fi
 
 printf $'%s%s%s\n'\

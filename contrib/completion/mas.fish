@@ -1,20 +1,20 @@
 # fish completions for mas
 
 function __fish_mas_list_available -d "Lists applications available to install from the Mac App Store"
-    set query (commandline -ct)
-    if set results (command mas search "$query" 2>/dev/null)
-        for res in $results
-            echo "$res"
-        end | string trim --left | string replace -r '\s+' '\t'
-    end
+	set query (commandline -ct)
+	if set results (command mas search "$query" 2>/dev/null)
+		for res in $results
+			echo "$res"
+		end | string trim --left | string replace -r '\s+' '\t'
+	end
 end
 
 function __fish_mas_list_installed -d "Lists installed applications from the Mac App Store"
-    command mas list 2>/dev/null | string replace -r '\s+' '\t'
+	command mas list 2>/dev/null | string replace -r '\s+' '\t'
 end
 
 function __fish_mas_outdated_installed -d "Lists outdated installed applications from the Mac App Store"
-    command mas outdated 2>/dev/null | string replace -r '\s+' '\t'
+	command mas outdated 2>/dev/null | string replace -r '\s+' '\t'
 end
 
 # no file completions in mas

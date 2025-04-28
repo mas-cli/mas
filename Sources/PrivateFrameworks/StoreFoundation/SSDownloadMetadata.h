@@ -12,8 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SSDownloadMetadata : NSObject <NSSecureCoding, NSCopying>
 {
-    NSMutableDictionary *_dictionary;
-    NSLock *_lock;
+	NSMutableDictionary *_dictionary;
+	NSLock *_lock;
 }
 
 + (BOOL)supportsSecureCoding;

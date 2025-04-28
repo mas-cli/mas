@@ -16,10 +16,10 @@ printf $'==> ❌ Canceling release for tag %s\n\n' "${tag}"
 
 bump_url="$(gh release -R https://github.com/mas-cli/mas download "${tag}" -p bump.url -O - 2>/dev/null || true)"
 if [[ -n "${bump_url}" ]]; then
-  gh pr close "${bump_url}" -d
-  printf $'\n'
+	gh pr close "${bump_url}" -d
+	printf $'\n'
 else
-  printf $'No custom tap formula bump PR URL found for draft release tag \'%s\'\n\n' "${tag}"
+	printf $'No custom tap formula bump PR URL found for draft release tag \'%s\'\n\n' "${tag}"
 fi
 
 gh release -R https://github.com/mas-cli/mas delete "${tag}" --cleanup-tag -y

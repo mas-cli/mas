@@ -13,28 +13,28 @@ import Quick
 @testable import mas
 
 public final class SearchResultListSpec: QuickSpec {
-    override public static func spec() {
-        describe("search result list") {
-            it("can parse bbedit") {
-                expect(
-                    consequencesOf(
-                        try JSONDecoder()
-                            .decode(SearchResultList.self, from: Data(from: "search/bbedit.json"))
-                            .resultCount
-                    )
-                )
-                    == (1, nil, "", "")
-            }
-            it("can parse things") {
-                expect(
-                    consequencesOf(
-                        try JSONDecoder()
-                            .decode(SearchResultList.self, from: Data(from: "search/things.json"))
-                            .resultCount
-                    )
-                )
-                    == (50, nil, "", "")
-            }
-        }
-    }
+	override public static func spec() {
+		describe("search result list") {
+			it("can parse bbedit") {
+				expect(
+					consequencesOf(
+						try JSONDecoder()
+							.decode(SearchResultList.self, from: Data(from: "search/bbedit.json"))
+							.resultCount
+					)
+				)
+					== (1, nil, "", "")
+			}
+			it("can parse things") {
+				expect(
+					consequencesOf(
+						try JSONDecoder()
+							.decode(SearchResultList.self, from: Data(from: "search/things.json"))
+							.resultCount
+					)
+				)
+					== (50, nil, "", "")
+			}
+		}
+	}
 }

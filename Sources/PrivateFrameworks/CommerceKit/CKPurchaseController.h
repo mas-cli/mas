@@ -14,13 +14,13 @@ typedef void (^SSPurchaseCompletion)(SSPurchase * _Nullable purchase, BOOL compl
 
 @interface CKPurchaseController : CKServiceInterface
 {
-    NSMutableArray *_purchases;
-    NSMutableArray *_rejectedPurchases;
-    NSArray *_adoptionEligibleItems;
-    NSNumber *_adoptionServerStatus;
-    NSNumber *_adoptionErrorNumber;
+	NSMutableArray *_purchases;
+	NSMutableArray *_rejectedPurchases;
+	NSArray *_adoptionEligibleItems;
+	NSNumber *_adoptionServerStatus;
+	NSNumber *_adoptionErrorNumber;
 
-    // CDUnknownBlockType _dialogHandler;
+	// CDUnknownBlockType _dialogHandler;
 }
 
 + (void)setNeedsSilentMachineAuthorization:(BOOL)arg1;

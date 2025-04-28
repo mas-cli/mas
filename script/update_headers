@@ -9,15 +9,15 @@
 . "${0:a:h}/_setup_script"
 
 if ! command -v class-dump >/dev/null; then
-  printf $'class-dump is not installed.\n\nDownload, build & install mas fork of class-dump from https://github.com/mas-cli/class-dump\n' >&2
-  exit 1
+	printf $'class-dump is not installed.\n\nDownload, build & install mas fork of class-dump from https://github.com/mas-cli/class-dump\n' >&2
+	exit 1
 fi
 
 extract_private_framework_headers() {
-  local framework_name="${1}"
-  local directory="Sources/PrivateFrameworks/${framework_name}"
-  mkdir -p "${directory}"
-  class-dump -Ho "${directory}" "/System/Library/PrivateFrameworks/${framework_name}.framework"
+	local framework_name="${1}"
+	local directory="Sources/PrivateFrameworks/${framework_name}"
+	mkdir -p "${directory}"
+	class-dump -Ho "${directory}" "/System/Library/PrivateFrameworks/${framework_name}.framework"
 }
 
 extract_private_framework_headers CommerceKit

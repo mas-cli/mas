@@ -9,15 +9,15 @@
 import ArgumentParser
 
 extension MAS {
-    /// Command which displays the version of the mas tool.
-    struct Version: ParsableCommand {
-        static let configuration = CommandConfiguration(
-            abstract: "Display version number"
-        )
+	/// Command which displays the version of the mas tool.
+	struct Version: ParsableCommand {
+		static let configuration = CommandConfiguration(
+			abstract: "Display version number"
+		)
 
-        /// Runs the command.
-        func run() throws {
-            print(Package.version)
-        }
-    }
+		/// Runs the command.
+		func run() throws {
+			print(Package.version)
+		}
+	}
 }

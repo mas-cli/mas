@@ -9,12 +9,12 @@
 import CommerceKit
 
 extension ISStoreAccount: @unchecked Sendable {
-    @MainActor // swiftlint:disable:next attributes
-    static var primaryAccount: ISStoreAccount {
-        get async {
-            await withCheckedContinuation { continuation in
-                ISServiceProxy.genericShared().accountService.primaryAccount { continuation.resume(returning: $0) }
-            }
-        }
-    }
+	@MainActor // swiftlint:disable:next attributes
+	static var primaryAccount: ISStoreAccount {
+		get async {
+			await withCheckedContinuation { continuation in
+				ISServiceProxy.genericShared().accountService.primaryAccount { continuation.resume(returning: $0) }
+			}
+		}
+	}
 }

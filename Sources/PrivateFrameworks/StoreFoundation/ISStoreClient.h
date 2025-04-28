@@ -12,32 +12,32 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ISStoreClient : NSObject <NSSecureCoding>
 {
-    BOOL __alwaysUseSandboxEnvironment;
-    BOOL _isDaemon;
-    int _pid;
-    unsigned long long _frameworkVersion;
-    NSString *_identifier;
-    long long _clientType;
-    ISStoreAccount *_primaryAccount;
-    NSString *_userAgentAppName;
-    NSString *_userAgentAppVersion;
-    NSString *_agentPreferencesDomain;
-    NSString *_appPreferencesDomain;
-    NSString *_storeFrontBagKey;
-    NSArray *_productionBagURLs;
-    NSArray *_sandboxBagURLs;
-    NSString *_toolbarBagKey;
-    long long _requiredBagType;
-    NSString *_aslDomain;
-    NSString *_storeURLScheme;
-    NSString *_storeSecureURLScheme;
-    NSString *_tempPathClientIdentifier;
-    long long _mediaTypeMask;
-    NSString *_pushServiceName;
-    NSString *_appPath;
-    NSDictionary *_daap;
-    NSString *_displayUIHostID;
-    NSString *_agentListenerName;
+	BOOL __alwaysUseSandboxEnvironment;
+	BOOL _isDaemon;
+	int _pid;
+	unsigned long long _frameworkVersion;
+	NSString *_identifier;
+	long long _clientType;
+	ISStoreAccount *_primaryAccount;
+	NSString *_userAgentAppName;
+	NSString *_userAgentAppVersion;
+	NSString *_agentPreferencesDomain;
+	NSString *_appPreferencesDomain;
+	NSString *_storeFrontBagKey;
+	NSArray *_productionBagURLs;
+	NSArray *_sandboxBagURLs;
+	NSString *_toolbarBagKey;
+	long long _requiredBagType;
+	NSString *_aslDomain;
+	NSString *_storeURLScheme;
+	NSString *_storeSecureURLScheme;
+	NSString *_tempPathClientIdentifier;
+	long long _mediaTypeMask;
+	NSString *_pushServiceName;
+	NSString *_appPath;
+	NSDictionary *_daap;
+	NSString *_displayUIHostID;
+	NSString *_agentListenerName;
 }
 
 + (id)knownClientWithIdentifier:(id)arg1 frameworkVersion:(id)arg2;

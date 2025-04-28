@@ -10,20 +10,20 @@
 
 @interface SSDownload : NSObject <NSSecureCoding>
 {
-    BOOL _needsPreInstallValidation;
-    BOOL _installAfterLogout;
-    BOOL _didAutoUpdate;
-    BOOL _skipAssetDownloadIfNotAlreadyOnDisk;
-    BOOL _needsDisplayInDock;
-    BOOL _isInServerQueue;
-    NSArray *_assets;
-    SSDownloadMetadata *_metadata;
-    SSDownloadStatus *_status;
-    unsigned long long _downloadType;
-    NSNumber *_accountDSID;
-    NSString *_cancelURLString;
-    NSString *_installPath;
-    NSURL *_relaunchAppWithBundleURL;
+	BOOL _needsPreInstallValidation;
+	BOOL _installAfterLogout;
+	BOOL _didAutoUpdate;
+	BOOL _skipAssetDownloadIfNotAlreadyOnDisk;
+	BOOL _needsDisplayInDock;
+	BOOL _isInServerQueue;
+	NSArray *_assets;
+	SSDownloadMetadata *_metadata;
+	SSDownloadStatus *_status;
+	unsigned long long _downloadType;
+	NSNumber *_accountDSID;
+	NSString *_cancelURLString;
+	NSString *_installPath;
+	NSURL *_relaunchAppWithBundleURL;
 }
 
 + (BOOL)supportsSecureCoding;
