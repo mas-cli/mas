@@ -17,14 +17,6 @@ struct NetworkManager {
 	/// - Parameter session: A networking session.
 	init(session: NetworkSession = URLSession(configuration: .ephemeral)) {
 		self.session = session
-
-		// Older releases allowed URLSession to write a cache. We clean it up here.
-		do {
-			let url = URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("Library/Caches/com.mphys.mas-cli")
-			try FileManager.default.removeItem(at: url)
-		} catch {
-			// do nothing
-		}
 	}
 
 	func loadData(from url: URL) async throws -> (Data, URLResponse) {
