@@ -13,8 +13,7 @@ import Quick
 
 public final class LuckySpec: AsyncSpec {
 	override public static func spec() {
-		let networkSession = MockNetworkSession(responseFile: "search/slack.json")
-		let searcher = ITunesSearchAppStoreSearcher(networkManager: NetworkManager(session: networkSession))
+		let searcher = ITunesSearchAppStoreSearcher(networkSession: MockNetworkSession(responseFile: "search/slack.json"))
 
 		xdescribe("lucky command") {
 			it("installs the first app matching a search") {
