@@ -8,8 +8,4 @@
 
 import Foundation
 
-extension URLSession: NetworkSession {
-	func loadData(from url: URL) async throws -> (Data, URLResponse) {
-		try await data(from: url)
-	}
-}
+extension URLSession: NetworkSession {}

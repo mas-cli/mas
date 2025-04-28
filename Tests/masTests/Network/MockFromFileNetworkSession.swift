@@ -22,7 +22,7 @@ struct MockFromFileNetworkSession: NetworkSession {
 		self.responseFile = responseFile
 	}
 
-	func loadData(from _: URL) throws -> (Data, URLResponse) {
+	func data(from _: URL) throws -> (Data, URLResponse) {
 		(try Data(contentsOf: Bundle.url(for: responseFile), options: .mappedIfSafe), URLResponse())
 	}
 }

@@ -19,7 +19,7 @@ struct NetworkManager {
 		self.session = session
 	}
 
-	func loadData(from url: URL) async throws -> (Data, URLResponse) {
-		try await session.loadData(from: url)
+	func data(from url: URL) async throws -> (Data, URLResponse) {
+		try await session.data(from: url)
 	}
 }

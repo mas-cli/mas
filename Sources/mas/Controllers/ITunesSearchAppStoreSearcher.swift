@@ -65,7 +65,7 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 	}
 
 	private func loadSearchResults(_ url: URL) async throws -> [SearchResult] {
-		let (data, _) = try await networkManager.loadData(from: url)
+		let (data, _) = try await networkManager.data(from: url)
 		do {
 			return try JSONDecoder().decode(SearchResultList.self, from: data).results
 		} catch {
