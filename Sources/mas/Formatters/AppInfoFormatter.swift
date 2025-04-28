@@ -33,13 +33,15 @@ enum AppInfoFormatter {
         ByteCountFormatter.string(fromByteCount: Int64(size) ?? 0, countStyle: .file)
     }
 
-    /// Formats a date in  format.
+    /// Formats a date in ISO-8601 date-only format.
     ///
     /// - Parameter serverDate: String containing a date in ISO-8601 format.
     /// - Returns: Simple date format.
     private static func humanReadableDate(_ serverDate: String) -> String {
-        let humanDateFormatter = ISO8601DateFormatter()
-        humanDateFormatter.formatOptions = [.withFullDate]
-        return ISO8601DateFormatter().date(from: serverDate).map(humanDateFormatter.string(from:)) ?? ""
+        ISO8601DateFormatter().date(from: serverDate)
+            .map { date in
+                ISO8601DateFormatter.string(from: date, timeZone: .current, formatOptions: [.withFullDate])
+            }
+            ?? ""
     }
 }
