@@ -19,7 +19,7 @@ printf $'==> 📦 Assembling installer package for mas %s\n' "${version}"
 ditto -v "${build_dir}/apple/Products/Release/mas" "${destination_root}/mas"
 
 pkgbuild\
- --identifier com.mphys.mas-cli\
+ --identifier io.github.mas-cli\
  --install-location /usr/local/bin\
  --version "${version}"\
  --root "${destination_root}"\
@@ -30,10 +30,10 @@ productbuild\
  --distribution =(cat <<'END'
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <installer-gui-script minSpecVersion="2">
-	<pkg-ref id="com.mphys.mas-cli">
+	<pkg-ref id="io.github.mas-cli">
 		<bundle-version/>
 	</pkg-ref>
-	<pkg-ref id="com.mphys.mas-cli" onConclusion="none">#mas_components.pkg</pkg-ref>
+	<pkg-ref id="io.github.mas-cli" onConclusion="none">#mas_components.pkg</pkg-ref>
 	<domains enable_localSystem="true" enable_anywhere="true" enable_currentUserHome="false"/>
 	<options customize="never" require-scripts="false"/>
 	<volume-check>
@@ -43,12 +43,12 @@ productbuild\
 	</volume-check>
 	<choices-outline>
 		<line choice="default">
-			<line choice="com.mphys.mas-cli"/>
+			<line choice="io.github.mas-cli"/>
 		</line>
 	</choices-outline>
 	<choice id="default"/>
-	<choice id="com.mphys.mas-cli" visible="false">
-		<pkg-ref id="com.mphys.mas-cli"/>
+	<choice id="io.github.mas-cli" visible="false">
+		<pkg-ref id="io.github.mas-cli"/>
 	</choice>
 </installer-gui-script>
 END
