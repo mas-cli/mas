@@ -10,13 +10,11 @@ function __fish_mas_list_available -d "Lists applications available to install f
 end
 
 function __fish_mas_list_installed -d "Lists installed applications from the Mac App Store"
-    command mas list 2>/dev/null \
-    | string replace -r '\s+' '\t'
+    command mas list 2>/dev/null | string replace -r '\s+' '\t'
 end
 
 function __fish_mas_outdated_installed -d "Lists outdated installed applications from the Mac App Store"
-    command mas outdated 2>/dev/null \
-    | string replace -r '\s+' '\t'
+    command mas outdated 2>/dev/null | string replace -r '\s+' '\t'
 end
 
 # no file completions in mas

@@ -18,16 +18,16 @@ printf $'==> 📦 Assembling installer package for mas %s\n' "${version}"
 
 ditto -v "${build_dir}/apple/Products/Release/mas" "${destination_root}/mas"
 
-pkgbuild \
-  --identifier com.mphys.mas-cli \
-  --install-location /usr/local/bin \
-  --version "${version}" \
-  --root "${destination_root}" \
-  "${build_dir}/mas_components.pkg"
+pkgbuild\
+ --identifier com.mphys.mas-cli\
+ --install-location /usr/local/bin\
+ --version "${version}"\
+ --root "${destination_root}"\
+ "${build_dir}/mas_components.pkg"
 
 # shellcheck disable=SC1036
-productbuild \
-  --distribution =(cat <<'END'
+productbuild\
+ --distribution =(cat <<'END'
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <installer-gui-script minSpecVersion="2">
     <pkg-ref id="com.mphys.mas-cli">
@@ -52,6 +52,6 @@ productbuild \
     </choice>
 </installer-gui-script>
 END
-) \
-  --package-path "${build_dir}" \
-  "${build_dir}/mas-${version}.pkg"
+)\
+ --package-path "${build_dir}"\
+ "${build_dir}/mas-${version}.pkg"
