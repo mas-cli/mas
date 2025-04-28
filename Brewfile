@@ -1,11 +1,8 @@
 brew "markdownlint-cli"
+brew "periphery"
 brew "prettier"
 brew "shellcheck"
+brew "swift-format"
 brew "swiftformat"
+brew "swiftlint"
 brew "yamllint"
-
-if OS.mac? && MacOS.version >= :ventura
-  brew "periphery"
-  brew "swift-format"
-  brew "swiftlint"
-end
