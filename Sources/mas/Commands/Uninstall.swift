@@ -137,8 +137,8 @@ private func delete(pathsFromOwnerIDsByPath ownerIDsByPath: [String: (uid_t, gid
         guard let item = object as? FinderItem else {
             throw MASError.runtimeError(
                 """
-                Failed to obtain Finder access: finder.items().object(atLocation: URL(fileURLWithPath: \
-                \"\(path)\") is a '\(type(of: object))' that does not conform to 'FinderItem'
+                Failed to obtain Finder access: finder.items().object(atLocation: URL(fileURLWithPath:\
+                 \"\(path)\") is a '\(type(of: object))' that does not conform to 'FinderItem'
                 """
             )
         }
@@ -152,8 +152,8 @@ private func delete(pathsFromOwnerIDsByPath ownerIDsByPath: [String: (uid_t, gid
         guard let deletedURLString = (delete() as FinderItem).URL else {
             throw MASError.runtimeError(
                 """
-                Failed to revert ownership of deleted '\(path)' back to uid \(uid) & gid \(gid): \
-                delete result did not have a URL
+                Failed to revert ownership of deleted '\(path)' back to uid \(uid) & gid \(gid):\
+                 delete result did not have a URL
                 """
             )
         }
@@ -161,8 +161,8 @@ private func delete(pathsFromOwnerIDsByPath ownerIDsByPath: [String: (uid_t, gid
         guard let deletedURL = URL(string: deletedURLString) else {
             throw MASError.runtimeError(
                 """
-                Failed to revert ownership of deleted '\(path)' back to uid \(uid) & gid \(gid): \
-                delete result URL is invalid: \(deletedURLString)
+                Failed to revert ownership of deleted '\(path)' back to uid \(uid) & gid \(gid):\
+                 delete result URL is invalid: \(deletedURLString)
                 """
             )
         }

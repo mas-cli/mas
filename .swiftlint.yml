@@ -41,6 +41,8 @@ file_types_order:
     ]
 function_body_length:
   warning: 55
+indentation_width:
+  include_multiline_strings: false
 number_separator:
   minimum_length: 6
 opening_brace:

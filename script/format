@@ -24,7 +24,7 @@ for source in Package.swift Sources Tests; do
   swift-format format --in-place --recursive "${source}"
   printf -- $'--> 🦅 %s swiftformat\n' "${source}"
   script -q /dev/null swiftformat --strict "${source}" |
-    (grep -vxE '(?:\^D\x08{2})?Running SwiftFormat\.{3}\r|Reading (?:config|swift-version) file at .*|\x1b\[32mSwiftFormat completed in \d+(?:\.\d+)?s\.\x1b\[0m\r|0/\d+ files formatted\.\r' || true)
+   (grep -vxE '(?:\^D\x08{2})?Running SwiftFormat\.{3}\r|Reading (?:config|swift-version) file at .*|\x1b\[32mSwiftFormat completed in \d+(?:\.\d+)?s\.\x1b\[0m\r|0/\d+ files formatted\.\r' || true)
   printf -- $'--> 🦅 %s swiftlint\n' "${source}"
   swiftlint --fix --quiet "${source}"
 done
@@ -34,4 +34,4 @@ markdownlint --config .markdownlint.json --fix . docs
 
 printf -- $'--> 📝 YAML\n'
 script -q /dev/null prettier --write "${(f)"$(yamllint --list-files .)"}" |
-  (grep -vxE '.+ \d+ms \(unchanged\)\r' || true)
+ (grep -vxE '.+ \d+ms \(unchanged\)\r' || true)
