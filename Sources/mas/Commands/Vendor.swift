@@ -34,7 +34,7 @@ extension MAS {
 				}
 
 				guard let url = URL(string: urlString) else {
-					throw MASError.runtimeError("Unable to construct URL from: \(urlString)")
+					throw MASError.urlParsing(urlString)
 				}
 
 				try await url.open()

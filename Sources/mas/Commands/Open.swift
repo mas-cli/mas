@@ -53,13 +53,13 @@ private func openInMacAppStore(pageForAppID appID: AppID, searcher: AppStoreSear
 	let result = try await searcher.lookup(appID: appID)
 
 	guard var urlComponents = URLComponents(string: result.trackViewUrl) else {
-		throw MASError.runtimeError("Unable to construct URL from: \(result.trackViewUrl)")
+		throw MASError.urlParsing(result.trackViewUrl)
 	}
 
 	urlComponents.scheme = masScheme
 
 	guard let url = urlComponents.url else {
-		throw MASError.runtimeError("Unable to construct URL from: \(urlComponents)")
+		throw MASError.urlParsing(String(describing: urlComponents))
 	}
 
 	try await url.open()

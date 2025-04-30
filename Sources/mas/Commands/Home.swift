@@ -30,7 +30,7 @@ extension MAS {
 				let result = try await searcher.lookup(appID: appID)
 
 				guard let url = URL(string: result.trackViewUrl) else {
-					throw MASError.runtimeError("Unable to construct URL from: \(result.trackViewUrl)")
+					throw MASError.urlParsing(result.trackViewUrl)
 				}
 
 				try await url.open()
