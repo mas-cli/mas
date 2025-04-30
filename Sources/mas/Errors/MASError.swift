@@ -38,6 +38,8 @@ enum MASError: Error, Equatable {
 
 	case noData
 	case jsonParsing(data: Data)
+
+	case urlParsing(String)
 }
 
 extension MASError: CustomStringConvertible {
@@ -110,6 +112,8 @@ extension MASError: CustomStringConvertible {
 			} else {
 				"Unable to parse response as JSON"
 			}
+		case .urlParsing(let string):
+			"Unable to parse URL from: \(string)"
 		}
 	}
 }
