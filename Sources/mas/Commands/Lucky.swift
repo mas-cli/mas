@@ -25,7 +25,7 @@ extension MAS {
 		@Flag(help: "Force reinstall")
 		var force = false
 		@Argument(help: "Search term")
-		var searchTerm: String
+		var searchTerm: [String]
 
 		/// Runs the command.
 		func run() async throws {
@@ -33,26 +33,18 @@ extension MAS {
 		}
 
 		func run(installedApps: [InstalledApp], searcher: AppStoreSearcher) async throws {
-			var appID: AppID?
-
 			do {
-				let results = try await searcher.search(for: searchTerm)
+				let results = try await searcher.search(for: searchTerm.joined(separator: " "))
 				guard let result = results.first else {
 					throw MASError.noSearchResultsFound
 				}
 
-				appID = result.trackId
+				try await install(appID: result.trackId, installedApps: installedApps)
 			} catch let error as MASError {
 				throw error
 			} catch {
 				throw MASError.searchFailed
 			}
-
-			guard let appID else {
-				fatalError("app ID returned from Apple is null")
-			}
-
-			try await install(appID: appID, installedApps: installedApps)
 		}
 
 		/// Installs an app.

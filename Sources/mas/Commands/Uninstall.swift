@@ -19,8 +19,8 @@ extension MAS {
 		/// Flag indicating that removal shouldn't be performed.
 		@Flag(help: "Perform dry run")
 		var dryRun = false
-		@Argument(help: "App ID")
-		var appID: AppID
+		@Argument(help: ArgumentHelp("App ID", valueName: "app-id"))
+		var appIDs: [AppID]
 
 		/// Runs the uninstall command.
 		func run() async throws {
@@ -43,9 +43,9 @@ extension MAS {
 				throw MASError.runtimeError("Failed to switch effective user from 'root' to '\(username)'")
 			}
 
-			let installedApps = installedApps.filter { $0.id == appID }
+			let installedApps = installedApps.filter { appIDs.contains($0.id) }
 			guard !installedApps.isEmpty else {
-				throw MASError.notInstalled(appID: appID)
+				throw MASError.notInstalled(appIDs: appIDs)
 			}
 
 			if dryRun {

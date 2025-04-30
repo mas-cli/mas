@@ -16,8 +16,8 @@ extension MAS {
 			abstract: "Display app information from the Mac App Store"
 		)
 
-		@Argument(help: "App ID")
-		var appID: AppID
+		@Argument(help: ArgumentHelp("App ID", valueName: "app-id"))
+		var appIDs: [AppID]
 
 		/// Runs the command.
 		func run() async throws {
@@ -25,12 +25,16 @@ extension MAS {
 		}
 
 		func run(searcher: AppStoreSearcher) async throws {
-			do {
-				print(AppInfoFormatter.format(app: try await searcher.lookup(appID: appID)))
-			} catch let error as MASError {
-				throw error
-			} catch {
-				throw MASError.searchFailed
+			var separator = ""
+			for appID in appIDs {
+				do {
+					print("", AppInfoFormatter.format(app: try await searcher.lookup(appID: appID)), separator: separator)
+					separator = "\n"
+				} catch let error as MASError {
+					throw error
+				} catch {
+					throw MASError.searchFailed
+				}
 			}
 		}
 	}
