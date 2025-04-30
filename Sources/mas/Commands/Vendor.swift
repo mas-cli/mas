@@ -17,8 +17,8 @@ extension MAS {
 			abstract: "Open vendor's app web page in the default web browser"
 		)
 
-		@Argument(help: "App ID")
-		var appID: AppID
+		@Argument(help: ArgumentHelp("App ID", valueName: "app-id"))
+		var appIDs: [AppID]
 
 		/// Runs the command.
 		func run() async throws {
@@ -26,17 +26,19 @@ extension MAS {
 		}
 
 		func run(searcher: AppStoreSearcher) async throws {
-			let result = try await searcher.lookup(appID: appID)
+			for appID in appIDs {
+				let result = try await searcher.lookup(appID: appID)
 
-			guard let urlString = result.sellerUrl else {
-				throw MASError.noVendorWebsite
+				guard let urlString = result.sellerUrl else {
+					throw MASError.noVendorWebsite
+				}
+
+				guard let url = URL(string: urlString) else {
+					throw MASError.runtimeError("Unable to construct URL from: \(urlString)")
+				}
+
+				try await url.open()
 			}
-
-			guard let url = URL(string: urlString) else {
-				throw MASError.runtimeError("Unable to construct URL from: \(urlString)")
-			}
-
-			try await url.open()
 		}
 	}
 }
