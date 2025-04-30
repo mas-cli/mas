@@ -20,18 +20,9 @@ var installedApps: [InstalledApp] {
 
 		let query = NSMetadataQuery()
 		query.predicate = NSPredicate(format: "kMDItemAppStoreAdamID LIKE '*'")
-
-		do {
-			query.searchScopes =
-				try FileManager.default
-				.contentsOfDirectory(at: URL(fileURLWithPath: "/Volumes"), includingPropertiesForKeys: [])
-				.compactMap { url in
-					let applicationsURL = url.appendingPathComponent("Applications")
-					return applicationsURL.hasDirectoryPath
-						? applicationsURL
-						: nil
-				}
-		} catch {
+		if let volume = UserDefaults(suiteName: "com.apple.appstored")?.dictionary(forKey: "PreferredVolume")?["name"] {
+			query.searchScopes = ["/Applications", "/Volumes/\(volume)/Applications"]
+		} else {
 			query.searchScopes = ["/Applications"]
 		}
 
