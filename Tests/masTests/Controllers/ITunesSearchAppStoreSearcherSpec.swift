@@ -55,7 +55,7 @@ public final class ITunesSearchAppStoreSearcherSpec: AsyncSpec {
 			context("when searched") {
 				it("can find slack") {
 					let searcher =
-						ITunesSearchAppStoreSearcher(networkSession: MockNetworkSession(responseFile: "search/slack.json"))
+						ITunesSearchAppStoreSearcher(networkSession: MockNetworkSession(responseResource: "search/slack.json"))
 
 					let consequences = await consequencesOf(try await searcher.search(for: "slack"))
 					expect(consequences.value).to(haveCount(39))
@@ -69,7 +69,7 @@ public final class ITunesSearchAppStoreSearcherSpec: AsyncSpec {
 				it("can find slack") {
 					let appID = 803_453_959 as AppID
 					let searcher =
-						ITunesSearchAppStoreSearcher(networkSession: MockNetworkSession(responseFile: "lookup/slack.json"))
+						ITunesSearchAppStoreSearcher(networkSession: MockNetworkSession(responseResource: "lookup/slack.json"))
 
 					let consequences = await consequencesOf(try await searcher.lookup(appID: appID))
 					expect(consequences.error) == nil
