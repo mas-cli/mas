@@ -1,5 +1,5 @@
 //
-//  Bundle+JSON.swift
+//  Data.swift
 //  masTests
 //
 //  Created by Ben Chatelain on 1/5/19.
