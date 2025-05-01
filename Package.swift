@@ -43,7 +43,7 @@ let package = Package(
 		.testTarget(
 			name: "masTests",
 			dependencies: ["mas", "Nimble", "Quick"],
-			resources: [.copy("JSON")],
+			resources: [.copy("Resources")],
 			swiftSettings: [
 				.unsafeFlags([
 					"-I", "Sources/PrivateFrameworks/CommerceKit",

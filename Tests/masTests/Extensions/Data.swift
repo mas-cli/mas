@@ -18,7 +18,7 @@ extension Data {
 	init(
 		fromResource resourcePath: String?,
 		withExtension ext: String? = nil,
-		inSubfolderPath subfolderPath: String? = "JSON"
+		inSubfolderPath subfolderPath: String? = "Resources"
 	) {
 		try! self.init(
 			contentsOf: Bundle.module.url(forResource: resourcePath, withExtension: ext, subdirectory: subfolderPath)!,
