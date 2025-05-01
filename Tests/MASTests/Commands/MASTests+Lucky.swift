@@ -16,9 +16,7 @@ extension MASTests {
 			await consequencesOf(
 				try await MAS.Lucky.parse(["Slack"]).run(
 					installedApps: [],
-					searcher: ITunesSearchAppStoreSearcher(
-						networkSession: try MockNetworkSession(responseResource: "search/slack")
-					)
+					searcher: ITunesSearchAppStoreSearcher(networkSession: try MockNetworkSession(responseResource: "slack"))
 				)
 			)
 			== Consequences() // swiftformat:disable:this indent
