@@ -19,7 +19,7 @@ public final class SearchResultSpec: QuickSpec {
 				expect(
 					consequencesOf(
 						try JSONDecoder()
-							.decode(SearchResult.self, from: Data(from: "search/things-that-go-bump.json"))
+							.decode(SearchResult.self, from: Data(fromResource: "search/things-that-go-bump.json"))
 							.trackId
 					)
 				)

@@ -18,7 +18,7 @@ struct MockNetworkSession: NetworkSession {
 	///
 	/// - Parameter responseResource: Resource containing response body.
 	init(responseResource: String) {
-		data = (Data(from: responseResource), URLResponse())
+		data = (Data(fromResource: responseResource), URLResponse())
 	}
 
 	func data(from _: URL) -> (Data, URLResponse) {

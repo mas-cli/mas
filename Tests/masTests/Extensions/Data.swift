@@ -11,22 +11,18 @@ import Foundation
 extension Data {
 	/// Unsafe initializer for loading data from string paths.
 	///
-	/// - Parameter fileName: Relative path within the JSON folder
-	init(from fileName: String) {
-		try! self.init(contentsOf: Bundle.url(for: fileName), options: .mappedIfSafe)
-	}
-}
-
-extension Bundle {
-	/// Locates a JSON response file from the test bundle.
-	///
-	/// - Parameter fileName: Name of file to locate.
-	/// - Returns: URL to file.
-	static func url(for fileName: String) -> URL {
-		if let url = module.url(forResource: fileName, withExtension: nil, subdirectory: "JSON") {
-			url
-		} else {
-			fatalError("Unable to load file \(fileName)")
-		}
+	/// - Parameters:
+	///   - resourcePath: Relative path of resource within subfolderPath
+	///   - ext: Extension of the resource
+	///   - subfolderPath: Relative path of folder within the module
+	init(
+		fromResource resourcePath: String?,
+		withExtension ext: String? = nil,
+		inSubfolderPath subfolderPath: String? = "JSON"
+	) {
+		try! self.init(
+			contentsOf: Bundle.module.url(forResource: resourcePath, withExtension: ext, subdirectory: subfolderPath)!,
+			options: .mappedIfSafe
+		)
 	}
 }
