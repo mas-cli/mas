@@ -50,8 +50,8 @@ APIClient.getAwesomeness { [weak self] result in
 	guard let self else {
 		return
 	}
-	self.stopLoadingSpinner()
-	self.show(result)
+	stopLoadingSpinner()
+	show(result)
 }
 
 /// Use if-let to check for not `nil` (even if using an implicitly unwrapped variable from an API).
