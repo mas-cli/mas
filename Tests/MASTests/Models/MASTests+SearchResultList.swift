@@ -14,7 +14,7 @@ extension MASTests {
 	static func parsesSearchResultListFromBBEditJSON() {
 		#expect(
 			consequencesOf(
-				try JSONDecoder().decode(SearchResultList.self, from: Data(fromResource: "search/bbedit.json")).resultCount
+				try JSONDecoder().decode(SearchResultList.self, from: Data(fromResource: "search/bbedit")).resultCount
 			)
 			== Consequences(1) // swiftformat:disable:this indent
 		)
@@ -24,7 +24,7 @@ extension MASTests {
 	static func parsesSearchResultListFromThingsJSON() {
 		#expect(
 			consequencesOf(
-				try JSONDecoder().decode(SearchResultList.self, from: Data(fromResource: "search/things.json")).resultCount
+				try JSONDecoder().decode(SearchResultList.self, from: Data(fromResource: "search/things")).resultCount
 			)
 			== Consequences(50) // swiftformat:disable:this indent
 		)

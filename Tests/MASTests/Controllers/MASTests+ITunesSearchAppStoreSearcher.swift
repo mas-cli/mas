@@ -12,10 +12,8 @@ extension MASTests {
 	@Test
 	static func iTunesSearchesForSlack() async {
 		let consequences = await consequencesOf(
-			try await ITunesSearchAppStoreSearcher(
-				networkSession: try MockNetworkSession(responseResource: "search/slack.json")
-			)
-			.search(for: "slack")
+			try await ITunesSearchAppStoreSearcher(networkSession: try MockNetworkSession(responseResource: "search/slack"))
+			.search(for: "slack") // swiftformat:disable:this indent
 		)
 		#expect(
 			consequences.value?.count == 39
@@ -30,10 +28,8 @@ extension MASTests {
 		let adamID = 803_453_959 as ADAMID
 
 		let consequences = await consequencesOf(
-			try await ITunesSearchAppStoreSearcher(
-				networkSession: try MockNetworkSession(responseResource: "lookup/slack.json")
-			)
-			.lookup(appID: .adamID(adamID))
+			try await ITunesSearchAppStoreSearcher(networkSession: try MockNetworkSession(responseResource: "lookup/slack"))
+			.lookup(appID: .adamID(adamID)) // swiftformat:disable:this indent
 		)
 		#expect(
 			consequences.error == nil

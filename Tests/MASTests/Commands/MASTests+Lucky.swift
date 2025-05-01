@@ -17,7 +17,7 @@ extension MASTests {
 				try await MAS.Lucky.parse(["Slack"]).run(
 					installedApps: [],
 					searcher: ITunesSearchAppStoreSearcher(
-						networkSession: try MockNetworkSession(responseResource: "search/slack.json")
+						networkSession: try MockNetworkSession(responseResource: "search/slack")
 					)
 				)
 			)

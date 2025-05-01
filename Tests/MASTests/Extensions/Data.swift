@@ -18,7 +18,7 @@ extension Data {
 	/// - Throws: An `Error` if any problem occurs.
 	init(
 		fromResource resourcePath: String?,
-		withExtension ext: String? = nil,
+		withExtension ext: String? = "json",
 		inSubfolderPath subfolderPath: String? = "Resources"
 	) throws {
 		guard
