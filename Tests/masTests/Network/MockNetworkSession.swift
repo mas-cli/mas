@@ -10,19 +10,18 @@ import Foundation
 
 @testable import mas
 
-/// Mock NetworkSession for testing with saved JSON response payload files.
+/// Mock NetworkSession for testing with a saved response payload file.
 struct MockNetworkSession: NetworkSession {
-	/// Path to response payload file relative to test bundle.
-	private let responseFile: String
+	private let data: (Data, URLResponse)
 
-	/// Initializes a mock URL session with a file for the response.
+	/// Initializes a mock URL session with a resource for the response.
 	///
-	/// - Parameter responseFile: Name of file containing JSON response body.
-	init(responseFile: String) {
-		self.responseFile = responseFile
+	/// - Parameter responseResource: Resource containing response body.
+	init(responseResource: String) {
+		data = (Data(from: responseResource), URLResponse())
 	}
 
-	func data(from _: URL) throws -> (Data, URLResponse) {
-		(try Data(contentsOf: Bundle.url(for: responseFile), options: .mappedIfSafe), URLResponse())
+	func data(from _: URL) -> (Data, URLResponse) {
+		data
 	}
 }
