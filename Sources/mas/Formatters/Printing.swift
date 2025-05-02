@@ -26,14 +26,14 @@ func print(_ message: String, to fileHandle: FileHandle) {
 
 /// Clears current line from stdout, then prints to stdout, then flushes stdout.
 func printEphemeral(_ items: Any..., separator: String = " ", terminator: String = "\n") {
-	clearLine()
+	clearCurrentLine(fromStream: stdout)
 	print(items, separator: separator, terminator: terminator)
 	fflush(stdout)
 }
 
 /// Clears current line from stdout.
 func terminateEphemeralPrinting() {
-	clearLine()
+	clearCurrentLine(fromStream: stdout)
 }
 
 /// Prints to stdout prefixed with a blue arrow.
@@ -79,10 +79,9 @@ private func message(_ items: Any..., separator: String = " ", terminator: Strin
 	items.map { String(describing: $0) }.joined(separator: separator).appending(terminator)
 }
 
-/// Flushes stdout.
-func clearLine() {
-	if isatty(fileno(stdout)) != 0 {
-		print("\(csi)2K\(csi)0G", terminator: "")
-		fflush(stdout)
+func clearCurrentLine(fromStream stream: UnsafeMutablePointer<FILE>) {
+	if isatty(fileno(stream)) != 0 {
+		print(csi, "2K", csi, "0G", separator: "", terminator: "")
+		fflush(stream)
 	}
 }
