@@ -21,7 +21,7 @@ extension MAS {
 				throw MASError.runtimeError("Could not obtain Mac App Store region")
 			}
 
-			print(region.alpha2)
+			printInfo(region.alpha2)
 		}
 	}
 }

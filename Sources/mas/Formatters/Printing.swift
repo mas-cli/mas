@@ -24,6 +24,11 @@ func print(_ message: String, to fileHandle: FileHandle) {
 	}
 }
 
+/// Prints to stdout.
+func printInfo(_ items: Any..., separator: String = " ", terminator: String = "\n") {
+	print(items, separator: separator, terminator: terminator)
+}
+
 /// Clears current line from stdout, then prints to stdout, then flushes stdout.
 func printEphemeral(_ items: Any..., separator: String = " ", terminator: String = "\n") {
 	clearCurrentLine(fromStream: stdout)

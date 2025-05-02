@@ -168,7 +168,7 @@ private func delete(pathsFromOwnerIDsByPath ownerIDsByPath: [String: (uid_t, gid
 		}
 
 		let deletedPath = deletedURL.path
-		print("Deleted '", path, "' to '", deletedPath, "'", separator: "")
+		printInfo("Deleted '", path, "' to '", deletedPath, "'", separator: "")
 		guard chown(deletedPath, uid, gid) == 0 else {
 			throw MASError.runtimeError(
 				"Failed to revert ownership of deleted '\(deletedPath)' back to uid \(uid) & gid \(gid)"

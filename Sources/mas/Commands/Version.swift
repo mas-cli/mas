@@ -17,7 +17,7 @@ extension MAS {
 
 		/// Runs the command.
 		func run() throws {
-			print(Package.version)
+			printInfo(Package.version)
 		}
 	}
 }

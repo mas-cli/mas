@@ -24,9 +24,9 @@ extension MAS {
 		/// Runs the command.
 		func run() async throws {
 			if markdown {
-				print("```text")
+				printInfo("```text")
 			}
-			print(
+			printInfo(
 				"""
 				mas ▁▁▁▁ \(Package.version)
 				arch ▁▁▁ \(configStringValue("hw.machine"))
@@ -45,7 +45,7 @@ extension MAS {
 				"""
 			)
 			if markdown {
-				print("```")
+				printInfo("```")
 			}
 		}
 	}

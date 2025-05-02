@@ -33,7 +33,7 @@ extension MAS {
 					"""
 				)
 			} else {
-				print(AppListFormatter.format(installedApps))
+				printInfo(AppListFormatter.format(installedApps))
 			}
 		}
 	}

@@ -29,7 +29,7 @@ extension MAS {
 				do {
 					let storeApp = try await searcher.lookup(appID: installedApp.id)
 					if installedApp.isOutdated(comparedTo: storeApp) {
-						print(
+						printInfo(
 							installedApp.id,
 							" ",
 							installedApp.name,
