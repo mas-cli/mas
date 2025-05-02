@@ -20,4 +20,4 @@ file_header:
     \/\/ Copyright © \2 (?:mas-cli|\1)\. All rights reserved\.
     \/\/
 file_name:
-  excluded: [Finder.swift, SpotlightInstalledApps.swift, Utilities.swift]
+  excluded: [Finder.swift, SpotlightInstalledApps.swift]
