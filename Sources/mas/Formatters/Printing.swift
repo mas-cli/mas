@@ -37,7 +37,7 @@ func terminateEphemeralPrinting() {
 }
 
 /// Prints to stdout prefixed with a blue arrow.
-func printInfo(_ items: Any..., separator: String = " ", terminator: String = "\n") {
+func printNotice(_ items: Any..., separator: String = " ", terminator: String = "\n") {
 	if isatty(fileno(stdout)) != 0 {
 		// Blue bold arrow, Bold text
 		print(

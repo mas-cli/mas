@@ -45,16 +45,16 @@ class PurchaseDownloadObserver: CKDownloadQueueObserver {
 				case downloadingPhaseType:
 					if prevPhaseType == initialPhaseType {
 						terminateEphemeralPrinting()
-						printInfo("Downloading", download.progressDescription)
+						printNotice("Downloading", download.progressDescription)
 					}
 				case downloadedPhaseType:
 					if prevPhaseType == downloadingPhaseType {
 						terminateEphemeralPrinting()
-						printInfo("Downloaded", download.progressDescription)
+						printNotice("Downloaded", download.progressDescription)
 					}
 				case installingPhaseType:
 					terminateEphemeralPrinting()
-					printInfo("Installing", download.progressDescription)
+					printNotice("Installing", download.progressDescription)
 				default:
 					break
 				}
@@ -82,7 +82,7 @@ class PurchaseDownloadObserver: CKDownloadQueueObserver {
 		} else if status.isCancelled {
 			errorHandler?(.cancelled)
 		} else {
-			printInfo("Installed", download.progressDescription)
+			printNotice("Installed", download.progressDescription)
 			completionHandler?()
 		}
 	}
