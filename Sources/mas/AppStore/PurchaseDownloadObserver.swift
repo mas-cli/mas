@@ -44,16 +44,16 @@ class PurchaseDownloadObserver: CKDownloadQueueObserver {
 				switch currPhaseType {
 				case downloadingPhaseType:
 					if prevPhaseType == initialPhaseType {
-						clearLine()
+						terminateEphemeralPrinting()
 						printInfo("Downloading", download.progressDescription)
 					}
 				case downloadedPhaseType:
 					if prevPhaseType == downloadingPhaseType {
-						clearLine()
+						terminateEphemeralPrinting()
 						printInfo("Downloaded", download.progressDescription)
 					}
 				case installingPhaseType:
-					clearLine()
+					terminateEphemeralPrinting()
 					printInfo("Installing", download.progressDescription)
 				default:
 					break
@@ -76,7 +76,7 @@ class PurchaseDownloadObserver: CKDownloadQueueObserver {
 			return
 		}
 
-		clearLine()
+		terminateEphemeralPrinting()
 		if status.isFailed {
 			errorHandler?(.downloadFailed(error: status.error as NSError))
 		} else if status.isCancelled {
@@ -106,9 +106,7 @@ private func progress(_ state: ProgressState) {
 	let barLength = 60
 	let completeLength = Int(state.percentComplete * Float(barLength))
 	let bar = (0..<barLength).map { $0 < completeLength ? "#" : "-" }.joined()
-	clearLine()
-	print(bar, state.percentage, state.phase, terminator: "")
-	fflush(stdout)
+	printEphemeral(bar, state.percentage, state.phase, terminator: "")
 }
 
 private extension SSDownload {

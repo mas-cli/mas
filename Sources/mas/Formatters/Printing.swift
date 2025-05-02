@@ -24,6 +24,18 @@ func print(_ message: String, to fileHandle: FileHandle) {
 	}
 }
 
+/// Clears current line from stdout, then prints to stdout, then flushes stdout.
+func printEphemeral(_ items: Any..., separator: String = " ", terminator: String = "\n") {
+	clearLine()
+	print(items, separator: separator, terminator: terminator)
+	fflush(stdout)
+}
+
+/// Clears current line from stdout.
+func terminateEphemeralPrinting() {
+	clearLine()
+}
+
 /// Prints to stdout prefixed with a blue arrow.
 func printInfo(_ items: Any..., separator: String = " ", terminator: String = "\n") {
 	if isatty(fileno(stdout)) != 0 {
