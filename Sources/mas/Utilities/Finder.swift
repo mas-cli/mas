@@ -1,3 +1,11 @@
+//
+// Finder.swift
+// mas
+//
+// Created by Ross Goldberg on 2024-10-23.
+// Copyright © 2024 mas-cli. All rights reserved.
+//
+
 // swift-format-ignore-file
 // swiftlint:disable:next blanket_disable_command
 // swiftlint:disable attributes discouraged_none_name file_length file_types_order identifier_name

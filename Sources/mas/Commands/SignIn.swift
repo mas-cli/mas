@@ -1,9 +1,9 @@
 //
-//  SignIn.swift
-//  mas
+// SignIn.swift
+// mas
 //
-//  Created by Andrew Naylor on 14/02/2016.
-//  Copyright © 2016 Andrew Naylor. All rights reserved.
+// Created by Andrew Naylor on 2016-02-14.
+// Copyright © 2016 Andrew Naylor. All rights reserved.
 //
 
 import ArgumentParser

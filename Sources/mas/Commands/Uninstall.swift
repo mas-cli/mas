@@ -1,9 +1,9 @@
 //
-//  Uninstall.swift
-//  mas
+// Uninstall.swift
+// mas
 //
-//  Created by Ben Chatelain on 2018-12-27.
-//  Copyright © 2015 Andrew Naylor. All rights reserved.
+// Created by Ben Chatelain on 2018-12-27.
+// Copyright © 2018 mas-cli. All rights reserved.
 //
 
 import ArgumentParser

@@ -1,9 +1,9 @@
 //
-//  AppListFormatterSpec.swift
-//  masTests
+// AppListFormatterSpec.swift
+// masTests
 //
-//  Created by Ben Chatelain on 8/23/2020.
-//  Copyright © 2020 mas-cli. All rights reserved.
+// Created by Ben Chatelain on 2020-08-23.
+// Copyright © 2020 mas-cli. All rights reserved.
 //
 
 import Nimble

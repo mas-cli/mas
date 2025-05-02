@@ -1,8 +1,3 @@
-//
-// CommerceKit.module
-// mas-cli
-//
-
 module CommerceKit {
 	header "CKDownloadDirectory.h"
 	header "CKDownloadQueueObserver.h"

@@ -1,9 +1,9 @@
 //
-//  Purchase.swift
-//  mas
+// Purchase.swift
+// mas
 //
-//  Created by Jakob Rieck on 24/10/2017.
-//  Copyright (c) 2017 Jakob Rieck. All rights reserved.
+// Created by Jakob Rieck on 2017-10-24.
+// Copyright © 2017 Jakob Rieck. All rights reserved.
 //
 
 import ArgumentParser

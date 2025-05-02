@@ -1,9 +1,9 @@
 //
-//  Version.swift
-//  mas
+// Version.swift
+// mas
 //
-//  Created by Andrew Naylor on 20/09/2015.
-//  Copyright © 2015 Andrew Naylor. All rights reserved.
+// Created by Andrew Naylor on 2015-09-20.
+// Copyright © 2015 Andrew Naylor. All rights reserved.
 //
 
 import ArgumentParser

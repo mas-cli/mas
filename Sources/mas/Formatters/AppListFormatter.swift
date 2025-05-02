@@ -1,9 +1,9 @@
 //
-//  AppListFormatter.swift
-//  mas
+// AppListFormatter.swift
+// mas
 //
-//  Created by Ben Chatelain on 6/7/20.
-//  Copyright © 2019 mas-cli. All rights reserved.
+// Created by Ben Chatelain on 2020-06-07.
+// Copyright © 2020 mas-cli. All rights reserved.
 //
 
 /// Formats text output for the search command.

@@ -1,9 +1,9 @@
 //
-//  SpotlightInstalledApps.swift
-//  mas
+// SpotlightInstalledApps.swift
+// mas
 //
-//  Created by Ross Goldberg on 2025-04-09.
-//  Copyright © 2025 mas-cli. All rights reserved.
+// Created by Ross Goldberg on 2025-04-09.
+// Copyright © 2025 mas-cli. All rights reserved.
 //
 
 import Foundation

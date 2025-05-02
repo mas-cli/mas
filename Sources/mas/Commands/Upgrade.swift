@@ -1,9 +1,9 @@
 //
-//  Upgrade.swift
-//  mas
+// Upgrade.swift
+// mas
 //
-//  Created by Andrew Naylor on 30/12/2015.
-//  Copyright © 2015 Andrew Naylor. All rights reserved.
+// Created by Andrew Naylor on 2015-12-30.
+// Copyright © 2015 Andrew Naylor. All rights reserved.
 //
 
 import ArgumentParser

@@ -1,9 +1,9 @@
 //
-//  Lucky.swift
-//  mas
+// Lucky.swift
+// mas
 //
-//  Created by Pablo Varela on 05/11/17.
-//  Copyright © 2016 Andrew Naylor. All rights reserved.
+// Created by Pablo Varela on 2017-05-11.
+// Copyright © 2017 mas-cli. All rights reserved.
 //
 
 import ArgumentParser
