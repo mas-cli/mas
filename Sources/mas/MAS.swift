@@ -1,9 +1,9 @@
 //
-//  MAS.swift
-//  mas
+// MAS.swift
+// mas
 //
-//  Created by Chris Araman on 4/22/21.
-//  Copyright © 2021 mas-cli. All rights reserved.
+// Created by Chris Araman on 2021-04-22.
+// Copyright © 2021 mas-cli. All rights reserved.
 //
 
 import ArgumentParser

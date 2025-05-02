@@ -1,9 +1,9 @@
 //
-//  ISStoreAccount.swift
-//  mas
+// ISStoreAccount.swift
+// mas
 //
-//  Created by Andrew Naylor on 22/08/2015.
-//  Copyright (c) 2015 Andrew Naylor. All rights reserved.
+// Created by Andrew Naylor on 2015-08-22.
+// Copyright © 2015 Andrew Naylor. All rights reserved.
 //
 
 import CommerceKit

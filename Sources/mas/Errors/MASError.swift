@@ -1,9 +1,9 @@
 //
-//  MASError.swift
-//  mas
+// MASError.swift
+// mas
 //
-//  Created by Andrew Naylor on 21/08/2015.
-//  Copyright (c) 2015 Andrew Naylor. All rights reserved.
+// Created by Andrew Naylor on 2015-08-21.
+// Copyright © 2015 Andrew Naylor. All rights reserved.
 //
 
 import Foundation

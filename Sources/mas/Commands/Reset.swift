@@ -1,9 +1,9 @@
 //
-//  Reset.swift
-//  mas
+// Reset.swift
+// mas
 //
-//  Created by Andrew Naylor on 14/09/2016.
-//  Copyright © 2016 Andrew Naylor. All rights reserved.
+// Created by Andrew Naylor on 2016-09-14.
+// Copyright © 2016 Andrew Naylor. All rights reserved.
 //
 
 import ArgumentParser

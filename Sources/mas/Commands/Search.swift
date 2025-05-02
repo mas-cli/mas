@@ -1,9 +1,9 @@
 //
-//  Search.swift
-//  mas
+// Search.swift
+// mas
 //
-//  Created by Michael Schneider on 4/14/16.
-//  Copyright © 2016 Andrew Naylor. All rights reserved.
+// Created by Michael Schneider on 2016-04-14.
+// Copyright © 2016 mas-cli. All rights reserved.
 //
 
 import ArgumentParser

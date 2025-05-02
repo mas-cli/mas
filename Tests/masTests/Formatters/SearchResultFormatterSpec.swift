@@ -1,9 +1,9 @@
 //
-//  SearchResultFormatterSpec.swift
-//  masTests
+// SearchResultFormatterSpec.swift
+// masTests
 //
-//  Created by Ben Chatelain on 1/14/19.
-//  Copyright © 2019 mas-cli. All rights reserved.
+// Created by Ben Chatelain on 2019-01-14.
+// Copyright © 2019 mas-cli. All rights reserved.
 //
 
 import Nimble

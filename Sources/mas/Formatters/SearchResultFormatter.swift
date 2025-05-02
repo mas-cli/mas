@@ -1,9 +1,9 @@
 //
-//  SearchResultFormatter.swift
-//  mas
+// SearchResultFormatter.swift
+// mas
 //
-//  Created by Ben Chatelain on 1/11/19.
-//  Copyright © 2019 mas-cli. All rights reserved.
+// Created by Ben Chatelain on 2019-01-11.
+// Copyright © 2019 mas-cli. All rights reserved.
 //
 
 /// Formats text output for the search command.

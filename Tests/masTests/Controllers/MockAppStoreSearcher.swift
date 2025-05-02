@@ -1,9 +1,9 @@
 //
-//  MockAppStoreSearcher.swift
-//  masTests
+// MockAppStoreSearcher.swift
+// masTests
 //
-//  Created by Ben Chatelain on 1/4/19.
-//  Copyright © 2019 mas-cli. All rights reserved.
+// Created by Ben Chatelain on 2019-01-04.
+// Copyright © 2019 mas-cli. All rights reserved.
 //
 
 @testable import mas

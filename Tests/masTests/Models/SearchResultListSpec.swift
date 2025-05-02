@@ -1,9 +1,9 @@
 //
-//  SearchResultListSpec.swift
-//  masTests
+// SearchResultListSpec.swift
+// masTests
 //
-//  Created by Ben Chatelain on 9/2/20.
-//  Copyright © 2020 mas-cli. All rights reserved.
+// Created by Ben Chatelain on 2020-09-02.
+// Copyright © 2020 mas-cli. All rights reserved.
 //
 
 import Foundation

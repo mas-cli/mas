@@ -1,9 +1,9 @@
 //
-//  URLSession+NetworkSession.swift
-//  mas
+// URLSession+NetworkSession.swift
+// mas
 //
-//  Created by Ben Chatelain on 1/5/19.
-//  Copyright © 2019 mas-cli. All rights reserved.
+// Created by Ben Chatelain on 2019-01-05.
+// Copyright © 2019 mas-cli. All rights reserved.
 //
 
 import Foundation

@@ -1,9 +1,9 @@
 //
-//  Consequences.swift
-//  masTests
+// Consequences.swift
+// masTests
 //
-//  Created by Ross Goldberg on 2024-12-29.
-//  Copyright © 2016 mas-cli. All rights reserved.
+// Created by Ross Goldberg on 2024-12-29.
+// Copyright © 2024 mas-cli. All rights reserved.
 //
 
 import Foundation

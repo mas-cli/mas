@@ -1,9 +1,9 @@
 //
-//  Config.swift
-//  mas
+// Config.swift
+// mas
 //
-//  Created by Ross Goldberg on 2025-01-03.
-//  Copyright © 2024 mas-cli. All rights reserved.
+// Created by Ross Goldberg on 2025-01-03.
+// Copyright © 2025 mas-cli. All rights reserved.
 //
 
 import ArgumentParser
