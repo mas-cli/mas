@@ -25,7 +25,7 @@ func downloadApps(
 	for appID in appIDs {
 		do {
 			_ = try await searcher.lookup(appID: appID)
-		} catch MASError.unknownAppID(let unknownAppID) {
+		} catch let MASError.unknownAppID(unknownAppID) {
 			printWarning("App ID", unknownAppID, "not found in Mac App Store.")
 			continue
 		}
@@ -55,7 +55,7 @@ private func downloadApp(withAppID appID: AppID, purchasing: Bool, withAttemptCo
 
 		// If the download failed due to network issues, try again. Otherwise, fail immediately.
 		guard
-			case MASError.downloadFailed(let downloadError) = error,
+			case let MASError.downloadFailed(downloadError) = error,
 			let downloadError,
 			downloadError.domain == NSURLErrorDomain
 		else {

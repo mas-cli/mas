@@ -22,13 +22,13 @@ enum SearchResultFormatter {
 
 		return
 			results.map { result in
-				let appID = result.trackId
-				let appName = result.trackName.padding(toLength: maxAppNameLength, withPad: " ", startingAt: 0)
-				let version = result.version
-
-				return includePrice
-					? String(format: "%12lu  %@  (%@)  %@", appID, appName, version, result.displayPrice)
-					: String(format: "%12lu  %@  (%@)", appID, appName, version)
+				String(
+					format: includePrice ? "%12lu  %@  (%@)  %@" : "%12lu  %@  (%@)",
+					result.trackId,
+					result.trackName.padding(toLength: maxAppNameLength, withPad: " ", startingAt: 0),
+					result.version,
+					result.displayPrice
+				)
 			}
 			.joined(separator: "\n")
 	}

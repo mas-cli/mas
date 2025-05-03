@@ -11,6 +11,13 @@ import Foundation
 /// Manages searching the MAS catalog. Uses the iTunes Search and Lookup APIs:
 /// https://performance-partners.apple.com/search-api
 struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
+	enum Entity: String {
+		case desktopSoftware
+		case macSoftware
+		case iPadSoftware
+		case iPhoneSoftware = "software"
+	}
+
 	private let networkSession: NetworkSession
 
 	/// Designated initializer.
@@ -64,30 +71,6 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 		return Array(appSet)
 	}
 
-	private func loadSearchResults(_ url: URL) async throws -> [SearchResult] {
-		let (data, _) = try await networkSession.data(from: url)
-		do {
-			return try JSONDecoder().decode(SearchResultList.self, from: data).results
-		} catch {
-			throw MASError.jsonParsing(data: data)
-		}
-	}
-
-	/// Builds the search URL for an app.
-	///
-	/// - Parameters:
-	///   - searchTerm: term for which to search in MAS.
-	///   - region: The `ISORegion` of the storefront in which to lookup apps.
-	///   - entity: OS platform of apps for which to search.
-	/// - Returns: URL for the search service or nil if searchTerm can't be encoded.
-	func searchURL(
-		for searchTerm: String,
-		inRegion region: ISORegion?,
-		ofEntity entity: Entity = .desktopSoftware
-	) -> URL? {
-		url(.search, searchTerm, inRegion: region, ofEntity: entity)
-	}
-
 	/// Builds the lookup URL for an app.
 	///
 	/// - Parameters:
@@ -100,12 +83,27 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 		inRegion region: ISORegion?,
 		ofEntity entity: Entity = .desktopSoftware
 	) -> URL? {
-		url(.lookup, String(appID), inRegion: region, ofEntity: entity)
+		url("lookup", URLQueryItem(name: "id", value: String(appID)), inRegion: region, ofEntity: entity)
+	}
+
+	/// Builds the search URL for an app.
+	///
+	/// - Parameters:
+	///   - searchTerm: term for which to search in MAS.
+	///   - region: The `ISORegion` of the storefront in which to lookup apps.
+	///   - entity: OS platform of apps for which to search.
+	/// - Returns: URL for the search service or nil if searchTerm can't be encoded.
+	private func searchURL(
+		for searchTerm: String,
+		inRegion region: ISORegion?,
+		ofEntity entity: Entity = .desktopSoftware
+	) -> URL? {
+		url("search", URLQueryItem(name: "term", value: searchTerm), inRegion: region, ofEntity: entity)
 	}
 
 	private func url(
-		_ action: URLAction,
-		_ queryItemValue: String,
+		_ action: String,
+		_ queryItem: URLQueryItem,
 		inRegion region: ISORegion?,
 		ofEntity entity: Entity = .desktopSoftware
 	) -> URL? {
@@ -122,31 +120,19 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 			queryItems.append(URLQueryItem(name: "country", value: region.alpha2))
 		}
 
-		queryItems.append(URLQueryItem(name: action.queryItemName, value: queryItemValue))
+		queryItems.append(queryItem)
 
 		components.queryItems = queryItems
 
 		return components.url
 	}
-}
 
-enum Entity: String {
-	case desktopSoftware
-	case macSoftware
-	case iPadSoftware
-	case iPhoneSoftware = "software"
-}
-
-private enum URLAction {
-	case lookup
-	case search
-
-	var queryItemName: String {
-		switch self {
-		case .lookup:
-			"id"
-		case .search:
-			"term"
+	private func loadSearchResults(_ url: URL) async throws -> [SearchResult] {
+		let (data, _) = try await networkSession.data(from: url)
+		do {
+			return try JSONDecoder().decode(SearchResultList.self, from: data).results
+		} catch {
+			throw MASError.jsonParsing(data: data)
 		}
 	}
 }

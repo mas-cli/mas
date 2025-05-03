@@ -41,6 +41,7 @@ extension InstalledApp {
 		// The App Store does not enforce semantic versioning, but we assume most apps follow versioning
 		// schemes that increase numerically over time.
 		// swift-format-ignore
+		// swiftformat:disable indent
 		return
 			if
 				let semanticBundleVersion = Version(tolerant: version),
@@ -53,5 +54,6 @@ extension InstalledApp {
 				// https://semver.org
 				version != storeApp.version
 			}
+		// swiftformat:enable indent
 	}
 }

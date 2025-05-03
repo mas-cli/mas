@@ -41,7 +41,7 @@ extension MAS {
 							separator: ""
 						)
 					}
-				} catch MASError.unknownAppID(let unknownAppID) {
+				} catch let MASError.unknownAppID(unknownAppID) {
 					if verbose {
 						printWarning(
 							"Identifier ",

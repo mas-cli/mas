@@ -49,7 +49,7 @@
 		"ReturnVoidInsteadOfEmptyTuple": true,
 		"TypeNamesShouldBeCapitalized": true,
 		"UseEarlyExits": true,
-		"UseLetInEveryBoundCaseVariable": true,
+		"UseLetInEveryBoundCaseVariable": false,
 		"UseShorthandTypeNames": true,
 		"UseSingleLinePropertyGetter": true,
 		"UseSynthesizedInitializer": true,
