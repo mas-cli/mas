@@ -59,6 +59,7 @@ extension MAS {
 			installedApps: [InstalledApp],
 			searcher: AppStoreSearcher
 		) async -> [(installedApp: InstalledApp, storeApp: SearchResult)] {
+			// swiftformat:disable indent
 			let apps =
 				appIDOrNames.isEmpty
 				? installedApps
@@ -79,6 +80,7 @@ extension MAS {
 					}
 					return installedApps
 				}
+			// swiftformat:enable indent
 
 			var outdatedApps = [(InstalledApp, SearchResult)]()
 			for installedApp in apps {

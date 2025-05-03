@@ -88,7 +88,7 @@ private func chown(paths: [String]) throws -> [String: (uid_t, gid_t)] {
 	var chownedIDsByPath = [String: (uid_t, gid_t)]()
 	for (path, ownerIDs) in ownerIDsByPath {
 		guard chown(path, sudoUID, sudoGID) == 0 else {
-			for (chownedPath, chownedIDs) in chownedIDsByPath
+			for (chownedPath, chownedIDs) in chownedIDsByPath // swiftformat:disable:next indent
 			where chown(chownedPath, chownedIDs.0, chownedIDs.1) != 0 {
 				printError(
 					"Failed to revert ownership of '",

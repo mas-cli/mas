@@ -2,28 +2,35 @@
 # .swiftformat
 # mas
 #
+# SwiftFormat 0.55.6
+#
 # https://github.com/nicklockwood/SwiftFormat#config-file
 #
 
 # Disabled rules
 --disable hoistAwait
---disable hoistPatternLet
 --disable hoistTry
 
 # Enable later
---disable indent
+--disable hoistPatternLet
+# https://github.com/swiftlang/swift-format/issues/874
 --disable trailingCommas
 
 # Enabled rules (disabled by default)
+# https://github.com/nicklockwood/SwiftFormat/issues/2019
 #--enable acronyms
+#--enable blankLineAfterSwitchCase
 #--enable blankLinesBetweenImports
 --enable blockComments
 --enable docComments
 --enable isEmpty
+#--enable markTypes
 --enable noExplicitOwnership
-#--enable organizeDeclarations
+--enable organizeDeclarations
+--enable propertyTypes
 --enable redundantProperty
 --enable sortSwitchCases
+--enable unusedPrivateDeclarations
 --enable wrapConditionalBodies
 --enable wrapEnumCases
 --enable wrapMultilineConditionalAssignment
@@ -32,6 +39,15 @@
 # Rule options
 --commas always
 --hexliteralcase lowercase
+--ifdef no-indent
 --importgrouping testable-last
+--indent tab
+--indentstrings true
+--inferredtypes always
 --lineaftermarks false
+--markcategories false
+--organizationmode type
+--propertytypes inferred
 --ranges no-space
+--tabwidth 2
+--wrapternary before-operators

@@ -15,11 +15,13 @@ extension MAS {
 	/// This is handy as many MAS titles can be long with embedded keywords.
 	struct Lucky: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
+			// swiftformat:disable indent
 			abstract:
 				"""
 				Install the first app returned from searching the Mac App Store
 				(app must have been previously purchased)
 				"""
+			// swiftformat:enable indent
 		)
 
 		@Flag(help: "Force reinstall")
