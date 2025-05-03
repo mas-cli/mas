@@ -54,29 +54,29 @@ extension MASError: CustomStringConvertible {
 			This command is not supported on this macOS version due to changes in macOS.
 			See: https://github.com/mas-cli/mas#known-issues
 			"""
-		case .failed(let error):
+		case let .failed(error):
 			if let error {
 				"Failed: \(error.localizedDescription)"
 			} else {
 				"Failed"
 			}
-		case .runtimeError(let message):
+		case let .runtimeError(message):
 			"Runtime Error: \(message)"
-		case .signInFailed(let error):
+		case let .signInFailed(error):
 			if let error {
 				"Sign in failed: \(error.localizedDescription)"
 			} else {
 				"Sign in failed"
 			}
-		case .alreadySignedIn(let appleAccount):
+		case let .alreadySignedIn(appleAccount):
 			"Already signed in as \(appleAccount)"
-		case .purchaseFailed(let error):
+		case let .purchaseFailed(error):
 			if let error {
 				"Download request failed: \(error.localizedDescription)"
 			} else {
 				"Download request failed"
 			}
-		case .downloadFailed(let error):
+		case let .downloadFailed(error):
 			if let error {
 				"Download failed: \(error.localizedDescription)"
 			} else {
@@ -90,13 +90,13 @@ extension MASError: CustomStringConvertible {
 			"Search failed"
 		case .noSearchResultsFound:
 			"No apps found"
-		case .unknownAppID(let appID):
+		case let .unknownAppID(appID):
 			appID.unknownMessage
 		case .noVendorWebsite:
 			"App does not have a vendor website"
-		case .notInstalled(let appIDs):
+		case let .notInstalled(appIDs):
 			"No apps installed with app ID \(appIDs.map { String($0) }.joined(separator: ", "))"
-		case .uninstallFailed(let error):
+		case let .uninstallFailed(error):
 			if let error {
 				"Uninstall failed: \(error.localizedDescription)"
 			} else {
@@ -106,13 +106,13 @@ extension MASError: CustomStringConvertible {
 			"Apps installed from the Mac App Store require root permission to remove."
 		case .noData:
 			"Service did not return data"
-		case .jsonParsing(let data):
+		case let .jsonParsing(data):
 			if let unparsable = String(data: data, encoding: .utf8) {
 				"Unable to parse response as JSON:\n\(unparsable)"
 			} else {
 				"Unable to parse response as JSON"
 			}
-		case .urlParsing(let string):
+		case let .urlParsing(string):
 			"Unable to parse URL from: \(string)"
 		}
 	}

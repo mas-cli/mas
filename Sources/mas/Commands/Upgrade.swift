@@ -89,7 +89,7 @@ extension MAS {
 					if installedApp.isOutdated(comparedTo: storeApp) {
 						outdatedApps.append((installedApp, storeApp))
 					}
-				} catch MASError.unknownAppID(let unknownAppID) {
+				} catch let MASError.unknownAppID(unknownAppID) {
 					if verbose {
 						printWarning(
 							"Identifier ",

@@ -12,7 +12,6 @@
 --disable hoistTry
 
 # Enable later
---disable hoistPatternLet
 # https://github.com/swiftlang/swift-format/issues/874
 --disable trailingCommas
 
