@@ -28,7 +28,7 @@ extension MAS {
 			var separator = ""
 			for appID in appIDs {
 				do {
-					print("", AppInfoFormatter.format(app: try await searcher.lookup(appID: appID)), separator: separator)
+					printInfo("", AppInfoFormatter.format(app: try await searcher.lookup(appID: appID)), separator: separator)
 					separator = "\n"
 				} catch let error as MASError {
 					throw error

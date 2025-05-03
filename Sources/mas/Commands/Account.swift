@@ -23,7 +23,7 @@ extension MAS {
 				throw MASError.notSupported
 			}
 
-			print(await ISStoreAccount.primaryAccount.identifier)
+			printInfo(await ISStoreAccount.primaryAccount.identifier)
 		}
 	}
 }

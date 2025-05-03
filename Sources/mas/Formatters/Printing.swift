@@ -1,5 +1,5 @@
 //
-// Utilities.swift
+// Printing.swift
 // mas
 //
 // Created by Andrew Naylor on 2016-09-14.
@@ -24,8 +24,25 @@ func print(_ message: String, to fileHandle: FileHandle) {
 	}
 }
 
-/// Prints to stdout prefixed with a blue arrow.
+/// Prints to stdout.
 func printInfo(_ items: Any..., separator: String = " ", terminator: String = "\n") {
+	print(items, separator: separator, terminator: terminator)
+}
+
+/// Clears current line from stdout, then prints to stdout, then flushes stdout.
+func printEphemeral(_ items: Any..., separator: String = " ", terminator: String = "\n") {
+	clearCurrentLine(fromStream: stdout)
+	print(items, separator: separator, terminator: terminator)
+	fflush(stdout)
+}
+
+/// Clears current line from stdout.
+func terminateEphemeralPrinting() {
+	clearCurrentLine(fromStream: stdout)
+}
+
+/// Prints to stdout prefixed with a blue arrow.
+func printNotice(_ items: Any..., separator: String = " ", terminator: String = "\n") {
 	if isatty(fileno(stdout)) != 0 {
 		// Blue bold arrow, Bold text
 		print(
@@ -67,10 +84,9 @@ private func message(_ items: Any..., separator: String = " ", terminator: Strin
 	items.map { String(describing: $0) }.joined(separator: separator).appending(terminator)
 }
 
-/// Flushes stdout.
-func clearLine() {
-	if isatty(fileno(stdout)) != 0 {
-		print("\(csi)2K\(csi)0G", terminator: "")
-		fflush(stdout)
+func clearCurrentLine(fromStream stream: UnsafeMutablePointer<FILE>) {
+	if isatty(fileno(stream)) != 0 {
+		print(csi, "2K", csi, "0G", separator: "", terminator: "")
+		fflush(stream)
 	}
 }

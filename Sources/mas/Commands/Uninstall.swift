@@ -50,9 +50,9 @@ extension MAS {
 
 			if dryRun {
 				for installedApp in installedApps {
-					printInfo("'", installedApp.name, "' '", installedApp.path, "'", separator: "")
+					printNotice("'", installedApp.name, "' '", installedApp.path, "'", separator: "")
 				}
-				printInfo("(not removed, dry run)")
+				printNotice("(not removed, dry run)")
 			} else {
 				guard seteuid(0) == 0 else {
 					throw MASError.runtimeError("Failed to revert effective user from '\(username)' back to 'root'")
@@ -168,7 +168,7 @@ private func delete(pathsFromOwnerIDsByPath ownerIDsByPath: [String: (uid_t, gid
 		}
 
 		let deletedPath = deletedURL.path
-		print("Deleted '", path, "' to '", deletedPath, "'", separator: "")
+		printInfo("Deleted '", path, "' to '", deletedPath, "'", separator: "")
 		guard chown(deletedPath, uid, gid) == 0 else {
 			throw MASError.runtimeError(
 				"Failed to revert ownership of deleted '\(deletedPath)' back to uid \(uid) & gid \(gid)"

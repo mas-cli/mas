@@ -34,7 +34,7 @@ extension MAS {
 				return
 			}
 
-			print(
+			printInfo(
 				"Upgrading ",
 				apps.count,
 				" outdated application",
