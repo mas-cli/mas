@@ -2,7 +2,7 @@
 # .swiftlint.yml
 # masTests
 #
-# SwiftLint 0.58.2
+# SwiftLint 0.59.1
 #
 # https://github.com/realm/SwiftLint#configuration
 #
@@ -23,8 +23,8 @@ file_header:
     \/\/ SWIFTLINT_CURRENT_FILENAME
     \/\/ masTests
     \/\/
-    \/\/ Created by (.+?) on (20\d{2})-\d{2}-\d{2}\.
-    \/\/ Copyright © \2 (?:mas-cli|\1)\. All rights reserved\.
+    \/\/ Created by .+? on (20\d{2})-\d{2}-\d{2}\.
+    \/\/ Copyright © \1 mas-cli\. All rights reserved\.
     \/\/
 function_body_length:
   warning: 80
