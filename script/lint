@@ -26,11 +26,11 @@ done
 exit_code=0
 for source in Package.swift Sources Tests; do
 	printf -- $'--> 🦅 %s swift-format\n' "${source}"
-	swift-format lint --strict --recursive "${source}"
+	swift-format lint -prs "${source}"
 	((exit_code |= ${?}))
 	printf -- $'--> 🦅 %s swiftformat\n' "${source}"
-	script -q /dev/null swiftformat --lint --strict "${source}" |
-	 (grep -vxE '(?:\^D\x08{2})?Running SwiftFormat\.{3}\r|\(lint mode - no files will be changed\.\)\r|Reading (?:config|swift-version) file at .*|\x1b\[32mSwiftFormat completed in \d+(?:\.\d+)?s\.\x1b\[0m\r|0/\d+ files require formatting\.\r' || true)
+	script -q /dev/null swiftformat --lint "${source}" |
+	 (grep -vxE '(?:\^D\x08{2})?Running SwiftFormat\.{3}\r|\(lint mode - no files will be changed\.\)\r|Reading (?:config|swift-version) file at .*|\x1b\[32mSwiftFormat completed in \d+(?:\.\d+)?s\.\x1b\[0m\r|0/\d+ files require formatting\.\r|Source input did not pass lint check\.\r' || true)
 	((exit_code |= ${?}))
 	printf -- $'--> 🦅 %s swiftlint\n' "${source}"
 	swiftlint --strict --quiet "${source}"
@@ -52,7 +52,7 @@ markdownlint --config .markdownlint.json . docs
 ((exit_code |= ${?}))
 
 printf -- $'--> 📝 YAML\n'
-yamllint .
+yamllint -s .
 ((exit_code |= ${?}))
 
 printf -- $'--> 🌳 Git\n'
@@ -60,7 +60,7 @@ git diff --check
 ((exit_code |= ${?}))
 
 printf -- $'--> 🌀 Periphery\n'
-script -q /dev/null periphery scan --strict --quiet --disable-update-check |
+script -q /dev/null periphery scan --strict --quiet --relative-results --disable-update-check |
  (grep -vxE '(?:\x1b\[0;1;32m|\^D\x08{2})\* (?:\x1b\[0;0m\x1b\[0;1m)?No unused code detected\.(?:\x1b\[0;0m)?\r' || true)
 ((exit_code |= ${?}))
 
