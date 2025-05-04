@@ -49,11 +49,10 @@ extension MAS {
 		/// Installs an app.
 		///
 		/// - Parameters:
-		///   - appID: App identifier
-		///   - installedApps: List of installed apps
+		///   - appID: App ID.
+		///   - installedApps: List of installed apps.
 		/// - Throws: Any error that occurs while attempting to install the app.
 		private func install(appID: AppID, installedApps: [InstalledApp]) async throws {
-			// Try to download applications with given identifiers and collect results
 			if let appName = installedApps.first(where: { $0.id == appID })?.name, !force {
 				printWarning(appName, "is already installed")
 			} else {

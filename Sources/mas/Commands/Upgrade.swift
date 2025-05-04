@@ -18,7 +18,6 @@ extension MAS {
 
 		@Flag(help: "Display warnings about apps unknown to the Mac App Store")
 		var verbose = false
-
 		@Argument(help: ArgumentHelp("App ID/app name", valueName: "app-id-or-name"))
 		var appIDOrNames = [String]()
 
@@ -63,7 +62,7 @@ extension MAS {
 			? installedApps
 			: appIDOrNames.flatMap { appIDOrName in
 				if let appID = AppID(appIDOrName) {
-					// Argument is an AppID, lookup apps by id using argument
+					// Lookup apps by app ID argument
 					let installedApps = installedApps.filter { $0.id == appID }
 					if installedApps.isEmpty {
 						printError(appID.unknownMessage)
@@ -71,7 +70,7 @@ extension MAS {
 					return installedApps
 				}
 
-				// Argument is not an AppID, lookup apps by name using argument
+				// Lookup apps by name argument
 				let installedApps = installedApps.filter { $0.name == appIDOrName }
 				if installedApps.isEmpty {
 					printError("Unknown app name '", appIDOrName, "'", separator: "")
