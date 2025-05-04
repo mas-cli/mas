@@ -1,4 +1,4 @@
-brew "markdownlint-cli"
+brew "markdownlint-cli2"
 brew "periphery"
 brew "shellcheck"
 brew "swift-format"

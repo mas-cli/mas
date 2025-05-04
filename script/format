@@ -12,7 +12,7 @@
 
 printf $'==> 🧹 Formatting mas %s\n' "$(script/version)"
 
-for formatter in markdownlint swift-format swiftformat swiftlint yamllint; do
+for formatter in markdownlint-cli2 swift-format swiftformat swiftlint yamllint; do
 	if ! whence "${formatter}" >/dev/null; then
 		printf $'error: %s is not installed. Run \'script/bootstrap\' or \'brew install %s\'.\n' "${formatter}" "${formatter}" >&2
 		exit 1
@@ -30,4 +30,4 @@ for source in Package.swift Sources Tests; do
 done
 
 printf -- $'--> 〽️ Markdown\n'
-markdownlint --config .markdownlint.json --fix . docs
+markdownlint-cli2 --fix '**/*.md'

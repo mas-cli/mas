@@ -16,7 +16,7 @@ printf $'==> 🚨 Linting mas %s\n' "$(script/version)"
 
 script/generate_package_swift lint
 
-for linter in git markdownlint periphery shellcheck swift-format swiftformat swiftlint yamllint; do
+for linter in git markdownlint-cli2 periphery shellcheck swift-format swiftformat swiftlint yamllint; do
 	if ! whence "${linter}" >/dev/null; then
 		printf $'error: %s is not installed. Run \'script/bootstrap\' or \'brew install %s\'.\n' "${linter}" "${linter}" >&2
 		exit 1
@@ -48,7 +48,7 @@ for script in script/**/*(.); do
 done
 
 printf -- $'--> 〽️ Markdown\n'
-markdownlint --config .markdownlint.json . docs
+markdownlint-cli2 '**/*.md'
 ((exit_code |= ${?}))
 
 printf -- $'--> 📝 YAML\n'
