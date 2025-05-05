@@ -2,19 +2,13 @@
 # .hound.yml
 # mas
 #
-# http://help.houndci.com/en/articles/2138528-swiftlint
-#
 ---
 fail_on_violations: false
-
 erblint:
   enabled: false
-
 rubocop:
   enabled: false
-
 shellcheck:
   enabled: true
-
 swiftlint:
   enabled: false

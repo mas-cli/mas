@@ -1,4 +1,4 @@
-# https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+# https://docs.github.com/en/code-security/dependabot/working-with-dependabot/dependabot-options-reference
 ---
 version: 2
 updates:
