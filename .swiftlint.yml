@@ -8,32 +8,32 @@
 #
 ---
 opt_in_rules:
-  - all
+- all
 disabled_rules:
-  # Eventually enable
-  # https://github.com/swiftlang/swift-format/issues/874
-  - trailing_comma
-  # Never enable
-  - contrasted_opening_brace
-  - explicit_acl
-  - explicit_enum_raw_value
-  - explicit_top_level_acl
-  - explicit_type_interface
-  - no_extension_access_modifier
-  - no_grouping_extension
-  - no_magic_numbers
-  - prefixed_toplevel_constant
-  - sorted_enum_cases
-  - vertical_whitespace_between_cases
+# Eventually enable
+# https://github.com/swiftlang/swift-format/issues/874
+- trailing_comma
+# Never enable
+- contrasted_opening_brace
+- explicit_acl
+- explicit_enum_raw_value
+- explicit_top_level_acl
+- explicit_type_interface
+- no_extension_access_modifier
+- no_grouping_extension
+- no_magic_numbers
+- prefixed_toplevel_constant
+- sorted_enum_cases
+- vertical_whitespace_between_cases
 closure_body_length:
   warning: 40
 file_types_order:
   order:
-    - main_type
-    - supporting_type
-    - extension
-    - preview_provider
-    - library_content_provider
+  - main_type
+  - supporting_type
+  - extension
+  - preview_provider
+  - library_content_provider
 function_body_length:
   warning: 55
 indentation_width:
@@ -46,18 +46,18 @@ sorted_imports:
   grouping: attributes
 type_contents_order:
   order:
-    - case
-    - associated_type
-    - type_alias
-    - subtype
-    - type_property
-    - instance_property
-    - ib_inspectable
-    - ib_outlet
-    - initializer
-    - deinitializer
-    - type_method
-    - view_life_cycle_method
-    - ib_action
-    - other_method
-    - subscript
+  - case
+  - associated_type
+  - type_alias
+  - subtype
+  - type_property
+  - instance_property
+  - ib_inspectable
+  - ib_outlet
+  - initializer
+  - deinitializer
+  - type_method
+  - view_life_cycle_method
+  - ib_action
+  - other_method
+  - subscript

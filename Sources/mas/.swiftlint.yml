@@ -8,8 +8,8 @@
 #
 ---
 opt_in_rules:
-  - file_header
-  - file_name
+- file_header
+- file_name
 file_header:
   required_pattern: |
     \/\/
