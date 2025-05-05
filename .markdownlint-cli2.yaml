@@ -17,9 +17,9 @@ config:
   extends: null
   heading-increment: true
   heading-style:
-    style: "consistent"
+    style: consistent
   ul-style:
-    style: "consistent"
+    style: consistent
   list-indent: true
   ul-indent:
     indent: 2
@@ -57,15 +57,15 @@ config:
   no-duplicate-heading:
     siblings_only: false
   single-h1:
-    front_matter_title: "^\\s*title\\s*[:=]"
+    front_matter_title: ^\\s*title\\s*[:=]
     level: 1
   no-trailing-punctuation:
-    punctuation: ".,;:!。，；：！"
+    punctuation: .,;:!。，；：！
   no-multiple-space-blockquote:
     list_items: true
   no-blanks-blockquote: true
   ol-prefix:
-    style: "one_or_ordered"
+    style: one_or_ordered
   list-marker-space:
     ul_single: 1
     ol_single: 1
@@ -78,9 +78,9 @@ config:
     allowed_elements: []
   no-bare-urls: true
   hr-style:
-    style: "consistent"
+    style: consistent
   no-emphasis-as-heading:
-    punctuation: ".,;:!?。，；：！？"
+    punctuation: .,;:!?。，；：！？
   no-space-in-emphasis: true
   no-space-in-code: true
   no-space-in-links: true
@@ -89,7 +89,7 @@ config:
     language_only: false
   first-line-h1:
     allow_preamble: false
-    front_matter_title: "^\\s*title\\s*[:=]"
+    front_matter_title: ^\\s*title\\s*[:=]
     level: 1
   no-empty-links: true
   required-headings:
@@ -101,24 +101,24 @@ config:
     html_elements: true
   no-alt-text: true
   code-block-style:
-    style: "consistent"
+    style: consistent
   single-trailing-newline: true
   code-fence-style:
-    style: "consistent"
+    style: consistent
   emphasis-style:
-    style: "consistent"
+    style: consistent
   strong-style:
-    style: "consistent"
+    style: consistent
   link-fragments:
     ignore_case: false
-    ignored_pattern: ""
+    ignored_pattern: ''
   reference-links-images:
     ignored_labels:
-      - "x"
+    - x
     shortcut_syntax: false
   link-image-reference-definitions:
     ignored_definitions:
-      - "//"
+    - //
   link-image-style:
     autolink: true
     inline: true
@@ -127,12 +127,12 @@ config:
     shortcut: true
     url_inline: true
   table-pipe-style:
-    style: "consistent"
+    style: consistent
   table-column-count: true
   blanks-around-tables: true
   descriptive-link-text:
     prohibited_texts:
-      - "click here"
-      - "here"
-      - "link"
-      - "more"
+    - click here
+    - here
+    - link
+    - more
