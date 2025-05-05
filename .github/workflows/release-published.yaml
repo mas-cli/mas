@@ -1,5 +1,5 @@
 #
-# .github/workflows/release-published.yml
+# .github/workflows/release-published.yaml
 #
 ---
 name: release-published

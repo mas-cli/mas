@@ -1,5 +1,5 @@
 #
-# .github/workflows/tag-pushed.yml
+# .github/workflows/tag-pushed.yaml
 #
 ---
 name: tag-pushed

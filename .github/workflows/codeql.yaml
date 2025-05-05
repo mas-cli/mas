@@ -1,5 +1,5 @@
 #
-# .github/workflows/codeql.yml
+# .github/workflows/codeql.yaml
 #
 ---
 name: CodeQL

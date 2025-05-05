@@ -1,5 +1,5 @@
 #
-# .github/workflows/build-test.yml
+# .github/workflows/build-test.yaml
 #
 ---
 name: Build, Test, and Lint
