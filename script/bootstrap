@@ -17,4 +17,4 @@ if ! whence brew >/dev/null; then
 fi
 
 brew update
-brew bundle install --verbose "${@}"
+brew bundle install -q "${@}"
