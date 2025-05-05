@@ -28,23 +28,23 @@ config:
   no-trailing-spaces:
     br_spaces: 2
     list_item_empty_lines: false
-    strict: false
+    strict: true
   no-hard-tabs:
     code_blocks: true
     ignore_code_languages: []
-    spaces_per_tab: 1
+    spaces_per_tab: 2
   no-reversed-links: true
   no-multiple-blanks:
     maximum: 1
   line-length:
-    line_length: 80
-    heading_line_length: 80
+    line_length: 120
+    heading_line_length: 100
     code_block_line_length: 80
     code_blocks: true
     tables: true
     headings: true
     strict: false
-    stern: false
+    stern: true
   commands-show-output: true
   no-missing-space-atx: true
   no-multiple-space-atx: true
@@ -75,7 +75,7 @@ config:
     list_items: true
   blanks-around-lists: true
   no-inline-html:
-    allowed_elements: []
+    allowed_elements: [h1, img]
   no-bare-urls: true
   hr-style:
     style: consistent
@@ -92,9 +92,9 @@ config:
     front_matter_title: ^\\s*title\\s*[:=]
     level: 1
   no-empty-links: true
-  required-headings:
-    headings: []
-    match_case: false
+  required-headings: false
+  #  headings: []
+  #  match_case: true
   proper-names:
     names: []
     code_blocks: true
