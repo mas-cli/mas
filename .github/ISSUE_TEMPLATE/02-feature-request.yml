@@ -1,7 +1,7 @@
 ---
 name: Feature Request
 description: Request a feature.
-labels: ["\U0001F195 feature request"]
+labels: [\U0001F195 feature request]
 body:
   - type: markdown
     attributes:

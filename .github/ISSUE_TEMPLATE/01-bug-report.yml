@@ -1,7 +1,7 @@
 ---
 name: Bug Report
 description: Report a bug.
-labels: ["\U0001F41B bug"]
+labels: [\U0001F41B bug]
 body:
   - type: markdown
     attributes:

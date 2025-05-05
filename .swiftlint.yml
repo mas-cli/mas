@@ -29,13 +29,11 @@ closure_body_length:
   warning: 40
 file_types_order:
   order:
-    [
-      [main_type],
-      [supporting_type],
-      [extension],
-      [preview_provider],
-      [library_content_provider],
-    ]
+    - main_type
+    - supporting_type
+    - extension
+    - preview_provider
+    - library_content_provider
 function_body_length:
   warning: 55
 indentation_width:
@@ -48,19 +46,18 @@ sorted_imports:
   grouping: attributes
 type_contents_order:
   order:
-    [
-      [case],
-      [type_alias, associated_type],
-      [subtype],
-      [type_property],
-      [instance_property],
-      [ib_inspectable],
-      [ib_outlet],
-      [initializer],
-      [deinitializer],
-      [type_method],
-      [view_life_cycle_method],
-      [ib_action],
-      [other_method],
-      [subscript],
-    ]
+    - case
+    - associated_type
+    - type_alias
+    - subtype
+    - type_property
+    - instance_property
+    - ib_inspectable
+    - ib_outlet
+    - initializer
+    - deinitializer
+    - type_method
+    - view_life_cycle_method
+    - ib_action
+    - other_method
+    - subscript

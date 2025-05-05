@@ -5,7 +5,7 @@
 name: tag-pushed
 on:
   push:
-    tags: ["**"]
+    tags: ['**']
 permissions:
   contents: write
 defaults:

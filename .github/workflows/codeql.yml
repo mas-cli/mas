@@ -10,7 +10,7 @@ on:
     branches: [main]
   schedule:
     - cron: 44 14 * * 4
-  workflow_dispatch:
+  workflow_dispatch: {}
 jobs:
   analyze:
     name: Analyze ${{matrix.language}}
