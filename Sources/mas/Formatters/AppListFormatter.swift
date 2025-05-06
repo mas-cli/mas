@@ -15,7 +15,7 @@ enum AppListFormatter {
 	/// - Parameter installedApps: List of installed apps.
 	/// - Returns: Multiline text output.
 	static func format(_ installedApps: [InstalledApp]) -> String {
-		// longest app name for right space padding
+		// Longest app name for right space padding
 		guard let maxAppNameLength = installedApps.map(\.name.count).max() else {
 			return ""
 		}
