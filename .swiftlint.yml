@@ -42,8 +42,6 @@ number_separator:
   minimum_length: 6
 opening_brace:
   ignore_multiline_statement_conditions: true
-sorted_imports:
-  grouping: attributes
 type_contents_order:
   order:
   - case

@@ -6,8 +6,8 @@
 // Copyright © 2025 mas-cli. All rights reserved.
 //
 
-import ArgumentParser
-import Foundation
+internal import ArgumentParser
+private import Foundation
 
 private let unknown = "unknown"
 

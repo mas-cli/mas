@@ -6,13 +6,13 @@
 // Copyright © 2018 mas-cli. All rights reserved.
 //
 
-import Nimble
+private import Nimble
 import Quick
 
-@testable import mas
+@testable private import mas
 
-public final class SearchSpec: AsyncSpec {
-	override public static func spec() {
+final class SearchSpec: AsyncSpec {
+	override static func spec() {
 		describe("search command") {
 			it("can find slack") {
 				let mockResult = SearchResult(

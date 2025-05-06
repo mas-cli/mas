@@ -6,14 +6,13 @@
 // Copyright © 2018 mas-cli. All rights reserved.
 //
 
-import Nimble
+private import Nimble
 import Quick
 
-@testable import mas
+@testable private import mas
 
-/// Deprecated test.
-public final class SignInSpec: QuickSpec {
-	override public static func spec() {
+final class SignInSpec: QuickSpec {
+	override static func spec() {
 		describe("signin command") {
 			it("signs in") {
 				expect(consequencesOf(try MAS.SignIn.parse(["", ""]).run()))

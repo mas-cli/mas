@@ -6,7 +6,7 @@
 // Copyright © 2015 Andrew Naylor. All rights reserved.
 //
 
-import ArgumentParser
+internal import ArgumentParser
 
 extension MAS {
 	/// Command which displays a list of installed apps which have available updates

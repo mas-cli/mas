@@ -8,7 +8,7 @@
 
 import Foundation
 
-@testable import mas
+@testable internal import mas
 
 func consequencesOf(
 	streamEncoding: String.Encoding = .utf8,

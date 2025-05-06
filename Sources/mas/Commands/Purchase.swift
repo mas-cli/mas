@@ -6,8 +6,8 @@
 // Copyright © 2017 Jakob Rieck. All rights reserved.
 //
 
-import ArgumentParser
-import Foundation
+internal import ArgumentParser
+private import Foundation
 
 extension MAS {
 	struct Purchase: AsyncParsableCommand {

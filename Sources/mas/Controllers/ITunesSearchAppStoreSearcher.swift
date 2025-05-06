@@ -6,7 +6,7 @@
 // Copyright © 2018 mas-cli. All rights reserved.
 //
 
-import Foundation
+private import Foundation
 
 /// Manages searching the MAS catalog. Uses the iTunes Search and Lookup APIs:
 /// https://performance-partners.apple.com/search-api

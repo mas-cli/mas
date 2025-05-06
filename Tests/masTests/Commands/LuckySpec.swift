@@ -6,13 +6,13 @@
 // Copyright © 2018 mas-cli. All rights reserved.
 //
 
-import Nimble
+private import Nimble
 import Quick
 
-@testable import mas
+@testable private import mas
 
-public final class LuckySpec: AsyncSpec {
-	override public static func spec() {
+final class LuckySpec: AsyncSpec {
+	override static func spec() {
 		let searcher =
 			ITunesSearchAppStoreSearcher(networkSession: MockNetworkSession(responseResource: "search/slack.json"))
 

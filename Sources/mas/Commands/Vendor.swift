@@ -6,8 +6,8 @@
 // Copyright © 2018 mas-cli. All rights reserved.
 //
 
-import ArgumentParser
-import Foundation
+internal import ArgumentParser
+private import Foundation
 
 extension MAS {
 	/// Opens vendor's app page in a browser. Uses the iTunes Lookup API:

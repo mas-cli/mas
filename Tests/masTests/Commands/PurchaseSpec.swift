@@ -6,13 +6,13 @@
 // Copyright © 2020 mas-cli. All rights reserved.
 //
 
-import Nimble
+private import Nimble
 import Quick
 
-@testable import mas
+@testable private import mas
 
-public final class PurchaseSpec: AsyncSpec {
-	override public static func spec() {
+final class PurchaseSpec: AsyncSpec {
+	override static func spec() {
 		xdescribe("purchase command") {
 			it("purchases apps") {
 				await expecta(

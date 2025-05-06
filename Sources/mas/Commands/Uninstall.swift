@@ -6,8 +6,8 @@
 // Copyright © 2018 mas-cli. All rights reserved.
 //
 
-import ArgumentParser
-import ScriptingBridge
+internal import ArgumentParser
+private import ScriptingBridge
 
 extension MAS {
 	/// Command which uninstalls apps managed by the Mac App Store.

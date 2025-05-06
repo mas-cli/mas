@@ -6,13 +6,13 @@
 // Copyright © 2018 mas-cli. All rights reserved.
 //
 
-import Nimble
+private import Nimble
 import Quick
 
-@testable import mas
+@testable private import mas
 
-public final class InstallSpec: AsyncSpec {
-	override public static func spec() {
+final class InstallSpec: AsyncSpec {
+	override static func spec() {
 		xdescribe("install command") {
 			it("installs apps") {
 				await expecta(

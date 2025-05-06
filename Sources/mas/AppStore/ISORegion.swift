@@ -6,8 +6,8 @@
 // Copyright © 2024 mas-cli. All rights reserved.
 //
 
-import IsoCountryCodes
-import StoreKit
+private import IsoCountryCodes
+private import StoreKit
 
 // periphery:ignore
 protocol ISORegion {

@@ -6,13 +6,13 @@
 // Copyright © 2018 mas-cli. All rights reserved.
 //
 
-import Nimble
+private import Nimble
 import Quick
 
-@testable import mas
+@testable private import mas
 
-public final class AccountSpec: AsyncSpec {
-	override public static func spec() {
+final class AccountSpec: AsyncSpec {
+	override static func spec() {
 		describe("account command") {
 			it("displays not supported warning") {
 				await expecta(await consequencesOf(try await MAS.Account.parse([]).run()))

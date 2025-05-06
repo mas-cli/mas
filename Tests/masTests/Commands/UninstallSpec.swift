@@ -6,13 +6,13 @@
 // Copyright © 2018 mas-cli. All rights reserved.
 //
 
-import Nimble
+private import Nimble
 import Quick
 
-@testable import mas
+@testable private import mas
 
-public final class UninstallSpec: QuickSpec {
-	override public static func spec() {
+final class UninstallSpec: QuickSpec {
+	override static func spec() {
 		let appID = 12345 as AppID
 		let app = InstalledApp(
 			id: appID,

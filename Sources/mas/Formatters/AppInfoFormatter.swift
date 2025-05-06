@@ -6,7 +6,7 @@
 // Copyright © 2019 mas-cli. All rights reserved.
 //
 
-import Foundation
+private import Foundation
 
 /// Formats text output for the info command.
 enum AppInfoFormatter {

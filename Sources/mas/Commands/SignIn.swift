@@ -6,7 +6,7 @@
 // Copyright © 2016 Andrew Naylor. All rights reserved.
 //
 
-import ArgumentParser
+internal import ArgumentParser
 
 extension MAS {
 	struct SignIn: ParsableCommand {

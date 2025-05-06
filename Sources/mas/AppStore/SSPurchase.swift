@@ -6,7 +6,7 @@
 // Copyright © 2015 Andrew Naylor. All rights reserved.
 //
 
-import CommerceKit
+private import CommerceKit
 
 extension SSPurchase {
 	convenience init(appID: AppID, purchasing: Bool) async {

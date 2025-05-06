@@ -6,7 +6,7 @@
 // Copyright © 2024 mas-cli. All rights reserved.
 //
 
-import ArgumentParser
+internal import ArgumentParser
 
 extension MAS {
 	/// Command which interacts with the current region for the Mac App Store.

@@ -6,13 +6,13 @@
 // Copyright © 2018 mas-cli. All rights reserved.
 //
 
-import Nimble
+private import Nimble
 import Quick
 
-@testable import mas
+@testable private import mas
 
-public final class ListSpec: QuickSpec {
-	override public static func spec() {
+final class ListSpec: QuickSpec {
+	override static func spec() {
 		describe("list command") {
 			it("lists apps") {
 				expect(consequencesOf(try MAS.List.parse([]).run(installedApps: [])))

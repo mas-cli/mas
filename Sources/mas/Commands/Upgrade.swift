@@ -6,8 +6,8 @@
 // Copyright © 2015 Andrew Naylor. All rights reserved.
 //
 
-import ArgumentParser
-import Foundation
+internal import ArgumentParser
+private import Foundation
 
 extension MAS {
 	/// Command which upgrades apps with new versions available in the Mac App Store.

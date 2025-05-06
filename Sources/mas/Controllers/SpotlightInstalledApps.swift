@@ -6,7 +6,7 @@
 // Copyright © 2025 mas-cli. All rights reserved.
 //
 
-import Foundation
+private import Foundation
 
 @MainActor // swiftlint:disable:next attributes
 var installedApps: [InstalledApp] {

@@ -6,8 +6,8 @@
 // Copyright © 2018 mas-cli. All rights reserved.
 //
 
-import Foundation
-import Version
+private import Foundation
+private import Version
 
 struct InstalledApp: Sendable {
 	let id: AppID

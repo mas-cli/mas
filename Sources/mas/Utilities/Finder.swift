@@ -6,17 +6,18 @@
 // Copyright © 2024 mas-cli. All rights reserved.
 //
 
+// periphery:ignore:all
 // swift-format-ignore-file
 // swiftlint:disable:next blanket_disable_command
 // swiftlint:disable attributes discouraged_none_name file_length file_types_order identifier_name
 // swiftlint:disable:next blanket_disable_command
-// swiftlint:disable implicitly_unwrapped_optional legacy_objc_type line_length missing_docs one_declaration_per_file
-import AppKit
-import ScriptingBridge
+// swiftlint:disable implicitly_unwrapped_optional legacy_objc_type line_length one_declaration_per_file
+internal import AppKit
+internal import ScriptingBridge
 
 // MARK: FinderEdfm
 @objc
-public enum FinderEdfm: AEKeyword {
+enum FinderEdfm: AEKeyword {
 	case macOSFormat = 0x6466_6866 // 'dfhf'
 	case macOSExtendedFormat = 0x6466_682b // 'dfh+'
 	case ufsFormat = 0x6466_7566 // 'dfuf'
@@ -43,7 +44,7 @@ public enum FinderEdfm: AEKeyword {
 
 // MARK: FinderIpnl
 @objc
-public enum FinderIpnl: AEKeyword {
+enum FinderIpnl: AEKeyword {
 	case generalInformationPanel = 0x6770_6e6c // 'gpnl'
 	case sharingPanel = 0x7370_6e6c // 'spnl'
 	case memoryPanel = 0x6d70_6e6c // 'mpnl'
@@ -61,7 +62,7 @@ public enum FinderIpnl: AEKeyword {
 
 // MARK: FinderPple
 @objc
-public enum FinderPple: AEKeyword {
+enum FinderPple: AEKeyword {
 	case generalPreferencesPanel = 0x7067_6e70 // 'pgnp'
 	case labelPreferencesPanel = 0x706c_6270 // 'plbp'
 	case sidebarPreferencesPanel = 0x7073_6964 // 'psid'
@@ -70,7 +71,7 @@ public enum FinderPple: AEKeyword {
 
 // MARK: FinderPriv
 @objc
-public enum FinderPriv: AEKeyword {
+enum FinderPriv: AEKeyword {
 	case readOnly = 0x7265_6164 // 'read'
 	case readWrite = 0x7264_7772 // 'rdwr'
 	case writeOnly = 0x7772_6974 // 'writ'
@@ -79,7 +80,7 @@ public enum FinderPriv: AEKeyword {
 
 // MARK: FinderEcvw
 @objc
-public enum FinderEcvw: AEKeyword {
+enum FinderEcvw: AEKeyword {
 	case iconView = 0x6963_6e76 // 'icnv'
 	case listView = 0x6c73_7677 // 'lsvw'
 	case columnView = 0x636c_7677 // 'clvw'
@@ -89,7 +90,7 @@ public enum FinderEcvw: AEKeyword {
 
 // MARK: FinderEarr
 @objc
-public enum FinderEarr: AEKeyword {
+enum FinderEarr: AEKeyword {
 	case notArranged = 0x6e61_7272 // 'narr'
 	case snapToGrid = 0x6772_6461 // 'grda'
 	case arrangedByName = 0x6e61_6d61 // 'nama'
@@ -102,21 +103,21 @@ public enum FinderEarr: AEKeyword {
 
 // MARK: FinderEpos
 @objc
-public enum FinderEpos: AEKeyword {
+enum FinderEpos: AEKeyword {
 	case right = 0x6c72_6774 // 'lrgt'
 	case bottom = 0x6c62_6f74 // 'lbot'
 }
 
 // MARK: FinderSodr
 @objc
-public enum FinderSodr: AEKeyword {
+enum FinderSodr: AEKeyword {
 	case normal = 0x736e_726d // 'snrm'
 	case reversed = 0x7372_7673 // 'srvs'
 }
 
 // MARK: FinderElsv
 @objc
-public enum FinderElsv: AEKeyword {
+enum FinderElsv: AEKeyword {
 	case nameColumn = 0x656c_736e // 'elsn'
 	case modificationDateColumn = 0x656c_736d // 'elsm'
 	case creationDateColumn = 0x656c_7363 // 'elsc'
@@ -129,18 +130,18 @@ public enum FinderElsv: AEKeyword {
 
 // MARK: FinderLvic
 @objc
-public enum FinderLvic: AEKeyword {
+enum FinderLvic: AEKeyword {
 	case smallIcon = 0x736d_6963 // 'smic'
 	case largeIcon = 0x6c67_6963 // 'lgic'
 }
 
 @objc
-public protocol SBObjectProtocol: NSObjectProtocol {
+protocol SBObjectProtocol: NSObjectProtocol {
 	func get() -> Any!
 }
 
 @objc
-public protocol SBApplicationProtocol: SBObjectProtocol {
+protocol SBApplicationProtocol: SBObjectProtocol {
 	var delegate: SBApplicationDelegate! { get set }
 	var isRunning: Bool { get }
 
@@ -149,7 +150,7 @@ public protocol SBApplicationProtocol: SBObjectProtocol {
 
 // MARK: FinderGenericMethods
 @objc
-public protocol FinderGenericMethods {
+protocol FinderGenericMethods {
 	@objc optional func openUsing(_ using_: SBObject!, withProperties: [AnyHashable: Any]!) // Open the specified object(s)
 	@objc optional func printWithProperties(_ withProperties: [AnyHashable: Any]!) // Print the specified object(s)
 	@objc optional func activate() // Activate the specified window (or the Finder)
@@ -171,7 +172,7 @@ public protocol FinderGenericMethods {
 
 // MARK: FinderApplication
 @objc
-public protocol FinderApplication: SBApplicationProtocol {
+protocol FinderApplication: SBApplicationProtocol {
 	@objc optional var clipboard: SBObject { get } // (NOT AVAILABLE YET) the Finder’s clipboard window (copy)
 	@objc optional var name: String { get } // the Finder’s name (copy)
 	@objc optional var visible: Bool { get } // Is the Finder’s layer visible?
@@ -223,7 +224,7 @@ extension SBApplication: FinderApplication {}
 
 // MARK: FinderItem
 @objc
-public protocol FinderItem: SBObjectProtocol, FinderGenericMethods {
+protocol FinderItem: SBObjectProtocol, FinderGenericMethods {
 	@objc optional var name: String { get } // the name of the item (copy)
 	@objc optional var displayedName: String { get } // the user-visible name of the item (copy)
 	@objc optional var nameExtension: String { get } // the name extension of the item (such as “txt”) (copy)
@@ -276,7 +277,7 @@ extension SBObject: FinderItem {}
 
 // MARK: FinderContainer
 @objc
-public protocol FinderContainer: FinderItem {
+protocol FinderContainer: FinderItem {
 	@objc optional var entireContents: SBObject { get } // the entire contents of the container, including the contents of its children (copy)
 	@objc optional var expandable: Bool { get } // (NOT AVAILABLE YET) Is the container capable of being expanded as an outline?
 	@objc optional var expanded: Bool { get } // (NOT AVAILABLE YET) Is the container opened as an outline? (can only be set for containers viewed as lists)
@@ -302,13 +303,13 @@ extension SBObject: FinderContainer {}
 
 // MARK: FinderComputerObject
 @objc
-public protocol FinderComputerObject: FinderItem {}
+protocol FinderComputerObject: FinderItem {}
 
 extension SBObject: FinderComputerObject {}
 
 // MARK: FinderDisk
 @objc
-public protocol FinderDisk: FinderContainer {
+protocol FinderDisk: FinderContainer {
 	@objc optional var capacity: Int64 { get } // the total number of bytes (free or used) on the disk
 	@objc optional var freeSpace: Int64 { get } // the number of free bytes left on the disk
 	@objc optional var ejectable: Bool { get } // Can the media be ejected (floppies, CDs, and so on)?
@@ -338,7 +339,7 @@ extension SBObject: FinderDisk {}
 
 // MARK: FinderFolder
 @objc
-public protocol FinderFolder: FinderContainer {
+protocol FinderFolder: FinderContainer {
 	@objc optional func items() -> SBElementArray
 	@objc optional func containers() -> SBElementArray
 	@objc optional func folders() -> SBElementArray
@@ -355,7 +356,7 @@ extension SBObject: FinderFolder {}
 
 // MARK: FinderDesktopObject
 @objc
-public protocol FinderDesktopObject: FinderContainer {
+protocol FinderDesktopObject: FinderContainer {
 	@objc optional func items() -> SBElementArray
 	@objc optional func containers() -> SBElementArray
 	@objc optional func disks() -> SBElementArray
@@ -373,7 +374,7 @@ extension SBObject: FinderDesktopObject {}
 
 // MARK: FinderTrashObject
 @objc
-public protocol FinderTrashObject: FinderContainer {
+protocol FinderTrashObject: FinderContainer {
 	@objc optional var warnsBeforeEmptying: Bool { get } // Display a dialog when emptying the trash?
 
 	@objc optional func setWarnsBeforeEmptying(_ warnsBeforeEmptying: Bool) // Display a dialog when emptying the trash?
@@ -394,7 +395,7 @@ extension SBObject: FinderTrashObject {}
 
 // MARK: FinderFile
 @objc
-public protocol FinderFile: FinderItem {
+protocol FinderFile: FinderItem {
 	@objc optional var fileType: NSNumber { get } // the OSType identifying the type of data contained in the item (copy)
 	@objc optional var creatorType: NSNumber { get } // the OSType identifying the application that created the item (copy)
 	@objc optional var stationery: Bool { get } // Is the file a stationery pad?
@@ -410,7 +411,7 @@ extension SBObject: FinderFile {}
 
 // MARK: FinderAliasFile
 @objc
-public protocol FinderAliasFile: FinderFile {
+protocol FinderAliasFile: FinderFile {
 	@objc optional var originalItem: SBObject { get } // the original item pointed to by the alias (copy)
 
 	@objc optional func setOriginalItem(_ originalItem: SBObject!) // the original item pointed to by the alias
@@ -420,7 +421,7 @@ extension SBObject: FinderAliasFile {}
 
 // MARK: FinderApplicationFile
 @objc
-public protocol FinderApplicationFile: FinderFile {
+protocol FinderApplicationFile: FinderFile {
 	@objc optional var suggestedSize: Int { get } // (AVAILABLE IN 10.1 TO 10.4) the memory size with which the developer recommends the application be launched
 	@objc optional var minimumSize: Int { get } // (AVAILABLE IN 10.1 TO 10.4) the smallest memory size with which the application can be launched
 	@objc optional var preferredSize: Int { get } // (AVAILABLE IN 10.1 TO 10.4) the memory size with which the application will be launched
@@ -439,13 +440,13 @@ extension SBObject: FinderApplicationFile {}
 
 // MARK: FinderDocumentFile
 @objc
-public protocol FinderDocumentFile: FinderFile {}
+protocol FinderDocumentFile: FinderFile {}
 
 extension SBObject: FinderDocumentFile {}
 
 // MARK: FinderInternetLocationFile
 @objc
-public protocol FinderInternetLocationFile: FinderFile {
+protocol FinderInternetLocationFile: FinderFile {
 	@objc optional var location: String { get } // the internet location (copy)
 }
 
@@ -453,7 +454,7 @@ extension SBObject: FinderInternetLocationFile {}
 
 // MARK: FinderClipping
 @objc
-public protocol FinderClipping: FinderFile {
+protocol FinderClipping: FinderFile {
 	@objc optional var clippingWindow: SBObject { get } // (NOT AVAILABLE YET) the clipping window for this clipping (copy)
 }
 
@@ -461,13 +462,13 @@ extension SBObject: FinderClipping {}
 
 // MARK: FinderPackage
 @objc
-public protocol FinderPackage: FinderItem {}
+protocol FinderPackage: FinderItem {}
 
 extension SBObject: FinderPackage {}
 
 // MARK: FinderWindow
 @objc
-public protocol FinderWindow: SBObjectProtocol, FinderGenericMethods {
+protocol FinderWindow: SBObjectProtocol, FinderGenericMethods {
 	@objc optional var position: NSPoint { get } // the upper left position of the window
 	@objc optional var bounds: NSRect { get } // the boundary rectangle for the window
 	@objc optional var titled: Bool { get } // Does the window have a title bar?
@@ -497,7 +498,7 @@ extension SBObject: FinderWindow {}
 
 // MARK: FinderFinderWindow
 @objc
-public protocol FinderFinderWindow: FinderWindow {
+protocol FinderFinderWindow: FinderWindow {
 	@objc optional var target: SBObject { get } // the container at which this file viewer is targeted (copy)
 	@objc optional var currentView: FinderEcvw { get } // the current view for the container window
 	@objc optional var iconViewOptions: FinderIconViewOptions { get } // the icon view options for the container window (copy)
@@ -518,13 +519,13 @@ extension SBObject: FinderFinderWindow {}
 
 // MARK: FinderDesktopWindow
 @objc
-public protocol FinderDesktopWindow: FinderFinderWindow {}
+protocol FinderDesktopWindow: FinderFinderWindow {}
 
 extension SBObject: FinderDesktopWindow {}
 
 // MARK: FinderInformationWindow
 @objc
-public protocol FinderInformationWindow: FinderWindow {
+protocol FinderInformationWindow: FinderWindow {
 	@objc optional var item: SBObject { get } // the item from which this window was opened (copy)
 	@objc optional var currentPanel: FinderIpnl { get } // the current panel in the information window
 
@@ -535,7 +536,7 @@ extension SBObject: FinderInformationWindow {}
 
 // MARK: FinderPreferencesWindow
 @objc
-public protocol FinderPreferencesWindow: FinderWindow {
+protocol FinderPreferencesWindow: FinderWindow {
 	@objc optional var currentPanel: FinderPple { get } // The current panel in the Finder preferences window
 
 	@objc optional func setCurrentPanel(_ currentPanel: FinderPple) // The current panel in the Finder preferences window
@@ -545,13 +546,13 @@ extension SBObject: FinderPreferencesWindow {}
 
 // MARK: FinderClippingWindow
 @objc
-public protocol FinderClippingWindow: FinderWindow {}
+protocol FinderClippingWindow: FinderWindow {}
 
 extension SBObject: FinderClippingWindow {}
 
 // MARK: FinderProcess
 @objc
-public protocol FinderProcess: SBObjectProtocol, FinderGenericMethods {
+protocol FinderProcess: SBObjectProtocol, FinderGenericMethods {
 	@objc optional var name: String { get } // the name of the process (copy)
 	@objc optional var visible: Bool { get } // Is the process' layer visible?
 	@objc optional var frontmost: Bool { get } // Is the process the frontmost process?
@@ -572,7 +573,7 @@ extension SBObject: FinderProcess {}
 
 // MARK: FinderApplicationProcess
 @objc
-public protocol FinderApplicationProcess: FinderProcess {
+protocol FinderApplicationProcess: FinderProcess {
 	@objc optional var applicationFile: FinderApplicationFile { get } // the application file from which this process was launched (copy)
 }
 
@@ -580,7 +581,7 @@ extension SBObject: FinderApplicationProcess {}
 
 // MARK: FinderDeskAccessoryProcess
 @objc
-public protocol FinderDeskAccessoryProcess: FinderProcess {
+protocol FinderDeskAccessoryProcess: FinderProcess {
 	@objc optional var deskAccessoryFile: SBObject { get } // the desk accessory file from which this process was launched (copy)
 }
 
@@ -588,7 +589,7 @@ extension SBObject: FinderDeskAccessoryProcess {}
 
 // MARK: FinderPreferences
 @objc
-public protocol FinderPreferences: SBObjectProtocol, FinderGenericMethods {
+protocol FinderPreferences: SBObjectProtocol, FinderGenericMethods {
 	@objc optional var window: FinderPreferencesWindow { get } // the window that would open if Finder preferences was opened (copy)
 	@objc optional var iconViewOptions: FinderIconViewOptions { get } // the default icon view options (copy)
 	@objc optional var listViewOptions: FinderListViewOptions { get } // the default list view options (copy)
@@ -622,7 +623,7 @@ extension SBObject: FinderPreferences {}
 
 // MARK: FinderLabel
 @objc
-public protocol FinderLabel: SBObjectProtocol, FinderGenericMethods {
+protocol FinderLabel: SBObjectProtocol, FinderGenericMethods {
 	@objc optional var name: String { get } // the name associated with the label (copy)
 	@objc optional var index: Int { get } // the index in the front-to-back ordering within its container
 	@objc optional var color: NSColor { get } // the color associated with the label (copy)
@@ -636,7 +637,7 @@ extension SBObject: FinderLabel {}
 
 // MARK: FinderIconFamily
 @objc
-public protocol FinderIconFamily: SBObjectProtocol, FinderGenericMethods {
+protocol FinderIconFamily: SBObjectProtocol, FinderGenericMethods {
 	@objc optional var largeMonochromeIconAndMask: Any { get } // the large black-and-white icon and the mask for large icons (copy)
 	@objc optional var large8BitMask: Any { get } // the large 8-bit mask for large 32-bit icons (copy)
 	@objc optional var large32BitIcon: Any { get } // the large 32-bit color icon (copy)
@@ -653,7 +654,7 @@ extension SBObject: FinderIconFamily {}
 
 // MARK: FinderIconViewOptions
 @objc
-public protocol FinderIconViewOptions: SBObjectProtocol, FinderGenericMethods {
+protocol FinderIconViewOptions: SBObjectProtocol, FinderGenericMethods {
 	@objc optional var arrangement: FinderEarr { get } // the property by which to keep icons arranged
 	@objc optional var iconSize: Int { get } // the size of icons displayed in the icon view
 	@objc optional var showsItemInfo: Bool { get } // additional info about an item displayed in icon view
@@ -677,7 +678,7 @@ extension SBObject: FinderIconViewOptions {}
 
 // MARK: FinderColumnViewOptions
 @objc
-public protocol FinderColumnViewOptions: SBObjectProtocol, FinderGenericMethods {
+protocol FinderColumnViewOptions: SBObjectProtocol, FinderGenericMethods {
 	@objc optional var textSize: Int { get } // the size of the text displayed in the column view
 	@objc optional var showsIcon: Bool { get } // displays an icon next to the label in column view
 	@objc optional var showsIconPreview: Bool { get } // displays a preview of the item in column view
@@ -695,7 +696,7 @@ extension SBObject: FinderColumnViewOptions {}
 
 // MARK: FinderListViewOptions
 @objc
-public protocol FinderListViewOptions: SBObjectProtocol, FinderGenericMethods {
+protocol FinderListViewOptions: SBObjectProtocol, FinderGenericMethods {
 	@objc optional var calculatesFolderSizes: Bool { get } // Are folder sizes calculated and displayed in the window?
 	@objc optional var showsIconPreview: Bool { get } // displays a preview of the item in list view
 	@objc optional var iconSize: FinderLvic { get } // the size of icons displayed in the list view
@@ -717,7 +718,7 @@ extension SBObject: FinderListViewOptions {}
 
 // MARK: FinderColumn
 @objc
-public protocol FinderColumn: SBObjectProtocol, FinderGenericMethods {
+protocol FinderColumn: SBObjectProtocol, FinderGenericMethods {
 	@objc optional var index: Int { get } // the index in the front-to-back ordering within its container
 	@objc optional var name: FinderElsv { get } // the column name
 	@objc optional var sortDirection: FinderSodr { get } // The direction in which the window is sorted
@@ -736,6 +737,6 @@ extension SBObject: FinderColumn {}
 
 // MARK: FinderAliasList
 @objc
-public protocol FinderAliasList: SBObjectProtocol, FinderGenericMethods {}
+protocol FinderAliasList: SBObjectProtocol, FinderGenericMethods {}
 
 extension SBObject: FinderAliasList {}

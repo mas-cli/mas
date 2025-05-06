@@ -6,7 +6,7 @@
 // Copyright © 2024 mas-cli. All rights reserved.
 //
 
-import AppKit
+private import AppKit
 
 extension URL {
 	func open() async throws {

@@ -7,13 +7,13 @@
 //
 
 import Foundation
-import Nimble
+private import Nimble
 import Quick
 
-@testable import mas
+@testable private import mas
 
-public final class SearchResultSpec: QuickSpec {
-	override public static func spec() {
+final class SearchResultSpec: QuickSpec {
+	override static func spec() {
 		describe("search result") {
 			it("can parse things") {
 				expect(

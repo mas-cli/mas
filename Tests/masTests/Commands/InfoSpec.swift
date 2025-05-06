@@ -6,13 +6,13 @@
 // Copyright © 2018 mas-cli. All rights reserved.
 //
 
-import Nimble
+private import Nimble
 import Quick
 
-@testable import mas
+@testable private import mas
 
-public final class InfoSpec: AsyncSpec {
-	override public static func spec() {
+final class InfoSpec: AsyncSpec {
+	override static func spec() {
 		describe("Info command") {
 			it("can't find app with unknown ID") {
 				await expecta(

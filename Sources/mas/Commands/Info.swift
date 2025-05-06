@@ -6,7 +6,7 @@
 // Copyright © 2016 mas-cli. All rights reserved.
 //
 
-import ArgumentParser
+internal import ArgumentParser
 
 extension MAS {
 	/// Displays app details. Uses the iTunes Lookup API:

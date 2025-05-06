@@ -6,7 +6,7 @@
 // Copyright © 2021 mas-cli. All rights reserved.
 //
 
-import ArgumentParser
+internal import ArgumentParser
 
 @main
 struct MAS: AsyncParsableCommand {
