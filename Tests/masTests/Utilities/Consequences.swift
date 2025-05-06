@@ -26,7 +26,6 @@ func consequencesOf(
 	return (consequences.error, consequences.stdout, consequences.stderr)
 }
 
-// periphery:ignore
 func consequencesOf<T>(
 	streamEncoding: String.Encoding = .utf8,
 	_ expression: @autoclosure @escaping () throws -> T

@@ -17,7 +17,6 @@ extension MAS {
 
 		@Flag(help: "Provide password via graphical dialog")
 		var dialog = false
-		// periphery:ignore
 		@Argument(help: "Apple Account")
 		var appleAccount: String
 		@Argument(help: "Password")
