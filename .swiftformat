@@ -11,10 +11,6 @@
 --disable hoistAwait
 --disable hoistTry
 
-# Enable later
-# https://github.com/swiftlang/swift-format/issues/874
---disable trailingCommas
-
 # Enabled rules (disabled by default)
 # https://github.com/nicklockwood/SwiftFormat/issues/2019
 #--enable acronyms

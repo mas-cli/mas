@@ -16,7 +16,7 @@ printf $'==> 🚨 Linting mas %s\n' "$(script/version)"
 
 script/generate_package_swift lint
 
-for linter in git markdownlint-cli2 periphery shellcheck swift-format swiftformat swiftlint yamllint; do
+for linter in git markdownlint-cli2 periphery shellcheck swiftformat swiftlint yamllint; do
 	if ! whence "${linter}" >/dev/null; then
 		printf $'error: %s is not installed. Run \'script/bootstrap\' or \'brew install %s\'.\n' "${linter}" "${linter}" >&2
 		exit 1
@@ -25,9 +25,6 @@ done
 
 exit_code=0
 for source in Package.swift Sources Tests; do
-	printf -- $'--> 🦅 %s swift-format\n' "${source}"
-	swift-format lint -prs "${source}"
-	((exit_code |= ${?}))
 	printf -- $'--> 🦅 %s swiftformat\n' "${source}"
 	script -q /dev/null swiftformat --lint "${source}" |
 	 (grep -vxE '(?:\^D\x08{2})?Running SwiftFormat\.{3}\r|\(lint mode - no files will be changed\.\)\r|Reading (?:config|swift-version) file at .*|\x1b\[32mSwiftFormat completed in \d+(?:\.\d+)?s\.\x1b\[0m\r|0/\d+ files require formatting\.\r|Source input did not pass lint check\.\r' || true)

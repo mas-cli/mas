@@ -39,7 +39,7 @@ final class OutdatedSpec: AsyncSpec {
 										bundleID: "au.id.haroldchu.mac.Bandwidth",
 										path: "/Applications/Bandwidth+.app",
 										version: "1.27"
-									)
+									),
 								],
 								searcher: MockAppStoreSearcher([mockSearchResult.trackId: mockSearchResult])
 							)
