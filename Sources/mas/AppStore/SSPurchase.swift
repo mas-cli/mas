@@ -38,13 +38,12 @@ extension SSPurchase {
 		downloadMetadata.kind = "software"
 		downloadMetadata.itemIdentifier = appID
 
-		// Monterey obscures the user's App Store account, but allows
-		// redownloads without passing any account IDs to SSPurchase.
-		// https://github.com/mas-cli/mas/issues/417
-		if #unavailable(macOS 12) {
-			let storeAccount = await ISStoreAccount.primaryAccount
-			accountIdentifier = storeAccount.dsID
-			appleID = storeAccount.identifier
+		do {
+			let appleAccount = try await appleAccount
+			accountIdentifier = appleAccount.dsID
+			appleID = appleAccount.emailAddress
+		} catch {
+			// Do nothing
 		}
 	}
 }
