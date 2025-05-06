@@ -17,13 +17,7 @@ extension MAS {
 
 		/// Runs the command.
 		func run() async throws {
-			if #available(macOS 12, *) {
-				// Account information is no longer available as of Monterey.
-				// https://github.com/mas-cli/mas/issues/417
-				throw MASError.notSupported
-			}
-
-			printInfo(await ISStoreAccount.primaryAccount.identifier)
+			printInfo(try await appleAccount.emailAddress)
 		}
 	}
 }
