@@ -1,4 +1,4 @@
-// Don't include generated header comments
+// Don't include generated header comments.
 
 // MARK: Types and naming
 
@@ -6,28 +6,28 @@
 struct User {
 	let name: String
 
-	/// if the first letter of an acronym is lowercase, the entire thing should
+	/// If the first letter of an acronym is lowercase, the entire thing should
 	/// be lowercase.
 	let json: Any
 
-	/// if the first letter of an acronym is uppercase, the entire thing should
+	/// If the first letter of an acronym is uppercase, the entire thing should
 	/// be uppercase.
 	static func decode(from json: JSON) -> Self {
 		Self(json: json)
 	}
 }
 
-/// Use () for void arguments and Void for void return types.
+/// Use `()` for void arguments and `Void` for void return types.
 let closure: () -> Void = {
 	// Do nothing
 }
 
-/// When using classes, default to marking them as final.
+/// When using classes, default to marking them as `final`.
 final class MyClass {
 	// Empty class
 }
 
-/// Use typealias when closures are referenced in multiple places.
+/// Use `typealias` when closures are referenced in multiple places.
 typealias CoolClosure = (Int) -> Bool
 
 /// Use aliased parameter names when function parameters are ambiguous.
@@ -35,17 +35,16 @@ func yTown(some: Int, withCallback callback: CoolClosure) -> Bool {
 	callback(some)
 }
 
-/// It's OK to use $ variable references if the closure is very short and
-/// readability is maintained.
+/// Use `$` variable references if the closure fits on one line.
 let cool = yTown(5) { $0 == 6 }
 
-/// Use full variable names when closures are more complex.
+/// Use explicit variable names if the closure is on multiple lines.
 let cool = yTown(5) { foo in
 	max(foo, 0)
 	// …
 }
 
-// Strongify weak references in async closures
+// Strongify weak references in async closures.
 APIClient.getAwesomeness { [weak self] result in
 	guard let self else {
 		return
@@ -61,7 +60,7 @@ func someUnauditedAPI(thing: String?) {
 	}
 }
 
-/// When the type is known you can let the compiler infer.
+/// When the type is known, let the compiler infer.
 let response: Response = .success(NSData())
 
 func doSomeWork() -> Response {
@@ -87,25 +86,11 @@ private extension MyClass {
 
 // MARK: Breaking up long lines
 
-// One expression to evaluate and short or no return
-guard let singleTest = somethingFailable() else {
-	return
-}
-
-guard statementThatShouldBeTrue else {
-	return
-}
-
-// If a guard clause requires multiple lines, chop down, then start `else` new line
-// In this case, always chop down else clause.
+// If a guard clause requires multiple lines, chop it down, then start the else
+// clause on a new line.
 guard
 	let oneItem = somethingFailable(),
 	let secondItem = somethingFailable2()
 else {
 	return
-}
-
-// If the return in else is long, move to next line
-guard let something = somethingFailable() else {
-	return someFunctionThatDoesSomethingInManyWordsOrLines()
 }
