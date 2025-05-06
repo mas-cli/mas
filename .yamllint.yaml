@@ -1,0 +1,75 @@
+#
+# .yamllint.yaml
+# mas
+#
+# yamllint 1.37.1
+#
+# https://yamllint.readthedocs.io/en/stable/configuration.html#default-configuration
+#
+---
+extends: default
+locale: en_US.UTF-8
+ignore-from-file: .gitignore
+rules:
+  anchors:
+    forbid-duplicated-anchors: true
+    forbid-undeclared-aliases: true
+    forbid-unused-anchors: true
+  braces:
+    forbid: non-empty
+    max-spaces-inside-empty: 0
+  brackets:
+    forbid: false
+    max-spaces-inside: 0
+    max-spaces-inside-empty: 0
+  colons:
+    max-spaces-before: 0
+    max-spaces-after: 1
+  commas:
+    max-spaces-before: 0
+    min-spaces-after: 1
+    max-spaces-after: 1
+  comments:
+    require-starting-space: true
+    min-spaces-from-content: 1
+  comments-indentation: enable
+  document-end:
+    present: false
+  document-start:
+    present: true
+  empty-lines:
+    max: 2
+    max-start: 0
+    max-end: 0
+  empty-values:
+    forbid-in-block-mappings: true
+    forbid-in-block-sequences: true
+    forbid-in-flow-mappings: true
+  float-values:
+    require-numeral-before-decimal: true
+  hyphens:
+    max-spaces-after: 1
+  indentation:
+    spaces: 2
+    indent-sequences: false
+    check-multi-line-strings: false
+  key-duplicates:
+    forbid-duplicated-merge-keys: true
+  key-ordering: disable
+  line-length:
+    max: 120
+    allow-non-breakable-inline-mappings: true
+  new-line-at-end-of-file: enable
+  new-lines:
+    type: unix
+  octal-values:
+    forbid-implicit-octal: true
+    forbid-explicit-octal: true
+  quoted-strings:
+    check-keys: true
+    required: only-when-needed
+    quote-type: single
+  trailing-spaces: enable
+  truthy:
+    check-keys: false
+    allowed-values: ['true', 'false']

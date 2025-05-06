@@ -8,13 +8,13 @@
 #
 ---
 opt_in_rules:
-  - closure_body_length
-  - file_header
+- closure_body_length
+- file_header
 disabled_rules:
-  - force_try
-  - force_unwrapping
-  - quick_discouraged_pending_test
-  - required_deinit
+- force_try
+- force_unwrapping
+- quick_discouraged_pending_test
+- required_deinit
 closure_body_length:
   warning: 80
 file_header:

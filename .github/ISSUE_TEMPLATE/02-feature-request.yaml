@@ -1,0 +1,67 @@
+---
+name: Feature Request
+description: Request a feature.
+labels: [\U0001F195 feature request]
+body:
+- type: markdown
+  attributes:
+    value: |
+      # Console command & output formatting
+
+      When providing commands & output, please use the following format (where `…` is a placeholder):
+
+      - Use a multiline console block: start with ```` ```console ````, end with ```` ``` ````, each on its own line
+      - Prefix each non-console step (or comment) with two hashes & a space: `## …`
+      - Remove shell prompts; instead, prefix each console command with a dollar sign & a space: `$ …`
+      - Prefix each output line beginning with `#`, `$`, `%`, or `>` with an additional instance of that <!--
+        --> character: `##…`, `$$…`, `%%…`, or `>>…`
+      - Write all other output lines without any prefix: `…`
+
+      e.g.:
+
+      ````text
+      ```console
+      ## In the Mac App Store GUI, …
+      $ mas list
+      123  App 1  (4.5.6)
+      124  App 2  (10.2)
+      ```
+      ````
+
+      # Feature
+- type: textarea
+  id: problems
+  attributes:
+    label: Problem(s) addressed
+    placeholder:
+      Prefer copied, pasted & formatted commands & output in a multiline console block (as instructed
+      above) instead of screenshots
+  validations:
+    required: true
+- type: textarea
+  id: proposals
+  attributes:
+    label: Proposed solution(s)
+    placeholder:
+      Prefer copied, pasted & formatted commands & output in a multiline console block (as instructed
+      above) instead of screenshots
+  validations:
+    required: true
+- type: textarea
+  id: alternatives
+  attributes:
+    label: Alternative solution(s)
+    placeholder:
+      Prefer copied, pasted & formatted commands & output in a multiline console block (as instructed
+      above) instead of screenshots
+  validations:
+    required: false
+- type: textarea
+  id: context
+  attributes:
+    label: Additional context
+    placeholder:
+      Prefer copied, pasted & formatted commands & output in a multiline console block (as instructed
+      above) instead of screenshots
+  validations:
+    required: false

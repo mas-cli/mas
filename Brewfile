@@ -1,6 +1,5 @@
-brew "markdownlint-cli"
+brew "markdownlint-cli2"
 brew "periphery"
-brew "prettier"
 brew "shellcheck"
 brew "swift-format"
 brew "swiftformat"

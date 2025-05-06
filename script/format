@@ -12,8 +12,8 @@
 
 printf $'==> 🧹 Formatting mas %s\n' "$(script/version)"
 
-for formatter in markdownlint prettier swift-format swiftformat swiftlint yamllint; do
-	if ! command -v "${formatter}" >/dev/null; then
+for formatter in markdownlint-cli2 swift-format swiftformat swiftlint yamllint; do
+	if ! whence "${formatter}" >/dev/null; then
 		printf $'error: %s is not installed. Run \'script/bootstrap\' or \'brew install %s\'.\n' "${formatter}" "${formatter}" >&2
 		exit 1
 	fi
@@ -21,7 +21,7 @@ done
 
 for source in Package.swift Sources Tests; do
 	printf -- $'--> 🦅 %s swift-format\n' "${source}"
-	swift-format format --in-place --recursive "${source}"
+	swift-format -ipr "${source}"
 	printf -- $'--> 🦅 %s swiftformat\n' "${source}"
 	script -q /dev/null swiftformat --strict "${source}" |
 	 (grep -vxE '(?:\^D\x08{2})?Running SwiftFormat\.{3}\r|Reading (?:config|swift-version) file at .*|\x1b\[32mSwiftFormat completed in \d+(?:\.\d+)?s\.\x1b\[0m\r|0/\d+ files formatted\.\r' || true)
@@ -30,8 +30,4 @@ for source in Package.swift Sources Tests; do
 done
 
 printf -- $'--> 〽️ Markdown\n'
-markdownlint --config .markdownlint.json --fix . docs
-
-printf -- $'--> 📝 YAML\n'
-script -q /dev/null prettier --write "${(f)"$(yamllint --list-files .)"}" |
- (grep -vxE '.+ \d+ms \(unchanged\)\r' || true)
+markdownlint-cli2 --fix '**/*.md'
