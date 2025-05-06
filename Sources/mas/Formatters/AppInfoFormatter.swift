@@ -38,10 +38,9 @@ enum AppInfoFormatter {
 	/// - Parameter serverDate: String containing a date in ISO-8601 format.
 	/// - Returns: Simple date format.
 	private static func humanReadableDate(_ serverDate: String) -> String {
-		ISO8601DateFormatter().date(from: serverDate)
-			.map { date in
-				ISO8601DateFormatter.string(from: date, timeZone: .current, formatOptions: [.withFullDate])
-			}
-			?? ""
+		ISO8601DateFormatter().date(from: serverDate).map { date in
+			ISO8601DateFormatter.string(from: date, timeZone: .current, formatOptions: [.withFullDate])
+		} // swiftformat:disable:next indent
+		?? ""
 	}
 }

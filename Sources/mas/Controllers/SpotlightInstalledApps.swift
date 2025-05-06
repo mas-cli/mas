@@ -40,22 +40,22 @@ var installedApps: [InstalledApp] {
 				query.stop()
 
 				continuation.resume(
-					returning: query.results
-						.compactMap { result in
-							if let item = result as? NSMetadataItem {
-								InstalledApp(
-									id: item.value(forAttribute: "kMDItemAppStoreAdamID") as? AppID ?? 0,
-									name: (item.value(forAttribute: "_kMDItemDisplayNameWithExtensions") as? String ?? "")
-										.removingSuffix(".app"),
-									bundleID: item.value(forAttribute: NSMetadataItemCFBundleIdentifierKey) as? String ?? "",
-									path: item.value(forAttribute: NSMetadataItemPathKey) as? String ?? "",
-									version: item.value(forAttribute: NSMetadataItemVersionKey) as? String ?? ""
-								)
-							} else {
-								nil
-							}
+					returning: query.results.compactMap { result in
+						if let item = result as? NSMetadataItem {
+							InstalledApp(
+								id: item.value(forAttribute: "kMDItemAppStoreAdamID") as? AppID ?? 0,
+								name: (item.value(forAttribute: "_kMDItemDisplayNameWithExtensions") as? String ?? "").removingSuffix(
+									".app"
+								),
+								bundleID: item.value(forAttribute: NSMetadataItemCFBundleIdentifierKey) as? String ?? "",
+								path: item.value(forAttribute: NSMetadataItemPathKey) as? String ?? "",
+								version: item.value(forAttribute: NSMetadataItemVersionKey) as? String ?? ""
+							)
+						} else {
+							nil
 						}
-						.sorted { $0.name.caseInsensitiveCompare($1.name) == .orderedAscending }
+					}
+					.sorted { $0.name.caseInsensitiveCompare($1.name) == .orderedAscending }
 				)
 			}
 
@@ -66,10 +66,8 @@ var installedApps: [InstalledApp] {
 
 private extension String {
 	func removingSuffix(_ suffix: Self) -> Self {
-		// swiftformat:disable indent
-		hasSuffix(suffix)
+		hasSuffix(suffix) // swiftformat:disable:next indent
 		? Self(dropLast(suffix.count))
 		: self
-		// swiftformat:enable indent
 	}
 }

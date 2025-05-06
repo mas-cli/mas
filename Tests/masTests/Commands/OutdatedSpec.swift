@@ -30,19 +30,18 @@ final class OutdatedSpec: AsyncSpec {
 
 				await expecta(
 					await consequencesOf(
-						try await MAS.Outdated.parse([])
-							.run(
-								installedApps: [
-									InstalledApp(
-										id: mockSearchResult.trackId,
-										name: mockSearchResult.trackName,
-										bundleID: "au.id.haroldchu.mac.Bandwidth",
-										path: "/Applications/Bandwidth+.app",
-										version: "1.27"
-									),
-								],
-								searcher: MockAppStoreSearcher([mockSearchResult.trackId: mockSearchResult])
-							)
+						try await MAS.Outdated.parse([]).run(
+							installedApps: [
+								InstalledApp(
+									id: mockSearchResult.trackId,
+									name: mockSearchResult.trackName,
+									bundleID: "au.id.haroldchu.mac.Bandwidth",
+									path: "/Applications/Bandwidth+.app",
+									version: "1.27"
+								),
+							],
+							searcher: MockAppStoreSearcher([mockSearchResult.trackId: mockSearchResult])
+						)
 					)
 				)
 					== (nil, "490461369 Bandwidth+ (1.27 -> 1.28)\n", "")

@@ -34,8 +34,9 @@ final class InfoSpec: AsyncSpec {
 				)
 				await expecta(
 					await consequencesOf(
-						try await MAS.Info.parse([String(mockResult.trackId)])
-							.run(searcher: MockAppStoreSearcher([mockResult.trackId: mockResult]))
+						try await MAS.Info.parse([String(mockResult.trackId)]).run(
+							searcher: MockAppStoreSearcher([mockResult.trackId: mockResult])
+						)
 					)
 				)
 					== (

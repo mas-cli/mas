@@ -37,8 +37,7 @@ extension MAS {
 				swift ▁▁ \(Package.swiftVersion)
 				region ▁ \(await isoRegion?.alpha2 ?? unknown)
 				macos ▁▁ \(
-					ProcessInfo.processInfo.operatingSystemVersionString.dropFirst(8)
-						.replacingOccurrences(of: "Build ", with: "")
+					ProcessInfo.processInfo.operatingSystemVersionString.dropFirst(8).replacingOccurrences(of: "Build ", with: "")
 				)
 				mac ▁▁▁▁ \(configStringValue("hw.product"))
 				cpu ▁▁▁▁ \(configStringValue("machdep.cpu.brand_string"))

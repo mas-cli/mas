@@ -23,8 +23,7 @@ final class SearchSpec: AsyncSpec {
 				)
 				await expecta(
 					await consequencesOf(
-						try await MAS.Search.parse(["slack"])
-							.run(searcher: MockAppStoreSearcher([mockResult.trackId: mockResult]))
+						try await MAS.Search.parse(["slack"]).run(searcher: MockAppStoreSearcher([mockResult.trackId: mockResult]))
 					)
 				)
 					== (nil, "        1111  slack  (0.0)\n", "")

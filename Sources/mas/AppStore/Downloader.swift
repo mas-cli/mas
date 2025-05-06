@@ -72,22 +72,21 @@ private func downloadApp(withAppID appID: AppID, purchasing: Bool, withAttemptCo
 private func downloadApp(withAppID appID: AppID, purchasing: Bool = false) async throws {
 	let purchase = await SSPurchase(appID: appID, purchasing: purchasing)
 	_ = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-		CKPurchaseController.shared()
-			.perform(purchase, withOptions: 0) { _, _, error, response in
-				if let error {
-					continuation.resume(throwing: MASError.purchaseFailed(error: error as NSError))
-				} else if response?.downloads.isEmpty == false {
-					Task {
-						do {
-							try await PurchaseDownloadObserver(appID: appID).observeDownloadQueue()
-							continuation.resume()
-						} catch {
-							continuation.resume(throwing: MASError.purchaseFailed(error: error as NSError))
-						}
+		CKPurchaseController.shared().perform(purchase, withOptions: 0) { _, _, error, response in
+			if let error {
+				continuation.resume(throwing: MASError.purchaseFailed(error: error as NSError))
+			} else if response?.downloads.isEmpty == false {
+				Task {
+					do {
+						try await PurchaseDownloadObserver(appID: appID).observeDownloadQueue()
+						continuation.resume()
+					} catch {
+						continuation.resume(throwing: MASError.purchaseFailed(error: error as NSError))
 					}
-				} else {
-					continuation.resume(throwing: MASError.noDownloads)
 				}
+			} else {
+				continuation.resume(throwing: MASError.noDownloads)
 			}
+		}
 	}
 }

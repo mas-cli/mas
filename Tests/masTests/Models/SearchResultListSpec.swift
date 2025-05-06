@@ -18,8 +18,7 @@ final class SearchResultListSpec: QuickSpec {
 			it("can parse bbedit") {
 				expect(
 					consequencesOf(
-						try JSONDecoder().decode(SearchResultList.self, from: Data(fromResource: "search/bbedit.json"))
-							.resultCount
+						try JSONDecoder().decode(SearchResultList.self, from: Data(fromResource: "search/bbedit.json")).resultCount
 					)
 				)
 					== (1, nil, "", "")
@@ -27,8 +26,7 @@ final class SearchResultListSpec: QuickSpec {
 			it("can parse things") {
 				expect(
 					consequencesOf(
-						try JSONDecoder().decode(SearchResultList.self, from: Data(fromResource: "search/things.json"))
-							.resultCount
+						try JSONDecoder().decode(SearchResultList.self, from: Data(fromResource: "search/things.json")).resultCount
 					)
 				)
 					== (50, nil, "", "")
