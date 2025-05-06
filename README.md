@@ -4,10 +4,10 @@
 
 A command-line interface for the Mac App Store. Designed for scripting & automation.
 
-[![GitHub Release](https://img.shields.io/github/v/release/mas-cli/mas.svg)](https://github.com/mas-cli/mas/releases)
-[![Software License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](LICENSE)
-[![Swift 5](https://img.shields.io/badge/Language-Swift_5-orange.svg)](https://www.swift.org)
-[![Build, Test, & Lint](https://github.com/mas-cli/mas/actions/workflows/build-test.yaml/badge.svg?branch=main)](
+[![current release version](https://img.shields.io/github/v/release/mas-cli/mas.svg?style=for-the-badge)](https://github.com/mas-cli/mas/releases)
+[![license: MIT](https://img.shields.io/badge/license-MIT-8B959E.svg?style=for-the-badge)](LICENSE)
+[![language: Swift 5.9](https://img.shields.io/badge/language-Swift_5.9-F05138.svg?style=for-the-badge)](https://www.swift.org)
+[![build, test & lint status](https://img.shields.io/github/actions/workflow/status/mas-cli/mas/build-test.yaml?label=build,%20test%20%26%20lint&style=for-the-badge)](
     https://github.com/mas-cli/mas/actions/workflows/build-test.yaml?query=branch%3Amain
 )
 
