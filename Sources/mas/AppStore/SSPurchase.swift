@@ -30,11 +30,7 @@ extension SSPurchase {
 			parameters["pricingParameters"] = "STDRDL"
 		}
 
-		buyParameters =
-			parameters.map { key, value in
-				"\(key)=\(value)"
-			}
-			.joined(separator: "&")
+		buyParameters = parameters.map { "\($0)=\($1)" }.joined(separator: "&")
 
 		itemIdentifier = appID
 

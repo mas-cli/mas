@@ -18,9 +18,10 @@ final class SearchResultSpec: QuickSpec {
 			it("can parse things") {
 				expect(
 					consequencesOf(
-						try JSONDecoder()
-							.decode(SearchResult.self, from: Data(fromResource: "search/things-that-go-bump.json"))
-							.trackId
+						// swiftformat:disable indent
+						try JSONDecoder().decode(SearchResult.self, from: Data(fromResource: "search/things-that-go-bump.json"))
+						.trackId
+						// swiftformat:enable indent
 					)
 				)
 					== (1_472_954_003, nil, "", "")
