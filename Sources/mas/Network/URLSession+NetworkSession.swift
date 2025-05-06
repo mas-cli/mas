@@ -6,6 +6,6 @@
 // Copyright © 2019 mas-cli. All rights reserved.
 //
 
-import Foundation
+private import Foundation
 
 extension URLSession: NetworkSession {}

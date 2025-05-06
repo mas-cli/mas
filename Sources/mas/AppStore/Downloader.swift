@@ -6,7 +6,7 @@
 // Copyright © 2015 Andrew Naylor. All rights reserved.
 //
 
-import CommerceKit
+private import CommerceKit
 
 /// Sequentially downloads apps, printing progress to the console.
 ///

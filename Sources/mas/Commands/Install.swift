@@ -6,8 +6,8 @@
 // Copyright © 2015 Andrew Naylor. All rights reserved.
 //
 
-import ArgumentParser
-import Foundation
+internal import ArgumentParser
+private import Foundation
 
 extension MAS {
 	/// Installs previously purchased apps from the Mac App Store.

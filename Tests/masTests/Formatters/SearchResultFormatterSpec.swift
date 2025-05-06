@@ -6,13 +6,13 @@
 // Copyright © 2019 mas-cli. All rights reserved.
 //
 
-import Nimble
+private import Nimble
 import Quick
 
-@testable import mas
+@testable private import mas
 
-public final class SearchResultFormatterSpec: QuickSpec {
-	override public static func spec() {
+final class SearchResultFormatterSpec: QuickSpec {
+	override static func spec() {
 		// static func reference
 		let format = SearchResultFormatter.format(_:includePrice:)
 

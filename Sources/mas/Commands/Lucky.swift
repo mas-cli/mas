@@ -6,8 +6,8 @@
 // Copyright © 2017 mas-cli. All rights reserved.
 //
 
-import ArgumentParser
-import Foundation
+internal import ArgumentParser
+private import Foundation
 
 extension MAS {
 	/// Command which installs the first search result.

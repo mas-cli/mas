@@ -6,7 +6,7 @@
 // Copyright © 2016 Andrew Naylor. All rights reserved.
 //
 
-import ArgumentParser
+internal import ArgumentParser
 
 extension MAS {
 	struct SignIn: ParsableCommand {
@@ -17,7 +17,6 @@ extension MAS {
 
 		@Flag(help: "Provide password via graphical dialog")
 		var dialog = false
-		// periphery:ignore
 		@Argument(help: "Apple Account")
 		var appleAccount: String
 		@Argument(help: "Password")

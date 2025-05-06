@@ -6,7 +6,7 @@
 // Copyright © 2015 Andrew Naylor. All rights reserved.
 //
 
-import Foundation
+internal import Foundation
 
 enum MASError: Error, Equatable {
 	case notSupported

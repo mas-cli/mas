@@ -6,7 +6,7 @@
 // Copyright © 2024 mas-cli. All rights reserved.
 //
 
-import Foundation
+internal import Foundation
 
 extension ProcessInfo {
 	var sudoUsername: String? {

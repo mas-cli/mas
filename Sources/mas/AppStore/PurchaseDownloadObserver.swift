@@ -6,7 +6,7 @@
 // Copyright © 2015 Andrew Naylor. All rights reserved.
 //
 
-import CommerceKit
+internal import CommerceKit
 
 private let downloadingPhaseType = 0 as Int64
 private let installingPhaseType = 1 as Int64

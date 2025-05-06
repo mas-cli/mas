@@ -6,8 +6,8 @@
 // Copyright © 2018 mas-cli. All rights reserved.
 //
 
-import AppKit
-import ArgumentParser
+private import AppKit
+internal import ArgumentParser
 
 private let masScheme = "macappstore"
 

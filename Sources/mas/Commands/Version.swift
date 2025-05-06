@@ -6,7 +6,7 @@
 // Copyright © 2015 Andrew Naylor. All rights reserved.
 //
 
-import ArgumentParser
+internal import ArgumentParser
 
 extension MAS {
 	/// Command which displays the version of the mas tool.

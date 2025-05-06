@@ -6,8 +6,8 @@
 // Copyright © 2016 Andrew Naylor. All rights reserved.
 //
 
-import ArgumentParser
-import CommerceKit
+internal import ArgumentParser
+private import CommerceKit
 
 extension MAS {
 	/// Kills several macOS processes as a means to reset the app store.

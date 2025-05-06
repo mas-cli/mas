@@ -6,13 +6,13 @@
 // Copyright © 2018 mas-cli. All rights reserved.
 //
 
-import Nimble
+private import Nimble
 import Quick
 
-@testable import mas
+@testable private import mas
 
-public final class OutdatedSpec: AsyncSpec {
-	override public static func spec() {
+final class OutdatedSpec: AsyncSpec {
+	override static func spec() {
 		describe("outdated command") {
 			it("displays apps with pending updates") {
 				let mockSearchResult =

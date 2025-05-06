@@ -6,7 +6,7 @@
 // Copyright © 2015 Andrew Naylor. All rights reserved.
 //
 
-import CommerceKit
+internal import CommerceKit
 
 extension ISStoreAccount: @unchecked Sendable {
 	@MainActor // swiftlint:disable:next attributes
