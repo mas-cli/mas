@@ -65,7 +65,7 @@ extension MAS {
 				? installedApps
 				: appIDOrNames.flatMap { appIDOrName in
 					if let appID = AppID(appIDOrName) {
-						// argument is an AppID, lookup apps by id using argument
+						// Argument is an AppID, lookup apps by id using argument
 						let installedApps = installedApps.filter { $0.id == appID }
 						if installedApps.isEmpty {
 							printError(appID.unknownMessage)
@@ -73,7 +73,7 @@ extension MAS {
 						return installedApps
 					}
 
-					// argument is not an AppID, lookup apps by name using argument
+					// Argument is not an AppID, lookup apps by name using argument
 					let installedApps = installedApps.filter { $0.name == appIDOrName }
 					if installedApps.isEmpty {
 						printError("Unknown app name '", appIDOrName, "'", separator: "")

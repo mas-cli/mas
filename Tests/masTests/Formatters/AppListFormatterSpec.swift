@@ -13,7 +13,7 @@ import Quick
 
 final class AppListFormatterSpec: QuickSpec {
 	override static func spec() {
-		// static func reference
+		// Static func reference
 		let format = AppListFormatter.format(_:)
 
 		describe("app list formatter") {

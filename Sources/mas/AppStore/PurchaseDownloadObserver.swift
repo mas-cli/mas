@@ -24,7 +24,7 @@ class PurchaseDownloadObserver: CKDownloadQueueObserver {
 	}
 
 	deinit {
-		// do nothing
+		// Do nothing
 	}
 
 	func downloadQueue(_ queue: CKDownloadQueue, statusChangedFor download: SSDownload) {
@@ -65,7 +65,7 @@ class PurchaseDownloadObserver: CKDownloadQueueObserver {
 	}
 
 	func downloadQueue(_: CKDownloadQueue, changedWithAddition _: SSDownload) {
-		// do nothing
+		// Do nothing
 	}
 
 	func downloadQueue(_: CKDownloadQueue, changedWithRemoval download: SSDownload) {

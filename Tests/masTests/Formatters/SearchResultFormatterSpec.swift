@@ -13,7 +13,7 @@ import Quick
 
 final class SearchResultFormatterSpec: QuickSpec {
 	override static func spec() {
-		// static func reference
+		// Static func reference
 		let format = SearchResultFormatter.format(_:includePrice:)
 
 		describe("search results formatter") {
