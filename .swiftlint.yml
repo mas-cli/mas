@@ -10,9 +10,6 @@
 opt_in_rules:
 - all
 disabled_rules:
-# Eventually enable
-# https://github.com/swiftlang/swift-format/issues/874
-- trailing_comma
 # Never enable
 - contrasted_opening_brace
 - explicit_acl
@@ -42,6 +39,8 @@ number_separator:
   minimum_length: 6
 opening_brace:
   ignore_multiline_statement_conditions: true
+trailing_comma:
+  mandatory_comma: true
 type_contents_order:
   order:
   - case

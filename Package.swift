@@ -5,13 +5,13 @@ internal import PackageDescription
 let package = Package(
 	name: "mas",
 	platforms: [
-		.macOS(.v10_15)
+		.macOS(.v10_15),
 	],
 	products: [
 		.executable(
 			name: "mas",
 			targets: ["mas"]
-		)
+		),
 	],
 	dependencies: [
 		.package(url: "https://github.com/Quick/Nimble.git", from: "13.7.1"),
@@ -32,7 +32,7 @@ let package = Package(
 				.unsafeFlags([
 					"-I", "Sources/PrivateFrameworks/CommerceKit",
 					"-I", "Sources/PrivateFrameworks/StoreFoundation",
-				])
+				]),
 			],
 			linkerSettings: [
 				.linkedFramework("CommerceKit"),
@@ -48,7 +48,7 @@ let package = Package(
 				.unsafeFlags([
 					"-I", "Sources/PrivateFrameworks/CommerceKit",
 					"-I", "Sources/PrivateFrameworks/StoreFoundation",
-				])
+				]),
 			]
 		),
 	],

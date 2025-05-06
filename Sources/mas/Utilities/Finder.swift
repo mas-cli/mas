@@ -7,7 +7,6 @@
 //
 
 // periphery:ignore:all
-// swift-format-ignore-file
 // swiftlint:disable:next blanket_disable_command
 // swiftlint:disable attributes discouraged_none_name file_length file_types_order identifier_name
 // swiftlint:disable:next blanket_disable_command

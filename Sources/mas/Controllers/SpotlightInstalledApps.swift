@@ -66,7 +66,6 @@ var installedApps: [InstalledApp] {
 
 private extension String {
 	func removingSuffix(_ suffix: Self) -> Self {
-		// swift-format-ignore
 		// swiftformat:disable indent
 		hasSuffix(suffix)
 		? Self(dropLast(suffix.count))
