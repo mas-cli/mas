@@ -26,7 +26,7 @@ func downloadApps(
 		do {
 			_ = try await searcher.lookup(appID: appID)
 		} catch let MASError.unknownAppID(unknownAppID) {
-			printWarning("App ID", unknownAppID, "not found in Mac App Store.")
+			printWarning("App ID", unknownAppID, "not found in Mac App Store")
 			continue
 		}
 		try await downloadApp(withAppID: appID, purchasing: purchasing, withAttemptCount: 3)
@@ -64,7 +64,7 @@ private func downloadApp(withAppID appID: AppID, purchasing: Bool, withAttemptCo
 
 		let attemptCount = attemptCount - 1
 		printWarning(downloadError.localizedDescription)
-		printWarning("Retrying… ", attemptCount, " attempt", attemptCount == 1 ? "" : "s", " remaining.", separator: "")
+		printWarning("Retrying…", attemptCount, attemptCount == 1 ? "attempt remaining" : "attempts remaining")
 		try await downloadApp(withAppID: appID, purchasing: purchasing, withAttemptCount: attemptCount)
 	}
 }

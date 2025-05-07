@@ -103,7 +103,7 @@ extension MASError: CustomStringConvertible {
 				"Uninstall failed"
 			}
 		case .macOSUserMustBeRoot:
-			"Apps installed from the Mac App Store require root permission to remove."
+			"Apps installed from the Mac App Store require root permission to remove"
 		case .noData:
 			"Service did not return data"
 		case let .jsonParsing(data):

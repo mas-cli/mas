@@ -87,14 +87,7 @@ extension MAS {
 					}
 				} catch let MASError.unknownAppID(unknownAppID) {
 					if verbose {
-						printWarning(
-							"Identifier ",
-							unknownAppID,
-							" not found in store. Was expected to identify ",
-							installedApp.name,
-							".",
-							separator: ""
-						)
+						printWarning("App ID", unknownAppID, "not found in store. Was expected to identify", installedApp.name)
 					}
 				} catch {
 					printError(error)

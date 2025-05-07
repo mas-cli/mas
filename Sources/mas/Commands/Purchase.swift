@@ -28,7 +28,7 @@ extension MAS {
 				try await downloadApps(
 					withAppIDs: appIDs.filter { appID in
 						if let appName = installedApps.first(where: { $0.id == appID })?.name {
-							printWarning(appName, "has already been purchased.")
+							printWarning(appName, "has already been purchased")
 							return false
 						}
 						return true
