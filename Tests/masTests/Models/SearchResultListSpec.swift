@@ -21,7 +21,7 @@ final class SearchResultListSpec: QuickSpec {
 						try JSONDecoder().decode(SearchResultList.self, from: Data(fromResource: "search/bbedit.json")).resultCount
 					)
 				)
-					== (1, nil, "", "")
+					== ValuedConsequences(1, nil, "", "")
 			}
 			it("can parse things") {
 				expect(
@@ -29,7 +29,7 @@ final class SearchResultListSpec: QuickSpec {
 						try JSONDecoder().decode(SearchResultList.self, from: Data(fromResource: "search/things.json")).resultCount
 					)
 				)
-					== (50, nil, "", "")
+					== ValuedConsequences(50, nil, "", "")
 			}
 		}
 	}

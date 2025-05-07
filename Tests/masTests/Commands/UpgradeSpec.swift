@@ -20,7 +20,7 @@ final class UpgradeSpec: AsyncSpec {
 						try await MAS.Upgrade.parse([]).run(installedApps: [], searcher: MockAppStoreSearcher())
 					)
 				)
-					== (nil, "", "")
+					== UnvaluedConsequences(nil, "", "")
 			}
 		}
 	}

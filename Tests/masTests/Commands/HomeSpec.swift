@@ -18,7 +18,7 @@ final class HomeSpec: AsyncSpec {
 				await expecta(
 					await consequencesOf(try await MAS.Home.parse(["999"]).run(searcher: MockAppStoreSearcher()))
 				)
-					== (MASError.unknownAppID(999), "", "")
+					== UnvaluedConsequences(MASError.unknownAppID(999), "", "")
 			}
 		}
 	}

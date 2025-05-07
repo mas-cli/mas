@@ -20,7 +20,7 @@ final class PurchaseSpec: AsyncSpec {
 						try await MAS.Purchase.parse(["999"]).run(installedApps: [], searcher: MockAppStoreSearcher())
 					)
 				)
-					== (nil, "", "")
+					== UnvaluedConsequences(nil, "", "")
 			}
 		}
 	}

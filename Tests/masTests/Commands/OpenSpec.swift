@@ -18,7 +18,7 @@ final class OpenSpec: AsyncSpec {
 				await expecta(
 					await consequencesOf(try await MAS.Open.parse(["999"]).run(searcher: MockAppStoreSearcher()))
 				)
-					== (MASError.unknownAppID(999), "", "")
+					== UnvaluedConsequences(MASError.unknownAppID(999), "", "")
 			}
 		}
 	}

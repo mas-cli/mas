@@ -16,7 +16,7 @@ final class SignInSpec: QuickSpec {
 		describe("signin command") {
 			it("signs in") {
 				expect(consequencesOf(try MAS.SignIn.parse(["", ""]).run()))
-					== (MASError.notSupported, "", "")
+					== UnvaluedConsequences(MASError.notSupported, "", "")
 			}
 		}
 	}

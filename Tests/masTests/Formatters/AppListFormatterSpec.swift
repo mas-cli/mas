@@ -18,7 +18,7 @@ final class AppListFormatterSpec: QuickSpec {
 
 		describe("app list formatter") {
 			it("formats nothing as empty string") {
-				expect(consequencesOf(format([]))) == ("", nil, "", "")
+				expect(consequencesOf(format([]))) == ValuedConsequences("", nil, "", "")
 			}
 			it("can format a single installed app") {
 				let installedApp = InstalledApp(
@@ -29,7 +29,7 @@ final class AppListFormatterSpec: QuickSpec {
 					version: "19.2.1"
 				)
 				expect(consequencesOf(format([installedApp])))
-					== ("12345       Awesome App  (19.2.1)", nil, "", "")
+					== ValuedConsequences("12345       Awesome App  (19.2.1)", nil, "", "")
 			}
 			it("can format two installed apps") {
 				expect(
@@ -54,7 +54,12 @@ final class AppListFormatterSpec: QuickSpec {
 						)
 					)
 				)
-					== ("12345       Awesome App      (19.2.1)\n67890       Even Better App  (1.2.0)", nil, "", "")
+					== ValuedConsequences(
+						"12345       Awesome App      (19.2.1)\n67890       Even Better App  (1.2.0)",
+						nil,
+						"",
+						""
+					)
 			}
 		}
 	}

@@ -16,7 +16,7 @@ final class AccountSpec: AsyncSpec {
 		describe("account command") {
 			it("displays not supported warning") {
 				await expecta(await consequencesOf(try await MAS.Account.parse([]).run()))
-					== (error: MASError.notSupported, stdout: "", stderr: "")
+					== UnvaluedConsequences(MASError.notSupported, "", "")
 			}
 		}
 	}
