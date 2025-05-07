@@ -11,14 +11,7 @@ internal import Foundation
 enum MASError: Error, Equatable {
 	case notSupported
 
-	case failed(error: NSError?)
-
 	case runtimeError(String)
-
-	case notSignedIn
-	case noPasswordProvided
-	case signInFailed(error: NSError?)
-	case alreadySignedIn(asAppleAccount: String)
 
 	case purchaseFailed(error: NSError?)
 	case downloadFailed(error: NSError?)
@@ -33,10 +26,8 @@ enum MASError: Error, Equatable {
 	case noVendorWebsite
 
 	case notInstalled(appIDs: [AppID])
-	case uninstallFailed(error: NSError?)
 	case macOSUserMustBeRoot
 
-	case noData
 	case jsonParsing(data: Data)
 
 	case urlParsing(String)
@@ -45,31 +36,13 @@ enum MASError: Error, Equatable {
 extension MASError: CustomStringConvertible {
 	var description: String {
 		switch self {
-		case .notSignedIn:
-			"Not signed in"
-		case .noPasswordProvided:
-			"No password provided"
 		case .notSupported:
 			"""
 			This command is not supported on this macOS version due to changes in macOS.
 			See: https://github.com/mas-cli/mas#known-issues
 			"""
-		case let .failed(error):
-			if let error {
-				"Failed: \(error.localizedDescription)"
-			} else {
-				"Failed"
-			}
 		case let .runtimeError(message):
 			"Runtime Error: \(message)"
-		case let .signInFailed(error):
-			if let error {
-				"Sign in failed: \(error.localizedDescription)"
-			} else {
-				"Sign in failed"
-			}
-		case let .alreadySignedIn(appleAccount):
-			"Already signed in as \(appleAccount)"
 		case let .purchaseFailed(error):
 			if let error {
 				"Download request failed: \(error.localizedDescription)"
@@ -96,16 +69,8 @@ extension MASError: CustomStringConvertible {
 			"App does not have a vendor website"
 		case let .notInstalled(appIDs):
 			"No apps installed with app ID \(appIDs.map { String($0) }.joined(separator: ", "))"
-		case let .uninstallFailed(error):
-			if let error {
-				"Uninstall failed: \(error.localizedDescription)"
-			} else {
-				"Uninstall failed"
-			}
 		case .macOSUserMustBeRoot:
 			"Apps installed from the Mac App Store require root permission to remove"
-		case .noData:
-			"Service did not return data"
 		case let .jsonParsing(data):
 			if let unparsable = String(data: data, encoding: .utf8) {
 				"Unable to parse response as JSON:\n\(unparsable)"
