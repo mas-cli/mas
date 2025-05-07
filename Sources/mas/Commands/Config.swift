@@ -9,7 +9,8 @@
 internal import ArgumentParser
 private import Foundation
 
-private let unknown = "unknown"
+private var unknown: String { "unknown" }
+private var sysCtlByName: String { "sysctlbyname" }
 
 extension MAS {
 	/// Displays mas config & related system info.
@@ -53,13 +54,13 @@ extension MAS {
 private func configStringValue(_ name: String) -> String {
 	var size = 0
 	guard sysctlbyname(name, nil, &size, nil, 0) == 0 else {
-		perror("sysctlbyname")
+		perror(sysCtlByName)
 		return unknown
 	}
 
 	var buffer = [CChar](repeating: 0, count: size)
 	guard sysctlbyname(name, &buffer, &size, nil, 0) == 0 else {
-		perror("sysctlbyname")
+		perror(sysCtlByName)
 		return unknown
 	}
 
