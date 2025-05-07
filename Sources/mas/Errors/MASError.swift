@@ -10,7 +10,7 @@ internal import Foundation
 
 enum MASError: Error, Equatable {
 	case cancelled
-	case downloadFailed(error: NSError?)
+	case downloadFailed(error: NSError)
 	case jsonParsing(data: Data)
 	case macOSUserMustBeRoot
 	case noDownloads
@@ -18,7 +18,7 @@ enum MASError: Error, Equatable {
 	case noVendorWebsite
 	case notInstalled(appIDs: [AppID])
 	case notSupported
-	case purchaseFailed(error: NSError?)
+	case purchaseFailed(error: NSError)
 	case runtimeError(String)
 	case searchFailed
 	case unknownAppID(AppID)
@@ -31,11 +31,7 @@ extension MASError: CustomStringConvertible {
 		case .cancelled:
 			"Download cancelled"
 		case let .downloadFailed(error):
-			if let error {
-				"Download failed: \(error.localizedDescription)"
-			} else {
-				"Download failed"
-			}
+			"Download failed: \(error.localizedDescription)"
 		case let .jsonParsing(data):
 			if let unparsable = String(data: data, encoding: .utf8) {
 				"Unable to parse response as JSON:\n\(unparsable)"
@@ -58,11 +54,7 @@ extension MASError: CustomStringConvertible {
 			See: https://github.com/mas-cli/mas#known-issues
 			"""
 		case let .purchaseFailed(error):
-			if let error {
-				"Download request failed: \(error.localizedDescription)"
-			} else {
-				"Download request failed"
-			}
+			"Download request failed: \(error.localizedDescription)"
 		case let .runtimeError(message):
 			"Runtime Error: \(message)"
 		case .searchFailed:
