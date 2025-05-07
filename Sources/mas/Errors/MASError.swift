@@ -20,7 +20,7 @@ enum MASError: Error, Equatable {
 	case notSupported
 	case purchaseFailed(error: NSError)
 	case runtimeError(String)
-	case searchFailed
+	case searchFailed(error: NSError)
 	case unknownAppID(AppID)
 	case urlParsing(String)
 
@@ -30,6 +30,10 @@ enum MASError: Error, Equatable {
 
 	init(purchaseFailedError: Error) {
 		self = (purchaseFailedError as? Self) ?? .purchaseFailed(error: purchaseFailedError as NSError)
+	}
+
+	init(searchFailedError: Error) {
+		self = (searchFailedError as? Self) ?? .searchFailed(error: searchFailedError as NSError)
 	}
 }
 
@@ -65,8 +69,8 @@ extension MASError: CustomStringConvertible {
 			"Download request failed: \(error.localizedDescription)"
 		case let .runtimeError(message):
 			"Runtime Error: \(message)"
-		case .searchFailed:
-			"Search failed"
+		case let .searchFailed(error):
+			"Search failed: \(error.localizedDescription)"
 		case let .unknownAppID(appID):
 			appID.unknownMessage
 		case let .urlParsing(string):

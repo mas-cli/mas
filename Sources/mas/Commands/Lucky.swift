@@ -38,10 +38,8 @@ extension MAS {
 				}
 
 				try await install(appID: result.trackId, installedApps: installedApps)
-			} catch let error as MASError {
-				throw error
 			} catch {
-				throw MASError.searchFailed
+				throw MASError(searchFailedError: error)
 			}
 		}
 

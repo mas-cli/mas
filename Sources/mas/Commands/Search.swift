@@ -33,10 +33,8 @@ extension MAS {
 				}
 
 				printInfo(SearchResultFormatter.format(results, includePrice: price))
-			} catch let error as MASError {
-				throw error
 			} catch {
-				throw MASError.searchFailed
+				throw MASError(searchFailedError: error)
 			}
 		}
 	}
