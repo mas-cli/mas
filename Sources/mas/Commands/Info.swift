@@ -30,10 +30,8 @@ extension MAS {
 				do {
 					printInfo("", AppInfoFormatter.format(app: try await searcher.lookup(appID: appID)), separator: separator)
 					separator = "\n"
-				} catch let error as MASError {
-					throw error
 				} catch {
-					throw MASError.searchFailed
+					throw MASError(searchFailedError: error)
 				}
 			}
 		}

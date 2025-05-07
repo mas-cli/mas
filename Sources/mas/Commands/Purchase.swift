@@ -7,7 +7,6 @@
 //
 
 internal import ArgumentParser
-private import Foundation
 
 extension MAS {
 	struct Purchase: AsyncParsableCommand {
@@ -28,7 +27,7 @@ extension MAS {
 				try await downloadApps(
 					withAppIDs: appIDs.filter { appID in
 						if let appName = installedApps.first(where: { $0.id == appID })?.name {
-							printWarning(appName, "has already been purchased.")
+							printWarning(appName, "has already been purchased")
 							return false
 						}
 						return true
@@ -36,10 +35,8 @@ extension MAS {
 					verifiedBy: searcher,
 					purchasing: true
 				)
-			} catch let error as MASError {
-				throw error
 			} catch {
-				throw MASError.downloadFailed(error: error as NSError)
+				throw MASError(downloadFailedError: error)
 			}
 		}
 	}

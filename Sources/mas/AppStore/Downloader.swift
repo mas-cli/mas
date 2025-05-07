@@ -26,7 +26,7 @@ func downloadApps(
 		do {
 			_ = try await searcher.lookup(appID: appID)
 		} catch let MASError.unknownAppID(unknownAppID) {
-			printWarning("App ID", unknownAppID, "not found in Mac App Store.")
+			printWarning("App ID", unknownAppID, "not found in Mac App Store")
 			continue
 		}
 		try await downloadApp(withAppID: appID, purchasing: purchasing, withAttemptCount: 3)
@@ -56,7 +56,6 @@ private func downloadApp(withAppID appID: AppID, purchasing: Bool, withAttemptCo
 		// If the download failed due to network issues, try again. Otherwise, fail immediately.
 		guard
 			case let MASError.downloadFailed(downloadError) = error,
-			let downloadError,
 			downloadError.domain == NSURLErrorDomain
 		else {
 			throw error
@@ -64,7 +63,7 @@ private func downloadApp(withAppID appID: AppID, purchasing: Bool, withAttemptCo
 
 		let attemptCount = attemptCount - 1
 		printWarning(downloadError.localizedDescription)
-		printWarning("Retrying… ", attemptCount, " attempt", attemptCount == 1 ? "" : "s", " remaining.", separator: "")
+		printWarning("Retrying…", attemptCount, attemptCount == 1 ? "attempt remaining" : "attempts remaining")
 		try await downloadApp(withAppID: appID, purchasing: purchasing, withAttemptCount: attemptCount)
 	}
 }
@@ -74,14 +73,14 @@ private func downloadApp(withAppID appID: AppID, purchasing: Bool = false) async
 	_ = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
 		CKPurchaseController.shared().perform(purchase, withOptions: 0) { _, _, error, response in
 			if let error {
-				continuation.resume(throwing: MASError.purchaseFailed(error: error as NSError))
+				continuation.resume(throwing: MASError(purchaseFailedError: error))
 			} else if response?.downloads.isEmpty == false {
 				Task {
 					do {
 						try await PurchaseDownloadObserver(appID: appID).observeDownloadQueue()
 						continuation.resume()
 					} catch {
-						continuation.resume(throwing: MASError.purchaseFailed(error: error as NSError))
+						continuation.resume(throwing: MASError(purchaseFailedError: error))
 					}
 				}
 			} else {

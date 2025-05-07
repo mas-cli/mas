@@ -26,7 +26,7 @@ final class SearchSpec: AsyncSpec {
 						try await MAS.Search.parse(["slack"]).run(searcher: MockAppStoreSearcher([mockResult.trackId: mockResult]))
 					)
 				)
-					== (nil, "        1111  slack  (0.0)\n", "")
+					== UnvaluedConsequences(nil, "        1111  slack  (0.0)\n", "")
 			}
 			it("fails when searching for nonexistent app") {
 				await expecta(
@@ -34,7 +34,7 @@ final class SearchSpec: AsyncSpec {
 						try await MAS.Search.parse(["nonexistent"]).run(searcher: MockAppStoreSearcher())
 					)
 				)
-					== (MASError.noSearchResultsFound, "", "")
+					== UnvaluedConsequences(MASError.noSearchResultsFound, "", "")
 			}
 		}
 	}

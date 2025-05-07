@@ -7,7 +7,6 @@
 //
 
 internal import ArgumentParser
-private import Foundation
 
 extension MAS {
 	/// Installs previously purchased apps from the Mac App Store.
@@ -38,10 +37,8 @@ extension MAS {
 					},
 					verifiedBy: searcher
 				)
-			} catch let error as MASError {
-				throw error
 			} catch {
-				throw MASError.downloadFailed(error: error as NSError)
+				throw MASError(downloadFailedError: error)
 			}
 		}
 	}

@@ -24,7 +24,7 @@ final class SearchResultSpec: QuickSpec {
 						// swiftformat:enable indent
 					)
 				)
-					== (1_472_954_003, nil, "", "")
+					== ValuedConsequences(1_472_954_003, nil, "", "")
 			}
 		}
 	}

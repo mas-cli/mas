@@ -18,7 +18,7 @@ final class VendorSpec: AsyncSpec {
 				await expecta(
 					await consequencesOf(try await MAS.Vendor.parse(["999"]).run(searcher: MockAppStoreSearcher()))
 				)
-					== (MASError.unknownAppID(999), "", "")
+					== UnvaluedConsequences(MASError.unknownAppID(999), "", "")
 			}
 		}
 	}

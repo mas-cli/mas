@@ -16,7 +16,7 @@ final class ListSpec: QuickSpec {
 		describe("list command") {
 			it("lists apps") {
 				expect(consequencesOf(try MAS.List.parse([]).run(installedApps: [])))
-					== (
+					== UnvaluedConsequences(
 						nil,
 						"",
 						"""

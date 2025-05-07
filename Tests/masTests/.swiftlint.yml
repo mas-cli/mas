@@ -16,7 +16,7 @@ disabled_rules:
 - quick_discouraged_pending_test
 - required_deinit
 closure_body_length:
-  warning: 80
+  warning: 85
 file_header:
   required_pattern: |
     \/\/
@@ -27,7 +27,7 @@ file_header:
     \/\/ Copyright © \1 mas-cli\. All rights reserved\.
     \/\/
 function_body_length:
-  warning: 80
+  warning: 85
 large_tuple:
   warning: 5
   error: 10

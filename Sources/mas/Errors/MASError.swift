@@ -9,109 +9,70 @@
 internal import Foundation
 
 enum MASError: Error, Equatable {
-	case notSupported
-
-	case failed(error: NSError?)
-
-	case runtimeError(String)
-
-	case notSignedIn
-	case noPasswordProvided
-	case signInFailed(error: NSError?)
-	case alreadySignedIn(asAppleAccount: String)
-
-	case purchaseFailed(error: NSError?)
-	case downloadFailed(error: NSError?)
-	case noDownloads
 	case cancelled
-
-	case searchFailed
-	case noSearchResultsFound
-
-	case unknownAppID(AppID)
-
-	case noVendorWebsite
-
-	case notInstalled(appIDs: [AppID])
-	case uninstallFailed(error: NSError?)
-	case macOSUserMustBeRoot
-
-	case noData
+	case downloadFailed(error: NSError)
 	case jsonParsing(data: Data)
-
+	case macOSUserMustBeRoot
+	case noDownloads
+	case noSearchResultsFound
+	case noVendorWebsite
+	case notInstalled(appIDs: [AppID])
+	case notSupported
+	case purchaseFailed(error: NSError)
+	case runtimeError(String)
+	case searchFailed(error: NSError)
+	case unknownAppID(AppID)
 	case urlParsing(String)
+
+	init(downloadFailedError: Error) {
+		self = (downloadFailedError as? Self) ?? .downloadFailed(error: downloadFailedError as NSError)
+	}
+
+	init(purchaseFailedError: Error) {
+		self = (purchaseFailedError as? Self) ?? .purchaseFailed(error: purchaseFailedError as NSError)
+	}
+
+	init(searchFailedError: Error) {
+		self = (searchFailedError as? Self) ?? .searchFailed(error: searchFailedError as NSError)
+	}
 }
 
 extension MASError: CustomStringConvertible {
 	var description: String {
 		switch self {
-		case .notSignedIn:
-			"Not signed in"
-		case .noPasswordProvided:
-			"No password provided"
-		case .notSupported:
-			"""
-			This command is not supported on this macOS version due to changes in macOS.
-			See: https://github.com/mas-cli/mas#known-issues
-			"""
-		case let .failed(error):
-			if let error {
-				"Failed: \(error.localizedDescription)"
-			} else {
-				"Failed"
-			}
-		case let .runtimeError(message):
-			"Runtime Error: \(message)"
-		case let .signInFailed(error):
-			if let error {
-				"Sign in failed: \(error.localizedDescription)"
-			} else {
-				"Sign in failed"
-			}
-		case let .alreadySignedIn(appleAccount):
-			"Already signed in as \(appleAccount)"
-		case let .purchaseFailed(error):
-			if let error {
-				"Download request failed: \(error.localizedDescription)"
-			} else {
-				"Download request failed"
-			}
-		case let .downloadFailed(error):
-			if let error {
-				"Download failed: \(error.localizedDescription)"
-			} else {
-				"Download failed"
-			}
-		case .noDownloads:
-			"No downloads began"
 		case .cancelled:
 			"Download cancelled"
-		case .searchFailed:
-			"Search failed"
-		case .noSearchResultsFound:
-			"No apps found"
-		case let .unknownAppID(appID):
-			appID.unknownMessage
-		case .noVendorWebsite:
-			"App does not have a vendor website"
-		case let .notInstalled(appIDs):
-			"No apps installed with app ID \(appIDs.map { String($0) }.joined(separator: ", "))"
-		case let .uninstallFailed(error):
-			if let error {
-				"Uninstall failed: \(error.localizedDescription)"
-			} else {
-				"Uninstall failed"
-			}
-		case .macOSUserMustBeRoot:
-			"Apps installed from the Mac App Store require root permission to remove."
-		case .noData:
-			"Service did not return data"
+		case let .downloadFailed(error):
+			"Download failed: \(error.localizedDescription)"
 		case let .jsonParsing(data):
 			if let unparsable = String(data: data, encoding: .utf8) {
 				"Unable to parse response as JSON:\n\(unparsable)"
 			} else {
 				"Unable to parse response as JSON"
 			}
+		case .macOSUserMustBeRoot:
+			"Apps installed from the Mac App Store require root permission to remove"
+		case .noDownloads:
+			"No downloads began"
+		case .noSearchResultsFound:
+			"No apps found"
+		case .noVendorWebsite:
+			"App does not have a vendor website"
+		case let .notInstalled(appIDs):
+			"No apps installed with app ID \(appIDs.map { String($0) }.joined(separator: ", "))"
+		case .notSupported:
+			"""
+			This command is not supported on this macOS version due to changes in macOS.
+			See: https://github.com/mas-cli/mas#known-issues
+			"""
+		case let .purchaseFailed(error):
+			"Download request failed: \(error.localizedDescription)"
+		case let .runtimeError(message):
+			"Runtime Error: \(message)"
+		case let .searchFailed(error):
+			"Search failed: \(error.localizedDescription)"
+		case let .unknownAppID(appID):
+			appID.unknownMessage
 		case let .urlParsing(string):
 			"Unable to parse URL from: \(string)"
 		}

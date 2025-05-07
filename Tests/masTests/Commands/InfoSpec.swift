@@ -18,7 +18,7 @@ final class InfoSpec: AsyncSpec {
 				await expecta(
 					await consequencesOf(try await MAS.Info.parse(["999"]).run(searcher: MockAppStoreSearcher()))
 				)
-					== (MASError.unknownAppID(999), "", "")
+					== UnvaluedConsequences(MASError.unknownAppID(999), "", "")
 			}
 			it("displays app details") {
 				let mockResult = SearchResult(
@@ -39,7 +39,7 @@ final class InfoSpec: AsyncSpec {
 						)
 					)
 				)
-					== (
+					== UnvaluedConsequences(
 						nil,
 						"""
 						Awesome App 1.0 [$2.00]
