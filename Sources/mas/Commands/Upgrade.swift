@@ -7,7 +7,6 @@
 //
 
 internal import ArgumentParser
-private import Foundation
 
 extension MAS {
 	/// Command which upgrades apps with new versions available in the Mac App Store.
@@ -47,10 +46,8 @@ extension MAS {
 
 			do {
 				try await downloadApps(withAppIDs: apps.map(\.storeApp.trackId))
-			} catch let error as MASError {
-				throw error
 			} catch {
-				throw MASError.downloadFailed(error: error as NSError)
+				throw MASError(downloadFailedError: error)
 			}
 		}
 

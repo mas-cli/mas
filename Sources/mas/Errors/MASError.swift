@@ -23,6 +23,14 @@ enum MASError: Error, Equatable {
 	case searchFailed
 	case unknownAppID(AppID)
 	case urlParsing(String)
+
+	init(downloadFailedError: Error) {
+		self = (downloadFailedError as? Self) ?? .downloadFailed(error: downloadFailedError as NSError)
+	}
+
+	init(purchaseFailedError: Error) {
+		self = (purchaseFailedError as? Self) ?? .purchaseFailed(error: purchaseFailedError as NSError)
+	}
 }
 
 extension MASError: CustomStringConvertible {

@@ -7,7 +7,6 @@
 //
 
 internal import ArgumentParser
-private import Foundation
 
 extension MAS {
 	struct Purchase: AsyncParsableCommand {
@@ -36,10 +35,8 @@ extension MAS {
 					verifiedBy: searcher,
 					purchasing: true
 				)
-			} catch let error as MASError {
-				throw error
 			} catch {
-				throw MASError.downloadFailed(error: error as NSError)
+				throw MASError(downloadFailedError: error)
 			}
 		}
 	}

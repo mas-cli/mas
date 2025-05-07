@@ -7,7 +7,6 @@
 //
 
 internal import ArgumentParser
-private import Foundation
 
 extension MAS {
 	/// Command which installs the first search result.
@@ -58,10 +57,8 @@ extension MAS {
 			} else {
 				do {
 					try await downloadApps(withAppIDs: [appID])
-				} catch let error as MASError {
-					throw error
 				} catch {
-					throw MASError.downloadFailed(error: error as NSError)
+					throw MASError(downloadFailedError: error)
 				}
 			}
 		}

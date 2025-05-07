@@ -78,7 +78,7 @@ class PurchaseDownloadObserver: CKDownloadQueueObserver {
 
 		terminateEphemeralPrinting()
 		if status.isFailed {
-			errorHandler?(.downloadFailed(error: status.error as NSError))
+			errorHandler?(MASError(downloadFailedError: status.error))
 		} else if status.isCancelled {
 			errorHandler?(.cancelled)
 		} else {
