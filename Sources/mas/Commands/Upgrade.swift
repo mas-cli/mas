@@ -12,7 +12,7 @@ extension MAS {
 	/// Upgrades outdated apps installed from the Mac App Store.
 	struct Upgrade: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
-			abstract: "Upgrade outdated app(s) installed from the Mac App Store"
+			abstract: "Upgrade outdated apps installed from the Mac App Store"
 		)
 
 		@OptionGroup

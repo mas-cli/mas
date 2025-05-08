@@ -12,7 +12,7 @@ extension MAS {
 	/// "Purchases" & installs free apps from the Mac App Store.
 	struct Purchase: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
-			abstract: "\"Purchase\" and install free apps from the Mac App Store"
+			abstract: "\"Purchase\" & install free apps from the Mac App Store"
 		)
 
 		@OptionGroup

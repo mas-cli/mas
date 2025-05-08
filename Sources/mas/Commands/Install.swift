@@ -12,7 +12,7 @@ extension MAS {
 	/// Installs previously purchased apps from the Mac App Store.
 	struct Install: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
-			abstract: "Install previously purchased app(s) from the Mac App Store"
+			abstract: "Install previously purchased apps from the Mac App Store"
 		)
 
 		@OptionGroup

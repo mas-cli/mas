@@ -16,7 +16,7 @@ extension MAS {
 	/// https://performance-partners.apple.com/search-api
 	struct Search: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
-			abstract: "Search for apps from the Mac App Store"
+			abstract: "Search for apps in the Mac App Store"
 		)
 
 		@Flag(help: "Display the price of each app")

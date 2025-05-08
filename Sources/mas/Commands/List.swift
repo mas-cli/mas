@@ -12,7 +12,7 @@ extension MAS {
 	/// Lists all apps installed from the Mac App Store.
 	struct List: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
-			abstract: "List apps installed from the Mac App Store"
+			abstract: "List all apps installed from the Mac App Store"
 		)
 
 		/// Runs the command.

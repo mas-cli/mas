@@ -13,7 +13,7 @@ extension MAS {
 	/// Uninstalls apps installed from the Mac App Store.
 	struct Uninstall: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
-			abstract: "Uninstall app installed from the Mac App Store"
+			abstract: "Uninstall apps installed from the Mac App Store"
 		)
 
 		/// Flag indicating that removal shouldn't be performed.

@@ -17,7 +17,7 @@ extension MAS {
 	/// https://performance-partners.apple.com/search-api
 	struct Vendor: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
-			abstract: "Open vendor's app web page in the default web browser"
+			abstract: "Open apps' vendor pages in the default web browser"
 		)
 
 		@OptionGroup
