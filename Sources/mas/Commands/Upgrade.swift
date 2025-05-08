@@ -9,7 +9,7 @@
 internal import ArgumentParser
 
 extension MAS {
-	/// Command which upgrades apps with new versions available in the Mac App Store.
+	/// Upgrades outdated apps installed from the Mac App Store.
 	struct Upgrade: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
 			abstract: "Upgrade outdated app(s) installed from the Mac App Store"
@@ -59,7 +59,7 @@ extension MAS {
 			? installedApps
 			: appIDOrNames.flatMap { appIDOrName in
 				if let appID = AppID(appIDOrName) {
-					// Lookup apps by app ID argument
+					// Find installed apps by app ID argument
 					let installedApps = installedApps.filter { $0.id == appID }
 					if installedApps.isEmpty {
 						printError(appID.unknownMessage)
@@ -67,7 +67,7 @@ extension MAS {
 					return installedApps
 				}
 
-				// Lookup apps by name argument
+				// Find installed apps by name argument
 				let installedApps = installedApps.filter { $0.name == appIDOrName }
 				if installedApps.isEmpty {
 					printError("Unknown app name '", appIDOrName, "'", separator: "")

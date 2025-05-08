@@ -10,7 +10,10 @@ internal import ArgumentParser
 private import Foundation
 
 extension MAS {
-	/// Opens vendor's app page in a browser. Uses the iTunes Lookup API:
+	/// Opens apps' vendor pages in the default web browser.
+	///
+	/// Uses the iTunes Lookup API:
+	///
 	/// https://performance-partners.apple.com/search-api
 	struct Vendor: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(

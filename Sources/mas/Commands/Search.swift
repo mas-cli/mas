@@ -9,7 +9,10 @@
 internal import ArgumentParser
 
 extension MAS {
-	/// Search the Mac App Store. Uses the iTunes Search API:
+	/// Searches for apps in the Mac App Store.
+	///
+	/// Uses the iTunes Search API:
+	///
 	/// https://performance-partners.apple.com/search-api
 	struct Search: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
@@ -21,6 +24,7 @@ extension MAS {
 		@OptionGroup
 		var searchTermOptionGroup: SearchTermOptionGroup
 
+		/// Runs the command.
 		func run() async throws {
 			try await run(searcher: ITunesSearchAppStoreSearcher())
 		}

@@ -12,7 +12,10 @@ internal import ArgumentParser
 private var masScheme: String { "macappstore" }
 
 extension MAS {
-	/// Opens app page in MAS app. Uses the iTunes Lookup API:
+	/// Opens app page in 'App Store.app'.
+	///
+	/// Uses the iTunes Lookup API:
+	///
 	/// https://performance-partners.apple.com/search-api
 	struct Open: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
@@ -29,7 +32,7 @@ extension MAS {
 
 		func run(searcher: AppStoreSearcher) async throws {
 			guard let appID else {
-				// If no app ID is given, just open the MAS GUI app
+				// If no app ID was given, just open the MAS GUI app
 				try await openMacAppStore()
 				return
 			}

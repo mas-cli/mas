@@ -10,7 +10,10 @@ internal import ArgumentParser
 private import Foundation
 
 extension MAS {
-	/// Opens app page on MAS Preview. Uses the iTunes Lookup API:
+	/// Opens Mac App Store app pages in the default web browser.
+	///
+	/// Uses the iTunes Lookup API:
+	///
 	/// https://performance-partners.apple.com/search-api
 	struct Home: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(

@@ -9,7 +9,7 @@
 internal import ArgumentParser
 
 extension MAS {
-	/// Command which interacts with the current region for the Mac App Store.
+	/// Displays the region of the Mac App Store.
 	struct Region: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
 			abstract: "Display the region of the Mac App Store"

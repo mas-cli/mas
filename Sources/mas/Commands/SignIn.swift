@@ -9,6 +9,7 @@
 internal import ArgumentParser
 
 extension MAS {
+	/// Signs in to an Apple Account in the Mac App Store.
 	struct SignIn: ParsableCommand {
 		static let configuration = CommandConfiguration(
 			commandName: "signin",
