@@ -81,7 +81,7 @@ private func chown(paths: [String]) throws -> [String: (uid_t, gid_t)] {
 		throw MASError.runtimeError("Failed to get original gid")
 	}
 
-	let ownerIDsByPath = try paths.reduce(into: [String: (uid_t, gid_t)]()) { dict, path in
+	let ownerIDsByPath = try paths.reduce(into: [:]) { dict, path in
 		dict[path] = try getOwnerAndGroupOfItem(atPath: path)
 	}
 
