@@ -47,7 +47,7 @@ extension MAS {
 			for appID in appIDsOptionGroup.appIDs {
 				let foundApps = installedApps.filter { $0.id == appID }
 				foundApps.isEmpty // swiftformat:disable:next indent
-				? printWarning("No installed apps with app ID", appID)
+				? printError(appID.notInstalledMessage)
 				: uninstallingAppSet.formUnion(foundApps)
 			}
 

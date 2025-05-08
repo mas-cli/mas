@@ -62,7 +62,7 @@ extension MAS {
 					// Find installed apps by app ID argument
 					let installedApps = installedApps.filter { $0.id == appID }
 					if installedApps.isEmpty {
-						printError(appID.unknownMessage)
+						printError(appID.notInstalledMessage)
 					}
 					return installedApps
 				}
