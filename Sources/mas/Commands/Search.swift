@@ -18,8 +18,8 @@ extension MAS {
 
 		@Flag(help: "Display the price of each app")
 		var price = false
-		@Argument(help: "Search term")
-		var searchTerm: [String]
+		@OptionGroup
+		var searchTermOptionGroup: SearchTermOptionGroup
 
 		func run() async throws {
 			try await run(searcher: ITunesSearchAppStoreSearcher())
@@ -27,7 +27,7 @@ extension MAS {
 
 		func run(searcher: AppStoreSearcher) async throws {
 			do {
-				let results = try await searcher.search(for: searchTerm.joined(separator: " "))
+				let results = try await searcher.search(for: searchTermOptionGroup.searchTerm)
 				if results.isEmpty {
 					throw MASError.noSearchResultsFound
 				}

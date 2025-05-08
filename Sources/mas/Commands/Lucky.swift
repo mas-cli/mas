@@ -22,8 +22,8 @@ extension MAS {
 
 		@OptionGroup
 		var forceOptionGroup: ForceOptionGroup
-		@Argument(help: "Search term")
-		var searchTerm: [String]
+		@OptionGroup
+		var searchTermOptionGroup: SearchTermOptionGroup
 
 		/// Runs the command.
 		func run() async throws {
@@ -32,7 +32,7 @@ extension MAS {
 
 		func run(installedApps: [InstalledApp], searcher: AppStoreSearcher) async throws {
 			do {
-				let results = try await searcher.search(for: searchTerm.joined(separator: " "))
+				let results = try await searcher.search(for: searchTermOptionGroup.searchTerm)
 				guard let result = results.first else {
 					throw MASError.noSearchResultsFound
 				}
