@@ -16,8 +16,8 @@ extension MAS {
 			abstract: "Display app information from the Mac App Store"
 		)
 
-		@Argument(help: ArgumentHelp("App ID", valueName: "app-id"))
-		var appIDs: [AppID]
+		@OptionGroup
+		var appIDsOptionGroup: AppIDsOptionGroup
 
 		/// Runs the command.
 		func run() async throws {
@@ -26,7 +26,7 @@ extension MAS {
 
 		func run(searcher: AppStoreSearcher) async throws {
 			var separator = ""
-			for appID in appIDs {
+			for appID in appIDsOptionGroup.appIDs {
 				do {
 					printInfo("", AppInfoFormatter.format(app: try await searcher.lookup(appID: appID)), separator: separator)
 					separator = "\n"

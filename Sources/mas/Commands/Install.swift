@@ -17,8 +17,8 @@ extension MAS {
 
 		@Flag(help: "Force reinstall")
 		var force = false
-		@Argument(help: ArgumentHelp("App ID", valueName: "app-id"))
-		var appIDs: [AppID]
+		@OptionGroup
+		var appIDsOptionGroup: AppIDsOptionGroup
 
 		/// Runs the command.
 		func run() async throws {
@@ -28,7 +28,7 @@ extension MAS {
 		func run(installedApps: [InstalledApp], searcher: AppStoreSearcher) async throws {
 			do {
 				try await downloadApps(
-					withAppIDs: appIDs.filter { appID in
+					withAppIDs: appIDsOptionGroup.appIDs.filter { appID in
 						if let appName = installedApps.first(where: { $0.id == appID })?.name, !force {
 							printWarning(appName, "is already installed")
 							return false

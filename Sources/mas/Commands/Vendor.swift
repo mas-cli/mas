@@ -17,8 +17,8 @@ extension MAS {
 			abstract: "Open vendor's app web page in the default web browser"
 		)
 
-		@Argument(help: ArgumentHelp("App ID", valueName: "app-id"))
-		var appIDs: [AppID]
+		@OptionGroup
+		var appIDsOptionGroup: AppIDsOptionGroup
 
 		/// Runs the command.
 		func run() async throws {
@@ -26,7 +26,7 @@ extension MAS {
 		}
 
 		func run(searcher: AppStoreSearcher) async throws {
-			for appID in appIDs {
+			for appID in appIDsOptionGroup.appIDs {
 				let result = try await searcher.lookup(appID: appID)
 
 				guard let urlString = result.sellerUrl else {

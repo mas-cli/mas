@@ -26,7 +26,7 @@ disabled_rules:
 - sorted_enum_cases
 - vertical_whitespace_between_cases
 attributes:
-  always_on_line_above: ['@MainActor']
+  always_on_line_above: ['@MainActor', '@OptionGroup']
 closure_body_length:
   warning: 40
 file_types_order:
