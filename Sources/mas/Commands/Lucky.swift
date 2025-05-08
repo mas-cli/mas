@@ -20,8 +20,8 @@ extension MAS {
 				"""
 		)
 
-		@Flag(help: "Force reinstall")
-		var force = false
+		@OptionGroup
+		var forceOptionGroup: ForceOptionGroup
 		@Argument(help: "Search term")
 		var searchTerm: [String]
 
@@ -50,7 +50,7 @@ extension MAS {
 		///   - installedApps: List of installed apps.
 		/// - Throws: Any error that occurs while attempting to install the app.
 		private func install(appID: AppID, installedApps: [InstalledApp]) async throws {
-			if let appName = installedApps.first(where: { $0.id == appID })?.name, !force {
+			if let appName = installedApps.first(where: { $0.id == appID })?.name, !forceOptionGroup.force {
 				printWarning(appName, "is already installed")
 			} else {
 				do {

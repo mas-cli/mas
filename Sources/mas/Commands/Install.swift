@@ -15,8 +15,8 @@ extension MAS {
 			abstract: "Install previously purchased app(s) from the Mac App Store"
 		)
 
-		@Flag(help: "Force reinstall")
-		var force = false
+		@OptionGroup
+		var forceOptionGroup: ForceOptionGroup
 		@OptionGroup
 		var appIDsOptionGroup: AppIDsOptionGroup
 
@@ -29,7 +29,7 @@ extension MAS {
 			do {
 				try await downloadApps(
 					withAppIDs: appIDsOptionGroup.appIDs.filter { appID in
-						if let appName = installedApps.first(where: { $0.id == appID })?.name, !force {
+						if let appName = installedApps.first(where: { $0.id == appID })?.name, !forceOptionGroup.force {
 							printWarning(appName, "is already installed")
 							return false
 						}
