@@ -18,7 +18,7 @@ final class InfoSpec: AsyncSpec {
 				await expecta(
 					await consequencesOf(try await MAS.Info.parse(["999"]).run(searcher: MockAppStoreSearcher()))
 				)
-					== UnvaluedConsequences(MASError.unknownAppID(999), "", "")
+					== UnvaluedConsequences(MASError.unknownAppID(999))
 			}
 			it("displays app details") {
 				let mockResult = SearchResult(
@@ -49,8 +49,7 @@ final class InfoSpec: AsyncSpec {
 						Size: 1 KB
 						From: https://awesome.app
 
-						""",
-						""
+						"""
 					)
 			}
 		}

@@ -23,7 +23,7 @@ final class LuckySpec: AsyncSpec {
 						try await MAS.Lucky.parse(["Slack"]).run(installedApps: [], searcher: searcher)
 					)
 				)
-					== UnvaluedConsequences(nil, "", "")
+					== UnvaluedConsequences()
 			}
 		}
 	}

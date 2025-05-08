@@ -14,7 +14,7 @@ struct ValuedConsequences<E: Equatable>: Equatable {
 	let stdout: String
 	let stderr: String
 
-	init(_ value: E?, _ error: Error?, _ stdout: String, _ stderr: String) {
+	init(_ value: E? = nil, _ error: Error? = nil, _ stdout: String = "", _ stderr: String = "") {
 		self.value = value
 		self.error = error
 		self.stdout = stdout
