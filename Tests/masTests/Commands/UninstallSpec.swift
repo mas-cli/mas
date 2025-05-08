@@ -30,7 +30,7 @@ final class UninstallSpec: QuickSpec {
 							try MAS.Uninstall.parse(["--dry-run", String(appID)]).run(installedApps: [])
 						)
 					)
-						== UnvaluedConsequences(MASError.notInstalled(appIDs: [appID]))
+						== UnvaluedConsequences(nil, "No installed apps with app ID \(appID)")
 				}
 				it("finds an app") {
 					expect(
@@ -48,7 +48,7 @@ final class UninstallSpec: QuickSpec {
 							try MAS.Uninstall.parse([String(appID)]).run(installedApps: [])
 						)
 					)
-						== UnvaluedConsequences(MASError.notInstalled(appIDs: [appID]))
+						== UnvaluedConsequences(nil, "No installed apps with app ID \(appID)")
 				}
 				it("removes an app") {
 					expect(

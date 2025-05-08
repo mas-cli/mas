@@ -9,7 +9,7 @@
 private import Foundation
 private import Version
 
-struct InstalledApp: Sendable {
+struct InstalledApp: Hashable, Sendable {
 	let id: AppID
 	let name: String
 	// periphery:ignore

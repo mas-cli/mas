@@ -16,7 +16,6 @@ enum MASError: Error, Equatable {
 	case noDownloads
 	case noSearchResultsFound
 	case noVendorWebsite
-	case notInstalled(appIDs: [AppID])
 	case notSupported
 	case purchaseFailed(error: NSError)
 	case runtimeError(String)
@@ -58,8 +57,6 @@ extension MASError: CustomStringConvertible {
 			"No apps found"
 		case .noVendorWebsite:
 			"App does not have a vendor website"
-		case let .notInstalled(appIDs):
-			"No apps installed with app ID \(appIDs.map { String($0) }.joined(separator: ", "))"
 		case .notSupported:
 			"""
 			This command is not supported on this macOS version due to changes in macOS

@@ -43,13 +43,20 @@ extension MAS {
 				throw MASError.runtimeError("Failed to switch effective user from 'root' to '\(username)'")
 			}
 
-			let installedApps = installedApps.filter { appIDsOptionGroup.appIDs.contains($0.id) }
-			guard !installedApps.isEmpty else {
-				throw MASError.notInstalled(appIDs: appIDsOptionGroup.appIDs)
+			var uninstallingAppSet = Set<InstalledApp>()
+			for appID in appIDsOptionGroup.appIDs {
+				let foundApps = installedApps.filter { $0.id == appID }
+				foundApps.isEmpty // swiftformat:disable:next indent
+				? printWarning("No installed apps with app ID", appID)
+				: uninstallingAppSet.formUnion(foundApps)
+			}
+
+			guard !uninstallingAppSet.isEmpty else {
+				return
 			}
 
 			if dryRun {
-				for installedApp in installedApps {
+				for installedApp in uninstallingAppSet {
 					printNotice("'", installedApp.name, "' '", installedApp.path, "'", separator: "")
 				}
 				printNotice("(not removed, dry run)")
@@ -58,7 +65,7 @@ extension MAS {
 					throw MASError.runtimeError("Failed to revert effective user from '\(username)' back to 'root'")
 				}
 
-				try uninstallApps(atPaths: installedApps.map(\.path))
+				try uninstallApps(atPaths: uninstallingAppSet.map(\.path))
 			}
 		}
 	}
