@@ -20,7 +20,7 @@ final class InfoSpec: AsyncSpec {
 				)
 					== UnvaluedConsequences(MASError.unknownAppID(999))
 			}
-			it("displays app details") {
+			it("outputs app details") {
 				let mockResult = SearchResult(
 					currentVersionReleaseDate: "2019-01-07T18:53:13Z",
 					fileSizeBytes: "1024",

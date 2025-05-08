@@ -20,7 +20,7 @@ struct SearchResult: Decodable {
 }
 
 extension SearchResult {
-	var displayPrice: String {
+	var outputPrice: String {
 		formattedPrice ?? "?"
 	}
 }

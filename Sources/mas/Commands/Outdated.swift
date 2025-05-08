@@ -9,7 +9,7 @@
 internal import ArgumentParser
 
 extension MAS {
-	/// Displays a list of installed apps which have updates available to be
+	/// Outputs a list of installed apps which have updates available to be
 	/// installed from the Mac App Store.
 	struct Outdated: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(

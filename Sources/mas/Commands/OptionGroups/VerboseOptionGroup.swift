@@ -9,7 +9,7 @@
 internal import ArgumentParser
 
 struct VerboseOptionGroup: ParsableArguments {
-	@Flag(help: "Display warnings about app IDs unknown to the Mac App Store")
+	@Flag(help: "Output warnings about app IDs unknown to the Mac App Store")
 	var verbose = false
 
 	func printProblem(forError error: Error, expectedAppName appName: String) {

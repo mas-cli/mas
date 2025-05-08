@@ -101,7 +101,7 @@ private extension SSDownload {
 		}
 
 		if isatty(fileno(stdout)) != 0 {
-			// Only display the progress bar if connected to a terminal
+			// Only output the progress bar if connected to a terminal
 			let progressState = status.progressState
 			let totalLength = 60
 			let completedLength = Int(progressState.percentComplete * Float(totalLength))

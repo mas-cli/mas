@@ -26,7 +26,7 @@ enum SearchResultFormatter {
 					result.trackId,
 					result.trackName.padding(toLength: maxAppNameLength, withPad: " ", startingAt: 0),
 					result.version,
-					result.displayPrice
+					result.outputPrice
 				)
 			}
 			.joined(separator: "\n")

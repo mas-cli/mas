@@ -3,7 +3,7 @@
 # script/version
 # mas
 #
-# Displays the mas version.
+# Outputs the mas version.
 #
 
 . "${0:a:h}/_setup_script"

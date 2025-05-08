@@ -13,10 +13,10 @@ private var unknown: String { "unknown" }
 private var sysCtlByName: String { "sysctlbyname" }
 
 extension MAS {
-	/// Displays mas config & related system info.
+	/// Outputs mas config & related system info.
 	struct Config: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
-			abstract: "Display mas config & related system info"
+			abstract: "Output mas config & related system info"
 		)
 
 		@Flag(help: "Output as Markdown")

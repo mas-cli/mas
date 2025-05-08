@@ -14,7 +14,7 @@ import Quick
 final class OutdatedSpec: AsyncSpec {
 	override static func spec() {
 		describe("outdated command") {
-			it("displays apps with pending updates") {
+			it("outputs apps with pending updates") {
 				let mockSearchResult =
 					SearchResult(
 						currentVersionReleaseDate: "2024-09-02T00:27:00Z",

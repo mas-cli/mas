@@ -19,7 +19,7 @@ extension MAS {
 			abstract: "Search for apps in the Mac App Store"
 		)
 
-		@Flag(help: "Display the price of each app")
+		@Flag(help: "Output the price of each app")
 		var price = false
 		@OptionGroup
 		var searchTermOptionGroup: SearchTermOptionGroup

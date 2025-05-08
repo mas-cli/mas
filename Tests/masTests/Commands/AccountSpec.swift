@@ -14,7 +14,7 @@ import Quick
 final class AccountSpec: AsyncSpec {
 	override static func spec() {
 		describe("account command") {
-			it("displays not supported warning") {
+			it("outputs not supported warning") {
 				await expecta(await consequencesOf(try await MAS.Account.parse([]).run()))
 					== UnvaluedConsequences(MASError.notSupported)
 			}
