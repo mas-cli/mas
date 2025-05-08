@@ -37,7 +37,7 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 		guard let url = lookupURL(forAppID: appID, inRegion: region) else {
 			fatalError("Failed to build URL for \(appID)")
 		}
-		let results = try await loadSearchResults(url)
+		let results = try await getSearchResults(from: url)
 		guard let result = results.first else {
 			throw MASError.unknownAppID(appID)
 		}
@@ -65,7 +65,7 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 			guard let url = searchURL(for: searchTerm, inRegion: region, ofEntity: entity) else {
 				fatalError("Failed to build URL for \(searchTerm)")
 			}
-			appSet.formUnion(try await loadSearchResults(url))
+			appSet.formUnion(try await getSearchResults(from: url))
 		}
 
 		return Array(appSet)
@@ -127,7 +127,7 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 		return components.url
 	}
 
-	private func loadSearchResults(_ url: URL) async throws -> [SearchResult] {
+	private func getSearchResults(from url: URL) async throws -> [SearchResult] {
 		let (data, _) = try await networkSession.data(from: url)
 		do {
 			return try JSONDecoder().decode(SearchResultList.self, from: data).results
