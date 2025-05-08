@@ -9,6 +9,6 @@
 internal import ArgumentParser
 
 struct VerboseOptionGroup: ParsableArguments {
-	@Flag(help: "Display warnings about apps unknown to the Mac App Store")
+	@Flag(help: "Display warnings about app IDs unknown to the Mac App Store")
 	var verbose = false
 }

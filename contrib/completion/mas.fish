@@ -53,7 +53,7 @@ complete -c mas -n "__fish_seen_subcommand_from help" -xa "open"
 ### outdated
 complete -c mas -n "__fish_use_subcommand" -f -a outdated -d "List pending app updates from the Mac App Store"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "outdated"
-complete -c mas -n "__fish_seen_subcommand_from outdated" -l verbose -d "Display warnings about apps unknown to the Mac App Store"
+complete -c mas -n "__fish_seen_subcommand_from outdated" -l verbose -d "Display warnings about app IDs unknown to the Mac App Store"
 ### purchase
 complete -c mas -n "__fish_use_subcommand" -f -a purchase -d "\"Purchase\" and install free apps from the Mac App Store"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "purchase"
