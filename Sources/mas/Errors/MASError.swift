@@ -68,7 +68,7 @@ extension MASError: CustomStringConvertible {
 		case let .purchaseFailed(error):
 			"Download request failed: \(error.localizedDescription)"
 		case let .runtimeError(message):
-			"Runtime Error: \(message)"
+			"Runtime error: \(message)"
 		case let .searchFailed(error):
 			"Search failed: \(error.localizedDescription)"
 		case let .unknownAppID(appID):
