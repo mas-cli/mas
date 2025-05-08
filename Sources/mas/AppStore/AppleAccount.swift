@@ -15,7 +15,7 @@ struct AppleAccount: Sendable {
 	let dsID: NSNumber
 }
 
-@MainActor // swiftlint:disable:next attributes
+@MainActor
 var appleAccount: AppleAccount {
 	get async throws {
 		if #available(macOS 12, *) {

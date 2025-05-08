@@ -22,6 +22,8 @@ disabled_rules:
 - prefixed_toplevel_constant
 - sorted_enum_cases
 - vertical_whitespace_between_cases
+attributes:
+  always_on_line_above: ['@MainActor']
 closure_body_length:
   warning: 40
 file_types_order:
