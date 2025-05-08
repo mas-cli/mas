@@ -16,8 +16,8 @@ final class UninstallSpec: QuickSpec {
 		let appID = 12345 as AppID
 		let app = InstalledApp(
 			id: appID,
-			name: "Some App",
 			bundleID: "com.some.app",
+			name: "Some App",
 			path: "/tmp/Some.app",
 			version: "1.0"
 		)

@@ -34,8 +34,8 @@ final class OutdatedSpec: AsyncSpec {
 							installedApps: [
 								InstalledApp(
 									id: mockSearchResult.trackId,
-									name: mockSearchResult.trackName,
 									bundleID: "au.id.haroldchu.mac.Bandwidth",
+									name: mockSearchResult.trackName,
 									path: "/Applications/Bandwidth+.app",
 									version: "1.27"
 								),
