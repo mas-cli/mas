@@ -82,12 +82,8 @@ extension MAS {
 					if installedApp.isOutdated(comparedTo: storeApp) {
 						outdatedApps.append((installedApp, storeApp))
 					}
-				} catch let MASError.unknownAppID(unknownAppID) {
-					if verboseOptionGroup.verbose {
-						printWarning("App ID", unknownAppID, "not found in store. Was expected to identify", installedApp.name)
-					}
 				} catch {
-					printError(error)
+					verboseOptionGroup.printProblem(forError: error, expectedAppName: installedApp.name)
 				}
 			}
 			return outdatedApps

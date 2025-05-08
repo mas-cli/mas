@@ -41,10 +41,8 @@ extension MAS {
 							separator: ""
 						)
 					}
-				} catch let MASError.unknownAppID(unknownAppID) {
-					if verboseOptionGroup.verbose {
-						printWarning("App ID", unknownAppID, "not found in store. Was expected to identify", installedApp.name)
-					}
+				} catch let error as MASError {
+					verboseOptionGroup.printProblem(forError: error, expectedAppName: installedApp.name)
 				}
 			}
 		}
