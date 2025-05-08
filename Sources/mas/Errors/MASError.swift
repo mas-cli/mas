@@ -62,7 +62,7 @@ extension MASError: CustomStringConvertible {
 			"No apps installed with app ID \(appIDs.map { String($0) }.joined(separator: ", "))"
 		case .notSupported:
 			"""
-			This command is not supported on this macOS version due to changes in macOS.
+			This command is not supported on this macOS version due to changes in macOS
 			See: https://github.com/mas-cli/mas#known-issues
 			"""
 		case let .purchaseFailed(error):
