@@ -17,7 +17,7 @@ extension MAS {
 
 		@OptionGroup
 		var verboseOptionGroup: VerboseOptionGroup
-		@Argument(help: ArgumentHelp("App ID/app name", valueName: "app-id-or-name"))
+		@Argument(help: ArgumentHelp("App ID/name", valueName: "app-id-or-name"))
 		var appIDOrNames = [String]()
 
 		/// Runs the command.

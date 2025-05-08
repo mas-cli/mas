@@ -145,7 +145,7 @@ private func delete(pathsFromOwnerIDsByPath ownerIDsByPath: [String: (uid_t, gid
 			throw MASError.runtimeError(
 				"""
 				Failed to obtain Finder access: finder.items().object(atLocation: URL(fileURLWithPath:\
-				 \"\(path)\") is a '\(type(of: object))' that does not conform to 'FinderItem'
+				 \"\(path)\") is a \(type(of: object)) that does not conform to FinderItem
 				"""
 			)
 		}

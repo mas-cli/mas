@@ -74,7 +74,7 @@ extension MAS {
 					try FileManager.default.removeItem(atPath: directory)
 				} catch {
 					if debug {
-						printError("removeItemAtPath:\"", directory, "\" failed, ", error, separator: "")
+						printError("Failed to delete download directory ", directory, "\n", error, separator: "")
 					}
 				}
 			}
