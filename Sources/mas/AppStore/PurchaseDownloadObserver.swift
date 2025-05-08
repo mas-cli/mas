@@ -38,29 +38,7 @@ class PurchaseDownloadObserver: CKDownloadQueueObserver {
 		if status.isFailed || status.isCancelled {
 			queue.removeDownload(withItemIdentifier: download.metadata.itemIdentifier)
 		} else {
-			let currPhaseType = status.activePhase.phaseType
-			let prevPhaseType = prevPhaseType
-			if prevPhaseType != currPhaseType {
-				switch currPhaseType {
-				case downloadingPhaseType:
-					if prevPhaseType == initialPhaseType {
-						terminateEphemeralPrinting()
-						printNotice("Downloading", download.progressDescription)
-					}
-				case downloadedPhaseType:
-					if prevPhaseType == downloadingPhaseType {
-						terminateEphemeralPrinting()
-						printNotice("Downloaded", download.progressDescription)
-					}
-				case installingPhaseType:
-					terminateEphemeralPrinting()
-					printNotice("Installing", download.progressDescription)
-				default:
-					break
-				}
-				self.prevPhaseType = currPhaseType
-			}
-			progress(status.progressState)
+			prevPhaseType = download.printProgress(prevPhaseType: prevPhaseType)
 		}
 	}
 
@@ -98,21 +76,53 @@ private struct ProgressState {
 	}
 }
 
-private func progress(_ state: ProgressState) {
-	// Don't display the progress bar if we're not on a terminal
-	guard isatty(fileno(stdout)) != 0 else {
-		return
-	}
-
-	let barLength = 60
-	let completeLength = Int(state.percentComplete * Float(barLength))
-	let bar = (0..<barLength).map { $0 < completeLength ? "#" : "-" }.joined()
-	printEphemeral(bar, state.percentage, state.phase, terminator: "")
-}
-
 private extension SSDownload {
 	var progressDescription: String {
 		"\(metadata.title) (\(metadata.bundleVersion ?? "unknown version"))"
+	}
+
+	func printProgress(prevPhaseType: Int64?) -> Int64 {
+		let currPhaseType = status.activePhase.phaseType
+		if prevPhaseType != currPhaseType {
+			switch currPhaseType {
+			case downloadingPhaseType:
+				if prevPhaseType == initialPhaseType {
+					printProgressHeader()
+				}
+			case downloadedPhaseType:
+				if prevPhaseType == downloadingPhaseType {
+					printProgressHeader()
+				}
+			case installingPhaseType:
+				printProgressHeader()
+			default:
+				break
+			}
+		}
+
+		if isatty(fileno(stdout)) != 0 {
+			// Only display the progress bar if connected to a terminal
+			let progressState = status.progressState
+			let totalLength = 60
+			let completedLength = Int(progressState.percentComplete * Float(totalLength))
+			printEphemeral(
+				String(repeating: "#", count: completedLength),
+				String(repeating: "-", count: totalLength - completedLength),
+				" ",
+				progressState.percentage,
+				" ",
+				progressState.phase,
+				separator: "",
+				terminator: ""
+			)
+		}
+
+		return currPhaseType
+	}
+
+	private func printProgressHeader() {
+		terminateEphemeralPrinting()
+		printNotice(status.activePhase.phaseDescription, progressDescription)
 	}
 }
 
@@ -125,6 +135,8 @@ private extension SSDownloadStatus {
 private extension SSDownloadPhase {
 	var phaseDescription: String {
 		switch phaseType {
+		case downloadedPhaseType:
+			"Downloaded"
 		case downloadingPhaseType:
 			"Downloading"
 		case installingPhaseType:
