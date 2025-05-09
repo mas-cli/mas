@@ -33,7 +33,7 @@ extension MAS {
 			}
 
 			guard let username = ProcessInfo.processInfo.sudoUsername else {
-				throw MASError.runtimeError("Could not determine the original username")
+				throw MASError.runtimeError("Failed to determine the original username")
 			}
 
 			guard

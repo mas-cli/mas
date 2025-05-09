@@ -37,6 +37,6 @@ unset WORDCHARS
 mas_dir="${0:a:h:h}"
 
 if ! cd -- "${mas_dir}"; then
-	printf $'Error: Could not cd into mas directory: %s\n' "${mas_dir}" >&2
+	printf $'Error: Failed to cd into mas directory: %s\n' "${mas_dir}" >&2
 	exit 1
 fi

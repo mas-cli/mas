@@ -60,7 +60,7 @@ extension MASError: CustomStringConvertible {
 		case .notSupported:
 			"""
 			This command is not supported on this macOS version due to changes in macOS
-			See: https://github.com/mas-cli/mas#known-issues
+			See https://github.com/mas-cli/mas#known-issues
 			"""
 		case let .purchaseFailed(error):
 			"Download request failed: \(error.localizedDescription)"
@@ -69,9 +69,9 @@ extension MASError: CustomStringConvertible {
 		case let .searchFailed(error):
 			"Search failed: \(error.localizedDescription)"
 		case let .unknownAppID(appID):
-			"App ID \(appID) not found in Mac App Store"
+			"App ID \(appID) not found in the Mac App Store"
 		case let .urlParsing(string):
-			"Unable to parse URL from: \(string)"
+			"Unable to parse URL from \(string)"
 		}
 	}
 }

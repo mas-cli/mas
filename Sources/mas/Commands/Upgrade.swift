@@ -70,7 +70,7 @@ extension MAS {
 				// Find installed apps by name argument
 				let installedApps = installedApps.filter { $0.name == appIDOrName }
 				if installedApps.isEmpty {
-					printError("Unknown app name '", appIDOrName, "'", separator: "")
+					printWarning("No installed apps named", appIDOrName)
 				}
 				return installedApps
 			}
