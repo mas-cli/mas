@@ -31,9 +31,10 @@ extension MAS {
 
 		func run(searcher: AppStoreSearcher) async throws {
 			do {
-				let results = try await searcher.search(for: searchTermOptionGroup.searchTerm)
+				let searchTerm = searchTermOptionGroup.searchTerm
+				let results = try await searcher.search(for: searchTerm)
 				if results.isEmpty {
-					throw MASError.noSearchResultsFound
+					throw MASError.noSearchResultsFound(for: searchTerm)
 				}
 
 				printInfo(SearchResultFormatter.format(results, includePrice: price))

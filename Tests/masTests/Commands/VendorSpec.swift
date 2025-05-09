@@ -18,7 +18,7 @@ final class VendorSpec: AsyncSpec {
 				await expecta(
 					await consequencesOf(try await MAS.Vendor.parse(["999"]).run(searcher: MockAppStoreSearcher()))
 				)
-					== UnvaluedConsequences(MASError.unknownAppID(999))
+					== UnvaluedConsequences(nil, "", "Error: No apps found in the Mac App Store for app ID 999\n")
 			}
 		}
 	}

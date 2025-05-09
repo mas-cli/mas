@@ -14,8 +14,8 @@ enum MASError: Error, Equatable {
 	case jsonParsing(data: Data)
 	case macOSUserMustBeRoot
 	case noDownloads
-	case noSearchResultsFound
-	case noVendorWebsite
+	case noSearchResultsFound(for: String)
+	case noVendorWebsite(forAppID: AppID)
 	case notSupported
 	case purchaseFailed(error: NSError)
 	case runtimeError(String)
@@ -53,10 +53,10 @@ extension MASError: CustomStringConvertible {
 			"Apps installed from the Mac App Store require root permission to remove"
 		case .noDownloads:
 			"No downloads began"
-		case .noSearchResultsFound:
-			"No apps found"
-		case .noVendorWebsite:
-			"App does not have a vendor website"
+		case let .noSearchResultsFound(searchTerm):
+			"No apps found in the Mac App Store for search term: \(searchTerm)"
+		case let .noVendorWebsite(appID):
+			"No vendor website available for app ID \(appID)"
 		case .notSupported:
 			"""
 			This command is not supported on this macOS version due to changes in macOS
@@ -69,7 +69,7 @@ extension MASError: CustomStringConvertible {
 		case let .searchFailed(error):
 			"Search failed: \(error.localizedDescription)"
 		case let .unknownAppID(appID):
-			"App ID \(appID) not found in the Mac App Store"
+			"No apps found in the Mac App Store for app ID \(appID)"
 		case let .urlParsing(string):
 			"Unable to parse URL from \(string)"
 		}

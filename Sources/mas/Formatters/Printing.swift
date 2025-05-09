@@ -61,10 +61,10 @@ func printWarning(_ items: Any..., separator: String = " ", terminator: String =
 		// Yellow, underlined "Warning:" prefix
 		print(
 			"\(csi)4;33mWarning:\(csi)0m \(message(items, separator: separator, terminator: terminator))",
-			to: FileHandle.standardError
+			to: .standardError
 		)
 	} else {
-		print("Warning: \(message(items, separator: separator, terminator: terminator))", to: FileHandle.standardError)
+		print("Warning: \(message(items, separator: separator, terminator: terminator))", to: .standardError)
 	}
 }
 
@@ -74,10 +74,10 @@ func printError(_ items: Any..., separator: String = " ", terminator: String = "
 		// Red, underlined "Error:" prefix
 		print(
 			"\(csi)4;31mError:\(csi)0m \(message(items, separator: separator, terminator: terminator))",
-			to: FileHandle.standardError
+			to: .standardError
 		)
 	} else {
-		print("Error: \(message(items, separator: separator, terminator: terminator))", to: FileHandle.standardError)
+		print("Error: \(message(items, separator: separator, terminator: terminator))", to: .standardError)
 	}
 }
 

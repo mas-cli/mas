@@ -19,6 +19,10 @@ struct InstalledApp: Hashable, Sendable {
 }
 
 extension InstalledApp {
+	var idAndName: String {
+		"app ID \(id) (\(name))"
+	}
+
 	/// Determines whether the app is considered outdated.
 	///
 	/// Updates that require a higher OS version are excluded.

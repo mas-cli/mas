@@ -7,6 +7,7 @@
 //
 
 internal import ArgumentParser
+private import Foundation
 
 extension MAS {
 	/// Outputs app information from the Mac App Store.
@@ -23,19 +24,20 @@ extension MAS {
 		var appIDsOptionGroup: AppIDsOptionGroup
 
 		/// Runs the command.
-		func run() async throws {
-			try await run(searcher: ITunesSearchAppStoreSearcher())
+		func run() async {
+			await run(searcher: ITunesSearchAppStoreSearcher())
 		}
 
-		func run(searcher: AppStoreSearcher) async throws {
-			var separator = ""
+		func run(searcher: AppStoreSearcher) async {
+			var spacing = ""
 			for appID in appIDsOptionGroup.appIDs {
 				do {
-					printInfo("", AppInfoFormatter.format(app: try await searcher.lookup(appID: appID)), separator: separator)
-					separator = "\n"
+					printInfo("", AppInfoFormatter.format(app: try await searcher.lookup(appID: appID)), separator: spacing)
 				} catch {
-					throw MASError(searchFailedError: error)
+					print(spacing, to: .standardError)
+					printError(error)
 				}
+				spacing = "\n"
 			}
 		}
 	}

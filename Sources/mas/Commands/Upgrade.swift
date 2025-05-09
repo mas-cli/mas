@@ -21,11 +21,11 @@ extension MAS {
 		var appIDOrNames = [String]()
 
 		/// Runs the command.
-		func run() async throws {
-			try await run(installedApps: await installedApps, searcher: ITunesSearchAppStoreSearcher())
+		func run() async {
+			await run(installedApps: await installedApps, searcher: ITunesSearchAppStoreSearcher())
 		}
 
-		func run(installedApps: [InstalledApp], searcher: AppStoreSearcher) async throws {
+		func run(installedApps: [InstalledApp], searcher: AppStoreSearcher) async {
 			let apps = await findOutdatedApps(installedApps: installedApps, searcher: searcher)
 
 			guard !apps.isEmpty else {
@@ -44,10 +44,12 @@ extension MAS {
 				separator: ""
 			)
 
-			do {
-				try await downloadApps(withAppIDs: apps.map(\.storeApp.trackId))
-			} catch {
-				throw MASError(downloadFailedError: error)
+			for appID in apps.map(\.storeApp.trackId) {
+				do {
+					try await downloadApp(withAppID: appID)
+				} catch {
+					printError(error)
+				}
 			}
 		}
 
@@ -70,7 +72,7 @@ extension MAS {
 				// Find installed apps by name argument
 				let installedApps = installedApps.filter { $0.name == appIDOrName }
 				if installedApps.isEmpty {
-					printWarning("No installed apps named", appIDOrName)
+					printError("No installed apps named", appIDOrName)
 				}
 				return installedApps
 			}

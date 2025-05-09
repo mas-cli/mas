@@ -24,19 +24,21 @@ extension MAS {
 		var appIDsOptionGroup: AppIDsOptionGroup
 
 		/// Runs the command.
-		func run() async throws {
-			try await run(searcher: ITunesSearchAppStoreSearcher())
+		func run() async {
+			await run(searcher: ITunesSearchAppStoreSearcher())
 		}
 
-		func run(searcher: AppStoreSearcher) async throws {
+		func run(searcher: AppStoreSearcher) async {
 			for appID in appIDsOptionGroup.appIDs {
-				let result = try await searcher.lookup(appID: appID)
-
-				guard let url = URL(string: result.trackViewUrl) else {
-					throw MASError.urlParsing(result.trackViewUrl)
+				do {
+					let result = try await searcher.lookup(appID: appID)
+					guard let url = URL(string: result.trackViewUrl) else {
+						throw MASError.urlParsing(result.trackViewUrl)
+					}
+					try await url.open()
+				} catch {
+					printError(error)
 				}
-
-				try await url.open()
 			}
 		}
 	}

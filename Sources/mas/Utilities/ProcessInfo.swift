@@ -9,8 +9,18 @@
 internal import Foundation
 
 extension ProcessInfo {
-	var sudoUsername: String? {
+	var sudoUserName: String? {
 		environment["SUDO_USER"]
+	}
+
+	var sudoGroupName: String? {
+		guard
+			let sudoGID,
+			let group = getgrgid(sudoGID)
+		else {
+			return nil
+		}
+		return String(validatingUTF8: group.pointee.gr_name)
 	}
 
 	var sudoUID: uid_t? {

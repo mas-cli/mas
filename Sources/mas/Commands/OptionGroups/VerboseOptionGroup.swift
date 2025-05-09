@@ -18,7 +18,7 @@ struct VerboseOptionGroup: ParsableArguments {
 			return
 		}
 		if verbose {
-			printWarning(error, "; was expected to identify ", appName, separator: "")
+			printWarning(error, "; was expected to identify: ", appName, separator: "")
 		}
 	}
 }

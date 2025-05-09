@@ -34,16 +34,13 @@ extension MAS {
 		}
 
 		func run(installedApps: [InstalledApp], searcher: AppStoreSearcher) async throws {
-			do {
-				let results = try await searcher.search(for: searchTermOptionGroup.searchTerm)
-				guard let result = results.first else {
-					throw MASError.noSearchResultsFound
-				}
-
-				try await install(appID: result.trackId, installedApps: installedApps)
-			} catch {
-				throw MASError(searchFailedError: error)
+			let searchTerm = searchTermOptionGroup.searchTerm
+			let results = try await searcher.search(for: searchTerm)
+			guard let result = results.first else {
+				throw MASError.noSearchResultsFound(for: searchTerm)
 			}
+
+			try await install(appID: result.trackId, installedApps: installedApps)
 		}
 
 		/// Installs an app.
@@ -53,14 +50,10 @@ extension MAS {
 		///   - installedApps: List of installed apps.
 		/// - Throws: Any error that occurs while attempting to install the app.
 		private func install(appID: AppID, installedApps: [InstalledApp]) async throws {
-			if let appName = installedApps.first(where: { $0.id == appID })?.name, !forceOptionGroup.force {
-				printWarning(appName, "is already installed")
+			if let installedApp = installedApps.first(where: { $0.id == appID }), !forceOptionGroup.force {
+				printWarning("Already installed:", installedApp.idAndName)
 			} else {
-				do {
-					try await downloadApps(withAppIDs: [appID])
-				} catch {
-					throw MASError(downloadFailedError: error)
-				}
+				try await downloadApp(withAppID: appID)
 			}
 		}
 	}

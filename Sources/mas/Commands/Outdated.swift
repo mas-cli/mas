@@ -20,11 +20,11 @@ extension MAS {
 		var verboseOptionGroup: VerboseOptionGroup
 
 		/// Runs the command.
-		func run() async throws {
-			try await run(installedApps: await installedApps, searcher: ITunesSearchAppStoreSearcher())
+		func run() async {
+			await run(installedApps: await installedApps, searcher: ITunesSearchAppStoreSearcher())
 		}
 
-		func run(installedApps: [InstalledApp], searcher: AppStoreSearcher) async throws {
+		func run(installedApps: [InstalledApp], searcher: AppStoreSearcher) async {
 			for installedApp in installedApps {
 				do {
 					let storeApp = try await searcher.lookup(appID: installedApp.id)
@@ -41,7 +41,7 @@ extension MAS {
 							separator: ""
 						)
 					}
-				} catch let error as MASError {
+				} catch {
 					verboseOptionGroup.printProblem(forError: error, expectedAppName: installedApp.name)
 				}
 			}
