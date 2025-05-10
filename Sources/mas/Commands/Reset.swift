@@ -20,7 +20,7 @@ extension MAS {
 		var debug = false
 
 		/// Runs the command.
-		func run() throws {
+		func run() {
 			// The "Reset Application" command in the Mac App Store debug menu performs
 			// the following steps
 			//

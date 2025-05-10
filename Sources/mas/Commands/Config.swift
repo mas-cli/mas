@@ -22,7 +22,7 @@ extension MAS {
 		var markdown = false
 
 		/// Runs the command.
-		func run() async throws {
+		func run() async {
 			if markdown {
 				printInfo("```text")
 			}
