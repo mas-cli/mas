@@ -10,13 +10,42 @@ private import CommerceKit
 struct Downloader {
 	let printer: Printer
 
+	func downloadApps(
+		withAppIDs appIDs: [AppID],
+		purchasing: Bool,
+		forceDownload: Bool,
+		installedApps: [InstalledApp],
+		searcher: AppStoreSearcher
+	) async {
+		for appID in appIDs.filter({ appID in
+			if let installedApp = installedApps.first(where: { appID.matches($0) }), !forceDownload {
+				printer.warning(
+					purchasing ? "Already purchased: " : "Already installed: ",
+					installedApp.name,
+					" (",
+					appID,
+					")",
+					separator: ""
+				)
+				return false
+			}
+			return true
+		}) {
+			do {
+				try await downloadApp(withADAMID: try await appID.adamID(searcher: searcher), purchasing: purchasing)
+			} catch {
+				printer.error(error: error)
+			}
+		}
+	}
+
 	func downloadApp(
-		withAppID appID: AppID,
+		withADAMID adamID: ADAMID,
 		purchasing: Bool = false,
 		withAttemptCount attemptCount: UInt32 = 3
 	) async throws {
 		do {
-			let purchase = await SSPurchase(appID: appID, purchasing: purchasing)
+			let purchase = await SSPurchase(adamID: adamID, purchasing: purchasing)
 			_ = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
 				CKPurchaseController.shared().perform(purchase, withOptions: 0) { _, _, error, response in
 					if let error {
@@ -24,7 +53,7 @@ struct Downloader {
 					} else if response?.downloads?.isEmpty == false {
 						Task {
 							do {
-								try await PurchaseDownloadObserver(appID: appID, printer: printer).observeDownloadQueue()
+								try await PurchaseDownloadObserver(adamID: adamID, printer: printer).observeDownloadQueue()
 								continuation.resume()
 							} catch {
 								continuation.resume(throwing: error)
@@ -53,7 +82,7 @@ struct Downloader {
 				error,
 				separator: ""
 			)
-			try await downloadApp(withAppID: appID, purchasing: purchasing, withAttemptCount: attemptCount)
+			try await downloadApp(withADAMID: adamID, purchasing: purchasing, withAttemptCount: attemptCount)
 		}
 	}
 }

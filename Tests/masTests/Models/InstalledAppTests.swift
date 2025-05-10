@@ -8,7 +8,7 @@
 @testable private import mas
 internal import Testing
 
-private let app = InstalledApp(id: 111, bundleID: "", name: "App", path: "", version: "1.0.0")
+private let app = InstalledApp(adamID: 111, bundleID: "", name: "App", path: "", version: "1.0.0")
 
 @Test
 func installedAppNotOutdatedWhenNoNewVersionAvailable() {

@@ -13,15 +13,15 @@ private var initialPhaseType: Int64 { 4 }
 private var downloadedPhaseType: Int64 { 5 }
 
 class PurchaseDownloadObserver: CKDownloadQueueObserver {
-	private let appID: AppID
+	private let adamID: ADAMID
 	private let printer: Printer
 
 	private var completionHandler: (() -> Void)?
 	private var errorHandler: ((Error) -> Void)?
 	private var prevPhaseType: Int64?
 
-	init(appID: AppID, printer: Printer) {
-		self.appID = appID
+	init(adamID: ADAMID, printer: Printer) {
+		self.adamID = adamID
 		self.printer = printer
 	}
 
@@ -32,14 +32,14 @@ class PurchaseDownloadObserver: CKDownloadQueueObserver {
 	func downloadQueue(_ queue: CKDownloadQueue, statusChangedFor download: SSDownload) {
 		guard
 			let metadata = download.metadata,
-			metadata.itemIdentifier == appID,
+			metadata.itemIdentifier == adamID,
 			let status = download.status
 		else {
 			return
 		}
 
 		if status.isFailed || status.isCancelled {
-			queue.removeDownload(withItemIdentifier: metadata.itemIdentifier)
+			queue.removeDownload(withItemIdentifier: adamID)
 		} else {
 			prevPhaseType = printer.progress(for: metadata.appNameAndVersion, status: status, prevPhaseType: prevPhaseType)
 		}
@@ -52,7 +52,7 @@ class PurchaseDownloadObserver: CKDownloadQueueObserver {
 	func downloadQueue(_: CKDownloadQueue, changedWithRemoval download: SSDownload) {
 		guard
 			let metadata = download.metadata,
-			metadata.itemIdentifier == appID,
+			metadata.itemIdentifier == adamID,
 			let status = download.status
 		else {
 			return

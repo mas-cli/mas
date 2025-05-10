@@ -35,7 +35,7 @@ extension MASError: CustomStringConvertible {
 		case let .noSearchResultsFound(searchTerm):
 			"No apps found in the Mac App Store for search term: \(searchTerm)"
 		case let .noVendorWebsite(appID):
-			"No vendor website available for app ID \(appID)"
+			"No vendor website available for \(appID)"
 		case .notSupported:
 			"""
 			This command is not supported on this macOS version due to changes in macOS
@@ -44,7 +44,7 @@ extension MASError: CustomStringConvertible {
 		case let .runtimeError(message):
 			message
 		case let .unknownAppID(appID):
-			"No apps found in the Mac App Store for app ID \(appID)"
+			"No apps found in the Mac App Store for \(appID)"
 		case let .urlParsing(string):
 			"Unable to parse URL from \(string)"
 		}

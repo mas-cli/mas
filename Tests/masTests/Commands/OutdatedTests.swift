@@ -13,6 +13,7 @@ internal import Testing
 func outputsOutdatedApps() async {
 	let mockSearchResult =
 		SearchResult(
+			bundleId: "au.id.haroldchu.mac.Bandwidth",
 			currentVersionReleaseDate: "2024-09-02T00:27:00Z",
 			fileSizeBytes: "998130",
 			minimumOsVersion: "10.13",
@@ -29,14 +30,14 @@ func outputsOutdatedApps() async {
 			try await MAS.Outdated.parse([]).run(
 				installedApps: [
 					InstalledApp(
-						id: mockSearchResult.trackId,
-						bundleID: "au.id.haroldchu.mac.Bandwidth",
+						adamID: mockSearchResult.trackId,
+						bundleID: mockSearchResult.bundleId,
 						name: mockSearchResult.trackName,
 						path: "/Applications/Bandwidth+.app",
 						version: "1.27"
 					),
 				],
-				searcher: MockAppStoreSearcher([mockSearchResult.trackId: mockSearchResult])
+				searcher: MockAppStoreSearcher([.bundleID(mockSearchResult.bundleId): mockSearchResult])
 			)
 		)
 		== UnvaluedConsequences(nil, "490461369 Bandwidth+ (1.27 -> 1.28)\n") // swiftformat:disable:this indent

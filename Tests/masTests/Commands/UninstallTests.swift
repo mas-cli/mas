@@ -9,9 +9,9 @@ private import ArgumentParser
 @testable private import mas
 internal import Testing
 
-private let appID = 12345 as AppID
+private let adamID = 12345 as ADAMID
 private let app = InstalledApp(
-	id: appID,
+	adamID: adamID,
 	bundleID: "com.some.app",
 	name: "Some App",
 	path: "/tmp/Some.app",
@@ -21,15 +21,15 @@ private let app = InstalledApp(
 @Test(.disabled())
 func uninstallDryRunCannotRemoveMissingApp() {
 	#expect(
-		consequencesOf(try MAS.Uninstall.parse(["--dry-run", String(appID)]).run(installedApps: []))
-		== UnvaluedConsequences(nil, "No installed apps with app ID \(appID)") // swiftformat:disable:this indent
+		consequencesOf(try MAS.Uninstall.parse(["--dry-run", String(adamID)]).run(installedApps: []))
+		== UnvaluedConsequences(nil, "No installed apps with ADAM ID \(adamID)") // swiftformat:disable:this indent
 	)
 }
 
 @Test(.disabled())
 func uninstallDryRunFindsApp() {
 	#expect( // swiftformat:disable:next indent
-		consequencesOf(try MAS.Uninstall.parse(["--dry-run", String(appID)]).run(installedApps: [app]))
+		consequencesOf(try MAS.Uninstall.parse(["--dry-run", String(adamID)]).run(installedApps: [app]))
 		== UnvaluedConsequences(nil, "==> 'Some App' '/tmp/Some.app'\n==> (not removed, dry run)\n")
 	) // swiftformat:disable:previous indent
 }
@@ -37,14 +37,14 @@ func uninstallDryRunFindsApp() {
 @Test(.disabled())
 func uninstallCannotRemoveMissingApp() {
 	#expect(
-		consequencesOf(try MAS.Uninstall.parse([String(appID)]).run(installedApps: []))
-		== UnvaluedConsequences(nil, "No installed apps with app ID \(appID)") // swiftformat:disable:this indent
+		consequencesOf(try MAS.Uninstall.parse([String(adamID)]).run(installedApps: []))
+		== UnvaluedConsequences(nil, "No installed apps with ADAM ID \(adamID)") // swiftformat:disable:this indent
 	)
 }
 
 @Test(.disabled())
 func uninstallRemovesApp() {
 	#expect(
-		consequencesOf(try MAS.Uninstall.parse([String(appID)]).run(installedApps: [app])) == UnvaluedConsequences()
+		consequencesOf(try MAS.Uninstall.parse([String(adamID)]).run(installedApps: [app])) == UnvaluedConsequences()
 	)
 }

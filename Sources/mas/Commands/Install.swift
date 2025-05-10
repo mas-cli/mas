@@ -26,24 +26,13 @@ extension MAS {
 
 		func run(installedApps: [InstalledApp], searcher: AppStoreSearcher) async throws {
 			try await mas.run { printer in
-				await run(downloader: Downloader(printer: printer), installedApps: installedApps, searcher: searcher)
-			}
-		}
-
-		private func run(downloader: Downloader, installedApps: [InstalledApp], searcher: AppStoreSearcher) async {
-			for appID in appIDsOptionGroup.appIDs.filter({ appID in
-				if let installedApp = installedApps.first(where: { $0.id == appID }), !forceOptionGroup.force {
-					downloader.printer.warning("Already installed:", installedApp.idAndName)
-					return false
-				}
-				return true
-			}) {
-				do {
-					_ = try await searcher.lookup(appID: appID)
-					try await downloader.downloadApp(withAppID: appID)
-				} catch {
-					downloader.printer.error(error: error)
-				}
+				await Downloader(printer: printer).downloadApps(
+					withAppIDs: appIDsOptionGroup.appIDs,
+					purchasing: false,
+					forceDownload: forceOptionGroup.force,
+					installedApps: installedApps,
+					searcher: searcher
+				)
 			}
 		}
 	}

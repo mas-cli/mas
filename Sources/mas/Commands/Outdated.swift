@@ -33,7 +33,7 @@ extension MAS {
 					let storeApp = try await searcher.lookup(appID: installedApp.id)
 					if installedApp.isOutdated(comparedTo: storeApp) {
 						printer.info(
-							installedApp.id,
+							installedApp.adamID,
 							" ",
 							installedApp.name,
 							" (",

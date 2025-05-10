@@ -18,7 +18,7 @@ func formatsEmptyAppListAsEmptyString() {
 @Test
 func formatsSingleInstalledApp() {
 	#expect(
-		consequencesOf(format([InstalledApp(id: 12345, bundleID: "", name: "Awesome App", path: "", version: "19.2.1")]))
+		consequencesOf(format([InstalledApp(adamID: 12345, bundleID: "", name: "Awesome App", path: "", version: "19.2.1")]))
 		== ValuedConsequences("12345       Awesome App  (19.2.1)") // swiftformat:disable:this indent
 	)
 }
@@ -29,8 +29,8 @@ func formatsTwoInstalledApps() {
 		consequencesOf(
 			format(
 				[
-					InstalledApp(id: 12345, bundleID: "", name: "Awesome App", path: "", version: "19.2.1"),
-					InstalledApp(id: 67890, bundleID: "", name: "Even Better App", path: "", version: "1.2.0"),
+					InstalledApp(adamID: 12345, bundleID: "", name: "Awesome App", path: "", version: "19.2.1"),
+					InstalledApp(adamID: 67890, bundleID: "", name: "Even Better App", path: "", version: "1.2.0"),
 				]
 			)
 		) // swiftformat:disable:next indent
