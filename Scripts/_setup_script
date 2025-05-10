@@ -1,6 +1,6 @@
 #!/bin/zsh -Ndefgku
 #
-# script/_setup_script
+# Scripts/_setup_script
 # mas
 #
 # Boilerplate setup for scripts.

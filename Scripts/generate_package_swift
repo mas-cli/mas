@@ -1,6 +1,6 @@
 #!/bin/zsh -Ndefgku
 #
-# script/generate_package_swift
+# Scripts/generate_package_swift
 # mas
 #
 # Generates a file to provide the mas version to Swift code.
@@ -14,12 +14,12 @@ cat <<EOF >Sources/mas/Package.swift
 // Package.swift
 // mas
 //
-// Created by script/generate_package_swift on $(date '+%Y-%m-%d').
+// Created by Scripts/generate_package_swift on $(date '+%Y-%m-%d').
 // Copyright © $(date '+%Y') mas-cli. All rights reserved.
 //
 
 enum Package {
-	static let version = "$(script/version)"
+	static let version = "$(Scripts/version)"
 	static let installMethod = "${1:-unknown}"
 	static let gitOrigin = "$(git remote get-url origin)"
 	static let gitRevision = "$(git rev-parse HEAD)"

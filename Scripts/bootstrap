@@ -1,16 +1,16 @@
 #!/bin/zsh -Ndefgku
 #
-# script/bootstrap
+# Scripts/bootstrap
 # mas
 #
-# Installs dependencies for script/format & script/lint.
+# Installs dependencies for Scripts/format & Scripts/lint.
 #
 # Usage: bootstrap [<brew-bundle-install-argument>...]
 #
 
 . "${0:a:h}/_setup_script"
 
-printf $'==> 👢 Bootstrapping mas %s\n' "$(script/version)"
+printf $'==> 👢 Bootstrapping mas %s\n' "$(Scripts/version)"
 
 if ! whence brew >/dev/null; then
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"

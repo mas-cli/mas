@@ -1,8 +1,8 @@
 # All Files
 
-- Use `script/format` to automatically fix a number of style violations.
+- Use `Scripts/format` to automatically fix a number of style violations.
 - Remove unnecessary whitespace from the end of lines.
-  - Use `script/lint` to look for these before committing.
+  - Use `Scripts/lint` to look for these before committing.
   - Note that two trailing spaces is valid Markdown to create a line break like `<br>`,
     so those should _not_ be removed.
 - End each file with a [newline character](

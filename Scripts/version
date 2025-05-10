@@ -1,6 +1,6 @@
 #!/bin/zsh -Ndefgku
 #
-# script/version
+# Scripts/version
 # mas
 #
 # Outputs the mas version.

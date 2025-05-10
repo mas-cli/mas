@@ -21,8 +21,8 @@ Pull requests (PRs) are welcome from everyone. By participating in this project,
   - To quickly create a topic branch based on `main` named, e.g., `new-feature`, run: `git checkout -b new-feature main`
 - Make commits of logical units.
 - Follow the [style guide](docs/style.md).
-- Run `script/format` before committing.
-- Run `script/lint` before committing. Fix all lint violations.
+- Run `Scripts/format` before committing.
+- Run `Scripts/lint` before committing. Fix all lint violations.
 - Write tests.
   - If you need help with tests, feel free to open a PR, then ask for testing help.
 - Write a [good commit message](https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html).

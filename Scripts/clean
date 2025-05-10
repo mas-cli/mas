@@ -1,6 +1,6 @@
 #!/bin/zsh -Ndefgku
 #
-# script/clean
+# Scripts/clean
 # mas
 #
 # Deletes the build directory & other generated files.
@@ -8,7 +8,7 @@
 
 . "${0:a:h}/_setup_script"
 
-printf $'==> 🗑​ Cleaning mas %s\n' "$(script/version)"
+printf $'==> 🗑​ Cleaning mas %s\n' "$(Scripts/version)"
 
 swift package clean
 swift package reset

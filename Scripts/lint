@@ -1,24 +1,24 @@
 #!/bin/zsh -Ndfgku
 #
-# script/lint
+# Scripts/lint
 # mas
 #
 # Linting checks for development & CI.
 #
 # Reports style violations without making any modifications to the code.
 #
-# Please keep in sync with script/format.
+# Please keep in sync with Scripts/format.
 #
 
 . "${0:a:h}/_setup_script"
 
-printf $'==> 🚨 Linting mas %s\n' "$(script/version)"
+printf $'==> 🚨 Linting mas %s\n' "$(Scripts/version)"
 
-script/generate_package_swift lint
+Scripts/generate_package_swift lint
 
 for linter in git markdownlint-cli2 periphery shellcheck swiftformat swiftlint yamllint; do
 	if ! whence "${linter}" >/dev/null; then
-		printf $'error: %s is not installed. Run \'script/bootstrap\' or \'brew install %s\'.\n' "${linter}" "${linter}" >&2
+		printf $'error: %s is not installed. Run \'Scripts/bootstrap\' or \'brew install %s\'.\n' "${linter}" "${linter}" >&2
 		exit 1
 	fi
 done
@@ -35,11 +35,11 @@ for source in Package.swift Sources Tests; do
 done
 
 printf -- $'--> 🐚 ShellCheck\n'
-shellcheck -s bash -o all -e SC1088,SC1102,SC2066,SC2296,SC2299,SC2300,SC2301,SC2312 -a -P SCRIPTDIR script/**/*(.)
+shellcheck -s bash -o all -e SC1088,SC1102,SC2066,SC2296,SC2299,SC2300,SC2301,SC2312 -a -P SCRIPTDIR Scripts/**/*(.)
 ((exit_code |= ${?}))
 
 printf -- $'--> 💤 zsh syntax\n'
-for script in script/**/*(.); do
+for script in Scripts/**/*(.); do
 	/bin/zsh -n "${script}"
 	((exit_code |= ${?}))
 done

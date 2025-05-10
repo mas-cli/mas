@@ -1,6 +1,6 @@
 #!/bin/zsh -Ndefgku
 #
-# script/release_cancel
+# Scripts/release_cancel
 # mas
 #
 # Cancel a GitHub draft release.

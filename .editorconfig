@@ -20,5 +20,5 @@ trim_trailing_whitespace = false
 [{*.yaml,*.yml}]
 max_line_length = 80
 
-[script/*]
+[Scripts/*]
 max_line_length = 80

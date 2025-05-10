@@ -1,20 +1,20 @@
 #!/bin/zsh -Ndefgku
 #
-# script/format
+# Scripts/format
 # mas
 #
 # Automatically formats & fixes style violations using various tools.
 #
-# Please keep in sync with script/lint.
+# Please keep in sync with Scripts/lint.
 #
 
 . "${0:a:h}/_setup_script"
 
-printf $'==> 🧹 Formatting mas %s\n' "$(script/version)"
+printf $'==> 🧹 Formatting mas %s\n' "$(Scripts/version)"
 
 for formatter in markdownlint-cli2 swiftformat swiftlint yamllint; do
 	if ! whence "${formatter}" >/dev/null; then
-		printf $'error: %s is not installed. Run \'script/bootstrap\' or \'brew install %s\'.\n' "${formatter}" "${formatter}" >&2
+		printf $'error: %s is not installed. Run \'Scripts/bootstrap\' or \'brew install %s\'.\n' "${formatter}" "${formatter}" >&2
 		exit 1
 	fi
 done

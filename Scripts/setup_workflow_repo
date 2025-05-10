@@ -1,6 +1,6 @@
 #!/bin/zsh -Ndefgku
 #
-# script/setup_workflow_repo
+# Scripts/setup_workflow_repo
 # mas
 #
 # Sets up the repo for use in a GitHub workflow.
