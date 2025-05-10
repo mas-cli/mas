@@ -9,11 +9,14 @@
 ---
 opt_in_rules:
 - all
+analyzer_rules:
+- all
 disabled_rules:
 # Never enable
 - contrasted_opening_brace
 - explicit_acl
 - explicit_enum_raw_value
+- explicit_self
 - explicit_top_level_acl
 - explicit_type_interface
 - no_extension_access_modifier

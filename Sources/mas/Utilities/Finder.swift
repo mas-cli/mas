@@ -7,10 +7,11 @@
 //
 
 // periphery:ignore:all
-// swiftlint:disable:next blanket_disable_command
+// swiftlint:disable blanket_disable_command
 // swiftlint:disable attributes discouraged_none_name file_length file_types_order identifier_name
-// swiftlint:disable:next blanket_disable_command
 // swiftlint:disable implicitly_unwrapped_optional legacy_objc_type line_length one_declaration_per_file
+// swiftlint:disable unused_declaration
+// swiftlint:enable blanket_disable_command
 internal import AppKit
 internal import ScriptingBridge
 

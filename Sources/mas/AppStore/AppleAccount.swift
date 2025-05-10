@@ -11,8 +11,7 @@ internal import Foundation
 
 struct AppleAccount: Sendable {
 	let emailAddress: String
-	// swiftlint:disable:next legacy_objc_type
-	let dsID: NSNumber
+	let dsID: NSNumber // swiftlint:disable:this legacy_objc_type
 }
 
 @MainActor

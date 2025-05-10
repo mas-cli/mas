@@ -14,6 +14,7 @@ internal import Foundation
 private let csi = "\u{001B}["
 
 // periphery:ignore
+// swiftlint:disable:next unused_declaration
 func print(_ items: Any..., to fileHandle: FileHandle, separator: String = " ", terminator: String = "\n") {
 	print(message(items, separator: separator, terminator: terminator), to: fileHandle)
 }

@@ -7,6 +7,6 @@
 //
 
 struct SearchResultList: Decodable {
-	var resultCount: Int
+	var resultCount: Int // swiftlint:disable:this unused_declaration
 	var results: [SearchResult]
 }

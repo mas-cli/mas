@@ -11,6 +11,7 @@ private import StoreKit
 
 // periphery:ignore
 protocol ISORegion {
+	// swiftlint:disable unused_declaration
 	var name: String { get }
 	var numeric: String { get }
 	var alpha2: String { get }
@@ -20,6 +21,7 @@ protocol ISORegion {
 	var continent: String { get }
 	var flag: String? { get }
 	var fractionDigits: Int { get }
+	// swiftlint:enable unused_declaration
 }
 
 extension IsoCountryInfo: ISORegion {}
