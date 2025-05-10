@@ -9,7 +9,7 @@
 private import AppKit
 internal import ArgumentParser
 
-private let masScheme = "macappstore"
+private var masScheme: String { "macappstore" }
 
 extension MAS {
 	/// Opens app page in MAS app. Uses the iTunes Lookup API:
