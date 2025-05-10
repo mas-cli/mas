@@ -34,10 +34,7 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 	/// - Throws: A `MASError.unknownAppID(appID)` if `appID` is invalid.
 	///   Some other `Error` if any other problem occurs.
 	func lookup(appID: AppID, inRegion region: ISORegion?) async throws -> SearchResult {
-		guard let url = lookupURL(forAppID: appID, inRegion: region) else {
-			fatalError("Failed to build URL for \(appID)")
-		}
-		let results = try await getSearchResults(from: url)
+		let results = try await getSearchResults(from: try lookupURL(forAppID: appID, inRegion: region))
 		guard let result = results.first else {
 			throw MASError.unknownAppID(appID)
 		}
@@ -62,10 +59,9 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 
 		var appSet = Set<SearchResult>()
 		for entity in entities {
-			guard let url = searchURL(for: searchTerm, inRegion: region, ofEntity: entity) else {
-				fatalError("Failed to build URL for \(searchTerm)")
-			}
-			appSet.formUnion(try await getSearchResults(from: url))
+			appSet.formUnion(
+				try await getSearchResults(from: try searchURL(for: searchTerm, inRegion: region, ofEntity: entity))
+			)
 		}
 
 		return Array(appSet)
@@ -77,13 +73,14 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 	///   - appID: App ID.
 	///   - region: The `ISORegion` of the storefront in which to lookup apps.
 	///   - entity: OS platform of apps for which to search.
-	/// - Returns: URL for the lookup service or nil if appID can't be encoded.
+	/// - Returns: URL for the lookup service.
+	/// - Throws: An `MASError.urlParsing` if `appID` can't be encoded.
 	private func lookupURL(
 		forAppID appID: AppID,
 		inRegion region: ISORegion?,
 		ofEntity entity: Entity = .desktopSoftware
-	) -> URL? {
-		url("lookup", URLQueryItem(name: "id", value: String(appID)), inRegion: region, ofEntity: entity)
+	) throws -> URL {
+		try url("lookup", URLQueryItem(name: "id", value: String(appID)), inRegion: region, ofEntity: entity)
 	}
 
 	/// Builds the search URL for an app.
@@ -92,13 +89,14 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 	///   - searchTerm: term for which to search in MAS.
 	///   - region: The `ISORegion` of the storefront in which to lookup apps.
 	///   - entity: OS platform of apps for which to search.
-	/// - Returns: URL for the search service or nil if searchTerm can't be encoded.
+	/// - Returns: URL for the search service.
+	/// - Throws: An `MASError.urlParsing` if `searchTerm` can't be encoded.
 	private func searchURL(
 		for searchTerm: String,
 		inRegion region: ISORegion?,
 		ofEntity entity: Entity = .desktopSoftware
-	) -> URL? {
-		url("search", URLQueryItem(name: "term", value: searchTerm), inRegion: region, ofEntity: entity)
+	) throws -> URL {
+		try url("search", URLQueryItem(name: "term", value: searchTerm), inRegion: region, ofEntity: entity)
 	}
 
 	private func url(
@@ -106,9 +104,10 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 		_ queryItem: URLQueryItem,
 		inRegion region: ISORegion?,
 		ofEntity entity: Entity = .desktopSoftware
-	) -> URL? {
-		guard var components = URLComponents(string: "https://itunes.apple.com/\(action)") else {
-			return nil
+	) throws -> URL {
+		let urlBase = "https://itunes.apple.com/\(action)"
+		guard var urlComponents = URLComponents(string: urlBase) else {
+			throw MASError.urlParsing(urlBase)
 		}
 
 		var queryItems = [
@@ -122,9 +121,12 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 
 		queryItems.append(queryItem)
 
-		components.queryItems = queryItems
+		urlComponents.queryItems = queryItems
 
-		return components.url
+		guard let url = urlComponents.url else {
+			throw MASError.urlParsing("\(urlBase)?\(queryItems.map(\.description).joined(separator: "&"))")
+		}
+		return url
 	}
 
 	private func getSearchResults(from url: URL) async throws -> [SearchResult] {

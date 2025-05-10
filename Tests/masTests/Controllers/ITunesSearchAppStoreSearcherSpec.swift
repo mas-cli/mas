@@ -35,7 +35,8 @@ final class ITunesSearchAppStoreSearcherSpec: AsyncSpec {
 				expect(consequences.stderr).to(beEmpty())
 
 				guard let result = consequences.value else {
-					fatalError("lookup result was nil")
+					expect(consequences.value) != nil
+					return
 				}
 
 				expect(result.trackId) == appID
