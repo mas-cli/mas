@@ -4,7 +4,7 @@
 # .markdownlint-cli2.yaml
 # mas
 #
-# markdownlint-cli2 0.17.2 / markdownlint 0.37.4
+# markdownlint-cli2 0.18.0 / markdownlint 0.38.0
 #
 # https://github.com/DavidAnson/markdownlint-cli2#configuration
 #
@@ -92,9 +92,7 @@ config:
     front_matter_title: ^\\s*title\\s*[:=]
     level: 1
   no-empty-links: true
-  required-headings: false
-  #  headings: []
-  #  match_case: true
+  required-headings: true
   proper-names:
     names: []
     code_blocks: true
