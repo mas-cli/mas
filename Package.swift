@@ -29,6 +29,7 @@ let package = Package(
 				"Version",
 			],
 			swiftSettings: [
+				.enableExperimentalFeature("StrictConcurrency"),
 				.unsafeFlags([
 					"-I", "Sources/PrivateFrameworks/CommerceKit",
 					"-I", "Sources/PrivateFrameworks/StoreFoundation",
