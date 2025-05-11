@@ -15,12 +15,15 @@ private var downloadedPhaseType: Int64 { 5 }
 
 class PurchaseDownloadObserver: CKDownloadQueueObserver {
 	private let appID: AppID
+	private let printer: Printer
+
 	private var completionHandler: (() -> Void)?
-	private var errorHandler: ((MASError) -> Void)?
+	private var errorHandler: ((Error) -> Void)?
 	private var prevPhaseType: Int64?
 
-	init(appID: AppID) {
+	init(appID: AppID, printer: Printer) {
 		self.appID = appID
+		self.printer = printer
 	}
 
 	deinit {
@@ -38,7 +41,7 @@ class PurchaseDownloadObserver: CKDownloadQueueObserver {
 		if status.isFailed || status.isCancelled {
 			queue.removeDownload(withItemIdentifier: download.metadata.itemIdentifier)
 		} else {
-			prevPhaseType = download.printProgress(prevPhaseType: prevPhaseType)
+			prevPhaseType = printer.progress(of: download, prevPhaseType: prevPhaseType)
 		}
 	}
 
@@ -54,13 +57,13 @@ class PurchaseDownloadObserver: CKDownloadQueueObserver {
 			return
 		}
 
-		terminateEphemeralPrinting()
+		printer.terminateEphemeral()
 		if status.isFailed {
-			errorHandler?(MASError(downloadFailedError: status.error))
+			errorHandler?(status.error)
 		} else if status.isCancelled {
-			errorHandler?(.cancelled)
+			errorHandler?(MASError.cancelled)
 		} else {
-			printNotice("Installed", download.progressDescription)
+			printer.notice("Installed", download.progressDescription)
 			completionHandler?()
 		}
 	}
@@ -80,21 +83,23 @@ private extension SSDownload {
 	var progressDescription: String {
 		"\(metadata.title) (\(metadata.bundleVersion ?? "unknown version"))"
 	}
+}
 
-	func printProgress(prevPhaseType: Int64?) -> Int64 {
-		let currPhaseType = status.activePhase.phaseType
+private extension Printer {
+	func progress(of download: SSDownload, prevPhaseType: Int64?) -> Int64 {
+		let currPhaseType = download.status.activePhase.phaseType
 		if prevPhaseType != currPhaseType {
 			switch currPhaseType {
 			case downloadingPhaseType:
 				if prevPhaseType == initialPhaseType {
-					printProgressHeader()
+					progressHeader(for: download)
 				}
 			case downloadedPhaseType:
 				if prevPhaseType == downloadingPhaseType {
-					printProgressHeader()
+					progressHeader(for: download)
 				}
 			case installingPhaseType:
-				printProgressHeader()
+				progressHeader(for: download)
 			default:
 				break
 			}
@@ -102,10 +107,10 @@ private extension SSDownload {
 
 		if isatty(fileno(stdout)) != 0 {
 			// Only output the progress bar if connected to a terminal
-			let progressState = status.progressState
+			let progressState = download.status.progressState
 			let totalLength = 60
 			let completedLength = Int(progressState.percentComplete * Float(totalLength))
-			printEphemeral(
+			ephemeral(
 				String(repeating: "#", count: completedLength),
 				String(repeating: "-", count: totalLength - completedLength),
 				" ",
@@ -120,9 +125,9 @@ private extension SSDownload {
 		return currPhaseType
 	}
 
-	private func printProgressHeader() {
-		terminateEphemeralPrinting()
-		printNotice(status.activePhase.phaseDescription, progressDescription)
+	private func progressHeader(for download: SSDownload) {
+		terminateEphemeral()
+		notice(download.status.activePhase.phaseDescription, download.progressDescription)
 	}
 }
 

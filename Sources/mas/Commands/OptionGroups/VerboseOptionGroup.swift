@@ -12,13 +12,13 @@ struct VerboseOptionGroup: ParsableArguments {
 	@Flag(help: "Output warnings about app IDs unknown to the Mac App Store")
 	var verbose = false
 
-	func printProblem(forError error: Error, expectedAppName appName: String) {
+	func printProblem(forError error: Error, expectedAppName appName: String, printer: Printer) {
 		guard case MASError.unknownAppID = error else {
-			printError(error)
+			printer.error(error: error)
 			return
 		}
 		if verbose {
-			printWarning(error, "; was expected to identify: ", appName, separator: "")
+			printer.warning(error, "; was expected to identify: ", appName, separator: "")
 		}
 	}
 }

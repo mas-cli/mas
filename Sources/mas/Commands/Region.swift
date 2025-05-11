@@ -17,11 +17,14 @@ extension MAS {
 
 		/// Runs the command.
 		func run() async throws {
+			try await mas.run { try await run(printer: $0) }
+		}
+
+		func run(printer: Printer) async throws {
 			guard let region = await isoRegion else {
 				throw MASError.runtimeError("Failed to obtain the region of the Mac App Store")
 			}
-
-			printInfo(region.alpha2)
+			printer.info(region.alpha2)
 		}
 	}
 }

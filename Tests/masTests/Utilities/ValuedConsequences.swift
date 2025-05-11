@@ -38,14 +38,14 @@ struct ValuedConsequences<E: Equatable>: Equatable {
 
 func consequencesOf<E: Equatable>(
 	streamEncoding: String.Encoding = .utf8,
-	_ expression: @autoclosure @escaping () throws -> E
+	_ expression: @autoclosure () throws -> E
 ) -> ValuedConsequences<E> {
 	consequences(streamEncoding: streamEncoding, expression)
 }
 
 func consequencesOf<E: Equatable>(
 	streamEncoding: String.Encoding = .utf8,
-	_ expression: @autoclosure @escaping () async throws -> E
+	_ expression: @autoclosure () async throws -> E
 ) async -> ValuedConsequences<E> {
 	await consequences(streamEncoding: streamEncoding, expression)
 }
@@ -53,7 +53,7 @@ func consequencesOf<E: Equatable>(
 // periphery:ignore
 func consequencesOf<E: Equatable>(
 	streamEncoding: String.Encoding = .utf8,
-	_ body: @escaping () throws -> E
+	_ body: () throws -> E
 ) -> ValuedConsequences<E> {
 	consequences(streamEncoding: streamEncoding, body)
 }
@@ -61,14 +61,14 @@ func consequencesOf<E: Equatable>(
 // periphery:ignore
 func consequencesOf<E: Equatable>(
 	streamEncoding: String.Encoding = .utf8,
-	_ body: @escaping () async throws -> E
+	_ body: () async throws -> E
 ) async -> ValuedConsequences<E> {
 	await consequences(streamEncoding: streamEncoding, body)
 }
 
 private func consequences<E: Equatable>(
 	streamEncoding: String.Encoding = .utf8,
-	_ body: @escaping () throws -> E
+	_ body: () throws -> E
 ) -> ValuedConsequences<E> {
 	let outOriginalFD = fileno(stdout)
 	let errOriginalFD = fileno(stderr)
@@ -116,7 +116,7 @@ private func consequences<E: Equatable>(
 
 private func consequences<E: Equatable>(
 	streamEncoding: String.Encoding = .utf8,
-	_ body: @escaping () async throws -> E
+	_ body: () async throws -> E
 ) async -> ValuedConsequences<E> {
 	let outOriginalFD = fileno(stdout)
 	let errOriginalFD = fileno(stderr)

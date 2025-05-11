@@ -6,6 +6,7 @@
 // Copyright © 2018 mas-cli. All rights reserved.
 //
 
+private import ArgumentParser
 private import Nimble
 import Quick
 
@@ -18,7 +19,7 @@ final class InfoSpec: AsyncSpec {
 				await expecta(
 					await consequencesOf(try await MAS.Info.parse(["999"]).run(searcher: MockAppStoreSearcher()))
 				)
-					== UnvaluedConsequences(nil, "", "Error: No apps found in the Mac App Store for app ID 999\n")
+					== UnvaluedConsequences(ExitCode(1), "", "Error: No apps found in the Mac App Store for app ID 999\n")
 			}
 			it("outputs app details") {
 				let mockResult = SearchResult(

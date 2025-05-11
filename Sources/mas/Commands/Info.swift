@@ -24,18 +24,22 @@ extension MAS {
 		var appIDsOptionGroup: AppIDsOptionGroup
 
 		/// Runs the command.
-		func run() async {
-			await run(searcher: ITunesSearchAppStoreSearcher())
+		func run() async throws {
+			try await run(searcher: ITunesSearchAppStoreSearcher())
 		}
 
-		func run(searcher: AppStoreSearcher) async {
+		func run(searcher: AppStoreSearcher) async throws {
+			try await mas.run { await run(printer: $0, searcher: searcher) }
+		}
+
+		private func run(printer: Printer, searcher: AppStoreSearcher) async {
 			var spacing = ""
 			for appID in appIDsOptionGroup.appIDs {
 				do {
-					printInfo("", AppInfoFormatter.format(app: try await searcher.lookup(appID: appID)), separator: spacing)
+					printer.info("", AppInfoFormatter.format(app: try await searcher.lookup(appID: appID)), separator: spacing)
 				} catch {
-					print(spacing, to: .standardError)
-					printError(error)
+					printer.log(spacing, to: .standardError)
+					printer.error(error: error)
 				}
 				spacing = "\n"
 			}

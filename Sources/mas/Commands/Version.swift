@@ -16,8 +16,12 @@ extension MAS {
 		)
 
 		/// Runs the command.
-		func run() {
-			printInfo(Package.version)
+		func run() throws {
+			try mas.run { run(printer: $0) }
+		}
+
+		func run(printer: Printer) {
+			printer.info(Package.version)
 		}
 	}
 }

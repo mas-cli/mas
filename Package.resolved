@@ -55,6 +55,15 @@
 			}
 		},
 		{
+			"identity" : "swift-atomics",
+			"kind" : "remoteSourceControl",
+			"location" : "https://github.com/apple/swift-atomics.git",
+			"state" : {
+				"branch" : "main",
+				"revision" : "d61ca105d6fb41e00dae7d9f0c8db44a715516f8"
+			}
+		},
+		{
 			"identity" : "version",
 			"kind" : "remoteSourceControl",
 			"location" : "https://github.com/mxcl/Version.git",

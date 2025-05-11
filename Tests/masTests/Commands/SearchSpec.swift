@@ -6,6 +6,7 @@
 // Copyright © 2018 mas-cli. All rights reserved.
 //
 
+private import ArgumentParser
 private import Nimble
 import Quick
 
@@ -35,7 +36,11 @@ final class SearchSpec: AsyncSpec {
 						try await MAS.Search.parse([searchTerm]).run(searcher: MockAppStoreSearcher())
 					)
 				)
-					== UnvaluedConsequences(MASError.noSearchResultsFound(for: searchTerm))
+					== UnvaluedConsequences(
+						ExitCode(1),
+						"",
+						"Error: No apps found in the Mac App Store for search term: \(searchTerm)\n"
+					)
 			}
 		}
 	}

@@ -17,7 +17,11 @@ extension MAS {
 
 		/// Runs the command.
 		func run() async throws {
-			printInfo(try await appleAccount.emailAddress)
+			try await mas.run { try await run(printer: $0) }
+		}
+
+		func run(printer: Printer) async throws {
+			printer.info(try await appleAccount.emailAddress)
 		}
 	}
 }

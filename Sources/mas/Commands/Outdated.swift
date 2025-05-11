@@ -20,16 +20,20 @@ extension MAS {
 		var verboseOptionGroup: VerboseOptionGroup
 
 		/// Runs the command.
-		func run() async {
-			await run(installedApps: await installedApps, searcher: ITunesSearchAppStoreSearcher())
+		func run() async throws {
+			try await run(installedApps: await installedApps, searcher: ITunesSearchAppStoreSearcher())
 		}
 
-		func run(installedApps: [InstalledApp], searcher: AppStoreSearcher) async {
+		func run(installedApps: [InstalledApp], searcher: AppStoreSearcher) async throws {
+			try await mas.run { await run(printer: $0, installedApps: installedApps, searcher: searcher) }
+		}
+
+		private func run(printer: Printer, installedApps: [InstalledApp], searcher: AppStoreSearcher) async {
 			for installedApp in installedApps {
 				do {
 					let storeApp = try await searcher.lookup(appID: installedApp.id)
 					if installedApp.isOutdated(comparedTo: storeApp) {
-						printInfo(
+						printer.info(
 							installedApp.id,
 							" ",
 							installedApp.name,
@@ -42,7 +46,7 @@ extension MAS {
 						)
 					}
 				} catch {
-					verboseOptionGroup.printProblem(forError: error, expectedAppName: installedApp.name)
+					verboseOptionGroup.printProblem(forError: error, expectedAppName: installedApp.name, printer: printer)
 				}
 			}
 		}

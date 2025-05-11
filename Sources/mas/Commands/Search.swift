@@ -30,17 +30,16 @@ extension MAS {
 		}
 
 		func run(searcher: AppStoreSearcher) async throws {
-			do {
-				let searchTerm = searchTermOptionGroup.searchTerm
-				let results = try await searcher.search(for: searchTerm)
-				if results.isEmpty {
-					throw MASError.noSearchResultsFound(for: searchTerm)
-				}
+			try await mas.run { try await run(printer: $0, searcher: searcher) }
+		}
 
-				printInfo(SearchResultFormatter.format(results, includePrice: price))
-			} catch {
-				throw MASError(searchFailedError: error)
+		private func run(printer: Printer, searcher: AppStoreSearcher) async throws {
+			let searchTerm = searchTermOptionGroup.searchTerm
+			let results = try await searcher.search(for: searchTerm)
+			guard !results.isEmpty else {
+				throw MASError.noSearchResultsFound(for: searchTerm)
 			}
+			printer.info(SearchResultFormatter.format(results, includePrice: price))
 		}
 	}
 }

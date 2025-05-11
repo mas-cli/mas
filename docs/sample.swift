@@ -56,7 +56,7 @@ APIClient.getAwesomeness { [weak self] result in
 /// Use if-let to check for not `nil` (even if using an implicitly unwrapped variable from an API).
 func someUnauditedAPI(thing: String?) {
 	if let thing {
-		printInfo(thing)
+		printer.info(thing)
 	}
 }
 
@@ -70,9 +70,9 @@ func doSomeWork() -> Response {
 
 switch response {
 case .success(let data):
-	printInfo("The response returned successfully", data)
+	printer.info("The response returned successfully", data)
 case .failure(let error):
-	printError("An error occurred:", error)
+	printer.error("An error occurred:", error: error)
 }
 
 // MARK: Organization

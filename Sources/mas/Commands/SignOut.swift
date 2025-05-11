@@ -18,7 +18,11 @@ extension MAS {
 		)
 
 		/// Runs the command.
-		func run() {
+		func run() throws {
+			try mas.run { run(printer: $0) }
+		}
+
+		func run(printer _: Printer) {
 			ISServiceProxy.genericShared().accountService.signOut()
 		}
 	}
