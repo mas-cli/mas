@@ -1,9 +1,9 @@
 //
-// Printing.swift
+// Printer.swift
 // mas
 //
-// Created by Andrew Naylor on 2016-09-14.
-// Copyright © 2016 Andrew Naylor. All rights reserved.
+// Created by Ross Goldberg on 2025-05-10.
+// Copyright © 2025 mas-cli. All rights reserved.
 //
 
 internal import Foundation
