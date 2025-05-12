@@ -17,6 +17,7 @@ let package = Package(
 		.package(url: "https://github.com/Quick/Nimble.git", from: "13.7.1"),
 		.package(url: "https://github.com/Quick/Quick.git", exact: "7.5.0"),
 		.package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.5.0"),
+		.package(url: "https://github.com/apple/swift-atomics.git", branch: "main"),
 		.package(url: "https://github.com/funky-monkey/IsoCountryCodes.git", from: "1.0.2"),
 		.package(url: "https://github.com/mxcl/Version.git", from: "2.1.0"),
 	],
@@ -25,6 +26,7 @@ let package = Package(
 			name: "mas",
 			dependencies: [
 				.product(name: "ArgumentParser", package: "swift-argument-parser"),
+				.product(name: "Atomics", package: "swift-atomics"),
 				"IsoCountryCodes",
 				"Version",
 			],

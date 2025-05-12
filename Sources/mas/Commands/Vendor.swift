@@ -29,18 +29,23 @@ extension MAS {
 		}
 
 		func run(searcher: AppStoreSearcher) async throws {
+			try await mas.run { await run(printer: $0, searcher: searcher) }
+		}
+
+		private func run(printer: Printer, searcher: AppStoreSearcher) async {
 			for appID in appIDsOptionGroup.appIDs {
-				let result = try await searcher.lookup(appID: appID)
-
-				guard let urlString = result.sellerUrl else {
-					throw MASError.noVendorWebsite
+				do {
+					let result = try await searcher.lookup(appID: appID)
+					guard let urlString = result.sellerUrl else {
+						throw MASError.noVendorWebsite(forAppID: appID)
+					}
+					guard let url = URL(string: urlString) else {
+						throw MASError.urlParsing(urlString)
+					}
+					try await url.open()
+				} catch {
+					printer.error(error: error)
 				}
-
-				guard let url = URL(string: urlString) else {
-					throw MASError.urlParsing(urlString)
-				}
-
-				try await url.open()
 			}
 		}
 	}

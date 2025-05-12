@@ -6,6 +6,7 @@
 // Copyright © 2018 mas-cli. All rights reserved.
 //
 
+private import ArgumentParser
 private import Nimble
 import Quick
 
@@ -14,9 +15,9 @@ import Quick
 final class AccountSpec: AsyncSpec {
 	override static func spec() {
 		describe("account command") {
-			it("displays not supported warning") {
+			it("outputs not supported warning") {
 				await expecta(await consequencesOf(try await MAS.Account.parse([]).run()))
-					== UnvaluedConsequences(MASError.notSupported)
+					== UnvaluedConsequences(ExitCode(1), "", "Error: \(MASError.notSupported)\n")
 			}
 		}
 	}

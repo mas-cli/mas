@@ -15,8 +15,8 @@ final class InstalledAppSpec: QuickSpec {
 	override static func spec() {
 		let app = InstalledApp(
 			id: 111,
-			name: "App",
 			bundleID: "",
+			name: "App",
 			path: "",
 			version: "1.0.0"
 		)

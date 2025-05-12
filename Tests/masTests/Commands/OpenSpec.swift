@@ -6,6 +6,7 @@
 // Copyright © 2019 mas-cli. All rights reserved.
 //
 
+private import ArgumentParser
 private import Nimble
 import Quick
 
@@ -18,7 +19,7 @@ final class OpenSpec: AsyncSpec {
 				await expecta(
 					await consequencesOf(try await MAS.Open.parse(["999"]).run(searcher: MockAppStoreSearcher()))
 				)
-					== UnvaluedConsequences(MASError.unknownAppID(999))
+					== UnvaluedConsequences(ExitCode(1), "", "Error: \(MASError.unknownAppID(999))\n")
 			}
 		}
 	}

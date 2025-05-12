@@ -6,6 +6,7 @@
 // Copyright © 2018 mas-cli. All rights reserved.
 //
 
+private import ArgumentParser
 private import Nimble
 import Quick
 
@@ -17,7 +18,7 @@ final class ListSpec: QuickSpec {
 			it("lists apps") {
 				expect(consequencesOf(try MAS.List.parse([]).run(installedApps: [])))
 					== UnvaluedConsequences(
-						nil,
+						ExitCode(1),
 						"",
 						"""
 						Error: No installed apps found

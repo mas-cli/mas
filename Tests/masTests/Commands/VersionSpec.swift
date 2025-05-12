@@ -14,7 +14,7 @@ import Quick
 final class VersionSpec: QuickSpec {
 	override static func spec() {
 		describe("version command") {
-			it("displays the current version") {
+			it("outputs the current version") {
 				expect(consequencesOf(try MAS.Version.parse([]).run())) == UnvaluedConsequences(nil, "\(Package.version)\n")
 			}
 		}

@@ -13,21 +13,25 @@ private var unknown: String { "unknown" }
 private var sysCtlByName: String { "sysctlbyname" }
 
 extension MAS {
-	/// Displays mas config & related system info.
+	/// Outputs mas config & related system info.
 	struct Config: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
-			abstract: "Display mas config & related system info"
+			abstract: "Output mas config & related system info"
 		)
 
 		@Flag(help: "Output as Markdown")
 		var markdown = false
 
 		/// Runs the command.
-		func run() async {
+		func run() async throws {
+			try await mas.run { await run(printer: $0) }
+		}
+
+		func run(printer: Printer) async {
 			if markdown {
-				printInfo("```text")
+				printer.info("```text")
 			}
-			printInfo(
+			printer.info(
 				"""
 				mas ▁▁▁▁ \(Package.version)
 				arch ▁▁▁ \(configStringValue("hw.machine"))
@@ -45,7 +49,7 @@ extension MAS {
 				"""
 			)
 			if markdown {
-				printInfo("```")
+				printer.info("```")
 			}
 		}
 	}

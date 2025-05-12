@@ -24,11 +24,15 @@ disabled_rules:
 - no_magic_numbers
 - prefixed_toplevel_constant
 - sorted_enum_cases
+- strict_fileprivate
 - vertical_whitespace_between_cases
+- void_function_in_ternary
 attributes:
   always_on_line_above: ['@MainActor', '@OptionGroup']
 closure_body_length:
   warning: 40
+cyclomatic_complexity:
+  warning: 11
 file_types_order:
   order:
   - main_type
@@ -37,7 +41,7 @@ file_types_order:
   - preview_provider
   - library_content_provider
 function_body_length:
-  warning: 55
+  warning: 70
 indentation_width:
   include_multiline_strings: false
 number_separator:

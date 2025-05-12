@@ -46,10 +46,10 @@ var installedApps: [InstalledApp] {
 						if let item = result as? NSMetadataItem {
 							InstalledApp(
 								id: item.value(forAttribute: "kMDItemAppStoreAdamID") as? AppID ?? 0,
+								bundleID: item.value(forAttribute: NSMetadataItemCFBundleIdentifierKey) as? String ?? "",
 								name: (item.value(forAttribute: "_kMDItemDisplayNameWithExtensions") as? String ?? "").removingSuffix(
 									".app"
 								),
-								bundleID: item.value(forAttribute: NSMetadataItemCFBundleIdentifierKey) as? String ?? "",
 								path: item.value(forAttribute: NSMetadataItemPathKey) as? String ?? "",
 								version: item.value(forAttribute: NSMetadataItemVersionKey) as? String ?? ""
 							)

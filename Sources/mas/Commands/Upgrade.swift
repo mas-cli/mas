@@ -17,7 +17,7 @@ extension MAS {
 
 		@OptionGroup
 		var verboseOptionGroup: VerboseOptionGroup
-		@Argument(help: ArgumentHelp("App ID/app name", valueName: "app-id-or-name"))
+		@Argument(help: ArgumentHelp("App ID/name", valueName: "app-id-or-name"))
 		var appIDOrNames = [String]()
 
 		/// Runs the command.
@@ -26,13 +26,19 @@ extension MAS {
 		}
 
 		func run(installedApps: [InstalledApp], searcher: AppStoreSearcher) async throws {
-			let apps = await findOutdatedApps(installedApps: installedApps, searcher: searcher)
+			try await mas.run { printer in
+				await run(downloader: Downloader(printer: printer), installedApps: installedApps, searcher: searcher)
+			}
+		}
+
+		private func run(downloader: Downloader, installedApps: [InstalledApp], searcher: AppStoreSearcher) async {
+			let apps = await findOutdatedApps(printer: downloader.printer, installedApps: installedApps, searcher: searcher)
 
 			guard !apps.isEmpty else {
 				return
 			}
 
-			printInfo(
+			downloader.printer.info(
 				"Upgrading ",
 				apps.count,
 				" outdated application",
@@ -44,14 +50,17 @@ extension MAS {
 				separator: ""
 			)
 
-			do {
-				try await downloadApps(withAppIDs: apps.map(\.storeApp.trackId))
-			} catch {
-				throw MASError(downloadFailedError: error)
+			for appID in apps.map(\.storeApp.trackId) {
+				do {
+					try await downloader.downloadApp(withAppID: appID)
+				} catch {
+					downloader.printer.error(error: error)
+				}
 			}
 		}
 
 		private func findOutdatedApps(
+			printer: Printer,
 			installedApps: [InstalledApp],
 			searcher: AppStoreSearcher
 		) async -> [(installedApp: InstalledApp, storeApp: SearchResult)] {
@@ -62,7 +71,7 @@ extension MAS {
 					// Find installed apps by app ID argument
 					let installedApps = installedApps.filter { $0.id == appID }
 					if installedApps.isEmpty {
-						printError(appID.unknownMessage)
+						printer.error(appID.notInstalledMessage)
 					}
 					return installedApps
 				}
@@ -70,7 +79,7 @@ extension MAS {
 				// Find installed apps by name argument
 				let installedApps = installedApps.filter { $0.name == appIDOrName }
 				if installedApps.isEmpty {
-					printError("Unknown app name '", appIDOrName, "'", separator: "")
+					printer.error("No installed apps named", appIDOrName)
 				}
 				return installedApps
 			}
@@ -83,7 +92,7 @@ extension MAS {
 						outdatedApps.append((installedApp, storeApp))
 					}
 				} catch {
-					verboseOptionGroup.printProblem(forError: error, expectedAppName: installedApp.name)
+					verboseOptionGroup.printProblem(forError: error, expectedAppName: installedApp.name, printer: printer)
 				}
 			}
 			return outdatedApps

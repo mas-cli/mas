@@ -21,21 +21,21 @@ end
 complete -c mas -f
 
 ### account
-complete -c mas -n "__fish_use_subcommand" -f -a account -d "Display the Apple Account signed in to the Mac App Store"
+complete -c mas -n "__fish_use_subcommand" -f -a account -d "Output the Apple Account signed in to the Mac App Store"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "account"
 ### config
-complete -c mas -n "__fish_use_subcommand" -f -a config -d "Display mas config & related system info"
+complete -c mas -n "__fish_use_subcommand" -f -a config -d "Output mas config & related system info"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "config"
 complete -c mas -n "__fish_seen_subcommand_from config" -l markdown -d "Output as Markdown"
 ### help
-complete -c mas -n "__fish_use_subcommand" -f -a help -d "Display general or command-specific help"
+complete -c mas -n "__fish_use_subcommand" -f -a help -d "Output general or command-specific help"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "help"
 ### home
 complete -c mas -n "__fish_use_subcommand" -f -a home -d "Open Mac App Store app pages in the default web browser"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "home"
 complete -c mas -n "__fish_seen_subcommand_from home info install open purchase vendor" -xa "(__fish_mas_list_available)"
 ### info
-complete -c mas -n "__fish_use_subcommand" -f -a info -d "Display app information from the Mac App Store"
+complete -c mas -n "__fish_use_subcommand" -f -a info -d "Output app information from the Mac App Store"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "info"
 ### install
 complete -c mas -n "__fish_use_subcommand" -f -a install -d "Install previously purchased apps from the Mac App Store"
@@ -53,12 +53,12 @@ complete -c mas -n "__fish_seen_subcommand_from help" -xa "open"
 ### outdated
 complete -c mas -n "__fish_use_subcommand" -f -a outdated -d "List pending app updates from the Mac App Store"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "outdated"
-complete -c mas -n "__fish_seen_subcommand_from outdated" -l verbose -d "Display warnings about app IDs unknown to the Mac App Store"
+complete -c mas -n "__fish_seen_subcommand_from outdated" -l verbose -d "Output warnings about app IDs unknown to the Mac App Store"
 ### purchase
 complete -c mas -n "__fish_use_subcommand" -f -a purchase -d "\"Purchase\" & install free apps from the Mac App Store"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "purchase"
 ### region
-complete -c mas -n "__fish_use_subcommand" -f -a region -d "Display the region of the Mac App Store"
+complete -c mas -n "__fish_use_subcommand" -f -a region -d "Output the region of the Mac App Store"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "region"
 ### reset
 complete -c mas -n "__fish_use_subcommand" -f -a reset -d "Reset Mac App Store running processes"
@@ -67,7 +67,7 @@ complete -c mas -n "__fish_seen_subcommand_from reset" -l debug -d "Output debug
 ### search
 complete -c mas -n "__fish_use_subcommand" -f -a search -d "Search for apps in the Mac App Store"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "search"
-complete -c mas -n "__fish_seen_subcommand_from search" -l price -d "Display the price of each app"
+complete -c mas -n "__fish_seen_subcommand_from search" -l price -d "Output the price of each app"
 ### signin
 complete -c mas -n "__fish_use_subcommand" -f -a signin -d "Sign in to an Apple Account in the Mac App Store"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "signin"
@@ -88,5 +88,5 @@ complete -c mas -n "__fish_seen_subcommand_from upgrade" -x -a "(__fish_mas_outd
 complete -c mas -n "__fish_use_subcommand" -f -a vendor -d "Open apps' vendor pages in the default web browser"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "vendor"
 ### version
-complete -c mas -n "__fish_use_subcommand" -f -a version -d "Display version number"
+complete -c mas -n "__fish_use_subcommand" -f -a version -d "Output version number"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "version"

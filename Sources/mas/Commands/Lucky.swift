@@ -34,16 +34,18 @@ extension MAS {
 		}
 
 		func run(installedApps: [InstalledApp], searcher: AppStoreSearcher) async throws {
-			do {
-				let results = try await searcher.search(for: searchTermOptionGroup.searchTerm)
-				guard let result = results.first else {
-					throw MASError.noSearchResultsFound
-				}
-
-				try await install(appID: result.trackId, installedApps: installedApps)
-			} catch {
-				throw MASError(searchFailedError: error)
+			try await mas.run { printer in
+				try await run(downloader: Downloader(printer: printer), installedApps: installedApps, searcher: searcher)
 			}
+		}
+
+		private func run(downloader: Downloader, installedApps: [InstalledApp], searcher: AppStoreSearcher) async throws {
+			let searchTerm = searchTermOptionGroup.searchTerm
+			let results = try await searcher.search(for: searchTerm)
+			guard let result = results.first else {
+				throw MASError.noSearchResultsFound(for: searchTerm)
+			}
+			try await install(appID: result.trackId, installedApps: installedApps, downloader: downloader)
 		}
 
 		/// Installs an app.
@@ -51,16 +53,13 @@ extension MAS {
 		/// - Parameters:
 		///   - appID: App ID.
 		///   - installedApps: List of installed apps.
+		///   - downloader: `Downloader`.
 		/// - Throws: Any error that occurs while attempting to install the app.
-		private func install(appID: AppID, installedApps: [InstalledApp]) async throws {
-			if let appName = installedApps.first(where: { $0.id == appID })?.name, !forceOptionGroup.force {
-				printWarning(appName, "is already installed")
+		private func install(appID: AppID, installedApps: [InstalledApp], downloader: Downloader) async throws {
+			if let installedApp = installedApps.first(where: { $0.id == appID }), !forceOptionGroup.force {
+				downloader.printer.warning("Already installed:", installedApp.idAndName)
 			} else {
-				do {
-					try await downloadApps(withAppIDs: [appID])
-				} catch {
-					throw MASError(downloadFailedError: error)
-				}
+				try await downloader.downloadApp(withAppID: appID)
 			}
 		}
 	}

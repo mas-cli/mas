@@ -23,8 +23,8 @@ final class AppListFormatterSpec: QuickSpec {
 			it("can format a single installed app") {
 				let installedApp = InstalledApp(
 					id: 12345,
-					name: "Awesome App",
 					bundleID: "",
+					name: "Awesome App",
 					path: "",
 					version: "19.2.1"
 				)
@@ -37,15 +37,15 @@ final class AppListFormatterSpec: QuickSpec {
 							[
 								InstalledApp(
 									id: 12345,
-									name: "Awesome App",
 									bundleID: "",
+									name: "Awesome App",
 									path: "",
 									version: "19.2.1"
 								),
 								InstalledApp(
 									id: 67890,
-									name: "Even Better App",
 									bundleID: "",
+									name: "Even Better App",
 									path: "",
 									version: "1.2.0"
 								),

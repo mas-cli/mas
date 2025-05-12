@@ -16,13 +16,17 @@ extension MAS {
 		)
 
 		/// Runs the command.
-		func run() async {
-			run(installedApps: await installedApps)
+		func run() async throws {
+			try run(installedApps: await installedApps)
 		}
 
-		func run(installedApps: [InstalledApp]) {
+		func run(installedApps: [InstalledApp]) throws {
+			try mas.run { run(printer: $0, installedApps: installedApps) }
+		}
+
+		private func run(printer: Printer, installedApps: [InstalledApp]) {
 			if installedApps.isEmpty {
-				printError(
+				printer.error(
 					"""
 					No installed apps found
 
@@ -33,7 +37,7 @@ extension MAS {
 					"""
 				)
 			} else {
-				printInfo(AppListFormatter.format(installedApps))
+				printer.info(AppListFormatter.format(installedApps))
 			}
 		}
 	}

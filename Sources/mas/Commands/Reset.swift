@@ -20,7 +20,11 @@ extension MAS {
 		var debug = false
 
 		/// Runs the command.
-		func run() {
+		func run() throws {
+			try mas.run { run(printer: $0) }
+		}
+
+		func run(printer: Printer) {
 			// The "Reset Application" command in the Mac App Store debug menu performs
 			// the following steps
 			//
@@ -59,9 +63,9 @@ extension MAS {
 			kill.launch()
 			kill.waitUntilExit()
 
-			if kill.terminationStatus != 0, debug {
+			if kill.terminationStatus != 0 {
 				let output = stderr.fileHandleForReading.readDataToEndOfFile()
-				printError(
+				printer.error(
 					"killall failed:",
 					String(data: output, encoding: .utf8) ?? "Error info not available",
 					separator: "\n"
@@ -73,9 +77,7 @@ extension MAS {
 				do {
 					try FileManager.default.removeItem(atPath: directory)
 				} catch {
-					if debug {
-						printError("removeItemAtPath:\"", directory, "\" failed, ", error, separator: "")
-					}
+					printer.error("Failed to delete download directory", directory, error: error)
 				}
 			}
 		}

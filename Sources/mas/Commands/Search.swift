@@ -19,7 +19,7 @@ extension MAS {
 			abstract: "Search for apps in the Mac App Store"
 		)
 
-		@Flag(help: "Display the price of each app")
+		@Flag(help: "Output the price of each app")
 		var price = false
 		@OptionGroup
 		var searchTermOptionGroup: SearchTermOptionGroup
@@ -30,16 +30,16 @@ extension MAS {
 		}
 
 		func run(searcher: AppStoreSearcher) async throws {
-			do {
-				let results = try await searcher.search(for: searchTermOptionGroup.searchTerm)
-				if results.isEmpty {
-					throw MASError.noSearchResultsFound
-				}
+			try await mas.run { try await run(printer: $0, searcher: searcher) }
+		}
 
-				printInfo(SearchResultFormatter.format(results, includePrice: price))
-			} catch {
-				throw MASError(searchFailedError: error)
+		private func run(printer: Printer, searcher: AppStoreSearcher) async throws {
+			let searchTerm = searchTermOptionGroup.searchTerm
+			let results = try await searcher.search(for: searchTerm)
+			guard !results.isEmpty else {
+				throw MASError.noSearchResultsFound(for: searchTerm)
 			}
+			printer.info(SearchResultFormatter.format(results, includePrice: price))
 		}
 	}
 }

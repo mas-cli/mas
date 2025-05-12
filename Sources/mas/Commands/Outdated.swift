@@ -9,7 +9,7 @@
 internal import ArgumentParser
 
 extension MAS {
-	/// Displays a list of installed apps which have updates available to be
+	/// Outputs a list of installed apps which have updates available to be
 	/// installed from the Mac App Store.
 	struct Outdated: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
@@ -25,11 +25,15 @@ extension MAS {
 		}
 
 		func run(installedApps: [InstalledApp], searcher: AppStoreSearcher) async throws {
+			try await mas.run { await run(printer: $0, installedApps: installedApps, searcher: searcher) }
+		}
+
+		private func run(printer: Printer, installedApps: [InstalledApp], searcher: AppStoreSearcher) async {
 			for installedApp in installedApps {
 				do {
 					let storeApp = try await searcher.lookup(appID: installedApp.id)
 					if installedApp.isOutdated(comparedTo: storeApp) {
-						printInfo(
+						printer.info(
 							installedApp.id,
 							" ",
 							installedApp.name,
@@ -41,8 +45,8 @@ extension MAS {
 							separator: ""
 						)
 					}
-				} catch let error as MASError {
-					verboseOptionGroup.printProblem(forError: error, expectedAppName: installedApp.name)
+				} catch {
+					verboseOptionGroup.printProblem(forError: error, expectedAppName: installedApp.name, printer: printer)
 				}
 			}
 		}

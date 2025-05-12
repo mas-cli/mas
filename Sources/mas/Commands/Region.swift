@@ -9,19 +9,22 @@
 internal import ArgumentParser
 
 extension MAS {
-	/// Displays the region of the Mac App Store.
+	/// Outputs the region of the Mac App Store.
 	struct Region: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
-			abstract: "Display the region of the Mac App Store"
+			abstract: "Output the region of the Mac App Store"
 		)
 
 		/// Runs the command.
 		func run() async throws {
-			guard let region = await isoRegion else {
-				throw MASError.runtimeError("Could not obtain Mac App Store region")
-			}
+			try await mas.run { try await run(printer: $0) }
+		}
 
-			printInfo(region.alpha2)
+		func run(printer: Printer) async throws {
+			guard let region = await isoRegion else {
+				throw MASError.runtimeError("Failed to obtain the region of the Mac App Store")
+			}
+			printer.info(region.alpha2)
 		}
 	}
 }

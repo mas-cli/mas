@@ -100,7 +100,7 @@ $ mas search Xcode
 
 #### `mas info`
 
-`mas info <app-id>` displays more detailed information about an application available from the Mac App Store.
+`mas info <app-id>` outputs more detailed information about an application available from the Mac App Store.
 
 ```console
 $ mas info 497799835
@@ -118,7 +118,7 @@ All the commands in this section require you to be logged into an Apple Account 
 
 #### `mas list`
 
-`mas list` displays all the applications on your Mac that were installed from the Mac App Store.
+`mas list` outputs all the applications on your Mac that were installed from the Mac App Store.
 
 ```console
 $ mas list
@@ -129,7 +129,7 @@ $ mas list
 
 #### `mas outdated`
 
-`mas outdated` displays all applications installed from the Mac App Store on your Mac that have pending upgrades.
+`mas outdated` outputs all applications installed from the Mac App Store on your Mac that have pending upgrades.
 
 ```console
 $ mas outdated

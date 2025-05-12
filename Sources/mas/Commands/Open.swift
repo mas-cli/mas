@@ -31,6 +31,10 @@ extension MAS {
 		}
 
 		func run(searcher: AppStoreSearcher) async throws {
+			try await mas.run { try await run(printer: $0, searcher: searcher) }
+		}
+
+		private func run(printer _: Printer, searcher: AppStoreSearcher) async throws {
 			guard let appID else {
 				// If no app ID was given, just open the MAS GUI app
 				try await openMacAppStore()
@@ -43,10 +47,10 @@ extension MAS {
 
 private func openMacAppStore() async throws {
 	guard let macappstoreSchemeURL = URL(string: "macappstore:") else {
-		throw MASError.notSupported
+		throw MASError.runtimeError("Failed to create URL from macappstore scheme")
 	}
 	guard let appURL = NSWorkspace.shared.urlForApplication(toOpen: macappstoreSchemeURL) else {
-		throw MASError.notSupported
+		throw MASError.runtimeError("Failed to find app to open macappstore URLs")
 	}
 
 	try await NSWorkspace.shared.openApplication(at: appURL, configuration: NSWorkspace.OpenConfiguration())

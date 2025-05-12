@@ -26,9 +26,13 @@ extension MAS {
 
 		/// Runs the command.
 		func run() throws {
+			try mas.run { run(printer: $0) }
+		}
+
+		func run(printer: Printer) {
 			// Signing in is no longer possible as of High Sierra.
 			// https://github.com/mas-cli/mas/issues/164
-			throw MASError.notSupported
+			printer.error(error: MASError.notSupported)
 		}
 	}
 }

@@ -7,16 +7,17 @@
 //
 
 internal import ArgumentParser
+private import Foundation
 
 extension MAS {
-	/// Displays app information from the Mac App Store.
+	/// Outputs app information from the Mac App Store.
 	///
 	/// Uses the iTunes Lookup API:
 	///
 	/// https://performance-partners.apple.com/search-api
 	struct Info: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
-			abstract: "Display app information from the Mac App Store"
+			abstract: "Output app information from the Mac App Store"
 		)
 
 		@OptionGroup
@@ -28,14 +29,19 @@ extension MAS {
 		}
 
 		func run(searcher: AppStoreSearcher) async throws {
-			var separator = ""
+			try await mas.run { await run(printer: $0, searcher: searcher) }
+		}
+
+		private func run(printer: Printer, searcher: AppStoreSearcher) async {
+			var spacing = ""
 			for appID in appIDsOptionGroup.appIDs {
 				do {
-					printInfo("", AppInfoFormatter.format(app: try await searcher.lookup(appID: appID)), separator: separator)
-					separator = "\n"
+					printer.info("", AppInfoFormatter.format(app: try await searcher.lookup(appID: appID)), separator: spacing)
 				} catch {
-					throw MASError(searchFailedError: error)
+					printer.log(spacing, to: .standardError)
+					printer.error(error: error)
 				}
+				spacing = "\n"
 			}
 		}
 	}

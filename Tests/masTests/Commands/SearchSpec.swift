@@ -6,6 +6,7 @@
 // Copyright © 2018 mas-cli. All rights reserved.
 //
 
+private import ArgumentParser
 private import Nimble
 import Quick
 
@@ -29,12 +30,17 @@ final class SearchSpec: AsyncSpec {
 					== UnvaluedConsequences(nil, "        1111  slack  (0.0)\n")
 			}
 			it("fails when searching for nonexistent app") {
+				let searchTerm = "nonexistent"
 				await expecta(
 					await consequencesOf(
-						try await MAS.Search.parse(["nonexistent"]).run(searcher: MockAppStoreSearcher())
+						try await MAS.Search.parse([searchTerm]).run(searcher: MockAppStoreSearcher())
 					)
 				)
-					== UnvaluedConsequences(MASError.noSearchResultsFound)
+					== UnvaluedConsequences(
+						ExitCode(1),
+						"",
+						"Error: No apps found in the Mac App Store for search term: \(searchTerm)\n"
+					)
 			}
 		}
 	}

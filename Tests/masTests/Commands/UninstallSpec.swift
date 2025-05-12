@@ -16,8 +16,8 @@ final class UninstallSpec: QuickSpec {
 		let appID = 12345 as AppID
 		let app = InstalledApp(
 			id: appID,
-			name: "Some App",
 			bundleID: "com.some.app",
+			name: "Some App",
 			path: "/tmp/Some.app",
 			version: "1.0"
 		)
@@ -30,7 +30,7 @@ final class UninstallSpec: QuickSpec {
 							try MAS.Uninstall.parse(["--dry-run", String(appID)]).run(installedApps: [])
 						)
 					)
-						== UnvaluedConsequences(MASError.notInstalled(appIDs: [appID]))
+						== UnvaluedConsequences(nil, "No installed apps with app ID \(appID)")
 				}
 				it("finds an app") {
 					expect(
@@ -48,7 +48,7 @@ final class UninstallSpec: QuickSpec {
 							try MAS.Uninstall.parse([String(appID)]).run(installedApps: [])
 						)
 					)
-						== UnvaluedConsequences(MASError.notInstalled(appIDs: [appID]))
+						== UnvaluedConsequences(nil, "No installed apps with app ID \(appID)")
 				}
 				it("removes an app") {
 					expect(
