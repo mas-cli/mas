@@ -14,7 +14,7 @@ build_dir=.build
 destination_root="${build_dir}/destination"
 version="$(Scripts/version)"
 
-print_header '📦 Assembling installer package for mas' "${version}"
+print_header '📦 Packaging installer for mas' "${version}"
 
 ditto -v "${build_dir}/apple/Products/Release/mas" "${destination_root}/mas"
 
