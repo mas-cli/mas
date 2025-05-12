@@ -2,7 +2,6 @@
 // SearchResultFormatter.swift
 // mas
 //
-// Created by Ben Chatelain on 2019-01-11.
 // Copyright © 2019 mas-cli. All rights reserved.
 //
 

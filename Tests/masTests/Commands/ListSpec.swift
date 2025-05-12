@@ -2,7 +2,6 @@
 // ListSpec.swift
 // masTests
 //
-// Created by Ben Chatelain on 2018-12-27.
 // Copyright © 2018 mas-cli. All rights reserved.
 //
 

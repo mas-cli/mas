@@ -2,7 +2,6 @@
 // AppIDsOptionGroup.swift
 // mas
 //
-// Created by Ross Goldberg on 2025-05-08.
 // Copyright © 2025 mas-cli. All rights reserved.
 //
 

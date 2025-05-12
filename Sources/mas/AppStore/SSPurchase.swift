@@ -2,8 +2,7 @@
 // SSPurchase.swift
 // mas
 //
-// Created by Andrew Naylor on 2015-08-25.
-// Copyright © 2015 Andrew Naylor. All rights reserved.
+// Copyright © 2015 mas-cli. All rights reserved.
 //
 
 private import CommerceKit

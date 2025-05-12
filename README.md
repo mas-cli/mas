@@ -359,6 +359,7 @@ Scripts/test
 
 Code is under the [MIT license](LICENSE).
 
-mas was created by [@argon](https://github.com/argon).
+mas was originally created by Andrew Naylor ([@argon on GitHub](https://github.com/argon) /
+[@argon on X](https://x.com/argon)).
 
 [homebrew-bundle]: https://github.com/Homebrew/homebrew-bundle

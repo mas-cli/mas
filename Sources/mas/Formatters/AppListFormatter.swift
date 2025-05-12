@@ -2,7 +2,6 @@
 // AppListFormatter.swift
 // mas
 //
-// Created by Ben Chatelain on 2020-06-07.
 // Copyright © 2020 mas-cli. All rights reserved.
 //
 

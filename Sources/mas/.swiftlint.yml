@@ -16,8 +16,7 @@ file_header:
     \/\/ SWIFTLINT_CURRENT_FILENAME
     \/\/ mas
     \/\/
-    \/\/ Created by (.+?) on (20\d{2})-\d{2}-\d{2}\.
-    \/\/ Copyright © \2 (?:mas-cli|\1)\. All rights reserved\.
+    \/\/ Copyright © 20\d{2} mas-cli. All rights reserved\.
     \/\/
 file_name:
   excluded: [Finder.swift, SpotlightInstalledApps.swift]

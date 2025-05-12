@@ -2,8 +2,7 @@
 // List.swift
 // mas
 //
-// Created by Andrew Naylor on 2015-08-21.
-// Copyright © 2015 Andrew Naylor. All rights reserved.
+// Copyright © 2015 mas-cli. All rights reserved.
 //
 
 internal import ArgumentParser
