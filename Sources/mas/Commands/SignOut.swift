@@ -2,8 +2,7 @@
 // SignOut.swift
 // mas
 //
-// Created by Andrew Naylor on 2016-02-14.
-// Copyright © 2016 Andrew Naylor. All rights reserved.
+// Copyright © 2016 mas-cli. All rights reserved.
 //
 
 internal import ArgumentParser

@@ -2,7 +2,6 @@
 // InstalledAppSpec.swift
 // masTests
 //
-// Created by Ben Chatelain on 2021-09-30.
 // Copyright © 2021 mas-cli. All rights reserved.
 //
 

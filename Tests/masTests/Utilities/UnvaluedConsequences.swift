@@ -2,7 +2,6 @@
 // UnvaluedConsequences.swift
 // masTests
 //
-// Created by Ross Goldberg on 2024-12-29.
 // Copyright © 2024 mas-cli. All rights reserved.
 //
 

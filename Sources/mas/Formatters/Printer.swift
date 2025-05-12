@@ -2,7 +2,6 @@
 // Printer.swift
 // mas
 //
-// Created by Ross Goldberg on 2025-05-10.
 // Copyright © 2025 mas-cli. All rights reserved.
 //
 

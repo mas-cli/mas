@@ -2,7 +2,6 @@
 // Lucky.swift
 // mas
 //
-// Created by Pablo Varela on 2017-05-11.
 // Copyright © 2017 mas-cli. All rights reserved.
 //
 

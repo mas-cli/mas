@@ -2,7 +2,6 @@
 // ITunesSearchAppStoreSearcherSpec.swift
 // masTests
 //
-// Created by Ben Chatelain on 2019-01-04.
 // Copyright © 2019 mas-cli. All rights reserved.
 //
 

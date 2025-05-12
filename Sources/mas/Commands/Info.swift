@@ -2,7 +2,6 @@
 // Info.swift
 // mas
 //
-// Created by Denis Lebedev on 2016-10-21.
 // Copyright © 2016 mas-cli. All rights reserved.
 //
 

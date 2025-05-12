@@ -2,7 +2,6 @@
 // Finder.swift
 // mas
 //
-// Created by Ross Goldberg on 2024-10-23.
 // Copyright © 2024 mas-cli. All rights reserved.
 //
 

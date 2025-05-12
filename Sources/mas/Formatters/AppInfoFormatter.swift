@@ -2,7 +2,6 @@
 // AppInfoFormatter.swift
 // mas
 //
-// Created by Ben Chatelain on 2019-01-07.
 // Copyright © 2019 mas-cli. All rights reserved.
 //
 

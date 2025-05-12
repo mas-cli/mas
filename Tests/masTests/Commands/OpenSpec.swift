@@ -2,7 +2,6 @@
 // OpenSpec.swift
 // masTests
 //
-// Created by Ben Chatelain on 2019-01-03.
 // Copyright © 2019 mas-cli. All rights reserved.
 //
 

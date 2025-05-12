@@ -2,7 +2,6 @@
 // URL.swift
 // mas
 //
-// Created by Ross Goldberg on 2024-10-28.
 // Copyright © 2024 mas-cli. All rights reserved.
 //
 

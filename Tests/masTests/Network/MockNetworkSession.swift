@@ -2,7 +2,6 @@
 // MockNetworkSession.swift
 // masTests
 //
-// Created by Ben Chatelain on 2019-01-05.
 // Copyright © 2019 mas-cli. All rights reserved.
 //
 
