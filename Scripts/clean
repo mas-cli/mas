@@ -8,7 +8,7 @@
 
 . "${0:a:h}/_setup_script"
 
-printf $'==> 🗑​ Cleaning mas %s\n' "$(Scripts/version)"
+print_header '🗑​ Cleaning mas' "$(Scripts/version)"
 
 swift package clean
 swift package reset

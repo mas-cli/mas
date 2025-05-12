@@ -40,3 +40,13 @@ if ! cd -- "${mas_dir}"; then
 	printf $'Error: Failed to cd into mas directory: %s\n' "${mas_dir}" >&2
 	exit 1
 fi
+
+print_header() {
+	if [[ -t 1 ]]; then
+		printf $'\e[1;34m==>\e[0m'
+	else
+		printf $'==>'
+	fi
+	printf $' %s' "${@}"
+	printf $'\n'
+}

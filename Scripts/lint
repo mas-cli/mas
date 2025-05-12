@@ -12,7 +12,7 @@
 
 . "${0:a:h}/_setup_script"
 
-printf $'==> 🚨 Linting mas %s\n' "$(Scripts/version)"
+print_header '🚨 Linting mas' "$(Scripts/version)"
 
 Scripts/generate_package_swift lint
 

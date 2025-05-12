@@ -22,7 +22,8 @@ tag="${1}"
 title="${2}"
 ref="${3:-HEAD}"
 
-printf $'==> 🚀 Starting release for mas %s\n\n' "${tag#v}"
+print_header '🚀 Starting release for mas' "${tag#v}"
+printf $'\n'
 
 if [[ ! "${tag}" =~ '^v[[:digit:]]+(\.[[:digit:]]+)*(-(alpha|beta|rc)\.[[:digit:]]+)?$' ]]; then
 	printf $'\'%s\' is not a valid version tag\n' "${tag}" >&2

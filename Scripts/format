@@ -10,7 +10,7 @@
 
 . "${0:a:h}/_setup_script"
 
-printf $'==> 🧹 Formatting mas %s\n' "$(Scripts/version)"
+print_header '🧹 Formatting mas' "$(Scripts/version)"
 
 for formatter in markdownlint-cli2 swiftformat swiftlint yamllint; do
 	if ! whence "${formatter}" >/dev/null; then
