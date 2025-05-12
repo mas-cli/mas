@@ -16,11 +16,11 @@ extension MAS {
 		)
 
 		@Flag(help: "Provide password via graphical dialog")
-		var dialog = false
+		var dialog = false // swiftlint:disable:this unused_declaration
 		@Argument(help: "Apple Account")
-		var appleAccount: String
+		var appleAccount: String // swiftlint:disable:this unused_declaration
 		@Argument(help: "Password")
-		var password = ""
+		var password = "" // swiftlint:disable:this unused_declaration
 
 		/// Runs the command.
 		func run() throws {

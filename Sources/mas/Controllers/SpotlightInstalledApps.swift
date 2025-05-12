@@ -8,7 +8,7 @@
 
 private import Foundation
 
-@MainActor // swiftlint:disable:next attributes
+@MainActor
 var installedApps: [InstalledApp] {
 	get async {
 		var observer: NSObjectProtocol?
