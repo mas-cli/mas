@@ -1,6 +1,6 @@
 #!/bin/zsh -Ndefgku
 #
-# script/generate_token
+# Scripts/generate_token
 # mas
 #
 # Generates a GitHub App installation access token for GitHub Workflows.

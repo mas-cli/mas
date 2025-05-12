@@ -28,23 +28,23 @@ jobs:
         GIT_CONFIG_VALUE_0: ${{github.event.repository.default_branch}}
       uses: actions/checkout@v4
       with:
-        # Include all history & tags for script/version
+        # Include all history & tags for Scripts/version
         fetch-depth: 0
 
     - name: 🔧 Setup repo
-      run: script/setup_workflow_repo
+      run: Scripts/setup_workflow_repo
 
     - name: 🛠 Select Xcode 16.3
       run: sudo xcode-select -s /Applications/Xcode_16.3.app/Contents/Developer
 
     - name: 👢 Bootstrap
-      run: script/bootstrap
+      run: Scripts/bootstrap
 
     - name: 🏗 Build
-      run: script/build build-test
+      run: Scripts/build build-test
 
     - name: 🧪 Test
-      run: script/test
+      run: Scripts/test
 
     - name: 🚨 Lint
-      run: script/lint
+      run: Scripts/lint

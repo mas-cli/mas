@@ -1,6 +1,6 @@
 #!/bin/zsh -Ndefgku
 #
-# script/update_headers
+# Scripts/update_headers
 # mas
 #
 # Runs class-dump to generate headers for Apple private frameworks.

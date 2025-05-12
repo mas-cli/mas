@@ -1,6 +1,6 @@
 #!/bin/zsh -Ndefgku
 #
-# script/build
+# Scripts/build
 # mas
 #
 # Builds the Swift Package.
@@ -8,8 +8,8 @@
 
 . "${0:a:h}/_setup_script"
 
-printf $'==> 🏗​ Building mas %s\n' "$(script/version)"
+printf $'==> 🏗​ Building mas %s\n' "$(Scripts/version)"
 
-script/generate_package_swift "${1:-}"
+Scripts/generate_package_swift "${1:-}"
 
 swift build -c release "${@:2}"

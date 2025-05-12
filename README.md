@@ -342,7 +342,7 @@ issue persists, please [file a bug](https://github.com/mas-cli/mas/issues/new). 
 You can build from Xcode by opening the root mas directory, or from the terminal:
 
 ```shell
-script/build
+Scripts/build
 ```
 
 Build output can be found in the `.build` directory within the project.
@@ -352,7 +352,7 @@ Build output can be found in the `.build` directory within the project.
 Tests are written using [Quick](https://github.com/Quick/Quick) & [Nimble](https://github.com/Quick/Nimble).
 
 ```shell
-script/test
+Scripts/test
 ```
 
 ## 📄 License
