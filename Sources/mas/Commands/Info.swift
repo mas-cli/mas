@@ -9,7 +9,10 @@
 internal import ArgumentParser
 
 extension MAS {
-	/// Displays app details. Uses the iTunes Lookup API:
+	/// Displays app information from the Mac App Store.
+	///
+	/// Uses the iTunes Lookup API:
+	///
 	/// https://performance-partners.apple.com/search-api
 	struct Info: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(

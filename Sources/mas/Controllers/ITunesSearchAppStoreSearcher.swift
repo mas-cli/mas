@@ -8,7 +8,10 @@
 
 private import Foundation
 
-/// Manages searching the MAS catalog. Uses the iTunes Search and Lookup APIs:
+/// Manages searching the MAS catalog.
+///
+/// Uses the iTunes Search & Lookup APIs:
+///
 /// https://performance-partners.apple.com/search-api
 struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 	enum Entity: String {
@@ -50,7 +53,7 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 	/// - Throws: An `Error` if any problem occurs.
 	func search(for searchTerm: String, inRegion region: ISORegion?) async throws -> [SearchResult] {
 		// Search for apps for compatible platforms, in order of preference.
-		// Macs with Apple Silicon can run iPad and iPhone apps.
+		// Macs with Apple Silicon can run iPad & iPhone apps.
 		#if arch(arm64)
 		let entities = [Entity.desktopSoftware, .iPadSoftware, .iPhoneSoftware]
 		#else
@@ -87,7 +90,7 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 	///
 	/// - Parameters:
 	///   - searchTerm: term for which to search in MAS.
-	///   - region: The `ISORegion` of the storefront in which to lookup apps.
+	///   - region: The `ISORegion` of the storefront in which to search for apps.
 	///   - entity: OS platform of apps for which to search.
 	/// - Returns: URL for the search service.
 	/// - Throws: An `MASError.urlParsing` if `searchTerm` can't be encoded.

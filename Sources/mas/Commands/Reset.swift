@@ -29,7 +29,7 @@ extension MAS {
 			// - rm com.apple.appstore download directory
 			// - clear cookies (appears to be a no-op)
 			//
-			// As storeagent no longer exists we will implement a slight variant and kill all
+			// As storeagent no longer exists we will implement a slight variant & kill all
 			// App Store-associated processes
 			// - storeaccountd
 			// - storeassetd

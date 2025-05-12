@@ -3,7 +3,7 @@
 # script/lint
 # mas
 #
-# Linting checks for development and CI.
+# Linting checks for development & CI.
 #
 # Reports style violations without making any modifications to the code.
 #

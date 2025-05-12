@@ -1,6 +1,6 @@
 // Don't include generated header comments.
 
-// MARK: Types and naming
+// MARK: Types & naming
 
 /// Types begin with a capital letter.
 struct User {
@@ -17,7 +17,7 @@ struct User {
 	}
 }
 
-/// Use `()` for void arguments and `Void` for void return types.
+/// Use `()` for void arguments & `Void` for void return types.
 let closure: () -> Void = {
 	// Do nothing
 }

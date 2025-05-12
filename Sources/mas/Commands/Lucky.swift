@@ -9,9 +9,12 @@
 internal import ArgumentParser
 
 extension MAS {
-	/// Command which installs the first search result.
+	/// Installs the first app returned from searching the Mac App Store (app must
+	/// have been previously purchased).
 	///
-	/// This is handy as many MAS titles can be long with embedded keywords.
+	/// Uses the iTunes Search API:
+	///
+	/// https://performance-partners.apple.com/search-api
 	struct Lucky: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
 			abstract: """

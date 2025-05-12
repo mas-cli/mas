@@ -10,6 +10,7 @@ internal import ArgumentParser
 private import CommerceKit
 
 extension MAS {
+	/// Signs out of the Apple Account currently signed in to the Mac App Store.
 	struct SignOut: ParsableCommand {
 		static let configuration = CommandConfiguration(
 			commandName: "signout",

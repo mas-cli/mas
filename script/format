@@ -3,7 +3,7 @@
 # script/format
 # mas
 #
-# Automatically formats and fixes style violations using various tools.
+# Automatically formats & fixes style violations using various tools.
 #
 # Please keep in sync with script/lint.
 #

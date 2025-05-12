@@ -25,24 +25,24 @@ func print(_ message: String, to fileHandle: FileHandle) {
 	}
 }
 
-/// Prints to stdout.
+/// Prints to `stdout`.
 func printInfo(_ items: Any..., separator: String = " ", terminator: String = "\n") {
 	print(items, separator: separator, terminator: terminator)
 }
 
-/// Clears current line from stdout, then prints to stdout, then flushes stdout.
+/// Clears current line from `stdout`, then prints to `stdout`, then flushes `stdout`.
 func printEphemeral(_ items: Any..., separator: String = " ", terminator: String = "\n") {
 	clearCurrentLine(fromStream: stdout)
 	print(items, separator: separator, terminator: terminator)
 	fflush(stdout)
 }
 
-/// Clears current line from stdout.
+/// Clears current line from `stdout`.
 func terminateEphemeralPrinting() {
 	clearCurrentLine(fromStream: stdout)
 }
 
-/// Prints to stdout prefixed with a blue arrow.
+/// Prints to `stdout`; if connected to a terminal, prefixes a blue arrow.
 func printNotice(_ items: Any..., separator: String = " ", terminator: String = "\n") {
 	if isatty(fileno(stdout)) != 0 {
 		// Blue bold arrow, Bold text
@@ -55,7 +55,7 @@ func printNotice(_ items: Any..., separator: String = " ", terminator: String = 
 	}
 }
 
-/// Prints to stderr prefixed with "Warning:" underlined in yellow.
+/// Prints to `stderr`; if connected to a terminal, prefixes "Warning:" underlined in yellow.
 func printWarning(_ items: Any..., separator: String = " ", terminator: String = "\n") {
 	if isatty(fileno(stderr)) != 0 {
 		// Yellow, underlined "Warning:" prefix
@@ -68,7 +68,7 @@ func printWarning(_ items: Any..., separator: String = " ", terminator: String =
 	}
 }
 
-/// Prints to stderr prefixed with "Error:" underlined in red.
+/// Prints to `stderr`; if connected to a terminal, prefixes "Error:" underlined in red.
 func printError(_ items: Any..., separator: String = " ", terminator: String = "\n") {
 	if isatty(fileno(stderr)) != 0 {
 		// Red, underlined "Error:" prefix

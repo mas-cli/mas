@@ -13,7 +13,7 @@ private import CommerceKit
 /// Verifies that each supplied app ID is valid before attempting to download.
 ///
 /// - Parameters:
-///   - appIDs: The app IDs of the apps to be verified and downloaded.
+///   - appIDs: The app IDs of the apps to be verified & downloaded.
 ///   - searcher: The `AppStoreSearcher` used to verify app IDs.
 ///   - purchasing: Flag indicating if the apps will be purchased. Only works for free apps. Defaults to false.
 /// - Throws: If any download fails, immediately throws an error.
