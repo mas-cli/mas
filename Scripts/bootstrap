@@ -10,7 +10,7 @@
 
 . "${0:a:h}/_setup_script"
 
-printf $'==> 👢 Bootstrapping mas %s\n' "$(Scripts/version)"
+print_header '👢 Bootstrapping mas' "$(Scripts/version)"
 
 if ! whence brew >/dev/null; then
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"

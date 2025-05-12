@@ -12,7 +12,8 @@
 
 tag="${1}"
 
-printf $'==> ❌ Canceling release for tag %s\n\n' "${tag}"
+print_header '❌ Canceling release for tag' "${tag}"
+printf $'\n'
 
 bump_url="$(gh release -R https://github.com/mas-cli/mas download "${tag}" -p bump.url -O - 2>/dev/null || true)"
 if [[ -n "${bump_url}" ]]; then
