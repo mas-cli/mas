@@ -1,6 +1,6 @@
 // swift-tools-version:5.9
 
-internal import PackageDescription
+import PackageDescription
 
 let package = Package(
 	name: "mas",
@@ -29,6 +29,7 @@ let package = Package(
 				"Version",
 			],
 			swiftSettings: [
+				.enableExperimentalFeature("AccessLevelOnImport"),
 				.enableExperimentalFeature("StrictConcurrency"),
 				.unsafeFlags([
 					"-I", "Sources/PrivateFrameworks/CommerceKit",
@@ -46,6 +47,8 @@ let package = Package(
 			dependencies: ["mas", "Nimble", "Quick"],
 			resources: [.copy("Resources")],
 			swiftSettings: [
+				.enableExperimentalFeature("AccessLevelOnImport"),
+				.enableExperimentalFeature("StrictConcurrency"),
 				.unsafeFlags([
 					"-I", "Sources/PrivateFrameworks/CommerceKit",
 					"-I", "Sources/PrivateFrameworks/StoreFoundation",
