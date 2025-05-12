@@ -25,11 +25,13 @@ func downloadApps(
 	for appID in appIDs {
 		do {
 			_ = try await searcher.lookup(appID: appID)
-		} catch let MASError.unknownAppID(unknownAppID) {
-			printWarning("App ID", unknownAppID, "not found in Mac App Store")
-			continue
+			try await downloadApp(withAppID: appID, purchasing: purchasing, withAttemptCount: 3)
+		} catch {
+			guard case MASError.unknownAppID = error else {
+				throw error
+			}
+			printWarning(error)
 		}
-		try await downloadApp(withAppID: appID, purchasing: purchasing, withAttemptCount: 3)
 	}
 }
 

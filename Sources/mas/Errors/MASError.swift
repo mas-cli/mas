@@ -72,7 +72,7 @@ extension MASError: CustomStringConvertible {
 		case let .searchFailed(error):
 			"Search failed: \(error.localizedDescription)"
 		case let .unknownAppID(appID):
-			appID.unknownMessage
+			"App ID \(appID) not found in Mac App Store"
 		case let .urlParsing(string):
 			"Unable to parse URL from: \(string)"
 		}

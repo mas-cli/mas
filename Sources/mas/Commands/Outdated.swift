@@ -16,8 +16,8 @@ extension MAS {
 			abstract: "List pending app updates from the Mac App Store"
 		)
 
-		@Flag(help: "Display warnings about apps unknown to the Mac App Store")
-		var verbose = false
+		@OptionGroup
+		var verboseOptionGroup: VerboseOptionGroup
 
 		/// Runs the command.
 		func run() async throws {
@@ -41,10 +41,8 @@ extension MAS {
 							separator: ""
 						)
 					}
-				} catch let MASError.unknownAppID(unknownAppID) {
-					if verbose {
-						printWarning("App ID", unknownAppID, "not found in store. Was expected to identify", installedApp.name)
-					}
+				} catch let error as MASError {
+					verboseOptionGroup.printProblem(forError: error, expectedAppName: installedApp.name)
 				}
 			}
 		}

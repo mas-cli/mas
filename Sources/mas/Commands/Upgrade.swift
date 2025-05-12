@@ -15,8 +15,8 @@ extension MAS {
 			abstract: "Upgrade outdated app(s) installed from the Mac App Store"
 		)
 
-		@Flag(help: "Display warnings about apps unknown to the Mac App Store")
-		var verbose = false
+		@OptionGroup
+		var verboseOptionGroup: VerboseOptionGroup
 		@Argument(help: ArgumentHelp("App ID/app name", valueName: "app-id-or-name"))
 		var appIDOrNames = [String]()
 
@@ -82,12 +82,8 @@ extension MAS {
 					if installedApp.isOutdated(comparedTo: storeApp) {
 						outdatedApps.append((installedApp, storeApp))
 					}
-				} catch let MASError.unknownAppID(unknownAppID) {
-					if verbose {
-						printWarning("App ID", unknownAppID, "not found in store. Was expected to identify", installedApp.name)
-					}
 				} catch {
-					printError(error)
+					verboseOptionGroup.printProblem(forError: error, expectedAppName: installedApp.name)
 				}
 			}
 			return outdatedApps

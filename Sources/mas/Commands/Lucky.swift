@@ -20,10 +20,10 @@ extension MAS {
 				"""
 		)
 
-		@Flag(help: "Force reinstall")
-		var force = false
-		@Argument(help: "Search term")
-		var searchTerm: [String]
+		@OptionGroup
+		var forceOptionGroup: ForceOptionGroup
+		@OptionGroup
+		var searchTermOptionGroup: SearchTermOptionGroup
 
 		/// Runs the command.
 		func run() async throws {
@@ -32,7 +32,7 @@ extension MAS {
 
 		func run(installedApps: [InstalledApp], searcher: AppStoreSearcher) async throws {
 			do {
-				let results = try await searcher.search(for: searchTerm.joined(separator: " "))
+				let results = try await searcher.search(for: searchTermOptionGroup.searchTerm)
 				guard let result = results.first else {
 					throw MASError.noSearchResultsFound
 				}
@@ -50,7 +50,7 @@ extension MAS {
 		///   - installedApps: List of installed apps.
 		/// - Throws: Any error that occurs while attempting to install the app.
 		private func install(appID: AppID, installedApps: [InstalledApp]) async throws {
-			if let appName = installedApps.first(where: { $0.id == appID })?.name, !force {
+			if let appName = installedApps.first(where: { $0.id == appID })?.name, !forceOptionGroup.force {
 				printWarning(appName, "is already installed")
 			} else {
 				do {
