@@ -15,7 +15,7 @@ final class SignOutSpec: QuickSpec {
 	override static func spec() {
 		describe("signout command") {
 			it("signs out") {
-				expect(consequencesOf(try MAS.SignOut.parse([]).run())) == UnvaluedConsequences(nil, "", "")
+				expect(consequencesOf(try MAS.SignOut.parse([]).run())) == UnvaluedConsequences()
 			}
 		}
 	}

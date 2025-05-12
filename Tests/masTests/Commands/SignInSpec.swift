@@ -15,8 +15,7 @@ final class SignInSpec: QuickSpec {
 	override static func spec() {
 		describe("signin command") {
 			it("signs in") {
-				expect(consequencesOf(try MAS.SignIn.parse(["", ""]).run()))
-					== UnvaluedConsequences(MASError.notSupported, "", "")
+				expect(consequencesOf(try MAS.SignIn.parse(["", ""]).run())) == UnvaluedConsequences(MASError.notSupported)
 			}
 		}
 	}

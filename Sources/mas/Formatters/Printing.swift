@@ -11,7 +11,7 @@ internal import Foundation
 // A collection of output formatting helpers
 
 /// Terminal Control Sequence Indicator.
-private let csi = "\u{001B}["
+private var csi: String { "\u{001B}[" }
 
 // periphery:ignore
 // swiftlint:disable:next unused_declaration

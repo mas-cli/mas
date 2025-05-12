@@ -23,12 +23,10 @@ final class InstalledAppSpec: QuickSpec {
 
 		describe("installed app") {
 			it("is not outdated when there is no new version available") {
-				expect(consequencesOf(app.isOutdated(comparedTo: SearchResult(version: "1.0.0"))))
-					== ValuedConsequences(false, nil, "", "")
+				expect(consequencesOf(app.isOutdated(comparedTo: SearchResult(version: "1.0.0")))) == ValuedConsequences(false)
 			}
 			it("is outdated when there is a new version available") {
-				expect(consequencesOf(app.isOutdated(comparedTo: SearchResult(version: "2.0.0"))))
-					== ValuedConsequences(true, nil, "", "")
+				expect(consequencesOf(app.isOutdated(comparedTo: SearchResult(version: "2.0.0")))) == ValuedConsequences(true)
 			}
 			it("is not outdated when the new version of mac-software requires a higher OS version") {
 				expect(
@@ -36,7 +34,7 @@ final class InstalledAppSpec: QuickSpec {
 						app.isOutdated(comparedTo: SearchResult(minimumOsVersion: "99.0.0", version: "3.0.0"))
 					)
 				)
-					== ValuedConsequences(false, nil, "", "")
+					== ValuedConsequences(false)
 			}
 			it("is not outdated when the new version of software requires a higher OS version") {
 				expect(
@@ -44,7 +42,7 @@ final class InstalledAppSpec: QuickSpec {
 						app.isOutdated(comparedTo: SearchResult(minimumOsVersion: "99.0.0", version: "3.0.0"))
 					)
 				)
-					== ValuedConsequences(false, nil, "", "")
+					== ValuedConsequences(false)
 			}
 		}
 	}

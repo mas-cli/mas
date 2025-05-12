@@ -44,7 +44,7 @@ final class OutdatedSpec: AsyncSpec {
 						)
 					)
 				)
-					== UnvaluedConsequences(nil, "490461369 Bandwidth+ (1.27 -> 1.28)\n", "")
+					== UnvaluedConsequences(nil, "490461369 Bandwidth+ (1.27 -> 1.28)\n")
 			}
 		}
 	}

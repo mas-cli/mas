@@ -20,7 +20,7 @@ final class InstallSpec: AsyncSpec {
 						try await MAS.Install.parse([]).run(installedApps: [], searcher: MockAppStoreSearcher())
 					)
 				)
-					== UnvaluedConsequences(nil, "", "")
+					== UnvaluedConsequences()
 			}
 		}
 	}

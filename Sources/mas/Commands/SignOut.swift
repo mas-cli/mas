@@ -17,7 +17,7 @@ extension MAS {
 		)
 
 		/// Runs the command.
-		func run() throws {
+		func run() {
 			ISServiceProxy.genericShared().accountService.signOut()
 		}
 	}

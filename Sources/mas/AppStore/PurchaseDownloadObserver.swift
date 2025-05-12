@@ -8,10 +8,10 @@
 
 internal import CommerceKit
 
-private let downloadingPhaseType = 0 as Int64
-private let installingPhaseType = 1 as Int64
-private let initialPhaseType = 4 as Int64
-private let downloadedPhaseType = 5 as Int64
+private var downloadingPhaseType: Int64 { 0 }
+private var installingPhaseType: Int64 { 1 }
+private var initialPhaseType: Int64 { 4 }
+private var downloadedPhaseType: Int64 { 5 }
 
 class PurchaseDownloadObserver: CKDownloadQueueObserver {
 	private let appID: AppID

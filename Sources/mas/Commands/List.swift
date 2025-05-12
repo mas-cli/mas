@@ -16,11 +16,11 @@ extension MAS {
 		)
 
 		/// Runs the command.
-		func run() async throws {
-			try run(installedApps: await installedApps)
+		func run() async {
+			run(installedApps: await installedApps)
 		}
 
-		func run(installedApps: [InstalledApp]) throws {
+		func run(installedApps: [InstalledApp]) {
 			if installedApps.isEmpty {
 				printError(
 					"""

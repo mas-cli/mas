@@ -8,6 +8,8 @@
 
 private import Foundation
 
+private var applicationsFolder: String { "/Applications" }
+
 @MainActor
 var installedApps: [InstalledApp] {
 	get async {
@@ -21,9 +23,9 @@ var installedApps: [InstalledApp] {
 		let query = NSMetadataQuery()
 		query.predicate = NSPredicate(format: "kMDItemAppStoreAdamID LIKE '*'")
 		if let volume = UserDefaults(suiteName: "com.apple.appstored")?.dictionary(forKey: "PreferredVolume")?["name"] {
-			query.searchScopes = ["/Applications", "/Volumes/\(volume)/Applications"]
+			query.searchScopes = [applicationsFolder, "/Volumes/\(volume)\(applicationsFolder)"]
 		} else {
-			query.searchScopes = ["/Applications"]
+			query.searchScopes = [applicationsFolder]
 		}
 
 		return await withCheckedContinuation { continuation in

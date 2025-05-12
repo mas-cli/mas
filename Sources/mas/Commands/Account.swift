@@ -7,7 +7,6 @@
 //
 
 internal import ArgumentParser
-private import StoreFoundation
 
 extension MAS {
 	struct Account: AsyncParsableCommand {
