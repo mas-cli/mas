@@ -20,7 +20,7 @@ Pull requests (PRs) are welcome from everyone. By participating in this project,
   topic branch from where you want to base your work (usually from `main`).
   - To quickly create a topic branch based on `main` named, e.g., `new-feature`, run: `git checkout -b new-feature main`
 - Make commits of logical units.
-- Follow the [style guide](docs/style.md).
+- Follow the [style guide](Documentation/style.md).
 - Run `Scripts/format` before committing.
 - Run `Scripts/lint` before committing. Fix all lint violations.
 - Write tests.
