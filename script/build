@@ -12,4 +12,4 @@ printf $'==> 🏗​ Building mas %s\n' "$(script/version)"
 
 script/generate_package_swift "${1:-}"
 
-swift build --configuration release "${@:2}"
+swift build -c release "${@:2}"

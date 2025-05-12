@@ -17,6 +17,7 @@ extension MAS {
 
 		@Flag(help: "Provide password via graphical dialog")
 		var dialog = false // swiftlint:disable:this unused_declaration
+		// periphery:ignore
 		@Argument(help: "Apple Account")
 		var appleAccount: String // swiftlint:disable:this unused_declaration
 		@Argument(help: "Password")

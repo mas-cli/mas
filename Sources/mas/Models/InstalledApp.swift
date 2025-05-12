@@ -12,6 +12,7 @@ private import Version
 struct InstalledApp: Sendable {
 	let id: AppID
 	let name: String
+	// periphery:ignore
 	let bundleID: String
 	let path: String
 	let version: String
