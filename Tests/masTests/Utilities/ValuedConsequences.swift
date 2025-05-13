@@ -24,6 +24,7 @@ struct ValuedConsequences<E: Equatable>: Equatable {
 		guard lhs.value == rhs.value, lhs.stdout == rhs.stdout, lhs.stderr == rhs.stderr else {
 			return false
 		}
+
 		return switch (lhs.error, rhs.error) {
 		case (nil, nil):
 			true

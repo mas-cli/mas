@@ -40,6 +40,7 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 		guard let result = results.first else {
 			throw MASError.unknownAppID(appID)
 		}
+
 		return result
 	}
 
@@ -128,6 +129,7 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 		guard let url = urlComponents.url else {
 			throw MASError.urlParsing("\(urlBase)?\(queryItems.map(\.description).joined(separator: "&"))")
 		}
+
 		return url
 	}
 

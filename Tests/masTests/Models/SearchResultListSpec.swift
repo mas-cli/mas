@@ -6,10 +6,9 @@
 //
 
 import Foundation
+@testable private import mas
 private import Nimble
 import Quick
-
-@testable private import mas
 
 final class SearchResultListSpec: QuickSpec {
 	override static func spec() {

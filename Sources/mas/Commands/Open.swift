@@ -39,6 +39,7 @@ extension MAS {
 				try await openMacAppStore()
 				return
 			}
+
 			try await openInMacAppStore(pageForAppID: appID, searcher: searcher)
 		}
 	}

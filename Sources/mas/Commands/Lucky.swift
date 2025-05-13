@@ -44,6 +44,7 @@ extension MAS {
 			guard let result = results.first else {
 				throw MASError.noSearchResultsFound(for: searchTerm)
 			}
+
 			try await install(appID: result.trackId, installedApps: installedApps, downloader: downloader)
 		}
 

@@ -63,6 +63,7 @@ extension MAS {
 			guard setegid(sudoGID) == 0 else {
 				throw MASError.runtimeError("Failed to switch effective group from 'wheel' to '\(sudoGroupName)'")
 			}
+
 			defer {
 				if setegid(0) != 0 {
 					printer.warning("Failed to revert effective group from '", sudoGroupName, "' back to 'wheel'", separator: "")
@@ -78,6 +79,7 @@ extension MAS {
 			guard seteuid(sudoUID) == 0 else {
 				throw MASError.runtimeError("Failed to switch effective user from 'root' to '\(sudoUserName)'")
 			}
+
 			defer {
 				if seteuid(0) != 0 {
 					printer.warning("Failed to revert effective user from '", sudoUserName, "' back to 'root'", separator: "")
@@ -122,11 +124,11 @@ private func uninstallApps(atPaths appPaths: [String], printer: Printer) throws 
 			printer.error("Failed to determine gid of", appPath)
 			continue
 		}
-
 		guard chown(appPath, uid, gid) == 0 else {
 			printer.error("Failed to change ownership of '", appPath, "' to uid ", uid, " & gid ", gid, separator: "")
 			continue
 		}
+
 		var chownPath = appPath
 		defer {
 			if chown(chownPath, appUID, appGID) != 0 {
@@ -152,12 +154,10 @@ private func uninstallApps(atPaths appPaths: [String], printer: Printer) throws 
 			)
 			continue
 		}
-
 		guard let delete = item.delete else {
 			printer.error("Failed to obtain Finder access: FinderItem.delete does not exist")
 			continue
 		}
-
 		guard let deletedURLString = (delete() as FinderItem).URL else {
 			printer.error(
 				"""
@@ -167,7 +167,6 @@ private func uninstallApps(atPaths appPaths: [String], printer: Printer) throws 
 			)
 			continue
 		}
-
 		guard let deletedURL = URL(string: deletedURLString) else {
 			printer.error(
 				"""
@@ -190,5 +189,6 @@ private func finderItems() throws -> SBElementArray {
 	guard let items = finder.items else {
 		throw MASError.runtimeError("Failed to obtain Finder access: finder.items does not exist")
 	}
+
 	return items()
 }

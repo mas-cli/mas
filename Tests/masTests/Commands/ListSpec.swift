@@ -6,10 +6,9 @@
 //
 
 private import ArgumentParser
+@testable private import mas
 private import Nimble
 import Quick
-
-@testable private import mas
 
 final class ListSpec: QuickSpec {
 	override static func spec() {

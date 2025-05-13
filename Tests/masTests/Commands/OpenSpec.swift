@@ -6,10 +6,9 @@
 //
 
 private import ArgumentParser
+@testable private import mas
 private import Nimble
 import Quick
-
-@testable private import mas
 
 final class OpenSpec: AsyncSpec {
 	override static func spec() {

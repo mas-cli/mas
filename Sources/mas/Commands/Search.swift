@@ -38,6 +38,7 @@ extension MAS {
 			guard !results.isEmpty else {
 				throw MASError.noSearchResultsFound(for: searchTerm)
 			}
+
 			printer.info(SearchResultFormatter.format(results, includePrice: price))
 		}
 	}

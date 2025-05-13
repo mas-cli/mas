@@ -41,7 +41,8 @@ var installedApps: [InstalledApp] {
 				query.stop()
 
 				continuation.resume(
-					returning: query.results.compactMap { result in
+					returning: query.results // swiftformat:disable indent
+					.compactMap { result in
 						if let item = result as? NSMetadataItem {
 							InstalledApp(
 								id: item.value(forAttribute: "kMDItemAppStoreAdamID") as? AppID ?? 0,
@@ -56,7 +57,7 @@ var installedApps: [InstalledApp] {
 							nil
 						}
 					}
-					.sorted { $0.name.caseInsensitiveCompare($1.name) == .orderedAscending }
+					.sorted { $0.name.caseInsensitiveCompare($1.name) == .orderedAscending } // swiftformat:enable indent
 				)
 			}
 

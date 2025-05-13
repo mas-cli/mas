@@ -41,6 +41,7 @@ extension MAS {
 					guard let url = URL(string: urlString) else {
 						throw MASError.urlParsing(urlString)
 					}
+
 					try await url.open()
 				} catch {
 					printer.error(error: error)
