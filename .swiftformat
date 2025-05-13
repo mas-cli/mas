@@ -2,7 +2,7 @@
 # .swiftformat
 # mas
 #
-# SwiftFormat 0.55.6
+# SwiftFormat 0.56.0
 #
 # https://github.com/nicklockwood/SwiftFormat#config-file
 #
@@ -12,23 +12,29 @@
 --disable hoistTry
 
 # Enabled rules (disabled by default)
-# https://github.com/nicklockwood/SwiftFormat/issues/2019
 #--enable acronyms
 #--enable blankLineAfterSwitchCase
-#--enable blankLinesBetweenImports
+--enable blankLinesAfterGuardStatements
+--enable blankLinesBetweenImports
 --enable blockComments
 --enable docComments
+--enable emptyExtensions
+--enable environmentEntry
 --enable isEmpty
 #--enable markTypes
 --enable noExplicitOwnership
 --enable organizeDeclarations
+--enable preferSwiftTesting
+--enable privateStateVariables
 --enable propertyTypes
+--enable redundantEquatable
 --enable redundantProperty
 --enable sortSwitchCases
 --enable unusedPrivateDeclarations
 --enable wrapConditionalBodies
 --enable wrapEnumCases
 --enable wrapMultilineConditionalAssignment
+--enable wrapMultilineFunctionChains
 --enable wrapSwitchCases
 
 # Rule options

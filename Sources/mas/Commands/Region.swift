@@ -23,6 +23,7 @@ extension MAS {
 			guard let region = await isoRegion else {
 				throw MASError.runtimeError("Failed to obtain the region of the Mac App Store")
 			}
+
 			printer.info(region.alpha2)
 		}
 	}

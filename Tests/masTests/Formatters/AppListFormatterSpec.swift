@@ -5,10 +5,9 @@
 // Copyright © 2020 mas-cli. All rights reserved.
 //
 
+@testable private import mas
 private import Nimble
 import Quick
-
-@testable private import mas
 
 final class AppListFormatterSpec: QuickSpec {
 	override static func spec() {

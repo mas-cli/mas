@@ -22,6 +22,7 @@ struct UnvaluedConsequences: Equatable {
 		guard lhs.stdout == rhs.stdout, lhs.stderr == rhs.stderr else {
 			return false
 		}
+
 		return switch (lhs.error, rhs.error) {
 		case (nil, nil):
 			true

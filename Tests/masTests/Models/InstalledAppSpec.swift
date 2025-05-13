@@ -5,10 +5,9 @@
 // Copyright © 2021 mas-cli. All rights reserved.
 //
 
+@testable private import mas
 private import Nimble
 import Quick
-
-@testable private import mas
 
 final class InstalledAppSpec: QuickSpec {
 	override static func spec() {

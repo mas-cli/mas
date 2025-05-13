@@ -16,6 +16,7 @@ struct VerboseOptionGroup: ParsableArguments {
 			printer.error(error: error)
 			return
 		}
+
 		if verbose {
 			printer.warning(error, "; was expected to identify: ", appName, separator: "")
 		}

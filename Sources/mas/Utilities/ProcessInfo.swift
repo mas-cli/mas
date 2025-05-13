@@ -19,6 +19,7 @@ extension ProcessInfo {
 		else {
 			return nil
 		}
+
 		return String(validatingUTF8: group.pointee.gr_name)
 	}
 
