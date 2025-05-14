@@ -2,9 +2,7 @@
 # .swiftformat
 # mas
 #
-# SwiftFormat 0.56.0
-#
-# https://github.com/nicklockwood/SwiftFormat#config-file
+# SwiftFormat 0.56.1
 #
 
 # Disabled rules

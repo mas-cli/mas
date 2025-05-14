@@ -1,3 +1,9 @@
+#
+# .periphery.yaml
+# mas
+#
+# Periphery 3.1.0
+#
 ---
 disable_update_check: true
 external_test_case_classes:
