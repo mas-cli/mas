@@ -4,8 +4,6 @@
 #
 # yamllint 1.37.1
 #
-# https://yamllint.readthedocs.io/en/stable/configuration.html#default-configuration
-#
 ---
 extends: default
 locale: en_US.UTF-8

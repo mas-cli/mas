@@ -6,8 +6,6 @@
 #
 # markdownlint-cli2 0.18.0 / markdownlint 0.38.0
 #
-# https://github.com/DavidAnson/markdownlint-cli2#configuration
-#
 ---
 gitignore: true
 noBanner: true

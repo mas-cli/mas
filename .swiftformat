@@ -4,8 +4,6 @@
 #
 # SwiftFormat 0.56.1
 #
-# https://github.com/nicklockwood/SwiftFormat#config-file
-#
 
 # Disabled rules
 --disable hoistAwait
