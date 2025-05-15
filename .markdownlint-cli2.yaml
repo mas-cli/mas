@@ -4,7 +4,7 @@
 # .markdownlint-cli2.yaml
 # mas
 #
-# markdownlint-cli2 0.18.0 / markdownlint 0.38.0
+# markdownlint-cli2 0.18.1 / markdownlint 0.38.0
 #
 ---
 gitignore: true
