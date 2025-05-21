@@ -50,7 +50,8 @@ struct Downloader {
 				"Network error (",
 				attemptCount,
 				attemptCount == 1 ? " attempt remaining):\n" : " attempts remaining):\n",
-				error
+				error,
+				separator: ""
 			)
 			try await downloadApp(withAppID: appID, purchasing: purchasing, withAttemptCount: attemptCount)
 		}
