@@ -10,7 +10,6 @@ private import Version
 
 struct InstalledApp: Hashable, Sendable {
 	let id: AppID
-	// periphery:ignore
 	let bundleID: String
 	let name: String
 	let path: String
