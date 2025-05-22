@@ -9,19 +9,13 @@ private import ArgumentParser
 private import Atomics
 internal import Foundation
 
-// A collection of output formatting helpers
-
-/// Terminal Control Sequence Indicator.
-private var csi: String { "\u{001B}[" }
-
+/// Prints to `stdout` and `stderr` with ANSI color codes when connected to a terminal.
+///
+/// Can only be initialized by the `run` global functions, which throw an `ExitCode(1)` iff any errors were printed.
 struct Printer {
 	private let errorCounter = ManagedAtomic<UInt64>(0)
 
 	var errorCount: UInt64 { errorCounter.load(ordering: .acquiring) }
-
-	fileprivate init() {
-		// Do nothing
-	}
 
 	func log(_ message: String, to fileHandle: FileHandle) {
 		if let data = message.data(using: .utf8) {
@@ -129,3 +123,6 @@ func run(_ expression: (Printer) async throws -> Void) async throws {
 		throw ExitCode(1)
 	}
 }
+
+/// Terminal Control Sequence Indicator.
+private var csi: String { "\u{001B}[" }
