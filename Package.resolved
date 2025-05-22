@@ -23,8 +23,8 @@
 			"kind" : "remoteSourceControl",
 			"location" : "https://github.com/funky-monkey/IsoCountryCodes.git",
 			"state" : {
-				"revision" : "c571f2133f32d56f6ef4af0d210bd1fc7adf6a02",
-				"version" : "1.0.2"
+				"revision" : "f6672549f8d99bb6a8c7bc5233bc8630bb92c172",
+				"version" : "1.0.3"
 			}
 		},
 		{
