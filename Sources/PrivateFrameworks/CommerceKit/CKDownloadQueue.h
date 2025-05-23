@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)lockApplicationsForBundleID:(id)arg1;
 - (void)performedIconAnimationForDownloadWithIdentifier:(unsigned long long)arg1;
 
-//- (void)fetchIconForItemIdentifier:(unsigned long long)arg1 atURL:(id)arg2 replyBlock:(CDUnknownBlockType)arg3;
+- (void)fetchIconForItemIdentifier:(unsigned long long)arg1 atURL:(id)arg2 replyBlock:(UnknownBlock *)arg3;
 
 - (void)removeDownloadWithItemIdentifier:(unsigned long long)arg1;
 - (void)cancelDownload:(id)arg1 promptToConfirm:(BOOL)arg2 askToDelete:(BOOL)arg3;
@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (id<CKDownloadQueueObserver>)addObserver:(id<CKDownloadQueueObserver>)arg1;
 - (id<CKDownloadQueueObserver>)addObserver:(id<CKDownloadQueueObserver>)arg1 forDownloadTypes:(long long)arg2;
 
-// - (id)addObserverForDownloadTypes:(long long)arg1 withBlock:(CDUnknownBlockType)arg2;
+- (id)addObserverForDownloadTypes:(long long)arg1 withBlock:(UnknownBlock *)arg2;
 
 - (void)connectionWasInterrupted;
 - (id)initWithStoreClient:(id)arg1;

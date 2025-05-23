@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 	NSString *_sortableAccountIdentifier;
 	unsigned long long _itemIdentifier;
 
-	// CDUnknownBlockType _authFallbackHandler;
+	UnknownBlock *_authFallbackHandler;
 
 	ISOperation *_purchaseOperation;
 	NSDictionary *_responseDialog;
@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property BOOL isCancelled; // @synthesize isCancelled=_isCancelled;
 
-// @property(copy) CDUnknownBlockType authFallbackHandler; // @synthesize authFallbackHandler=_authFallbackHandler;
+@property(copy) UnknownBlock *authFallbackHandler; // @synthesize authFallbackHandler=_authFallbackHandler;
 
 @property unsigned long long itemIdentifier; // @synthesize itemIdentifier=_itemIdentifier;
 @property BOOL shouldBeInstalledAfterLogout; // @synthesize shouldBeInstalledAfterLogout=_shouldBeInstalledAfterLogout;

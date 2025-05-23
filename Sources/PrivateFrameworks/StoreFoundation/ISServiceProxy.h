@@ -20,32 +20,32 @@ typedef void (^ISErrorHandler)(NSError * __nonnull error);
 @property(retain, nonatomic, nullable) ISStoreClient *storeClient; // @synthesize storeClient=_storeClient;
 
 //- (void).cxx_destruct;
-//- (void)uiServiceSynchronousBlock:(CDUnknownBlockType)arg1;
+- (void)uiServiceSynchronousBlock:(UnknownBlock *)arg1;
 //@property(readonly, nonatomic) id<ISUIService> uiService;
-//- (id)uiServiceWithErrorHandler:(CDUnknownBlockType)arg1;
-//- (void)inAppServiceSynchronousBlock:(CDUnknownBlockType)arg1;
+- (id)uiServiceWithErrorHandler:(UnknownBlock *)arg1;
+- (void)inAppServiceSynchronousBlock:(UnknownBlock *)arg1;
 //@property(readonly, nonatomic) id<ISInAppService> inAppService;
-//- (id)inAppServiceWithErrorHandler:(CDUnknownBlockType)arg1;
-//- (void)transactionServiceSynchronousBlock:(CDUnknownBlockType)arg1;
+- (id)inAppServiceWithErrorHandler:(UnknownBlock *)arg1;
+- (void)transactionServiceSynchronousBlock:(UnknownBlock *)arg1;
 //@property(readonly, nonatomic) id<ISTransactionService> transactionService;
-//- (id)transactionServiceWithErrorHandler:(CDUnknownBlockType)arg1;
-//- (void)assetServiceSynchronousBlock:(CDUnknownBlockType)arg1;
+- (id)transactionServiceWithErrorHandler:(UnknownBlock *)arg1;
+- (void)assetServiceSynchronousBlock:(UnknownBlock *)arg1;
 //@property(readonly, nonatomic) id<ISAssetService> assetService;
-//- (id)assetServiceWithErrorHandler:(CDUnknownBlockType)arg1;
-//- (void)downloadServiceSynchronousBlock:(CDUnknownBlockType)arg1;
+- (id)assetServiceWithErrorHandler:(UnknownBlock *)arg1;
+- (void)downloadServiceSynchronousBlock:(UnknownBlock *)arg1;
 //@property(readonly, nonatomic) id<ISDownloadService> downloadService;
-//- (id)downloadServiceWithErrorHandler:(CDUnknownBlockType)arg1;
-//- (void)accountServiceSynchronousBlock:(CDUnknownBlockType)arg1;
+- (id)downloadServiceWithErrorHandler:(UnknownBlock *)arg1;
+- (void)accountServiceSynchronousBlock:(UnknownBlock *)arg1;
 
 @property(readonly, nonatomic) id<ISAccountService> accountService;
 
-//- (id)accountServiceWithErrorHandler:(CDUnknownBlockType)arg1;
+- (id)accountServiceWithErrorHandler:(UnknownBlock *)arg1;
 
 - (void)connectionWasInterrupted;
 - (void)registerForInterrptionNotification;
 
-//- (void)performSynchronousBlock:(CDUnknownBlockType)arg1 withServiceName:(id)arg2 protocol:(id)arg3 isMachService:(BOOL)arg4 interfaceClassName:(id)arg5;
-//- (id)objectProxyForServiceName:(id)arg1 protocol:(id)arg2 interfaceClassName:(id)arg3 isMachService:(BOOL)arg4 errorHandler:(CDUnknownBlockType)arg5;
+- (void)performSynchronousBlock:(UnknownBlock *)arg1 withServiceName:(id)arg2 protocol:(id)arg3 isMachService:(BOOL)arg4 interfaceClassName:(id)arg5;
+- (id)objectProxyForServiceName:(id)arg1 protocol:(id)arg2 interfaceClassName:(id)arg3 isMachService:(BOOL)arg4 errorHandler:(UnknownBlock *)arg5;
 //- (id)connectionWithServiceName:(id)arg1 protocol:(id)arg2 isMachService:(BOOL)arg3;
 //@property(readonly, nonatomic) Protocol *exportedProtocol;
 //@property(readonly, nonatomic) __weak id<ISServiceRemoteObject> exportedObject;

@@ -16,14 +16,14 @@ typedef void (^SSPurchaseCompletion)(SSPurchase * _Nullable purchase, BOOL compl
 	NSNumber *_adoptionServerStatus;
 	NSNumber *_adoptionErrorNumber;
 
-	// CDUnknownBlockType _dialogHandler;
+	UnknownBlock *_dialogHandler;
 }
 
 + (void)setNeedsSilentMachineAuthorization:(BOOL)arg1;
 
 + (instancetype)sharedPurchaseController;
 
-//@property(copy) CDUnknownBlockType dialogHandler; // @synthesize dialogHandler=_dialogHandler;
+@property(copy) UnknownBlock* dialogHandler; // @synthesize dialogHandler=_dialogHandler;
 //- (void).cxx_destruct;
 
 - (BOOL)adoptionCompletedForBundleID:(id)arg1;
@@ -34,8 +34,8 @@ typedef void (^SSPurchaseCompletion)(SSPurchase * _Nullable purchase, BOOL compl
 - (void)cancelPurchaseWithProductID:(id)arg1;
 - (void)resumeDownloadForPurchasedProductID:(id)arg1;
 
-//- (void)startPurchases:(id)arg1 shouldStartDownloads:(BOOL)arg2 eventHandler:(CDUnknownBlockType)arg3;
-//- (void)startPurchases:(id)arg1 withOptions:(unsigned long long)arg2 completionHandler:(CDUnknownBlockType)arg3;
+- (void)startPurchases:(id)arg1 shouldStartDownloads:(BOOL)arg2 eventHandler:(UnknownBlock *)arg3;
+- (void)startPurchases:(id)arg1 withOptions:(unsigned long long)arg2 completionHandler:(UnknownBlock *)arg3;
 
 - (void)performPurchase:(SSPurchase *)purchase withOptions:(unsigned long long)arg2 completionHandler:(SSPurchaseCompletion _Nullable)completionHandler;
 
