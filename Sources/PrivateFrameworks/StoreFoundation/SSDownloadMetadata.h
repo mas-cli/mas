@@ -4,10 +4,6 @@
 // class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
 //
 
-@import Foundation;
-
-@class NSArray, NSData, NSDictionary, NSLock, NSMutableDictionary, NSNumber, NSString, NSURL;
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SSDownloadMetadata : NSObject <NSSecureCoding, NSCopying>

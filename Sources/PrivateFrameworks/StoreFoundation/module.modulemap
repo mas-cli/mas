@@ -1,14 +1,6 @@
-module StoreFoundation {
-	header "ISAccountService-Protocol.h"
-	header "ISAuthenticationContext.h"
-	header "ISStoreAccount.h"
-	header "ISStoreClient.h"
-	header "SSDownload.h"
-	header "SSDownloadMetadata.h"
-	header "SSDownloadPhase.h"
-	header "SSDownloadStatus.h"
-	header "SSPurchase.h"
-	header "SSPurchaseResponse.h"
-
+module StoreFoundation [no_undeclared_includes] {
+	requires macos, objc
+	use Foundation
+	private header "StoreFoundation.h"
 	export *
 }

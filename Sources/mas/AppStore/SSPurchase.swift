@@ -5,7 +5,7 @@
 // Copyright © 2015 mas-cli. All rights reserved.
 //
 
-private import CommerceKit
+private import StoreFoundation
 
 extension SSPurchase {
 	convenience init(appID: AppID, purchasing: Bool) async {

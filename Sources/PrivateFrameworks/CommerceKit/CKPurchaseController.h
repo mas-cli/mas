@@ -4,10 +4,6 @@
 // class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
 //
 
-#import "CKServiceInterface.h"
-
-@class NSArray, NSMutableArray, NSNumber;
-
 NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^SSPurchaseCompletion)(SSPurchase * _Nullable purchase, BOOL completed, NSError * _Nullable error, SSPurchaseResponse * _Nullable response);
