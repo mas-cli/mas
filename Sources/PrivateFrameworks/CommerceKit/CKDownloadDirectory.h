@@ -7,4 +7,4 @@
 
 @import Foundation;
 
-NSString* CKDownloadDirectory(NSString *target);
+NSString *CKDownloadDirectory(NSString *target);
