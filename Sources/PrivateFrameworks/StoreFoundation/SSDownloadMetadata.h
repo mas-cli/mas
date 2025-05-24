@@ -6,89 +6,67 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SSDownloadMetadata : NSObject <NSSecureCoding, NSCopying>
-{
+@interface SSDownloadMetadata : NSObject <NSSecureCoding, NSCopying> {
 	NSMutableDictionary *_dictionary;
 	NSLock *_lock;
 }
 
 + (BOOL)supportsSecureCoding;
 
-//- (void).cxx_destruct;
-
-- (id _Nullable)_valueForFirstAvailableKey:(id)arg1;
-@property(retain, nullable) NSArray *sinfs;
-- (void)setValue:(id _Nullable)arg1 forMetadataKey:(id)arg2;
-@property(retain, nullable) NSString *iapInstallPath;
-@property(retain, nullable) NSString *fileExtension;
-@property(retain, nullable) NSString *appleID;
-@property(retain, nullable) NSData *epubRightsData;
-@property(retain, nullable) NSString *downloadKey;
-@property(retain, nullable) NSDictionary *dictionary;
-- (id _Nullable)localServerInfo;
-@property(readonly, nullable) NSString *iapContentVersion;
-@property(readonly, nullable) NSNumber *iapContentSize;
-@property(readonly, nullable) NSArray *assets;
-
+@property(readonly, nullable) NSNumber *ageRestriction;
 @property BOOL animationExpected;
-
-@property(retain, nullable) NSString *transactionIdentifier;
-
-@property(retain) NSString *title;
-
-@property(retain, nullable) NSURL *thumbnailImageURL;
-@property(retain, nullable) NSString *subtitle;
-@property(retain, nullable) NSString *ipaInstallPath;
-
-@property BOOL isMDMProvided;
-
-- (void)setUncompressedSize:(NSNumber * _Nonnull)arg1;
-
-- (void)setExtractionCanBeStreamed:(BOOL)arg1;
-
-@property(retain, nullable) NSString *buyParameters;
-@property(retain, nullable) NSURL *preflightPackageURL;
-
-@property(getter=isRental) BOOL rental;
-
-@property(retain, nullable) NSString *kind;
-
-@property unsigned long long itemIdentifier;
-
-@property(retain, nullable) NSString *genre;
-@property(retain, nullable) NSNumber *durationInMilliseconds;
-@property(retain, nullable) NSString *collectionName;
-@property(retain, nullable) NSString *bundleVersion;
-@property(retain, nullable) NSString *bundleIdentifier;
-
+@property(retain, nullable) NSString *appleID;
+@property(readonly, nullable) NSString *applicationIdentifier;
 @property BOOL artworkIsPrerendered;
-
-@property(readonly, nullable) NSString *bundleShortVersionString;
+@property(readonly, nullable) NSArray *assets;
 @property(readonly, nullable) NSString *bundleDisplayName;
+@property(retain, nullable) NSString *bundleIdentifier;
+@property(readonly, nullable) NSString *bundleShortVersionString;
+@property(retain, nullable) NSString *bundleVersion;
+@property(retain, nullable) NSString *buyParameters;
+@property(retain, nullable) NSString *collectionName;
+@property(retain, nullable) NSDictionary *dictionary;
+@property(retain, nullable) NSString *downloadKey;
+@property(retain, nullable) NSNumber *durationInMilliseconds;
+@property(retain, nullable) NSData *epubRightsData;
+@property(readonly) BOOL extractionCanBeStreamed;
+@property(retain, nullable) NSString *fileExtension;
+@property(retain, nullable) NSString *genre;
+@property(readonly, nullable) NSNumber *iapContentSize;
+@property(readonly, nullable) NSString *iapContentVersion;
+@property(retain, nullable) NSString *iapInstallPath;
+@property(retain, nullable) NSString *ipaInstallPath;
+@property(readonly) BOOL isExplicitContents;
+@property BOOL isMDMProvided;
+@property unsigned long long itemIdentifier;
+@property(retain, nullable) NSString *kind;
+@property(readonly) BOOL needsSoftwareInstallOperation;
+@property(retain, nullable) NSURL *preflightPackageURL;
+@property(retain, nullable) NSString *productType;
+@property(readonly, nullable) NSString *purchaseDate;
+@property(getter=isRental) BOOL rental;
+@property(readonly, getter=isSample) BOOL sample;
+@property(retain, nullable) NSArray *sinfs;
+@property(retain, nullable) NSString *subtitle;
+@property(retain, nullable) NSURL *thumbnailImageURL;
+@property(retain) NSString *title;
+@property(retain, nullable) NSString *transactionIdentifier;
 @property(readonly, nullable) NSNumber *uncompressedSize;
 
-@property(readonly) BOOL extractionCanBeStreamed;
-@property(readonly) BOOL needsSoftwareInstallOperation;
-
-- (id _Nullable)deltaPackages;
-
-@property(readonly, getter=isSample) BOOL sample;
-
-@property(readonly, nullable) NSString *purchaseDate;
-
-@property(readonly) BOOL isExplicitContents;
-
-@property(readonly, nullable) NSNumber *ageRestriction;
-@property(retain, nullable) NSString *productType;
-@property(readonly, nullable) NSString *applicationIdentifier;
-
+- (id _Nullable)_valueForFirstAvailableKey:(id)arg1;
 - (id)copyWithZone:(nullable struct _NSZone *)arg1;
-- (id)initWithCoder:(id)arg1;
+- (id _Nullable)deltaPackages;
 - (void)encodeWithCoder:(id)arg1;
-
+- (instancetype)init;
+- (id)initWithCoder:(id)arg1;
 - (nullable instancetype)initWithDictionary:(id)arg1;
 - (nullable instancetype)initWithKind:(id)arg1;
-- (instancetype)init;
+- (id _Nullable)localServerInfo;
+- (void)setExtractionCanBeStreamed:(BOOL)arg1;
+- (void)setUncompressedSize:(NSNumber * _Nonnull)arg1;
+- (void)setValue:(id _Nullable)arg1 forMetadataKey:(id)arg2;
+
+//- (void).cxx_destruct;
 
 @end
 

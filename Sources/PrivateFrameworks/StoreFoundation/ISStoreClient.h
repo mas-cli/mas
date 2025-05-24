@@ -6,75 +6,75 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ISStoreClient : NSObject <NSSecureCoding>
-{
+@interface ISStoreClient : NSObject <NSSecureCoding> {
 	BOOL __alwaysUseSandboxEnvironment;
-	BOOL _isDaemon;
-	int _pid;
-	unsigned long long _frameworkVersion;
-	NSString *_identifier;
-	long long _clientType;
-	ISStoreAccount *_primaryAccount;
-	NSString *_userAgentAppName;
-	NSString *_userAgentAppVersion;
+	NSString *_agentListenerName;
 	NSString *_agentPreferencesDomain;
-	NSString *_appPreferencesDomain;
-	NSString *_storeFrontBagKey;
-	NSArray *_productionBagURLs;
-	NSArray *_sandboxBagURLs;
-	NSString *_toolbarBagKey;
-	long long _requiredBagType;
-	NSString *_aslDomain;
-	NSString *_storeURLScheme;
-	NSString *_storeSecureURLScheme;
-	NSString *_tempPathClientIdentifier;
-	long long _mediaTypeMask;
-	NSString *_pushServiceName;
 	NSString *_appPath;
+	NSString *_appPreferencesDomain;
+	NSString *_aslDomain;
+	long long _clientType;
 	NSDictionary *_daap;
 	NSString *_displayUIHostID;
-	NSString *_agentListenerName;
+	unsigned long long _frameworkVersion;
+	NSString *_identifier;
+	BOOL _isDaemon;
+	long long _mediaTypeMask;
+	int _pid;
+	ISStoreAccount *_primaryAccount;
+	NSArray *_productionBagURLs;
+	NSString *_pushServiceName;
+	long long _requiredBagType;
+	NSArray *_sandboxBagURLs;
+	NSString *_storeFrontBagKey;
+	NSString *_storeSecureURLScheme;
+	NSString *_storeURLScheme;
+	NSString *_tempPathClientIdentifier;
+	NSString *_toolbarBagKey;
+	NSString *_userAgentAppName;
+	NSString *_userAgentAppVersion;
 }
 
 + (id)knownClientWithIdentifier:(id)arg1 frameworkVersion:(id)arg2;
 + (BOOL)supportsSecureCoding;
-@property BOOL isDaemon; // @synthesize isDaemon=_isDaemon;
+
+@property(setter=_setAlwaysUseSandboxEnvironment:) BOOL _alwaysUseSandboxEnvironment; // @synthesize _alwaysUseSandboxEnvironment=__alwaysUseSandboxEnvironment;
 @property(copy) NSString *agentListenerName; // @synthesize agentListenerName=_agentListenerName;
-@property(readonly) int pid; // @synthesize pid=_pid;
-@property(copy) NSString *displayUIHostID; // @synthesize displayUIHostID=_displayUIHostID;
-@property(copy) NSDictionary *daap; // @synthesize daap=_daap;
+@property(copy) NSString *agentPreferencesDomain; // @synthesize agentPreferencesDomain=_agentPreferencesDomain;
 @property(copy) NSString *appPath; // @synthesize appPath=_appPath;
-@property(copy) NSString *pushServiceName; // @synthesize pushServiceName=_pushServiceName;
+@property(copy) NSString *appPreferencesDomain; // @synthesize appPreferencesDomain=_appPreferencesDomain;
+@property(copy) NSString *aslDomain; // @synthesize aslDomain=_aslDomain;
+@property long long clientType; // @synthesize clientType=_clientType;
+@property(copy) NSDictionary *daap; // @synthesize daap=_daap;
+@property(copy) NSString *displayUIHostID; // @synthesize displayUIHostID=_displayUIHostID;
+@property unsigned long long frameworkVersion; // @synthesize frameworkVersion=_frameworkVersion;
+@property(copy) NSString *identifier; // @synthesize identifier=_identifier;
+@property BOOL isDaemon; // @synthesize isDaemon=_isDaemon;
 @property long long mediaTypeMask; // @synthesize mediaTypeMask=_mediaTypeMask;
-@property(copy) NSString *tempPathClientIdentifier; // @synthesize tempPathClientIdentifier=_tempPathClientIdentifier;
+@property(readonly) int pid; // @synthesize pid=_pid;
+@property(copy) ISStoreAccount *primaryAccount; // @synthesize primaryAccount=_primaryAccount;
+@property(copy) NSArray *productionBagURLs; // @synthesize productionBagURLs=_productionBagURLs;
+@property(copy) NSString *pushServiceName; // @synthesize pushServiceName=_pushServiceName;
+@property long long requiredBagType; // @synthesize requiredBagType=_requiredBagType;
+@property(copy) NSArray *sandboxBagURLs; // @synthesize sandboxBagURLs=_sandboxBagURLs;
+@property(copy) NSString *storeFrontBagKey; // @synthesize storeFrontBagKey=_storeFrontBagKey;
 @property(copy) NSString *storeSecureURLScheme; // @synthesize storeSecureURLScheme=_storeSecureURLScheme;
 @property(copy) NSString *storeURLScheme; // @synthesize storeURLScheme=_storeURLScheme;
-@property(setter=_setAlwaysUseSandboxEnvironment:) BOOL _alwaysUseSandboxEnvironment; // @synthesize _alwaysUseSandboxEnvironment=__alwaysUseSandboxEnvironment;
-@property(copy) NSString *aslDomain; // @synthesize aslDomain=_aslDomain;
-@property long long requiredBagType; // @synthesize requiredBagType=_requiredBagType;
+@property(copy) NSString *tempPathClientIdentifier; // @synthesize tempPathClientIdentifier=_tempPathClientIdentifier;
 @property(copy) NSString *toolbarBagKey; // @synthesize toolbarBagKey=_toolbarBagKey;
-@property(copy) NSArray *sandboxBagURLs; // @synthesize sandboxBagURLs=_sandboxBagURLs;
-@property(copy) NSArray *productionBagURLs; // @synthesize productionBagURLs=_productionBagURLs;
-@property(copy) NSString *storeFrontBagKey; // @synthesize storeFrontBagKey=_storeFrontBagKey;
-@property(copy) NSString *appPreferencesDomain; // @synthesize appPreferencesDomain=_appPreferencesDomain;
-@property(copy) NSString *agentPreferencesDomain; // @synthesize agentPreferencesDomain=_agentPreferencesDomain;
-@property(copy) NSString *userAgentAppVersion; // @synthesize userAgentAppVersion=_userAgentAppVersion;
 @property(copy) NSString *userAgentAppName; // @synthesize userAgentAppName=_userAgentAppName;
-@property(copy) ISStoreAccount *primaryAccount; // @synthesize primaryAccount=_primaryAccount;
-@property long long clientType; // @synthesize clientType=_clientType;
-@property(copy) NSString *identifier; // @synthesize identifier=_identifier;
-@property unsigned long long frameworkVersion; // @synthesize frameworkVersion=_frameworkVersion;
+@property(copy) NSString *userAgentAppVersion; // @synthesize userAgentAppVersion=_userAgentAppVersion;
+
+- (void)_cacheKnownClient:(id)arg1;
+- (id)callerIdentity;
+- (void)encodeWithCoder:(id)arg1;
+- (id)init;
+- (id)initWithApplicationPath:(id)arg1;
+- (id)initWithCoder:(id)arg1;
+- (id)initWithStoreClientType:(long long)arg1;
+- (BOOL)isEqualToStoreClient:(id)arg1;
 
 //- (void).cxx_destruct;
-
-- (id)callerIdentity;
-- (BOOL)isEqualToStoreClient:(id)arg1;
-- (void)_cacheKnownClient:(id)arg1;
-- (id)initWithCoder:(id)arg1;
-- (void)encodeWithCoder:(id)arg1;
-- (id)initWithApplicationPath:(id)arg1;
-- (id)initWithStoreClientType:(long long)arg1;
-- (id)init;
 
 @end
 

@@ -4,57 +4,57 @@
 // class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
 //
 
-@interface SSDownload : NSObject <NSSecureCoding>
-{
-	BOOL _needsPreInstallValidation;
-	BOOL _installAfterLogout;
-	BOOL _didAutoUpdate;
-	BOOL _skipAssetDownloadIfNotAlreadyOnDisk;
-	BOOL _needsDisplayInDock;
-	BOOL _isInServerQueue;
-	NSArray *_assets;
-	SSDownloadMetadata *_metadata;
-	SSDownloadStatus *_status;
-	unsigned long long _downloadType;
+@interface SSDownload : NSObject <NSSecureCoding> {
 	NSNumber *_accountDSID;
+	NSArray *_assets;
 	NSString *_cancelURLString;
+	BOOL _didAutoUpdate;
+	unsigned long long _downloadType;
+	BOOL _installAfterLogout;
 	NSString *_installPath;
+	BOOL _isInServerQueue;
+	SSDownloadMetadata *_metadata;
+	BOOL _needsDisplayInDock;
+	BOOL _needsPreInstallValidation;
 	NSURL *_relaunchAppWithBundleURL;
+	BOOL _skipAssetDownloadIfNotAlreadyOnDisk;
+	SSDownloadStatus *_status;
 }
 
 + (BOOL)supportsSecureCoding;
-@property BOOL isInServerQueue; // @synthesize isInServerQueue=_isInServerQueue;
-@property BOOL needsDisplayInDock; // @synthesize needsDisplayInDock=_needsDisplayInDock;
-@property BOOL skipAssetDownloadIfNotAlreadyOnDisk; // @synthesize skipAssetDownloadIfNotAlreadyOnDisk=_skipAssetDownloadIfNotAlreadyOnDisk;
-@property(copy) NSURL *relaunchAppWithBundleURL; // @synthesize relaunchAppWithBundleURL=_relaunchAppWithBundleURL;
-@property(copy) NSString *installPath; // @synthesize installPath=_installPath;
-@property BOOL didAutoUpdate; // @synthesize didAutoUpdate=_didAutoUpdate;
-@property(copy) NSString *cancelURLString; // @synthesize cancelURLString=_cancelURLString;
+
 @property(copy) NSNumber *accountDSID; // @synthesize accountDSID=_accountDSID;
-@property BOOL installAfterLogout; // @synthesize installAfterLogout=_installAfterLogout;
-@property unsigned long long downloadType; // @synthesize downloadType=_downloadType;
-@property(retain, nonatomic) SSDownloadStatus *status; // @synthesize status=_status;
-@property(copy, nonatomic) SSDownloadMetadata *metadata; // @synthesize metadata=_metadata;
 @property(copy, nonatomic) NSArray *assets; // @synthesize assets=_assets;
-
-//- (void).cxx_destruct;
-
-@property BOOL skipInstallPhase;
-- (void)setUseUniqueDownloadFolder:(BOOL)arg1;
+@property(copy) NSString *cancelURLString; // @synthesize cancelURLString=_cancelURLString;
 @property(copy) NSString *customDownloadPath;
-- (id)primaryAsset;
+@property BOOL didAutoUpdate; // @synthesize didAutoUpdate=_didAutoUpdate;
+@property unsigned long long downloadType; // @synthesize downloadType=_downloadType;
+@property BOOL installAfterLogout; // @synthesize installAfterLogout=_installAfterLogout;
+@property(copy) NSString *installPath; // @synthesize installPath=_installPath;
+@property BOOL isInServerQueue; // @synthesize isInServerQueue=_isInServerQueue;
+@property(copy, nonatomic) SSDownloadMetadata *metadata; // @synthesize metadata=_metadata;
+@property BOOL needsDisplayInDock; // @synthesize needsDisplayInDock=_needsDisplayInDock;
+@property(copy) NSURL *relaunchAppWithBundleURL; // @synthesize relaunchAppWithBundleURL=_relaunchAppWithBundleURL;
+@property BOOL skipAssetDownloadIfNotAlreadyOnDisk; // @synthesize skipAssetDownloadIfNotAlreadyOnDisk=_skipAssetDownloadIfNotAlreadyOnDisk;
+@property BOOL skipInstallPhase;
+@property(retain, nonatomic) SSDownloadStatus *status; // @synthesize status=_status;
+
+- (void)cancel;
+- (void)cancelWithPrompt:(BOOL)arg1;
 - (void)cancelWithPrompt:(BOOL)arg1 storeClient:(id)arg2;
 - (void)cancelWithStoreClient:(id)arg1;
-- (void)cancelWithPrompt:(BOOL)arg1;
-- (void)resumeWithStoreClient:(id)arg1;
-- (void)pauseWithStoreClient:(id)arg1;
-- (id)initWithCoder:(id)arg1;
 - (void)encodeWithCoder:(id)arg1;
-- (BOOL)isEqual:(id)arg1;
-- (id)initWithAssets:(id)arg1 metadata:(id)arg2;
 - (id)init;
-- (void)resume;
+- (id)initWithAssets:(id)arg1 metadata:(id)arg2;
+- (id)initWithCoder:(id)arg1;
+- (BOOL)isEqual:(id)arg1;
 - (void)pause;
-- (void)cancel;
+- (void)pauseWithStoreClient:(id)arg1;
+- (id)primaryAsset;
+- (void)resume;
+- (void)resumeWithStoreClient:(id)arg1;
+- (void)setUseUniqueDownloadFolder:(BOOL)arg1;
+
+//- (void).cxx_destruct;
 
 @end

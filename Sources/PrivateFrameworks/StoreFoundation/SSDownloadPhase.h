@@ -6,27 +6,27 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SSDownloadPhase : NSObject <NSSecureCoding, NSCopying>
-{
+@interface SSDownloadPhase : NSObject <NSSecureCoding, NSCopying> {
 	SSOperationProgress *_operationProgress;
 }
 
 + (BOOL)supportsSecureCoding;
 
-//- (void).cxx_destruct;
-
+@property(readonly) double estimatedSecondsRemaining;
 @property(readonly) SSOperationProgress *operationProgress;
-@property(readonly) long long totalProgressValue;
-@property(readonly) long long progressValue;
+@property(readonly) long long phaseType;
 @property(readonly) float progressChangeRate;
 @property(readonly) long long progressUnits;
-@property(readonly) long long phaseType;
-@property(readonly) double estimatedSecondsRemaining;
+@property(readonly) long long progressValue;
+@property(readonly) long long totalProgressValue;
+
 - (id)copyWithZone:(nullable struct _NSZone *)arg1;
-- (id)initWithCoder:(id)arg1;
 - (void)encodeWithCoder:(id)arg1;
-- (id)initWithOperationProgress:(id)arg1;
 - (id)init;
+- (id)initWithCoder:(id)arg1;
+- (id)initWithOperationProgress:(id)arg1;
+
+//- (void).cxx_destruct;
 
 @end
 

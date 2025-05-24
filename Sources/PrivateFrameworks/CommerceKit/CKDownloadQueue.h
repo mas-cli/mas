@@ -6,45 +6,40 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CKDownloadQueue : CKServiceInterface
-{
+@interface CKDownloadQueue : CKServiceInterface {
+	NSMutableDictionary *_downloadQueueObservers;
 	NSMutableDictionary *_downloadsByItemID;
 	NSLock *_downloadsLock;
-	NSMutableDictionary *_downloadQueueObservers;
 	CKDownloadQueueClient *_sharedObserver;
 }
 
 + (instancetype)sharedDownloadQueue;
 
-@property(retain, nonatomic) CKDownloadQueueClient *sharedObserver; // @synthesize sharedObserver=_sharedObserver;
 @property(retain, nonatomic) NSMutableDictionary *downloadQueueObservers; // @synthesize downloadQueueObservers=_downloadQueueObservers;
-
-//- (void).cxx_destruct;
-
-- (BOOL)cacheReceiptDataForDownload:(id)arg1;
-- (void)checkStoreDownloadQueueForAccount:(id)arg1;
-- (void)lockedApplicationTriedToLaunchAtPath:(id)arg1;
-- (void)unlockApplicationsWithBundleIdentifier:(id)arg1;
-- (void)lockApplicationsForBundleID:(id)arg1;
-- (void)performedIconAnimationForDownloadWithIdentifier:(unsigned long long)arg1;
-
-- (void)fetchIconForItemIdentifier:(unsigned long long)arg1 atURL:(id)arg2 replyBlock:(UnknownBlock *)arg3;
-
-- (void)removeDownloadWithItemIdentifier:(unsigned long long)arg1;
-- (void)cancelDownload:(id)arg1 promptToConfirm:(BOOL)arg2 askToDelete:(BOOL)arg3;
-- (void)resumeDownloadWithItemIdentifier:(unsigned long long)arg1;
-- (void)pauseDownloadWithItemIdentifier:(unsigned long long)arg1;
-- (void)addDownload:(id)arg1;
-- (id)downloadForItemIdentifier:(unsigned long long)arg1;
 @property(readonly, nonatomic) NSArray *downloads; // @dynamic downloads;
-- (void)removeObserver:(id<CKDownloadQueueObserver>)arg1;
+@property(retain, nonatomic) CKDownloadQueueClient *sharedObserver; // @synthesize sharedObserver=_sharedObserver;
+
+- (void)addDownload:(id)arg1;
 - (id<CKDownloadQueueObserver>)addObserver:(id<CKDownloadQueueObserver>)arg1;
 - (id<CKDownloadQueueObserver>)addObserver:(id<CKDownloadQueueObserver>)arg1 forDownloadTypes:(long long)arg2;
-
 - (id)addObserverForDownloadTypes:(long long)arg1 withBlock:(UnknownBlock *)arg2;
-
+- (BOOL)cacheReceiptDataForDownload:(id)arg1;
+- (void)cancelDownload:(id)arg1 promptToConfirm:(BOOL)arg2 askToDelete:(BOOL)arg3;
+- (void)checkStoreDownloadQueueForAccount:(id)arg1;
 - (void)connectionWasInterrupted;
+- (id)downloadForItemIdentifier:(unsigned long long)arg1;
+- (void)fetchIconForItemIdentifier:(unsigned long long)arg1 atURL:(id)arg2 replyBlock:(UnknownBlock *)arg3;
 - (id)initWithStoreClient:(id)arg1;
+- (void)lockApplicationsForBundleID:(id)arg1;
+- (void)lockedApplicationTriedToLaunchAtPath:(id)arg1;
+- (void)pauseDownloadWithItemIdentifier:(unsigned long long)arg1;
+- (void)performedIconAnimationForDownloadWithIdentifier:(unsigned long long)arg1;
+- (void)removeDownloadWithItemIdentifier:(unsigned long long)arg1;
+- (void)removeObserver:(id<CKDownloadQueueObserver>)arg1;
+- (void)resumeDownloadWithItemIdentifier:(unsigned long long)arg1;
+- (void)unlockApplicationsWithBundleIdentifier:(id)arg1;
+
+//- (void).cxx_destruct;
 
 @end
 

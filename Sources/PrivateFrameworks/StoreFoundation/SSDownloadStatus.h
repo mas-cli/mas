@@ -6,34 +6,34 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SSDownloadStatus : NSObject <NSSecureCoding>
-{
+@interface SSDownloadStatus : NSObject <NSSecureCoding> {
 	SSDownloadPhase *_activePhase;
+	BOOL _cancelled;
 	NSError *_error;
 	BOOL _failed;
 	BOOL _paused;
-	BOOL _cancelled;
 	BOOL _waiting;
 }
 
 + (BOOL)supportsSecureCoding;
-@property BOOL waiting; // @synthesize waiting=_waiting;
-@property(nonatomic, getter=isCancelled) BOOL cancelled; // @synthesize cancelled=_cancelled;
-@property(nonatomic, getter=isPaused) BOOL paused; // @synthesize paused=_paused;
-@property(nonatomic, getter=isFailed) BOOL failed; // @synthesize failed=_failed;
-@property(retain, nonatomic) NSError *error; // @synthesize error=_error;
+
 @property(readonly, nonatomic) SSDownloadPhase *activePhase; // @synthesize activePhase=_activePhase;
+@property(nonatomic, getter=isCancelled) BOOL cancelled; // @synthesize cancelled=_cancelled;
+@property(retain, nonatomic) NSError *error; // @synthesize error=_error;
+@property(nonatomic, getter=isFailed) BOOL failed; // @synthesize failed=_failed;
+@property(readonly, nonatomic, getter=isPausable) BOOL pausable;
+@property(nonatomic, getter=isPaused) BOOL paused; // @synthesize paused=_paused;
+@property(readonly, nonatomic) float percentComplete;
+@property(readonly, nonatomic) float phasePercentComplete;
+@property(readonly, nonatomic) long long phaseTimeRemaining;
+@property BOOL waiting; // @synthesize waiting=_waiting;
+
+- (id)copyWithZone:(struct _NSZone *)arg1;
+- (void)encodeWithCoder:(id)arg1;
+- (id)initWithCoder:(id)arg1;
+- (void)setOperationProgress:(id)arg1;
 
 //- (void).cxx_destruct;
-
-- (void)setOperationProgress:(id)arg1;
-@property(readonly, nonatomic) long long phaseTimeRemaining;
-@property(readonly, nonatomic) float phasePercentComplete;
-@property(readonly, nonatomic) float percentComplete;
-@property(readonly, nonatomic, getter=isPausable) BOOL pausable;
-- (id)copyWithZone:(struct _NSZone *)arg1;
-- (id)initWithCoder:(id)arg1;
-- (void)encodeWithCoder:(id)arg1;
 
 @end
 

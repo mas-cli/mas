@@ -6,35 +6,35 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ISAuthenticationResponse : NSObject <NSSecureCoding>
-{
-	NSString *_token;
-	unsigned long long _urlBagType;
-	NSString *_storeFront;
-	BOOL _isManagedStudent;
+@interface ISAuthenticationResponse : NSObject <NSSecureCoding> {
 	unsigned long long _URLBagType;
 	NSString *_accountIdentifier;
 	long long _accountKind;
 	NSString *_creditString;
 	NSNumber *_dsID;
+	BOOL _isManagedStudent;
+	NSString *_storeFront;
+	NSString *_token;
+	unsigned long long _urlBagType;
 }
 
 + (BOOL)supportsSecureCoding;
+
+@property unsigned long long URLBagType; // @synthesize URLBagType=_URLBagType;
+@property(readonly) NSString *accountIdentifier; // @synthesize accountIdentifier=_accountIdentifier;
+@property(readonly) long long accountKind; // @synthesize accountKind=_accountKind;
+@property(readonly) NSString *creditString; // @synthesize creditString=_creditString;
+@property(readonly) NSNumber *dsID; // @synthesize dsID=_dsID;
 @property(readonly) BOOL isManagedStudent; // @synthesize isManagedStudent=_isManagedStudent;
 @property(readonly) NSString *storeFront; // @synthesize storeFront=_storeFront;
 @property(readonly) NSString *token; // @synthesize token=_token;
-@property(readonly) NSNumber *dsID; // @synthesize dsID=_dsID;
-@property(readonly) NSString *creditString; // @synthesize creditString=_creditString;
-@property(readonly) long long accountKind; // @synthesize accountKind=_accountKind;
-@property(readonly) NSString *accountIdentifier; // @synthesize accountIdentifier=_accountIdentifier;
-@property unsigned long long URLBagType; // @synthesize URLBagType=_URLBagType;
-
-//- (void).cxx_destruct;
 
 - (BOOL)_loadFromDictionary:(id)arg1;
-- (id)initWithCoder:(id)arg1;
 - (void)encodeWithCoder:(id)arg1;
+- (id)initWithCoder:(id)arg1;
 - (id)initWithDictionary:(id)arg1;
+
+//- (void).cxx_destruct;
 
 @end
 

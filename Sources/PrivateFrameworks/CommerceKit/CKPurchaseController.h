@@ -8,36 +8,32 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^SSPurchaseCompletion)(SSPurchase * _Nullable purchase, BOOL completed, NSError * _Nullable error, SSPurchaseResponse * _Nullable response);
 
-@interface CKPurchaseController : CKServiceInterface
-{
+@interface CKPurchaseController : CKServiceInterface {
+	NSArray *_adoptionEligibleItems;
+	NSNumber *_adoptionErrorNumber;
+	NSNumber *_adoptionServerStatus;
+	UnknownBlock *_dialogHandler;
 	NSMutableArray *_purchases;
 	NSMutableArray *_rejectedPurchases;
-	NSArray *_adoptionEligibleItems;
-	NSNumber *_adoptionServerStatus;
-	NSNumber *_adoptionErrorNumber;
-
-	UnknownBlock *_dialogHandler;
 }
 
 + (void)setNeedsSilentMachineAuthorization:(BOOL)arg1;
-
 + (instancetype)sharedPurchaseController;
 
-@property(copy) UnknownBlock* dialogHandler; // @synthesize dialogHandler=_dialogHandler;
-//- (void).cxx_destruct;
+@property(copy) UnknownBlock *dialogHandler; // @synthesize dialogHandler=_dialogHandler;
 
-- (BOOL)adoptionCompletedForBundleID:(id)arg1;
 - (void)_performVPPReceiptRenewal;
+- (BOOL)adoptionCompletedForBundleID:(id)arg1;
+- (void)cancelPurchaseWithProductID:(id)arg1;
 - (void)checkServerDownloadQueue;
+- (void)performPurchase:(SSPurchase *)purchase withOptions:(unsigned long long)arg2 completionHandler:(SSPurchaseCompletion _Nullable)completionHandler;
 - (id)purchaseInProgressForProductID:(id)arg1;
 - (id)purchasesInProgress;
-- (void)cancelPurchaseWithProductID:(id)arg1;
 - (void)resumeDownloadForPurchasedProductID:(id)arg1;
-
 - (void)startPurchases:(id)arg1 shouldStartDownloads:(BOOL)arg2 eventHandler:(UnknownBlock *)arg3;
 - (void)startPurchases:(id)arg1 withOptions:(unsigned long long)arg2 completionHandler:(UnknownBlock *)arg3;
 
-- (void)performPurchase:(SSPurchase *)purchase withOptions:(unsigned long long)arg2 completionHandler:(SSPurchaseCompletion _Nullable)completionHandler;
+//- (void).cxx_destruct;
 
 @end
 

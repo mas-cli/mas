@@ -5,7 +5,5 @@
 //
 
 @interface CKServiceInterface : ISServiceProxy
-{
-}
 
 @end
