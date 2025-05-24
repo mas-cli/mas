@@ -14,21 +14,21 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)initialize;
 
 @property(readonly, nonatomic) id<ISAccountService> accountService;
-//@property(readonly, nonatomic) id<ISAssetService> assetService;
-//@property(readonly, nonatomic) id<ISDownloadService> downloadService;
-//@property(readonly, nonatomic) __weak id<ISServiceRemoteObject> exportedObject;
-//@property(readonly, nonatomic) Protocol *exportedProtocol;
-//@property(readonly, nonatomic) id<ISInAppService> inAppService;
+@property(readonly, nonatomic) id<ISAssetService> assetService;
+@property(readonly, nonatomic) id<ISDownloadService> downloadService;
+@property(readonly, nonatomic, weak) id<ISServiceRemoteObject> exportedObject;
+@property(readonly, nonatomic) Protocol *exportedProtocol;
+@property(readonly, nonatomic) id<ISInAppService> inAppService;
 @property(retain, nonatomic, nullable) ISStoreClient *storeClient; // @synthesize storeClient=_storeClient;
-//@property(readonly, nonatomic) id<ISTransactionService> transactionService;
-//@property(readonly, nonatomic) id<ISUIService> uiService;
+@property(readonly, nonatomic) id<ISTransactionService> transactionService;
+@property(readonly, nonatomic) id<ISUIService> uiService;
 
 - (void)accountServiceSynchronousBlock:(UnknownBlock *)arg1;
 - (id)accountServiceWithErrorHandler:(UnknownBlock *)arg1;
 - (void)assetServiceSynchronousBlock:(UnknownBlock *)arg1;
 - (id)assetServiceWithErrorHandler:(UnknownBlock *)arg1;
 - (void)connectionWasInterrupted;
-//- (id)connectionWithServiceName:(id)arg1 protocol:(id)arg2 isMachService:(BOOL)arg3;
+- (id)connectionWithServiceName:(id)arg1 protocol:(id)arg2 isMachService:(BOOL)arg3;
 - (void)downloadServiceSynchronousBlock:(UnknownBlock *)arg1;
 - (id)downloadServiceWithErrorHandler:(UnknownBlock *)arg1;
 - (void)inAppServiceSynchronousBlock:(UnknownBlock *)arg1;
