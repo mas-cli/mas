@@ -24,8 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 	long long _touchIDState;
 }
 
-+ (id)dsidFromPlistValue:(id)arg1;
-+ (id)migratePersistedStoreDictionary:(id)arg1;
++ (NSNumber *)dsidFromPlistValue:(id)value;
++ (NSDictionary *)migratePersistedStoreDictionary:(NSDictionary *)dictionary;
 + (BOOL)supportsSecureCoding;
 
 @property long long URLBagType; // @synthesize URLBagType=_URLBagType;
@@ -44,14 +44,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property(retain) NSDate *tokenIssuedDate; // @synthesize tokenIssuedDate=_tokenIssuedDate;
 @property long long touchIDState; // @synthesize touchIDState=_touchIDState;
 
-- (id)description;
-- (void)encodeWithCoder:(id)arg1;
+- (NSString *)description;
+- (void)encodeWithCoder:(NSCoder *)coder;
 - (long long)getTouchIDState;
 - (BOOL)hasValidStrongToken;
-- (id)initWithCoder:(id)arg1;
-- (id)initWithPersistedStoreDictionary:(id)arg1;
-- (void)mergeValuesFromAuthenticationResponse:(id)arg1;
-- (id)persistedStoreDictionary;
+- (instancetype)initWithCoder:(NSCoder *)coder;
+- (instancetype)initWithPersistedStoreDictionary:(NSDictionary *)dictionary;
+- (void)mergeValuesFromAuthenticationResponse:(ISAuthenticationResponse *)response;
+- (NSDictionary *)persistedStoreDictionary;
 - (void)resetTouchIDState;
 - (double)strongTokenValidForSecond;
 

@@ -28,10 +28,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readonly, nonatomic) long long phaseTimeRemaining;
 @property BOOL waiting; // @synthesize waiting=_waiting;
 
-- (id)copyWithZone:(struct _NSZone *)arg1;
-- (void)encodeWithCoder:(id)arg1;
-- (id)initWithCoder:(id)arg1;
-- (void)setOperationProgress:(id)arg1;
+- (instancetype)copyWithZone:(struct _NSZone *)zone;
+- (void)encodeWithCoder:(NSCoder *)coder;
+- (instancetype)initWithCoder:(NSCoder *)coder;
+- (void)setOperationProgress:(SSOperationProgress *)progress;
 
 //- (void).cxx_destruct;
 

@@ -8,40 +8,39 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol ISAccountService <ISServiceRemoteObject>
 
-- (void)accountWithAppleID:(NSString *)arg1 replyBlock:(void (^)(ISStoreAccount *))arg2;
-- (void)accountWithDSID:(NSNumber *)arg1 replyBlock:(void (^)(ISStoreAccount *))arg2;
-- (void)addAccount:(ISStoreAccount *)arg1;
-- (void)addAccountStoreObserver:(id<ISAccountStoreObserver>)arg1;
-- (void)addAccountWithAuthenticationResponse:(ISAuthenticationResponse *)arg1 makePrimary:(BOOL)arg2 replyBlock:(void (^)(ISStoreAccount *))arg3;
-- (void)addURLBagObserver:(id<ISURLBagObserver>)arg1;
-- (void)authIsExpiredWithReplyBlock:(void (^)(BOOL))arg1;
-- (void)dictionaryWithReplyBlock:(void (^)(NSDictionary *))arg1;
-- (void)generateTouchIDHeadersForDSID:(NSNumber *)arg1 challenge:(NSString *)arg2 caller:(id)arg3 replyBlock:(void (^)(NSDictionary *, NSError *))arg4;
-- (void)getTouchIDPreferenceWithReplyBlock:(void (^)(BOOL, ISStoreAccount *, NSError *))arg1;
-- (void)httpHeadersForURL:(NSURL *)arg1 forDSID:(NSNumber *)arg2 includeADIHeaders:(BOOL)arg3 withReplyBlock:(void (^)(NSDictionary *))arg4;
-- (void)iCloudDSIDReplyBlock:(void (^)(NSString *))arg1;
+- (void)accountWithAppleID:(NSString *)appleID replyBlock:(void (^)(ISStoreAccount *))block;
+- (void)accountWithDSID:(NSNumber *)dsID replyBlock:(void (^)(ISStoreAccount *))block;
+- (void)addAccount:(ISStoreAccount *)account;
+- (void)addAccountStoreObserver:(id<ISAccountStoreObserver>)observer;
+- (void)addAccountWithAuthenticationResponse:(ISAuthenticationResponse *)authenticationResponse makePrimary:(BOOL)makePrimary replyBlock:(void (^)(ISStoreAccount *))block;
+- (void)addURLBagObserver:(id<ISURLBagObserver>)observer;
+- (void)authIsExpiredWithReplyBlock:(void (^)(BOOL))block;
+- (void)dictionaryWithReplyBlock:(void (^)(NSDictionary *))block;
+- (void)generateTouchIDHeadersForDSID:(NSNumber *)dsID challenge:(NSString *)challenge caller:(id)caller replyBlock:(void (^)(NSDictionary *, NSError *))block;
+- (void)getTouchIDPreferenceWithReplyBlock:(void (^)(BOOL, ISStoreAccount *, NSError *))block;
+- (void)httpHeadersForURL:(NSURL *)url forDSID:(NSNumber *)dsID includeADIHeaders:(BOOL)includeADIHeaders withReplyBlock:(void (^)(NSDictionary *))block;
+- (void)iCloudDSIDReplyBlock:(void (^)(NSString *))block;
 - (void)invalidateAllBags;
-- (void)isValidWithReplyBlock:(void (^)(BOOL))arg1;
-- (void)loadURLBagWithType:(unsigned long long)arg1 replyBlock:(void (^)(BOOL, BOOL, NSError *))arg2;
-- (void)needsSilentADIActionForURL:(NSURL *)arg1 withReplyBlock:(void (^)(BOOL))arg2;
-- (void)parseCreditStringForProtocol:(NSDictionary *)arg1;
-- (void)primaryAccountWithReplyBlock:(void (^)(ISStoreAccount *))arg1;
-- (void)processURLResponse:(NSURLResponse *)arg1 forRequest:(NSURLRequest *)arg2;
-- (void)recommendedAppleIDForAccountSignIn:(void (^)(NSString *))arg1;
-- (void)regexWithKey:(NSString *)arg1 matchesString:(NSString *)arg2 replyBlock:(void (^)(BOOL))arg3;
-- (void)removeAccountStoreObserver:(id<ISAccountStoreObserver>)arg1;
-- (void)removeURLBagObserver:(id<ISURLBagObserver>)arg1;
-- (void)retailStoreDemoModeReplyBlock:(void (^)(BOOL, NSString *, NSString *, BOOL))arg1;
-- (void)setStoreFrontID:(NSString *)arg1;
-- (void)setTouchIDState:(long long)arg1 forDSID:(NSNumber *)arg2 replyBlock:(void (^)(BOOL, NSError *))arg3;
-- (void)shouldSendGUIDWithRequestForURL:(NSURL *)arg1 withReplyBlock:(void (^)(BOOL))arg2;
-// The following method was removed in macOS High Sierra (https://github.com/mas-cli/mas/issues/107)
-- (void)signInWithContext:(ISAuthenticationContext * __nonnull)arg1 replyBlock:(void (^ __nonnull)(BOOL, ISStoreAccount * __nullable, NSError * __nullable))arg2 NS_DEPRECATED_MAC(10_9, 10.12);
+- (void)isValidWithReplyBlock:(void (^)(BOOL))block;
+- (void)loadURLBagWithType:(unsigned long long)type replyBlock:(void (^)(BOOL, BOOL, NSError *))block;
+- (void)needsSilentADIActionForURL:(NSURL *)url withReplyBlock:(void (^)(BOOL))block;
+- (void)parseCreditStringForProtocol:(NSDictionary *)dictionary;
+- (void)primaryAccountWithReplyBlock:(void (^)(ISStoreAccount *))block;
+- (void)processURLResponse:(NSURLResponse *)urlResponse forRequest:(NSURLRequest *)request;
+- (void)recommendedAppleIDForAccountSignIn:(void (^)(NSString *))accountSignIn;
+- (void)regexWithKey:(NSString *)key matchesString:(NSString *)string replyBlock:(void (^)(BOOL))block;
+- (void)removeAccountStoreObserver:(id<ISAccountStoreObserver>)observer;
+- (void)removeURLBagObserver:(id<ISURLBagObserver>)observer;
+- (void)retailStoreDemoModeReplyBlock:(void (^)(BOOL, NSString *, NSString *, BOOL))block;
+- (void)setStoreFrontID:(NSString *)storefrontID;
+- (void)setTouchIDState:(long long)touchIDState forDSID:(NSNumber *)dsID replyBlock:(void (^)(BOOL, NSError *))block;
+- (void)shouldSendGUIDWithRequestForURL:(NSURL *)url withReplyBlock:(void (^)(BOOL))block;
+- (void)signInWithContext:(ISAuthenticationContext *)context replyBlock:(void (^)(BOOL, ISStoreAccount * _Nullable, NSError * _Nullable))block NS_DEPRECATED_MAC(10_9, 10_12);
 - (void)signOut;
-- (void)storeFrontWithReplyBlock:(void (^)(NSString *))arg1;
-- (void)updateTouchIDSettingsForDSID:(NSNumber *)arg1 replyBlock:(void (^)(BOOL, NSError *))arg2;
-- (void)urlIsTrustedByURLBag:(NSURL *)arg1 withReplyBlock:(void (^)(BOOL))arg2;
-- (void)valueForURLBagKey:(NSString *)arg1 withReplyBlock:(void (^)(id))arg2;
+- (void)storeFrontWithReplyBlock:(void (^)(NSString *))block;
+- (void)updateTouchIDSettingsForDSID:(NSNumber *)dsID replyBlock:(void (^)(BOOL, NSError *))block;
+- (void)urlIsTrustedByURLBag:(NSURL *)urlBag withReplyBlock:(void (^)(BOOL))block;
+- (void)valueForURLBagKey:(NSString *)bagKey withReplyBlock:(void (^)(NSURL *))block;
 
 @end
 

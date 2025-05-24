@@ -6,7 +6,7 @@
 
 @interface SSDownload : NSObject <NSSecureCoding> {
 	NSNumber *_accountDSID;
-	NSArray *_assets;
+	NSArray<ISAsset *> *_assets;
 	NSString *_cancelURLString;
 	BOOL _didAutoUpdate;
 	unsigned long long _downloadType;
@@ -24,7 +24,7 @@
 + (BOOL)supportsSecureCoding;
 
 @property(copy) NSNumber *accountDSID; // @synthesize accountDSID=_accountDSID;
-@property(copy, nonatomic) NSArray *assets; // @synthesize assets=_assets;
+@property(copy, nonatomic) NSArray<ISAsset *> *assets; // @synthesize assets=_assets;
 @property(copy) NSString *cancelURLString; // @synthesize cancelURLString=_cancelURLString;
 @property(copy) NSString *customDownloadPath;
 @property BOOL didAutoUpdate; // @synthesize didAutoUpdate=_didAutoUpdate;
@@ -40,20 +40,20 @@
 @property(retain, nonatomic) SSDownloadStatus *status; // @synthesize status=_status;
 
 - (void)cancel;
-- (void)cancelWithPrompt:(BOOL)arg1;
-- (void)cancelWithPrompt:(BOOL)arg1 storeClient:(id)arg2;
-- (void)cancelWithStoreClient:(id)arg1;
-- (void)encodeWithCoder:(id)arg1;
-- (id)init;
-- (id)initWithAssets:(id)arg1 metadata:(id)arg2;
-- (id)initWithCoder:(id)arg1;
-- (BOOL)isEqual:(id)arg1;
+- (void)cancelWithPrompt:(BOOL)prompt;
+- (void)cancelWithPrompt:(BOOL)prompt storeClient:(ISStoreClient *)client;
+- (void)cancelWithStoreClient:(ISStoreClient *)client;
+- (void)encodeWithCoder:(NSCoder *)coder;
+- (instancetype)init;
+- (instancetype)initWithAssets:(NSArray<ISAsset *> *)assets metadata:(SSDownloadMetadata *)metadata;
+- (instancetype)initWithCoder:(NSCoder *)coder;
+- (BOOL)isEqual:(id)object;
 - (void)pause;
-- (void)pauseWithStoreClient:(id)arg1;
-- (id)primaryAsset;
+- (void)pauseWithStoreClient:(ISStoreClient *)client;
+- (ISAsset *)primaryAsset;
 - (void)resume;
-- (void)resumeWithStoreClient:(id)arg1;
-- (void)setUseUniqueDownloadFolder:(BOOL)arg1;
+- (void)resumeWithStoreClient:(ISStoreClient *)client;
+- (void)setUseUniqueDownloadFolder:(BOOL)useUniqueDownloadFolder;
 
 //- (void).cxx_destruct;
 

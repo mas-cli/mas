@@ -29,10 +29,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readonly) NSString *storeFront; // @synthesize storeFront=_storeFront;
 @property(readonly) NSString *token; // @synthesize token=_token;
 
-- (BOOL)_loadFromDictionary:(id)arg1;
-- (void)encodeWithCoder:(id)arg1;
-- (id)initWithCoder:(id)arg1;
-- (id)initWithDictionary:(id)arg1;
+- (BOOL)_loadFromDictionary:(NSDictionary *)dictionary;
+- (void)encodeWithCoder:(NSCoder *)coder;
+- (instancetype)initWithCoder:(NSCoder *)coder;
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
 //- (void).cxx_destruct;
 

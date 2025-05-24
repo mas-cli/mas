@@ -44,10 +44,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property(retain) NSDictionary *signUpQueryParameters; // @synthesize signUpQueryParameters=_signUpQueryParameters;
 @property BOOL useCachedCredentials; // @synthesize useCachedCredentials=_useCachedCredentials;
 
-- (void)encodeWithCoder:(id)arg1;
-- (id)init;
-- (id)initWithAccountID:(id)arg1;
-- (id)initWithCoder:(id)arg1;
+- (void)encodeWithCoder:(NSCoder *)coder;
+- (instancetype)init;
+- (instancetype)initWithAccountID:(NSNumber *)accountID;
+- (instancetype)initWithCoder:(NSCoder *)coder;
 
 //- (void).cxx_destruct;
 

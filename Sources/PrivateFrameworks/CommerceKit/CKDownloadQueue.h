@@ -19,25 +19,25 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readonly, nonatomic) NSArray *downloads; // @dynamic downloads;
 @property(retain, nonatomic) CKDownloadQueueClient *sharedObserver; // @synthesize sharedObserver=_sharedObserver;
 
-- (void)addDownload:(id)arg1;
-- (id<CKDownloadQueueObserver>)addObserver:(id<CKDownloadQueueObserver>)arg1;
-- (id<CKDownloadQueueObserver>)addObserver:(id<CKDownloadQueueObserver>)arg1 forDownloadTypes:(long long)arg2;
-- (id)addObserverForDownloadTypes:(long long)arg1 withBlock:(UnknownBlock *)arg2;
-- (BOOL)cacheReceiptDataForDownload:(id)arg1;
-- (void)cancelDownload:(id)arg1 promptToConfirm:(BOOL)arg2 askToDelete:(BOOL)arg3;
-- (void)checkStoreDownloadQueueForAccount:(id)arg1;
+- (void)addDownload:(SSDownload *)download;
+- (id<CKDownloadQueueObserver>)addObserver:(id<CKDownloadQueueObserver>)observer;
+- (id<CKDownloadQueueObserver>)addObserver:(id<CKDownloadQueueObserver>)observer forDownloadTypes:(long long)downloadTypes;
+- (id<CKDownloadQueueObserver>)addObserverForDownloadTypes:(long long)downloadTypes withBlock:(UnknownBlock *)block;
+- (BOOL)cacheReceiptDataForDownload:(SSDownload *)download;
+- (void)cancelDownload:(SSDownload *)download promptToConfirm:(BOOL)promptToConfirm askToDelete:(BOOL)askToDelete;
+- (void)checkStoreDownloadQueueForAccount:(ISStoreAccount *)account;
 - (void)connectionWasInterrupted;
-- (id)downloadForItemIdentifier:(unsigned long long)arg1;
-- (void)fetchIconForItemIdentifier:(unsigned long long)arg1 atURL:(id)arg2 replyBlock:(UnknownBlock *)arg3;
-- (id)initWithStoreClient:(id)arg1;
-- (void)lockApplicationsForBundleID:(id)arg1;
-- (void)lockedApplicationTriedToLaunchAtPath:(id)arg1;
-- (void)pauseDownloadWithItemIdentifier:(unsigned long long)arg1;
-- (void)performedIconAnimationForDownloadWithIdentifier:(unsigned long long)arg1;
-- (void)removeDownloadWithItemIdentifier:(unsigned long long)arg1;
-- (void)removeObserver:(id<CKDownloadQueueObserver>)arg1;
-- (void)resumeDownloadWithItemIdentifier:(unsigned long long)arg1;
-- (void)unlockApplicationsWithBundleIdentifier:(id)arg1;
+- (SSDownload *)downloadForItemIdentifier:(unsigned long long)identifier;
+- (void)fetchIconForItemIdentifier:(unsigned long long)identifier atURL:(NSURL *)url replyBlock:(UnknownBlock *)block;
+- (instancetype)initWithStoreClient:(ISStoreClient *)client;
+- (void)lockApplicationsForBundleID:(NSString *)bundleID;
+- (void)lockedApplicationTriedToLaunchAtPath:(NSString *)path;
+- (void)pauseDownloadWithItemIdentifier:(unsigned long long)identifier;
+- (void)performedIconAnimationForDownloadWithIdentifier:(unsigned long long)identifier;
+- (void)removeDownloadWithItemIdentifier:(unsigned long long)identifier;
+- (void)removeObserver:(id<CKDownloadQueueObserver>)observer;
+- (void)resumeDownloadWithItemIdentifier:(unsigned long long)identifier;
+- (void)unlockApplicationsWithBundleIdentifier:(NSString *)bundleID;
 
 //- (void).cxx_destruct;
 

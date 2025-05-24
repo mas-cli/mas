@@ -53,18 +53,18 @@ NS_ASSUME_NONNULL_BEGIN
 @property(retain, nullable) NSString *transactionIdentifier;
 @property(readonly, nullable) NSNumber *uncompressedSize;
 
-- (id _Nullable)_valueForFirstAvailableKey:(id)arg1;
-- (id)copyWithZone:(nullable struct _NSZone *)arg1;
-- (id _Nullable)deltaPackages;
-- (void)encodeWithCoder:(id)arg1;
+- (nullable id)_valueForFirstAvailableKey:(NSString *)key;
+- (instancetype)copyWithZone:(nullable struct _NSZone *)zone;
+- (nullable id)deltaPackages;
+- (void)encodeWithCoder:(NSCoder *)coder;
 - (instancetype)init;
-- (id)initWithCoder:(id)arg1;
-- (nullable instancetype)initWithDictionary:(id)arg1;
-- (nullable instancetype)initWithKind:(id)arg1;
-- (id _Nullable)localServerInfo;
-- (void)setExtractionCanBeStreamed:(BOOL)arg1;
-- (void)setUncompressedSize:(NSNumber * _Nonnull)arg1;
-- (void)setValue:(id _Nullable)arg1 forMetadataKey:(id)arg2;
+- (instancetype)initWithCoder:(NSCoder *)coder;
+- (nullable instancetype)initWithDictionary:(NSDictionary *)dictionary;
+- (nullable instancetype)initWithKind:(NSString *)kind;
+- (nullable id)localServerInfo;
+- (void)setExtractionCanBeStreamed:(BOOL)extractionCanBeStreamed;
+- (void)setUncompressedSize:(NSNumber *)uncompressedSize;
+- (void)setValue:(nullable id)value forMetadataKey:(NSString *)key;
 
 //- (void).cxx_destruct;
 

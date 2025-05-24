@@ -10,7 +10,7 @@ NS_ASSUME_NONNULL_BEGIN
 	ISStoreClient *_storeClient;
 }
 
-+ (ISServiceProxy * __nonnull)genericSharedProxy;
++ (instancetype)genericSharedProxy;
 + (void)initialize;
 
 @property(readonly, nonatomic) id<ISAccountService> accountService;
@@ -23,24 +23,24 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readonly, nonatomic) id<ISTransactionService> transactionService;
 @property(readonly, nonatomic) id<ISUIService> uiService;
 
-- (void)accountServiceSynchronousBlock:(UnknownBlock *)arg1;
-- (id)accountServiceWithErrorHandler:(UnknownBlock *)arg1;
-- (void)assetServiceSynchronousBlock:(UnknownBlock *)arg1;
-- (id)assetServiceWithErrorHandler:(UnknownBlock *)arg1;
+- (void)accountServiceSynchronousBlock:(UnknownBlock *)block;
+- (id<ISAccountService>)accountServiceWithErrorHandler:(UnknownBlock *)handler;
+- (void)assetServiceSynchronousBlock:(UnknownBlock *)block;
+- (id<ISAssetService>)assetServiceWithErrorHandler:(UnknownBlock *)handler;
 - (void)connectionWasInterrupted;
-- (id)connectionWithServiceName:(id)arg1 protocol:(id)arg2 isMachService:(BOOL)arg3;
-- (void)downloadServiceSynchronousBlock:(UnknownBlock *)arg1;
-- (id)downloadServiceWithErrorHandler:(UnknownBlock *)arg1;
-- (void)inAppServiceSynchronousBlock:(UnknownBlock *)arg1;
-- (id)inAppServiceWithErrorHandler:(UnknownBlock *)arg1;
-- (ISServiceProxy * __nonnull)initWithStoreClient:(ISStoreClient * __nonnull)arg1;
-- (id)objectProxyForServiceName:(id)arg1 protocol:(id)arg2 interfaceClassName:(id)arg3 isMachService:(BOOL)arg4 errorHandler:(UnknownBlock *)arg5;
-- (void)performSynchronousBlock:(UnknownBlock *)arg1 withServiceName:(id)arg2 protocol:(id)arg3 isMachService:(BOOL)arg4 interfaceClassName:(id)arg5;
+- (id)connectionWithServiceName:(NSString *)serviceName protocol:(id)protocol isMachService:(BOOL)isMachService;
+- (void)downloadServiceSynchronousBlock:(UnknownBlock *)block;
+- (id<ISDownloadService>)downloadServiceWithErrorHandler:(UnknownBlock *)handler;
+- (void)inAppServiceSynchronousBlock:(UnknownBlock *)block;
+- (id<ISInAppService>)inAppServiceWithErrorHandler:(UnknownBlock *)handler;
+- (instancetype)initWithStoreClient:(ISStoreClient *)client;
+- (id)objectProxyForServiceName:(NSString *)serviceName protocol:(id)protocol interfaceClassName:(NSString *)interfaceClassName isMachService:(BOOL)isMachService errorHandler:(UnknownBlock *)handler;
+- (void)performSynchronousBlock:(UnknownBlock *)block withServiceName:(NSString *)serviceName protocol:(id)protocol isMachService:(BOOL)isMachService interfaceClassName:(NSString *)interfaceClassName;
 - (void)registerForInterrptionNotification;
-- (void)transactionServiceSynchronousBlock:(UnknownBlock *)arg1;
-- (id)transactionServiceWithErrorHandler:(UnknownBlock *)arg1;
-- (void)uiServiceSynchronousBlock:(UnknownBlock *)arg1;
-- (id)uiServiceWithErrorHandler:(UnknownBlock *)arg1;
+- (void)transactionServiceSynchronousBlock:(UnknownBlock *)block;
+- (id<ISTransactionService>)transactionServiceWithErrorHandler:(UnknownBlock *)handler;
+- (void)uiServiceSynchronousBlock:(UnknownBlock *)block;
+- (id<ISUIService>)uiServiceWithErrorHandler:(UnknownBlock *)handler;
 
 //- (void).cxx_destruct;
 

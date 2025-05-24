@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 	NSString *_userAgentAppVersion;
 }
 
-+ (id)knownClientWithIdentifier:(id)arg1 frameworkVersion:(id)arg2;
++ (instancetype)knownClientWithIdentifier:(NSString *)identifier frameworkVersion:(unsigned long long)frameworkVersion;
 + (BOOL)supportsSecureCoding;
 
 @property(setter=_setAlwaysUseSandboxEnvironment:) BOOL _alwaysUseSandboxEnvironment; // @synthesize _alwaysUseSandboxEnvironment=__alwaysUseSandboxEnvironment;
@@ -65,14 +65,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property(copy) NSString *userAgentAppName; // @synthesize userAgentAppName=_userAgentAppName;
 @property(copy) NSString *userAgentAppVersion; // @synthesize userAgentAppVersion=_userAgentAppVersion;
 
-- (void)_cacheKnownClient:(id)arg1;
+- (void)_cacheKnownClient:(ISStoreClient *)client;
 - (id)callerIdentity;
-- (void)encodeWithCoder:(id)arg1;
-- (id)init;
-- (id)initWithApplicationPath:(id)arg1;
-- (id)initWithCoder:(id)arg1;
-- (id)initWithStoreClientType:(long long)arg1;
-- (BOOL)isEqualToStoreClient:(id)arg1;
+- (void)encodeWithCoder:(NSCoder *)coder;
+- (instancetype)init;
+- (instancetype)initWithApplicationPath:(NSString *)path;
+- (instancetype)initWithCoder:(NSCoder *)coder;
+- (instancetype)initWithStoreClientType:(long long)type;
+- (BOOL)isEqualToStoreClient:(ISStoreClient *)client;
 
 //- (void).cxx_destruct;
 

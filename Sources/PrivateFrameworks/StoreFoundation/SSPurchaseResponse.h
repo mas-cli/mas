@@ -7,20 +7,20 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SSPurchaseResponse : NSObject <NSSecureCoding> {
-	NSArray *_downloads;
+	NSArray<SSDownload *> *_downloads;
 	NSDictionary *_metrics;
 	NSDictionary *_rawResponse;
 }
 
 + (BOOL)supportsSecureCoding;
 
-@property(retain) NSArray<SSDownload*> *downloads; // @synthesize downloads=_downloads;
+@property(retain) NSArray<SSDownload *> *downloads; // @synthesize downloads=_downloads;
 @property(retain) NSDictionary *metrics; // @synthesize metrics=_metrics;
 
-- (id)_newDownloadsFromItems:(id)arg1 withDSID:(id)arg2;
-- (void)encodeWithCoder:(id)arg1;
-- (id)initWithCoder:(id)arg1;
-- (id)initWithDictionary:(id)arg1 userIdentifier:(id)arg2;
+- (NSArray<SSDownload *> *)_newDownloadsFromItems:(NSArray *)items withDSID:(NSNumber *)dsID;
+- (void)encodeWithCoder:(NSCoder *)coder;
+- (instancetype)initWithCoder:(NSCoder *)coder;
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary userIdentifier:(NSString *)userIdentifier;
 
 //- (void).cxx_destruct;
 

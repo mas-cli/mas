@@ -20,11 +20,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readonly) long long progressValue;
 @property(readonly) long long totalProgressValue;
 
-- (id)copyWithZone:(nullable struct _NSZone *)arg1;
-- (void)encodeWithCoder:(id)arg1;
-- (id)init;
-- (id)initWithCoder:(id)arg1;
-- (id)initWithOperationProgress:(id)arg1;
+- (instancetype)copyWithZone:(nullable struct _NSZone *)zone;
+- (void)encodeWithCoder:(NSCoder *)coder;
+- (instancetype)init;
+- (instancetype)initWithCoder:(NSCoder *)coder;
+- (instancetype)initWithOperationProgress:(SSOperationProgress *)progress;
 
 //- (void).cxx_destruct;
 

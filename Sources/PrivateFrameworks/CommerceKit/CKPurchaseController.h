@@ -17,21 +17,21 @@ typedef void (^SSPurchaseCompletion)(SSPurchase * _Nullable purchase, BOOL compl
 	NSMutableArray *_rejectedPurchases;
 }
 
-+ (void)setNeedsSilentMachineAuthorization:(BOOL)arg1;
++ (void)setNeedsSilentMachineAuthorization:(BOOL)needsSilentMachineAuthorization;
 + (instancetype)sharedPurchaseController;
 
 @property(copy) UnknownBlock *dialogHandler; // @synthesize dialogHandler=_dialogHandler;
 
 - (void)_performVPPReceiptRenewal;
-- (BOOL)adoptionCompletedForBundleID:(id)arg1;
-- (void)cancelPurchaseWithProductID:(id)arg1;
+- (BOOL)adoptionCompletedForBundleID:(NSString *)bundleID;
+- (void)cancelPurchaseWithProductID:(NSNumber *)productID;
 - (void)checkServerDownloadQueue;
-- (void)performPurchase:(SSPurchase *)purchase withOptions:(unsigned long long)arg2 completionHandler:(SSPurchaseCompletion _Nullable)completionHandler;
-- (id)purchaseInProgressForProductID:(id)arg1;
-- (id)purchasesInProgress;
-- (void)resumeDownloadForPurchasedProductID:(id)arg1;
-- (void)startPurchases:(id)arg1 shouldStartDownloads:(BOOL)arg2 eventHandler:(UnknownBlock *)arg3;
-- (void)startPurchases:(id)arg1 withOptions:(unsigned long long)arg2 completionHandler:(UnknownBlock *)arg3;
+- (void)performPurchase:(SSPurchase *)purchase withOptions:(unsigned long long)options completionHandler:(nullable SSPurchaseCompletion)handler;
+- (SSPurchase *)purchaseInProgressForProductID:(NSNumber *)productID;
+- (NSArray<SSPurchase *> *)purchasesInProgress;
+- (void)resumeDownloadForPurchasedProductID:(NSNumber *)productID;
+- (void)startPurchases:(NSArray<SSPurchase *> *)purchases shouldStartDownloads:(BOOL)shouldStartDownloads eventHandler:(UnknownBlock *)handler;
+- (void)startPurchases:(NSArray<SSPurchase *> *)purchases withOptions:(unsigned long long)options completionHandler:(UnknownBlock *)handler;
 
 //- (void).cxx_destruct;
 

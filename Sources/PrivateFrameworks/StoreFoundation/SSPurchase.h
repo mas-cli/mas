@@ -30,8 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 	NSString *_uniqueIdentifier;
 }
 
-+ (id)purchaseWithBuyParameters:(id)arg1;
-+ (id)purchasesGroupedByAccountIdentifierWithPurchases:(id)arg1;
++ (instancetype)purchaseWithBuyParameters:(NSString *)buyParameters;
++ (NSDictionary<NSNumber *, SSPurchase *> *)purchasesGroupedByAccountIdentifierWithPurchases:(NSArray<SSPurchase *> *)purchases;
 + (BOOL)supportsSecureCoding;
 
 @property(retain, nonatomic) NSNumber *accountIdentifier; // @synthesize accountIdentifier=_accountIdentifier;
@@ -50,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property unsigned long long itemIdentifier; // @synthesize itemIdentifier=_itemIdentifier;
 @property(readonly) BOOL needsAuthentication; // @dynamic needsAuthentication;
 @property(retain, nonatomic) NSString *parentalControls; // @synthesize parentalControls=_parentalControls;
-@property (nullable) __weak ISOperation *purchaseOperation; // @synthesize purchaseOperation=_purchaseOperation;
+@property(weak) ISOperation *purchaseOperation; // @synthesize purchaseOperation=_purchaseOperation;
 @property(nonatomic) long long purchaseType; // @synthesize purchaseType=_purchaseType;
 @property(retain, nonatomic) NSData *receiptData; // @synthesize receiptData=_receiptData;
 @property(copy) NSDictionary *responseDialog; // @synthesize responseDialog=_responseDialog;
@@ -58,12 +58,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readonly, nonatomic) NSString *sortableAccountIdentifier; // @synthesize sortableAccountIdentifier=_sortableAccountIdentifier;
 @property(readonly, nonatomic) NSString *uniqueIdentifier;
 
-- (id)_sortableAccountIdentifier;
-- (id)copyWithZone:(nullable struct _NSZone *)arg1;
-- (id)description;
-- (void)encodeWithCoder:(id)arg1;
-- (id)initWithCoder:(id)arg1;
-- (id)productID;
+- (NSString *)_sortableAccountIdentifier;
+- (instancetype)copyWithZone:(nullable struct _NSZone *)zone;
+- (NSString *)description;
+- (void)encodeWithCoder:(NSCoder *)coder;
+- (instancetype)initWithCoder:(NSCoder *)coder;
+- (NSNumber *)productID;
 - (BOOL)purchaseDSIDMatchesPrimaryAccount;
 
 //- (void).cxx_destruct;
