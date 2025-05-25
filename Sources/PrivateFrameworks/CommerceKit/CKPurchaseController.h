@@ -33,8 +33,6 @@ typedef void (^SSPurchaseCompletion)(SSPurchase * _Nullable purchase, BOOL compl
 - (void)startPurchases:(NSArray<SSPurchase *> *)purchases shouldStartDownloads:(BOOL)shouldStartDownloads eventHandler:(UnknownBlock *)handler;
 - (void)startPurchases:(NSArray<SSPurchase *> *)purchases withOptions:(unsigned long long)options completionHandler:(UnknownBlock *)handler;
 
-//- (void).cxx_destruct;
-
 @end
 
 NS_ASSUME_NONNULL_END

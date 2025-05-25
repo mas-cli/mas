@@ -55,6 +55,4 @@
 - (void)resumeWithStoreClient:(ISStoreClient *)client;
 - (void)setUseUniqueDownloadFolder:(BOOL)useUniqueDownloadFolder;
 
-//- (void).cxx_destruct;
-
 @end

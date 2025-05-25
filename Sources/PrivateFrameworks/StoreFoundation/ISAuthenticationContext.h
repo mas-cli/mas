@@ -49,8 +49,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithAccountID:(NSNumber *)accountID;
 - (instancetype)initWithCoder:(NSCoder *)coder;
 
-//- (void).cxx_destruct;
-
 @end
 
 NS_ASSUME_NONNULL_END

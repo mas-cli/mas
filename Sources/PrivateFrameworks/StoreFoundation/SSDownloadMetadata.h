@@ -66,8 +66,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setUncompressedSize:(NSNumber *)uncompressedSize;
 - (void)setValue:(nullable id)value forMetadataKey:(NSString *)key;
 
-//- (void).cxx_destruct;
-
 @end
 
 NS_ASSUME_NONNULL_END

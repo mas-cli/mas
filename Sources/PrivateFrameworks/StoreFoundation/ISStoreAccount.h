@@ -55,8 +55,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)resetTouchIDState;
 - (double)strongTokenValidForSecond;
 
-//- (void).cxx_destruct;
-
 @end
 
 NS_ASSUME_NONNULL_END

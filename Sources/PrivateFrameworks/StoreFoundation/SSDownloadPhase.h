@@ -26,8 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithCoder:(NSCoder *)coder;
 - (instancetype)initWithOperationProgress:(SSOperationProgress *)progress;
 
-//- (void).cxx_destruct;
-
 @end
 
 NS_ASSUME_NONNULL_END

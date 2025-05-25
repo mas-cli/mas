@@ -74,8 +74,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithStoreClientType:(long long)type;
 - (BOOL)isEqualToStoreClient:(ISStoreClient *)client;
 
-//- (void).cxx_destruct;
-
 @end
 
 NS_ASSUME_NONNULL_END

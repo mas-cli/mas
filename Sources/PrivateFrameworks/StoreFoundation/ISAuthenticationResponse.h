@@ -34,8 +34,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithCoder:(NSCoder *)coder;
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
-//- (void).cxx_destruct;
-
 @end
 
 NS_ASSUME_NONNULL_END

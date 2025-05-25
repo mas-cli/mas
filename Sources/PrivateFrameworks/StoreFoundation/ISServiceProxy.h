@@ -42,8 +42,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)uiServiceSynchronousBlock:(UnknownBlock *)block;
 - (id<ISUIService>)uiServiceWithErrorHandler:(UnknownBlock *)handler;
 
-//- (void).cxx_destruct;
-
 @end
 
 NS_ASSUME_NONNULL_END

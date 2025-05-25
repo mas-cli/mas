@@ -66,8 +66,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSNumber *)productID;
 - (BOOL)purchaseDSIDMatchesPrimaryAccount;
 
-//- (void).cxx_destruct;
-
 @end
 
 NS_ASSUME_NONNULL_END

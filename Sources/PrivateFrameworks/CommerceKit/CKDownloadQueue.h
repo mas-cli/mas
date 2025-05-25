@@ -39,8 +39,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)resumeDownloadWithItemIdentifier:(unsigned long long)identifier;
 - (void)unlockApplicationsWithBundleIdentifier:(NSString *)bundleID;
 
-//- (void).cxx_destruct;
-
 @end
 
 NS_ASSUME_NONNULL_END
