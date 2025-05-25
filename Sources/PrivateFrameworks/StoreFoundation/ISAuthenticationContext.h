@@ -27,22 +27,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (BOOL)supportsSecureCoding;
 
-@property(readonly) NSNumber *accountID; // @synthesize accountID=_accountID;
-@property(retain) NSDictionary *additionalQueryParameters; // @synthesize additionalQueryParameters=_additionalQueryParameters;
-@property(retain) NSString *appleIDOverride; // @synthesize appleIDOverride=_appleIDOverride;
-@property(retain) NSString *applicationName; // @synthesize applicationName=_applicationName;
-@property long long authenticationReason; // @synthesize authenticationReason=_authenticationReason;
-@property long long authenticationStyle; // @synthesize authenticationStyle=_style;
-@property long long bagType; // @synthesize bagType=_bagType;
-@property(retain) NSString *demoAccountName; // @synthesize demoAccountName=_demoAccountName;
-@property(retain) NSString *demoAccountPassword; // @synthesize demoAccountPassword=_demoAccountPassword;
-@property BOOL demoAutologinMode; // @synthesize demoAutologinMode=_demoAutologinMode;
-@property BOOL demoMode; // @synthesize demoMode=_demoMode;
-@property(retain) NSDictionary *dialogDictionary; // @synthesize dialogDictionary=_dialogDictionary;
-@property BOOL enforceAppleIDOverride; // @synthesize enforceAppleIDOverride=_enforceAppleIDOverride;
-@property BOOL shouldFollowAccountButtons; // @synthesize shouldFollowAccountButtons=_shouldFollowAccountButtons;
-@property(retain) NSDictionary *signUpQueryParameters; // @synthesize signUpQueryParameters=_signUpQueryParameters;
-@property BOOL useCachedCredentials; // @synthesize useCachedCredentials=_useCachedCredentials;
+@property(readonly) NSNumber *accountID;
+@property(retain) NSDictionary *additionalQueryParameters;
+@property(retain) NSString *appleIDOverride;
+@property(retain) NSString *applicationName;
+@property long long authenticationReason;
+@property long long authenticationStyle;
+@property long long bagType;
+@property(retain) NSString *demoAccountName;
+@property(retain) NSString *demoAccountPassword;
+@property BOOL demoAutologinMode;
+@property BOOL demoMode;
+@property(retain) NSDictionary *dialogDictionary;
+@property BOOL enforceAppleIDOverride;
+@property BOOL shouldFollowAccountButtons;
+@property(retain) NSDictionary *signUpQueryParameters;
+@property BOOL useCachedCredentials;
 
 - (void)encodeWithCoder:(NSCoder *)coder;
 - (instancetype)init;

@@ -17,16 +17,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (BOOL)supportsSecureCoding;
 
-@property(readonly, nonatomic) SSDownloadPhase *activePhase; // @synthesize activePhase=_activePhase;
-@property(nonatomic, getter=isCancelled) BOOL cancelled; // @synthesize cancelled=_cancelled;
-@property(retain, nonatomic) NSError *error; // @synthesize error=_error;
-@property(nonatomic, getter=isFailed) BOOL failed; // @synthesize failed=_failed;
+@property(readonly, nonatomic) SSDownloadPhase *activePhase;
+@property(nonatomic, getter=isCancelled) BOOL cancelled;
+@property(retain, nonatomic) NSError *error;
+@property(nonatomic, getter=isFailed) BOOL failed;
 @property(readonly, nonatomic, getter=isPausable) BOOL pausable;
-@property(nonatomic, getter=isPaused) BOOL paused; // @synthesize paused=_paused;
+@property(nonatomic, getter=isPaused) BOOL paused;
 @property(readonly, nonatomic) float percentComplete;
 @property(readonly, nonatomic) float phasePercentComplete;
 @property(readonly, nonatomic) long long phaseTimeRemaining;
-@property BOOL waiting; // @synthesize waiting=_waiting;
+@property BOOL waiting;
 
 - (instancetype)copyWithZone:(struct _NSZone *)zone;
 - (void)encodeWithCoder:(NSCoder *)coder;

@@ -15,9 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)sharedDownloadQueue;
 
-@property(retain, nonatomic) NSMutableDictionary *downloadQueueObservers; // @synthesize downloadQueueObservers=_downloadQueueObservers;
-@property(readonly, nonatomic) NSArray *downloads; // @dynamic downloads;
-@property(retain, nonatomic) CKDownloadQueueClient *sharedObserver; // @synthesize sharedObserver=_sharedObserver;
+@property(retain, nonatomic) NSMutableDictionary *downloadQueueObservers;
+@property(readonly, nonatomic) NSArray *downloads;
+@property(retain, nonatomic) CKDownloadQueueClient *sharedObserver;
 
 - (void)addDownload:(SSDownload *)download;
 - (id<CKDownloadQueueObserver>)addObserver:(id<CKDownloadQueueObserver>)observer;

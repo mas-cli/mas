@@ -20,14 +20,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (BOOL)supportsSecureCoding;
 
-@property unsigned long long URLBagType; // @synthesize URLBagType=_URLBagType;
-@property(readonly) NSString *accountIdentifier; // @synthesize accountIdentifier=_accountIdentifier;
-@property(readonly) long long accountKind; // @synthesize accountKind=_accountKind;
-@property(readonly) NSString *creditString; // @synthesize creditString=_creditString;
-@property(readonly) NSNumber *dsID; // @synthesize dsID=_dsID;
-@property(readonly) BOOL isManagedStudent; // @synthesize isManagedStudent=_isManagedStudent;
-@property(readonly) NSString *storeFront; // @synthesize storeFront=_storeFront;
-@property(readonly) NSString *token; // @synthesize token=_token;
+@property unsigned long long URLBagType;
+@property(readonly) NSString *accountIdentifier;
+@property(readonly) long long accountKind;
+@property(readonly) NSString *creditString;
+@property(readonly) NSNumber *dsID;
+@property(readonly) BOOL isManagedStudent;
+@property(readonly) NSString *storeFront;
+@property(readonly) NSString *token;
 
 - (BOOL)_loadFromDictionary:(NSDictionary *)dictionary;
 - (void)encodeWithCoder:(NSCoder *)coder;

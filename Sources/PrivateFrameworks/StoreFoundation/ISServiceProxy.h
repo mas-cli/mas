@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readonly, nonatomic, weak) id<ISServiceRemoteObject> exportedObject;
 @property(readonly, nonatomic) Protocol *exportedProtocol;
 @property(readonly, nonatomic) id<ISInAppService> inAppService;
-@property(retain, nonatomic, nullable) ISStoreClient *storeClient; // @synthesize storeClient=_storeClient;
+@property(retain, nonatomic, nullable) ISStoreClient *storeClient;
 @property(readonly, nonatomic) id<ISTransactionService> transactionService;
 @property(readonly, nonatomic) id<ISUIService> uiService;
 

@@ -20,7 +20,7 @@ typedef void (^SSPurchaseCompletion)(SSPurchase * _Nullable purchase, BOOL compl
 + (void)setNeedsSilentMachineAuthorization:(BOOL)needsSilentMachineAuthorization;
 + (instancetype)sharedPurchaseController;
 
-@property(copy) UnknownBlock *dialogHandler; // @synthesize dialogHandler=_dialogHandler;
+@property(copy) UnknownBlock *dialogHandler;
 
 - (void)_performVPPReceiptRenewal;
 - (BOOL)adoptionCompletedForBundleID:(NSString *)bundleID;

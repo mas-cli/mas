@@ -23,21 +23,21 @@
 
 + (BOOL)supportsSecureCoding;
 
-@property(copy) NSNumber *accountDSID; // @synthesize accountDSID=_accountDSID;
-@property(copy, nonatomic) NSArray<ISAsset *> *assets; // @synthesize assets=_assets;
-@property(copy) NSString *cancelURLString; // @synthesize cancelURLString=_cancelURLString;
+@property(copy) NSNumber *accountDSID;
+@property(copy, nonatomic) NSArray<ISAsset *> *assets;
+@property(copy) NSString *cancelURLString;
 @property(copy) NSString *customDownloadPath;
-@property BOOL didAutoUpdate; // @synthesize didAutoUpdate=_didAutoUpdate;
-@property unsigned long long downloadType; // @synthesize downloadType=_downloadType;
-@property BOOL installAfterLogout; // @synthesize installAfterLogout=_installAfterLogout;
-@property(copy) NSString *installPath; // @synthesize installPath=_installPath;
-@property BOOL isInServerQueue; // @synthesize isInServerQueue=_isInServerQueue;
-@property(copy, nonatomic) SSDownloadMetadata *metadata; // @synthesize metadata=_metadata;
-@property BOOL needsDisplayInDock; // @synthesize needsDisplayInDock=_needsDisplayInDock;
-@property(copy) NSURL *relaunchAppWithBundleURL; // @synthesize relaunchAppWithBundleURL=_relaunchAppWithBundleURL;
-@property BOOL skipAssetDownloadIfNotAlreadyOnDisk; // @synthesize skipAssetDownloadIfNotAlreadyOnDisk=_skipAssetDownloadIfNotAlreadyOnDisk;
+@property BOOL didAutoUpdate;
+@property unsigned long long downloadType;
+@property BOOL installAfterLogout;
+@property(copy) NSString *installPath;
+@property BOOL isInServerQueue;
+@property(copy, nonatomic) SSDownloadMetadata *metadata;
+@property BOOL needsDisplayInDock;
+@property(copy) NSURL *relaunchAppWithBundleURL;
+@property BOOL skipAssetDownloadIfNotAlreadyOnDisk;
 @property BOOL skipInstallPhase;
-@property(retain, nonatomic) SSDownloadStatus *status; // @synthesize status=_status;
+@property(retain, nonatomic) SSDownloadStatus *status;
 
 - (void)cancel;
 - (void)cancelWithPrompt:(BOOL)prompt;

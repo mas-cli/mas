@@ -28,21 +28,21 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSDictionary *)migratePersistedStoreDictionary:(NSDictionary *)dictionary;
 + (BOOL)supportsSecureCoding;
 
-@property long long URLBagType; // @synthesize URLBagType=_URLBagType;
+@property long long URLBagType;
 @property(readonly, getter=isAuthenticated) BOOL authenticated;
-@property(copy) NSString *creditString; // @synthesize creditString=_creditString;
-@property(copy) NSNumber *dsID; // @synthesize dsID=_dsID;
-@property(copy) NSString *identifier; // @synthesize identifier=_identifier;
-@property BOOL isManagedStudent; // @synthesize isManagedStudent=_isManagedStudent;
-@property BOOL isSignedIn; // @synthesize isSignedIn=_isSignedIn;
-@property long long kind; // @synthesize kind=_kind;
-@property(copy) NSString *password; // @synthesize password=_password;
-@property(readonly, getter=isPrimary) BOOL primary; // @synthesize primary=_primary;
-@property(retain) NSString *storeFront; // @synthesize storeFront=_storeFront;
-@property(copy) NSString *token; // @synthesize token=_token;
-@property(retain) NSTimer *tokenExpirationTimer; // @synthesize tokenExpirationTimer=_tokenExpirationTimer;
-@property(retain) NSDate *tokenIssuedDate; // @synthesize tokenIssuedDate=_tokenIssuedDate;
-@property long long touchIDState; // @synthesize touchIDState=_touchIDState;
+@property(copy) NSString *creditString;
+@property(copy) NSNumber *dsID;
+@property(copy) NSString *identifier;
+@property BOOL isManagedStudent;
+@property BOOL isSignedIn;
+@property long long kind;
+@property(copy) NSString *password;
+@property(readonly, getter=isPrimary) BOOL primary;
+@property(retain) NSString *storeFront;
+@property(copy) NSString *token;
+@property(retain) NSTimer *tokenExpirationTimer;
+@property(retain) NSDate *tokenIssuedDate;
+@property long long touchIDState;
 
 - (NSString *)description;
 - (void)encodeWithCoder:(NSCoder *)coder;

@@ -14,8 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (BOOL)supportsSecureCoding;
 
-@property(retain) NSArray<SSDownload *> *downloads; // @synthesize downloads=_downloads;
-@property(retain) NSDictionary *metrics; // @synthesize metrics=_metrics;
+@property(retain) NSArray<SSDownload *> *downloads;
+@property(retain) NSDictionary *metrics;
 
 - (NSArray<SSDownload *> *)_newDownloadsFromItems:(NSArray *)items withDSID:(NSNumber *)dsID;
 - (void)encodeWithCoder:(NSCoder *)coder;
