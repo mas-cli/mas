@@ -6,12 +6,12 @@
 
 @import Foundation;
 
-#import "ISServiceRemoteObject.h"
-
 @class ISAuthenticationResponse, ISStoreAccount, NSDictionary, NSNumber, NSString, NSURL, NSURLRequest, NSURLResponse;
 
 @class ISAuthenticationContext;
 @class NSURLRequest;
+
+@protocol ISServiceRemoteObject;
 
 NS_ASSUME_NONNULL_BEGIN
 

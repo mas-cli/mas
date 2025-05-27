@@ -1,5 +1,5 @@
 module StoreFoundation {
-	header "ISAccountService.h"
+	header "ISAccountService-Protocol.h"
 	header "ISAuthenticationContext.h"
 	header "ISStoreAccount.h"
 	header "ISStoreClient.h"

@@ -1,6 +1,6 @@
 module CommerceKit {
 	header "CKDownloadDirectory.h"
-	header "CKDownloadQueueObserver.h"
+	header "CKDownloadQueueObserver-Protocol.h"
 	header "CKPurchaseController.h"
 
 	export *
