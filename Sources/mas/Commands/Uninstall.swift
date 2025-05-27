@@ -9,7 +9,39 @@ internal import ArgumentParser
 private import ScriptingBridge
 
 extension MAS {
-	/// Uninstalls apps installed from the Mac App Store.
+	/// Uninstalls apps installed from the Mac App Store by App ID.
+	///
+	/// This command removes apps previously installed via `mas install`,
+	/// identified by their App Store ID. It uses macOS’s Finder infrastructure
+	/// to safely move the app to the Trash.
+	///
+	/// > Important:
+	/// > You must run this command with root privileges (via `sudo`).
+	///
+	/// > Tip:
+	/// > Use `--dry-run` to preview which apps would be removed, without deleting anything.
+	///
+	/// Example:
+	/// ```bash
+	/// sudo mas uninstall 497799835
+	/// ```
+	///
+	/// Dry run:
+	/// ```bash
+	/// mas uninstall 497799835 --dry-run
+	/// ```
+	///
+	/// > Note:
+	/// > This command only affects apps listed by `mas list`.
+	/// 
+	/// > Important:
+	/// > This command relies on macOS Spotlight indexing to detect installed apps.
+	/// > If some apps do not appear as expected, you may need to rebuild the metadata index:
+	/// > ```bash
+	/// > sudo mdutil -Eai on
+	/// > ```
+	/// > For details, see the [README Troubleshooting Section](https://github.com/mas-cli/mas#troubleshooting).
+
 	struct Uninstall: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
 			abstract: "Uninstall apps installed from the Mac App Store"

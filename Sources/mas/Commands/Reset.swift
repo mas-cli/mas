@@ -9,7 +9,26 @@ internal import ArgumentParser
 private import CommerceKit
 
 extension MAS {
-	/// Kills several macOS processes as a means to reset the app store.
+	/// Attempts to fix certain App Store-related issues by restarting background processes.
+	///
+	/// This command resets the App Store state by force-killing several background services
+	/// used by the App Store and removing the download cache directory.
+	///
+	/// It may help resolve issues where you can’t install or upgrade apps using `mas`,
+	/// or when you receive errors about your Apple account not being authorized.
+	///
+	/// > Tip:
+	/// > Try this command if `mas install` or `mas upgrade` fails unexpectedly.
+	///
+	/// > Note:
+	/// > This command performs actions similar to the App Store's hidden "Reset Application" debug option.
+	///
+	/// Example:
+	/// ```bash
+	/// mas reset
+	/// ```
+	///
+	/// Use `--debug` to print detailed error output when the reset process encounters problems.
 	struct Reset: ParsableCommand {
 		static let configuration = CommandConfiguration(
 			abstract: "Reset Mac App Store running processes"

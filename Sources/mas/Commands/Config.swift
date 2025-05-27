@@ -12,7 +12,20 @@ private var unknown: String { "unknown" }
 private var sysCtlByName: String { "sysctlbyname" }
 
 extension MAS {
-	/// Outputs mas config & related system info.
+	/// Displays detailed configuration and environment information for `mas`.
+	///
+	/// This includes version info, architecture, installation method, build revision,
+	/// Swift driver version, macOS version, CPU, and region settings.
+	///
+	/// This command is particularly useful for users and developers who need
+	/// to inspect runtime environment details — for example, when reporting issues or verifying setup.
+	///
+	/// Use `--markdown` to output results in a Markdown-friendly format.
+	///
+	/// Example:
+	/// ```bash
+	/// mas config --markdown
+	/// ```
 	struct Config: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
 			abstract: "Output mas config & related system info"

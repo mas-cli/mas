@@ -9,11 +9,23 @@ internal import ArgumentParser
 private import Foundation
 
 extension MAS {
-	/// Opens Mac App Store app pages in the default web browser.
+	/// Opens the App Store page for one or more apps in your default web browser.
 	///
-	/// Uses the iTunes Lookup API:
+	/// This command uses the public iTunes Search API to fetch the app’s page URL,
+	/// and then opens the page in your system’s default browser.
 	///
-	/// https://performance-partners.apple.com/search-api
+	/// This can be useful for quickly viewing app details, screenshots, or reviews in the App Store.
+	///
+	/// > Note: This command does not output any information to the terminal.
+	/// > It simply launches your web browser.
+	///
+	/// Example:
+	/// ```bash
+	/// mas home 497799835
+	/// ```
+	///
+	/// See also:
+	/// [iTunes Search API](https://performance-partners.apple.com/search-api)
 	struct Home: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
 			abstract: "Open Mac App Store app pages in the default web browser"

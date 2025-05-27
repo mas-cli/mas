@@ -9,11 +9,22 @@ internal import ArgumentParser
 private import Foundation
 
 extension MAS {
-	/// Opens apps' vendor pages in the default web browser.
+	/// Opens the vendor (developer) website for the given app(s) in your default web browser.
 	///
-	/// Uses the iTunes Lookup API:
+	/// This command queries the App Store for the specified app(s) and opens the developer's
+	/// website as provided in the app metadata (`sellerUrl`). This can help verify the identity
+	/// of app publishers or locate official support and documentation sites.
 	///
-	/// https://performance-partners.apple.com/search-api
+	/// > Tip:
+	/// > Use `mas info` or `mas search` to find the App ID before using this command.
+	///
+	/// Example:
+	/// ```bash
+	/// mas vendor 497799835
+	/// ```
+	///
+	/// > Note:
+	/// > If the vendor does not provide a website (`sellerUrl`), this command will return an error.
 	struct Vendor: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
 			abstract: "Open apps' vendor pages in the default web browser"

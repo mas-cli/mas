@@ -8,7 +8,27 @@
 internal import ArgumentParser
 
 extension MAS {
-	/// Installs previously purchased apps from the Mac App Store.
+	/// Installs one or more apps you have previously acquired from the Mac App Store.
+	///
+	/// This command downloads and installs apps based on their App Store ID.
+	/// You can find app IDs using the `mas search` command or from the App Store URL.
+	///
+	/// By default, if the app is already installed, it will be skipped.
+	/// Use `--force` to reinstall an already installed app.
+	///
+	/// Example:
+	/// ```bash
+	/// mas install 497799835
+	/// ```
+	///
+	/// Output:
+	/// ```
+	/// ==> Downloading Xcode
+	/// ==> Installed Xcode
+	/// ```
+	///
+	/// > Tip:
+	/// > Use `mas list` to check installed apps, and `mas outdated` to find available updates.
 	struct Install: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
 			abstract: "Install previously purchased apps from the Mac App Store"
