@@ -8,6 +8,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol ISAccountService <ISServiceRemoteObject>
 
+@required
+
 - (void)accountWithAppleID:(NSString *)appleID replyBlock:(void (^)(ISStoreAccount *))block;
 - (void)accountWithDSID:(NSNumber *)dsID replyBlock:(void (^)(ISStoreAccount *))block;
 - (void)addAccount:(ISStoreAccount *)account;
@@ -41,6 +43,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateTouchIDSettingsForDSID:(NSNumber *)dsID replyBlock:(void (^)(BOOL, NSError *))block;
 - (void)urlIsTrustedByURLBag:(NSURL *)urlBag withReplyBlock:(void (^)(BOOL))block;
 - (void)valueForURLBagKey:(NSString *)bagKey withReplyBlock:(void (^)(NSURL *))block;
+
+@optional
 
 @end
 

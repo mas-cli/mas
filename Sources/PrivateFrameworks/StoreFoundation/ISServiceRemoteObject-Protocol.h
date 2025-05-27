@@ -8,8 +8,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol ISServiceRemoteObject <NSObject>
 
+@required
+
 - (void)setStoreClient:(ISStoreClient *)client;
 - (void)startService;
+
+@optional
 
 @end
 
