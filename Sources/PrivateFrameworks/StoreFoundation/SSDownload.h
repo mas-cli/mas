@@ -4,6 +4,8 @@
 // class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
 //
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface SSDownload : NSObject <NSSecureCoding> {
 	NSNumber *_accountDSID;
 	NSArray<ISAsset *> *_assets;
@@ -47,7 +49,7 @@
 - (instancetype)init;
 - (instancetype)initWithAssets:(NSArray<ISAsset *> *)assets metadata:(SSDownloadMetadata *)metadata;
 - (instancetype)initWithCoder:(NSCoder *)coder;
-- (BOOL)isEqual:(id)object;
+- (BOOL)isEqual:(nullable id)object;
 - (void)pause;
 - (void)pauseWithStoreClient:(ISStoreClient *)client;
 - (ISAsset *)primaryAsset;
@@ -56,3 +58,5 @@
 - (void)setUseUniqueDownloadFolder:(BOOL)useUniqueDownloadFolder;
 
 @end
+
+NS_ASSUME_NONNULL_END
