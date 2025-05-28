@@ -12,7 +12,7 @@
 
 print_header '🧹 Formatting mas' "$(Scripts/version)"
 
-for formatter in markdownlint-cli2 swiftformat swiftlint yamllint; do
+for formatter in markdownlint-cli2 swiftformat swiftlint; do
 	if ! whence "${formatter}" >/dev/null; then
 		printf $'error: %s is not installed. Run \'Scripts/bootstrap\' or \'brew install %s\'.\n' "${formatter}" "${formatter}" >&2
 		exit 1
@@ -24,7 +24,7 @@ for source in Package.swift Sources Tests; do
 	script -q /dev/null swiftformat --strict "${source}" |
 	 (grep -vxE '(?:\^D\x08{2})?Running SwiftFormat\.{3}\r|Reading (?:config|swift-version) file at .*|\x1b\[32mSwiftFormat completed in \d+(?:\.\d+)?s\.\x1b\[0m\r|0/\d+ files formatted\.\r' || true)
 	printf -- $'--> 🦅 %s swiftlint\n' "${source}"
-	swiftlint --fix --quiet "${source}"
+	swiftlint --fix --quiet --reporter relative-path "${source}"
 done
 
 printf -- $'--> 〽️ Markdown\n'

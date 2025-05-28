@@ -30,7 +30,7 @@ for source in Package.swift Sources Tests; do
 	 (grep -vxE '(?:\^D\x08{2})?Running SwiftFormat\.{3}\r|\(lint mode - no files will be changed\.\)\r|Reading (?:config|swift-version) file at .*|\x1b\[32mSwiftFormat completed in \d+(?:\.\d+)?s\.\x1b\[0m\r|0/\d+ files require formatting\.\r|Source input did not pass lint check\.\r' || true)
 	((exit_code |= ${?}))
 	printf -- $'--> 🦅 %s swiftlint\n' "${source}"
-	swiftlint --strict --quiet "${source}"
+	swiftlint --strict --quiet --reporter relative-path "${source}"
 	((exit_code |= ${?}))
 done
 
