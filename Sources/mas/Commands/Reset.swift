@@ -72,12 +72,11 @@ extension MAS {
 			}
 
 			// Wipe Download Directory
-			if let directory = CKDownloadDirectory(nil) {
-				do {
-					try FileManager.default.removeItem(atPath: directory)
-				} catch {
-					printer.error("Failed to delete download directory", directory, error: error)
-				}
+			let directory = CKDownloadDirectory(nil)
+			do {
+				try FileManager.default.removeItem(atPath: directory)
+			} catch {
+				printer.error("Failed to delete download directory", directory, error: error)
 			}
 		}
 	}

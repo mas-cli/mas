@@ -6,7 +6,7 @@
 //
 
 internal import ArgumentParser
-private import CommerceKit
+private import StoreFoundation
 
 extension MAS {
 	/// Signs out of the Apple Account currently signed in to the Mac App Store.

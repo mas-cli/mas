@@ -5,8 +5,8 @@
 // Copyright © 2025 mas-cli. All rights reserved.
 //
 
-private import CommerceKit
 internal import Foundation
+private import StoreFoundation
 
 struct AppleAccount: Sendable {
 	let emailAddress: String

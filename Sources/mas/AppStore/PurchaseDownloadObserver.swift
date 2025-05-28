@@ -30,13 +30,11 @@ class PurchaseDownloadObserver: CKDownloadQueueObserver {
 	}
 
 	func downloadQueue(_ queue: CKDownloadQueue, statusChangedFor download: SSDownload) {
-		guard
-			download.metadata.itemIdentifier == appID,
-			let status = download.status
-		else {
+		guard download.metadata.itemIdentifier == appID else {
 			return
 		}
 
+		let status = download.status
 		if status.isFailed || status.isCancelled {
 			queue.removeDownload(withItemIdentifier: download.metadata.itemIdentifier)
 		} else {
@@ -49,14 +47,12 @@ class PurchaseDownloadObserver: CKDownloadQueueObserver {
 	}
 
 	func downloadQueue(_: CKDownloadQueue, changedWithRemoval download: SSDownload) {
-		guard
-			download.metadata.itemIdentifier == appID,
-			let status = download.status
-		else {
+		guard download.metadata.itemIdentifier == appID else {
 			return
 		}
 
 		printer.terminateEphemeral()
+		let status = download.status
 		if status.isFailed {
 			errorHandler?(status.error)
 		} else if status.isCancelled {

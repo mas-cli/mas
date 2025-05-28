@@ -1,7 +1,6 @@
-module CommerceKit {
-	header "CKDownloadDirectory.h"
-	header "CKDownloadQueueObserver.h"
-	header "CKPurchaseController.h"
-
+module CommerceKit [no_undeclared_includes] {
+	requires macos, objc
+	use StoreFoundation
+	private header "CommerceKit.h"
 	export *
 }
