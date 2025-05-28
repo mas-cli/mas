@@ -8,22 +8,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ISAuthenticationContext : NSObject <NSSecureCoding> {
-	NSNumber *_accountID;
-	NSDictionary *_additionalQueryParameters;
-	NSString *_appleIDOverride;
-	NSString *_applicationName;
-	long long _authenticationReason;
-	long long _bagType;
-	NSString *_demoAccountName;
-	NSString *_demoAccountPassword;
-	BOOL _demoAutologinMode;
-	BOOL _demoMode;
-	NSDictionary *_dialogDictionary;
-	BOOL _enforceAppleIDOverride;
-	BOOL _shouldFollowAccountButtons;
-	NSDictionary *_signUpQueryParameters;
 	long long _style;
-	BOOL _useCachedCredentials;
 }
 
 + (BOOL)supportsSecureCoding;

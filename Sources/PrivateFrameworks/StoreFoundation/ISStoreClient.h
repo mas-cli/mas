@@ -7,34 +7,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ISStoreClient : NSObject <NSSecureCoding> {
-	BOOL __alwaysUseSandboxEnvironment;
-	NSString *_agentListenerName;
-	NSString *_agentPreferencesDomain;
-	NSString *_appPath;
-	NSString *_appPreferencesDomain;
-	NSString *_aslDomain;
-	long long _clientType;
-	NSDictionary *_daap;
-	NSString *_displayUIHostID;
-	unsigned long long _frameworkVersion;
-	NSString *_identifier;
-	BOOL _isDaemon;
-	long long _mediaTypeMask;
-	int _pid;
-	ISStoreAccount *_primaryAccount;
-	NSArray *_productionBagURLs;
-	NSString *_pushServiceName;
-	long long _requiredBagType;
-	NSArray *_sandboxBagURLs;
-	NSString *_storeFrontBagKey;
-	NSString *_storeSecureURLScheme;
-	NSString *_storeURLScheme;
-	NSString *_tempPathClientIdentifier;
-	NSString *_toolbarBagKey;
-	NSString *_userAgentAppName;
-	NSString *_userAgentAppVersion;
-}
+@interface ISStoreClient : NSObject <NSSecureCoding>
 
 + (instancetype)knownClientWithIdentifier:(NSString *)identifier frameworkVersion:(unsigned long long)frameworkVersion;
 + (BOOL)supportsSecureCoding;

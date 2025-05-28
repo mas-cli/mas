@@ -7,14 +7,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SSDownloadStatus : NSObject <NSSecureCoding> {
-	SSDownloadPhase *_activePhase;
-	BOOL _cancelled;
-	NSError *_error;
-	BOOL _failed;
-	BOOL _paused;
-	BOOL _waiting;
-}
+@interface SSDownloadStatus : NSObject <NSSecureCoding>
 
 + (BOOL)supportsSecureCoding;
 

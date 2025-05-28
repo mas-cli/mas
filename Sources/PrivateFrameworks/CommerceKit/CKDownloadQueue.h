@@ -8,11 +8,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CKDownloadQueue : CKServiceInterface {
-	NSMutableDictionary *_downloadQueueObservers;
 	NSMutableDictionary *_downloadsByItemID;
 	NSLock *_downloadsLock;
 	id _observerToken NS_AVAILABLE_MAC(13);
-	CKDownloadQueueClient *_sharedObserver;
 	NSLock *_tokenLock NS_AVAILABLE_MAC(13);
 }
 

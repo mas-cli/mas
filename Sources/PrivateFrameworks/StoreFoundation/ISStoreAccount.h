@@ -8,21 +8,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ISStoreAccount : NSObject <NSSecureCoding> {
-	long long _URLBagType;
-	NSString *_creditString;
-	NSNumber *_dsID;
-	NSString *_identifier;
-	BOOL _isManagedStudent;
-	BOOL _isSignedIn;
-	long long _kind;
-	NSString *_password;
-	BOOL _primary;
-	NSString *_storeFront;
-	NSString *_token;
-	NSTimer *_tokenExpirationTimer;
 	NSTimer *_tokenInvalidTimer;
-	NSDate *_tokenIssuedDate;
-	long long _touchIDState;
 }
 
 + (NSNumber *)dsidFromPlistValue:(id)value;

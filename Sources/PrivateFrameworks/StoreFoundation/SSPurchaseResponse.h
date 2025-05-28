@@ -8,8 +8,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SSPurchaseResponse : NSObject <NSSecureCoding> {
-	NSArray<SSDownload *> *_downloads;
-	NSDictionary *_metrics;
 	NSDictionary *_rawResponse;
 }
 

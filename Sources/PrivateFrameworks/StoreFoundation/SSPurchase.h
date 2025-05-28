@@ -7,29 +7,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SSPurchase : NSObject <NSSecureCoding, NSCopying> {
-	NSNumber *_accountIdentifier;
-	NSString *_appleID;
-	UnknownBlock *_authFallbackHandler;
-	NSString *_buyParameters;
-	BOOL _checkPreflightAterPurchase;
-	SSDownloadMetadata *_downloadMetadata;
-	NSDictionary *_dsidLessOptions;
-	BOOL _isCancelled;
-	BOOL _isDSIDLessPurchase;
-	BOOL _isRedownload;
-	BOOL _isUpdate;
-	BOOL _isVPP;
-	unsigned long long _itemIdentifier;
-	NSString *_parentalControls;
-	ISOperation *_purchaseOperation;
-	long long _purchaseType;
-	NSData *_receiptData;
-	NSDictionary *_responseDialog;
-	BOOL _shouldBeInstalledAfterLogout;
-	NSString *_sortableAccountIdentifier;
-	NSString *_uniqueIdentifier;
-}
+@interface SSPurchase : NSObject <NSSecureCoding, NSCopying>
 
 + (instancetype)purchaseWithBuyParameters:(NSString *)buyParameters;
 + (NSDictionary<NSNumber *, SSPurchase *> *)purchasesGroupedByAccountIdentifierWithPurchases:(NSArray<SSPurchase *> *)purchases;

@@ -7,9 +7,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ISServiceProxy : NSObject {
-	ISStoreClient *_storeClient;
-}
+@interface ISServiceProxy : NSObject
 
 + (instancetype)genericSharedProxy;
 + (void)initialize;

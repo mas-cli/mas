@@ -8,20 +8,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SSDownload : NSObject <NSSecureCoding> {
-	NSNumber *_accountDSID;
-	NSArray<ISAsset *> *_assets;
-	NSString *_cancelURLString;
-	BOOL _didAutoUpdate;
-	unsigned long long _downloadType;
-	BOOL _installAfterLogout;
-	NSString *_installPath;
-	BOOL _isInServerQueue;
-	SSDownloadMetadata *_metadata;
-	BOOL _needsDisplayInDock;
 	BOOL _needsPreInstallValidation;
-	NSURL *_relaunchAppWithBundleURL;
-	BOOL _skipAssetDownloadIfNotAlreadyOnDisk;
-	SSDownloadStatus *_status;
 }
 
 + (BOOL)supportsSecureCoding;

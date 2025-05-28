@@ -7,9 +7,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SSDownloadPhase : NSObject <NSSecureCoding, NSCopying> {
-	SSOperationProgress *_operationProgress;
-}
+@interface SSDownloadPhase : NSObject <NSSecureCoding, NSCopying>
 
 + (BOOL)supportsSecureCoding;
 

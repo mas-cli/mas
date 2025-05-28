@@ -13,7 +13,6 @@ typedef void (^SSPurchaseCompletion)(SSPurchase * _Nullable purchase, BOOL compl
 	NSArray *_adoptionEligibleItems;
 	NSNumber *_adoptionErrorNumber;
 	NSNumber *_adoptionServerStatus;
-	UnknownBlock *_dialogHandler;
 	NSMutableArray *_purchases;
 	NSMutableArray *_rejectedPurchases;
 }

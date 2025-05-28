@@ -8,14 +8,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ISAuthenticationResponse : NSObject <NSSecureCoding> {
-	unsigned long long _URLBagType;
-	NSString *_accountIdentifier;
-	long long _accountKind;
-	NSString *_creditString;
-	NSNumber *_dsID;
-	BOOL _isManagedStudent;
-	NSString *_storeFront;
-	NSString *_token;
 	unsigned long long _urlBagType;
 }
 
