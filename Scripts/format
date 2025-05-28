@@ -12,7 +12,7 @@
 
 print_header '🧹 Formatting mas' "$(Scripts/version)"
 
-for formatter in markdownlint-cli2 swiftformat swiftlint yamllint; do
+for formatter in markdownlint-cli2 swiftformat swiftlint; do
 	if ! whence "${formatter}" >/dev/null; then
 		printf $'error: %s is not installed. Run \'Scripts/bootstrap\' or \'brew install %s\'.\n' "${formatter}" "${formatter}" >&2
 		exit 1
