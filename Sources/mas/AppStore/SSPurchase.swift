@@ -9,33 +9,22 @@ private import StoreFoundation
 
 extension SSPurchase {
 	convenience init(appID: AppID, purchasing: Bool) async {
-		self.init()
+		self.init(
+			buyParameters: """
+				productType=C&price=0&salableAdamId=\(appID)&pg=default&appExtVrsId=0&pricingParameters=\
+				\(purchasing ? "STDQ&macappinstalledconfirmed=1" : "STDRDL")
+				"""
+		)
 
-		var parameters =
-			[
-				"productType": "C",
-				"price": 0,
-				"salableAdamId": appID,
-				"pg": "default",
-				"appExtVrsId": 0,
-			] as [String: Any]
-
-		if purchasing {
-			parameters["macappinstalledconfirmed"] = 1
-			parameters["pricingParameters"] = "STDQ"
-			// Possibly unnecessary…
-			isRedownload = false
-		} else {
-			parameters["pricingParameters"] = "STDRDL"
-		}
-
-		buyParameters = parameters.map { "\($0)=\($1)" }.joined(separator: "&")
+		// Possibly unnecessary…
+		isRedownload = !purchasing
 
 		itemIdentifier = appID
 
-		downloadMetadata = SSDownloadMetadata()
+		let downloadMetadata = SSDownloadMetadata()
 		downloadMetadata.kind = "software"
 		downloadMetadata.itemIdentifier = appID
+		self.downloadMetadata = downloadMetadata
 
 		do {
 			let appleAccount = try await appleAccount

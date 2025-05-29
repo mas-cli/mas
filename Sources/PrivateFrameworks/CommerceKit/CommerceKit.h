@@ -7,7 +7,7 @@
 
 @import StoreFoundation;
 
-@class CKDownloadQueueClient;
+@class CKDialog, CKDownloadQueueClient;
 
 @protocol CKDownloadQueueObserver;
 

@@ -7,9 +7,11 @@
 
 @import Foundation;
 
-@class ISAsset, ISAuthenticationContext, ISAuthenticationResponse, ISOperation, ISStoreClient, SSOperationProgress, UnknownBlock;
+@class ISAuthenticationContext, ISAuthenticationResponse, ISOperation, ISStoreClient, SSDownloadAsset, SSOperationProgress;
 
 @protocol ISAccountStoreObserver, ISAssetService, ISDownloadService, ISInAppService, ISServiceRemoteObject, ISTransactionService, ISUIService, ISURLBagObserver;
+
+typedef void (^UnknownBlock)();
 
 #import <ISStoreAccount.h>
 #import <ISAccountService-Protocol.h>

@@ -5,15 +5,13 @@
 // - LC_SOURCE_VERSION: 715.5.1.0.0
 //
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface SSDownloadStatus : NSObject <NSSecureCoding>
 
 + (BOOL)supportsSecureCoding;
 
-@property(readonly, nonatomic) SSDownloadPhase *activePhase;
+@property(readonly, nonatomic, nullable) SSDownloadPhase *activePhase;
 @property(nonatomic, getter=isCancelled) BOOL cancelled;
-@property(retain, nonatomic) NSError *error;
+@property(retain, nonatomic, nullable) NSError *error;
 @property(nonatomic, getter=isFailed) BOOL failed;
 @property(readonly, nonatomic, getter=isPausable) BOOL pausable;
 @property(nonatomic, getter=isPaused) BOOL paused;
@@ -22,11 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readonly, nonatomic) long long phaseTimeRemaining;
 @property BOOL waiting;
 
-- (instancetype)copyWithZone:(nullable struct _NSZone *)zone;
-- (void)encodeWithCoder:(NSCoder *)coder;
-- (instancetype)initWithCoder:(NSCoder *)coder;
-- (void)setOperationProgress:(SSOperationProgress *)progress;
+- (nonnull instancetype)copyWithZone:(nullable struct _NSZone *)zone;
+- (void)encodeWithCoder:(nullable NSCoder *)coder;
+- (nonnull instancetype)initWithCoder:(nullable NSCoder *)coder;
+- (void)setOperationProgress:(nullable SSOperationProgress *)progress; // Unverified progress type
 
 @end
-
-NS_ASSUME_NONNULL_END
