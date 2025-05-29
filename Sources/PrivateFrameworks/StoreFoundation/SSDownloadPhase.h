@@ -5,26 +5,22 @@
 // - LC_SOURCE_VERSION: 715.5.1.0.0
 //
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface SSDownloadPhase : NSObject <NSSecureCoding, NSCopying>
 
 + (BOOL)supportsSecureCoding;
 
 @property(readonly) double estimatedSecondsRemaining;
-@property(readonly) SSOperationProgress *operationProgress;
+@property(readonly, nullable) SSOperationProgress *operationProgress;
 @property(readonly) long long phaseType;
 @property(readonly) float progressChangeRate;
 @property(readonly) long long progressUnits;
 @property(readonly) long long progressValue;
 @property(readonly) long long totalProgressValue;
 
-- (instancetype)copyWithZone:(nullable struct _NSZone *)zone;
-- (void)encodeWithCoder:(NSCoder *)coder;
-- (instancetype)init;
-- (instancetype)initWithCoder:(NSCoder *)coder;
-- (instancetype)initWithOperationProgress:(SSOperationProgress *)progress;
+- (nonnull instancetype)copyWithZone:(nullable struct _NSZone *)zone;
+- (void)encodeWithCoder:(nullable NSCoder *)coder;
+- (nonnull instancetype)init;
+- (nonnull instancetype)initWithCoder:(nullable NSCoder *)coder; // Unverified coder type
+- (nonnull instancetype)initWithOperationProgress:(nullable SSOperationProgress *)progress; // Unverified progress type
 
 @end
-
-NS_ASSUME_NONNULL_END

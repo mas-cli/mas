@@ -5,46 +5,42 @@
 // - LC_SOURCE_VERSION: 715.5.1.0.0
 //
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface SSDownload : NSObject <NSSecureCoding> {
 	BOOL _needsPreInstallValidation;
 }
 
 + (BOOL)supportsSecureCoding;
 
-@property(copy) NSNumber *accountDSID;
-@property(copy, nonatomic) NSArray<ISAsset *> *assets;
-@property(copy) NSString *cancelURLString;
-@property(copy) NSString *customDownloadPath;
+@property(copy, nullable) NSNumber *accountDSID;
+@property(copy, nonatomic, nullable) NSArray<SSDownloadAsset *> *assets; // Unverified generic type
+@property(copy, nullable) NSString *cancelURLString;
+@property(copy, nullable) NSString *customDownloadPath;
 @property BOOL didAutoUpdate;
 @property unsigned long long downloadType;
 @property BOOL installAfterLogout;
-@property(copy) NSString *installPath;
+@property(copy, nullable) NSString *installPath;
 @property BOOL isInServerQueue;
-@property(copy, nonatomic) SSDownloadMetadata *metadata;
+@property(copy, nonatomic, nullable) SSDownloadMetadata *metadata;
 @property BOOL needsDisplayInDock;
-@property(copy) NSURL *relaunchAppWithBundleURL;
+@property(copy, nullable) NSURL *relaunchAppWithBundleURL;
 @property BOOL skipAssetDownloadIfNotAlreadyOnDisk;
 @property BOOL skipInstallPhase;
-@property(retain, nonatomic) SSDownloadStatus *status;
+@property(retain, nonatomic, nullable) SSDownloadStatus *status;
 
 - (void)cancel;
 - (void)cancelWithPrompt:(BOOL)prompt;
-- (void)cancelWithPrompt:(BOOL)prompt storeClient:(ISStoreClient *)client;
-- (void)cancelWithStoreClient:(ISStoreClient *)client;
-- (void)encodeWithCoder:(NSCoder *)coder;
-- (instancetype)init;
-- (instancetype)initWithAssets:(NSArray<ISAsset *> *)assets metadata:(SSDownloadMetadata *)metadata;
-- (instancetype)initWithCoder:(NSCoder *)coder;
+- (void)cancelWithPrompt:(BOOL)prompt storeClient:(nullable ISStoreClient *)client;
+- (void)cancelWithStoreClient:(nullable ISStoreClient *)client;
+- (void)encodeWithCoder:(nullable NSCoder *)coder;
+- (nonnull instancetype)init;
+- (nonnull instancetype)initWithAssets:(nullable NSArray<SSDownloadAsset *> *)assets metadata:(nullable SSDownloadMetadata *)metadata; // Unverified assets type / metadata type
+- (nonnull instancetype)initWithCoder:(nullable NSCoder *)coder;
 - (BOOL)isEqual:(nullable id)object;
 - (void)pause;
-- (void)pauseWithStoreClient:(ISStoreClient *)client;
-- (ISAsset *)primaryAsset;
+- (void)pauseWithStoreClient:(nullable ISStoreClient *)client;
+- (nullable SSDownloadAsset *)primaryAsset;
 - (void)resume;
-- (void)resumeWithStoreClient:(ISStoreClient *)client;
+- (void)resumeWithStoreClient:(nullable ISStoreClient *)client;
 - (void)setUseUniqueDownloadFolder:(BOOL)useUniqueDownloadFolder;
 
 @end
-
-NS_ASSUME_NONNULL_END

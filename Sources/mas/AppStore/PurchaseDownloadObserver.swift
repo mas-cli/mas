@@ -30,15 +30,18 @@ class PurchaseDownloadObserver: CKDownloadQueueObserver {
 	}
 
 	func downloadQueue(_ queue: CKDownloadQueue, statusChangedFor download: SSDownload) {
-		guard download.metadata.itemIdentifier == appID else {
+		guard
+			let metadata = download.metadata,
+			metadata.itemIdentifier == appID,
+			let status = download.status
+		else {
 			return
 		}
 
-		let status = download.status
 		if status.isFailed || status.isCancelled {
-			queue.removeDownload(withItemIdentifier: download.metadata.itemIdentifier)
+			queue.removeDownload(withItemIdentifier: metadata.itemIdentifier)
 		} else {
-			prevPhaseType = printer.progress(of: download, prevPhaseType: prevPhaseType)
+			prevPhaseType = printer.progress(for: metadata.appNameAndVersion, status: status, prevPhaseType: prevPhaseType)
 		}
 	}
 
@@ -47,18 +50,21 @@ class PurchaseDownloadObserver: CKDownloadQueueObserver {
 	}
 
 	func downloadQueue(_: CKDownloadQueue, changedWithRemoval download: SSDownload) {
-		guard download.metadata.itemIdentifier == appID else {
+		guard
+			let metadata = download.metadata,
+			metadata.itemIdentifier == appID,
+			let status = download.status
+		else {
 			return
 		}
 
 		printer.terminateEphemeral()
-		let status = download.status
 		if status.isFailed {
-			errorHandler?(status.error)
+			errorHandler?(status.error ?? MASError.runtimeError("Failed to download \(metadata.appNameAndVersion)"))
 		} else if status.isCancelled {
 			errorHandler?(MASError.cancelled)
 		} else {
-			printer.notice("Installed", download.progressDescription)
+			printer.notice("Installed", metadata.appNameAndVersion)
 			completionHandler?()
 		}
 	}
@@ -74,27 +80,27 @@ private struct ProgressState {
 	}
 }
 
-private extension SSDownload {
-	var progressDescription: String {
-		"\(metadata.title) (\(metadata.bundleVersion ?? "unknown version"))"
+private extension SSDownloadMetadata {
+	var appNameAndVersion: String {
+		"\(title ?? "unknown app") (\(bundleVersion ?? "unknown version"))"
 	}
 }
 
 private extension Printer {
-	func progress(of download: SSDownload, prevPhaseType: Int64?) -> Int64 {
-		let currPhaseType = download.status.activePhase.phaseType
+	func progress(for appNameAndVersion: String, status: SSDownloadStatus, prevPhaseType: Int64?) -> Int64? {
+		let currPhaseType = status.activePhase?.phaseType
 		if prevPhaseType != currPhaseType {
 			switch currPhaseType {
 			case downloadingPhaseType:
 				if prevPhaseType == initialPhaseType {
-					progressHeader(for: download)
+					progressHeader(for: appNameAndVersion, status: status)
 				}
 			case downloadedPhaseType:
 				if prevPhaseType == downloadingPhaseType {
-					progressHeader(for: download)
+					progressHeader(for: appNameAndVersion, status: status)
 				}
 			case installingPhaseType:
-				progressHeader(for: download)
+				progressHeader(for: appNameAndVersion, status: status)
 			default:
 				break
 			}
@@ -102,7 +108,7 @@ private extension Printer {
 
 		if isatty(fileno(stdout)) != 0 {
 			// Only output the progress bar if connected to a terminal
-			let progressState = download.status.progressState
+			let progressState = status.progressState
 			let totalLength = 60
 			let completedLength = Int(progressState.percentComplete * Float(totalLength))
 			ephemeral(
@@ -120,15 +126,19 @@ private extension Printer {
 		return currPhaseType
 	}
 
-	private func progressHeader(for download: SSDownload) {
+	private func progressHeader(for appNameAndVersion: String, status: SSDownloadStatus) {
 		terminateEphemeral()
-		notice(download.status.activePhase.phaseDescription, download.progressDescription)
+		notice(status.activePhaseDescription, appNameAndVersion)
 	}
 }
 
 private extension SSDownloadStatus {
+	var activePhaseDescription: String {
+		activePhase?.phaseDescription ?? "Processing"
+	}
+
 	var progressState: ProgressState {
-		ProgressState(percentComplete: percentComplete, phase: activePhase.phaseDescription)
+		ProgressState(percentComplete: percentComplete, phase: activePhaseDescription)
 	}
 }
 
@@ -151,7 +161,7 @@ extension PurchaseDownloadObserver {
 	func observeDownloadQueue(_ queue: CKDownloadQueue = .shared()) async throws {
 		let observerID = queue.add(self)
 		defer {
-			queue.remove(observerID)
+			queue.removeObserver(observerID)
 		}
 
 		try await withCheckedThrowingContinuation { continuation in
