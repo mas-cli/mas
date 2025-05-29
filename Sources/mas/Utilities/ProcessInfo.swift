@@ -20,7 +20,7 @@ extension ProcessInfo {
 			return nil
 		}
 
-		return String(validatingUTF8: group.pointee.gr_name)
+		return String(validatingCString: group.pointee.gr_name)
 	}
 
 	var sudoUID: uid_t? {
