@@ -8,11 +8,37 @@
 internal import ArgumentParser
 
 extension MAS {
-	/// Searches for apps in the Mac App Store.
+	/// Searches the Mac App Store for apps matching a given search term.
 	///
-	/// Uses the iTunes Search API:
+	/// This command uses the public iTunes Search API to look up apps by keyword.
+	/// It returns the App ID and app name for each match, which can be used with
+	/// other commands such as `mas install`, `mas info`, or `mas lucky`.
 	///
-	/// https://performance-partners.apple.com/search-api
+	/// Use the `--price` flag to also display each app’s current price.
+	///
+	/// Example:
+	/// ```bash
+	/// mas search Xcode
+	/// ```
+	///
+	/// Output:
+	/// ```
+	/// 497799835 Xcode
+	/// 688199928 Docs for Xcode
+	/// ```
+	///
+	/// Example with price:
+	/// ```bash
+	/// mas search Xcode --price
+	/// 497799835 Xcode - Free
+	/// 688199928 Docs for Xcode - ¥100
+	/// ```
+	///
+	/// > Note:
+	/// > Search results may vary depending on your App Store region (`mas region`)
+	///
+	/// See also:
+	/// [iTunes Search API](https://performance-partners.apple.com/search-api)
 	struct Search: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
 			abstract: "Search for apps in the Mac App Store"
