@@ -48,7 +48,7 @@ jobs:
           exit 2
         fi
 
-    - name: 🌳 Delete version tag not on main
+    - name: 🌳 Delete version tag not on default branch
       env:
         DEFAULT_BRANCH_NAME: ${{github.event.repository.default_branch}}
       run: |
