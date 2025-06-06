@@ -15,11 +15,23 @@ permissions: {}
 jobs:
   build-test:
     name: Build, Test, and Lint
-    runs-on: macos-15
+    strategy:
+      matrix:
+        include:
+        - arch: -x86_64
+          os: macos-13
+          xcode: 15.2
+        - arch: -arm64
+          os: macos-14
+          xcode: 16.2
+        - arch: -arm64
+          os: macos-15
+          xcode: 16.4
+    runs-on: ${{matrix.os}}
     defaults:
       run:
         # Force all run commands to not use Rosetta 2
-        shell: arch -arm64 /bin/zsh -Negku {0}
+        shell: arch ${{matrix.arch}} /bin/zsh -Negku {0}
     steps:
     - name: 🛒 Checkout repo
       env:
@@ -34,8 +46,8 @@ jobs:
     - name: 🔧 Setup repo
       run: Scripts/setup_workflow_repo
 
-    - name: 🛠 Select Xcode 16.3
-      run: sudo xcode-select -s /Applications/Xcode_16.3.app/Contents/Developer
+    - name: 🛠 Select newest available Xcode
+      run: sudo xcode-select -s /Applications/Xcode_${{matrix.xcode}}.app/Contents/Developer
 
     - name: 👢 Bootstrap
       run: Scripts/bootstrap
