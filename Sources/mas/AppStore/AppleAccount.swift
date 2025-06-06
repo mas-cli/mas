@@ -9,8 +9,8 @@ internal import Foundation
 private import StoreFoundation
 
 struct AppleAccount: Sendable {
-	let emailAddress: String
-	let dsID: NSNumber // swiftlint:disable:this legacy_objc_type
+	let emailAddress: String?
+	let dsID: NSNumber? // swiftlint:disable:this legacy_objc_type
 }
 
 @MainActor
@@ -23,7 +23,7 @@ var appleAccount: AppleAccount {
 		}
 		return await withCheckedContinuation { continuation in
 			ISServiceProxy.genericShared().accountService.primaryAccount { account in
-				continuation.resume(returning: AppleAccount(emailAddress: account.identifier, dsID: account.dsID))
+				continuation.resume(returning: AppleAccount(emailAddress: account?.identifier, dsID: account?.dsID))
 			}
 		}
 	}

@@ -5,22 +5,18 @@
 // - LC_SOURCE_VERSION: 715.5.1.0.0
 //
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface SSPurchaseResponse : NSObject <NSSecureCoding> {
 	NSDictionary *_rawResponse;
 }
 
 + (BOOL)supportsSecureCoding;
 
-@property(retain) NSArray<SSDownload *> *downloads;
-@property(retain) NSDictionary *metrics;
+@property(retain, nullable) NSArray<SSDownload *> *downloads;
+@property(retain, nullable) NSDictionary<NSString *, id> *metrics;
 
-- (NSArray<SSDownload *> *)_newDownloadsFromItems:(NSArray *)items withDSID:(NSNumber *)dsID;
-- (void)encodeWithCoder:(NSCoder *)coder;
-- (instancetype)initWithCoder:(NSCoder *)coder;
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary userIdentifier:(NSString *)userIdentifier;
+- (nonnull NSMutableArray<SSDownload *> *)_newDownloadsFromItems:(nullable NSArray<NSDictionary *> *)items withDSID:(nullable NSNumber *)dsID; // Unverified items element generic types / dsID type
+- (void)encodeWithCoder:(nullable NSCoder *)coder;
+- (nonnull instancetype)initWithCoder:(nullable NSCoder *)coder;
+- (nonnull instancetype)initWithDictionary:(nullable NSDictionary *)dictionary userIdentifier:(nullable NSString *)userIdentifier; // Unverified dictionary generic types / userIdentifier type
 
 @end
-
-NS_ASSUME_NONNULL_END

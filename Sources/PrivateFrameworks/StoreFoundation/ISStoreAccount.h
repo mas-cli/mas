@@ -5,43 +5,39 @@
 // - LC_SOURCE_VERSION: 715.5.1.0.0
 //
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface ISStoreAccount : NSObject <NSSecureCoding> {
 	NSTimer *_tokenInvalidTimer;
 }
 
-+ (NSNumber *)dsidFromPlistValue:(id)value;
-+ (NSDictionary *)migratePersistedStoreDictionary:(NSDictionary *)dictionary;
++ (nullable NSNumber *)dsidFromPlistValue:(nullable id)value;
++ (nonnull NSDictionary *)migratePersistedStoreDictionary:(nullable NSDictionary *)dictionary;
 + (BOOL)supportsSecureCoding;
 
 @property long long URLBagType;
 @property(readonly, getter=isAuthenticated) BOOL authenticated;
-@property(copy) NSString *creditString;
-@property(copy) NSNumber *dsID;
-@property(copy) NSString *identifier;
+@property(copy, nullable) NSString *creditString;
+@property(copy, nullable) NSNumber *dsID;
+@property(copy, nullable) NSString *identifier;
 @property BOOL isManagedStudent;
 @property BOOL isSignedIn;
 @property long long kind;
-@property(copy) NSString *password;
+@property(copy, nullable) NSString *password;
 @property(readonly, getter=isPrimary) BOOL primary;
-@property(retain) NSString *storeFront;
-@property(copy) NSString *token;
-@property(retain) NSTimer *tokenExpirationTimer;
-@property(retain) NSDate *tokenIssuedDate;
+@property(retain, nullable) NSString *storeFront;
+@property(copy, nullable) NSString *token;
+@property(retain, nullable) NSTimer *tokenExpirationTimer;
+@property(retain, nullable) NSDate *tokenIssuedDate;
 @property long long touchIDState;
 
-- (NSString *)description;
-- (void)encodeWithCoder:(NSCoder *)coder;
+- (nonnull NSString *)description;
+- (void)encodeWithCoder:(nullable NSCoder *)coder;
 - (long long)getTouchIDState;
 - (BOOL)hasValidStrongToken;
-- (instancetype)initWithCoder:(NSCoder *)coder;
-- (instancetype)initWithPersistedStoreDictionary:(NSDictionary *)dictionary;
-- (void)mergeValuesFromAuthenticationResponse:(ISAuthenticationResponse *)response;
-- (NSDictionary *)persistedStoreDictionary;
+- (nonnull instancetype)initWithCoder:(nullable NSCoder *)coder;
+- (nonnull instancetype)initWithPersistedStoreDictionary:(nullable NSDictionary *)dictionary;
+- (void)mergeValuesFromAuthenticationResponse:(nullable ISAuthenticationResponse *)response;
+- (nonnull NSDictionary<NSString *, NSNumber *> *)persistedStoreDictionary;
 - (void)resetTouchIDState;
 - (double)strongTokenValidForSecond;
 
 @end
-
-NS_ASSUME_NONNULL_END

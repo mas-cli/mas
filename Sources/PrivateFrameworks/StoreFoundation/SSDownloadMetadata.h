@@ -5,26 +5,24 @@
 // - LC_SOURCE_VERSION: 715.5.1.0.0
 //
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface SSDownloadMetadata : NSObject <NSSecureCoding, NSCopying> {
 	NSLock *_lock;
 }
 
 + (BOOL)supportsSecureCoding;
 
-@property(readonly, nullable) NSNumber *ageRestriction;
+@property(readonly, nonnull) NSNumber *ageRestriction;
 @property BOOL animationExpected;
 @property(retain, nullable) NSString *appleID;
-@property(readonly, nullable) NSString *applicationIdentifier;
+@property(readonly, nonnull) NSString *applicationIdentifier;
 @property BOOL artworkIsPrerendered;
-@property(readonly, nullable) NSArray *assets;
+@property(readonly, nonnull) NSArray<SSDownloadAsset *> *assets; // Unverified generic type
 @property(readonly, nullable) NSString *bundleDisplayName;
 @property(retain, nullable) NSString *bundleIdentifier;
 @property(readonly, nullable) NSString *bundleShortVersionString;
 @property(retain, nullable) NSString *bundleVersion;
 @property(retain, nullable) NSString *buyParameters;
-@property(readonly) NSNumber *collectionID NS_AVAILABLE_MAC(13);
+@property(readonly, nullable) NSNumber *collectionID NS_AVAILABLE_MAC(13);
 @property(retain, nullable) NSString *collectionName;
 @property(retain, nullable) NSDictionary *dictionary;
 @property(retain, nullable) NSString *downloadKey;
@@ -42,36 +40,34 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL isMDMProvided;
 @property unsigned long long itemIdentifier;
 @property(retain, nullable) NSString *kind;
-@property(retain) NSString *managedAppUUIDString NS_AVAILABLE_MAC(13);
+@property(retain, nullable) NSString *managedAppUUIDString NS_AVAILABLE_MAC(13);
 @property(readonly) BOOL needsSoftwareInstallOperation;
 @property(retain, nullable) NSURL *preflightPackageURL;
 @property(retain, nullable) NSString *productType;
 @property(readonly, nullable) NSString *purchaseDate;
 @property(getter=isRental) BOOL rental;
 @property(readonly, getter=isSample) BOOL sample;
-@property(retain, nullable) NSArray *sinfs;
+@property(retain, nullable) NSArray<NSMutableDictionary<NSString *, id> *> *sinfs;
 @property(readonly, nullable) NSString *sortArtist NS_AVAILABLE_MAC(13);
 @property(readonly, nullable) NSString *sortName NS_AVAILABLE_MAC(13);
 @property(retain, nullable) NSString *subtitle;
 @property(retain, nullable) NSURL *thumbnailImageURL;
-@property(retain) NSString *title;
+@property(retain, nullable) NSString *title;
 @property(retain, nullable) NSString *transactionIdentifier;
 @property(readonly, nullable) NSNumber *uncompressedSize;
-@property(retain) NSNumber *version NS_AVAILABLE_MAC(13);
+@property(retain, nullable) NSNumber *version NS_AVAILABLE_MAC(13);
 
-- (nullable id)_valueForFirstAvailableKey:(NSString *)key;
-- (instancetype)copyWithZone:(nullable struct _NSZone *)zone;
-- (nullable id)deltaPackages;
-- (void)encodeWithCoder:(NSCoder *)coder;
-- (instancetype)init;
-- (instancetype)initWithCoder:(NSCoder *)coder;
-- (nullable instancetype)initWithDictionary:(NSDictionary *)dictionary;
-- (nullable instancetype)initWithKind:(NSString *)kind;
+- (nullable id)_valueForFirstAvailableKey:(nullable id)key;
+- (nonnull instancetype)copyWithZone:(nullable struct _NSZone *)zone;
+- (nullable NSDictionary *)deltaPackages; // Unverified return type
+- (void)encodeWithCoder:(nullable NSCoder *)coder;
+- (nonnull instancetype)init;
+- (nonnull instancetype)initWithCoder:(nullable NSCoder *)coder;
+- (nonnull instancetype)initWithDictionary:(nullable NSDictionary *)dictionary;
+- (nonnull instancetype)initWithKind:(nullable NSString *)kind;
 - (nullable id)localServerInfo;
 - (void)setExtractionCanBeStreamed:(BOOL)extractionCanBeStreamed NS_DEPRECATED_MAC(10_9, 12);
-- (void)setUncompressedSize:(NSNumber *)uncompressedSize NS_DEPRECATED_MAC(10_9, 12);
-- (void)setValue:(nullable id)value forMetadataKey:(NSString *)key;
+- (void)setUncompressedSize:(nullable NSNumber *)uncompressedSize NS_DEPRECATED_MAC(10_9, 12);
+- (void)setValue:(nullable id)value forMetadataKey:(nonnull NSString *)key; // Unverified key type
 
 @end
-
-NS_ASSUME_NONNULL_END

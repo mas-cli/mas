@@ -5,18 +5,14 @@
 // Copyright © 2018 mas-cli. All rights reserved.
 //
 
-NS_ASSUME_NONNULL_BEGIN
-
 @protocol CKDownloadQueueObserver
 
 @required
 
-- (void)downloadQueue:(CKDownloadQueue *)downloadQueue changedWithAddition:(SSDownload *)download;
-- (void)downloadQueue:(CKDownloadQueue *)downloadQueue changedWithRemoval:(SSDownload *)download;
-- (void)downloadQueue:(CKDownloadQueue *)downloadQueue statusChangedForDownload:(SSDownload *)download;
+- (void)downloadQueue:(nonnull CKDownloadQueue *)queue changedWithAddition:(nonnull SSDownload *)download;
+- (void)downloadQueue:(nonnull CKDownloadQueue *)queue changedWithRemoval:(nonnull SSDownload *)download;
+- (void)downloadQueue:(nonnull CKDownloadQueue *)queue statusChangedForDownload:(nonnull SSDownload *)download;
 
 @optional
 
 @end
-
-NS_ASSUME_NONNULL_END

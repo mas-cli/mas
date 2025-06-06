@@ -5,8 +5,6 @@
 // - LC_SOURCE_VERSION: 715.5.1.0.0
 //
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface CKDownloadQueue : CKServiceInterface {
 	NSMutableDictionary *_downloadsByItemID;
 	NSLock *_downloadsLock;
@@ -14,32 +12,30 @@ NS_ASSUME_NONNULL_BEGIN
 	NSLock *_tokenLock NS_AVAILABLE_MAC(13);
 }
 
-+ (instancetype)sharedDownloadQueue;
++ (nonnull instancetype)sharedDownloadQueue;
 
-@property(retain, nonatomic) NSMutableDictionary *downloadQueueObservers;
-@property(readonly, nonatomic) NSArray *downloads;
-@property(retain, nonatomic) CKDownloadQueueClient *sharedObserver;
+@property(retain, nonatomic, nullable) NSMutableDictionary<NSString *, CKDownloadQueueClient *> * downloadQueueObservers; // <NSString * _Nonnull, CKDownloadQueueClient * _Nonnull>
+@property(readonly, nonatomic, nullable) NSArray<SSDownload *> *downloads; // Unverified generic type
+@property(retain, nonatomic, nullable) CKDownloadQueueClient *sharedObserver;
 
-- (void)addDownload:(SSDownload *)download;
-- (id<CKDownloadQueueObserver>)addObserver:(id<CKDownloadQueueObserver>)observer;
-- (id<CKDownloadQueueObserver>)addObserver:(id<CKDownloadQueueObserver>)observer forDownloadTypes:(long long)downloadTypes;
-- (id<CKDownloadQueueObserver>)addObserverForDownloadTypes:(long long)downloadTypes withBlock:(UnknownBlock *)block;
-- (BOOL)cacheReceiptDataForDownload:(SSDownload *)download;
-- (void)cancelDownload:(SSDownload *)download promptToConfirm:(BOOL)promptToConfirm askToDelete:(BOOL)askToDelete;
-- (void)checkStoreDownloadQueueForAccount:(ISStoreAccount *)account;
+- (void)addDownload:(nonnull SSDownload *)download;
+- (nonnull NSString *)addObserver:(nullable id<CKDownloadQueueObserver>)observer;
+- (nonnull NSString *)addObserver:(nullable id<CKDownloadQueueObserver>)observer forDownloadTypes:(long long)downloadTypes;
+- (nonnull NSString *)addObserverForDownloadTypes:(long long)downloadTypes withBlock:(nullable UnknownBlock)block;
+- (BOOL)cacheReceiptDataForDownload:(nullable SSDownload *)download;
+- (void)cancelDownload:(nullable SSDownload *)download promptToConfirm:(BOOL)promptToConfirm askToDelete:(BOOL)askToDelete;
+- (void)checkStoreDownloadQueueForAccount:(nullable ISStoreAccount *)account; // Unverified account type
 - (void)connectionWasInterrupted;
-- (SSDownload *)downloadForItemIdentifier:(unsigned long long)identifier;
-- (void)fetchIconForItemIdentifier:(unsigned long long)identifier atURL:(NSURL *)url replyBlock:(UnknownBlock *)block;
-- (instancetype)initWithStoreClient:(ISStoreClient *)client;
-- (void)lockApplicationsForBundleID:(NSString *)bundleID;
-- (void)lockedApplicationTriedToLaunchAtPath:(NSString *)path;
+- (nullable SSDownload *)downloadForItemIdentifier:(unsigned long long)identifier; // Unverified return type
+- (void)fetchIconForItemIdentifier:(unsigned long long)identifier atURL:(nullable NSURL *)url replyBlock:(nonnull UnknownBlock)block;
+- (nonnull instancetype)initWithStoreClient:(nullable ISStoreClient *)client; // Unverified client type
+- (void)lockApplicationsForBundleID:(nullable NSString *)bundleID; // Unverified bundleID type
+- (void)lockedApplicationTriedToLaunchAtPath:(nullable NSString *)path; // Unverified path type
 - (void)pauseDownloadWithItemIdentifier:(unsigned long long)identifier;
 - (void)performedIconAnimationForDownloadWithIdentifier:(unsigned long long)identifier;
 - (void)removeDownloadWithItemIdentifier:(unsigned long long)identifier;
-- (void)removeObserver:(id<CKDownloadQueueObserver>)observer;
+- (void)removeObserver:(nullable NSString *)observer; // Unverified observer type
 - (void)resumeDownloadWithItemIdentifier:(unsigned long long)identifier;
-- (void)unlockApplicationsWithBundleIdentifier:(NSString *)bundleID;
+- (void)unlockApplicationsWithBundleIdentifier:(nullable NSString *)bundleID; // Unverified bundleID type
 
 @end
-
-NS_ASSUME_NONNULL_END

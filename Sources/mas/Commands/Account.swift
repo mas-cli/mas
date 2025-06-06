@@ -20,7 +20,11 @@ extension MAS {
 		}
 
 		func run(printer: Printer) async throws {
-			printer.info(try await appleAccount.emailAddress)
+			guard let appleAccount = try await appleAccount.emailAddress else {
+				throw MASError.runtimeError("Unknown Apple Account")
+			}
+
+			printer.info(appleAccount)
 		}
 	}
 }

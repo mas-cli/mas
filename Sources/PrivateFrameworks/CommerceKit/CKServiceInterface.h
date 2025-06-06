@@ -5,10 +5,6 @@
 // - LC_SOURCE_VERSION: 715.5.1.0.0
 //
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface CKServiceInterface : ISServiceProxy
 
 @end
-
-NS_ASSUME_NONNULL_END

@@ -5,21 +5,19 @@
 // - LC_SOURCE_VERSION: 715.5.1.0.0
 //
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface SSPurchase : NSObject <NSSecureCoding, NSCopying>
 
-+ (instancetype)purchaseWithBuyParameters:(NSString *)buyParameters;
-+ (NSDictionary<NSNumber *, SSPurchase *> *)purchasesGroupedByAccountIdentifierWithPurchases:(NSArray<SSPurchase *> *)purchases;
++ (nonnull instancetype)purchaseWithBuyParameters:(nullable NSString *)buyParameters; // Unverified buyParameters type
++ (nonnull NSArray<NSArray<SSPurchase *> *> *)purchasesGroupedByAccountIdentifierWithPurchases:(nullable NSArray<SSPurchase *> *)purchases;
 + (BOOL)supportsSecureCoding;
 
-@property(retain, nonatomic) NSNumber *accountIdentifier;
-@property(retain, nonatomic) NSString *appleID;
-@property(copy) UnknownBlock *authFallbackHandler;
-@property(copy, nonatomic) NSString *buyParameters;
+@property(retain, nonatomic, nullable) NSNumber *accountIdentifier;
+@property(retain, nonatomic, nullable) NSString *appleID;
+@property(copy, nullable) UnknownBlock authFallbackHandler; // Unverified value type
+@property(copy, nonatomic, nullable) NSString *buyParameters;
 @property BOOL checkPreflightAterPurchase;
-@property(copy, nonatomic) SSDownloadMetadata *downloadMetadata;
-@property(retain) NSDictionary *dsidLessOptions;
+@property(copy, nonatomic, nullable) SSDownloadMetadata *downloadMetadata;
+@property(retain, nullable) NSDictionary *dsidLessOptions;
 @property BOOL isCancelled;
 @property BOOL isDSIDLessPurchase;
 @property BOOL isRecoveryPurchase;
@@ -27,25 +25,23 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL isUpdate;
 @property BOOL isVPP;
 @property unsigned long long itemIdentifier;
-@property(retain, nonatomic) NSString *managedAppUUIDString NS_AVAILABLE_MAC(13);
+@property(retain, nonatomic, nullable) NSString *managedAppUUIDString NS_AVAILABLE_MAC(13);
 @property(readonly) BOOL needsAuthentication;
-@property(retain, nonatomic) NSString *parentalControls;
-@property(weak) ISOperation *purchaseOperation;
+@property(retain, nonatomic, nullable) NSString *parentalControls;
+@property(weak, nullable) ISOperation *purchaseOperation;
 @property(nonatomic) long long purchaseType;
-@property(retain, nonatomic) NSData *receiptData;
-@property(copy) NSDictionary *responseDialog;
+@property(retain, nonatomic, nullable) NSData *receiptData;
+@property(copy, nullable) NSDictionary *responseDialog;
 @property BOOL shouldBeInstalledAfterLogout;
-@property(readonly, nonatomic) NSString *sortableAccountIdentifier;
-@property(readonly, nonatomic) NSString *uniqueIdentifier;
+@property(readonly, nonatomic, nullable) NSString *sortableAccountIdentifier;
+@property(readonly, nonatomic, nonnull) NSString *uniqueIdentifier;
 
-- (NSString *)_sortableAccountIdentifier;
-- (instancetype)copyWithZone:(nullable struct _NSZone *)zone;
-- (NSString *)description;
-- (void)encodeWithCoder:(NSCoder *)coder;
-- (instancetype)initWithCoder:(NSCoder *)coder;
-- (NSNumber *)productID;
+- (nullable NSString *)_sortableAccountIdentifier;
+- (nonnull instancetype)copyWithZone:(nullable struct _NSZone *)zone;
+- (nonnull NSString *)description;
+- (void)encodeWithCoder:(nullable NSCoder *)coder;
+- (nonnull instancetype)initWithCoder:(nullable NSCoder *)coder;
+- (nonnull NSNumber *)productID;
 - (BOOL)purchaseDSIDMatchesPrimaryAccount;
 
 @end
-
-NS_ASSUME_NONNULL_END

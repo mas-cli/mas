@@ -57,10 +57,10 @@
 		{
 			"identity" : "swift-atomics",
 			"kind" : "remoteSourceControl",
-			"location" : "https://github.com/apple/swift-atomics.git",
+			"location" : "https://github.com/rgoldberg/swift-atomics.git",
 			"state" : {
-				"branch" : "main",
-				"revision" : "d61ca105d6fb41e00dae7d9f0c8db44a715516f8"
+				"branch" : "swift-5.9",
+				"revision" : "3438bfb21398dc4d644bf7cca0733b7341ba25ed"
 			}
 		},
 		{

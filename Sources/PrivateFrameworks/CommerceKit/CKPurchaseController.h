@@ -5,9 +5,7 @@
 // - LC_SOURCE_VERSION: 715.5.1.0.0
 //
 
-NS_ASSUME_NONNULL_BEGIN
-
-typedef void (^SSPurchaseCompletion)(SSPurchase * _Nullable purchase, BOOL completed, NSError * _Nullable error, SSPurchaseResponse * _Nullable response);
+typedef void (^SSPurchaseCompletion)(SSPurchase * _Nonnull purchase, BOOL completed, NSError * _Nullable error, SSPurchaseResponse * _Nullable response);
 
 @interface CKPurchaseController : CKServiceInterface {
 	NSArray *_adoptionEligibleItems;
@@ -18,21 +16,19 @@ typedef void (^SSPurchaseCompletion)(SSPurchase * _Nullable purchase, BOOL compl
 }
 
 + (void)setNeedsSilentMachineAuthorization:(BOOL)needsSilentMachineAuthorization;
-+ (instancetype)sharedPurchaseController;
++ (nonnull instancetype)sharedPurchaseController;
 
-@property(copy) UnknownBlock *dialogHandler;
+@property(copy, nullable) void (^dialogHandler)(CKDialog * _Nullable); // Unverified type
 
 - (void)_performVPPReceiptRenewal;
-- (BOOL)adoptionCompletedForBundleID:(NSString *)bundleID;
-- (void)cancelPurchaseWithProductID:(NSNumber *)productID;
+- (BOOL)adoptionCompletedForBundleID:(nullable NSString *)bundleID;
+- (void)cancelPurchaseWithProductID:(nullable NSNumber *)productID;
 - (void)checkServerDownloadQueue;
-- (void)performPurchase:(SSPurchase *)purchase withOptions:(unsigned long long)options completionHandler:(nullable SSPurchaseCompletion)handler;
-- (SSPurchase *)purchaseInProgressForProductID:(NSNumber *)productID;
-- (NSArray<SSPurchase *> *)purchasesInProgress;
-- (void)resumeDownloadForPurchasedProductID:(NSNumber *)productID;
-- (void)startPurchases:(NSArray<SSPurchase *> *)purchases shouldStartDownloads:(BOOL)shouldStartDownloads eventHandler:(UnknownBlock *)handler;
-- (void)startPurchases:(NSArray<SSPurchase *> *)purchases withOptions:(unsigned long long)options completionHandler:(UnknownBlock *)handler;
+- (void)performPurchase:(nonnull SSPurchase *)purchase withOptions:(unsigned long long)options completionHandler:(nullable SSPurchaseCompletion)handler;
+- (nullable SSPurchase *)purchaseInProgressForProductID:(nullable NSNumber *)productID; // Unverified return type
+- (nullable NSArray<SSPurchase *> *)purchasesInProgress; // Unverified return type
+- (void)resumeDownloadForPurchasedProductID:(nullable NSNumber *)productID; // Unverified productID type
+- (void)startPurchases:(nullable NSArray<SSPurchase *> *)purchases shouldStartDownloads:(BOOL)shouldStartDownloads eventHandler:(nullable void (^)(NSArray<SSPurchase *> * _Nonnull))handler; // Unverified purchases generic type / handler type
+- (void)startPurchases:(nullable NSArray<SSPurchase *> *)purchases withOptions:(unsigned long long)options completionHandler:(nullable void (^)(NSArray<SSPurchase *> * _Nonnull))handler; // Unverified purchases type / handler parameter type
 
 @end
-
-NS_ASSUME_NONNULL_END
