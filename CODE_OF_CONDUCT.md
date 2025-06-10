@@ -58,7 +58,7 @@ Instances of abusive, harassing, or otherwise unacceptable behavior may be
 reported by contacting the project team at @mas-cli/admins. All complaints will
 be reviewed & investigated & will result in a response that is deemed necessary
 & appropriate to the circumstances. The project team is obligated to maintain
-confidentiality with regard to the reporter of an incident.  Further details of
+confidentiality with regard to the reporter of an incident. Further details of
 specific enforcement policies may be posted separately.
 
 Project maintainers who do not follow or enforce the Code of Conduct in good
