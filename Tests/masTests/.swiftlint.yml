@@ -17,12 +17,12 @@ closure_body_length:
   warning: 85
 file_header:
   required_pattern: |
-    \/\/
-    \/\/ SWIFTLINT_CURRENT_FILENAME
-    \/\/ masTests
-    \/\/
-    \/\/ Copyright © 20\d{2} mas-cli\. All rights reserved\.
-    \/\/
+    //
+    // SWIFTLINT_CURRENT_FILENAME
+    // masTests
+    //
+    // Copyright © 20\d{2} mas-cli\. All rights reserved\.
+    //
 function_body_length:
   warning: 85
 large_tuple:

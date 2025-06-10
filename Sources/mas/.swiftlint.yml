@@ -10,11 +10,11 @@ opt_in_rules:
 - file_name
 file_header:
   required_pattern: |
-    \/\/
-    \/\/ SWIFTLINT_CURRENT_FILENAME
-    \/\/ mas
-    \/\/
-    \/\/ Copyright © 20\d{2} mas-cli\. All rights reserved\.
-    \/\/
+    //
+    // SWIFTLINT_CURRENT_FILENAME
+    // mas
+    //
+    // Copyright © 20\d{2} mas-cli\. All rights reserved\.
+    //
 file_name:
   excluded: [Finder.swift, SpotlightInstalledApps.swift]
