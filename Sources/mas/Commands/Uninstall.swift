@@ -114,14 +114,15 @@ private func uninstallApps(atPaths appPaths: [String], printer: Printer) throws 
 		throw MASError.runtimeError("Failed to get original gid")
 	}
 
+	let fileManager = FileManager.default
 	for appPath in appPaths {
-		let attributes = try FileManager.default.attributesOfItem(atPath: appPath)
+		let attributes = try fileManager.attributesOfItem(atPath: appPath)
 		guard let appUID = attributes[.ownerAccountID] as? uid_t else {
-			printer.error("Failed to determine uid of", appPath)
+			printer.error("Failed to get uid of", appPath)
 			continue
 		}
 		guard let appGID = attributes[.groupOwnerAccountID] as? gid_t else {
-			printer.error("Failed to determine gid of", appPath)
+			printer.error("Failed to get gid of", appPath)
 			continue
 		}
 		guard chown(appPath, uid, gid) == 0 else {
@@ -148,7 +149,7 @@ private func uninstallApps(atPaths appPaths: [String], printer: Printer) throws 
 		guard let item = object as? FinderItem else {
 			printer.error(
 				"""
-				Failed to obtain Finder access: finderItems.object(atLocation: URL(fileURLWithPath:\
+				Failed to obtain Finder access: finder.items().object(atLocation: URL(fileURLWithPath:\
 				 \"\(appPath)\") is a \(type(of: object)) that does not conform to FinderItem
 				"""
 			)
