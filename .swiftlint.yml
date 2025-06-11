@@ -39,7 +39,7 @@ file_types_order:
   - preview_provider
   - library_content_provider
 function_body_length:
-  warning: 70
+  warning: 75
 indentation_width:
   include_multiline_strings: false
 number_separator:

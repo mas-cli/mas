@@ -17,6 +17,10 @@ struct Printer {
 
 	var errorCount: UInt64 { errorCounter.load(ordering: .acquiring) }
 
+	fileprivate init() {
+		// Do nothing
+	}
+
 	func log(_ message: String, to fileHandle: FileHandle) {
 		if let data = message.data(using: .utf8) {
 			fileHandle.write(data)
