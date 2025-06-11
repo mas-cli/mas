@@ -5,42 +5,38 @@
 // - LC_SOURCE_VERSION: 715.5.1.0.0
 //
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface ISServiceProxy : NSObject
 
-+ (instancetype)genericSharedProxy;
++ (nonnull instancetype)genericSharedProxy;
 + (void)initialize;
 
-@property(readonly, nonatomic) id<ISAccountService> accountService;
-@property(readonly, nonatomic) id<ISAssetService> assetService;
-@property(readonly, nonatomic) id<ISDownloadService> downloadService;
-@property(readonly, nonatomic, weak) id<ISServiceRemoteObject> exportedObject;
-@property(readonly, nonatomic) Protocol *exportedProtocol;
-@property(readonly, nonatomic) id<ISInAppService> inAppService NS_DEPRECATED_MAC(10_9, 12);
-@property(retain, nonatomic) ISStoreClient *storeClient;
-@property(readonly, nonatomic) id<ISTransactionService> transactionService;
-@property(readonly, nonatomic) id<ISUIService> uiService;
+@property(readonly, nonatomic, nonnull) id<ISAccountService> accountService;
+@property(readonly, nonatomic, nonnull) id<ISAssetService> assetService;
+@property(readonly, nonatomic, nonnull) id<ISDownloadService> downloadService;
+@property(readonly, nonatomic, weak, nullable) id<ISServiceRemoteObject> exportedObject;
+@property(readonly, nonatomic, nullable) Protocol *exportedProtocol;
+@property(readonly, nonatomic, nonnull) id<ISInAppService> inAppService NS_DEPRECATED_MAC(10_9, 12);
+@property(retain, nonatomic, nullable) ISStoreClient *storeClient;
+@property(readonly, nonatomic, nonnull) id<ISTransactionService> transactionService;
+@property(readonly, nonatomic, nonnull) id<ISUIService> uiService;
 
-- (void)accountServiceSynchronousBlock:(UnknownBlock *)block;
-- (id<ISAccountService>)accountServiceWithErrorHandler:(UnknownBlock *)handler;
-- (void)assetServiceSynchronousBlock:(UnknownBlock *)block;
-- (id<ISAssetService>)assetServiceWithErrorHandler:(UnknownBlock *)handler;
+- (void)accountServiceSynchronousBlock:(nonnull UnknownBlock)block;
+- (nonnull id<ISAccountService>)accountServiceWithErrorHandler:(nullable UnknownBlock)handler;
+- (void)assetServiceSynchronousBlock:(nonnull UnknownBlock)block;
+- (nonnull id<ISAssetService>)assetServiceWithErrorHandler:(nullable UnknownBlock)handler;
 - (void)connectionWasInterrupted;
-- (id)connectionWithServiceName:(NSString *)serviceName protocol:(id)protocol isMachService:(BOOL)isMachService;
-- (void)downloadServiceSynchronousBlock:(UnknownBlock *)block;
-- (id<ISDownloadService>)downloadServiceWithErrorHandler:(UnknownBlock *)handler;
-- (void)inAppServiceSynchronousBlock:(UnknownBlock *)block NS_DEPRECATED_MAC(10_9, 12);
-- (id<ISInAppService>)inAppServiceWithErrorHandler:(UnknownBlock *)handler NS_DEPRECATED_MAC(10_9, 12);
-- (instancetype)initWithStoreClient:(ISStoreClient *)client;
-- (id)objectProxyForServiceName:(NSString *)serviceName protocol:(id)protocol interfaceClassName:(NSString *)interfaceClassName isMachService:(BOOL)isMachService errorHandler:(UnknownBlock *)handler;
-- (void)performSynchronousBlock:(UnknownBlock *)block withServiceName:(NSString *)serviceName protocol:(id)protocol isMachService:(BOOL)isMachService interfaceClassName:(NSString *)interfaceClassName;
+- (nonnull NSXPCConnection *)connectionWithServiceName:(nonnull NSString *)serviceName protocol:(nonnull Protocol *)protocol isMachService:(BOOL)isMachService;
+- (void)downloadServiceSynchronousBlock:(nonnull UnknownBlock)block;
+- (nonnull id<ISDownloadService>)downloadServiceWithErrorHandler:(nullable UnknownBlock)handler;
+- (void)inAppServiceSynchronousBlock:(nonnull UnknownBlock)block NS_DEPRECATED_MAC(10_9, 12);
+- (nonnull id<ISInAppService>)inAppServiceWithErrorHandler:(nullable UnknownBlock)handler NS_DEPRECATED_MAC(10_9, 12);
+- (nonnull instancetype)initWithStoreClient:(nullable ISStoreClient *)client; // Unverified client type
+- (nonnull id)objectProxyForServiceName:(nonnull NSString *)serviceName protocol:(nonnull id)protocol interfaceClassName:(nullable NSString *)interfaceClassName isMachService:(BOOL)isMachService errorHandler:(nullable UnknownBlock)handler;
+- (void)performSynchronousBlock:(nonnull UnknownBlock)block withServiceName:(nonnull NSString *)serviceName protocol:(nonnull Protocol *)protocol isMachService:(BOOL)isMachService interfaceClassName:(nullable NSString *)interfaceClassName;
 - (void)registerForInterrptionNotification;
-- (void)transactionServiceSynchronousBlock:(UnknownBlock *)block;
-- (id<ISTransactionService>)transactionServiceWithErrorHandler:(UnknownBlock *)handler;
-- (void)uiServiceSynchronousBlock:(UnknownBlock *)block;
-- (id<ISUIService>)uiServiceWithErrorHandler:(UnknownBlock *)handler;
+- (void)transactionServiceSynchronousBlock:(nonnull UnknownBlock)block;
+- (nonnull id<ISTransactionService>)transactionServiceWithErrorHandler:(nullable UnknownBlock)handler;
+- (void)uiServiceSynchronousBlock:(nonnull UnknownBlock)block;
+- (nonnull id<ISUIService>)uiServiceWithErrorHandler:(nullable UnknownBlock)handler;
 
 @end
-
-NS_ASSUME_NONNULL_END

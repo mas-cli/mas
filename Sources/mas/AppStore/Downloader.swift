@@ -21,7 +21,7 @@ struct Downloader {
 				CKPurchaseController.shared().perform(purchase, withOptions: 0) { _, _, error, response in
 					if let error {
 						continuation.resume(throwing: error)
-					} else if response?.downloads.isEmpty == false {
+					} else if response?.downloads?.isEmpty == false {
 						Task {
 							do {
 								try await PurchaseDownloadObserver(appID: appID, printer: printer).observeDownloadQueue()
