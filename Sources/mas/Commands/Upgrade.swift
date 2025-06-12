@@ -8,7 +8,44 @@
 internal import ArgumentParser
 
 extension MAS {
-	/// Upgrades outdated apps installed from the Mac App Store.
+	/// Upgrades apps installed from the Mac App Store that have pending updates.
+	///
+	/// This command compares your installed apps with the latest versions available
+	/// on the App Store. If updates are found, it downloads and installs them.
+	///
+	/// Run without arguments to upgrade all outdated apps.
+	/// Provide App IDs or app names to upgrade specific apps only.
+	///
+	/// > Important:
+	/// > You must be signed in to the Mac App Store with a valid Apple ID for this to work.
+	///
+	/// > Note:
+	/// > Use `mas outdated` to preview which apps will be updated.
+	///
+	/// Example (upgrade all):
+	/// ```bash
+	/// mas upgrade
+	/// ```
+	///
+	/// Example (upgrade specific app):
+	/// ```bash
+	/// mas upgrade 497799835
+	/// ```
+	///
+	/// Output:
+	/// ```
+	/// Upgrading 1 outdated application:
+	/// Xcode (15.4) -> (16.0)
+	/// ==> Downloading Xcode
+	/// ==> Installed Xcode
+	/// ```
+	/// > Important:
+	/// > This command relies on macOS Spotlight indexing to detect installed apps.
+	/// > If some apps do not appear as expected, you may need to rebuild the metadata index:
+	/// > ```bash
+	/// > sudo mdutil -Eai on
+	/// > ```
+	/// > For details, see the [README Troubleshooting Section](https://github.com/mas-cli/mas#troubleshooting).
 	struct Upgrade: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
 			abstract: "Upgrade outdated apps installed from the Mac App Store"

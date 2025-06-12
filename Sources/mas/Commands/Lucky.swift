@@ -8,12 +8,32 @@
 internal import ArgumentParser
 
 extension MAS {
-	/// Installs the first app returned from searching the Mac App Store (app must
-	/// have been previously purchased).
+	/// Installs the first matching app from the App Store based on a search term.
 	///
-	/// Uses the iTunes Search API:
+	/// This command performs a search using the provided term and attempts to install
+	/// the **first result**, similar to running `mas search` followed by `mas install <first-id>`.
 	///
-	/// https://performance-partners.apple.com/search-api
+	/// It only works for apps that have already been "purchased" using the same Apple ID.
+	///
+	/// Use `--force` to reinstall an app even if it is already installed.
+	///
+	/// Example:
+	/// ```bash
+	/// mas lucky Xcode
+	/// ```
+	///
+	/// Output:
+	/// ```
+	/// ==> Downloading Xcode
+	/// ==> Installed Xcode
+	/// ```
+	///
+	/// > Tip:
+	/// > Use this command when you want a quick, no-fuss install by name.
+	/// > To preview the search results instead, use `mas search <term>`.
+	///
+	/// See also:
+	/// [iTunes Search API](https://performance-partners.apple.com/search-api)
 	struct Lucky: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
 			abstract: """

@@ -8,7 +8,28 @@
 internal import ArgumentParser
 
 extension MAS {
-	/// "Purchases" & installs free apps from the Mac App Store.
+	/// Installs free apps that you haven’t previously acquired from the Mac App Store.
+	///
+	/// This command performs the equivalent of “purchasing” a free app using your Apple ID,
+	/// and installs it on your Mac — similar to how you would claim a free app in the App Store GUI.
+	///
+	/// > Important:
+	/// > This command can only be used with **free apps**.
+	/// > To acquire paid apps, please purchase them directly from the App Store app.
+	///
+	/// > Note:
+	/// > If the app is already installed or previously purchased, it will be skipped.
+	///
+	/// Example:
+	/// ```bash
+	/// mas purchase 497799835
+	/// ```
+	///
+	/// Output:
+	/// ```
+	/// ==> Downloading Xcode
+	/// ==> Installed Xcode
+	/// ```
 	struct Purchase: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
 			abstract: "\"Purchase\" & install free apps from the Mac App Store"
