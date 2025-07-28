@@ -2,7 +2,7 @@
 # .swiftformat
 # mas
 #
-# SwiftFormat 0.56.3
+# SwiftFormat 0.57.2
 #
 
 # Disabled rules
@@ -21,14 +21,19 @@
 --enable isEmpty
 #--enable markTypes
 --enable noExplicitOwnership
+--enable noGuardInTests
 --enable organizeDeclarations
 --enable preferSwiftTesting
 --enable privateStateVariables
 --enable propertyTypes
 --enable redundantEquatable
+--enable redundantMemberwiseInit
 --enable redundantProperty
+--enable singlePropertyPerLine
 --enable sortSwitchCases
+--enable throwingTests
 --enable unusedPrivateDeclarations
+--enable urlMacro
 --enable wrapConditionalBodies
 --enable wrapEnumCases
 --enable wrapMultilineConditionalAssignment
@@ -37,16 +42,16 @@
 
 # Rule options
 --commas always
---hexliteralcase lowercase
+--hex-literal-case lowercase
 --ifdef no-indent
---importgrouping testable-last
+--import-grouping testable-last
 --indent tab
---indentstrings true
---inferredtypes always
---lineaftermarks false
---markcategories false
---organizationmode type
---propertytypes inferred
+--indent-strings true
+--inferred-types always
+--line-after-marks false
+--mark-categories false
+--organization-mode type
+--property-types inferred
 --ranges no-space
---tabwidth 2
---wrapternary before-operators
+--tab-width 2
+--wrap-ternary before-operators
