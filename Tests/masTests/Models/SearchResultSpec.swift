@@ -18,7 +18,8 @@ final class SearchResultSpec: QuickSpec {
 					consequencesOf(
 						try JSONDecoder() // swiftformat:disable indent
 						.decode(SearchResult.self, from: Data(fromResource: "search/things-that-go-bump.json"))
-						.trackId // swiftformat:enable indent
+						.trackId
+						// swiftformat:enable indent
 					)
 				)
 					== ValuedConsequences(1_472_954_003)
