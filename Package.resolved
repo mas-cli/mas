@@ -50,8 +50,8 @@
 			"kind" : "remoteSourceControl",
 			"location" : "https://github.com/apple/swift-argument-parser.git",
 			"state" : {
-				"branch" : "main",
-				"revision" : "d8a9695190c81a95ce7a59a65891b186939c31bf"
+				"revision" : "309a47b2b1d9b5e991f36961c983ecec72275be3",
+				"version" : "1.6.1"
 			}
 		},
 		{
@@ -59,8 +59,7 @@
 			"kind" : "remoteSourceControl",
 			"location" : "https://github.com/apple/swift-atomics.git",
 			"state" : {
-				"branch" : "main",
-				"revision" : "d61ca105d6fb41e00dae7d9f0c8db44a715516f8"
+				"revision" : "239a74d140e0a9dd84fde414260a8c062480550c"
 			}
 		},
 		{
@@ -68,8 +67,8 @@
 			"kind" : "remoteSourceControl",
 			"location" : "https://github.com/mxcl/Version.git",
 			"state" : {
-				"revision" : "303a0f916772545e1e8667d3104f83be708a723c",
-				"version" : "2.1.0"
+				"revision" : "67ce582bb9de70e1eb2ee41fd71aad3b5f86d97b",
+				"version" : "2.2.0"
 			}
 		}
 	],
