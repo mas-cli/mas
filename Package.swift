@@ -18,6 +18,7 @@ let package = Package(
 		.package(url: "https://github.com/Quick/Quick.git", exact: "7.5.0"),
 		.package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.6.1"),
 		.package(url: "https://github.com/apple/swift-atomics.git", revision: "239a74d140e0a9dd84fde414260a8c062480550c"),
+		.package(url: "https://github.com/apple/swift-collections.git", .upToNextMinor(from: "1.1.6")),
 		.package(url: "https://github.com/funky-monkey/IsoCountryCodes.git", from: "1.0.3"),
 		.package(url: "https://github.com/mxcl/Version.git", from: "2.2.0"),
 	],
@@ -27,6 +28,7 @@ let package = Package(
 			dependencies: [
 				.product(name: "ArgumentParser", package: "swift-argument-parser"),
 				.product(name: "Atomics", package: "swift-atomics"),
+				.product(name: "Collections", package: "swift-collections"),
 				"IsoCountryCodes",
 				"Version",
 			],
