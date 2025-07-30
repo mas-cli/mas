@@ -5,6 +5,7 @@
 // Copyright © 2018 mas-cli. All rights reserved.
 //
 
+private import Collections
 private import Foundation
 
 /// Manages searching the MAS catalog.
@@ -60,7 +61,7 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 		let entities = [Entity.desktopSoftware]
 		#endif
 
-		var appSet = Set<SearchResult>()
+		var appSet = OrderedSet<SearchResult>()
 		for entity in entities {
 			appSet.formUnion(
 				try await getSearchResults(from: try searchURL(for: searchTerm, inRegion: region, ofEntity: entity))

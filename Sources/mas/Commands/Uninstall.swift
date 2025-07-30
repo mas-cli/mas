@@ -6,6 +6,7 @@
 //
 
 internal import ArgumentParser
+private import Collections
 private import ScriptingBridge
 
 extension MAS {
@@ -35,25 +36,25 @@ extension MAS {
 				throw MASError.runtimeError("Apps installed from the Mac App Store require root permission to remove")
 			}
 
-			let uninstallingAppSet = try uninstallingAppSet(fromInstalledApps: installedApps, printer: printer)
-			guard !uninstallingAppSet.isEmpty else {
+			let uninstallingApps = try uninstallingApps(fromInstalledApps: installedApps, printer: printer)
+			guard !uninstallingApps.isEmpty else {
 				return
 			}
 
 			if dryRun {
-				for installedApp in uninstallingAppSet {
+				for installedApp in uninstallingApps {
 					printer.notice("'", installedApp.name, "' '", installedApp.path, "'", separator: "")
 				}
 				printer.notice("(not removed, dry run)")
 			} else {
-				try uninstallApps(atPaths: uninstallingAppSet.map(\.path), printer: printer)
+				try uninstallApps(atPaths: uninstallingApps.map(\.path), printer: printer)
 			}
 		}
 
-		private func uninstallingAppSet(
+		private func uninstallingApps(
 			fromInstalledApps installedApps: [InstalledApp],
 			printer: Printer
-		) throws -> Set<InstalledApp> {
+		) throws -> [InstalledApp] {
 			guard let sudoGroupName = ProcessInfo.processInfo.sudoGroupName else {
 				throw MASError.runtimeError("Failed to get original group name")
 			}
@@ -86,14 +87,14 @@ extension MAS {
 				}
 			}
 
-			var uninstallingAppSet = Set<InstalledApp>()
+			var uninstallingAppSet = OrderedSet<InstalledApp>()
 			for appID in appIDsOptionGroup.appIDs {
 				let apps = installedApps.filter { $0.id == appID }
 				apps.isEmpty // swiftformat:disable:next indent
 				? printer.error(appID.notInstalledMessage)
 				: uninstallingAppSet.formUnion(apps)
 			}
-			return uninstallingAppSet
+			return Array(uninstallingAppSet)
 		}
 	}
 }
