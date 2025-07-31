@@ -1,0 +1,15 @@
+#!/bin/zsh -Ndefgku
+#
+# Scripts/generate_manual
+# mas
+#
+# Generate man page.
+#
+
+. "${0:a:h}/_setup_script"
+
+print_header '📖 Generating man pages for mas' "$(Scripts/version)"
+
+Scripts/generate_package_swift "${1:-}"
+
+swift package generate-manual "${@:2}"
