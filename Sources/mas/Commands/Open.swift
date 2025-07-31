@@ -11,11 +11,30 @@ internal import ArgumentParser
 private var masScheme: String { "macappstore" }
 
 extension MAS {
-	/// Opens app page in 'App Store.app'.
+	/// Opens the specified app’s page in the macOS App Store (`App Store.app`).
 	///
-	/// Uses the iTunes Lookup API:
+	/// This command launches the App Store app using the `macappstore:` URL scheme,
+	/// targeting the app corresponding to the provided App ID.
+	/// If no App ID is specified, the App Store app is simply opened.
 	///
-	/// https://performance-partners.apple.com/search-api
+	/// This is useful when you want to view an app’s description, screenshots, reviews,
+	/// or permissions before deciding to install or update.
+	///
+	/// Example (with App ID):
+	/// ```bash
+	/// mas open 497799835
+	/// ```
+	///
+	/// Example (without App ID):
+	/// ```bash
+	/// mas open
+	/// ```
+	///
+	/// > Tip:
+	/// > Use this command when you want to review an app visually before installation.
+	///
+	/// See also:
+	/// [iTunes Search API](https://performance-partners.apple.com/search-api)
 	struct Open: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
 			abstract: "Open app page in 'App Store.app'"
