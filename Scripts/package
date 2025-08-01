@@ -30,6 +30,7 @@ productbuild\
  --distribution =(cat <<'END'
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <installer-gui-script minSpecVersion="2">
+	<title>mas</title>
 	<pkg-ref id="io.github.mas-cli">
 		<bundle-version/>
 	</pkg-ref>
