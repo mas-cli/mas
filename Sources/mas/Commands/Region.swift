@@ -8,7 +8,25 @@
 internal import ArgumentParser
 
 extension MAS {
-	/// Outputs the region of the Mac App Store.
+	/// Displays the current region setting for the Mac App Store.
+	///
+	/// The output is a two-letter country code (e.g., `US`, `JP`, `FR`)
+	/// indicating the App Store region your system is currently using.
+	///
+	/// This region affects search results, app availability, and pricing.
+	///
+	/// > Note:
+	/// > The region is typically based on your macOS locale or Apple ID configuration.
+	///
+	/// Example:
+	/// ```bash
+	/// mas region
+	/// ```
+	///
+	/// Output:
+	/// ```
+	/// US
+	/// ```
 	struct Region: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
 			abstract: "Output the region of the Mac App Store"
