@@ -2,7 +2,7 @@
 # .swiftlint.yml
 # mas
 #
-# SwiftLint 0.59.1
+# SwiftLint 0.60.0
 #
 ---
 opt_in_rules:

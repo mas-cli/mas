@@ -2,14 +2,14 @@
 # .swiftlint.yml
 # mas
 #
-# SwiftLint 0.59.1
+# SwiftLint 0.60.0
 #
 ---
 opt_in_rules:
 - file_header
 - file_name
 file_header:
-  required_pattern: |
+  required_pattern: |-
     //
     // SWIFTLINT_CURRENT_FILENAME
     // mas
