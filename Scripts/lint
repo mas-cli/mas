@@ -14,7 +14,7 @@
 
 print_header '🚨 Linting mas' "$(Scripts/version)"
 
-Scripts/generate_package_swift lint
+Scripts/generate_mas_statics_swift lint
 
 for linter in git markdownlint-cli2 periphery shellcheck swiftformat swiftlint yamllint; do
 	if ! whence "${linter}" >/dev/null; then

@@ -1,4 +1,4 @@
 /.build/
 /.idea/
 /.swiftpm/
-/Sources/mas/Package.swift
+/Sources/mas/MAS+Statics.swift
