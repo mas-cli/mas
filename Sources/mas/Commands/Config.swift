@@ -32,13 +32,13 @@ extension MAS {
 			}
 			printer.info(
 				"""
-				mas ▁▁▁▁ \(Package.version)
+				mas ▁▁▁▁ \(MAS.version)
 				arch ▁▁▁ \(configStringValue("hw.machine"))
-				from ▁▁▁ \(Package.installMethod)
-				origin ▁ \(Package.gitOrigin)
-				rev ▁▁▁▁ \(Package.gitRevision)
-				driver ▁ \(Package.swiftDriverVersion)
-				swift ▁▁ \(Package.swiftVersion)
+				from ▁▁▁ \(MAS.installMethod)
+				origin ▁ \(MAS.gitOrigin)
+				rev ▁▁▁▁ \(MAS.gitRevision)
+				driver ▁ \(MAS.swiftDriverVersion)
+				swift ▁▁ \(MAS.swiftVersion)
 				region ▁ \(await isoRegion?.alpha2 ?? unknown)
 				macos ▁▁ \(
 					ProcessInfo.processInfo.operatingSystemVersionString.dropFirst(8).replacingOccurrences(of: "Build ", with: "")

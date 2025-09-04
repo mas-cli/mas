@@ -10,6 +10,6 @@
 
 print_header '🏗​ Building mas' "$(Scripts/version)"
 
-Scripts/generate_package_swift "${1:-}"
+Scripts/generate_mas_statics_swift "${1:-}"
 
 swift build -c release "${@:2}"

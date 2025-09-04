@@ -12,4 +12,4 @@ print_header '🗑​ Cleaning mas' "$(Scripts/version)"
 
 swift package clean
 swift package reset
-rm -f Sources/mas/Package.swift
+rm -f Sources/mas/MAS+Statics.swift

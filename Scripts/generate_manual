@@ -10,6 +10,6 @@
 
 print_header '📖 Generating man pages for mas' "$(Scripts/version)"
 
-Scripts/generate_package_swift "${1:-}"
+Scripts/generate_mas_statics_swift "${1:-}"
 
 swift package generate-manual "${@:2}"
