@@ -25,7 +25,7 @@ extension MAS {
 
 		private func run(printer: Printer, installedApps: [InstalledApp]) {
 			if installedApps.isEmpty {
-				printer.error(
+				printer.warning(
 					"""
 					No installed apps found
 
