@@ -41,8 +41,8 @@ var installedApps: [InstalledApp] {
 				query.stop()
 
 				continuation.resume(
-					returning: query.results // swiftformat:disable indent
-					.compactMap { result in
+					returning: query.results
+					.compactMap { result in // swiftformat:disable indent
 						if let item = result as? NSMetadataItem {
 							InstalledApp(
 								id: item.value(forAttribute: "kMDItemAppStoreAdamID") as? AppID ?? 0,
@@ -68,8 +68,8 @@ var installedApps: [InstalledApp] {
 
 private extension String {
 	func removingSuffix(_ suffix: Self) -> Self {
-		hasSuffix(suffix) // swiftformat:disable:next indent
-		? Self(dropLast(suffix.count))
+		hasSuffix(suffix)
+		? Self(dropLast(suffix.count)) // swiftformat:disable:this indent
 		: self
 	}
 }

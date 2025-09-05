@@ -63,8 +63,8 @@ extension MAS {
 			installedApps: [InstalledApp],
 			searcher: AppStoreSearcher
 		) async -> [(installedApp: InstalledApp, storeApp: SearchResult)] {
-			let apps = appIDOrNames.isEmpty // swiftformat:disable:next indent
-			? installedApps
+			let apps = appIDOrNames.isEmpty
+			? installedApps // swiftformat:disable:this indent
 			: appIDOrNames.flatMap { appIDOrName in
 				if let appID = AppID(appIDOrName) {
 					// Find installed apps by app ID argument

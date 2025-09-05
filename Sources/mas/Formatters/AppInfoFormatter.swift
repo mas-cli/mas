@@ -39,7 +39,7 @@ enum AppInfoFormatter {
 	private static func humanReadableDate(_ serverDate: String) -> String {
 		ISO8601DateFormatter().date(from: serverDate).map { date in
 			ISO8601DateFormatter.string(from: date, timeZone: .current, formatOptions: [.withFullDate])
-		} // swiftformat:disable:next indent
-		?? ""
+		}
+		?? "" // swiftformat:disable:this indent
 	}
 }
