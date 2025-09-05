@@ -7,20 +7,12 @@
 
 private import ArgumentParser
 @testable private import mas
-private import Nimble
-internal import Quick
+internal import Testing
 
-final class PurchaseSpec: AsyncSpec {
-	override static func spec() {
-		xdescribe("purchase command") {
-			it("purchases apps") {
-				await expecta(
-					await consequencesOf(
-						try await MAS.Purchase.parse(["999"]).run(installedApps: [], searcher: MockAppStoreSearcher())
-					)
-				)
-					== UnvaluedConsequences()
-			}
-		}
-	}
+@Test(.disabled())
+func purchasesApps() async {
+	#expect(
+		await consequencesOf(try await MAS.Purchase.parse(["999"]).run(installedApps: [], searcher: MockAppStoreSearcher()))
+		== UnvaluedConsequences() // swiftformat:disable:this indent
+	)
 }

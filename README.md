@@ -349,7 +349,7 @@ Build output can be found in the `.build` directory within the project.
 
 ## 🧪 Tests
 
-Tests are written using [Quick](https://github.com/Quick/Quick) & [Nimble](https://github.com/Quick/Nimble).
+Tests are written using [Swift Testing](https://github.com/swiftlang/swift-testing).
 
 ```shell
 Scripts/test

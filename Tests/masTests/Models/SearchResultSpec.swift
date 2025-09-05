@@ -7,23 +7,16 @@
 
 private import Foundation
 @testable private import mas
-private import Nimble
-internal import Quick
+internal import Testing
 
-final class SearchResultSpec: QuickSpec {
-	override static func spec() {
-		describe("search result") {
-			it("can parse things") {
-				expect(
-					consequencesOf(
-						try JSONDecoder() // swiftformat:disable indent
-						.decode(SearchResult.self, from: Data(fromResource: "search/things-that-go-bump.json"))
-						.trackId
-						// swiftformat:enable indent
-					)
-				)
-					== ValuedConsequences(1_472_954_003)
-			}
-		}
-	}
+@Test
+func parsesSearchResultFromThingsThatGoBumpJSON() {
+	#expect(
+		consequencesOf(
+			try JSONDecoder() // swiftformat:disable indent
+			.decode(SearchResult.self, from: Data(fromResource: "search/things-that-go-bump.json"))
+			.trackId
+		) // swiftformat:enable indent
+		== ValuedConsequences(1_472_954_003) // swiftformat:disable:this indent
+	)
 }

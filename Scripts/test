@@ -12,5 +12,4 @@ print_notice '🧪 Testing' "$(Scripts/version)" "${@}"
 
 export MAS_INSTALL_METHOD=test
 
-script -q /dev/null swift test "${@}" |
- (grep -vxE $'Test Suite \'.+\' (?:started|passed) at \\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}\\.\\d{3}\\.?\\r|Test Case \'-\\[.+\\]\' (?:started|(?:passed|skipped) \\(\\d+\\.\\d+ seconds\\))\\.\\r|.+:\\d+: -\\[.+\\] : Test was filtered out\\.\\r|\\s*Executed \\d+ tests?, with (?:\\d+ tests? skipped and )?0 failures \\(0 unexpected\\) in \\d+\\.\\d+ \\(\\d+\\.\\d+\\) seconds\\r' || true)
+swift test --disable-xctest --no-parallel -q "${@}"

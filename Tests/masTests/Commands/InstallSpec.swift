@@ -7,20 +7,12 @@
 
 private import ArgumentParser
 @testable private import mas
-private import Nimble
-internal import Quick
+internal import Testing
 
-final class InstallSpec: AsyncSpec {
-	override static func spec() {
-		xdescribe("install command") {
-			it("installs apps") {
-				await expecta(
-					await consequencesOf(
-						try await MAS.Install.parse([]).run(installedApps: [], searcher: MockAppStoreSearcher())
-					)
-				)
-					== UnvaluedConsequences()
-			}
-		}
-	}
+@Test(.disabled())
+func doesNotInstallAppsWhenNoAppIDs() async {
+	#expect(
+		await consequencesOf(try await MAS.Install.parse([]).run(installedApps: [], searcher: MockAppStoreSearcher()))
+		== UnvaluedConsequences() // swiftformat:disable:this indent
+	)
 }

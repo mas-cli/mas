@@ -7,57 +7,44 @@
 
 private import ArgumentParser
 @testable private import mas
-private import Nimble
-internal import Quick
+internal import Testing
 
-final class UninstallSpec: QuickSpec {
-	override static func spec() {
-		let appID = 12345 as AppID
-		let app = InstalledApp(
-			id: appID,
-			bundleID: "com.some.app",
-			name: "Some App",
-			path: "/tmp/Some.app",
-			version: "1.0"
-		)
+private let appID = 12345 as AppID
+private let app = InstalledApp(
+	id: appID,
+	bundleID: "com.some.app",
+	name: "Some App",
+	path: "/tmp/Some.app",
+	version: "1.0"
+)
 
-		xdescribe("uninstall command") {
-			context("dry run") {
-				it("can't remove a missing app") {
-					expect(
-						consequencesOf(
-							try MAS.Uninstall.parse(["--dry-run", String(appID)]).run(installedApps: [])
-						)
-					)
-						== UnvaluedConsequences(nil, "No installed apps with app ID \(appID)")
-				}
-				it("finds an app") {
-					expect(
-						consequencesOf(
-							try MAS.Uninstall.parse(["--dry-run", String(appID)]).run(installedApps: [app])
-						)
-					)
-						== UnvaluedConsequences(nil, "==> 'Some App' '/tmp/Some.app'\n==> (not removed, dry run)\n")
-				}
-			}
-			context("wet run") {
-				it("can't remove a missing app") {
-					expect(
-						consequencesOf(
-							try MAS.Uninstall.parse([String(appID)]).run(installedApps: [])
-						)
-					)
-						== UnvaluedConsequences(nil, "No installed apps with app ID \(appID)")
-				}
-				it("removes an app") {
-					expect(
-						consequencesOf(
-							try MAS.Uninstall.parse([String(appID)]).run(installedApps: [app])
-						)
-					)
-						== UnvaluedConsequences()
-				}
-			}
-		}
-	}
+@Test(.disabled())
+func uninstallDryRunCannotRemoveMissingApp() {
+	#expect(
+		consequencesOf(try MAS.Uninstall.parse(["--dry-run", String(appID)]).run(installedApps: []))
+		== UnvaluedConsequences(nil, "No installed apps with app ID \(appID)") // swiftformat:disable:this indent
+	)
+}
+
+@Test(.disabled())
+func uninstallDryRunFindsApp() {
+	#expect( // swiftformat:disable:next indent
+		consequencesOf(try MAS.Uninstall.parse(["--dry-run", String(appID)]).run(installedApps: [app]))
+		== UnvaluedConsequences(nil, "==> 'Some App' '/tmp/Some.app'\n==> (not removed, dry run)\n")
+	) // swiftformat:disable:previous indent
+}
+
+@Test(.disabled())
+func uninstallCannotRemoveMissingApp() {
+	#expect(
+		consequencesOf(try MAS.Uninstall.parse([String(appID)]).run(installedApps: []))
+		== UnvaluedConsequences(nil, "No installed apps with app ID \(appID)") // swiftformat:disable:this indent
+	)
+}
+
+@Test(.disabled())
+func uninstallRemovesApp() {
+	#expect(
+		consequencesOf(try MAS.Uninstall.parse([String(appID)]).run(installedApps: [app])) == UnvaluedConsequences()
+	)
 }

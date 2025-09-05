@@ -7,16 +7,12 @@
 
 private import ArgumentParser
 @testable private import mas
-private import Nimble
-internal import Quick
+internal import Testing
 
-final class AccountSpec: AsyncSpec {
-	override static func spec() {
-		describe("account command") {
-			it("outputs not supported warning") {
-				await expecta(await consequencesOf(try await MAS.Account.parse([]).run()))
-					== UnvaluedConsequences(ExitCode(1), "", "Error: \(MASError.notSupported)\n")
-			}
-		}
-	}
+@Test
+func errorsAccountNotSupported() async {
+	#expect(
+		await consequencesOf(try await MAS.Account.parse([]).run())
+		== UnvaluedConsequences(ExitCode(1), "", "Error: \(MASError.notSupported)\n") // swiftformat:disable:this indent
+	)
 }

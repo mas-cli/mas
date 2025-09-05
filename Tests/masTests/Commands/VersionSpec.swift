@@ -7,15 +7,9 @@
 
 private import ArgumentParser
 @testable private import mas
-private import Nimble
-internal import Quick
+internal import Testing
 
-final class VersionSpec: QuickSpec {
-	override static func spec() {
-		describe("version command") {
-			it("outputs the current version") {
-				expect(consequencesOf(try MAS.Version.parse([]).run())) == UnvaluedConsequences(nil, "\(MAS.version)\n")
-			}
-		}
-	}
+@Test
+func outputsVersion() {
+	#expect(consequencesOf(try MAS.Version.parse([]).run()) == UnvaluedConsequences(nil, "\(MAS.version)\n"))
 }

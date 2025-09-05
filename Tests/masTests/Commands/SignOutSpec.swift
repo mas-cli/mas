@@ -7,15 +7,9 @@
 
 private import ArgumentParser
 @testable private import mas
-private import Nimble
-internal import Quick
+internal import Testing
 
-final class SignOutSpec: QuickSpec {
-	override static func spec() {
-		describe("signout command") {
-			it("signs out") {
-				expect(consequencesOf(try MAS.SignOut.parse([]).run())) == UnvaluedConsequences()
-			}
-		}
-	}
+@Test
+func signsOut() {
+	#expect(consequencesOf(try MAS.SignOut.parse([]).run()) == UnvaluedConsequences())
 }

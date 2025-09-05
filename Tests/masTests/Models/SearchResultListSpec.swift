@@ -7,28 +7,24 @@
 
 private import Foundation
 @testable private import mas
-private import Nimble
-internal import Quick
+internal import Testing
 
-final class SearchResultListSpec: QuickSpec {
-	override static func spec() {
-		describe("search result list") {
-			it("can parse bbedit") {
-				expect(
-					consequencesOf(
-						try JSONDecoder().decode(SearchResultList.self, from: Data(fromResource: "search/bbedit.json")).resultCount
-					)
-				)
-					== ValuedConsequences(1)
-			}
-			it("can parse things") {
-				expect(
-					consequencesOf(
-						try JSONDecoder().decode(SearchResultList.self, from: Data(fromResource: "search/things.json")).resultCount
-					)
-				)
-					== ValuedConsequences(50)
-			}
-		}
-	}
+@Test
+func parsesSearchResultListFromBBEditJSON() {
+	#expect(
+		consequencesOf(
+			try JSONDecoder().decode(SearchResultList.self, from: Data(fromResource: "search/bbedit.json")).resultCount
+		)
+		== ValuedConsequences(1) // swiftformat:disable:this indent
+	)
+}
+
+@Test
+func parsesSearchResultListFromThingsJSON() {
+	#expect(
+		consequencesOf(
+			try JSONDecoder().decode(SearchResultList.self, from: Data(fromResource: "search/things.json")).resultCount
+		)
+		== ValuedConsequences(50) // swiftformat:disable:this indent
+	)
 }

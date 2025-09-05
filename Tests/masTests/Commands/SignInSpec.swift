@@ -7,16 +7,12 @@
 
 private import ArgumentParser
 @testable private import mas
-private import Nimble
-internal import Quick
+internal import Testing
 
-final class SignInSpec: QuickSpec {
-	override static func spec() {
-		describe("signin command") {
-			it("signs in") {
-				expect(consequencesOf(try MAS.SignIn.parse(["", ""]).run()))
-					== UnvaluedConsequences(ExitCode(1), "", "Error: \(MASError.notSupported)\n")
-			}
-		}
-	}
+@Test
+func signsIn() {
+	#expect(
+		consequencesOf(try MAS.SignIn.parse(["", ""]).run())
+		== UnvaluedConsequences(ExitCode(1), "", "Error: \(MASError.notSupported)\n") // swiftformat:disable:this indent
+	)
 }

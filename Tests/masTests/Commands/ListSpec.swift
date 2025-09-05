@@ -7,28 +7,24 @@
 
 private import ArgumentParser
 @testable private import mas
-private import Nimble
-internal import Quick
+internal import Testing
 
-final class ListSpec: QuickSpec {
-	override static func spec() {
-		describe("list command") {
-			it("lists apps") {
-				expect(consequencesOf(try MAS.List.parse([]).run(installedApps: [])))
-					== UnvaluedConsequences(
-						nil,
-						"",
-						"""
-						Warning: No installed apps found
+@Test
+func listsApps() {
+	#expect(
+		consequencesOf(try MAS.List.parse([]).run(installedApps: []))
+		== UnvaluedConsequences( // swiftformat:disable indent
+			nil,
+			"",
+			"""
+			Warning: No installed apps found
 
-						If this is unexpected, the following command line should fix it by
-						(re)creating the Spotlight index (which might take some time):
+			If this is unexpected, the following command line should fix it by
+			(re)creating the Spotlight index (which might take some time):
 
-						sudo mdutil -Eai on
+			sudo mdutil -Eai on
 
-						"""
-					)
-			}
-		}
-	}
+			"""
+		)
+	) // swiftformat:enable indent
 }

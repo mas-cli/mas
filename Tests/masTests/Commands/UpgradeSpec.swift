@@ -7,20 +7,12 @@
 
 private import ArgumentParser
 @testable private import mas
-private import Nimble
-internal import Quick
+internal import Testing
 
-final class UpgradeSpec: AsyncSpec {
-	override static func spec() {
-		describe("upgrade command") {
-			it("finds no upgrades") {
-				await expecta(
-					await consequencesOf(
-						try await MAS.Upgrade.parse([]).run(installedApps: [], searcher: MockAppStoreSearcher())
-					)
-				)
-					== UnvaluedConsequences()
-			}
-		}
-	}
+@Test
+func findsNoUpgrades() async {
+	#expect(
+		await consequencesOf(try await MAS.Upgrade.parse([]).run(installedApps: [], searcher: MockAppStoreSearcher()))
+		== UnvaluedConsequences() // swiftformat:disable:this indent
+	)
 }

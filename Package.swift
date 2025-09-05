@@ -25,8 +25,6 @@ _ = Package(
 	platforms: [.macOS(.v10_15)],
 	products: [.executable(name: "mas", targets: ["mas"])],
 	dependencies: [
-		.package(url: "https://github.com/Quick/Nimble.git", from: "13.7.1"),
-		.package(url: "https://github.com/Quick/Quick.git", exact: "7.5.0"),
 		.package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.6.1"),
 		.package(url: "https://github.com/apple/swift-atomics.git", from: "1.3.0"),
 		.package(url: "https://github.com/apple/swift-collections.git", from: "1.2.1"),
@@ -51,7 +49,7 @@ _ = Package(
 		),
 		.testTarget(
 			name: "masTests",
-			dependencies: ["mas", "Nimble", "Quick"],
+			dependencies: ["mas"],
 			resources: [.copy("Resources")],
 			swiftSettings: swiftSettings
 		),

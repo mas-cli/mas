@@ -7,18 +7,12 @@
 
 private import ArgumentParser
 @testable private import mas
-private import Nimble
-internal import Quick
+internal import Testing
 
-final class OpenSpec: AsyncSpec {
-	override static func spec() {
-		describe("open command") {
-			it("can't find app with unknown ID") {
-				await expecta(
-					await consequencesOf(try await MAS.Open.parse(["999"]).run(searcher: MockAppStoreSearcher()))
-				)
-					== UnvaluedConsequences(ExitCode(1), "", "Error: \(MASError.unknownAppID(999))\n")
-			}
-		}
-	}
+@Test
+func cannotOpenUnknownAppID() async {
+	#expect( // swiftformat:disable:next indent
+		await consequencesOf(try await MAS.Open.parse(["999"]).run(searcher: MockAppStoreSearcher()))
+		== UnvaluedConsequences(ExitCode(1), "", "Error: \(MASError.unknownAppID(999))\n")
+	) // swiftformat:disable:previous indent
 }
