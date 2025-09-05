@@ -7,10 +7,10 @@ struct MASBuildToolPlugin: BuildToolPlugin {
 		[
 			.prebuildCommand(
 				displayName: "Prebuild mas",
-				executable: context.package.directory.appending("Scripts", "prebuild"),
-				arguments: [context.pluginWorkDirectory.string],
+				executable: context.package.directoryURL.appendingPathComponent("Scripts/prebuild", isDirectory: false),
+				arguments: [context.pluginWorkDirectoryURL.path],
 				environment: ProcessInfo.processInfo.environment,
-				outputFilesDirectory: context.pluginWorkDirectory
+				outputFilesDirectory: context.pluginWorkDirectoryURL
 			),
 		]
 	}

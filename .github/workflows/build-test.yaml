@@ -18,9 +18,6 @@ jobs:
     strategy:
       matrix:
         include:
-        - arch: -x86_64
-          os: macos-13
-          xcode: 15.2
         - arch: -arm64
           os: macos-14
           xcode: 16.2

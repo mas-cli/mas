@@ -1,4 +1,4 @@
-// swift-tools-version:5.9
+// swift-tools-version:6.0
 
 private import Foundation
 private import PackageDescription
@@ -15,9 +15,7 @@ private let privateFrameworkNames =
 	.map(\.lastPathComponent)
 
 private let swiftSettings = [
-	SwiftSetting.enableExperimentalFeature("AccessLevelOnImport"),
-	.enableExperimentalFeature("StrictConcurrency"),
-	.enableUpcomingFeature("InternalImportsByDefault"),
+	SwiftSetting.enableUpcomingFeature("InternalImportsByDefault"),
 	.enableUpcomingFeature("MemberImportVisibility"),
 	.unsafeFlags(privateFrameworkNames.flatMap { ["-I", "Sources/PrivateFrameworks/\($0)"] }),
 ]
@@ -30,8 +28,8 @@ _ = Package(
 		.package(url: "https://github.com/Quick/Nimble.git", from: "13.7.1"),
 		.package(url: "https://github.com/Quick/Quick.git", exact: "7.5.0"),
 		.package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.6.1"),
-		.package(url: "https://github.com/apple/swift-atomics.git", revision: "239a74d140e0a9dd84fde414260a8c062480550c"),
-		.package(url: "https://github.com/apple/swift-collections.git", .upToNextMinor(from: "1.1.6")),
+		.package(url: "https://github.com/apple/swift-atomics.git", from: "1.3.0"),
+		.package(url: "https://github.com/apple/swift-collections.git", from: "1.2.1"),
 		.package(url: "https://github.com/funky-monkey/IsoCountryCodes.git", from: "1.0.3"),
 		.package(url: "https://github.com/mxcl/Version.git", from: "2.2.0"),
 	],
@@ -58,5 +56,5 @@ _ = Package(
 			swiftSettings: swiftSettings
 		),
 	],
-	swiftLanguageVersions: [.v5]
+	swiftLanguageModes: [.v6]
 )
