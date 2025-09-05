@@ -14,7 +14,7 @@
 
 + (nonnull instancetype)sharedDownloadQueue;
 
-@property(retain, nonatomic, nullable) NSMutableDictionary<NSString *, CKDownloadQueueClient *> * downloadQueueObservers; // <NSString * _Nonnull, CKDownloadQueueClient * _Nonnull>
+@property(retain, nonatomic, nullable) NSMutableDictionary<NSString *, CKDownloadQueueClient *> *downloadQueueObservers; // <NSString * _Nonnull, CKDownloadQueueClient * _Nonnull>
 @property(readonly, nonatomic, nullable) NSArray<SSDownload *> *downloads; // Unverified generic type
 @property(retain, nonatomic, nullable) CKDownloadQueueClient *sharedObserver;
 
