@@ -1,17 +1,19 @@
 #!/bin/zsh -Ndefgku
 #
-# Scripts/generate_mas_statics_swift
+# Scripts/prebuild
 # mas
 #
-# Generates a file to provide the mas version to Swift code.
+# Prebuilds the Swift package.
 #
 
 . "${0:a:h}/_setup_script"
 
-# Write version to Swift singleton
-cat <<EOF >Sources/mas/MAS+Statics.swift
+print_notice '🎬 Prebuilding' "$(Scripts/version)" "${@}"
+
+# Generate Swift file containing build information.
+cat <<EOF >"${1}/MAS+BuildInformation.swift"
 //
-// MAS+Statics.swift
+// MAS+BuildInformation.swift
 // mas
 //
 // Copyright © $(date '+%Y') mas-cli. All rights reserved.
@@ -19,7 +21,7 @@ cat <<EOF >Sources/mas/MAS+Statics.swift
 
 extension MAS {
 	static let version = "$(Scripts/version)"
-	static let installMethod = "${1:-unknown}"
+	static let installMethod = "${MAS_INSTALL_METHOD:-unknown}"
 	static let gitOrigin = "$(git remote get-url origin)"
 	static let gitRevision = "$(git rev-parse HEAD)"
 	static let swiftVersion = "$(printf %s "${${$(swift --version 2>/dev/null)#Apple Swift version }%%$'\n'*}")"

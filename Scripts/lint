@@ -14,7 +14,7 @@
 
 print_notice '🚨 Linting' "$(Scripts/version)" "${@}"
 
-Scripts/generate_mas_statics_swift lint
+export MAS_INSTALL_METHOD=lint
 
 # shellcheck disable=SC2310
 ensure_command_available git markdownlint-cli2 periphery shellcheck swiftformat swiftlint yamllint || exit "${?}"

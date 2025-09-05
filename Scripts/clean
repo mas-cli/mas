@@ -12,4 +12,3 @@ print_notice '🗑​ Cleaning' "$(Scripts/version)" "${@}"
 
 swift package clean
 swift package reset
-rm -f Sources/mas/MAS+Statics.swift

@@ -36,6 +36,7 @@ _ = Package(
 		.package(url: "https://github.com/mxcl/Version.git", from: "2.2.0"),
 	],
 	targets: [
+		.plugin(name: "MASBuildToolPlugin", capability: .buildTool()),
 		.executableTarget(
 			name: "mas",
 			dependencies: [
@@ -47,7 +48,8 @@ _ = Package(
 			],
 			swiftSettings: swiftSettings,
 			linkerSettings: privateFrameworkNames.map { .linkedFramework($0) }
-			+ [.unsafeFlags(["-F", "/System/Library/PrivateFrameworks"])] // swiftformat:disable:this indent
+			+ [.unsafeFlags(["-F", "/System/Library/PrivateFrameworks"])], // swiftformat:disable:this indent
+			plugins: [.plugin(name: "MASBuildToolPlugin")]
 		),
 		.testTarget(
 			name: "masTests",
