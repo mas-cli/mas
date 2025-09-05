@@ -1,0 +1,15 @@
+#!/bin/zsh -Ndefgku
+#
+# Scripts/setup_xcode
+# mas
+#
+# Sets up Xcode.
+#
+
+. "${0:a:h}/_setup_script"
+
+print_notice '🔨 Setting up Xcode for' "$(Scripts/version)" "${@}"
+
+xcode_sources_dir=.swiftpm/xcode/Sources
+mkdir -p "${xcode_sources_dir}"
+ln -sF ../../../Sources/PrivateFrameworks "${xcode_sources_dir}/PrivateFrameworks"
