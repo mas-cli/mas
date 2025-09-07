@@ -5,7 +5,7 @@
 // Copyright © 2025 mas-cli. All rights reserved.
 //
 
-internal import ArgumentParser
+private import ArgumentParser
 
 struct VerboseOptionGroup: ParsableArguments {
 	@Flag(help: "Output warnings about app IDs unknown to the Mac App Store")

@@ -5,10 +5,10 @@
 // Copyright © 2020 mas-cli. All rights reserved.
 //
 
-import Foundation
+private import Foundation
 @testable private import mas
 private import Nimble
-import Quick
+internal import Quick
 
 final class SearchResultListSpec: QuickSpec {
 	override static func spec() {

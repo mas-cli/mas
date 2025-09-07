@@ -7,7 +7,7 @@
 
 @testable private import mas
 private import Nimble
-import Quick
+internal import Quick
 
 final class ITunesSearchAppStoreSearcherSpec: AsyncSpec {
 	override static func spec() {

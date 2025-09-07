@@ -1,8 +1,8 @@
 // swift-tools-version:5.9
 
-import PackageDescription
+private import PackageDescription
 
-let package = Package(
+_ = Package(
 	name: "mas",
 	platforms: [
 		.macOS(.v10_15),
@@ -35,6 +35,7 @@ let package = Package(
 			swiftSettings: [
 				.enableExperimentalFeature("AccessLevelOnImport"),
 				.enableExperimentalFeature("StrictConcurrency"),
+				.enableUpcomingFeature("InternalImportsByDefault"),
 				.unsafeFlags([
 					"-I", "Sources/PrivateFrameworks/CommerceKit",
 					"-I", "Sources/PrivateFrameworks/StoreFoundation",
@@ -53,6 +54,7 @@ let package = Package(
 			swiftSettings: [
 				.enableExperimentalFeature("AccessLevelOnImport"),
 				.enableExperimentalFeature("StrictConcurrency"),
+				.enableUpcomingFeature("InternalImportsByDefault"),
 				.unsafeFlags([
 					"-I", "Sources/PrivateFrameworks/CommerceKit",
 					"-I", "Sources/PrivateFrameworks/StoreFoundation",

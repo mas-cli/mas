@@ -5,7 +5,7 @@
 // Copyright © 2019 mas-cli. All rights reserved.
 //
 
-import Foundation
+private import Foundation
 
 extension Data {
 	/// Unsafe initializer for loading data from string paths.

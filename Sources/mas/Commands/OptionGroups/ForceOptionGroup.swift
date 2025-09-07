@@ -5,7 +5,7 @@
 // Copyright © 2025 mas-cli. All rights reserved.
 //
 
-internal import ArgumentParser
+private import ArgumentParser
 
 struct ForceOptionGroup: ParsableArguments {
 	@Flag(help: "Force reinstall")

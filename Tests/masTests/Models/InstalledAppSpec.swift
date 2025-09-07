@@ -7,7 +7,7 @@
 
 @testable private import mas
 private import Nimble
-import Quick
+internal import Quick
 
 final class InstalledAppSpec: QuickSpec {
 	override static func spec() {
