@@ -2,6 +2,16 @@
 
 private import PackageDescription
 
+private let swiftSettings = [
+	SwiftSetting.enableExperimentalFeature("AccessLevelOnImport"),
+	.enableExperimentalFeature("StrictConcurrency"),
+	.enableUpcomingFeature("InternalImportsByDefault"),
+	.unsafeFlags([
+		"-I", "Sources/PrivateFrameworks/CommerceKit",
+		"-I", "Sources/PrivateFrameworks/StoreFoundation",
+	]),
+]
+
 _ = Package(
 	name: "mas",
 	platforms: [.macOS(.v10_15)],
@@ -25,15 +35,7 @@ _ = Package(
 				"IsoCountryCodes",
 				"Version",
 			],
-			swiftSettings: [
-				.enableExperimentalFeature("AccessLevelOnImport"),
-				.enableExperimentalFeature("StrictConcurrency"),
-				.enableUpcomingFeature("InternalImportsByDefault"),
-				.unsafeFlags([
-					"-I", "Sources/PrivateFrameworks/CommerceKit",
-					"-I", "Sources/PrivateFrameworks/StoreFoundation",
-				]),
-			],
+			swiftSettings: swiftSettings,
 			linkerSettings: [
 				.linkedFramework("CommerceKit"),
 				.linkedFramework("StoreFoundation"),
@@ -44,15 +46,7 @@ _ = Package(
 			name: "masTests",
 			dependencies: ["mas", "Nimble", "Quick"],
 			resources: [.copy("Resources")],
-			swiftSettings: [
-				.enableExperimentalFeature("AccessLevelOnImport"),
-				.enableExperimentalFeature("StrictConcurrency"),
-				.enableUpcomingFeature("InternalImportsByDefault"),
-				.unsafeFlags([
-					"-I", "Sources/PrivateFrameworks/CommerceKit",
-					"-I", "Sources/PrivateFrameworks/StoreFoundation",
-				]),
-			]
+			swiftSettings: swiftSettings
 		),
 	],
 	swiftLanguageVersions: [.v5]
