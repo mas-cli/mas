@@ -1,15 +1,24 @@
 // swift-tools-version:5.9
 
+private import Foundation
 private import PackageDescription
+
+private let privateFrameworkNames =
+	try FileManager.default // swiftformat:disable:this indent
+	.contentsOfDirectory(
+		at: URL(fileURLWithPath: #filePath, isDirectory: false)
+		.deletingLastPathComponent() // swiftformat:disable:this indent
+		.appendingPathComponent("Sources/PrivateFrameworks", isDirectory: true), // swiftformat:disable:this indent
+		includingPropertiesForKeys: [.isDirectoryKey]
+	)
+	.filter(\.hasDirectoryPath)
+	.map(\.lastPathComponent)
 
 private let swiftSettings = [
 	SwiftSetting.enableExperimentalFeature("AccessLevelOnImport"),
 	.enableExperimentalFeature("StrictConcurrency"),
 	.enableUpcomingFeature("InternalImportsByDefault"),
-	.unsafeFlags([
-		"-I", "Sources/PrivateFrameworks/CommerceKit",
-		"-I", "Sources/PrivateFrameworks/StoreFoundation",
-	]),
+	.unsafeFlags(privateFrameworkNames.flatMap { ["-I", "Sources/PrivateFrameworks/\($0)"] }),
 ]
 
 _ = Package(
@@ -36,11 +45,8 @@ _ = Package(
 				"Version",
 			],
 			swiftSettings: swiftSettings,
-			linkerSettings: [
-				.linkedFramework("CommerceKit"),
-				.linkedFramework("StoreFoundation"),
-				.unsafeFlags(["-F", "/System/Library/PrivateFrameworks"]),
-			]
+			linkerSettings: privateFrameworkNames.map { .linkedFramework($0) }
+			+ [.unsafeFlags(["-F", "/System/Library/PrivateFrameworks"])] // swiftformat:disable:this indent
 		),
 		.testTarget(
 			name: "masTests",
