@@ -1,5 +1,5 @@
 //
-// VendorSpec.swift
+// VendorTests.swift
 // masTests
 //
 // Copyright © 2019 mas-cli. All rights reserved.

@@ -1,5 +1,5 @@
 //
-// UninstallSpec.swift
+// UninstallTests.swift
 // masTests
 //
 // Copyright © 2018 mas-cli. All rights reserved.

@@ -1,5 +1,5 @@
 //
-// AppListFormatterSpec.swift
+// AppListFormatterTests.swift
 // masTests
 //
 // Copyright © 2020 mas-cli. All rights reserved.

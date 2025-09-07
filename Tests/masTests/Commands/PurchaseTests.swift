@@ -1,5 +1,5 @@
 //
-// PurchaseSpec.swift
+// PurchaseTests.swift
 // masTests
 //
 // Copyright © 2020 mas-cli. All rights reserved.

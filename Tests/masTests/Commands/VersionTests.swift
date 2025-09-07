@@ -1,5 +1,5 @@
 //
-// SignOutSpec.swift
+// VersionTests.swift
 // masTests
 //
 // Copyright © 2018 mas-cli. All rights reserved.
@@ -10,6 +10,6 @@ private import ArgumentParser
 internal import Testing
 
 @Test
-func signsOut() {
-	#expect(consequencesOf(try MAS.SignOut.parse([]).run()) == UnvaluedConsequences())
+func outputsVersion() {
+	#expect(consequencesOf(try MAS.Version.parse([]).run()) == UnvaluedConsequences(nil, "\(MAS.version)\n"))
 }
