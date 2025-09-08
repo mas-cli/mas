@@ -12,7 +12,7 @@
 
 . "${0:a:h}/_setup_script"
 
-print_header '🚨 Linting mas' "$(Scripts/version)"
+print_notice '🚨 Linting' "$(Scripts/version)" "${@}"
 
 Scripts/generate_mas_statics_swift lint
 

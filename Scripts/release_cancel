@@ -12,7 +12,7 @@
 
 tag="${1}"
 
-print_header '❌ Canceling release for tag' "${tag}"
+print_notice '❌ Canceling release for' "${tag#v}" "${@}"
 printf $'\n'
 
 bump_url="$(gh release -R https://github.com/mas-cli/mas download "${tag}" -p bump.url -O - 2>/dev/null || true)"

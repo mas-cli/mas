@@ -41,12 +41,12 @@ if ! cd -- "${mas_dir}"; then
 	exit 1
 fi
 
-print_header() {
+print_notice() {
+	local prefix
 	if [[ -t 1 ]]; then
-		printf $'\e[1;34m==>\e[0m'
+		prefix=$'\e[1;34m==>\e[0m'
 	else
-		printf $'==>'
+		prefix=$'==>'
 	fi
-	printf $' %s' "${@}"
-	printf $'\n'
+	printf $'%s %s mas %s%s\n' "${prefix}" "${@:1:2}" "${${*:3}:+ (arguments: ${*:3})}"
 }

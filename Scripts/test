@@ -8,7 +8,7 @@
 
 . "${0:a:h}/_setup_script"
 
-print_header '🧪 Testing mas' "$(Scripts/version)"
+print_notice '🧪 Testing' "$(Scripts/version)" "${@}"
 
 Scripts/generate_mas_statics_swift test
 

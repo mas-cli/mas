@@ -8,13 +8,13 @@
 
 . "${0:a:h}/_setup_script"
 
-Scripts/build "${1:-}" --arch arm64 --arch x86_64
+Scripts/build "${1:-}" "${@:2}" --arch arm64 --arch x86_64
 
 build_dir=.build
 destination_root="${build_dir}/destination"
 version="$(Scripts/version)"
 
-print_header '📦 Packaging installer for mas' "${version}"
+print_notice '📦 Packaging installer for' "${version}" "${@}"
 
 ditto -v "${build_dir}/apple/Products/Release/mas" "${destination_root}/mas"
 
