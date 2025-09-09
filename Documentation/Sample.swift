@@ -2,13 +2,18 @@
 
 // MARK: Types & naming
 
-/// Types begin with a capital letter.
-struct User {
+/// The first letter of a type should be uppercase.
+/// Prefer structs. When a class is necessary, default to making it `final`.
+final class Sample {
 	let name: String
 
 	/// If the first letter of an acronym is lowercase, the entire thing should
 	/// be lowercase.
 	let json: Any
+
+	deinit {
+		// Clean up resources
+	}
 
 	/// If the first letter of an acronym is uppercase, the entire thing should
 	/// be uppercase.
@@ -20,11 +25,6 @@ struct User {
 /// Use `()` for void arguments & `Void` for void return types.
 let closure: () -> Void = {
 	// Do nothing
-}
-
-/// When using classes, default to marking them as `final`.
-final class MyClass {
-	// Empty class
 }
 
 /// Use `typealias` when closures are referenced in multiple places.
@@ -49,6 +49,7 @@ APIClient.getAwesomeness { [weak self] result in
 	guard let self else {
 		return
 	}
+
 	stopLoadingSpinner()
 	show(result)
 }
@@ -60,8 +61,8 @@ func someUnauditedAPI(thing: String?) {
 	}
 }
 
-/// When the type is known, let the compiler infer.
-let response: Response = .success(NSData())
+/// Infer variable types instead of explicitly declaring them.
+let response = Response.success(Data())
 
 func doSomeWork() -> Response {
 	let data = Data("", .utf8)
@@ -69,9 +70,9 @@ func doSomeWork() -> Response {
 }
 
 switch response {
-case .success(let data):
+case let .success(data):
 	printer.info("The response returned successfully", data)
-case .failure(let error):
+case let .failure(error):
 	printer.error("An error occurred:", error: error)
 }
 
