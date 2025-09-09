@@ -24,15 +24,15 @@ for linter in git markdownlint-cli2 periphery shellcheck swiftformat swiftlint y
 done
 
 exit_code=0
-for source in Package.swift Sources Tests; do
-	printf -- $'--> 🦅 %s swiftformat\n' "${source}"
-	script -q /dev/null swiftformat --lint "${source}" |
-	 (grep -vxE '(?:\^D\x08{2})?Running SwiftFormat\.{3}\r|\(lint mode - no files will be changed\.\)\r|Reading (?:config|swift-version) file at .*|\x1b\[32mSwiftFormat completed in \d+(?:\.\d+)?s\.\x1b\[0m\r|0/\d+ files require formatting\.\r|Source input did not pass lint check\.\r' || true)
-	((exit_code |= ${?}))
-	printf -- $'--> 🦅 %s swiftlint\n' "${source}"
-	swiftlint --strict --quiet --reporter relative-path "${source}"
-	((exit_code |= ${?}))
-done
+
+printf -- $'--> 🕊​ SwiftFormat\n'
+script -q /dev/null swiftformat --lint --markdown-files format-strict . |
+ (grep -vxE '(?:\^D\x08{2})?Running SwiftFormat\.{3}\r|\(lint mode - no files will be changed\.\)\r|Reading (?:config|swift-version) file at .*|\x1b\[32mSwiftFormat completed in \d+(?:\.\d+)?s\.\x1b\[0m\r|0/\d+ files require formatting\.\r|Source input did not pass lint check\.\r' || true)
+((exit_code |= ${?}))
+
+printf -- $'--> 🦅 SwiftLint\n'
+swiftlint --strict --quiet --reporter relative-path
+((exit_code |= ${?}))
 
 printf -- $'--> 〽️ Markdown\n'
 markdownlint-cli2 '**/*.md'

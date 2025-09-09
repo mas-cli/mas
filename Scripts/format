@@ -19,13 +19,12 @@ for formatter in markdownlint-cli2 swiftformat swiftlint; do
 	fi
 done
 
-for source in Package.swift Sources Tests; do
-	printf -- $'--> 🦅 %s swiftformat\n' "${source}"
-	script -q /dev/null swiftformat --strict "${source}" |
-	 (grep -vxE '(?:\^D\x08{2})?Running SwiftFormat\.{3}\r|Reading (?:config|swift-version) file at .*|\x1b\[32mSwiftFormat completed in \d+(?:\.\d+)?s\.\x1b\[0m\r|0/\d+ files formatted\.\r' || true)
-	printf -- $'--> 🦅 %s swiftlint\n' "${source}"
-	swiftlint --fix --quiet --reporter relative-path "${source}"
-done
+printf -- $'--> 🕊​ SwiftFormat\n'
+script -q /dev/null swiftformat --strict --markdown-files format-strict . |
+ (grep -vxE '(?:\^D\x08{2})?Running SwiftFormat\.{3}\r|Reading (?:config|swift-version) file at .*|\x1b\[32mSwiftFormat completed in \d+(?:\.\d+)?s\.\x1b\[0m\r|0/\d+ files formatted\.\r' || true)
+
+printf -- $'--> 🦅 SwiftLint\n'
+swiftlint --fix --quiet --reporter relative-path
 
 printf -- $'--> 〽️ Markdown\n'
 markdownlint-cli2 --fix '**/*.md'
