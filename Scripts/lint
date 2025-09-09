@@ -34,16 +34,6 @@ for source in Package.swift Sources Tests; do
 	((exit_code |= ${?}))
 done
 
-printf -- $'--> 🐚 ShellCheck\n'
-shellcheck -s bash -o all -e SC1088,SC1102,SC2066,SC2296,SC2299,SC2300,SC2301,SC2312 -a -P SCRIPTDIR Scripts/**/*(.)
-((exit_code |= ${?}))
-
-printf -- $'--> 💤 zsh syntax\n'
-for script in Scripts/**/*(.); do
-	/bin/zsh -n "${script}"
-	((exit_code |= ${?}))
-done
-
 printf -- $'--> 〽️ Markdown\n'
 markdownlint-cli2 '**/*.md'
 ((exit_code |= ${?}))
@@ -54,6 +44,16 @@ yamllint -s .
 
 printf -- $'--> 🌳 Git\n'
 git diff --check
+((exit_code |= ${?}))
+
+printf -- $'--> 💤 Zsh\n'
+for script in Scripts/**/*(.); do
+	/bin/zsh -n "${script}"
+	((exit_code |= ${?}))
+done
+
+printf -- $'--> 🐚 ShellCheck\n'
+shellcheck -s bash -o all -e SC1088,SC1102,SC2066,SC2296,SC2299,SC2300,SC2301,SC2312 -a -P SCRIPTDIR Scripts/**/*(.)
 ((exit_code |= ${?}))
 
 printf -- $'--> 🌀 Periphery\n'
