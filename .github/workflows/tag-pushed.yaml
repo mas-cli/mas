@@ -63,8 +63,10 @@ jobs:
     - name: 🛠 Select newest available Xcode
       run: sudo xcode-select -s /Applications/Xcode_16.4.app/Contents/Developer
 
-    - name: 📦 Build universal executable & package it in an installer
-      run: Scripts/package package
+    - name: 📦 Build Apple & Intel installers
+      run: |
+        Scripts/package package --arch arm64
+        Scripts/package package --arch x86_64
 
     - name: 🚰 Bump custom tap formula
       env:
@@ -101,7 +103,8 @@ jobs:
       run: |
         gh release create\
          "${GITHUB_REF_NAME}"\
-         ".build/mas-${GITHUB_REF_NAME#v}.pkg"\
+         ".build/mas-${GITHUB_REF_NAME#v}-arm64.pkg"\
+         ".build/mas-${GITHUB_REF_NAME#v}-x86_64.pkg"\
          .build/bump.url\
          -d\
          ${"${GITHUB_REF_NAME//[^-]}":+-p}\
