@@ -19,42 +19,42 @@ Scripts/generate_mas_statics_swift lint
 # shellcheck disable=SC2310
 ensure_command_available git markdownlint-cli2 periphery shellcheck swiftformat swiftlint yamllint || exit "${?}"
 
-exit_code=0
+exit_status=0
 
 printf -- $'--> 🕊​ SwiftFormat\n'
 script -q /dev/null swiftformat --lint --markdown-files format-strict . |
  (grep -vxE '(?:\^D\x08{2})?Running SwiftFormat\.{3}\r|\(lint mode - no files will be changed\.\)\r|Reading (?:config|swift-version) file at .*|\x1b\[32mSwiftFormat completed in \d+(?:\.\d+)?s\.\x1b\[0m\r|0/\d+ files require formatting\.\r|Source input did not pass lint check\.\r' || true)
-((exit_code |= ${?}))
+((exit_status |= ${?}))
 
 printf -- $'--> 🦅 SwiftLint\n'
 swiftlint --strict --quiet --reporter relative-path
-((exit_code |= ${?}))
+((exit_status |= ${?}))
 
 printf -- $'--> 〽️ Markdown\n'
 markdownlint-cli2 '**/*.md'
-((exit_code |= ${?}))
+((exit_status |= ${?}))
 
 printf -- $'--> 📝 YAML\n'
 yamllint -s .
-((exit_code |= ${?}))
+((exit_status |= ${?}))
 
 printf -- $'--> 🌳 Git\n'
 git diff --check
-((exit_code |= ${?}))
+((exit_status |= ${?}))
 
 printf -- $'--> 💤 Zsh\n'
 for script in Scripts/**/*(.); do
 	/bin/zsh -n "${script}"
-	((exit_code |= ${?}))
+	((exit_status |= ${?}))
 done
 
 printf -- $'--> 🐚 ShellCheck\n'
 shellcheck -s bash -o all -e SC1088,SC1102,SC2066,SC2296,SC2299,SC2300,SC2301,SC2312 -a -P SCRIPTDIR Scripts/**/*(.)
-((exit_code |= ${?}))
+((exit_status |= ${?}))
 
 printf -- $'--> 🌀 Periphery\n'
 script -q /dev/null periphery scan |
  (grep -vxE '(?:\x1b\[0;1;32m|\^D\x08{2})\* (?:\x1b\[0;0m\x1b\[0;1m)?No unused code detected\.(?:\x1b\[0;0m)?\r' || true)
-((exit_code |= ${?}))
+((exit_status |= ${?}))
 
-exit "${exit_code}"
+exit "${exit_status}"

@@ -87,13 +87,13 @@ jobs:
          --verbose\
          "${GITHUB_REPOSITORY_OWNER}/tap/mas"\
          2>&1)"
-        exit_code="${?}"
+        exit_status="${?}"
         setopt errexit
 
         printf %s "${bump_output}"
         printf %s "${${(f)bump_output}[-1]}" > .build/bump.url
 
-        exit "${exit_code}"
+        exit "${exit_status}"
 
     - name: 📝 Create draft release
       env:
