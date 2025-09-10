@@ -1,4 +1,5 @@
 brew "git"               # 2.51.0
+brew "ipsw"              # 3.1.624
 brew "markdownlint-cli2" # 0.18.1
 brew "shellcheck"        # 0.11.0
 brew "swiftformat"       # 0.57.2

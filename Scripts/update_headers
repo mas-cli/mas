@@ -3,22 +3,15 @@
 # Scripts/update_headers
 # mas
 #
-# Runs class-dump to generate headers for Apple private frameworks.
+# Generates headers for Apple private frameworks.
 #
 
 . "${0:a:h}/_setup_script"
 
-if ! whence class-dump >/dev/null; then
-	printf $'class-dump is not installed.\n\nDownload, build & install mas fork of class-dump from https://github.com/mas-cli/class-dump\n' >&2
-	exit 1
-fi
+ensure_command_available ipsw
 
-extract_private_framework_headers() {
-	local framework_name="${1}"
-	local directory="Sources/PrivateFrameworks/${framework_name}"
-	mkdir -p "${directory}"
-	class-dump -Ho "${directory}" "/System/Library/PrivateFrameworks/${framework_name}.framework"
-}
+cd Sources/PrivateFrameworks
 
-extract_private_framework_headers CommerceKit
-extract_private_framework_headers StoreFoundation
+for framework in *(/); do
+	ipsw class-dump --headers --output . /System/Volumes/Preboot/Cryptexes/OS/System/Library/dyld/dyld_shared_cache_arm64e "${framework}"
+done
