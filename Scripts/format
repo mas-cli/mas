@@ -12,12 +12,7 @@
 
 print_notice '🧹 Formatting' "$(Scripts/version)" "${@}"
 
-for formatter in markdownlint-cli2 swiftformat swiftlint; do
-	if ! whence "${formatter}" >/dev/null; then
-		printf $'error: %s is not installed. Run \'Scripts/bootstrap\' or \'brew install %s\'.\n' "${formatter}" "${formatter}" >&2
-		exit 1
-	fi
-done
+ensure_command_available markdownlint-cli2 swiftformat swiftlint
 
 printf -- $'--> 🕊​ SwiftFormat\n'
 script -q /dev/null swiftformat --strict --markdown-files format-strict . |

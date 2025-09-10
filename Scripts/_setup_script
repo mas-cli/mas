@@ -50,3 +50,14 @@ print_notice() {
 	fi
 	printf $'%s %s mas %s%s\n' "${prefix}" "${@:1:2}" "${${*:3}:+ (arguments: ${*:3})}"
 }
+
+ensure_command_available() {
+	local return_status=0
+	for command in "${@}"; do
+		if ! whence "${command}" >/dev/null; then
+			printf $'error: %s is not installed. Run \'Scripts/bootstrap\' or \'brew install %s\'.\n' "${command}" "${command}" >&2
+			return_status=1
+		fi
+	done
+	return "${return_status}"
+}

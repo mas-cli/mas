@@ -16,12 +16,8 @@ print_notice '🚨 Linting' "$(Scripts/version)" "${@}"
 
 Scripts/generate_mas_statics_swift lint
 
-for linter in git markdownlint-cli2 periphery shellcheck swiftformat swiftlint yamllint; do
-	if ! whence "${linter}" >/dev/null; then
-		printf $'error: %s is not installed. Run \'Scripts/bootstrap\' or \'brew install %s\'.\n' "${linter}" "${linter}" >&2
-		exit 1
-	fi
-done
+# shellcheck disable=SC2310
+ensure_command_available git markdownlint-cli2 periphery shellcheck swiftformat swiftlint yamllint || exit "${?}"
 
 exit_code=0
 
