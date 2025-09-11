@@ -52,6 +52,13 @@ printf -- $'--> 🐚 ShellCheck\n'
 shellcheck -s bash -o all -e SC1088,SC1102,SC2066,SC2296,SC2299,SC2300,SC2301,SC2312 -a -P SCRIPTDIR Scripts/***/*(.)
 ((exit_status |= ${?}))
 
+printf -- $'--> 🚷 Non-Executables\n'
+readonly -a non_executables=(Scripts/***/*(N.^f+111))
+if ((${#non_executables[@]})); then
+	printf $'%s\n' "${non_executables[@]}"
+	((exit_status |= 1))
+fi
+
 printf -- $'--> 🌀 Periphery\n'
 script -q /dev/null periphery scan |
  (grep -vxE '(?:\x1b\[0;1;32m|\^D\x08{2})\* (?:\x1b\[0;0m\x1b\[0;1m)?No unused code detected\.(?:\x1b\[0;0m)?\r' || true)

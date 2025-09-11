@@ -23,3 +23,10 @@ swiftlint --fix --quiet --reporter relative-path
 
 printf -- $'--> 〽️ Markdown\n'
 markdownlint-cli2 --fix '***/*.md'
+
+printf -- $'--> 🚷 Non-Executables\n'
+readonly -a non_executables=(Scripts/***/*(N.^f+111))
+if ((${#non_executables[@]})); then
+	chmod -vv a+x "${non_executables[@]}"
+	exit 1
+fi
