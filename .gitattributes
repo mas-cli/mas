@@ -1,3 +1,2 @@
-# Trailing spaces may be intentional in Markdown documents, so these should not
-# be removed.
+# Do not remove potentially intentional trailing spaces in Markdown.
 **/*.md whitespace=-blank-at-eol
