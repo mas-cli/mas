@@ -22,4 +22,4 @@ printf -- $'--> 🦅 SwiftLint\n'
 swiftlint --fix --quiet --reporter relative-path
 
 printf -- $'--> 〽️ Markdown\n'
-markdownlint-cli2 --fix '**/*.md'
+markdownlint-cli2 --fix '***/*.md'

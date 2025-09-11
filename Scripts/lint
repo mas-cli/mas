@@ -31,7 +31,7 @@ swiftlint --strict --quiet --reporter relative-path
 ((exit_status |= ${?}))
 
 printf -- $'--> 〽️ Markdown\n'
-markdownlint-cli2 '**/*.md'
+markdownlint-cli2 '***/*.md'
 ((exit_status |= ${?}))
 
 printf -- $'--> 📝 YAML\n'
@@ -43,13 +43,13 @@ git diff --check
 ((exit_status |= ${?}))
 
 printf -- $'--> 💤 Zsh\n'
-for script in Scripts/**/*(.); do
+for script in Scripts/***/*(.); do
 	/bin/zsh -n "${script}"
 	((exit_status |= ${?}))
 done
 
 printf -- $'--> 🐚 ShellCheck\n'
-shellcheck -s bash -o all -e SC1088,SC1102,SC2066,SC2296,SC2299,SC2300,SC2301,SC2312 -a -P SCRIPTDIR Scripts/**/*(.)
+shellcheck -s bash -o all -e SC1088,SC1102,SC2066,SC2296,SC2299,SC2300,SC2301,SC2312 -a -P SCRIPTDIR Scripts/***/*(.)
 ((exit_status |= ${?}))
 
 printf -- $'--> 🌀 Periphery\n'
