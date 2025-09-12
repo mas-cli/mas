@@ -5,6 +5,7 @@
 // Copyright © 2020 mas-cli. All rights reserved.
 //
 
+private import ArgumentParser
 @testable private import mas
 private import Nimble
 internal import Quick

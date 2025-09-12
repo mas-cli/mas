@@ -18,6 +18,7 @@ private let swiftSettings = [
 	SwiftSetting.enableExperimentalFeature("AccessLevelOnImport"),
 	.enableExperimentalFeature("StrictConcurrency"),
 	.enableUpcomingFeature("InternalImportsByDefault"),
+	.enableUpcomingFeature("MemberImportVisibility"),
 	.unsafeFlags(privateFrameworkNames.flatMap { ["-I", "Sources/PrivateFrameworks/\($0)"] }),
 ]
 
