@@ -6,9 +6,6 @@
 #
 ---
 disable_update_check: true
-external_test_case_classes:
-- AsyncSpec
-- QuickSpec
 quiet: true
 relative_results: true
 retain_assign_only_properties: false

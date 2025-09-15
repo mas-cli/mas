@@ -12,53 +12,56 @@
 
 . "${0:a:h}/_setup_script"
 
-print_header '🚨 Linting mas' "$(Scripts/version)"
+print_notice '🚨 Linting' "$(Scripts/version)" "${@}"
 
-Scripts/generate_mas_statics_swift lint
+export MAS_INSTALL_METHOD=lint
 
-for linter in git markdownlint-cli2 periphery shellcheck swiftformat swiftlint yamllint; do
-	if ! whence "${linter}" >/dev/null; then
-		printf $'error: %s is not installed. Run \'Scripts/bootstrap\' or \'brew install %s\'.\n' "${linter}" "${linter}" >&2
-		exit 1
-	fi
-done
+# shellcheck disable=SC2310
+ensure_command_available git markdownlint-cli2 periphery shellcheck swiftformat swiftlint yamllint || exit "${?}"
 
-exit_code=0
-for source in Package.swift Sources Tests; do
-	printf -- $'--> 🦅 %s swiftformat\n' "${source}"
-	script -q /dev/null swiftformat --lint "${source}" |
-	 (grep -vxE '(?:\^D\x08{2})?Running SwiftFormat\.{3}\r|\(lint mode - no files will be changed\.\)\r|Reading (?:config|swift-version) file at .*|\x1b\[32mSwiftFormat completed in \d+(?:\.\d+)?s\.\x1b\[0m\r|0/\d+ files require formatting\.\r|Source input did not pass lint check\.\r' || true)
-	((exit_code |= ${?}))
-	printf -- $'--> 🦅 %s swiftlint\n' "${source}"
-	swiftlint --strict --quiet --reporter relative-path "${source}"
-	((exit_code |= ${?}))
-done
+exit_status=0
 
-printf -- $'--> 🐚 ShellCheck\n'
-shellcheck -s bash -o all -e SC1088,SC1102,SC2066,SC2296,SC2299,SC2300,SC2301,SC2312 -a -P SCRIPTDIR Scripts/**/*(.)
-((exit_code |= ${?}))
+printf -- $'--> 🕊​ SwiftFormat\n'
+script -q /dev/null swiftformat --lint --markdown-files format-strict . |
+ (grep -vxE '(?:\^D\x08{2})?Running SwiftFormat\.{3}\r|\(lint mode - no files will be changed\.\)\r|Reading (?:config|swift-version) file at .*|\x1b\[32mSwiftFormat completed in \d+(?:\.\d+)?s\.\x1b\[0m\r|0/\d+ files require formatting\.\r|Source input did not pass lint check\.\r' || true)
+((exit_status |= ${?}))
 
-printf -- $'--> 💤 zsh syntax\n'
-for script in Scripts/**/*(.); do
-	/bin/zsh -n "${script}"
-	((exit_code |= ${?}))
-done
+printf -- $'--> 🦅 SwiftLint\n'
+swiftlint --strict --quiet --reporter relative-path
+((exit_status |= ${?}))
 
 printf -- $'--> 〽️ Markdown\n'
-markdownlint-cli2 '**/*.md'
-((exit_code |= ${?}))
+markdownlint-cli2 '***/*.md'
+((exit_status |= ${?}))
 
 printf -- $'--> 📝 YAML\n'
 yamllint -s .
-((exit_code |= ${?}))
+((exit_status |= ${?}))
 
 printf -- $'--> 🌳 Git\n'
 git diff --check
-((exit_code |= ${?}))
+((exit_status |= ${?}))
+
+printf -- $'--> 💤 Zsh\n'
+for script in Scripts/***/*(.); do
+	/bin/zsh -n "${script}"
+	((exit_status |= ${?}))
+done
+
+printf -- $'--> 🐚 ShellCheck\n'
+shellcheck -s bash -o all -e SC1088,SC1102,SC2066,SC2296,SC2299,SC2300,SC2301,SC2312 -a -P SCRIPTDIR Scripts/***/*(.)
+((exit_status |= ${?}))
+
+printf -- $'--> 🚷 Non-Executables\n'
+readonly -a non_executables=(Scripts/***/*(N.^f+111))
+if ((${#non_executables[@]})); then
+	printf $'%s\n' "${non_executables[@]}"
+	((exit_status |= 1))
+fi
 
 printf -- $'--> 🌀 Periphery\n'
 script -q /dev/null periphery scan |
  (grep -vxE '(?:\x1b\[0;1;32m|\^D\x08{2})\* (?:\x1b\[0;0m\x1b\[0;1m)?No unused code detected\.(?:\x1b\[0;0m)?\r' || true)
-((exit_code |= ${?}))
+((exit_status |= ${?}))
 
-exit "${exit_code}"
+exit "${exit_status}"

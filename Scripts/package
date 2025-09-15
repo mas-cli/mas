@@ -8,21 +8,23 @@
 
 . "${0:a:h}/_setup_script"
 
-Scripts/build "${1:-}" --arch arm64 --arch x86_64
+Scripts/build "${1:-}" "${@:2}"
 
 build_dir=.build
-destination_root="${build_dir}/destination"
+destination_dir="${build_dir}/destination"
+mas_executable="${destination_dir}/mas"
 version="$(Scripts/version)"
 
-print_header '📦 Packaging installer for mas' "${version}"
+print_notice '📦 Packaging installer for' "${version}" "${@}"
 
-ditto -v "${build_dir}/apple/Products/Release/mas" "${destination_root}/mas"
+mkdir -p "${destination_dir}"
+ln -sF "${${mas_executable:h}//[^\/]##/..}${${$(swift build -c release --show-bin-path "${@:2}"):a}##~0}/mas" "${mas_executable}"
 
 pkgbuild\
  --identifier io.github.mas-cli\
  --install-location /usr/local/bin\
  --version "${version}"\
- --root "${destination_root}"\
+ --root "${destination_dir}"\
  "${build_dir}/mas_components.pkg"
 
 # shellcheck disable=SC1036
@@ -55,4 +57,4 @@ productbuild\
 END
 )\
  --package-path "${build_dir}"\
- "${build_dir}/mas-${version}.pkg"
+ "${build_dir}/mas-${version}-${${(s: :o)$(lipo -archs "${mas_executable}")}// /-}.pkg"

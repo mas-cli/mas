@@ -2,7 +2,7 @@
 # .swiftlint.yml
 # masTests
 #
-# SwiftLint 0.60.0
+# SwiftLint 0.61.0
 #
 ---
 opt_in_rules:
@@ -11,12 +11,10 @@ opt_in_rules:
 disabled_rules:
 - force_try
 - force_unwrapping
-- quick_discouraged_pending_test
-- required_deinit
 closure_body_length:
   warning: 85
 file_header:
-  required_pattern: |-
+  required_pattern: |
     //
     // SWIFTLINT_CURRENT_FILENAME
     // masTests

@@ -5,7 +5,7 @@
 // Copyright © 2024 mas-cli. All rights reserved.
 //
 
-import Foundation
+internal import Foundation
 
 struct ValuedConsequences<E: Equatable>: Equatable {
 	let value: E?

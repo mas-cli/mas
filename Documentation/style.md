@@ -11,7 +11,7 @@
 
 ## Swift
 
-[Sample](sample.swift)
+[Sample](Sample.swift)
 
 - Avoid [force unwrapping optionals](https://blog.timac.org/2017/0628-swift-banning-force-unwrapping-optionals)
 with `!` in production code

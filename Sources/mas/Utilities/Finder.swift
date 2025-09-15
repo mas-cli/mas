@@ -7,9 +7,8 @@
 
 // periphery:ignore:all
 // swiftlint:disable blanket_disable_command
-// swiftlint:disable attributes discouraged_none_name file_length file_types_order identifier_name
-// swiftlint:disable implicitly_unwrapped_optional legacy_objc_type line_length one_declaration_per_file
-// swiftlint:disable unused_declaration
+// swiftlint:disable attributes discouraged_none_name discouraged_optional_collection file_length file_types_order
+// swiftlint:disable identifier_name legacy_objc_type line_length one_declaration_per_file unused_declaration
 // swiftlint:enable blanket_disable_command
 internal import AppKit
 internal import ScriptingBridge
@@ -136,12 +135,12 @@ enum FinderLvic: AEKeyword {
 
 @objc
 protocol SBObjectProtocol: NSObjectProtocol {
-	func get() -> Any!
+	func get() -> Any?
 }
 
 @objc
 protocol SBApplicationProtocol: SBObjectProtocol {
-	var delegate: SBApplicationDelegate! { get set }
+	var delegate: SBApplicationDelegate? { get set }
 	var isRunning: Bool { get }
 
 	func activate()
@@ -150,15 +149,15 @@ protocol SBApplicationProtocol: SBObjectProtocol {
 // MARK: FinderGenericMethods
 @objc
 protocol FinderGenericMethods {
-	@objc optional func openUsing(_ using_: SBObject!, withProperties: [AnyHashable: Any]!) // Open the specified object(s)
-	@objc optional func printWithProperties(_ withProperties: [AnyHashable: Any]!) // Print the specified object(s)
+	@objc optional func openUsing(_ using_: SBObject?, withProperties: [AnyHashable: Any]?) // Open the specified object(s)
+	@objc optional func printWithProperties(_ withProperties: [AnyHashable: Any]?) // Print the specified object(s)
 	@objc optional func activate() // Activate the specified window (or the Finder)
 	@objc optional func close() // Close an object
-	@objc optional func dataSizeAs(_ as: NSNumber!) -> Int // Return the size in bytes of an object
+	@objc optional func dataSizeAs(_ as: NSNumber?) -> Int // Return the size in bytes of an object
 	@objc optional func delete() -> SBObject // Move an item from its container to the trash
-	@objc optional func duplicateTo(_ to: SBObject!, replacing: Bool, routingSuppressed: Bool, exactCopy: Bool) -> SBObject // Duplicate one or more object(s)
+	@objc optional func duplicateTo(_ to: SBObject?, replacing: Bool, routingSuppressed: Bool, exactCopy: Bool) -> SBObject // Duplicate one or more object(s)
 	@objc optional func exists() -> Bool // Verify if an object exists
-	@objc optional func moveTo(_ to: SBObject!, replacing: Bool, positionedAt: [Any]!, routingSuppressed: Bool) -> SBObject // Move object(s) to a new location
+	@objc optional func moveTo(_ to: SBObject?, replacing: Bool, positionedAt: [Any]?, routingSuppressed: Bool) -> SBObject // Move object(s) to a new location
 	@objc optional func select() // Select the specified object(s)
 	@objc optional func sortBy(_ by: Selector) -> SBObject // Return the specified object(s) in a sorted list
 	@objc optional func cleanUpBy(_ by: Selector) // Arrange items in window nicely (only applies to open windows in icon view that are not kept arranged)
@@ -189,7 +188,7 @@ protocol FinderApplication: SBApplicationProtocol {
 
 	@objc optional var desktopPicture: FinderFile { get } // the desktop picture of the main monitor
 
-	@objc optional func setDesktopPicture(_ desktopPicture: FinderFile!) // the desktop picture of the main monitor
+	@objc optional func setDesktopPicture(_ desktopPicture: FinderFile?) // the desktop picture of the main monitor
 
 	@objc optional func items() -> SBElementArray
 	@objc optional func containers() -> SBElementArray
@@ -216,7 +215,7 @@ protocol FinderApplication: SBApplicationProtocol {
 	@objc optional func sleep() // Put the computer to sleep
 	@objc optional func setVisible(_ visible: Bool) // Is the Finder’s layer visible?
 	@objc optional func setFrontmost(_ frontmost: Bool) // Is the Finder the frontmost process?
-	@objc optional func setSelection(_ selection: SBObject!) // the selection in the frontmost Finder window
+	@objc optional func setSelection(_ selection: SBObject?) // the selection in the frontmost Finder window
 }
 
 extension SBApplication: FinderApplication {}
@@ -253,23 +252,23 @@ protocol FinderItem: SBObjectProtocol, FinderGenericMethods {
 	@objc optional var informationWindow: SBObject { get } // the information window for the item (copy)
 	@objc optional var properties: [AnyHashable: Any] { get } // every property of an item (copy)
 
-	@objc optional func setName(_ name: String!) // the name of the item
-	@objc optional func setNameExtension(_ nameExtension: String!) // the name extension of the item (such as “txt”)
+	@objc optional func setName(_ name: String?) // the name of the item
+	@objc optional func setNameExtension(_ nameExtension: String?) // the name extension of the item (such as “txt”)
 	@objc optional func setExtensionHidden(_ extensionHidden: Bool) // Is the item's extension hidden from the user?
 	@objc optional func setPosition(_ position: NSPoint) // the position of the item within its parent window (can only be set for an item in a window viewed as icons or buttons)
 	@objc optional func setDesktopPosition(_ desktopPosition: NSPoint) // the position of the item on the desktop
 	@objc optional func setBounds(_ bounds: NSRect) // the bounding rectangle of the item (can only be set for an item in a window viewed as icons or buttons)
 	@objc optional func setLabelIndex(_ labelIndex: Int) // the label of the item
 	@objc optional func setLocked(_ locked: Bool) // Is the file locked?
-	@objc optional func setComment(_ comment: String!) // the comment of the item, displayed in the “Get Info” window
-	@objc optional func setModificationDate(_ modificationDate: Date!) // the date on which the item was last modified
-	@objc optional func setIcon(_ icon: FinderIconFamily!) // the icon bitmap of the item
-	@objc optional func setOwner(_ owner: String!) // the user that owns the container
-	@objc optional func setGroup(_ group: String!) // the user or group that has special access to the container
+	@objc optional func setComment(_ comment: String?) // the comment of the item, displayed in the “Get Info” window
+	@objc optional func setModificationDate(_ modificationDate: Date?) // the date on which the item was last modified
+	@objc optional func setIcon(_ icon: FinderIconFamily?) // the icon bitmap of the item
+	@objc optional func setOwner(_ owner: String?) // the user that owns the container
+	@objc optional func setGroup(_ group: String?) // the user or group that has special access to the container
 	@objc optional func setOwnerPrivileges(_ ownerPrivileges: FinderPriv)
 	@objc optional func setGroupPrivileges(_ groupPrivileges: FinderPriv)
 	@objc optional func setEveryonesPrivileges(_ everyonesPrivileges: FinderPriv)
-	@objc optional func setProperties(_ properties: [AnyHashable: Any]!) // every property of an item
+	@objc optional func setProperties(_ properties: [AnyHashable: Any]?) // every property of an item
 }
 
 extension SBObject: FinderItem {}
@@ -401,8 +400,8 @@ protocol FinderFile: FinderItem {
 	@objc optional var productVersion: String { get } // the version of the product (visible at the top of the “Get Info” window) (copy)
 	@objc optional var version: String { get } // the version of the file (visible at the bottom of the “Get Info” window) (copy)
 
-	@objc optional func setFileType(_ fileType: NSNumber!) // the OSType identifying the type of data contained in the item
-	@objc optional func setCreatorType(_ creatorType: NSNumber!) // the OSType identifying the application that created the item
+	@objc optional func setFileType(_ fileType: NSNumber?) // the OSType identifying the type of data contained in the item
+	@objc optional func setCreatorType(_ creatorType: NSNumber?) // the OSType identifying the application that created the item
 	@objc optional func setStationery(_ stationery: Bool) // Is the file a stationery pad?
 }
 
@@ -413,7 +412,7 @@ extension SBObject: FinderFile {}
 protocol FinderAliasFile: FinderFile {
 	@objc optional var originalItem: SBObject { get } // the original item pointed to by the alias (copy)
 
-	@objc optional func setOriginalItem(_ originalItem: SBObject!) // the original item pointed to by the alias
+	@objc optional func setOriginalItem(_ originalItem: SBObject?) // the original item pointed to by the alias
 }
 
 extension SBObject: FinderAliasFile {}
@@ -488,7 +487,7 @@ protocol FinderWindow: SBObjectProtocol, FinderGenericMethods {
 	@objc optional func setIndex(_ index: Int) // the number of the window in the front-to-back layer ordering
 	@objc optional func setZoomed(_ zoomed: Bool) // Is the window zoomed?
 	@objc optional func setCollapsed(_ collapsed: Bool) // Is the window collapsed
-	@objc optional func setProperties(_ properties: [AnyHashable: Any]!) // every property of a window
+	@objc optional func setProperties(_ properties: [AnyHashable: Any]?) // every property of a window
 
 	@objc optional func id() -> Int // the unique id for this window
 }
@@ -507,7 +506,7 @@ protocol FinderFinderWindow: FinderWindow {
 	@objc optional var statusbarVisible: Bool { get } // Is the window's status bar visible?
 	@objc optional var sidebarWidth: Int { get } // the width of the sidebar for the container window
 
-	@objc optional func setTarget(_ target: SBObject!) // the container at which this file viewer is targeted
+	@objc optional func setTarget(_ target: SBObject?) // the container at which this file viewer is targeted
 	@objc optional func setCurrentView(_ currentView: FinderEcvw) // the current view for the container window
 	@objc optional func setToolbarVisible(_ toolbarVisible: Bool) // Is the window's toolbar visible?
 	@objc optional func setStatusbarVisible(_ statusbarVisible: Bool) // Is the window's status bar visible?
@@ -611,7 +610,7 @@ protocol FinderPreferences: SBObjectProtocol, FinderGenericMethods {
 	@objc optional func setDesktopShowsExternalHardDisks(_ desktopShowsExternalHardDisks: Bool) // External hard disks appear on the desktop?
 	@objc optional func setDesktopShowsRemovableMedia(_ desktopShowsRemovableMedia: Bool) // CDs, DVDs, and iPods appear on the desktop?
 	@objc optional func setDesktopShowsConnectedServers(_ desktopShowsConnectedServers: Bool) // Connected servers appear on the desktop?
-	@objc optional func setNewWindowTarget(_ newWindowTarget: SBObject!) // target location for a newly-opened Finder window
+	@objc optional func setNewWindowTarget(_ newWindowTarget: SBObject?) // target location for a newly-opened Finder window
 	@objc optional func setFoldersOpenInNewWindows(_ foldersOpenInNewWindows: Bool) // Folders open into new windows?
 	@objc optional func setFoldersOpenInNewTabs(_ foldersOpenInNewTabs: Bool) // Folders open into new tabs?
 	@objc optional func setNewWindowsOpenInColumnView(_ newWindowsOpenInColumnView: Bool) // Open new windows in column view?
@@ -627,9 +626,9 @@ protocol FinderLabel: SBObjectProtocol, FinderGenericMethods {
 	@objc optional var index: Int { get } // the index in the front-to-back ordering within its container
 	@objc optional var color: NSColor { get } // the color associated with the label (copy)
 
-	@objc optional func setName(_ name: String!) // the name associated with the label
+	@objc optional func setName(_ name: String?) // the name associated with the label
 	@objc optional func setIndex(_ index: Int) // the index in the front-to-back ordering within its container
-	@objc optional func setColor(_ color: NSColor!) // the color associated with the label
+	@objc optional func setColor(_ color: NSColor?) // the color associated with the label
 }
 
 extension SBObject: FinderLabel {}
@@ -669,8 +668,8 @@ protocol FinderIconViewOptions: SBObjectProtocol, FinderGenericMethods {
 	@objc optional func setShowsIconPreview(_ showsIconPreview: Bool) // displays a preview of the item in icon view
 	@objc optional func setTextSize(_ textSize: Int) // the size of the text displayed in the icon view
 	@objc optional func setLabelPosition(_ labelPosition: FinderEpos) // the location of the label in reference to the icon
-	@objc optional func setBackgroundPicture(_ backgroundPicture: FinderFile!) // the background picture of the icon view
-	@objc optional func setBackgroundColor(_ backgroundColor: NSColor!) // the background color of the icon view
+	@objc optional func setBackgroundPicture(_ backgroundPicture: FinderFile?) // the background picture of the icon view
+	@objc optional func setBackgroundColor(_ backgroundColor: NSColor?) // the background color of the icon view
 }
 
 extension SBObject: FinderIconViewOptions {}
@@ -707,7 +706,7 @@ protocol FinderListViewOptions: SBObjectProtocol, FinderGenericMethods {
 	@objc optional func setShowsIconPreview(_ showsIconPreview: Bool) // displays a preview of the item in list view
 	@objc optional func setIconSize(_ iconSize: FinderLvic) // the size of icons displayed in the list view
 	@objc optional func setTextSize(_ textSize: Int) // the size of the text displayed in the list view
-	@objc optional func setSortColumn(_ sortColumn: FinderColumn!) // the column that the list view is sorted on
+	@objc optional func setSortColumn(_ sortColumn: FinderColumn?) // the column that the list view is sorted on
 	@objc optional func setUsesRelativeDates(_ usesRelativeDates: Bool) // Are relative dates (e.g., today, yesterday) shown in the list view?
 
 	@objc optional func columns() -> SBElementArray

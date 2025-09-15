@@ -41,7 +41,6 @@
 --enable wrapSwitchCases
 
 # Rule options
---commas always
 --hex-literal-case lowercase
 --ifdef no-indent
 --import-grouping testable-last

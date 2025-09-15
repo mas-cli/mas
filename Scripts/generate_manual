@@ -8,8 +8,8 @@
 
 . "${0:a:h}/_setup_script"
 
-print_header '📖 Generating man pages for mas' "$(Scripts/version)"
+print_notice '📖 Generating man pages for' "$(Scripts/version)" "${@}"
 
-Scripts/generate_mas_statics_swift "${1:-}"
+export MAS_INSTALL_METHOD="${1:-}"
 
 swift package generate-manual "${@:2}"

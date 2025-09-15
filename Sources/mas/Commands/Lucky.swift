@@ -16,10 +16,8 @@ extension MAS {
 	/// https://performance-partners.apple.com/search-api
 	struct Lucky: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
-			abstract: """
-				Install the first app returned from searching the Mac App Store
-				(app must have been previously purchased)
-				"""
+			abstract: "Install the first app returned from searching the Mac App Store",
+			discussion: "App will install only if it has already been purchased"
 		)
 
 		@OptionGroup

@@ -22,7 +22,7 @@ tag="${1}"
 title="${2}"
 ref="${3:-HEAD}"
 
-print_header '🚀 Starting release for mas' "${tag#v}"
+print_notice '🚀 Starting release for' "${tag#v}" "${@}"
 printf $'\n'
 
 if [[ ! "${tag}" =~ '^v[[:digit:]]+(\.[[:digit:]]+)*(-(alpha|beta|rc)\.[[:digit:]]+)?$' ]]; then

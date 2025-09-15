@@ -28,8 +28,7 @@ config:
     list_item_empty_lines: false
     strict: true
   no-hard-tabs:
-    code_blocks: true
-    ignore_code_languages: []
+    code_blocks: false
     spaces_per_tab: 2
   no-reversed-links: true
   no-multiple-blanks:

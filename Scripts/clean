@@ -8,8 +8,7 @@
 
 . "${0:a:h}/_setup_script"
 
-print_header '🗑​ Cleaning mas' "$(Scripts/version)"
+print_notice '🗑​ Cleaning' "$(Scripts/version)" "${@}"
 
 swift package clean
 swift package reset
-rm -f Sources/mas/MAS+Statics.swift

@@ -71,7 +71,7 @@ struct Printer {
 	}
 
 	/// Prints to `stderr`; if connected to a terminal, prefixes "Error:" underlined in red.
-	func error(_ items: Any..., error: Error? = nil, separator: String = " ", terminator: String = "\n") {
+	func error(_ items: Any..., error: (any Error)? = nil, separator: String = " ", terminator: String = "\n") {
 		errorCounter.wrappingIncrement(ordering: .relaxed)
 
 		let terminator =

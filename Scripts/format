@@ -10,22 +10,23 @@
 
 . "${0:a:h}/_setup_script"
 
-print_header '🧹 Formatting mas' "$(Scripts/version)"
+print_notice '🧹 Formatting' "$(Scripts/version)" "${@}"
 
-for formatter in markdownlint-cli2 swiftformat swiftlint; do
-	if ! whence "${formatter}" >/dev/null; then
-		printf $'error: %s is not installed. Run \'Scripts/bootstrap\' or \'brew install %s\'.\n' "${formatter}" "${formatter}" >&2
-		exit 1
-	fi
-done
+ensure_command_available markdownlint-cli2 swiftformat swiftlint
 
-for source in Package.swift Sources Tests; do
-	printf -- $'--> 🦅 %s swiftformat\n' "${source}"
-	script -q /dev/null swiftformat --strict "${source}" |
-	 (grep -vxE '(?:\^D\x08{2})?Running SwiftFormat\.{3}\r|Reading (?:config|swift-version) file at .*|\x1b\[32mSwiftFormat completed in \d+(?:\.\d+)?s\.\x1b\[0m\r|0/\d+ files formatted\.\r' || true)
-	printf -- $'--> 🦅 %s swiftlint\n' "${source}"
-	swiftlint --fix --quiet --reporter relative-path "${source}"
-done
+printf -- $'--> 🕊​ SwiftFormat\n'
+script -q /dev/null swiftformat --strict --markdown-files format-strict . |
+ (grep -vxE '(?:\^D\x08{2})?Running SwiftFormat\.{3}\r|Reading (?:config|swift-version) file at .*|\x1b\[32mSwiftFormat completed in \d+(?:\.\d+)?s\.\x1b\[0m\r|0/\d+ files formatted\.\r' || true)
+
+printf -- $'--> 🦅 SwiftLint\n'
+swiftlint --fix --quiet --reporter relative-path
 
 printf -- $'--> 〽️ Markdown\n'
-markdownlint-cli2 --fix '**/*.md'
+markdownlint-cli2 --fix '***/*.md'
+
+printf -- $'--> 🚷 Non-Executables\n'
+readonly -a non_executables=(Scripts/***/*(N.^f+111))
+if ((${#non_executables[@]})); then
+	chmod -vv a+x "${non_executables[@]}"
+	exit 1
+fi

@@ -3,13 +3,13 @@
 # Scripts/build
 # mas
 #
-# Builds the Swift Package.
+# Builds the Swift package.
 #
 
 . "${0:a:h}/_setup_script"
 
-print_header '🏗​ Building mas' "$(Scripts/version)"
+print_notice '🏗​ Building' "$(Scripts/version)" "${@}"
 
-Scripts/generate_mas_statics_swift "${1:-}"
+export MAS_INSTALL_METHOD="${1:-}"
 
 swift build -c release "${@:2}"

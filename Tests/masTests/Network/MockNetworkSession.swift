@@ -5,7 +5,7 @@
 // Copyright © 2019 mas-cli. All rights reserved.
 //
 
-import Foundation
+internal import Foundation
 @testable private import mas
 
 /// Mock NetworkSession for testing with a saved response payload file.
