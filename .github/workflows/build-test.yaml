@@ -18,17 +18,17 @@ jobs:
     strategy:
       matrix:
         include:
-        - arch: -arm64
-          os: macos-14
+        - runner: macos-14
           xcode: 16.2
-        - arch: -arm64
-          os: macos-15
+        - runner: macos-15
           xcode: 16.4
-    runs-on: ${{matrix.os}}
+        - runner: macos-26
+          xcode: 26_Release_Candidate
+    runs-on: ${{matrix.runner}}
     defaults:
       run:
         # Force all run commands to not use Rosetta 2
-        shell: arch ${{matrix.arch}} /bin/zsh -Negku {0}
+        shell: arch -arm64 /bin/zsh -Negku {0}
     steps:
     - name: 🛒 Checkout repo
       env:
