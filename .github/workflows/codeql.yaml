@@ -23,7 +23,6 @@ jobs:
         include:
         - language: actions
           build-mode: none
-
         - language: swift
           build-mode: manual
     steps:

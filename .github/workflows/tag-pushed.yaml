@@ -15,7 +15,7 @@ defaults:
 jobs:
   tag-pushed:
     if: ${{!github.event.repository.fork}}
-    runs-on: macos-15
+    runs-on: macos-26
     steps:
     - name: 🛒 Checkout repo
       env:
@@ -59,9 +59,6 @@ jobs:
           git push -d origin "${GITHUB_REF_NAME}"
           exit 3
         fi
-
-    - name: 🛠 Select newest available Xcode
-      run: sudo xcode-select -s /Applications/Xcode_16.4.app/Contents/Developer
 
     - name: 📦 Build Apple & Intel installers
       run: |
