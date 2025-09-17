@@ -24,7 +24,7 @@ func formatsSingleResult() {
 				false
 			)
 		)
-		== ValuedConsequences("       12345  Awesome App  (19.2.1)") // swiftformat:disable:this indent
+		== ValuedConsequences("12345  Awesome App  (19.2.1)") // swiftformat:disable:this indent
 	)
 }
 
@@ -37,7 +37,7 @@ func formatsSingleResultWithPrice() {
 				true
 			)
 		)
-		== ValuedConsequences("       12345  Awesome App  (19.2.1)  $9.87") // swiftformat:disable:this indent
+		== ValuedConsequences("12345  Awesome App  (19.2.1)  $9.87") // swiftformat:disable:this indent
 	)
 }
 
@@ -53,7 +53,7 @@ func formatsTwoResults() {
 				false
 			)
 		) // swiftformat:disable:next indent
-		== ValuedConsequences("       12345  Awesome App      (19.2.1)\n       67890  Even Better App  (1.2.0)")
+		== ValuedConsequences("12345  Awesome App      (19.2.1)\n67890  Even Better App  (1.2.0)")
 	)
 }
 
@@ -70,7 +70,7 @@ func formatsTwoResultsWithPrices() {
 			)
 		)
 		== ValuedConsequences( // swiftformat:disable indent
-			"       12345  Awesome App      (19.2.1)  $9.87\n       67890  Even Better App  (1.2.0)  $0.01"
+			"12345  Awesome App      (19.2.1)  $9.87\n67890  Even Better App  (1.2.0)  $0.01"
 		)
 	) // swiftformat:enable indent
 }
