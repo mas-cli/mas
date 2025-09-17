@@ -28,7 +28,6 @@ _ = Package(
 		.package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.6.1"),
 		.package(url: "https://github.com/apple/swift-atomics.git", from: "1.3.0"),
 		.package(url: "https://github.com/apple/swift-collections.git", from: "1.2.1"),
-		.package(url: "https://github.com/funky-monkey/IsoCountryCodes.git", from: "1.0.3"),
 		.package(url: "https://github.com/mxcl/Version.git", from: "2.2.0"),
 	],
 	targets: [
@@ -39,7 +38,6 @@ _ = Package(
 				.product(name: "ArgumentParser", package: "swift-argument-parser"),
 				.product(name: "Atomics", package: "swift-atomics"),
 				.product(name: "Collections", package: "swift-collections"),
-				"IsoCountryCodes",
 				"Version",
 			],
 			swiftSettings: swiftSettings,

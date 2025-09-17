@@ -11,20 +11,22 @@ protocol AppStoreSearcher {
 	///
 	/// - Parameters:
 	///   - appID: App ID.
-	///   - region: The `ISORegion` of the storefront in which to lookup apps.
+	///   - region: The ISO 3166-1 region alpha-2 of the storefront in which to
+	///     lookup apps.
 	/// - Returns: A `SearchResult` for the given `appID` if `appID` is valid.
 	/// - Throws: A `MASError.unknownAppID(appID)` if `appID` is invalid.
 	///   Some other `Error` if any other problem occurs.
-	func lookup(appID: AppID, inRegion region: ISORegion?) async throws -> SearchResult
+	func lookup(appID: AppID, inRegion region: String) async throws -> SearchResult
 
 	/// Searches for apps.
 	///
 	/// - Parameters:
 	///   - searchTerm: Term for which to search.
-	///   - region: The `ISORegion` of the storefront in which to search for apps.
+	///   - region: The ISO 3166-1 region alpha-2 of the storefront in which to
+	///     search for apps.
 	/// - Returns: An `Array` of `SearchResult`s matching `searchTerm`.
 	/// - Throws: An `Error` if any problem occurs.
-	func search(for searchTerm: String, inRegion region: ISORegion?) async throws -> [SearchResult]
+	func search(for searchTerm: String, inRegion region: String) async throws -> [SearchResult]
 }
 
 extension AppStoreSearcher {
@@ -35,7 +37,7 @@ extension AppStoreSearcher {
 	/// - Throws: A `MASError.unknownAppID(appID)` if `appID` is invalid.
 	///   Some other `Error` if any other problem occurs.
 	func lookup(appID: AppID) async throws -> SearchResult {
-		try await lookup(appID: appID, inRegion: isoRegion)
+		try await lookup(appID: appID, inRegion: region)
 	}
 
 	/// Searches for apps.
@@ -44,6 +46,6 @@ extension AppStoreSearcher {
 	/// - Returns: An `Array` of `SearchResult`s matching `searchTerm`.
 	/// - Throws: An `Error` if any problem occurs.
 	func search(for searchTerm: String) async throws -> [SearchResult] {
-		try await search(for: searchTerm, inRegion: isoRegion)
+		try await search(for: searchTerm, inRegion: region)
 	}
 }

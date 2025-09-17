@@ -5,62 +5,290 @@
 // Copyright © 2024 mas-cli. All rights reserved.
 //
 
-private import IsoCountryCodes
 private import StoreKit
 
-// periphery:ignore
-protocol ISORegion {
-	// swiftlint:disable unused_declaration
-	var name: String { get }
-	var numeric: String { get }
-	var alpha2: String { get }
-	var alpha3: String { get }
-	var calling: String { get }
-	var currency: String { get }
-	var continent: String { get }
-	var flag: String? { get }
-	var fractionDigits: Int { get }
-	// swiftlint:enable unused_declaration
+var region: String {
+	get async {
+		if
+			let alpha3 = await storefrontAlpha3,
+			let alpha2 = alpha2(fromAlpha3: alpha3.uppercased())
+		{
+			alpha2
+		} else if
+			let alpha3 = SKPaymentQueue.default().storefront?.countryCode,
+			let alpha2 = alpha2(fromAlpha3: alpha3.uppercased())
+		{
+			alpha2
+		} else if #available(macOS 13, *) {
+			Locale.autoupdatingCurrent.region?.identifier ?? "US"
+		} else {
+			Locale.autoupdatingCurrent.regionCode ?? "US"
+		}
+	}
 }
 
-extension IsoCountryInfo: ISORegion {}
-
-var isoRegion: ISORegion? {
+private var storefrontAlpha3: String? {
 	get async {
-		if let alpha3 = await alpha3 {
-			findISORegion(forAlpha3Code: alpha3)
-		} else if let alpha2 {
-			findISORegion(forAlpha2Code: alpha2)
+		if #available(macOS 12, *) {
+			await Storefront.current?.countryCode
 		} else {
 			nil
 		}
 	}
 }
 
-private var alpha3: String? {
-	get async {
-		if #available(macOS 12, *) {
-			await Storefront.current?.countryCode
-		} else {
-			SKPaymentQueue.default().storefront?.countryCode
-		}
+private func alpha2(fromAlpha3 alpha3: String) -> String? { // swiftlint:disable:this function_body_length
+	switch alpha3 { // swiftlint:disable switch_case_on_newline
+	case "AFG": "AF"
+	case "ALA": "AX"
+	case "ALB": "AL"
+	case "DZA": "DZ"
+	case "ASM": "AS"
+	case "AND": "AD"
+	case "AGO": "AO"
+	case "AIA": "AI"
+	case "ATA": "AQ"
+	case "ATG": "AG"
+	case "ARG": "AR"
+	case "ARM": "AM"
+	case "ABW": "AW"
+	case "AUS": "AU"
+	case "AUT": "AT"
+	case "AZE": "AZ"
+	case "BHS": "BS"
+	case "BHR": "BH"
+	case "BGD": "BD"
+	case "BRB": "BB"
+	case "BLR": "BY"
+	case "BEL": "BE"
+	case "BLZ": "BZ"
+	case "BEN": "BJ"
+	case "BMU": "BM"
+	case "BTN": "BT"
+	case "BOL": "BO"
+	case "BES": "BQ"
+	case "BIH": "BA"
+	case "BWA": "BW"
+	case "BVT": "BV"
+	case "BRA": "BR"
+	case "IOT": "IO"
+	case "BRN": "BN"
+	case "BGR": "BG"
+	case "BFA": "BF"
+	case "BDI": "BI"
+	case "KHM": "KH"
+	case "CMR": "CM"
+	case "CAN": "CA"
+	case "CPV": "CV"
+	case "CYM": "KY"
+	case "CAF": "CF"
+	case "TCD": "TD"
+	case "CHL": "CL"
+	case "CHN": "CN"
+	case "CXR": "CX"
+	case "CCK": "CC"
+	case "COL": "CO"
+	case "COM": "KM"
+	case "COG": "CG"
+	case "COD": "CD"
+	case "COK": "CK"
+	case "CRI": "CR"
+	case "CIV": "CI"
+	case "HRV": "HR"
+	case "CUB": "CU"
+	case "CUW": "CW"
+	case "CYP": "CY"
+	case "CZE": "CZ"
+	case "DNK": "DK"
+	case "DJI": "DJ"
+	case "DMA": "DM"
+	case "DOM": "DO"
+	case "ECU": "EC"
+	case "EGY": "EG"
+	case "SLV": "SV"
+	case "GNQ": "GQ"
+	case "ERI": "ER"
+	case "EST": "EE"
+	case "ETH": "ET"
+	case "FLK": "FK"
+	case "FRO": "FO"
+	case "FJI": "FJ"
+	case "FIN": "FI"
+	case "FRA": "FR"
+	case "GUF": "GF"
+	case "PYF": "PF"
+	case "ATF": "TF"
+	case "GAB": "GA"
+	case "GMB": "GM"
+	case "GEO": "GE"
+	case "DEU": "DE"
+	case "GHA": "GH"
+	case "GIB": "GI"
+	case "GRC": "GR"
+	case "GRL": "GL"
+	case "GRD": "GD"
+	case "GLP": "GP"
+	case "GUM": "GU"
+	case "GTM": "GT"
+	case "GGY": "GG"
+	case "GIN": "GN"
+	case "GNB": "GW"
+	case "GUY": "GY"
+	case "HTI": "HT"
+	case "HMD": "HM"
+	case "HND": "HN"
+	case "HKG": "HK"
+	case "HUN": "HU"
+	case "ISL": "IS"
+	case "IND": "IN"
+	case "IDN": "ID"
+	case "IRN": "IR"
+	case "IRQ": "IQ"
+	case "IRL": "IE"
+	case "IMN": "IM"
+	case "ISR": "IL"
+	case "ITA": "IT"
+	case "JAM": "JM"
+	case "JPN": "JP"
+	case "JEY": "JE"
+	case "JOR": "JO"
+	case "KAZ": "KZ"
+	case "KEN": "KE"
+	case "KIR": "KI"
+	case "PRK": "KP"
+	case "KOR": "KR"
+	case "XKS": "XK"
+	case "KWT": "KW"
+	case "KGZ": "KG"
+	case "LAO": "LA"
+	case "LVA": "LV"
+	case "LBN": "LB"
+	case "LSO": "LS"
+	case "LBR": "LR"
+	case "LBY": "LY"
+	case "LIE": "LI"
+	case "LTU": "LT"
+	case "LUX": "LU"
+	case "MAC": "MO"
+	case "MKD": "MK"
+	case "MDG": "MG"
+	case "MWI": "MW"
+	case "MYS": "MY"
+	case "MDV": "MV"
+	case "MLI": "ML"
+	case "MLT": "MT"
+	case "MHL": "MH"
+	case "MTQ": "MQ"
+	case "MRT": "MR"
+	case "MUS": "MU"
+	case "MYT": "YT"
+	case "MEX": "MX"
+	case "FSM": "FM"
+	case "MDA": "MD"
+	case "MCO": "MC"
+	case "MNG": "MN"
+	case "MNE": "ME"
+	case "MSR": "MS"
+	case "MAR": "MA"
+	case "MOZ": "MZ"
+	case "MMR": "MM"
+	case "NAM": "NA"
+	case "NRU": "NR"
+	case "NPL": "NP"
+	case "NLD": "NL"
+	case "NCL": "NC"
+	case "NZL": "NZ"
+	case "NIC": "NI"
+	case "NER": "NE"
+	case "NGA": "NG"
+	case "NIU": "NU"
+	case "NFK": "NF"
+	case "MNP": "MP"
+	case "NOR": "NO"
+	case "OMN": "OM"
+	case "PAK": "PK"
+	case "PLW": "PW"
+	case "PSE": "PS"
+	case "PAN": "PA"
+	case "PNG": "PG"
+	case "PRY": "PY"
+	case "PER": "PE"
+	case "PHL": "PH"
+	case "PCN": "PN"
+	case "POL": "PL"
+	case "PRT": "PT"
+	case "PRI": "PR"
+	case "QAT": "QA"
+	case "REU": "RE"
+	case "ROU": "RO"
+	case "RUS": "RU"
+	case "RWA": "RW"
+	case "BLM": "BL"
+	case "SHN": "SH"
+	case "KNA": "KN"
+	case "LCA": "LC"
+	case "MAF": "MF"
+	case "SPM": "PM"
+	case "VCT": "VC"
+	case "WSM": "WS"
+	case "SMR": "SM"
+	case "STP": "ST"
+	case "SAU": "SA"
+	case "SEN": "SN"
+	case "SRB": "RS"
+	case "SYC": "SC"
+	case "SLE": "SL"
+	case "SGP": "SG"
+	case "SXM": "SX"
+	case "SVK": "SK"
+	case "SVN": "SI"
+	case "SLB": "SB"
+	case "SOM": "SO"
+	case "ZAF": "ZA"
+	case "SGS": "GS"
+	case "SSD": "SS"
+	case "ESP": "ES"
+	case "LKA": "LK"
+	case "SDN": "SD"
+	case "SUR": "SR"
+	case "SJM": "SJ"
+	case "SWZ": "SZ"
+	case "SWE": "SE"
+	case "CHE": "CH"
+	case "SYR": "SY"
+	case "TWN": "TW"
+	case "TJK": "TJ"
+	case "TZA": "TZ"
+	case "THA": "TH"
+	case "TLS": "TL"
+	case "TGO": "TG"
+	case "TKL": "TK"
+	case "TON": "TO"
+	case "TTO": "TT"
+	case "TUN": "TN"
+	case "TUR": "TR"
+	case "TKM": "TM"
+	case "TCA": "TC"
+	case "TUV": "TV"
+	case "UGA": "UG"
+	case "UKR": "UA"
+	case "ARE": "AE"
+	case "GBR": "GB"
+	case "USA": "US"
+	case "UMI": "UM"
+	case "URY": "UY"
+	case "UZB": "UZ"
+	case "VUT": "VU"
+	case "VAT": "VA"
+	case "VEN": "VE"
+	case "VNM": "VN"
+	case "VGB": "VG"
+	case "VIR": "VI"
+	case "WLF": "WF"
+	case "ESH": "EH"
+	case "YEM": "YE"
+	case "ZMB": "ZM"
+	case "ZWE": "ZW"
+	default: nil // swiftlint:enable switch_case_on_newline
 	}
-}
-
-private var alpha2: String? {
-	if #available(macOS 13, *) {
-		Locale.autoupdatingCurrent.region?.identifier
-	} else {
-		Locale.autoupdatingCurrent.regionCode
-	}
-}
-
-func findISORegion(forAlpha2Code alpha2Code: String) -> ISORegion? {
-	let alpha2Code = alpha2Code.uppercased()
-	return IsoCountries.allCountries.first { $0.alpha2 == alpha2Code }
-}
-
-func findISORegion(forAlpha3Code alpha3Code: String) -> ISORegion? {
-	let alpha3Code = alpha3Code.uppercased()
-	return IsoCountries.allCountries.first { $0.alpha3 == alpha3Code }
 }
