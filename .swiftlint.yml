@@ -34,6 +34,7 @@ attributes:
 closure_body_length:
   warning: 40
 cyclomatic_complexity:
+  ignores_case_statements: true
   warning: 11
 file_types_order:
   order:

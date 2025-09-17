@@ -1,15 +1,6 @@
 {
-	"originHash" : "57182892d52026c86fab45f0500f5763238e1617cddf565eb26ea07feaa90be3",
+	"originHash" : "463006ce9a00807ad6abfc690a4866ef1a3155d09391e30680f391f484de8380",
 	"pins" : [
-		{
-			"identity" : "isocountrycodes",
-			"kind" : "remoteSourceControl",
-			"location" : "https://github.com/funky-monkey/IsoCountryCodes.git",
-			"state" : {
-				"revision" : "f6672549f8d99bb6a8c7bc5233bc8630bb92c172",
-				"version" : "1.0.3"
-			}
-		},
 		{
 			"identity" : "swift-argument-parser",
 			"kind" : "remoteSourceControl",

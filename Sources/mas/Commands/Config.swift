@@ -39,7 +39,7 @@ extension MAS {
 				rev ▁▁▁▁ \(MAS.gitRevision)
 				driver ▁ \(MAS.swiftDriverVersion)
 				swift ▁▁ \(MAS.swiftVersion)
-				region ▁ \(await isoRegion?.alpha2 ?? unknown)
+				region ▁ \(await region)
 				macos ▁▁ \(
 					ProcessInfo.processInfo.operatingSystemVersionString.dropFirst(8).replacingOccurrences(of: "Build ", with: "")
 				)
