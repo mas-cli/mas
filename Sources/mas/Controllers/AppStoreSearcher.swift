@@ -37,7 +37,7 @@ extension AppStoreSearcher {
 	/// - Throws: A `MASError.unknownAppID(appID)` if `appID` is invalid.
 	///   Some other `Error` if any other problem occurs.
 	func lookup(appID: AppID) async throws -> SearchResult {
-		try await lookup(appID: appID, inRegion: region)
+		try await lookup(appID: appID, inRegion: await region)
 	}
 
 	/// Searches for apps.
@@ -46,6 +46,6 @@ extension AppStoreSearcher {
 	/// - Returns: An `Array` of `SearchResult`s matching `searchTerm`.
 	/// - Throws: An `Error` if any problem occurs.
 	func search(for searchTerm: String) async throws -> [SearchResult] {
-		try await search(for: searchTerm, inRegion: region)
+		try await search(for: searchTerm, inRegion: await region)
 	}
 }
