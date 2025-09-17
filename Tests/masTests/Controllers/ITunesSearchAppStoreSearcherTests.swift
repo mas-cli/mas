@@ -24,11 +24,11 @@ func iTunesSearchesForSlack() async {
 
 @Test
 func looksUpSlack() async {
-	let appID = 803_453_959 as AppID
+	let adamID = 803_453_959 as ADAMID
 
 	let consequences = await consequencesOf(
 		try await ITunesSearchAppStoreSearcher(networkSession: MockNetworkSession(responseResource: "lookup/slack.json"))
-		.lookup(appID: appID) // swiftformat:disable:this indent
+		.lookup(appID: .adamID(adamID)) // swiftformat:disable:this indent
 	)
 	#expect(
 		consequences.error == nil
@@ -42,7 +42,7 @@ func looksUpSlack() async {
 	}
 
 	#expect(
-		result.trackId == appID
+		result.trackId == adamID
 		&& result.sellerName == "Slack Technologies, Inc." // swiftformat:disable indent
 		&& result.sellerUrl == "https://slack.com"
 		&& result.trackName == "Slack"

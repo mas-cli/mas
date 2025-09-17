@@ -16,8 +16,10 @@ extension MAS {
 
 		@OptionGroup
 		var verboseOptionGroup: VerboseOptionGroup
-		@Argument(help: ArgumentHelp("App ID/name", valueName: "app-id-or-name"))
-		var appIDOrNames = [String]()
+		@Flag(name: .customLong("bundle"), help: ArgumentHelp("Process all app IDs as bundle IDs"))
+		var forceBundleID = false
+		@Argument(help: ArgumentHelp("App ID", valueName: "app-id"))
+		var appIDStrings = [String]()
 
 		/// Runs the command.
 		func run() async throws {
@@ -49,9 +51,9 @@ extension MAS {
 				separator: ""
 			)
 
-			for appID in apps.map(\.storeApp.trackId) {
+			for adamID in apps.map(\.storeApp.adamID) {
 				do {
-					try await downloader.downloadApp(withAppID: appID)
+					try await downloader.downloadApp(withADAMID: adamID)
 				} catch {
 					downloader.printer.error(error: error)
 				}
@@ -63,22 +65,13 @@ extension MAS {
 			installedApps: [InstalledApp],
 			searcher: AppStoreSearcher
 		) async -> [(installedApp: InstalledApp, storeApp: SearchResult)] {
-			let apps = appIDOrNames.isEmpty
+			let apps = appIDStrings.isEmpty
 			? installedApps // swiftformat:disable:this indent
-			: appIDOrNames.flatMap { appIDOrName in
-				if let appID = AppID(appIDOrName) {
-					// Find installed apps by app ID argument
-					let installedApps = installedApps.filter { $0.id == appID }
-					if installedApps.isEmpty {
-						printer.error(appID.notInstalledMessage)
-					}
-					return installedApps
-				}
-
-				// Find installed apps by name argument
-				let installedApps = installedApps.filter { $0.name == appIDOrName }
+			: appIDStrings.flatMap { appIDString in
+				let appID = AppID(from: appIDString, forceBundleID: forceBundleID)
+				let installedApps = installedApps.filter { appID.matches($0) }
 				if installedApps.isEmpty {
-					printer.error("No installed apps named", appIDOrName)
+					printer.error(appID.notInstalledMessage)
 				}
 				return installedApps
 			}
@@ -86,7 +79,7 @@ extension MAS {
 			var outdatedApps = [(InstalledApp, SearchResult)]()
 			for installedApp in apps {
 				do {
-					let storeApp = try await searcher.lookup(appID: installedApp.id)
+					let storeApp = try await searcher.lookup(appID: .adamID(installedApp.adamID))
 					if installedApp.isOutdated(comparedTo: storeApp) {
 						outdatedApps.append((installedApp, storeApp))
 					}

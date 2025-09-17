@@ -21,8 +21,10 @@ extension MAS {
 			abstract: "Open app page in 'App Store.app'"
 		)
 
-		@Argument(help: "App ID")
-		var appID: AppID?
+		@Flag(name: .customLong("bundle"), help: ArgumentHelp("Process all app IDs as bundle IDs"))
+		var forceBundleID = false
+		@Argument(help: ArgumentHelp("App ID", valueName: "app-id"))
+		var appIDString: String?
 
 		/// Runs the command.
 		func run() async throws {
@@ -34,13 +36,16 @@ extension MAS {
 		}
 
 		private func run(printer _: Printer, searcher: AppStoreSearcher) async throws {
-			guard let appID else {
+			guard let appIDString else {
 				// If no app ID was given, just open the MAS GUI app
 				try await openMacAppStore()
 				return
 			}
 
-			try await openInMacAppStore(pageForAppID: appID, searcher: searcher)
+			try await openInMacAppStore(
+				pageForAppID: AppID(from: appIDString, forceBundleID: forceBundleID),
+				searcher: searcher
+			)
 		}
 	}
 }

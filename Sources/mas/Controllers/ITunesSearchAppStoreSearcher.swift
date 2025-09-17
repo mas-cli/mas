@@ -59,7 +59,14 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 	/// - Returns: URL for the lookup service.
 	/// - Throws: An `MASError.urlParsing` if `appID` can't be encoded.
 	private func lookupURL(forAppID appID: AppID, inRegion region: String) throws -> URL {
-		try url("lookup", URLQueryItem(name: "id", value: String(appID)), inRegion: region)
+		let queryItem =
+			switch appID {
+			case let .adamID(adamID):
+				URLQueryItem(name: "id", value: String(adamID))
+			case let .bundleID(bundleID):
+				URLQueryItem(name: "bundleId", value: bundleID)
+			}
+		return try url("lookup", queryItem, inRegion: region)
 	}
 
 	/// Builds the search URL for an app.

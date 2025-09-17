@@ -23,7 +23,7 @@ enum AppListFormatter {
 		return
 			installedApps.map { installedApp in
 				"""
-				\(installedApp.id.description.padding(toLength: idColumnMinWidth, withPad: " ", startingAt: 0))\
+				\(installedApp.adamID.description.padding(toLength: idColumnMinWidth, withPad: " ", startingAt: 0))\
 				  \(installedApp.name.padding(toLength: maxAppNameLength, withPad: " ", startingAt: 0))\
 				  (\(installedApp.version))
 				"""

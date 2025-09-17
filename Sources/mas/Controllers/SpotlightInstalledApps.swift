@@ -45,7 +45,7 @@ var installedApps: [InstalledApp] {
 					.compactMap { result in // swiftformat:disable indent
 						if let item = result as? NSMetadataItem {
 							InstalledApp(
-								id: item.value(forAttribute: "kMDItemAppStoreAdamID") as? AppID ?? 0,
+								adamID: item.value(forAttribute: "kMDItemAppStoreAdamID") as? ADAMID ?? 0,
 								bundleID: item.value(forAttribute: NSMetadataItemCFBundleIdentifierKey) as? String ?? "",
 								name: (item.value(forAttribute: "_kMDItemDisplayNameWithExtensions") as? String ?? "").removingSuffix(
 									".app"

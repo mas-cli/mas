@@ -43,21 +43,19 @@ extension MAS {
 				throw MASError.noSearchResultsFound(for: searchTerm)
 			}
 
-			try await install(appID: result.trackId, installedApps: installedApps, downloader: downloader)
-		}
+			let adamID = result.adamID
 
-		/// Installs an app.
-		///
-		/// - Parameters:
-		///   - appID: App ID.
-		///   - installedApps: List of installed apps.
-		///   - downloader: `Downloader`.
-		/// - Throws: Any error that occurs while attempting to install the app.
-		private func install(appID: AppID, installedApps: [InstalledApp], downloader: Downloader) async throws {
-			if let installedApp = installedApps.first(where: { $0.id == appID }), !forceOptionGroup.force {
-				downloader.printer.warning("Already installed:", installedApp.idAndName)
+			if let installedApp = installedApps.first(where: { $0.adamID == adamID }), !forceOptionGroup.force {
+				downloader.printer.warning(
+					"Already installed: ",
+					installedApp.name,
+					" (search term ",
+					searchTerm,
+					")",
+					separator: ""
+				)
 			} else {
-				try await downloader.downloadApp(withAppID: appID)
+				try await downloader.downloadApp(withADAMID: adamID)
 			}
 		}
 	}

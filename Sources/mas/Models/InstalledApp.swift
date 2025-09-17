@@ -8,9 +8,8 @@
 private import Foundation
 private import Version
 
-struct InstalledApp: Hashable, Sendable {
-	let id: AppID
-	// periphery:ignore
+struct InstalledApp: AppIdentifying, Hashable, Sendable {
+	let adamID: ADAMID
 	let bundleID: String
 	let name: String
 	let path: String
@@ -18,10 +17,6 @@ struct InstalledApp: Hashable, Sendable {
 }
 
 extension InstalledApp {
-	var idAndName: String {
-		"app ID \(id) (\(name))"
-	}
-
 	/// Determines whether the app is considered outdated.
 	///
 	/// Updates that require a higher OS version are excluded.

@@ -8,22 +8,21 @@
 private import StoreFoundation
 
 extension SSPurchase {
-	convenience init(appID: AppID, purchasing: Bool) async {
+	convenience init(adamID: ADAMID, purchasing: Bool) async {
 		self.init(
 			buyParameters: """
-				productType=C&price=0&salableAdamId=\(appID)&pg=default&appExtVrsId=0&pricingParameters=\
-				\(purchasing ? "STDQ&macappinstalledconfirmed=1" : "STDRDL")
+				productType=C&price=0&pg=default&appExtVrsId=0&pricingParameters=\
+				\(purchasing ? "STDQ&macappinstalledconfirmed=1" : "STDRDL")&salableAdamId=\(adamID)
 				"""
 		)
 
 		// Possibly unnecessary…
 		isRedownload = !purchasing
 
-		itemIdentifier = appID
+		itemIdentifier = adamID
 
-		let downloadMetadata = SSDownloadMetadata()
-		downloadMetadata.kind = "software"
-		downloadMetadata.itemIdentifier = appID
+		let downloadMetadata = SSDownloadMetadata(kind: "software")
+		downloadMetadata.itemIdentifier = adamID
 		self.downloadMetadata = downloadMetadata
 
 		do {
