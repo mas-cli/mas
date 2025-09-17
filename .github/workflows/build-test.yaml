@@ -23,7 +23,7 @@ jobs:
         - runner: macos-15
           xcode: 16.4
         - runner: macos-26
-          xcode: 26_Release_Candidate
+          xcode: 26
     runs-on: ${{matrix.runner}}
     defaults:
       run:

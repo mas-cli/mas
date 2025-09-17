@@ -9,24 +9,27 @@ private import Foundation
 
 /// Formats text output for the search command.
 enum AppListFormatter {
-	static let idColumnMinWidth = 10
-
 	/// Formats text output with list results.
 	///
 	/// - Parameter installedApps: List of installed apps.
 	/// - Returns: Multiline text output.
 	static func format(_ installedApps: [InstalledApp]) -> String {
+		guard let maxAdamIDLength = installedApps.map(\.adamID.description.count).max() else {
+			return ""
+		}
 		guard let maxAppNameLength = installedApps.map(\.name.count).max() else {
 			return ""
 		}
 
+		let format = "%\(maxAdamIDLength)lu  %@  (%@)"
 		return
 			installedApps.map { installedApp in
-				"""
-				\(installedApp.adamID.description.padding(toLength: idColumnMinWidth, withPad: " ", startingAt: 0))\
-				  \(installedApp.name.padding(toLength: maxAppNameLength, withPad: " ", startingAt: 0))\
-				  (\(installedApp.version))
-				"""
+				String(
+					format: format,
+					installedApp.adamID,
+					installedApp.name.padding(toLength: maxAppNameLength, withPad: " ", startingAt: 0),
+					installedApp.version
+				)
 			}
 			.joined(separator: "\n")
 	}
