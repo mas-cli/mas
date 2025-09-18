@@ -12,7 +12,7 @@ private var installingPhaseType: Int64 { 1 }
 private var initialPhaseType: Int64 { 4 }
 private var downloadedPhaseType: Int64 { 5 }
 
-class PurchaseDownloadObserver: CKDownloadQueueObserver {
+final class PurchaseDownloadObserver: CKDownloadQueueObserver {
 	private let adamID: ADAMID
 	private let printer: Printer
 
