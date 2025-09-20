@@ -1,4 +1,4 @@
-#!/bin/zsh -Ndefgku
+#!/bin/zsh -GNdefgku
 #
 # Scripts/update_headers
 # mas
@@ -10,34 +10,56 @@
 
 ensure_command_available ipsw
 
+zmodload zsh/zutil
+
+zparseopts -D -A opts C X
+
+frameworks=("${@:-*(/)}")
+
 cd Sources/PrivateFrameworks
 
-for framework in *(/); do
-	ipsw class-dump --headers --output . /System/Volumes/Preboot/Cryptexes/OS/System/Library/dyld/dyld_shared_cache_arm64e "${framework}"
-done
+# shellcheck disable=SC1009
+for framework in ${~frameworks[@]}; do
+	! [[ -v 'opts[-X]' ]] && ipsw class-dump --headers --output . /System/Volumes/Preboot/Cryptexes/OS/System/Library/dyld/dyld_shared_cache_arm64e -- "${framework}"
 
-# shellcheck disable=SC1036
-sed -Ei '' -- 's!^//    -!// -!g' ***/*.h(.N)
-sed -Ei '' -- 's!^//  !//!g' ***/*.h(.N)
-sed -Ei '' -- '/^#(define|endif|ifndef).*/d' ***/*.h(.N)
-sed -Ei '' -- '/^ *\/\*.*\*\/$/d' ***/*.h(.N)
-sed -Ei '' -- 's/^    /\t/g' ***/*.h(.N)
-sed -Ei '' -- 's/_Bool/BOOL/g' ***/*.h(.N)
-sed -Ei '' -- 's/^- \(id\)description;$/- \(nonnull NSString \*\)description;/g' ***/*.h(.N)
-sed -Ei '' -- 's/^- \(void\)encodeWithCoder:\(id\)coder;$/- \(void\)encodeWithCoder:\(nullable NSCoder \*\)coder;/g' ***/*.h(.N)
-sed -Ei '' -- 's/^- \(id\)initWithCoder:\(id\)coder;$/- \(nonnull instancetype\)initWithCoder:\(nullable NSCoder \*\)coder;/g' ***/*.h(.N)
-sed -Ei '' -- 's/^- \(BOOL\)isEqual:\(id\)equal;$/- \(BOOL\)isEqual:\(nullable id\)object;/g' ***/*.h(.N)
-sed -Ei '' -- 's/\(copy\)/\(copy, nullable\)/g' ***/*.h(.N)
-sed -Ei '' -- 's/\(copy, nonatomic\)/\(copy, nonatomic, nullable\)/g' ***/*.h(.N)
-sed -Ei '' -- 's/\(id\)client/\(nullable ISStoreClient \*\)client/g' ***/*.h(.N)
-sed -Ei '' -- 's/\(id\)dictionary/\(nullable NSDictionary \*\)dictionary/g' ***/*.h(.N)
-sed -Ei '' -- 's/\(id\)init/\(nonnull instancetype)init/g' ***/*.h(.N)
-sed -Ei '' -- 's/\(retain\)/\(retain, nullable\)/g' ***/*.h(.N)
-sed -Ei '' -- 's/\(retain, nonatomic\)/\(retain, nonatomic, nullable\)/g' ***/*.h(.N)
-sed -Ei '' -- 's/\(id\)dsid/\(nullable NSNumber \*\)dsID/g' ***/*.h(.N)
-sed -Ei '' -- 's/NSArray \*downloads/NSArray\<SSDownload \*\> \*downloads/g' ***/*.h(.N)
-sed -Ei '' -- 's/\(id\)productID/\(nonnull NSNumber \*\)productID/g' ***/*.h(.N)
-sed -Ei '' -- 's/- \(id\)copyWithZone:\(struct _NSZone \*\)zone;/- \(nonnull instancetype\)copyWithZone:\(nullable struct _NSZone \*\)zone;/g' ***/*.h(.N)
-sed -Ei '' -- 's/\(id\)progress/\(nullable SSOperationProgress \*\)progress/g' ***/*.h(.N)
-sed -Ei '' -- 's/\(id\)url/\(nullable NSURL \*\)url/g' ***/*.h(.N)
-sed -Ei '' -- 's!id /\* block \*/!UnknownBlock!g' ***/*.h(.N)
+	# shellcheck disable=SC1046,SC1047,SC1072,SC1073
+	if ! [[ -v 'opts[-C]' ]]; then
+		cd -- "${framework}"
+
+		# shellcheck disable=SC1036
+		sed -Ei ''\
+		 -e 's!^//    -!// -!g'\
+		 -e 's!^//  !//!g'\
+		 -e '/^#(define|endif|ifndef).*/d'\
+		 -e '/^ *\/\*.*\*\/$/d'\
+		 -e 's/^    /\t/g'\
+		 -e 's/_Bool/BOOL/g'\
+		 -e 's/^- \(id\)description;$/- \(nonnull NSString \*\)description;/g'\
+		 -e 's/^- \(void\)encodeWithCoder:\(id\)coder;$/- \(void\)encodeWithCoder:\(nullable NSCoder \*\)coder;/g'\
+		 -e 's/^- \(id\)initWithCoder:\(id\)coder;$/- \(nonnull instancetype\)initWithCoder:\(nullable NSCoder \*\)coder;/g'\
+		 -e 's/^- \(BOOL\)isEqual:\(id\)equal;$/- \(BOOL\)isEqual:\(nullable id\)object;/g'\
+		 -e 's/^\+ \(id\)interface;$/\+ \(nonnull NSXPCInterface \*\)interface;/g'\
+		 -e 's/\(copy\)/\(copy, nullable\)/g'\
+		 -e 's/\(copy, nonatomic\)/\(copy, nonatomic, nullable\)/g'\
+		 -e 's/\(id\)client/\(nullable ISStoreClient \*\)client/g'\
+		 -e 's/\(id\)dictionary/\(nullable NSDictionary \*\)dictionary/g'\
+		 -e 's/\(id\)init/\(nonnull instancetype)init/g'\
+		 -e 's/\(retain\)/\(retain, nullable\)/g'\
+		 -e 's/\(retain, nonatomic\)/\(retain, nonatomic, nullable\)/g'\
+		 -e 's/\(id\)dsid/\(nullable NSNumber \*\)dsID/g'\
+		 -e 's/NSArray \*downloads/NSArray\<SSDownload \*\> \*downloads/g'\
+		 -e 's/\(id\)productID/\(nonnull NSNumber \*\)productID/g'\
+		 -e 's/- \(id\)copyWithZone:\(struct _NSZone \*\)zone;/- \(nonnull instancetype\)copyWithZone:\(nullable struct _NSZone \*\)zone;/g'\
+		 -e 's/\(id\)progress/\(nullable SSOperationProgress \*\)progress/g'\
+		 -e 's/\(id\)url/\(nullable NSURL \*\)url/g'\
+		 -e 's/:\(id\)error/:\(nullable NSError \*\)error/g'\
+		 -e 's!id /\* block \*/!UnknownBlock!g'\
+		 ***/*.h(.N)
+
+		for header in ***/*.h(.N); do
+			/usr/bin/sed -i '' -e ':a' -e '$!N;ta' -e '$s/\n*$//; $a\' "${header}"
+		done
+
+		cd ..
+	fi
+done
