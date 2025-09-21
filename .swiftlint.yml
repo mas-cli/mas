@@ -47,6 +47,8 @@ function_body_length:
   warning: 75
 indentation_width:
   include_multiline_strings: false
+line_length:
+  ignores_multiline_strings: true
 number_separator:
   minimum_length: 6
 opening_brace:
