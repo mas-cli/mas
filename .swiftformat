@@ -2,16 +2,19 @@
 # .swiftformat
 # mas
 #
-# SwiftFormat 0.57.2
+# SwiftFormat 0.58.0
 #
 
-# Disabled rules
+# Disabled rules (enabled by default)
 --disable hoistAwait
 --disable hoistTry
 
-# Enabled rules (disabled by default)
-#--enable acronyms
+# Disabled rules (disabled by default)
 #--enable blankLineAfterSwitchCase
+#--enable markTypes
+
+# Enabled rules (disabled by default)
+--enable acronyms
 --enable blankLinesAfterGuardStatements
 --enable blankLinesBetweenImports
 --enable blockComments
@@ -19,19 +22,22 @@
 --enable emptyExtensions
 --enable environmentEntry
 --enable isEmpty
-#--enable markTypes
 --enable noExplicitOwnership
+--enable noForceTryInTests
+--enable noForceUnwrapInTests
 --enable noGuardInTests
 --enable organizeDeclarations
+--enable preferFinalClasses
 --enable preferSwiftTesting
 --enable privateStateVariables
 --enable propertyTypes
+--enable redundantAsync
 --enable redundantEquatable
 --enable redundantMemberwiseInit
 --enable redundantProperty
+--enable redundantThrows
 --enable singlePropertyPerLine
 --enable sortSwitchCases
---enable throwingTests
 --enable unusedPrivateDeclarations
 --enable urlMacro
 --enable wrapConditionalBodies
@@ -41,16 +47,37 @@
 --enable wrapSwitchCases
 
 # Rule options
+--acronyms ADAM,ADI,AE,ANSI,API,CD,CEO,CF,CI,CK,CPU,DAV,DOS,DSID,DVD,EOF,FAQ,FAT,FD,FTP,GB,GID,GUI,GUID,HTML,HTTP,HTTPS,ID,IFS,ISO,JSON,KB,MAS,MD,MDM,MDS,MIB,MIT,NS,OS,OSX,PDF,PR,QL,SB,SDK,SHA,SS,SSH,STDQ,STDRDL,UDF,UI,UID,URL,US,UTF,UUID,VPP,XML,XPC,YAML
+--allow-partial-wrapping false
+--complex-attributes prev-line
+--computed-var-attributes prev-line
+--conditional-assignment always
+--exponent-grouping enabled
+--file-macro "#fileID"
+--fraction-grouping enabled
+--func-attributes prev-line
+--header //\n// {file}\n// mas\n//\n// Copyright © {created.year} mas-cli\. All rights reserved\.\n//
 --hex-literal-case lowercase
 --ifdef no-indent
---import-grouping testable-last
 --indent tab
 --indent-strings true
---inferred-types always
 --line-after-marks false
 --mark-categories false
+--max-width 120
 --organization-mode type
+--organize-types actor,class,enum,extension,struct
+--preserve-acronyms bundleId,minimumOsVersion,sellerUrl,trackId,trackViewUrl
 --property-types inferred
 --ranges no-space
+--redundant-async always
+--redundant-throws always
+--semicolons never
+--short-optionals always
+--single-line-for-each convert
+--stored-var-attributes prev-line
 --tab-width 2
+--type-attributes prev-line
+--type-body-marks remove
+--wrap-effects never
+--wrap-return-type never
 --wrap-ternary before-operators

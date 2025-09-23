@@ -16,10 +16,10 @@ extension MAS {
 
 		/// Runs the command.
 		func run() async throws {
-			try await mas.run { try await run(printer: $0) }
+			try await mas.run { await run(printer: $0) }
 		}
 
-		func run(printer: Printer) async throws {
+		func run(printer: Printer) async {
 			printer.info(await region)
 		}
 	}

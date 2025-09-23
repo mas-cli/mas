@@ -1,6 +1,6 @@
 //
 // UnvaluedConsequences.swift
-// masTests
+// mas
 //
 // Copyright © 2024 mas-cli. All rights reserved.
 //

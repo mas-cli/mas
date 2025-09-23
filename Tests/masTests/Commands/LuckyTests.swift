@@ -1,6 +1,6 @@
 //
 // LuckyTests.swift
-// masTests
+// mas
 //
 // Copyright © 2018 mas-cli. All rights reserved.
 //
@@ -16,7 +16,7 @@ func luckyInstallsAppForFirstSearchResult() async {
 			try await MAS.Lucky.parse(["Slack"]).run(
 				installedApps: [],
 				searcher: ITunesSearchAppStoreSearcher(
-					networkSession: MockNetworkSession(responseResource: "search/slack.json")
+					networkSession: try MockNetworkSession(responseResource: "search/slack.json")
 				)
 			)
 		)

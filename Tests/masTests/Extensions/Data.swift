@@ -1,11 +1,12 @@
 //
 // Data.swift
-// masTests
+// mas
 //
 // Copyright © 2019 mas-cli. All rights reserved.
 //
 
 private import Foundation
+@testable internal import mas
 
 extension Data {
 	/// Unsafe initializer for loading data from string paths.
@@ -18,10 +19,20 @@ extension Data {
 		fromResource resourcePath: String?,
 		withExtension ext: String? = nil,
 		inSubfolderPath subfolderPath: String? = "Resources"
-	) {
-		try! self.init(
-			contentsOf: Bundle.module.url(forResource: resourcePath, withExtension: ext, subdirectory: subfolderPath)!,
-			options: .mappedIfSafe
-		)
+	) throws {
+		guard
+			let resourceURL = Bundle.module.url(forResource: resourcePath, withExtension: ext, subdirectory: subfolderPath)
+		else {
+			throw MASError.runtimeError( // swiftformat:disable wrapConditionalBodies
+				"""
+				Failed to find resource\
+				\({ if let resourcePath { " at \(resourcePath)" } else { "" } }())\
+				\({ if let ext { " with extension \(ext)" } else { "" } }())\
+				\({ if let subfolderPath { " in subfolder \(subfolderPath)" } else { "" } }())
+				""" // swiftformat:enable wrapConditionalBodies
+			)
+		}
+
+		try self.init(contentsOf: resourceURL, options: .mappedIfSafe)
 	}
 }

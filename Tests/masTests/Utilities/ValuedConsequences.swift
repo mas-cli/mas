@@ -1,8 +1,8 @@
 //
 // ValuedConsequences.swift
-// masTests
+// mas
 //
-// Copyright © 2024 mas-cli. All rights reserved.
+// Copyright © 2025 mas-cli. All rights reserved.
 //
 
 internal import Foundation

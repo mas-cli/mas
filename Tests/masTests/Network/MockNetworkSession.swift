@@ -1,6 +1,6 @@
 //
 // MockNetworkSession.swift
-// masTests
+// mas
 //
 // Copyright © 2019 mas-cli. All rights reserved.
 //
@@ -15,8 +15,8 @@ struct MockNetworkSession: NetworkSession {
 	/// Initializes a mock URL session with a resource for the response.
 	///
 	/// - Parameter responseResource: Resource containing response body.
-	init(responseResource: String) {
-		data = (Data(fromResource: responseResource), URLResponse())
+	init(responseResource: String) throws {
+		data = (try Data(fromResource: responseResource), URLResponse())
 	}
 
 	func data(from _: URL) -> (Data, URLResponse) {

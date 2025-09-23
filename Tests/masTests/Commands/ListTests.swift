@@ -1,6 +1,6 @@
 //
 // ListTests.swift
-// masTests
+// mas
 //
 // Copyright © 2018 mas-cli. All rights reserved.
 //

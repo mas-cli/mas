@@ -2,7 +2,7 @@
 // Purchase.swift
 // mas
 //
-// Copyright © 2017 mas-cli. All rights reserved.
+// Copyright © 2025 mas-cli. All rights reserved.
 //
 
 internal import ArgumentParser

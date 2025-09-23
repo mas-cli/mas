@@ -1,6 +1,6 @@
 //
 // PurchaseTests.swift
-// masTests
+// mas
 //
 // Copyright © 2020 mas-cli. All rights reserved.
 //
