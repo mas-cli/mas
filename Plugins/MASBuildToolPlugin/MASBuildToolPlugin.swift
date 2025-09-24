@@ -1,3 +1,10 @@
+//
+// MASBuildToolPlugin.swift
+// mas
+//
+// Copyright © 2025 mas-cli. All rights reserved.
+//
+
 private import Foundation
 internal import PackagePlugin
 

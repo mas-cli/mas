@@ -21,11 +21,12 @@ var installedApps: [InstalledApp] {
 
 		let query = NSMetadataQuery()
 		query.predicate = NSPredicate(format: "kMDItemAppStoreAdamID LIKE '*'")
-		if let volume = UserDefaults(suiteName: "com.apple.appstored")?.dictionary(forKey: "PreferredVolume")?["name"] {
-			query.searchScopes = [applicationsFolder, "/Volumes/\(volume)\(applicationsFolder)"]
-		} else {
-			query.searchScopes = [applicationsFolder]
-		}
+		query.searchScopes =
+			if let volume = UserDefaults(suiteName: "com.apple.appstored")?.dictionary(forKey: "PreferredVolume")?["name"] {
+				[applicationsFolder, "/Volumes/\(volume)\(applicationsFolder)"]
+			} else {
+				[applicationsFolder]
+			}
 
 		return await withCheckedContinuation { continuation in
 			observer = NotificationCenter.default.addObserver(

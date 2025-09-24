@@ -1,6 +1,6 @@
 //
 // OutdatedTests.swift
-// masTests
+// mas
 //
 // Copyright © 2018 mas-cli. All rights reserved.
 //
@@ -13,7 +13,7 @@ internal import Testing
 func outputsOutdatedApps() async {
 	let mockSearchResult =
 		SearchResult(
-			bundleId: "au.id.haroldchu.mac.Bandwidth",
+			bundleId: "au.haroldchu.mac.Bandwidth",
 			currentVersionReleaseDate: "2024-09-02T00:27:00Z",
 			fileSizeBytes: "998130",
 			minimumOsVersion: "10.13",

@@ -2,7 +2,7 @@
 // Printer.swift
 // mas
 //
-// Copyright © 2025 mas-cli. All rights reserved.
+// Copyright © 2016 mas-cli. All rights reserved.
 //
 
 private import ArgumentParser

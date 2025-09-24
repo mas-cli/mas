@@ -1,6 +1,6 @@
 //
 // ITunesSearchAppStoreSearcherTests.swift
-// masTests
+// mas
 //
 // Copyright © 2019 mas-cli. All rights reserved.
 //
@@ -11,8 +11,10 @@ internal import Testing
 @Test
 func iTunesSearchesForSlack() async {
 	let consequences = await consequencesOf(
-		try await ITunesSearchAppStoreSearcher(networkSession: MockNetworkSession(responseResource: "search/slack.json"))
-		.search(for: "slack") // swiftformat:disable:this indent
+		try await ITunesSearchAppStoreSearcher(
+			networkSession: try MockNetworkSession(responseResource: "search/slack.json")
+		)
+		.search(for: "slack")
 	)
 	#expect(
 		consequences.value?.count == 39
@@ -27,8 +29,10 @@ func looksUpSlack() async {
 	let adamID = 803_453_959 as ADAMID
 
 	let consequences = await consequencesOf(
-		try await ITunesSearchAppStoreSearcher(networkSession: MockNetworkSession(responseResource: "lookup/slack.json"))
-		.lookup(appID: .adamID(adamID)) // swiftformat:disable:this indent
+		try await ITunesSearchAppStoreSearcher(
+			networkSession: try MockNetworkSession(responseResource: "lookup/slack.json")
+		)
+		.lookup(appID: .adamID(adamID))
 	)
 	#expect(
 		consequences.error == nil

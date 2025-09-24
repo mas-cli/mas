@@ -26,7 +26,7 @@ extension MAS {
 			try await mas.run { await run(printer: $0) }
 		}
 
-		func run(printer: Printer) async {
+		func run(printer: Printer) async { // swiftformat:disable:this redundantAsync
 			if markdown {
 				printer.info("```text")
 			}

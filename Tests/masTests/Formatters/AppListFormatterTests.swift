@@ -1,6 +1,6 @@
 //
 // AppListFormatterTests.swift
-// masTests
+// mas
 //
 // Copyright © 2020 mas-cli. All rights reserved.
 //
@@ -18,7 +18,9 @@ func formatsEmptyAppListAsEmptyString() {
 @Test
 func formatsSingleInstalledApp() {
 	#expect(
-		consequencesOf(format([InstalledApp(adamID: 12345, bundleID: "", name: "Awesome App", path: "", version: "19.2.1")]))
+		consequencesOf(
+			format([InstalledApp(adamID: 12345, bundleID: "", name: "Awesome App", path: "", version: "19.2.1")])
+		)
 		== ValuedConsequences("12345  Awesome App  (19.2.1)") // swiftformat:disable:this indent
 	)
 }

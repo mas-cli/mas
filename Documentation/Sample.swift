@@ -1,4 +1,9 @@
-// Don't include generated header comments.
+//
+// Sample.swift
+// mas
+//
+// Copyright © 2018 mas-cli. All rights reserved.
+//
 
 // MARK: Types & naming
 

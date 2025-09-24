@@ -1,6 +1,6 @@
 //
 // SearchTests.swift
-// masTests
+// mas
 //
 // Copyright © 2018 mas-cli. All rights reserved.
 //
@@ -14,7 +14,9 @@ func searchesForSlack() async {
 	let mockResult = SearchResult(trackId: 1111, trackName: "slack", trackViewUrl: "mas preview url", version: "0.0")
 	#expect(
 		await consequencesOf(
-			try await MAS.Search.parse(["slack"]).run(searcher: MockAppStoreSearcher([.adamID(mockResult.adamID): mockResult]))
+			try await MAS.Search.parse(["slack"]).run(
+				searcher: MockAppStoreSearcher([.adamID(mockResult.adamID): mockResult])
+			)
 		)
 		== UnvaluedConsequences(nil, "1111  slack  (0.0)\n") // swiftformat:disable:this indent
 	)
