@@ -36,6 +36,17 @@ closure_body_length:
 cyclomatic_complexity:
   ignores_case_statements: true
   warning: 11
+deployment_target:
+  macOS_deployment_target: 10.15
+  macOSApplicationExtension_deployment_target: 10.15
+  iOS_deployment_target: 99
+  iOSApplicationExtension_deployment_target: 99
+  tvOS_deployment_target: 99
+  tvOSApplicationExtension_deployment_target: 99
+  watchOS_deployment_target: 99
+  watchOSApplicationExtension_deployment_target: 99
+explicit_init:
+  include_bare_init: true
 file_length:
   ignore_comment_only_lines: true
 file_name:
@@ -50,13 +61,26 @@ file_types_order:
 function_body_length:
   warning: 75
 indentation_width:
+  indentation_width: 2
   include_multiline_strings: false
 line_length:
   ignores_multiline_strings: true
+multiline_arguments:
+  first_argument_location: next_line
+non_optional_string_data_conversion:
+  include_variables: true
 number_separator:
   minimum_length: 6
 opening_brace:
   ignore_multiline_statement_conditions: true
+operator_usage_whitespace:
+  skip_aligned_constants: false
+prefer_key_path:
+  restrict_to_standard_functions: false
+private_over_fileprivate:
+  validate_extensions: true
+redundant_type_annotation:
+  consider_default_literal_types_redundant: true
 trailing_comma:
   mandatory_comma: true
 trailing_whitespace:
@@ -78,3 +102,5 @@ type_contents_order:
   - ib_action
   - other_method
   - subscript
+unneeded_override:
+  affect_initializers: true

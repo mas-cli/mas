@@ -22,9 +22,7 @@ struct Printer {
 	}
 
 	func log(_ message: String, to fileHandle: FileHandle) {
-		if let data = message.data(using: .utf8) {
-			fileHandle.write(data)
-		}
+		fileHandle.write(Data(message.utf8))
 	}
 
 	/// Prints to `stdout`.

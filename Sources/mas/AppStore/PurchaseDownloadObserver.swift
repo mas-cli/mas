@@ -70,8 +70,7 @@ final class PurchaseDownloadObserver: CKDownloadQueueObserver {
 	}
 }
 
-// swiftlint:disable:next one_declaration_per_file
-private struct ProgressState {
+private struct ProgressState { // swiftlint:disable:this one_declaration_per_file
 	let percentComplete: Float
 	let phase: String
 
