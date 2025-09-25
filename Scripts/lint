@@ -31,7 +31,8 @@ swiftlint --strict --quiet --reporter relative-path
 ((exit_status |= ${?}))
 
 printf -- $'--> 〽️ Markdown\n'
-markdownlint-cli2 '***/*.md'
+# shellcheck disable=SC1036
+markdownlint-cli2 -- ***/*.md(.)
 ((exit_status |= ${?}))
 
 printf -- $'--> 📝 YAML\n'

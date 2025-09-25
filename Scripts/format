@@ -22,7 +22,8 @@ printf -- $'--> 🦅 SwiftLint\n'
 swiftlint --fix --quiet --reporter relative-path
 
 printf -- $'--> 〽️ Markdown\n'
-markdownlint-cli2 --fix '***/*.md'
+# shellcheck disable=SC1036
+markdownlint-cli2 --fix -- ***/*.md(.)
 
 printf -- $'--> 🚷 Non-Executables\n'
 readonly -a non_executables=(Scripts/***/*(N.^f+111))
