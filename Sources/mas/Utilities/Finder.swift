@@ -6,7 +6,7 @@
 //
 
 // periphery:ignore:all
-// swiftformat:disable acronyms,wrap,wrapAttributes,wrapSingleLineComments
+// swiftformat:disable wrap,wrapAttributes,wrapSingleLineComments
 // swiftlint:disable blanket_disable_command
 // swiftlint:disable attributes discouraged_none_name discouraged_optional_collection file_length file_types_order
 // swiftlint:disable identifier_name legacy_objc_type line_length one_declaration_per_file unused_declaration

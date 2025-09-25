@@ -28,8 +28,8 @@ func cannotSearchForNonexistentApp() async {
 	#expect(
 		await consequencesOf(
 			try await MAS.Search.parse([searchTerm]).run(searcher: MockAppStoreSearcher())
-		) // swiftformat:disable indent
-		== UnvaluedConsequences(
+		)
+		== UnvaluedConsequences( // swiftformat:disable indent
 			ExitCode(1),
 			"",
 			"Error: No apps found in the Mac App Store for search term: \(searchTerm)\n"
