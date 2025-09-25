@@ -8,7 +8,7 @@
 
 . "${0:a:h}/_setup_script"
 
-print_notice '📖 Generating man pages for' "$(Scripts/version)" "${@}"
+print_notice '📖 Generating man pages for' "${@}"
 
 export MAS_INSTALL_METHOD="${1:-}"
 

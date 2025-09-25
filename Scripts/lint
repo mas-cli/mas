@@ -12,7 +12,7 @@
 
 . "${0:a:h}/_setup_script"
 
-print_notice '🚨 Linting' "$(Scripts/version)" "${@}"
+print_notice '🚨 Linting' "${@}"
 
 export MAS_INSTALL_METHOD=lint
 

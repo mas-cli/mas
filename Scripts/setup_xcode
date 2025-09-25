@@ -8,7 +8,7 @@
 
 . "${0:a:h}/_setup_script"
 
-print_notice '🔨 Setting up Xcode for' "$(Scripts/version)" "${@}"
+print_notice '🔨 Setting up Xcode for' "${@}"
 
 xcode_sources_dir=.swiftpm/xcode/Sources
 mkdir -p "${xcode_sources_dir}"

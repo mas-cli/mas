@@ -8,14 +8,16 @@
 
 . "${0:a:h}/_setup_script"
 
+print_notice '📦 Packaging installer for' "${@}"
+
+export MAS_DO_NOT_PRINT_NOTICE=
 Scripts/build "${1:-}" "${@:2}"
+unset MAS_DO_NOT_PRINT_NOTICE
 
 build_dir=.build
 destination_dir="${build_dir}/destination"
 mas_executable="${destination_dir}/mas"
 version="$(Scripts/version)"
-
-print_notice '📦 Packaging installer for' "${version}" "${@}"
 
 mkdir -p "${destination_dir}"
 ln -sF "${${mas_executable:h}//[^\/]##/..}${${$(swift build -c release --show-bin-path "${@:2}"):a}##~0}/mas" "${mas_executable}"

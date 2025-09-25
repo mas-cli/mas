@@ -8,7 +8,7 @@
 
 . "${0:a:h}/_setup_script"
 
-print_notice '🎬 Prebuilding' "$(Scripts/version)" "${@}"
+print_notice '🎬 Prebuilding' "${@}"
 
 # Generate Swift file containing build information.
 cat <<EOF >"${1}/MAS+BuildInformation.swift"
