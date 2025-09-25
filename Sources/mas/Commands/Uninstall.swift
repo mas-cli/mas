@@ -6,7 +6,9 @@
 //
 
 internal import ArgumentParser
-private import Collections
+private import Darwin
+private import Foundation
+private import OrderedCollections
 private import ScriptingBridge
 
 extension MAS {

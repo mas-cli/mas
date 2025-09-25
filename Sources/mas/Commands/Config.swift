@@ -6,6 +6,7 @@
 //
 
 internal import ArgumentParser
+private import Darwin
 private import Foundation
 
 private var unknown: String { "unknown" }

@@ -6,6 +6,7 @@
 //
 
 private import Foundation
+private import ObjectiveC
 
 private var applicationsFolder: String { "/Applications" }
 

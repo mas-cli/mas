@@ -5,6 +5,7 @@
 // Copyright © 2024 mas-cli. All rights reserved.
 //
 
+private import Foundation
 private import StoreKit
 
 var region: String {

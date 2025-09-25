@@ -7,6 +7,8 @@
 
 private import AppKit
 internal import ArgumentParser
+private import Foundation
+private import ObjectiveC
 
 private var masScheme: String { "macappstore" }
 

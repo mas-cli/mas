@@ -104,3 +104,21 @@ type_contents_order:
   - subscript
 unneeded_override:
   affect_initializers: true
+unused_import:
+  require_explicit_imports: true
+  allowed_transitive_imports:
+  - module: Darwin
+    allowed_transitive_imports:
+    - _DarwinFoundation1
+    - _DarwinFoundation2
+    - _DarwinFoundation3
+    - _limits
+    - _math
+    - _signal
+    - _stdio
+    - DarwinFoundation
+    - sys_types
+    - unistd
+  - module: Swift
+    allowed_transitive_imports:
+    - _Concurrency

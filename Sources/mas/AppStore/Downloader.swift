@@ -6,6 +6,8 @@
 //
 
 private import CommerceKit
+private import Foundation
+private import StoreFoundation
 
 struct Downloader {
 	let printer: Printer

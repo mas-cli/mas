@@ -5,8 +5,6 @@
 // Copyright © 2024 mas-cli. All rights reserved.
 //
 
-private import Foundation
-
 enum AppID: CustomStringConvertible, Equatable, Hashable {
 	case adamID(ADAMID)
 	case bundleID(String)

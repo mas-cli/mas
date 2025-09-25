@@ -8,6 +8,8 @@
 private import AppKit
 internal import ArgumentParser
 private import CommerceKit
+private import Darwin
+private import Foundation
 
 extension MAS {
 	/// Terminates several macOS processes & deletes files to reset the Mac App

@@ -12,6 +12,9 @@
 // swiftlint:disable:next blanket_disable_command
 // swiftlint:disable identifier_name legacy_objc_type line_length one_declaration_per_file unused_declaration
 internal import AppKit
+private import CoreServices
+private import Foundation
+private import ObjectiveC
 internal import ScriptingBridge
 
 // MARK: FinderEdfm

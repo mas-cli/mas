@@ -6,6 +6,9 @@
 //
 
 internal import CommerceKit
+private import Darwin
+private import Foundation
+private import StoreFoundation
 
 private var downloadingPhaseType: Int64 { 0 }
 private var installingPhaseType: Int64 { 1 }

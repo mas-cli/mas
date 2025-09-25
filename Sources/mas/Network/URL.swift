@@ -6,6 +6,8 @@
 //
 
 private import AppKit
+private import Foundation
+private import ObjectiveC
 
 extension URL {
 	func open() async throws {
