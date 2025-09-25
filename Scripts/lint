@@ -14,10 +14,11 @@
 
 print_notice '🚨 Linting' "${@}"
 
-export MAS_INSTALL_METHOD=lint
-
 # shellcheck disable=SC2310
 ensure_command_available git markdownlint-cli2 periphery shellcheck swiftformat swiftlint yamllint || exit "${?}"
+
+zmodload zsh/zutil
+zparseopts -D -A opts A P
 
 exit_status=0
 
@@ -29,6 +30,28 @@ script -q /dev/null swiftformat --lint --markdown-files format-strict . |
 printf -- $'--> 🦅 SwiftLint\n'
 swiftlint --strict --quiet --reporter relative-path
 ((exit_status |= ${?}))
+
+# shellcheck disable=SC1046,SC1047,SC1072,SC1073
+if ! [[ -v 'opts[-A]' ]]; then
+	printf -- $'--> 🔬 SwiftLint Analyze\n'
+	export MAS_DO_NOT_PRINT_NOTICE=
+	Scripts/setup_xcode
+	unset MAS_DO_NOT_PRINT_NOTICE
+	export MAS_INSTALL_METHOD=lint
+	# shellcheck disable=SC1036
+	swiftlint analyze --strict --quiet --reporter relative-path --compiler-log-path\
+	 =(xcodebuild -scheme mas -configuration Release -destination "platform=macOS,arch=$(arch),variant=macos" 2>&1) |&
+	 (grep -vxE '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{3} xcodebuild\[\d+:\d+\] \[MT\] IDERunDestination: Supported platforms for the buildables in the current scheme is empty\.' || true)
+	((exit_status |= ${?}))
+fi
+
+if ! [[ -v 'opts[-P]' ]]; then
+	printf -- $'--> 🌀 Periphery\n'
+	export MAS_INSTALL_METHOD=lint
+	script -q /dev/null periphery scan |
+	 (grep -vxE '(?:\x1b\[0;1;32m|\^D\x08{2})\* (?:\x1b\[0;0m\x1b\[0;1m)?No unused code detected\.(?:\x1b\[0;0m)?\r' || true)
+	((exit_status |= ${?}))
+fi
 
 printf -- $'--> 〽️ Markdown\n'
 # shellcheck disable=SC1036
@@ -59,10 +82,5 @@ if ((${#non_executables[@]})); then
 	printf $'%s\n' "${non_executables[@]}"
 	((exit_status |= 1))
 fi
-
-printf -- $'--> 🌀 Periphery\n'
-script -q /dev/null periphery scan |
- (grep -vxE '(?:\x1b\[0;1;32m|\^D\x08{2})\* (?:\x1b\[0;0m\x1b\[0;1m)?No unused code detected\.(?:\x1b\[0;0m)?\r' || true)
-((exit_status |= ${?}))
 
 exit "${exit_status}"
