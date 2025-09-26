@@ -21,9 +21,9 @@ private let swiftSettings = [
 ]
 
 _ = Package(
-	name: "mas",
+	name: "MAS",
 	platforms: [.macOS(.v10_15)],
-	products: [.executable(name: "mas", targets: ["mas"])],
+	products: [.executable(name: "mas", targets: ["MAS"])],
 	dependencies: [
 		.package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.6.1"),
 		.package(url: "https://github.com/apple/swift-atomics.git", from: "1.3.0"),
@@ -33,7 +33,7 @@ _ = Package(
 	targets: [
 		.plugin(name: "MASBuildToolPlugin", capability: .buildTool()),
 		.executableTarget(
-			name: "mas",
+			name: "MAS",
 			dependencies: [
 				.product(name: "ArgumentParser", package: "swift-argument-parser"),
 				.product(name: "Atomics", package: "swift-atomics"),
@@ -46,8 +46,8 @@ _ = Package(
 			plugins: [.plugin(name: "MASBuildToolPlugin")]
 		),
 		.testTarget(
-			name: "masTests",
-			dependencies: ["mas"],
+			name: "MASTests",
+			dependencies: ["MAS"],
 			resources: [.copy("Resources")],
 			swiftSettings: swiftSettings
 		),
