@@ -8,7 +8,7 @@
 
 . "${0:a:h}/_setup_script"
 
-print_notice '🗑​ Cleaning' "$(Scripts/version)" "${@}"
+print_notice '🗑​ Cleaning' "${@}"
 
 swift package clean
 swift package reset

@@ -42,13 +42,15 @@ if ! cd -- "${mas_dir}"; then
 fi
 
 print_notice() {
+	[[ -v MAS_DO_NOT_PRINT_NOTICE ]] && return
+
 	local prefix
 	if [[ -t 1 ]]; then
 		prefix=$'\e[1;34m==>\e[0m'
 	else
 		prefix=$'==>'
 	fi
-	printf $'%s %s mas %s%s\n' "${prefix}" "${@:1:2}" "${${*:3}:+ (arguments: ${*:3})}"
+	printf $'%s %s mas %s%s\n' "${prefix}" "${1}" "${MAS_VERSION:-$(Scripts/version)}" "${${*:2}:+ (arguments: ${*:2})}"
 }
 
 ensure_command_available() {

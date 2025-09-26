@@ -5,7 +5,8 @@
 // Copyright © 2024 mas-cli. All rights reserved.
 //
 
-internal import Foundation
+internal import Darwin
+private import Foundation
 
 extension ProcessInfo {
 	var sudoUserName: String? {

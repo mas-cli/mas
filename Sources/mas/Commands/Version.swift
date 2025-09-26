@@ -8,7 +8,7 @@
 internal import ArgumentParser
 
 extension MAS {
-	/// Outputs the version of the mas tool.
+	/// Outputs the version of mas.
 	struct Version: ParsableCommand {
 		static let configuration = CommandConfiguration(
 			abstract: "Output version number"

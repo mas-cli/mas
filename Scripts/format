@@ -10,9 +10,12 @@
 
 . "${0:a:h}/_setup_script"
 
-print_notice '🧹 Formatting' "$(Scripts/version)" "${@}"
+print_notice '🧹 Formatting' "${@}"
 
 ensure_command_available markdownlint-cli2 swiftformat swiftlint
+
+zmodload zsh/zutil
+zparseopts -D -A opts A
 
 printf -- $'--> 🕊​ SwiftFormat\n'
 script -q /dev/null swiftformat --strict --markdown-files format-strict . |
@@ -21,8 +24,22 @@ script -q /dev/null swiftformat --strict --markdown-files format-strict . |
 printf -- $'--> 🦅 SwiftLint\n'
 swiftlint --fix --quiet --reporter relative-path
 
+# shellcheck disable=SC1046,SC1047,SC1072,SC1073
+if ! [[ -v 'opts[-A]' ]]; then
+	printf -- $'--> 🔬 SwiftLint Analyze\n'
+	export MAS_DO_NOT_PRINT_NOTICE=
+	Scripts/setup_xcode
+	unset MAS_DO_NOT_PRINT_NOTICE
+	export MAS_INSTALL_METHOD=format
+	# shellcheck disable=SC1036
+	swiftlint analyze --fix --quiet --reporter relative-path --compiler-log-path\
+	 =(xcodebuild -scheme mas -configuration Release -destination "platform=macOS,arch=$(arch),variant=macos" 2>&1) |&
+	 (grep -vxE '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{3} xcodebuild\[\d+:\d+\] \[MT\] IDERunDestination: Supported platforms for the buildables in the current scheme is empty\.' || true)
+fi
+
 printf -- $'--> 〽️ Markdown\n'
-markdownlint-cli2 --fix '***/*.md'
+# shellcheck disable=SC1036
+markdownlint-cli2 --fix -- ***/*.md(.)
 
 printf -- $'--> 🚷 Non-Executables\n'
 readonly -a non_executables=(Scripts/***/*(N.^f+111))

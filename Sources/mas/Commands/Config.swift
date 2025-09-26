@@ -6,6 +6,7 @@
 //
 
 internal import ArgumentParser
+private import Darwin
 private import Foundation
 
 private var unknown: String { "unknown" }
@@ -26,7 +27,7 @@ extension MAS {
 			try await mas.run { await run(printer: $0) }
 		}
 
-		func run(printer: Printer) async { // swiftformat:disable:this redundantAsync
+		func run(printer: Printer) async {
 			if markdown {
 				printer.info("```text")
 			}

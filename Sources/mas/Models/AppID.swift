@@ -5,8 +5,6 @@
 // Copyright © 2024 mas-cli. All rights reserved.
 //
 
-private import Foundation
-
 enum AppID: CustomStringConvertible, Equatable, Hashable {
 	case adamID(ADAMID)
 	case bundleID(String)
@@ -53,17 +51,3 @@ enum AppID: CustomStringConvertible, Equatable, Hashable {
 }
 
 typealias ADAMID = UInt64
-
-// swiftlint:disable:next one_declaration_per_file
-protocol AppIdentifying {
-	var adamID: ADAMID { get }
-	var bundleID: String { get }
-}
-
-extension AppIdentifying {
-	var id: AppID {
-		bundleID.isEmpty
-		? .adamID(adamID) // swiftformat:disable:this indent
-		: .bundleID(bundleID)
-	}
-}

@@ -11,7 +11,6 @@
 ensure_command_available ipsw
 
 zmodload zsh/zutil
-
 zparseopts -D -A opts C X
 
 frameworks=("${@:-*(/)}")

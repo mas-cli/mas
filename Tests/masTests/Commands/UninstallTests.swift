@@ -28,7 +28,7 @@ func uninstallDryRunCannotRemoveMissingApp() {
 
 @Test(.disabled())
 func uninstallDryRunFindsApp() {
-	#expect( // swiftformat:disable:next indent
+	#expect(
 		consequencesOf(try MAS.Uninstall.parse(["--dry-run", String(adamID)]).run(installedApps: [app]))
 		== UnvaluedConsequences(nil, "==> 'Some App' '/tmp/Some.app'\n==> (not removed, dry run)\n")
 	) // swiftformat:disable:previous indent

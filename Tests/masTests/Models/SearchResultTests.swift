@@ -13,10 +13,8 @@ internal import Testing
 func parsesSearchResultFromThingsThatGoBumpJSON() {
 	#expect(
 		consequencesOf(
-			try JSONDecoder() // swiftformat:disable indent
-			.decode(SearchResult.self, from: Data(fromResource: "search/things-that-go-bump.json"))
-			.trackId
-		) // swiftformat:enable indent
+			try JSONDecoder().decode(SearchResult.self, from: Data(fromResource: "search/things-that-go-bump.json")).trackId
+		)
 		== ValuedConsequences(1_472_954_003) // swiftformat:disable:this indent
 	)
 }

@@ -6,7 +6,7 @@
 //
 
 struct SearchResult: Decodable {
-	var bundleId = ""
+	var bundleId = "" // swiftlint:disable:this unused_declaration
 	var currentVersionReleaseDate = ""
 	var fileSizeBytes = "0"
 	var formattedPrice = "0" as String?

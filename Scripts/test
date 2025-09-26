@@ -8,7 +8,7 @@
 
 . "${0:a:h}/_setup_script"
 
-print_notice '🧪 Testing' "$(Scripts/version)" "${@}"
+print_notice '🧪 Testing' "${@}"
 
 export MAS_INSTALL_METHOD=test
 
