@@ -30,8 +30,7 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 	/// - Throws: A `MASError.unknownAppID(appID)` if `appID` is invalid.
 	///   Some other `Error` if any other problem occurs.
 	func lookup(appID: AppID, inRegion region: String) async throws -> SearchResult {
-		let results = try await getSearchResults(from: try lookupURL(forAppID: appID, inRegion: region))
-		guard let result = results.first else {
+		guard let result = try await getSearchResults(from: try lookupURL(forAppID: appID, inRegion: region)).first else {
 			throw MASError.unknownAppID(appID)
 		}
 
@@ -44,7 +43,7 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 	///   - searchTerm: Term for which to search.
 	///   - region: The ISO 3166-1 region alpha-2 of the storefront in which to
 	///     search for apps.
-	/// - Returns: An `Array` of `SearchResult`s matching `searchTerm`.
+	/// - Returns: A `[SearchResult]` matching `searchTerm`.
 	/// - Throws: An `Error` if any problem occurs.
 	func search(for searchTerm: String, inRegion region: String) async throws -> [SearchResult] {
 		try await getSearchResults(from: try searchURL(for: searchTerm, inRegion: region))
