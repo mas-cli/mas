@@ -24,7 +24,6 @@ extension MAS {
 		@OptionGroup
 		var appIDsOptionGroup: AppIDsOptionGroup
 
-		/// Runs the command.
 		func run() async throws {
 			try run(installedApps: await installedApps)
 		}

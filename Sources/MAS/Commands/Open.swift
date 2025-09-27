@@ -28,7 +28,6 @@ extension MAS {
 		@Argument(help: ArgumentHelp("App ID", valueName: "app-id"))
 		var appIDString: String?
 
-		/// Runs the command.
 		func run() async throws {
 			try await run(searcher: ITunesSearchAppStoreSearcher())
 		}

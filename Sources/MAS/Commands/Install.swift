@@ -19,7 +19,6 @@ extension MAS {
 		@OptionGroup
 		var appIDsOptionGroup: AppIDsOptionGroup
 
-		/// Runs the command.
 		func run() async throws {
 			try await run(installedApps: await installedApps, searcher: ITunesSearchAppStoreSearcher())
 		}

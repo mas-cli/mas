@@ -14,7 +14,6 @@ extension MAS {
 			abstract: "List all apps installed from the Mac App Store"
 		)
 
-		/// Runs the command.
 		func run() async throws {
 			try run(installedApps: await installedApps)
 		}

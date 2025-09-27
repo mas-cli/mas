@@ -19,7 +19,6 @@ extension MAS {
 			abstract: "Reset Mac App Store processes"
 		)
 
-		/// Runs the command.
 		func run() throws {
 			try MAS.run { run(printer: $0) }
 		}

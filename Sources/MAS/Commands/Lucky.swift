@@ -25,7 +25,6 @@ extension MAS {
 		@OptionGroup
 		var searchTermOptionGroup: SearchTermOptionGroup
 
-		/// Runs the command.
 		func run() async throws {
 			try await run(installedApps: await installedApps, searcher: ITunesSearchAppStoreSearcher())
 		}

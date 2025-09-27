@@ -18,7 +18,6 @@ extension MAS {
 		@OptionGroup
 		var verboseOptionGroup: VerboseOptionGroup
 
-		/// Runs the command.
 		func run() async throws {
 			try await run(installedApps: await installedApps, searcher: ITunesSearchAppStoreSearcher())
 		}

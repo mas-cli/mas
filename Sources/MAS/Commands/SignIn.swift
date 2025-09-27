@@ -23,7 +23,6 @@ extension MAS {
 		@Argument(help: "Password")
 		var password = "" // swiftlint:disable:this unused_declaration
 
-		/// Runs the command.
 		func run() throws {
 			try MAS.run { try run(printer: $0) }
 		}

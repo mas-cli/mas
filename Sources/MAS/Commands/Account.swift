@@ -14,7 +14,6 @@ extension MAS {
 			abstract: "Output the Apple Account signed in to the Mac App Store"
 		)
 
-		/// Runs the command.
 		func run() async throws {
 			try await MAS.run { try await run(printer: $0) }
 		}
