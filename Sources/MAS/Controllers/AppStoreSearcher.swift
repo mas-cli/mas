@@ -24,7 +24,7 @@ protocol AppStoreSearcher {
 	///   - searchTerm: Term for which to search.
 	///   - region: The ISO 3166-1 region alpha-2 of the storefront in which to
 	///     search for apps.
-	/// - Returns: An `Array` of `SearchResult`s matching `searchTerm`.
+	/// - Returns: A `[SearchResult]` matching `searchTerm`.
 	/// - Throws: An `Error` if any problem occurs.
 	func search(for searchTerm: String, inRegion region: String) async throws -> [SearchResult]
 }
@@ -43,7 +43,7 @@ extension AppStoreSearcher {
 	/// Searches for apps.
 	///
 	/// - Parameter searchTerm: Term for which to search.
-	/// - Returns: An `Array` of `SearchResult`s matching `searchTerm`.
+	/// - Returns: A `[SearchResult]` matching `searchTerm`.
 	/// - Throws: An `Error` if any problem occurs.
 	func search(for searchTerm: String) async throws -> [SearchResult] {
 		try await search(for: searchTerm, inRegion: await region)
