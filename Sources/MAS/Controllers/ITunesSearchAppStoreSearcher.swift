@@ -30,8 +30,7 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 	/// - Throws: A `MASError.unknownAppID(appID)` if `appID` is invalid.
 	///   Some other `Error` if any other problem occurs.
 	func lookup(appID: AppID, inRegion region: String) async throws -> SearchResult {
-		let results = try await getSearchResults(from: try lookupURL(forAppID: appID, inRegion: region))
-		guard let result = results.first else {
+		guard let result = try await getSearchResults(from: try lookupURL(forAppID: appID, inRegion: region)).first else {
 			throw MASError.unknownAppID(appID)
 		}
 
