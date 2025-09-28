@@ -96,7 +96,7 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 		urlComponents.queryItems = queryItems
 
 		guard let url = urlComponents.url else {
-			throw MASError.urlParsing("\(urlBase)?\(queryItems.map(\.description).joined(separator: "&"))")
+			throw MASError.urlParsing("\(urlBase)?\(queryItems.map { String(describing: $0) }.joined(separator: "&"))")
 		}
 
 		return url
