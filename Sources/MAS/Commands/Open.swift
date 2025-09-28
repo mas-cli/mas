@@ -43,9 +43,11 @@ extension MAS {
 				return
 			}
 
-			try await openInMacAppStore(
-				pageForAppID: AppID(from: appIDString, forceBundleID: forceBundleIDOptionGroup.forceBundleID),
-				searcher: searcher
+			try await openMacAppStorePage(
+				forURLString: try await searcher.lookup(
+					appID: AppID(from: appIDString, forceBundleID: forceBundleIDOptionGroup.forceBundleID)
+				)
+				.trackViewUrl
 			)
 		}
 	}
@@ -62,8 +64,7 @@ private func openMacAppStore() async throws {
 	try await NSWorkspace.shared.openApplication(at: appURL, configuration: NSWorkspace.OpenConfiguration())
 }
 
-private func openInMacAppStore(pageForAppID appID: AppID, searcher: AppStoreSearcher) async throws {
-	let urlString = try await searcher.lookup(appID: appID).trackViewUrl
+private func openMacAppStorePage(forURLString urlString: String) async throws {
 	guard var urlComponents = URLComponents(string: urlString) else {
 		throw MASError.urlParsing(urlString)
 	}

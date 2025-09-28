@@ -19,14 +19,10 @@ struct SearchResult: Decodable {
 	var version = ""
 }
 
-extension SearchResult {
-	var adamID: ADAMID {
-		trackId
-	}
-
-	var outputPrice: String {
-		formattedPrice ?? "?"
-	}
+extension SearchResult: AppIdentifying {
+	var adamID: ADAMID { trackId }
+	var bundleID: String { bundleId }
+	var outputPrice: String { formattedPrice ?? "?" }
 }
 
 extension SearchResult: Hashable {
