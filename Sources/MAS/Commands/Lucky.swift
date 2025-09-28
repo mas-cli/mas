@@ -37,11 +37,9 @@ extension MAS {
 
 		private func run(downloader: Downloader, installedApps: [InstalledApp], searcher: AppStoreSearcher) async throws {
 			let searchTerm = searchTermOptionGroup.searchTerm
-			guard let result = try await searcher.search(for: searchTerm).first else {
+			guard let adamID = try await searcher.search(for: searchTerm).first?.adamID else {
 				throw MASError.noSearchResultsFound(for: searchTerm)
 			}
-
-			let adamID = result.adamID
 
 			if let installedApp = installedApps.first(where: { $0.adamID == adamID }), !forceOptionGroup.force {
 				downloader.printer.warning(

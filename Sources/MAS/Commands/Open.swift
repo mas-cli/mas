@@ -63,14 +63,12 @@ private func openMacAppStore() async throws {
 }
 
 private func openInMacAppStore(pageForAppID appID: AppID, searcher: AppStoreSearcher) async throws {
-	let result = try await searcher.lookup(appID: appID)
-
-	guard var urlComponents = URLComponents(string: result.trackViewUrl) else {
-		throw MASError.urlParsing(result.trackViewUrl)
+	let urlString = try await searcher.lookup(appID: appID).trackViewUrl
+	guard var urlComponents = URLComponents(string: urlString) else {
+		throw MASError.urlParsing(urlString)
 	}
 
 	urlComponents.scheme = masScheme
-
 	guard let url = urlComponents.url else {
 		throw MASError.urlParsing(String(describing: urlComponents))
 	}
