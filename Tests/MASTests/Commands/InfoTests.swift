@@ -19,7 +19,7 @@ func cannotFindAppInfoForUnknownAppID() async {
 
 @Test
 func outputsAppInfo() async {
-	let mockResult = SearchResult(
+	let result = SearchResult(
 		currentVersionReleaseDate: "2019-01-07T18:53:13Z",
 		fileSizeBytes: "1024",
 		formattedPrice: "$2.00",
@@ -32,8 +32,8 @@ func outputsAppInfo() async {
 	)
 	#expect(
 		await consequencesOf(
-			try await MAS.Info.parse([String(mockResult.trackId)]).run(
-				searcher: MockAppStoreSearcher([.adamID(mockResult.adamID): mockResult])
+			try await MAS.Info.parse([String(result.trackId)]).run(
+				searcher: MockAppStoreSearcher([.adamID(result.adamID): result])
 			)
 		)
 		== UnvaluedConsequences( // swiftformat:disable indent
