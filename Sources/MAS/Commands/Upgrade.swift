@@ -32,25 +32,25 @@ extension MAS {
 		}
 
 		private func run(downloader: Downloader, installedApps: [InstalledApp], searcher: AppStoreSearcher) async {
-			let apps = await findOutdatedApps(printer: downloader.printer, installedApps: installedApps, searcher: searcher)
-
-			guard !apps.isEmpty else {
+			let installedApps =
+				await findOutdatedApps(printer: downloader.printer, installedApps: installedApps, searcher: searcher)
+			guard !installedApps.isEmpty else {
 				return
 			}
 
 			downloader.printer.info(
 				"Upgrading ",
-				apps.count,
+				installedApps.count,
 				" outdated application",
-				apps.count > 1 ? "s:\n" : ":\n",
-				apps.map { installedApp, storeApp in
+				installedApps.count > 1 ? "s:\n" : ":\n",
+				installedApps.map { installedApp, storeApp in
 					"\(storeApp.trackName) (\(installedApp.version)) -> (\(storeApp.version))"
 				}
 				.joined(separator: "\n"),
 				separator: ""
 			)
 
-			for adamID in apps.map(\.storeApp.adamID) {
+			for adamID in installedApps.map(\.storeApp.adamID) {
 				do {
 					try await downloader.downloadApp(withADAMID: adamID)
 				} catch {
