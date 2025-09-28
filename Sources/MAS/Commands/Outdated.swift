@@ -17,6 +17,8 @@ extension MAS {
 
 		@OptionGroup
 		var verboseOptionGroup: VerboseOptionGroup
+		@OptionGroup
+		var optionalAppIDsOptionGroup: OptionalAppIDsOptionGroup
 
 		func run() async throws {
 			try await run(installedApps: await installedApps, searcher: ITunesSearchAppStoreSearcher())
@@ -27,7 +29,7 @@ extension MAS {
 		}
 
 		private func run(printer: Printer, installedApps: [InstalledApp], searcher: AppStoreSearcher) async {
-			for installedApp in installedApps {
+			for installedApp in installedApps.filter(by: optionalAppIDsOptionGroup, printer: printer) {
 				do {
 					let storeApp = try await searcher.lookup(appID: installedApp.id)
 					if installedApp.isOutdated(comparedTo: storeApp) {

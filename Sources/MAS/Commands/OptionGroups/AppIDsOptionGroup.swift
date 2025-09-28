@@ -33,3 +33,17 @@ extension AppIDsOptionGroup {
 		}
 	}
 }
+
+extension Array where Element: AppIdentifying {
+	func filter(by appIDsOptionGroup: any AppIDsOptionGroup, printer: Printer) -> [Element] {
+		appIDsOptionGroup.appIDStrings.isEmpty
+		? self // swiftformat:disable:this indent
+		: appIDsOptionGroup.appIDs.flatMap { appID in
+			let appIdentifyings = filter { appID.matches($0) }
+			if appIdentifyings.isEmpty {
+				printer.error(appID.notInstalledMessage)
+			}
+			return appIdentifyings
+		}
+	}
+}

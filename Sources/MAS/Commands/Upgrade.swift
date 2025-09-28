@@ -62,19 +62,8 @@ extension MAS {
 			installedApps: [InstalledApp],
 			searcher: AppStoreSearcher
 		) async -> [(installedApp: InstalledApp, storeApp: SearchResult)] {
-			let apps = optionalAppIDsOptionGroup.appIDStrings.isEmpty
-			? installedApps // swiftformat:disable:this indent
-			: optionalAppIDsOptionGroup.appIDStrings.flatMap { appIDString in
-				let appID = AppID(from: appIDString, forceBundleID: optionalAppIDsOptionGroup.forceBundleID)
-				let installedApps = installedApps.filter { appID.matches($0) }
-				if installedApps.isEmpty {
-					printer.error(appID.notInstalledMessage)
-				}
-				return installedApps
-			}
-
 			var outdatedApps = [(InstalledApp, SearchResult)]()
-			for installedApp in apps {
+			for installedApp in installedApps.filter(by: optionalAppIDsOptionGroup, printer: printer) {
 				do {
 					let storeApp = try await searcher.lookup(appID: .adamID(installedApp.adamID))
 					if installedApp.isOutdated(comparedTo: storeApp) {
