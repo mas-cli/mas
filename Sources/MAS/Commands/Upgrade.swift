@@ -16,10 +16,8 @@ extension MAS {
 
 		@OptionGroup
 		var verboseOptionGroup: VerboseOptionGroup
-		@Flag(name: .customLong("bundle"), help: ArgumentHelp("Process all app IDs as bundle IDs"))
-		var forceBundleID = false
-		@Argument(help: ArgumentHelp("App ID", valueName: "app-id"))
-		var appIDStrings = [String]()
+		@OptionGroup
+		var optionalAppIDsOptionGroup: OptionalAppIDsOptionGroup
 
 		func run() async throws {
 			try await run(installedApps: await installedApps, searcher: ITunesSearchAppStoreSearcher())
@@ -64,10 +62,10 @@ extension MAS {
 			installedApps: [InstalledApp],
 			searcher: AppStoreSearcher
 		) async -> [(installedApp: InstalledApp, storeApp: SearchResult)] {
-			let apps = appIDStrings.isEmpty
+			let apps = optionalAppIDsOptionGroup.appIDStrings.isEmpty
 			? installedApps // swiftformat:disable:this indent
-			: appIDStrings.flatMap { appIDString in
-				let appID = AppID(from: appIDString, forceBundleID: forceBundleID)
+			: optionalAppIDsOptionGroup.appIDStrings.flatMap { appIDString in
+				let appID = AppID(from: appIDString, forceBundleID: optionalAppIDsOptionGroup.forceBundleID)
 				let installedApps = installedApps.filter { appID.matches($0) }
 				if installedApps.isEmpty {
 					printer.error(appID.notInstalledMessage)

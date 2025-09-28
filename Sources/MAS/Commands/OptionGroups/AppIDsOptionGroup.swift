@@ -7,13 +7,29 @@
 
 internal import ArgumentParser
 
-struct AppIDsOptionGroup: ParsableArguments {
-	@Flag(name: .customLong("bundle"), help: ArgumentHelp("Process all app IDs as bundle IDs"))
-	var forceBundleID = false
-	@Argument(help: ArgumentHelp("App ID", valueName: "app-id"))
-	var appIDStrings: [String]
+protocol AppIDsOptionGroup: ParsableArguments {
+	var forceBundleIDOptionGroup: ForceBundleIDOptionGroup { get }
+	var forceBundleID: Bool { get }
+	var appIDStrings: [String] { get }
+	var appIDs: [AppID] { get }
+}
+
+extension AppIDsOptionGroup {
+	var forceBundleID: Bool {
+		forceBundleIDOptionGroup.forceBundleID
+	}
 
 	var appIDs: [AppID] {
-		appIDStrings.compactMap { AppID(from: $0, forceBundleID: forceBundleID) }
+		appIDStrings.map { AppID(from: $0, forceBundleID: forceBundleID) }
+	}
+
+	func forEachAppID(printer: Printer, _ body: (AppID) async throws -> Void) async {
+		for appID in appIDs {
+			do {
+				try await body(appID)
+			} catch {
+				printer.error(error: error)
+			}
+		}
 	}
 }

@@ -17,7 +17,7 @@ extension MAS {
 		@OptionGroup
 		var forceOptionGroup: ForceOptionGroup
 		@OptionGroup
-		var appIDsOptionGroup: AppIDsOptionGroup
+		var requiredAppIDsOptionGroup: RequiredAppIDsOptionGroup
 
 		func run() async throws {
 			try await run(installedApps: await installedApps, searcher: ITunesSearchAppStoreSearcher())
@@ -26,7 +26,7 @@ extension MAS {
 		func run(installedApps: [InstalledApp], searcher: AppStoreSearcher) async throws {
 			try await MAS.run { printer in
 				await Downloader(printer: printer).downloadApps(
-					withAppIDs: appIDsOptionGroup.appIDs,
+					withAppIDs: requiredAppIDsOptionGroup.appIDs,
 					purchasing: false,
 					forceDownload: forceOptionGroup.force,
 					installedApps: installedApps,

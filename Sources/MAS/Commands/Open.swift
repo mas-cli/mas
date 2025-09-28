@@ -23,8 +23,8 @@ extension MAS {
 			abstract: "Open app page in 'App Store.app'"
 		)
 
-		@Flag(name: .customLong("bundle"), help: ArgumentHelp("Process all app IDs as bundle IDs"))
-		var forceBundleID = false
+		@OptionGroup
+		var forceBundleIDOptionGroup: ForceBundleIDOptionGroup
 		@Argument(help: ArgumentHelp("App ID", valueName: "app-id"))
 		var appIDString: String?
 
@@ -44,7 +44,7 @@ extension MAS {
 			}
 
 			try await openInMacAppStore(
-				pageForAppID: AppID(from: appIDString, forceBundleID: forceBundleID),
+				pageForAppID: AppID(from: appIDString, forceBundleID: forceBundleIDOptionGroup.forceBundleID),
 				searcher: searcher
 			)
 		}
