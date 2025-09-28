@@ -22,7 +22,6 @@ extension MAS {
 		@Flag(help: "Output as Markdown")
 		var markdown = false
 
-		/// Runs the command.
 		func run() async throws {
 			try await MAS.run { await run(printer: $0) }
 		}

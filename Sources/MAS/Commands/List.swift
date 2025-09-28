@@ -14,7 +14,9 @@ extension MAS {
 			abstract: "List all apps installed from the Mac App Store"
 		)
 
-		/// Runs the command.
+		@OptionGroup
+		var optionalAppIDsOptionGroup: OptionalAppIDsOptionGroup
+
 		func run() async throws {
 			try run(installedApps: await installedApps)
 		}
@@ -24,6 +26,7 @@ extension MAS {
 		}
 
 		private func run(printer: Printer, installedApps: [InstalledApp]) {
+			let installedApps = installedApps.filter(by: optionalAppIDsOptionGroup, printer: printer)
 			if installedApps.isEmpty {
 				printer.warning(
 					"""

@@ -23,12 +23,11 @@ extension MAS {
 			abstract: "Open app page in 'App Store.app'"
 		)
 
-		@Flag(name: .customLong("bundle"), help: ArgumentHelp("Process all app IDs as bundle IDs"))
-		var forceBundleID = false
+		@OptionGroup
+		var forceBundleIDOptionGroup: ForceBundleIDOptionGroup
 		@Argument(help: ArgumentHelp("App ID", valueName: "app-id"))
 		var appIDString: String?
 
-		/// Runs the command.
 		func run() async throws {
 			try await run(searcher: ITunesSearchAppStoreSearcher())
 		}
@@ -45,7 +44,7 @@ extension MAS {
 			}
 
 			try await openInMacAppStore(
-				pageForAppID: AppID(from: appIDString, forceBundleID: forceBundleID),
+				pageForAppID: AppID(from: appIDString, forceBundleID: forceBundleIDOptionGroup.forceBundleID),
 				searcher: searcher
 			)
 		}
@@ -64,14 +63,12 @@ private func openMacAppStore() async throws {
 }
 
 private func openInMacAppStore(pageForAppID appID: AppID, searcher: AppStoreSearcher) async throws {
-	let result = try await searcher.lookup(appID: appID)
-
-	guard var urlComponents = URLComponents(string: result.trackViewUrl) else {
-		throw MASError.urlParsing(result.trackViewUrl)
+	let urlString = try await searcher.lookup(appID: appID).trackViewUrl
+	guard var urlComponents = URLComponents(string: urlString) else {
+		throw MASError.urlParsing(urlString)
 	}
 
 	urlComponents.scheme = masScheme
-
 	guard let url = urlComponents.url else {
 		throw MASError.urlParsing(String(describing: urlComponents))
 	}

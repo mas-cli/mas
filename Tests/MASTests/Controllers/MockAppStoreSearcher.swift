@@ -8,14 +8,14 @@
 @testable internal import MAS
 
 struct MockAppStoreSearcher: AppStoreSearcher {
-	let apps: [AppID: SearchResult]
+	private let resultByAppID: [AppID: SearchResult]
 
-	init(_ apps: [AppID: SearchResult] = [:]) {
-		self.apps = apps
+	init(_ resultByAppID: [AppID: SearchResult] = [:]) {
+		self.resultByAppID = resultByAppID
 	}
 
 	func lookup(appID: AppID, inRegion _: String) throws -> SearchResult {
-		guard let result = apps[appID] else {
+		guard let result = resultByAppID[appID] else {
 			throw MASError.unknownAppID(appID)
 		}
 
@@ -23,6 +23,6 @@ struct MockAppStoreSearcher: AppStoreSearcher {
 	}
 
 	func search(for searchTerm: String, inRegion _: String) -> [SearchResult] {
-		apps.filter { $1.trackName.contains(searchTerm) }.map { $1 }
+		resultByAppID.filter { $1.trackName.contains(searchTerm) }.map { $1 }
 	}
 }

@@ -16,12 +16,9 @@ extension MAS {
 
 		@OptionGroup
 		var verboseOptionGroup: VerboseOptionGroup
-		@Flag(name: .customLong("bundle"), help: ArgumentHelp("Process all app IDs as bundle IDs"))
-		var forceBundleID = false
-		@Argument(help: ArgumentHelp("App ID", valueName: "app-id"))
-		var appIDStrings = [String]()
+		@OptionGroup
+		var optionalAppIDsOptionGroup: OptionalAppIDsOptionGroup
 
-		/// Runs the command.
 		func run() async throws {
 			try await run(installedApps: await installedApps, searcher: ITunesSearchAppStoreSearcher())
 		}
@@ -33,25 +30,25 @@ extension MAS {
 		}
 
 		private func run(downloader: Downloader, installedApps: [InstalledApp], searcher: AppStoreSearcher) async {
-			let apps = await findOutdatedApps(printer: downloader.printer, installedApps: installedApps, searcher: searcher)
-
-			guard !apps.isEmpty else {
+			let installedApps =
+				await findOutdatedApps(printer: downloader.printer, installedApps: installedApps, searcher: searcher)
+			guard !installedApps.isEmpty else {
 				return
 			}
 
 			downloader.printer.info(
 				"Upgrading ",
-				apps.count,
+				installedApps.count,
 				" outdated application",
-				apps.count > 1 ? "s:\n" : ":\n",
-				apps.map { installedApp, storeApp in
+				installedApps.count > 1 ? "s:\n" : ":\n",
+				installedApps.map { installedApp, storeApp in
 					"\(storeApp.trackName) (\(installedApp.version)) -> (\(storeApp.version))"
 				}
 				.joined(separator: "\n"),
 				separator: ""
 			)
 
-			for adamID in apps.map(\.storeApp.adamID) {
+			for adamID in installedApps.map(\.storeApp.adamID) {
 				do {
 					try await downloader.downloadApp(withADAMID: adamID)
 				} catch {
@@ -65,19 +62,8 @@ extension MAS {
 			installedApps: [InstalledApp],
 			searcher: AppStoreSearcher
 		) async -> [(installedApp: InstalledApp, storeApp: SearchResult)] {
-			let apps = appIDStrings.isEmpty
-			? installedApps // swiftformat:disable:this indent
-			: appIDStrings.flatMap { appIDString in
-				let appID = AppID(from: appIDString, forceBundleID: forceBundleID)
-				let installedApps = installedApps.filter { appID.matches($0) }
-				if installedApps.isEmpty {
-					printer.error(appID.notInstalledMessage)
-				}
-				return installedApps
-			}
-
 			var outdatedApps = [(InstalledApp, SearchResult)]()
-			for installedApp in apps {
+			for installedApp in installedApps.filter(by: optionalAppIDsOptionGroup, printer: printer) {
 				do {
 					let storeApp = try await searcher.lookup(appID: .adamID(installedApp.adamID))
 					if installedApp.isOutdated(comparedTo: storeApp) {

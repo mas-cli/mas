@@ -14,7 +14,6 @@ extension MAS {
 			abstract: "Output the region of the Mac App Store"
 		)
 
-		/// Runs the command.
 		func run() async throws {
 			try await MAS.run { await run(printer: $0) }
 		}

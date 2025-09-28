@@ -16,7 +16,6 @@ extension MAS {
 			abstract: "Sign out of the Apple Account currently signed in to the Mac App Store"
 		)
 
-		/// Runs the command.
 		func run() throws {
 			try MAS.run { run(printer: $0) }
 		}

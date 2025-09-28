@@ -14,7 +14,6 @@ extension MAS {
 			abstract: "Output version number"
 		)
 
-		/// Runs the command.
 		func run() throws {
 			try MAS.run { run(printer: $0) }
 		}

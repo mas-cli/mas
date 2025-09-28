@@ -20,9 +20,8 @@ extension MAS {
 		)
 
 		@OptionGroup
-		var appIDsOptionGroup: AppIDsOptionGroup
+		var requiredAppIDsOptionGroup: RequiredAppIDsOptionGroup
 
-		/// Runs the command.
 		func run() async throws {
 			try await run(searcher: ITunesSearchAppStoreSearcher())
 		}
@@ -32,20 +31,15 @@ extension MAS {
 		}
 
 		private func run(printer: Printer, searcher: AppStoreSearcher) async {
-			for appID in appIDsOptionGroup.appIDs {
-				do {
-					let result = try await searcher.lookup(appID: appID)
-					guard let urlString = result.sellerUrl else {
-						throw MASError.noVendorWebsite(forAppID: appID)
-					}
-					guard let url = URL(string: urlString) else {
-						throw MASError.urlParsing(urlString)
-					}
-
-					try await url.open()
-				} catch {
-					printer.error(error: error)
+			await requiredAppIDsOptionGroup.forEachAppID(printer: printer) { appID in
+				guard let urlString = try await searcher.lookup(appID: appID).sellerUrl else {
+					throw MASError.noVendorWebsite(forAppID: appID)
 				}
+				guard let url = URL(string: urlString) else {
+					throw MASError.urlParsing(urlString)
+				}
+
+				try await url.open()
 			}
 		}
 	}

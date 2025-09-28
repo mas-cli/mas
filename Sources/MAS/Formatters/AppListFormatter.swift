@@ -14,7 +14,7 @@ enum AppListFormatter {
 	/// - Parameter installedApps: List of installed apps.
 	/// - Returns: Multiline text output.
 	static func format(_ installedApps: [InstalledApp]) -> String {
-		guard let maxADAMIDLength = installedApps.map(\.adamID.description.count).max() else {
+		guard let maxADAMIDLength = installedApps.map({ String(describing: $0.adamID).count }).max() else {
 			return ""
 		}
 		guard let maxAppNameLength = installedApps.map(\.name.count).max() else {

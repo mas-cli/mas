@@ -22,9 +22,8 @@ extension MAS {
 		@Flag(help: "Perform dry run")
 		var dryRun = false
 		@OptionGroup
-		var appIDsOptionGroup: AppIDsOptionGroup
+		var requiredAppIDsOptionGroup: RequiredAppIDsOptionGroup
 
-		/// Runs the command.
 		func run() async throws {
 			try run(installedApps: await installedApps)
 		}
@@ -90,11 +89,11 @@ extension MAS {
 			}
 
 			var uninstallingAppSet = OrderedSet<InstalledApp>()
-			for appID in appIDsOptionGroup.appIDs {
-				let apps = installedApps.filter { appID.matches($0) }
-				apps.isEmpty
+			for appID in requiredAppIDsOptionGroup.appIDs {
+				let installedApps = installedApps.filter { appID.matches($0) }
+				installedApps.isEmpty
 				? printer.error(appID.notInstalledMessage) // swiftformat:disable:this indent
-				: uninstallingAppSet.formUnion(apps)
+				: uninstallingAppSet.formUnion(installedApps)
 			}
 			return Array(uninstallingAppSet)
 		}
