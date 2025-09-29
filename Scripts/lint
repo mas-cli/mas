@@ -34,9 +34,6 @@ swiftlint --strict --quiet --reporter relative-path
 # shellcheck disable=SC1046,SC1047,SC1072,SC1073
 if ! [[ -v 'opts[-A]' ]]; then
 	printf -- $'--> 🔬 SwiftLint Analyze\n'
-	export MAS_DO_NOT_PRINT_NOTICE=
-	Scripts/setup_xcode
-	unset MAS_DO_NOT_PRINT_NOTICE
 	export MAS_INSTALL_METHOD=lint
 	# shellcheck disable=SC1036
 	swiftlint analyze --strict --quiet --reporter relative-path --compiler-log-path\
