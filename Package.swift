@@ -3,21 +3,19 @@
 private import Foundation
 private import PackageDescription
 
-private let privateFrameworkNames =
-	try FileManager.default // swiftformat:disable:this indent
-	.contentsOfDirectory(
-		at: URL(fileURLWithPath: #filePath, isDirectory: false)
-		.deletingLastPathComponent() // swiftformat:disable:this indent
-		.appendingPathComponent("Sources/PrivateFrameworks", isDirectory: true), // swiftformat:disable:this indent
-		includingPropertiesForKeys: [.isDirectoryKey]
-	)
-	.filter(\.hasDirectoryPath)
-
 private let swiftSettings = [
 	SwiftSetting.enableUpcomingFeature("InternalImportsByDefault"),
 	.enableUpcomingFeature("MemberImportVisibility"),
 	.unsafeFlags(
-		privateFrameworkNames.flatMap { privateFrameworkFolderURL in
+		try FileManager.default
+		.contentsOfDirectory( // swiftformat:disable indent
+			at: URL(fileURLWithPath: #filePath, isDirectory: false)
+			.deletingLastPathComponent()
+			.appendingPathComponent("Sources/PrivateFrameworks", isDirectory: true),
+			includingPropertiesForKeys: [.isDirectoryKey]
+		)
+		.filter(\.hasDirectoryPath)
+		.flatMap { privateFrameworkFolderURL in
 			[
 				"-I",
 				privateFrameworkFolderURL.pathComponents.suffix(3).joined(separator: "/"),
@@ -49,8 +47,7 @@ _ = Package(
 				"Version",
 			],
 			swiftSettings: swiftSettings,
-			linkerSettings: privateFrameworkNames.map { .linkedFramework($0.lastPathComponent) }
-			+ [.unsafeFlags(["-F", "/System/Library/PrivateFrameworks"])], // swiftformat:disable:this indent
+			linkerSettings: [.unsafeFlags(["-F", "/System/Library/PrivateFrameworks"])],
 			plugins: [.plugin(name: "MASBuildToolPlugin")]
 		),
 		.testTarget(
