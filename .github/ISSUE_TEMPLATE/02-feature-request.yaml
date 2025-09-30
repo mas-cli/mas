@@ -3,14 +3,38 @@ name: Feature Request
 description: Request a feature.
 labels: [\U0001F195 feature request]
 body:
+- type: textarea
+  id: problems
+  attributes:
+    label: Problem(s) addressed
+    placeholder: |
+      Problem(s) addressed
+
+      Instead of screenshots, prefer pasting copied commands & output into console blocks, formatted as instructed below
+  validations:
+    required: true
+- type: textarea
+  id: proposals
+  attributes:
+    label: Proposed solution(s)
+    placeholder: |
+      Proposed solution(s)
+
+      Instead of screenshots, prefer pasting copied commands & output into console blocks, formatted as instructed below
+  validations:
+    required: true
 - type: markdown
   attributes:
     value: |
-      # Console command & output formatting
+      # Console command & output formatting instructions
 
-      When providing commands & output, please use the following format (where `…` is a placeholder):
+      Provide console commands & output as copied, pasted & formatted text, instead of as screenshots.
 
-      - Use a multiline console block: start with ```` ```console ````, end with ```` ``` ````, each on its own line
+      If long descriptive text or screenshots of dialogs or apps are necessary, provide them between console blocks.
+
+      Format commands & output as follows (where `…` is a placeholder):
+
+      - Use a console block: start with ```` ```console ````, end with ```` ``` ````, each on its own line
       - Prefix each non-console step (or comment) with two hashes & a space: `## …`
       - Remove shell prompts; instead, prefix each console command with a dollar sign & a space: `$ …`
       - Prefix each output line beginning with `#`, `$`, `%`, or `>` with an additional instance of that <!--
@@ -21,47 +45,11 @@ body:
 
       ````text
       ```console
-      ## In the Mac App Store GUI, …
+      ## In the Mac App Store GUI, click on…
       $ mas list
       123  App 1  (4.5.6)
       124  App 2  (10.2)
+      $ mas outdated
+      123 App 1 (4.5.6 -> 4.5.7)
       ```
       ````
-
-      # Feature
-- type: textarea
-  id: problems
-  attributes:
-    label: Problem(s) addressed
-    placeholder:
-      Prefer copied, pasted & formatted commands & output in a multiline console block (as instructed
-      above) instead of screenshots
-  validations:
-    required: true
-- type: textarea
-  id: proposals
-  attributes:
-    label: Proposed solution(s)
-    placeholder:
-      Prefer copied, pasted & formatted commands & output in a multiline console block (as instructed
-      above) instead of screenshots
-  validations:
-    required: true
-- type: textarea
-  id: alternatives
-  attributes:
-    label: Alternative solution(s)
-    placeholder:
-      Prefer copied, pasted & formatted commands & output in a multiline console block (as instructed
-      above) instead of screenshots
-  validations:
-    required: false
-- type: textarea
-  id: context
-  attributes:
-    label: Additional context
-    placeholder:
-      Prefer copied, pasted & formatted commands & output in a multiline console block (as instructed
-      above) instead of screenshots
-  validations:
-    required: false

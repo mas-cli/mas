@@ -19,17 +19,11 @@ extension MAS {
 			abstract: "Output mas config & related system info"
 		)
 
-		@Flag(help: "Output as Markdown")
-		var markdown = false
-
 		func run() async throws {
 			try await MAS.run { await run(printer: $0) }
 		}
 
 		func run(printer: Printer) async {
-			if markdown {
-				printer.info("```text")
-			}
 			printer.info(
 				"""
 				mas ▁▁▁▁ \(MAS.version)
@@ -47,9 +41,6 @@ extension MAS {
 				cpu ▁▁▁▁ \(configStringValue("machdep.cpu.brand_string"))
 				"""
 			)
-			if markdown {
-				printer.info("```")
-			}
 		}
 	}
 }
