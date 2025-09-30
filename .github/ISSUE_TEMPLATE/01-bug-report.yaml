@@ -3,69 +3,34 @@ name: Bug Report
 description: Report a bug.
 labels: [\U0001F41B bug]
 body:
-- type: markdown
-  attributes:
-    value: |
-      # Configuration
 - type: textarea
   id: config
   attributes:
-    label: mas config
-    description: Output of `mas config --markdown`
-    value: |
-      <!--
-      If `mas config --markdown` runs without error, replace the contents of this text area with its output.
-
-      Otherwise, your mas version does not have `mas config`, so provide the following:
-      -->
-
-      ### mas version (output of `mas version`)
-      <!--Example: "1.8.8"-->
-
-
-      ### macOS version (output of `sw_vers -productVersion`)
-      <!--Example: "15.1.1"-->
-
-
-      ### macOS build (output of `sw_vers -buildVersion`)
-      <!--Example: "24B2091"-->
-
-
-      ### CPU (output of `sysctl -n machdep.cpu.brand_string`)
-      <!--Example: "Apple M1"-->
-
-
-      ### Installation method
-      <!--Delete the incorrect ones.-->
-
-      Homebrew core (via `brew install mas`)
-      Homebrew custom tap (via `brew install mas-cli/tap/mas`)
-      GitHub Releases (from <https://github.com/mas-cli/mas/releases>)
-      Built from source (provide info about build)
-      Other
+    label: Configuration
+    placeholder: Output of `mas config`
+    render: console
   validations:
     required: true
-- type: markdown
-  attributes:
-    value: |
-      # Issue
 - type: textarea
   id: description
   attributes:
     label: Bug description
-    description: Expected & actual output; other pertinent info
+    placeholder: |
+      Bug description
+
+      Include expected & actual output, plus other pertinent info
+
+      Instead of screenshots, prefer pasting copied commands & output into console blocks, formatted as instructed below
   validations:
     required: true
 - type: textarea
   id: reproduction
   attributes:
     label: Steps to reproduce
-    description: |
-      Copied, pasted & formatted commands & output in console blocks (as instructed below); instructions; screenshots
-    value: |
-      ```console
+    placeholder: |
+      Steps to reproduce
 
-      ```
+      Instead of screenshots, prefer pasting copied commands & output into console blocks, formatted as instructed below
   validations:
     required: true
 - type: markdown
@@ -81,7 +46,7 @@ body:
 
       - Use a console block: start with ```` ```console ````, end with ```` ``` ````, each on its own line
       - Prefix each non-console step (or comment) with two hashes & a space: `## …`
-      - Remove custom shell prompts; instead, prefix each console command with a dollar sign & a space: `$ …`
+      - Remove shell prompts; instead, prefix each console command with a dollar sign & a space: `$ …`
       - Prefix each output line beginning with `#`, `$`, `%`, or `>` with an additional instance of that <!--
         --> character: `##…`, `$$…`, `%%…`, or `>>…`
       - Write all other output lines without any prefix: `…`
