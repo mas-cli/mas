@@ -26,12 +26,15 @@ extension InstalledApp {
 	func isOutdated(comparedTo storeApp: SearchResult) -> Bool {
 		// If storeApp requires a version of macOS newer than the running version, do not consider self outdated.
 		if let osVersion = Version(tolerant: storeApp.minimumOsVersion) {
-			let requiredVersion = OperatingSystemVersion(
-				majorVersion: osVersion.major,
-				minorVersion: osVersion.minor,
-				patchVersion: osVersion.patch
-			)
-			guard ProcessInfo.processInfo.isOperatingSystemAtLeast(requiredVersion) else {
+			guard
+				ProcessInfo.processInfo.isOperatingSystemAtLeast(
+					OperatingSystemVersion(
+						majorVersion: osVersion.major,
+						minorVersion: osVersion.minor,
+						patchVersion: osVersion.patch
+					)
+				)
+			else {
 				return false
 			}
 		}
