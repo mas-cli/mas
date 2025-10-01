@@ -47,7 +47,7 @@ extension InstalledApp {
 		{
 			semanticBundleVersion < semanticAppStoreVersion
 		} else {
-			// If a version string can't be parsed as a Semantic Version, our best effort is to
+			// If a version string can't be parsed as a semantic version, our best effort is to
 			// check for equality. The only version that matters is the one in the App Store.
 			// https://semver.org
 			version != storeApp.version
