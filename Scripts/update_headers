@@ -31,6 +31,7 @@ for framework in ${~frameworks[@]}; do
 		 -e 's!^//  !//!g'\
 		 -e '/^#(define|endif|ifndef).*/d'\
 		 -e '/^ *\/\*.*\*\/$/d'\
+		 -e '/^@import Foundation;$/d'\
 		 -e 's/^    /\t/g'\
 		 -e 's/_Bool/BOOL/g'\
 		 -e 's/^- \(id\)description;$/- \(nonnull NSString \*\)description;/g'\
@@ -52,11 +53,13 @@ for framework in ${~frameworks[@]}; do
 		 -e 's/\(id\)progress/\(nullable SSOperationProgress \*\)progress/g'\
 		 -e 's/\(id\)url/\(nullable NSURL \*\)url/g'\
 		 -e 's/:\(id\)error/:\(nullable NSError \*\)error/g'\
+		 -e 's/NSObject\<OS_dispatch_queue\> \*/dispatch_queue_t /g'\
+		 -e 's/NSObject\<OS_dispatch_source\> \*/dispatch_source_t /g'\
 		 -e 's!id /\* block \*/!UnknownBlock!g'\
 		 ***/*.h(.N)
 
 		for header in ***/*.h(.N); do
-			/usr/bin/sed -i '' -e ':a' -e '$!N;ta' -e '$s/\n*$//; $a\' "${header}"
+			sed -i '' -e ':a' -e '/^\n*$/{$d;N;ba' -e '}' "${header}"
 		done
 
 		cd ..
