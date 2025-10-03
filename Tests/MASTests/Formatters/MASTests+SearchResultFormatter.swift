@@ -5,7 +5,7 @@
 // Copyright © 2019 mas-cli. All rights reserved.
 //
 
-@testable private import MAS
+@testable private import mas
 internal import Testing
 
 private let format = SearchResultFormatter.format(_:includePrice:)

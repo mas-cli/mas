@@ -5,7 +5,7 @@
 // Copyright © 2019 mas-cli. All rights reserved.
 //
 
-@testable internal import MAS
+@testable internal import mas
 
 struct MockAppStoreSearcher: AppStoreSearcher {
 	private let resultByAppID: [AppID: SearchResult]

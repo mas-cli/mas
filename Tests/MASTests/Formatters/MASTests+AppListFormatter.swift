@@ -5,7 +5,7 @@
 // Copyright © 2020 mas-cli. All rights reserved.
 //
 
-@testable private import MAS
+@testable private import mas
 internal import Testing
 
 private let format = AppListFormatter.format(_:)

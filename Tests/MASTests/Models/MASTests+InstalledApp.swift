@@ -5,7 +5,7 @@
 // Copyright © 2021 mas-cli. All rights reserved.
 //
 
-@testable private import MAS
+@testable private import mas
 internal import Testing
 
 private let app = InstalledApp(adamID: 111, bundleID: "", name: "App", path: "", version: "1.0.0")

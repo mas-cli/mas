@@ -6,7 +6,7 @@
 //
 
 internal import Foundation
-@testable private import MAS
+@testable private import mas
 
 /// Mock NetworkSession for testing with a saved response payload file.
 struct MockNetworkSession: NetworkSession {

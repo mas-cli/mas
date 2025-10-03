@@ -6,7 +6,7 @@
 //
 
 private import ArgumentParser
-@testable private import MAS
+@testable private import mas
 internal import Testing
 
 extension MASTests {
