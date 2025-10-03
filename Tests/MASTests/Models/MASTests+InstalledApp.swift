@@ -1,5 +1,5 @@
 //
-// InstalledAppTests.swift
+// MASTests+InstalledApp.swift
 // mas
 //
 // Copyright © 2021 mas-cli. All rights reserved.

@@ -1,5 +1,5 @@
 //
-// SearchResultFormatterTests.swift
+// MASTests+SearchResultFormatter.swift
 // mas
 //
 // Copyright © 2019 mas-cli. All rights reserved.

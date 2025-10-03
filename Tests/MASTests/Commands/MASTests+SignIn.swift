@@ -1,5 +1,5 @@
 //
-// SignInTests.swift
+// MASTests+SignIn.swift
 // mas
 //
 // Copyright © 2018 mas-cli. All rights reserved.

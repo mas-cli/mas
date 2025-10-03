@@ -2,7 +2,7 @@
 // MAS.swift
 // mas
 //
-// Copyright © 2021 mas-cli. All rights reserved.
+// Copyright © 2025 mas-cli. All rights reserved.
 //
 
 internal import ArgumentParser

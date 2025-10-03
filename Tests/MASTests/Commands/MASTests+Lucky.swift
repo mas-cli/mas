@@ -1,5 +1,5 @@
 //
-// LuckyTests.swift
+// MASTests+Lucky.swift
 // mas
 //
 // Copyright © 2018 mas-cli. All rights reserved.

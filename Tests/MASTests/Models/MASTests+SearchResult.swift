@@ -1,5 +1,5 @@
 //
-// SearchResultTests.swift
+// MASTests+SearchResult.swift
 // mas
 //
 // Copyright © 2020 mas-cli. All rights reserved.
