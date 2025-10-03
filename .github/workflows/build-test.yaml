@@ -21,9 +21,9 @@ jobs:
         - runner: macos-14
           xcode: 16.2
         - runner: macos-15
-          xcode: 16.4
+          xcode: ''
         - runner: macos-26
-          xcode: 26
+          xcode: ''
     runs-on: ${{matrix.runner}}
     defaults:
       run:
@@ -44,6 +44,7 @@ jobs:
       run: Scripts/setup_workflow_repo
 
     - name: 🛠 Select newest available Xcode
+      if: ${{matrix.xcode != ''}}
       run: sudo xcode-select -s /Applications/Xcode_${{matrix.xcode}}.app/Contents/Developer
 
     - name: 👢 Bootstrap
