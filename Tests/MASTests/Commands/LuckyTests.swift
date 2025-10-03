@@ -20,6 +20,6 @@ func luckyInstallsAppForFirstSearchResult() async {
 				)
 			)
 		)
-		== UnvaluedConsequences() // swiftformat:disable:this indent
+		== Consequences() // swiftformat:disable:this indent
 	)
 }

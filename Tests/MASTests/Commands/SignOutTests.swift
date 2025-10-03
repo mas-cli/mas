@@ -11,5 +11,5 @@ internal import Testing
 
 @Test
 func signsOut() {
-	#expect(consequencesOf(try MAS.SignOut.parse([]).run()) == UnvaluedConsequences())
+	#expect(consequencesOf(try MAS.SignOut.parse([]).run()) == Consequences())
 }

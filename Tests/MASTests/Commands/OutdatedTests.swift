@@ -40,6 +40,6 @@ func outputsOutdatedApps() async {
 				searcher: MockAppStoreSearcher([.bundleID(result.bundleId): result])
 			)
 		)
-		== UnvaluedConsequences(nil, "490461369 Bandwidth+ (1.27 -> 1.28)\n") // swiftformat:disable:this indent
+		== Consequences(nil, "490461369 Bandwidth+ (1.27 -> 1.28)\n") // swiftformat:disable:this indent
 	)
 }

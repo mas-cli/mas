@@ -12,7 +12,7 @@ private let format = AppListFormatter.format(_:)
 
 @Test
 func formatsEmptyAppListAsEmptyString() {
-	#expect(consequencesOf(format([])) == ValuedConsequences(""))
+	#expect(consequencesOf(format([])) == Consequences(""))
 }
 
 @Test
@@ -21,7 +21,7 @@ func formatsSingleInstalledApp() {
 		consequencesOf(
 			format([InstalledApp(adamID: 12345, bundleID: "", name: "Awesome App", path: "", version: "19.2.1")])
 		)
-		== ValuedConsequences("12345  Awesome App  (19.2.1)") // swiftformat:disable:this indent
+		== Consequences("12345  Awesome App  (19.2.1)") // swiftformat:disable:this indent
 	)
 }
 
@@ -36,6 +36,6 @@ func formatsTwoInstalledApps() {
 				]
 			)
 		) // swiftformat:disable:next indent
-		== ValuedConsequences("12345  Awesome App      (19.2.1)\n67890  Even Better App  (1.2.0)")
+		== Consequences("12345  Awesome App      (19.2.1)\n67890  Even Better App  (1.2.0)")
 	)
 }

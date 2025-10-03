@@ -15,7 +15,7 @@ func parsesSearchResultListFromBBEditJSON() {
 		consequencesOf(
 			try JSONDecoder().decode(SearchResultList.self, from: Data(fromResource: "search/bbedit.json")).resultCount
 		)
-		== ValuedConsequences(1) // swiftformat:disable:this indent
+		== Consequences(1) // swiftformat:disable:this indent
 	)
 }
 
@@ -25,6 +25,6 @@ func parsesSearchResultListFromThingsJSON() {
 		consequencesOf(
 			try JSONDecoder().decode(SearchResultList.self, from: Data(fromResource: "search/things.json")).resultCount
 		)
-		== ValuedConsequences(50) // swiftformat:disable:this indent
+		== Consequences(50) // swiftformat:disable:this indent
 	)
 }

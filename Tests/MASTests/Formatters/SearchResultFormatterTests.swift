@@ -12,7 +12,7 @@ private let format = SearchResultFormatter.format(_:includePrice:)
 
 @Test
 func formatsEmptySearchResultsAsEmptyString() {
-	#expect(consequencesOf(format([], false)) == ValuedConsequences(""))
+	#expect(consequencesOf(format([], false)) == Consequences(""))
 }
 
 @Test
@@ -24,7 +24,7 @@ func formatsSingleResult() {
 				false
 			)
 		)
-		== ValuedConsequences("12345  Awesome App  (19.2.1)") // swiftformat:disable:this indent
+		== Consequences("12345  Awesome App  (19.2.1)") // swiftformat:disable:this indent
 	)
 }
 
@@ -37,7 +37,7 @@ func formatsSingleResultWithPrice() {
 				true
 			)
 		)
-		== ValuedConsequences("12345  Awesome App  (19.2.1)  $9.87") // swiftformat:disable:this indent
+		== Consequences("12345  Awesome App  (19.2.1)  $9.87") // swiftformat:disable:this indent
 	)
 }
 
@@ -53,7 +53,7 @@ func formatsTwoResults() {
 				false
 			)
 		) // swiftformat:disable:next indent
-		== ValuedConsequences("12345  Awesome App      (19.2.1)\n67890  Even Better App  (1.2.0)")
+		== Consequences("12345  Awesome App      (19.2.1)\n67890  Even Better App  (1.2.0)")
 	)
 }
 
@@ -69,6 +69,6 @@ func formatsTwoResultsWithPrices() {
 				true
 			)
 		) // swiftformat:disable:next indent
-		== ValuedConsequences("12345  Awesome App      (19.2.1)  $9.87\n67890  Even Better App  (1.2.0)  $0.01")
+		== Consequences("12345  Awesome App      (19.2.1)  $9.87\n67890  Even Better App  (1.2.0)  $0.01")
 	)
 }

@@ -15,6 +15,6 @@ func parsesSearchResultFromThingsThatGoBumpJSON() {
 		consequencesOf(
 			try JSONDecoder().decode(SearchResult.self, from: Data(fromResource: "search/things-that-go-bump.json")).trackId
 		)
-		== ValuedConsequences(1_472_954_003) // swiftformat:disable:this indent
+		== Consequences(1_472_954_003) // swiftformat:disable:this indent
 	)
 }

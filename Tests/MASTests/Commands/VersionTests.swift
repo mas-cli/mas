@@ -11,5 +11,5 @@ internal import Testing
 
 @Test
 func outputsVersion() {
-	#expect(consequencesOf(try MAS.Version.parse([]).run()) == UnvaluedConsequences(nil, "\(MAS.version)\n"))
+	#expect(consequencesOf(try MAS.Version.parse([]).run()) == Consequences(nil, "\(MAS.version)\n"))
 }

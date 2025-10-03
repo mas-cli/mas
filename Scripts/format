@@ -30,8 +30,7 @@ if ! [[ -v 'opts[-A]' ]]; then
 	export MAS_INSTALL_METHOD=format
 	# shellcheck disable=SC1036
 	swiftlint analyze --fix --quiet --reporter relative-path --compiler-log-path\
-	 =(xcodebuild -scheme mas -configuration Release -destination "platform=macOS,arch=$(arch),variant=macos" 2>&1) |&
-	 (grep -vxE '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{3} xcodebuild\[\d+:\d+\] \[MT\] IDERunDestination: Supported platforms for the buildables in the current scheme is empty\.' || true)
+	 =(xcodebuild -scheme MAS -destination "platform=macOS,arch=$(arch),variant=macos" 2>&1)
 fi
 
 printf -- $'--> 〽️ Markdown\n'

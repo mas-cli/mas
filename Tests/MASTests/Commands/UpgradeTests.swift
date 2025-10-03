@@ -13,6 +13,6 @@ internal import Testing
 func findsNoUpgrades() async {
 	#expect(
 		await consequencesOf(try await MAS.Upgrade.parse([]).run(installedApps: [], searcher: MockAppStoreSearcher()))
-		== UnvaluedConsequences() // swiftformat:disable:this indent
+		== Consequences() // swiftformat:disable:this indent
 	)
 }

@@ -1,26 +1,30 @@
 //
-// ValuedConsequences.swift
+// Consequences.swift
 // mas
 //
-// Copyright © 2025 mas-cli. All rights reserved.
+// Copyright © 2024 mas-cli. All rights reserved.
 //
 
 internal import Foundation
 
-struct ValuedConsequences<E: Equatable>: Equatable {
-	let value: E?
+struct Consequences<Value: Equatable>: Equatable {
+	let value: Value?
 	let error: Error?
 	let stdout: String
 	let stderr: String
 
-	init(_ value: E? = nil, _ error: Error? = nil, _ stdout: String = "", _ stderr: String = "") {
+	init(_ error: Error? = nil, _ stdout: String = "", _ stderr: String = "") where Value == NoValue {
+		self.init(nil, error, stdout, stderr)
+	}
+
+	init(_ value: Value?, _ error: Error? = nil, _ stdout: String = "", _ stderr: String = "") {
 		self.value = value
 		self.error = error
 		self.stdout = stdout
 		self.stderr = stderr
 	}
 
-	static func == (lhs: ValuedConsequences<E>, rhs: ValuedConsequences<E>) -> Bool {
+	static func == (lhs: Self, rhs: Self) -> Bool {
 		guard lhs.value == rhs.value, lhs.stdout == rhs.stdout, lhs.stderr == rhs.stderr else {
 			return false
 		}
@@ -36,40 +40,34 @@ struct ValuedConsequences<E: Equatable>: Equatable {
 	}
 }
 
-func consequencesOf<E: Equatable>(
-	streamEncoding: String.Encoding = .utf8,
-	_ expression: @autoclosure () throws -> E
-) -> ValuedConsequences<E> {
-	consequences(streamEncoding: streamEncoding, expression)
+enum NoValue: Equatable { // swiftlint:disable:this one_declaration_per_file
+	case noValue
 }
 
-func consequencesOf<E: Equatable>(
+func consequencesOf(
 	streamEncoding: String.Encoding = .utf8,
-	_ expression: @autoclosure () async throws -> E
-) async -> ValuedConsequences<E> {
-	await consequences(streamEncoding: streamEncoding, expression)
+	_ body: @autoclosure () throws -> Void
+) -> Consequences<NoValue> {
+	consequencesOf(streamEncoding: streamEncoding, try {
+		try body()
+		return NoValue.noValue
+	}())
 }
 
-// periphery:ignore
-func consequencesOf<E: Equatable>(
+func consequencesOf(
 	streamEncoding: String.Encoding = .utf8,
-	_ body: () throws -> E
-) -> ValuedConsequences<E> {
-	consequences(streamEncoding: streamEncoding, body)
+	_ body: @autoclosure () async throws -> Void
+) async -> Consequences<NoValue> {
+	await consequencesOf(streamEncoding: streamEncoding, try await {
+		try await body()
+		return NoValue.noValue
+	}())
 }
 
-// periphery:ignore
-func consequencesOf<E: Equatable>(
+func consequencesOf<Value: Equatable>(
 	streamEncoding: String.Encoding = .utf8,
-	_ body: () async throws -> E
-) async -> ValuedConsequences<E> {
-	await consequences(streamEncoding: streamEncoding, body)
-}
-
-private func consequences<E: Equatable>(
-	streamEncoding: String.Encoding = .utf8,
-	_ body: () throws -> E
-) -> ValuedConsequences<E> {
+	_ body: @autoclosure () throws -> Value
+) -> Consequences<Value> {
 	let outOriginalFD = fileno(stdout)
 	let errOriginalFD = fileno(stderr)
 
@@ -89,7 +87,7 @@ private func consequences<E: Equatable>(
 	dup2(outPipe.fileHandleForWriting.fileDescriptor, outOriginalFD)
 	dup2(errPipe.fileHandleForWriting.fileDescriptor, errOriginalFD)
 
-	var value: E?
+	var value: Value?
 	var thrownError: Error?
 	do {
 		defer {
@@ -106,18 +104,18 @@ private func consequences<E: Equatable>(
 		thrownError = error
 	}
 
-	return ValuedConsequences(
-		value,
+	return Consequences(
+		type(of: value) == NoValue?.self ? nil : value,
 		thrownError,
 		String(data: outPipe.fileHandleForReading.readDataToEndOfFile(), encoding: streamEncoding) ?? "",
 		String(data: errPipe.fileHandleForReading.readDataToEndOfFile(), encoding: streamEncoding) ?? ""
 	)
 }
 
-private func consequences<E: Equatable>(
+func consequencesOf<Value: Equatable>(
 	streamEncoding: String.Encoding = .utf8,
-	_ body: () async throws -> E
-) async -> ValuedConsequences<E> {
+	_ body: @autoclosure () async throws -> Value
+) async -> Consequences<Value> {
 	let outOriginalFD = fileno(stdout)
 	let errOriginalFD = fileno(stderr)
 
@@ -137,7 +135,7 @@ private func consequences<E: Equatable>(
 	dup2(outPipe.fileHandleForWriting.fileDescriptor, outOriginalFD)
 	dup2(errPipe.fileHandleForWriting.fileDescriptor, errOriginalFD)
 
-	var value: E?
+	var value: Value?
 	var thrownError: Error?
 	do {
 		defer {
@@ -154,8 +152,8 @@ private func consequences<E: Equatable>(
 		thrownError = error
 	}
 
-	return ValuedConsequences(
-		value,
+	return Consequences(
+		type(of: value) == NoValue?.self ? nil : value,
 		thrownError,
 		String(data: outPipe.fileHandleForReading.readDataToEndOfFile(), encoding: streamEncoding) ?? "",
 		String(data: errPipe.fileHandleForReading.readDataToEndOfFile(), encoding: streamEncoding) ?? ""
