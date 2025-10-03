@@ -12,4 +12,4 @@ print_notice '🧪 Testing' "${@}"
 
 export MAS_INSTALL_METHOD=test
 
-swift test --disable-xctest --no-parallel -q "${@}"
+swift test --disable-xctest -q "${@}"

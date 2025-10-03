@@ -41,7 +41,7 @@ struct Consequences<Value: Equatable>: Equatable {
 }
 
 enum NoValue: Equatable { // swiftlint:disable:this one_declaration_per_file
-	case noValue
+	// Empty
 }
 
 func consequencesOf(
@@ -50,7 +50,7 @@ func consequencesOf(
 ) -> Consequences<NoValue> {
 	consequencesOf(streamEncoding: streamEncoding, try {
 		try body()
-		return NoValue.noValue
+		return nil as NoValue?
 	}())
 }
 
@@ -60,13 +60,13 @@ func consequencesOf(
 ) async -> Consequences<NoValue> {
 	await consequencesOf(streamEncoding: streamEncoding, try await {
 		try await body()
-		return NoValue.noValue
+		return nil as NoValue?
 	}())
 }
 
 func consequencesOf<Value: Equatable>(
 	streamEncoding: String.Encoding = .utf8,
-	_ body: @autoclosure () throws -> Value
+	_ body: @autoclosure () throws -> Value?
 ) -> Consequences<Value> {
 	let outOriginalFD = fileno(stdout)
 	let errOriginalFD = fileno(stderr)
@@ -105,7 +105,7 @@ func consequencesOf<Value: Equatable>(
 	}
 
 	return Consequences(
-		type(of: value) == NoValue?.self ? nil : value,
+		value,
 		thrownError,
 		String(data: outPipe.fileHandleForReading.readDataToEndOfFile(), encoding: streamEncoding) ?? "",
 		String(data: errPipe.fileHandleForReading.readDataToEndOfFile(), encoding: streamEncoding) ?? ""
@@ -114,7 +114,7 @@ func consequencesOf<Value: Equatable>(
 
 func consequencesOf<Value: Equatable>(
 	streamEncoding: String.Encoding = .utf8,
-	_ body: @autoclosure () async throws -> Value
+	_ body: @autoclosure () async throws -> Value?
 ) async -> Consequences<Value> {
 	let outOriginalFD = fileno(stdout)
 	let errOriginalFD = fileno(stderr)
@@ -153,7 +153,7 @@ func consequencesOf<Value: Equatable>(
 	}
 
 	return Consequences(
-		type(of: value) == NoValue?.self ? nil : value,
+		value,
 		thrownError,
 		String(data: outPipe.fileHandleForReading.readDataToEndOfFile(), encoding: streamEncoding) ?? "",
 		String(data: errPipe.fileHandleForReading.readDataToEndOfFile(), encoding: streamEncoding) ?? ""

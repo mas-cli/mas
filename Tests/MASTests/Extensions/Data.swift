@@ -6,7 +6,7 @@
 //
 
 private import Foundation
-@testable private import MAS
+@testable private import mas
 
 extension Data {
 	/// Unsafe initializer for loading data from string paths.

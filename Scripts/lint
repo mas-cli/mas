@@ -37,7 +37,7 @@ if ! [[ -v 'opts[-A]' ]]; then
 	export MAS_INSTALL_METHOD=lint
 	# shellcheck disable=SC1036
 	swiftlint analyze --strict --quiet --reporter relative-path --compiler-log-path\
-	 =(xcodebuild -scheme MAS -destination "platform=macOS,arch=$(arch),variant=macos" 2>&1)
+	 =(xcodebuild -scheme mas -destination "platform=macOS,arch=$(arch),variant=macos" 2>&1)
 	((exit_status |= ${?}))
 fi
 
