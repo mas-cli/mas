@@ -26,12 +26,15 @@ extension InstalledApp {
 	func isOutdated(comparedTo storeApp: SearchResult) -> Bool {
 		// If storeApp requires a version of macOS newer than the running version, do not consider self outdated.
 		if let osVersion = Version(tolerant: storeApp.minimumOsVersion) {
-			let requiredVersion = OperatingSystemVersion(
-				majorVersion: osVersion.major,
-				minorVersion: osVersion.minor,
-				patchVersion: osVersion.patch
-			)
-			guard ProcessInfo.processInfo.isOperatingSystemAtLeast(requiredVersion) else {
+			guard
+				ProcessInfo.processInfo.isOperatingSystemAtLeast(
+					OperatingSystemVersion(
+						majorVersion: osVersion.major,
+						minorVersion: osVersion.minor,
+						patchVersion: osVersion.patch
+					)
+				)
+			else {
 				return false
 			}
 		}
@@ -44,7 +47,7 @@ extension InstalledApp {
 		{
 			semanticBundleVersion < semanticAppStoreVersion
 		} else {
-			// If a version string can't be parsed as a Semantic Version, our best effort is to
+			// If a version string can't be parsed as a semantic version, our best effort is to
 			// check for equality. The only version that matters is the one in the App Store.
 			// https://semver.org
 			version != storeApp.version

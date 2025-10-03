@@ -8,7 +8,7 @@
 internal import ArgumentParser
 
 @main
-struct MAS: AsyncParsableCommand {
+struct MAS: ParsableCommand {
 	static let configuration = CommandConfiguration(
 		abstract: "Mac App Store command-line interface",
 		subcommands: [

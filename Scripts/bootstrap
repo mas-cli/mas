@@ -16,5 +16,6 @@ if ! whence brew >/dev/null; then
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-brew update
-brew bundle install -q "${@}"
+brew update -q
+brew bundle upgrade -q "${@}"
+brew upgrade -q "${(f)$(brew deps --union "${(f)$(brew bundle list)}")}"
