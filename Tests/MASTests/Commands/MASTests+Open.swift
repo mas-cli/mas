@@ -9,10 +9,12 @@ private import ArgumentParser
 @testable private import MAS
 internal import Testing
 
-@Test
-func cannotOpenUnknownAppID() async {
-	#expect(
-		await consequencesOf(try await MAS.Open.parse(["999"]).run(searcher: MockAppStoreSearcher()))
-		== Consequences(ExitCode(1), "", "Error: \(MASError.unknownAppID(.adamID(999)))\n")
-	) // swiftformat:disable:previous indent
+extension MASTests {
+	@Test
+	static func cannotOpenUnknownAppID() async {
+		#expect(
+			await consequencesOf(try await MAS.Open.parse(["999"]).run(searcher: MockAppStoreSearcher()))
+			== Consequences(ExitCode(1), "", "Error: \(MASError.unknownAppID(.adamID(999)))\n")
+		) // swiftformat:disable:previous indent
+	}
 }

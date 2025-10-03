@@ -9,10 +9,12 @@ private import ArgumentParser
 @testable private import MAS
 internal import Testing
 
-@Test
-func errorsAccountNotSupported() async {
-	#expect(
-		await consequencesOf(try await MAS.Account.parse([]).run())
-		== Consequences(ExitCode(1), "", "Error: \(MASError.notSupported)\n") // swiftformat:disable:this indent
-	)
+extension MASTests {
+	@Test
+	static func errorsAccountNotSupported() async {
+		#expect(
+			await consequencesOf(try await MAS.Account.parse([]).run())
+			== Consequences(ExitCode(1), "", "Error: \(MASError.notSupported)\n") // swiftformat:disable:this indent
+		)
+	}
 }

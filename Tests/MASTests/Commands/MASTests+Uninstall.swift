@@ -18,33 +18,33 @@ private let app = InstalledApp(
 	version: "1.0"
 )
 
-@Test(.disabled())
-func uninstallDryRunCannotRemoveMissingApp() {
-	#expect(
-		consequencesOf(try MAS.Uninstall.parse(["--dry-run", String(adamID)]).run(installedApps: []))
-		== Consequences(nil, "No installed apps with ADAM ID \(adamID)") // swiftformat:disable:this indent
-	)
-}
+extension MASTests {
+	@Test(.disabled())
+	static func uninstallDryRunCannotRemoveMissingApp() {
+		#expect(
+			consequencesOf(try MAS.Uninstall.parse(["--dry-run", String(adamID)]).run(installedApps: []))
+			== Consequences(nil, "No installed apps with ADAM ID \(adamID)") // swiftformat:disable:this indent
+		)
+	}
 
-@Test(.disabled())
-func uninstallDryRunFindsApp() {
-	#expect(
-		consequencesOf(try MAS.Uninstall.parse(["--dry-run", String(adamID)]).run(installedApps: [app]))
-		== Consequences(nil, "==> 'Some App' '/tmp/Some.app'\n==> (not removed, dry run)\n")
-	) // swiftformat:disable:previous indent
-}
+	@Test(.disabled())
+	static func uninstallDryRunFindsApp() {
+		#expect(
+			consequencesOf(try MAS.Uninstall.parse(["--dry-run", String(adamID)]).run(installedApps: [app]))
+			== Consequences(nil, "==> 'Some App' '/tmp/Some.app'\n==> (not removed, dry run)\n")
+		) // swiftformat:disable:previous indent
+	}
 
-@Test(.disabled())
-func uninstallCannotRemoveMissingApp() {
-	#expect(
-		consequencesOf(try MAS.Uninstall.parse([String(adamID)]).run(installedApps: []))
-		== Consequences(nil, "No installed apps with ADAM ID \(adamID)") // swiftformat:disable:this indent
-	)
-}
+	@Test(.disabled())
+	static func uninstallCannotRemoveMissingApp() {
+		#expect(
+			consequencesOf(try MAS.Uninstall.parse([String(adamID)]).run(installedApps: []))
+			== Consequences(nil, "No installed apps with ADAM ID \(adamID)") // swiftformat:disable:this indent
+		)
+	}
 
-@Test(.disabled())
-func uninstallRemovesApp() {
-	#expect(
-		consequencesOf(try MAS.Uninstall.parse([String(adamID)]).run(installedApps: [app])) == Consequences()
-	)
+	@Test(.disabled())
+	static func uninstallRemovesApp() {
+		#expect(consequencesOf(try MAS.Uninstall.parse([String(adamID)]).run(installedApps: [app])) == Consequences())
+	}
 }

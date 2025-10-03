@@ -9,22 +9,24 @@ private import ArgumentParser
 @testable private import MAS
 internal import Testing
 
-@Test
-func listsApps() {
-	#expect(
-		consequencesOf(try MAS.List.parse([]).run(installedApps: []))
-		== Consequences( // swiftformat:disable indent
-			nil,
-			"",
-			"""
-			Warning: No installed apps found
+extension MASTests {
+	@Test
+	static func listsApps() {
+		#expect(
+			consequencesOf(try MAS.List.parse([]).run(installedApps: []))
+			== Consequences( // swiftformat:disable indent
+				nil,
+				"",
+				"""
+				Warning: No installed apps found
 
-			If this is unexpected, the following command line should fix it by
-			(re)creating the Spotlight index (which might take some time):
+				If this is unexpected, the following command line should fix it by
+				(re)creating the Spotlight index (which might take some time):
 
-			sudo mdutil -Eai on
+				sudo mdutil -Eai on
 
-			"""
-		)
-	) // swiftformat:enable indent
+				"""
+			)
+		) // swiftformat:enable indent
+	}
 }

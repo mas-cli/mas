@@ -9,10 +9,14 @@ private import ArgumentParser
 @testable private import MAS
 internal import Testing
 
-@Test(.disabled())
-func purchasesApps() async {
-	#expect(
-		await consequencesOf(try await MAS.Purchase.parse(["999"]).run(installedApps: [], searcher: MockAppStoreSearcher()))
-		== Consequences() // swiftformat:disable:this indent
-	)
+extension MASTests {
+	@Test(.disabled())
+	static func purchasesApps() async {
+		#expect(
+			await consequencesOf(
+				try await MAS.Purchase.parse(["999"]).run(installedApps: [], searcher: MockAppStoreSearcher())
+			)
+			== Consequences() // swiftformat:disable:this indent
+		)
+	}
 }
