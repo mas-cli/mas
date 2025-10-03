@@ -22,7 +22,7 @@ private let app = InstalledApp(
 func uninstallDryRunCannotRemoveMissingApp() {
 	#expect(
 		consequencesOf(try MAS.Uninstall.parse(["--dry-run", String(adamID)]).run(installedApps: []))
-		== UnvaluedConsequences(nil, "No installed apps with ADAM ID \(adamID)") // swiftformat:disable:this indent
+		== Consequences(nil, "No installed apps with ADAM ID \(adamID)") // swiftformat:disable:this indent
 	)
 }
 
@@ -30,7 +30,7 @@ func uninstallDryRunCannotRemoveMissingApp() {
 func uninstallDryRunFindsApp() {
 	#expect(
 		consequencesOf(try MAS.Uninstall.parse(["--dry-run", String(adamID)]).run(installedApps: [app]))
-		== UnvaluedConsequences(nil, "==> 'Some App' '/tmp/Some.app'\n==> (not removed, dry run)\n")
+		== Consequences(nil, "==> 'Some App' '/tmp/Some.app'\n==> (not removed, dry run)\n")
 	) // swiftformat:disable:previous indent
 }
 
@@ -38,13 +38,13 @@ func uninstallDryRunFindsApp() {
 func uninstallCannotRemoveMissingApp() {
 	#expect(
 		consequencesOf(try MAS.Uninstall.parse([String(adamID)]).run(installedApps: []))
-		== UnvaluedConsequences(nil, "No installed apps with ADAM ID \(adamID)") // swiftformat:disable:this indent
+		== Consequences(nil, "No installed apps with ADAM ID \(adamID)") // swiftformat:disable:this indent
 	)
 }
 
 @Test(.disabled())
 func uninstallRemovesApp() {
 	#expect(
-		consequencesOf(try MAS.Uninstall.parse([String(adamID)]).run(installedApps: [app])) == UnvaluedConsequences()
+		consequencesOf(try MAS.Uninstall.parse([String(adamID)]).run(installedApps: [app])) == Consequences()
 	)
 }

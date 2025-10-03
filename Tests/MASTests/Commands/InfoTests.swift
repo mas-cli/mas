@@ -13,7 +13,7 @@ internal import Testing
 func cannotFindAppInfoForUnknownAppID() async {
 	#expect(
 		await consequencesOf(try await MAS.Info.parse(["999"]).run(searcher: MockAppStoreSearcher()))
-		== UnvaluedConsequences(ExitCode(1), "", "Error: No apps found in the Mac App Store for ADAM ID 999\n")
+		== Consequences(ExitCode(1), "", "Error: No apps found in the Mac App Store for ADAM ID 999\n")
 	) // swiftformat:disable:previous indent
 }
 
@@ -36,7 +36,7 @@ func outputsAppInfo() async {
 				searcher: MockAppStoreSearcher([.adamID(result.adamID): result])
 			)
 		)
-		== UnvaluedConsequences( // swiftformat:disable indent
+		== Consequences( // swiftformat:disable indent
 			nil,
 			"""
 			Awesome App 1.0 [$2.00]

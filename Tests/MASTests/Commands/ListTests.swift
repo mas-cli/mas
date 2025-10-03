@@ -13,7 +13,7 @@ internal import Testing
 func listsApps() {
 	#expect(
 		consequencesOf(try MAS.List.parse([]).run(installedApps: []))
-		== UnvaluedConsequences( // swiftformat:disable indent
+		== Consequences( // swiftformat:disable indent
 			nil,
 			"",
 			"""

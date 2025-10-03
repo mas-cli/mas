@@ -18,7 +18,7 @@ func searchesForSlack() async {
 				searcher: MockAppStoreSearcher([.adamID(result.adamID): result])
 			)
 		)
-		== UnvaluedConsequences(nil, "1111  slack  (0.0)\n") // swiftformat:disable:this indent
+		== Consequences(nil, "1111  slack  (0.0)\n") // swiftformat:disable:this indent
 	)
 }
 
@@ -28,11 +28,7 @@ func cannotSearchForNonexistentApp() async {
 	#expect(
 		await consequencesOf(
 			try await MAS.Search.parse([searchTerm]).run(searcher: MockAppStoreSearcher())
-		)
-		== UnvaluedConsequences( // swiftformat:disable indent
-			ExitCode(1),
-			"",
-			"Error: No apps found in the Mac App Store for search term: \(searchTerm)\n"
-		)
-	) // swiftformat:enable indent
+		) // swiftformat:disable:next indent
+		== Consequences(ExitCode(1), "", "Error: No apps found in the Mac App Store for search term: \(searchTerm)\n")
+	)
 }
