@@ -9,15 +9,15 @@ internal import Foundation
 
 struct Consequences<Value: Equatable>: Equatable {
 	let value: Value?
-	let error: Error?
+	let error: (any Error)?
 	let stdout: String
 	let stderr: String
 
-	init(_ error: Error? = nil, _ stdout: String = "", _ stderr: String = "") where Value == NoValue {
+	init(_ error: (any Error)? = nil, _ stdout: String = "", _ stderr: String = "") where Value == NoValue {
 		self.init(nil, error, stdout, stderr)
 	}
 
-	init(_ value: Value?, _ error: Error? = nil, _ stdout: String = "", _ stderr: String = "") {
+	init(_ value: Value?, _ error: (any Error)? = nil, _ stdout: String = "", _ stderr: String = "") {
 		self.value = value
 		self.error = error
 		self.stdout = stdout
@@ -88,7 +88,7 @@ func consequencesOf<Value: Equatable>(
 	dup2(errPipe.fileHandleForWriting.fileDescriptor, errOriginalFD)
 
 	var value: Value?
-	var thrownError: Error?
+	var thrownError: (any Error)?
 	do {
 		defer {
 			fflush(stdout)
@@ -136,7 +136,7 @@ func consequencesOf<Value: Equatable>(
 	dup2(errPipe.fileHandleForWriting.fileDescriptor, errOriginalFD)
 
 	var value: Value?
-	var thrownError: Error?
+	var thrownError: (any Error)?
 	do {
 		defer {
 			fflush(stdout)
