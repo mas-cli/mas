@@ -7,43 +7,35 @@
 
 private import CommerceKit
 private import Foundation
-private import StoreFoundation
+internal import StoreFoundation
 
 struct Downloader {
 	let printer: Printer
 
-	func downloadApps(
-		withAppIDs appIDs: [AppID],
-		purchasing: Bool,
-		forceDownload: Bool,
-		installedApps: [InstalledApp],
-		searcher: AppStoreSearcher
-	) async {
-		for appID in appIDs.filter({ appID in
-			if let installedApp = installedApps.first(where: { appID.matches($0) }), !forceDownload {
-				printer.warning(
-					purchasing ? "Already purchased: " : "Already installed: ",
-					installedApp.name,
-					" (",
-					appID,
-					")",
-					separator: ""
-				)
-				return false
-			}
-			return true
-		}) {
-			do {
-				try await downloadApp(withADAMID: try await appID.adamID(searcher: searcher), purchasing: purchasing)
-			} catch {
-				printer.error(error: error)
-			}
+	func downloadApp(
+		withADAMID adamID: ADAMID,
+		purchasing: Bool = false,
+		forceDownload: Bool = false, // swiftlint:disable:this function_default_parameter_at_end
+		installedApps: [InstalledApp]
+	) async throws {
+		if !forceDownload, let installedApp = installedApps.first(where: { $0.adamID == adamID }) {
+			printer.warning(
+				purchasing ? "Already purchased: " : "Already installed: ",
+				installedApp.name,
+				" (",
+				adamID,
+				")",
+				separator: ""
+			)
+			return
 		}
+		try await downloadApp(withADAMID: adamID, purchasing: purchasing)
 	}
 
 	func downloadApp(
 		withADAMID adamID: ADAMID,
 		purchasing: Bool = false,
+		shouldCancel: @Sendable @escaping (SSDownload, Bool) -> Bool = { _, _ in false },
 		withAttemptCount attemptCount: UInt32 = 3
 	) async throws {
 		do {
@@ -55,7 +47,8 @@ struct Downloader {
 					} else if response?.downloads?.isEmpty == false {
 						Task {
 							do {
-								try await PurchaseDownloadObserver(adamID: adamID, printer: printer).observeDownloadQueue()
+								try await DownloadQueueObserver(adamID: adamID, printer: printer, shouldCancel: shouldCancel)
+								.observeDownloadQueue() // swiftformat:disable:this indent
 								continuation.resume()
 							} catch {
 								continuation.resume(throwing: error)
@@ -84,7 +77,12 @@ struct Downloader {
 				error,
 				separator: ""
 			)
-			try await downloadApp(withADAMID: adamID, purchasing: purchasing, withAttemptCount: attemptCount)
+			try await downloadApp(
+				withADAMID: adamID,
+				purchasing: purchasing,
+				shouldCancel: shouldCancel,
+				withAttemptCount: attemptCount
+			)
 		}
 	}
 }

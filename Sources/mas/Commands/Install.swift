@@ -25,13 +25,18 @@ extension MAS {
 
 		func run(installedApps: [InstalledApp], searcher: AppStoreSearcher) async throws {
 			try await MAS.run { printer in
-				await Downloader(printer: printer).downloadApps(
-					withAppIDs: requiredAppIDsOptionGroup.appIDs,
-					purchasing: false,
-					forceDownload: forceOptionGroup.force,
-					installedApps: installedApps,
-					searcher: searcher
-				)
+				let downloader = Downloader(printer: printer)
+				for appID in requiredAppIDsOptionGroup.appIDs {
+					do {
+						try await downloader.downloadApp(
+							withADAMID: try await appID.adamID(searcher: searcher),
+							forceDownload: forceOptionGroup.force,
+							installedApps: installedApps
+						)
+					} catch {
+						printer.error(error: error)
+					}
+				}
 			}
 		}
 	}

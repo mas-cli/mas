@@ -6,6 +6,7 @@
 //
 
 internal import ArgumentParser
+private import StoreFoundation
 
 extension MAS {
 	/// Outputs a list of installed apps which have updates available to be
@@ -16,37 +17,37 @@ extension MAS {
 		)
 
 		@OptionGroup
-		var verboseOptionGroup: VerboseOptionGroup
-		@OptionGroup
 		var optionalAppIDsOptionGroup: OptionalAppIDsOptionGroup
 
 		func run() async throws {
-			try await run(installedApps: await installedApps, searcher: ITunesSearchAppStoreSearcher())
+			try await run(installedApps: await installedApps)
 		}
 
-		func run(installedApps: [InstalledApp], searcher: AppStoreSearcher) async throws {
-			try await MAS.run { await run(printer: $0, installedApps: installedApps, searcher: searcher) }
+		func run(installedApps: [InstalledApp]) async throws {
+			try await MAS.run { await run(downloader: Downloader(printer: $0), installedApps: installedApps) }
 		}
 
-		private func run(printer: Printer, installedApps: [InstalledApp], searcher: AppStoreSearcher) async {
-			for installedApp in installedApps.filter(by: optionalAppIDsOptionGroup, printer: printer) {
+		private func run(downloader: Downloader, installedApps: [InstalledApp]) async {
+			for installedApp in installedApps.filter(by: optionalAppIDsOptionGroup, printer: downloader.printer) {
 				do {
-					let storeApp = try await searcher.lookup(appID: installedApp.id)
-					if installedApp.isOutdated(comparedTo: storeApp) {
-						printer.info(
-							installedApp.adamID,
-							" ",
-							installedApp.name,
-							" (",
-							installedApp.version,
-							" -> ",
-							storeApp.version,
-							")",
-							separator: ""
-						)
+					try await downloader.downloadApp(withADAMID: installedApp.adamID) { download, shouldOutput in
+						if shouldOutput, let metadata = download.metadata, installedApp.version != metadata.bundleVersion {
+							downloader.printer.info(
+								installedApp.adamID,
+								" ",
+								installedApp.name,
+								" (",
+								installedApp.version,
+								" -> ",
+								metadata.bundleVersion ?? "unknown",
+								")",
+								separator: ""
+							)
+						}
+						return true
 					}
 				} catch {
-					verboseOptionGroup.printProblem(forError: error, expectedAppName: installedApp.name, printer: printer)
+					downloader.printer.error(error: error)
 				}
 			}
 		}

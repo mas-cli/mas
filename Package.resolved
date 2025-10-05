@@ -1,5 +1,5 @@
 {
-	"originHash" : "fd3e4c54433a3ddede2855efe30d48ee2b2403e57ad3b8ea160b9a831e8698f0",
+	"originHash" : "59e787e1a6e9a1cf62e743b409dbfe9abae2054e1c3a5cb8c8ff49109bf70340",
 	"pins" : [
 		{
 			"identity" : "swift-argument-parser",
@@ -26,15 +26,6 @@
 			"state" : {
 				"revision" : "7b847a3b7008b2dc2f47ca3110d8c782fb2e5c7e",
 				"version" : "1.3.0"
-			}
-		},
-		{
-			"identity" : "version",
-			"kind" : "remoteSourceControl",
-			"location" : "https://github.com/mxcl/Version.git",
-			"state" : {
-				"revision" : "67ce582bb9de70e1eb2ee41fd71aad3b5f86d97b",
-				"version" : "2.2.0"
 			}
 		}
 	],
