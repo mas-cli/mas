@@ -12,7 +12,7 @@ internal import Testing
 extension MASTests {
 	@Test
 	static func searchesForSlack() async {
-		let result = SearchResult(trackId: 1111, trackName: "slack", trackViewUrl: "mas preview url", version: "0.0")
+		let result = SearchResult(adamID: 1111, name: "slack", version: "0.0")
 		#expect(
 			await consequencesOf(
 				try await MAS.Search.parse(["slack"]).run(

@@ -32,7 +32,7 @@ extension MAS {
 
 		private func run(printer: Printer, searcher: AppStoreSearcher) async {
 			await requiredAppIDsOptionGroup.forEachAppID(printer: printer) { appID in
-				let urlString = try await searcher.lookup(appID: appID).trackViewUrl
+				let urlString = try await searcher.lookup(appID: appID).appStoreURL
 				guard let url = URL(string: urlString) else {
 					throw MASError.urlParsing(urlString)
 				}

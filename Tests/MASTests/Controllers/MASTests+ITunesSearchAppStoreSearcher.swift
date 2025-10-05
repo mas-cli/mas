@@ -47,11 +47,11 @@ extension MASTests {
 		}
 
 		#expect(
-			result.trackId == adamID
-			&& result.sellerName == "Slack Technologies, Inc." // swiftformat:disable indent
-			&& result.sellerUrl == "https://slack.com"
-			&& result.trackName == "Slack"
-			&& result.trackViewUrl == "https://itunes.apple.com/us/app/slack/id803453959?mt=12&uo=4"
+			result.adamID == adamID
+			&& result.vendorName == "Slack Technologies, Inc." // swiftformat:disable indent
+			&& result.vendorURL == "https://slack.com"
+			&& result.name == "Slack"
+			&& result.appStoreURL == "https://itunes.apple.com/us/app/slack/id803453959?mt=12&uo=4"
 			&& result.version == "3.3.3"
 		) // swiftformat:enable indent
 	}
