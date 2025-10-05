@@ -35,7 +35,7 @@ extension AppIDsOptionGroup {
 }
 
 extension Array where Element: AppIdentifying {
-	func filter(by appIDsOptionGroup: any AppIDsOptionGroup, printer: Printer) -> [Element] {
+	func filter(by appIDsOptionGroup: some AppIDsOptionGroup, printer: Printer) -> [Element] {
 		appIDsOptionGroup.appIDStrings.isEmpty
 		? self // swiftformat:disable:this indent
 		: appIDsOptionGroup.appIDs.flatMap { appID in

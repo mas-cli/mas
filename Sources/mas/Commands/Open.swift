@@ -32,11 +32,11 @@ extension MAS {
 			try await run(searcher: ITunesSearchAppStoreSearcher())
 		}
 
-		func run(searcher: AppStoreSearcher) async throws {
+		func run(searcher: some AppStoreSearcher) async throws {
 			try await MAS.run { try await run(printer: $0, searcher: searcher) }
 		}
 
-		private func run(printer _: Printer, searcher: AppStoreSearcher) async throws {
+		private func run(printer _: Printer, searcher: some AppStoreSearcher) async throws {
 			guard let appIDString else {
 				// If no app ID was given, just open the MAS GUI app
 				try await openMacAppStore()

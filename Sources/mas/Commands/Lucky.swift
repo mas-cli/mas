@@ -29,13 +29,17 @@ extension MAS {
 			try await run(installedApps: await installedApps, searcher: ITunesSearchAppStoreSearcher())
 		}
 
-		func run(installedApps: [InstalledApp], searcher: AppStoreSearcher) async throws {
+		func run(installedApps: [InstalledApp], searcher: some AppStoreSearcher) async throws {
 			try await MAS.run { printer in
 				try await run(downloader: Downloader(printer: printer), installedApps: installedApps, searcher: searcher)
 			}
 		}
 
-		private func run(downloader: Downloader, installedApps: [InstalledApp], searcher: AppStoreSearcher) async throws {
+		private func run(
+			downloader: Downloader,
+			installedApps: [InstalledApp],
+			searcher: some AppStoreSearcher
+		) async throws {
 			let searchTerm = searchTermOptionGroup.searchTerm
 			guard let adamID = try await searcher.search(for: searchTerm).first?.adamID else {
 				throw MASError.noSearchResultsFound(for: searchTerm)

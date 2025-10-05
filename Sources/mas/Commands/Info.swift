@@ -26,11 +26,11 @@ extension MAS {
 			try await run(searcher: ITunesSearchAppStoreSearcher())
 		}
 
-		func run(searcher: AppStoreSearcher) async throws {
+		func run(searcher: some AppStoreSearcher) async throws {
 			try await MAS.run { await run(printer: $0, searcher: searcher) }
 		}
 
-		private func run(printer: Printer, searcher: AppStoreSearcher) async {
+		private func run(printer: Printer, searcher: some AppStoreSearcher) async {
 			var spacing = ""
 			await requiredAppIDsOptionGroup.forEachAppID(printer: printer) { appID in
 				printer.info("", AppInfoFormatter.format(app: try await searcher.lookup(appID: appID)), separator: spacing)

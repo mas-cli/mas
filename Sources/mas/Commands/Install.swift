@@ -23,7 +23,7 @@ extension MAS {
 			try await run(installedApps: await installedApps, searcher: ITunesSearchAppStoreSearcher())
 		}
 
-		func run(installedApps: [InstalledApp], searcher: AppStoreSearcher) async throws {
+		func run(installedApps: [InstalledApp], searcher: some AppStoreSearcher) async throws {
 			try await MAS.run { printer in
 				let downloader = Downloader(printer: printer)
 				for appID in requiredAppIDsOptionGroup.appIDs {
