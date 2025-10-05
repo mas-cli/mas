@@ -1,5 +1,5 @@
 //
-// PurchaseDownloadObserver.swift
+// DownloadQueueObserver.swift
 // mas
 //
 // Copyright © 2015 mas-cli. All rights reserved.
@@ -15,7 +15,7 @@ private var installingPhaseType: Int64 { 1 }
 private var initialPhaseType: Int64 { 4 }
 private var downloadedPhaseType: Int64 { 5 }
 
-final class PurchaseDownloadObserver: CKDownloadQueueObserver {
+final class DownloadQueueObserver: CKDownloadQueueObserver {
 	private let adamID: ADAMID
 	private let printer: Printer
 	private let shouldCancel: (SSDownload, Bool) -> Bool

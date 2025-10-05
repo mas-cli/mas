@@ -47,7 +47,7 @@ struct Downloader {
 					} else if response?.downloads?.isEmpty == false {
 						Task {
 							do {
-								try await PurchaseDownloadObserver(adamID: adamID, printer: printer, shouldCancel: shouldCancel)
+								try await DownloadQueueObserver(adamID: adamID, printer: printer, shouldCancel: shouldCancel)
 								.observeDownloadQueue() // swiftformat:disable:this indent
 								continuation.resume()
 							} catch {
