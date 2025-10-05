@@ -18,14 +18,20 @@ private var downloadedPhaseType: Int64 { 5 }
 final class PurchaseDownloadObserver: CKDownloadQueueObserver {
 	private let adamID: ADAMID
 	private let printer: Printer
+	private let shouldCancel: (SSDownload, Bool) -> Bool
 
 	private var completionHandler: (() -> Void)?
 	private var errorHandler: ((Error) -> Void)?
 	private var prevPhaseType: Int64?
 
-	init(adamID: ADAMID, printer: Printer) {
+	init(
+		adamID: ADAMID,
+		printer: Printer,
+		shouldCancel: @Sendable @escaping (SSDownload, Bool) -> Bool = { _, _ in false }
+	) {
 		self.adamID = adamID
 		self.printer = printer
+		self.shouldCancel = shouldCancel
 	}
 
 	deinit {
@@ -38,6 +44,10 @@ final class PurchaseDownloadObserver: CKDownloadQueueObserver {
 			metadata.itemIdentifier == adamID,
 			let status = download.status
 		else {
+			return
+		}
+		guard status.isCancelled || !shouldCancel(download, true) else {
+			queue.cancelDownload(download, promptToConfirm: false, askToDelete: false)
 			return
 		}
 
@@ -65,10 +75,35 @@ final class PurchaseDownloadObserver: CKDownloadQueueObserver {
 		if status.isFailed {
 			errorHandler?(status.error ?? MASError.runtimeError("Failed to download \(metadata.appNameAndVersion)"))
 		} else if status.isCancelled {
-			errorHandler?(MASError.cancelled)
+			guard shouldCancel(download, false) else {
+				errorHandler?(MASError.cancelled)
+				return
+			}
+
+			completionHandler?()
 		} else {
 			printer.notice("Installed", metadata.appNameAndVersion)
 			completionHandler?()
+		}
+	}
+
+	func observeDownloadQueue(_ queue: CKDownloadQueue = .shared()) async throws {
+		let observerID = queue.add(self)
+		defer {
+			queue.removeObserver(observerID)
+		}
+
+		try await withCheckedThrowingContinuation { continuation in
+			completionHandler = {
+				self.completionHandler = nil
+				self.errorHandler = nil
+				continuation.resume()
+			}
+			errorHandler = { error in
+				self.completionHandler = nil
+				self.errorHandler = nil
+				continuation.resume(throwing: error)
+			}
 		}
 	}
 }
@@ -155,28 +190,6 @@ private extension SSDownloadPhase {
 			"Installing"
 		default:
 			"Waiting"
-		}
-	}
-}
-
-extension PurchaseDownloadObserver {
-	func observeDownloadQueue(_ queue: CKDownloadQueue = .shared()) async throws {
-		let observerID = queue.add(self)
-		defer {
-			queue.removeObserver(observerID)
-		}
-
-		try await withCheckedThrowingContinuation { continuation in
-			completionHandler = {
-				self.completionHandler = nil
-				self.errorHandler = nil
-				continuation.resume()
-			}
-			errorHandler = { error in
-				self.completionHandler = nil
-				self.errorHandler = nil
-				continuation.resume(throwing: error)
-			}
 		}
 	}
 }

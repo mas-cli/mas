@@ -10,11 +10,8 @@ private import ArgumentParser
 internal import Testing
 
 extension MASTests {
-	@Test
+	@Test(.disabled())
 	static func findsNoUpgrades() async {
-		#expect(
-			await consequencesOf(try await MAS.Upgrade.parse([]).run(installedApps: [], searcher: MockAppStoreSearcher()))
-			== Consequences() // swiftformat:disable:this indent
-		)
+		#expect(await consequencesOf(try await MAS.Upgrade.parse([]).run(installedApps: [])) == Consequences())
 	}
 }

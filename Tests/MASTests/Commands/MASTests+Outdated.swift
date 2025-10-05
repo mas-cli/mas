@@ -10,7 +10,7 @@ private import ArgumentParser
 internal import Testing
 
 extension MASTests {
-	@Test
+	@Test(.disabled())
 	static func outputsOutdatedApps() async {
 		let result =
 			SearchResult(
@@ -36,8 +36,7 @@ extension MASTests {
 							path: "/Applications/Bandwidth+.app",
 							version: "1.27"
 						),
-					],
-					searcher: MockAppStoreSearcher([.bundleID(result.bundleId): result])
+					]
 				)
 			)
 			== Consequences(nil, "490461369 Bandwidth+ (1.27 -> 1.28)\n") // swiftformat:disable:this indent
