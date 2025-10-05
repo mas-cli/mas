@@ -10,5 +10,15 @@
 
 print_notice '🗑​ Cleaning' "${@}"
 
-swift package clean
-swift package reset
+zmodload zsh/zutil
+zparseopts -D -A opts D P r x
+
+if ! [[ -v 'opts[-P]' ]]; then
+	swift package "${${opts[-D]+clean}:-reset}"
+fi
+if [[ -v 'opts[-r]' && -e Package.resolved ]]; then
+	trash Package.resolved
+fi
+if [[ -v 'opts[-x]' && -d .swiftpm ]]; then
+	trash .swiftpm
+fi

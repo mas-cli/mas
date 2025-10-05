@@ -2,7 +2,7 @@
 # .swiftformat
 # mas
 #
-# SwiftFormat 0.58.2
+# SwiftFormat 0.58.3
 #
 
 # Disabled rules (enabled by default)
@@ -47,7 +47,7 @@
 --enable wrapSwitchCases
 
 # Rule options
---acronyms ADAM,ADI,AE,ANSI,API,CD,CEO,CF,CI,CK,CPU,DAV,DOS,DSID,DVD,EOF,FAQ,FAT,FD,FTP,GB,GID,GUI,GUID,HTML,HTTP,HTTPS,ID,IFS,ISO,JSON,KB,MAS,MD,MDM,MDS,MIB,MIT,NS,OS,OSX,PDF,PR,QL,SB,SDK,SHA,SS,SSH,STDQ,STDRDL,UDF,UI,UID,URL,US,UTF,UUID,VPP,XML,XPC,YAML
+--acronyms ADAM,ADI,AE,ANSI,API,CD,CEO,CF,CI,CK,CPU,DAV,DOS,DS,DSID,DVD,EOF,FAQ,FAT,FD,FTP,GB,GID,GUI,GUID,HTML,HTTP,HTTPS,ID,IFS,ISO,JSON,KB,MAS,MD,MDM,MDS,MIB,MIT,NS,OS,OSX,PDF,PR,QL,SB,SDK,SHA,SS,SSH,STDQ,STDRDL,UDF,UI,UID,URL,US,UTF,UUID,VPP,XML,XPC,YAML
 --allow-partial-wrapping false
 --complex-attributes prev-line
 --computed-var-attributes prev-line

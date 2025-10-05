@@ -15,14 +15,7 @@ private let swiftSettings = [
 			includingPropertiesForKeys: [.isDirectoryKey]
 		)
 		.filter(\.hasDirectoryPath)
-		.flatMap { privateFrameworkFolderURL in
-			[
-				"-I",
-				privateFrameworkFolderURL.pathComponents.suffix(3).joined(separator: "/"),
-				"-Xcc",
-				"-fmodule-map-file=\(privateFrameworkFolderURL.path)/module.modulemap",
-			]
-		}
+		.flatMap { ["-Xcc", "-fmodule-map-file=\($0.path)/module.modulemap"] }
 	), // swiftformat:enable indent
 ]
 
