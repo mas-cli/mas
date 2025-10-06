@@ -30,12 +30,12 @@ disabled_rules: # Never enable
 - vertical_whitespace_between_cases
 - void_function_in_ternary
 attributes:
-  always_on_line_above: ['@MainActor', '@OptionGroup']
+  always_on_line_above: ['@MainActor', '@OptionGroup', '@objc']
 closure_body_length:
   warning: 35
 cyclomatic_complexity:
   ignores_case_statements: true
-  warning: 11
+  warning: 13
 deployment_target:
   macOS_deployment_target: 10.15
   macOSApplicationExtension_deployment_target: 10.15
@@ -50,7 +50,7 @@ explicit_init:
 file_length:
   ignore_comment_only_lines: true
 file_name:
-  excluded: [Finder.swift, SpotlightInstalledApps.swift]
+  excluded: [SpotlightInstalledApps.swift]
 file_types_order:
   order:
   - main_type
@@ -59,7 +59,7 @@ file_types_order:
   - preview_provider
   - library_content_provider
 function_body_length:
-  warning: 75
+  warning: 80
 indentation_width:
   indentation_width: 2
   include_multiline_strings: false
