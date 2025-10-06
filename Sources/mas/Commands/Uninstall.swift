@@ -90,7 +90,7 @@ extension MAS {
 
 			var uninstallingAppSet = OrderedSet<InstalledApp>()
 			for appID in requiredAppIDsOptionGroup.appIDs {
-				let installedApps = installedApps.filter { appID.matches($0) }
+				let installedApps = installedApps.filter { $0.matches(appID) }
 				installedApps.isEmpty
 				? printer.error(appID.notInstalledMessage) // swiftformat:disable:this indent
 				: uninstallingAppSet.formUnion(installedApps)
@@ -113,7 +113,7 @@ private func uninstallApps(atPaths appPaths: [String], printer: Printer) throws 
 	guard let gid = ProcessInfo.processInfo.sudoGID else {
 		throw MASError.runtimeError("Failed to get original gid")
 	}
-	guard let finder = SBApplication(bundleIdentifier: "com.apple.finder") as FinderApplication? else {
+	guard let finder = SBApplication(bundleIdentifier: "com.apple.finder") as (any FinderApplication)? else {
 		throw MASError.runtimeError("Failed to obtain Finder access: com.apple.finder does not exist")
 	}
 	guard let items = finder.items else {
@@ -152,7 +152,7 @@ private func uninstallApps(atPaths appPaths: [String], printer: Printer) throws 
 		}
 
 		let object = items().object(atLocation: URL(fileURLWithPath: appPath))
-		guard let item = object as? FinderItem else {
+		guard let item = object as? any FinderItem else {
 			printer.error(
 				"""
 				Failed to obtain Finder access: finder.items().object(atLocation: URL(fileURLWithPath:\
@@ -165,7 +165,7 @@ private func uninstallApps(atPaths appPaths: [String], printer: Printer) throws 
 			printer.error("Failed to obtain Finder access: FinderItem.delete does not exist")
 			continue
 		}
-		guard let deletedURLString = (delete() as FinderItem).URL else {
+		guard let deletedURLString = (delete() as any FinderItem).URL else {
 			printer.error(
 				"""
 				Failed to revert ownership of deleted '\(appPath)' back to uid \(appUID) & gid \(appGID):\

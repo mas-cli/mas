@@ -13,7 +13,7 @@ private var applicationsFolder: String { "/Applications" }
 @MainActor
 var installedApps: [InstalledApp] {
 	get async {
-		var observer: NSObjectProtocol?
+		var observer: (any NSObjectProtocol)?
 		defer {
 			if let observer {
 				NotificationCenter.default.removeObserver(observer)

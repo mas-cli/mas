@@ -27,11 +27,11 @@ extension MAS {
 			try await run(searcher: ITunesSearchAppStoreSearcher())
 		}
 
-		func run(searcher: AppStoreSearcher) async throws {
+		func run(searcher: some AppStoreSearcher) async throws {
 			try await MAS.run { try await run(printer: $0, searcher: searcher) }
 		}
 
-		private func run(printer: Printer, searcher: AppStoreSearcher) async throws {
+		private func run(printer: Printer, searcher: some AppStoreSearcher) async throws {
 			let searchTerm = searchTermOptionGroup.searchTerm
 			let results = try await searcher.search(for: searchTerm)
 			guard !results.isEmpty else {

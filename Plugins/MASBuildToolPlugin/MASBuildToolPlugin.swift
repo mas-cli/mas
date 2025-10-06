@@ -10,7 +10,7 @@ internal import PackagePlugin
 
 @main
 struct MASBuildToolPlugin: BuildToolPlugin {
-	func createBuildCommands(context: PluginContext, target _: Target) -> [Command] {
+	func createBuildCommands(context: PluginContext, target _: any Target) -> [Command] {
 		[
 			.prebuildCommand(
 				displayName: "Prebuild mas",

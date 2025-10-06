@@ -5,7 +5,7 @@
 // Copyright © 2024 mas-cli. All rights reserved.
 //
 
-enum AppID: CustomStringConvertible, Equatable, Hashable {
+enum AppID: CustomStringConvertible, Hashable {
 	case adamID(ADAMID)
 	case bundleID(String)
 
@@ -31,16 +31,7 @@ enum AppID: CustomStringConvertible, Equatable, Hashable {
 		self = .bundleID(string)
 	}
 
-	func matches(_ appIdentifying: any AppIdentifying) -> Bool {
-		switch self {
-		case let .adamID(adamID):
-			adamID == appIdentifying.adamID
-		case let .bundleID(bundleID):
-			bundleID == appIdentifying.bundleID
-		}
-	}
-
-	func adamID(searcher: AppStoreSearcher) async throws -> ADAMID {
+	func adamID(searcher: some AppStoreSearcher) async throws -> ADAMID {
 		switch self {
 		case let .adamID(adamID):
 			adamID

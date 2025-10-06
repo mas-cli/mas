@@ -26,11 +26,11 @@ extension MAS {
 			try await run(searcher: ITunesSearchAppStoreSearcher())
 		}
 
-		func run(searcher: AppStoreSearcher) async throws {
+		func run(searcher: some AppStoreSearcher) async throws {
 			try await MAS.run { await run(printer: $0, searcher: searcher) }
 		}
 
-		private func run(printer: Printer, searcher: AppStoreSearcher) async {
+		private func run(printer: Printer, searcher: some AppStoreSearcher) async {
 			await requiredAppIDsOptionGroup.forEachAppID(printer: printer) { appID in
 				guard let urlString = try await searcher.lookup(appID: appID).vendorURL else {
 					throw MASError.noVendorWebsite(forAppID: appID)

@@ -5,7 +5,7 @@
 // Copyright © 2018 mas-cli. All rights reserved.
 //
 
-struct SearchResult: AppIdentifying {
+struct SearchResult {
 	let adamID: ADAMID
 	let appStoreURL: String
 	let bundleID: String

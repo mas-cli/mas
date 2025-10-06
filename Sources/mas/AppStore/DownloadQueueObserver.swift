@@ -21,7 +21,7 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 	private let shouldCancel: (SSDownload, Bool) -> Bool
 
 	private var completionHandler: (() -> Void)?
-	private var errorHandler: ((Error) -> Void)?
+	private var errorHandler: ((any Error) -> Void)?
 	private var prevPhaseType: Int64?
 
 	init(

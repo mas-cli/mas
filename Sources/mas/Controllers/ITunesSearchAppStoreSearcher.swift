@@ -13,10 +13,10 @@ private import Foundation
 ///
 /// https://performance-partners.apple.com/search-api
 struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
-	private let networkSession: NetworkSession
+	private let networkSession: any NetworkSession
 
 	/// Designated initializer.
-	init(networkSession: NetworkSession = URLSession(configuration: .ephemeral)) {
+	init(networkSession: any NetworkSession = URLSession(configuration: .ephemeral)) {
 		self.networkSession = networkSession
 	}
 
