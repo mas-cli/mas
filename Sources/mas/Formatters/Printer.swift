@@ -22,84 +22,82 @@ struct Printer {
 		// Do nothing
 	}
 
-	func log(_ message: String, to fileHandle: FileHandle) {
-		fileHandle.write(Data(message.utf8))
-	}
-
 	/// Prints to `stdout`.
 	func info(_ items: Any..., separator: String = " ", terminator: String = "\n") {
-		print(items, separator: separator, terminator: terminator)
+		Swift.print(items, separator: separator, terminator: terminator)
 	}
 
 	/// Clears current line from `stdout`, then prints to `stdout`, then flushes `stdout`.
 	func ephemeral(_ items: Any..., separator: String = " ", terminator: String = "\n") {
-		clearCurrentLine(fromStream: stdout)
-		print(items, separator: separator, terminator: terminator)
-		fflush(stdout)
+		clearCurrentLine(of: .standardOutput)
+		Swift.print(items, separator: separator, terminator: terminator)
+		do {
+			try FileHandle.standardOutput.synchronize()
+		} catch {
+			// Do nothing
+		}
 	}
 
-	/// Clears current line from `stdout`.
+	/// Clears current line of `stdout`.
 	func terminateEphemeral() {
-		clearCurrentLine(fromStream: stdout)
+		clearCurrentLine(of: .standardOutput)
 	}
 
-	/// Prints to `stdout`; if connected to a terminal, prefixes a blue arrow.
+	/// Prints to `stdout`, prefixed with "==> "; if connected to a terminal, the prefix is blue.
 	func notice(_ items: Any..., separator: String = " ", terminator: String = "\n") {
-		if isatty(fileno(stdout)) != 0 {
-			// Blue bold arrow, Bold text
-			print(
-				"\(csi)1;34m==>\(csi)0m \(csi)1m\(message(items, separator: separator, terminator: terminator))\(csi)0m",
-				terminator: ""
-			)
-		} else {
-			print("==> \(message(items, separator: separator, terminator: terminator))", terminator: "")
-		}
+		print(items, prefix: "==>", format: "1;34", separator: separator, terminator: terminator, to: .standardOutput)
 	}
 
-	/// Prints to `stderr`; if connected to a terminal, prefixes "Warning:" underlined in yellow.
+	/// Prints to `stderr`, prefixed with "Warning: "; if connected to a terminal, the prefix is yellow &
+	/// underlined.
 	func warning(_ items: Any..., separator: String = " ", terminator: String = "\n") {
-		if isatty(fileno(stderr)) != 0 {
-			// Yellow, underlined "Warning:" prefix
-			log(
-				"\(csi)4;33mWarning:\(csi)0m \(message(items, separator: separator, terminator: terminator))",
-				to: .standardError
-			)
-		} else {
-			log("Warning: \(message(items, separator: separator, terminator: terminator))", to: .standardError)
-		}
+		print(items, prefix: "Warning:", format: "4;33", separator: separator, terminator: terminator, to: .standardError)
 	}
 
-	/// Prints to `stderr`; if connected to a terminal, prefixes "Error:" underlined in red.
+	/// Prints to `stderr`, prefixed with "Error: "; if connected to a terminal, the prefix is red &
+	/// underlined.
 	func error(_ items: Any..., error: (any Error)? = nil, separator: String = " ", terminator: String = "\n") {
 		errorCounter.wrappingIncrement(ordering: .relaxed)
+		print(
+			items,
+			prefix: "Error:",
+			format: "4;31",
+			separator: separator,
+			terminator: error.map { "\(items.isEmpty ? "" : "\n")\($0)\(terminator)" } ?? terminator,
+			to: .standardError
+		)
+	}
 
-		let terminator =
-			if let error {
-				"\(items.isEmpty ? "" : "\n")\(error)\(terminator)"
-			} else {
-				terminator
-			}
-
-		if isatty(fileno(stderr)) != 0 {
-			// Red, underlined "Error:" prefix
-			log(
-				"\(csi)4;31mError:\(csi)0m \(message(items, separator: separator, terminator: terminator))",
-				to: .standardError
+	private func print( // swiftlint:disable:this function_parameter_count
+		_ items: [Any],
+		prefix: String,
+		format: String,
+		separator: String,
+		terminator: String,
+		to fileHandle: FileHandle
+	) {
+		fileHandle.write(
+			Data(
+				(
+					isatty(fileHandle.fileDescriptor) != 0
+					? "\(csi)\(format)m\(prefix)\(csi)0m " // swiftformat:disable:this indent
+					: "\(prefix) "
+				)
+				.appending(items.map { String(describing: $0) }.joined(separator: separator).appending(terminator))
+				.utf8
 			)
-		} else {
-			log("Error: \(message(items, separator: separator, terminator: terminator))", to: .standardError)
-		}
+		)
 	}
 
-	func clearCurrentLine(fromStream stream: UnsafeMutablePointer<FILE>) {
-		if isatty(fileno(stream)) != 0 {
-			print(csi, "2K", csi, "0G", separator: "", terminator: "")
-			fflush(stream)
+	private func clearCurrentLine(of fileHandle: FileHandle) {
+		if isatty(fileHandle.fileDescriptor) != 0 {
+			fileHandle.write(Data("\(csi)2K\(csi)0G".utf8))
+			do {
+				try fileHandle.synchronize()
+			} catch {
+				// Do nothing
+			}
 		}
-	}
-
-	private func message(_ items: Any..., separator: String = " ", terminator: String = "\n") -> String {
-		items.map { String(describing: $0) }.joined(separator: separator).appending(terminator)
 	}
 }
 
