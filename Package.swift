@@ -4,8 +4,12 @@ private import Foundation
 private import PackageDescription
 
 private let swiftSettings = [
-	SwiftSetting.enableUpcomingFeature("InternalImportsByDefault"),
+	SwiftSetting
+	.enableUpcomingFeature("ExistentialAny"), // swiftformat:disable:this indent
+	.enableUpcomingFeature("InferIsolatedConformances"),
+	.enableUpcomingFeature("InternalImportsByDefault"),
 	.enableUpcomingFeature("MemberImportVisibility"),
+	.enableUpcomingFeature("NonisolatedNonsendingByDefault"),
 	.unsafeFlags(
 		try FileManager.default
 		.contentsOfDirectory( // swiftformat:disable indent
