@@ -28,26 +28,30 @@ extension MAS {
 		}
 
 		private func run(downloader: Downloader, installedApps: [InstalledApp]) async {
-			for installedApp in installedApps.filter(by: optionalAppIDsOptionGroup, printer: downloader.printer) {
-				do {
-					try await downloader.downloadApp(withADAMID: installedApp.adamID) { download, shouldOutput in
-						if shouldOutput, let metadata = download.metadata, installedApp.version != metadata.bundleVersion {
-							downloader.printer.info(
-								installedApp.adamID,
-								" ",
-								installedApp.name,
-								" (",
-								installedApp.version,
-								" -> ",
-								metadata.bundleVersion ?? "unknown",
-								")",
-								separator: ""
-							)
+			await withTaskGroup(of: Void.self) { group in
+				for installedApp in installedApps.filter(by: optionalAppIDsOptionGroup, printer: downloader.printer) {
+					group.addTask {
+						do {
+							try await downloader.downloadApp(withADAMID: installedApp.adamID) { download, shouldOutput in
+								if shouldOutput, let metadata = download.metadata, installedApp.version != metadata.bundleVersion {
+									downloader.printer.info(
+										installedApp.adamID,
+										" ",
+										installedApp.name,
+										" (",
+										installedApp.version,
+										" -> ",
+										metadata.bundleVersion ?? "unknown",
+										")",
+										separator: ""
+									)
+								}
+								return true
+							}
+						} catch {
+							downloader.printer.error(error: error)
 						}
-						return true
 					}
-				} catch {
-					downloader.printer.error(error: error)
 				}
 			}
 		}
