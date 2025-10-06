@@ -19,7 +19,7 @@ enum SearchResultFormatter {
 		guard let maxADAMIDLength = results.map({ String(describing: $0.adamID).count }).max() else {
 			return ""
 		}
-		guard let maxAppNameLength = results.map(\.trackName.count).max() else {
+		guard let maxAppNameLength = results.map(\.name.count).max() else {
 			return ""
 		}
 
@@ -29,9 +29,9 @@ enum SearchResultFormatter {
 				String(
 					format: format,
 					result.adamID,
-					result.trackName.padding(toLength: maxAppNameLength, withPad: " ", startingAt: 0),
+					result.name.padding(toLength: maxAppNameLength, withPad: " ", startingAt: 0),
 					result.version,
-					result.outputPrice
+					result.formattedPrice
 				)
 			}
 			.joined(separator: "\n")

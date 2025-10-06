@@ -23,6 +23,6 @@ struct MockAppStoreSearcher: AppStoreSearcher {
 	}
 
 	func search(for searchTerm: String, inRegion _: String) -> [SearchResult] {
-		resultByAppID.filter { $1.trackName.contains(searchTerm) }.map { $1 }
+		resultByAppID.filter { $1.name.contains(searchTerm) }.map { $1 }
 	}
 }

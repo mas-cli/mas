@@ -15,12 +15,12 @@ enum AppInfoFormatter {
 	/// - Returns: Multiline text output.
 	static func format(app: SearchResult) -> String {
 		"""
-		\(app.trackName) \(app.version) [\(app.outputPrice)]
-		By: \(app.sellerName)
-		Released: \(humanReadableDate(app.currentVersionReleaseDate))
-		Minimum OS: \(app.minimumOsVersion)
+		\(app.name) \(app.version) [\(app.formattedPrice)]
+		By: \(app.vendorName)
+		Released: \(humanReadableDate(app.releaseDate))
+		Minimum OS: \(app.minimumOSVersion)
 		Size: \(humanReadableSize(app.fileSizeBytes))
-		From: \(app.trackViewUrl)
+		From: \(app.appStoreURL)
 		"""
 	}
 

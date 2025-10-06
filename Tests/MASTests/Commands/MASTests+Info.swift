@@ -21,19 +21,19 @@ extension MASTests {
 	@Test
 	static func outputsAppInfo() async {
 		let result = SearchResult(
-			currentVersionReleaseDate: "2019-01-07T18:53:13Z",
+			adamID: 1111,
+			appStoreURL: "https://awesome.app",
 			fileSizeBytes: "1024",
 			formattedPrice: "$2.00",
-			minimumOsVersion: "10.14",
-			sellerName: "Awesome Dev",
-			trackId: 1111,
-			trackName: "Awesome App",
-			trackViewUrl: "https://awesome.app",
+			minimumOSVersion: "10.14",
+			name: "Awesome App",
+			releaseDate: "2019-01-07T18:53:13Z",
+			vendorName: "Awesome Dev",
 			version: "1.0"
 		)
 		#expect(
 			await consequencesOf(
-				try await MAS.Info.parse([String(result.trackId)]).run(
+				try await MAS.Info.parse([String(result.adamID)]).run(
 					searcher: MockAppStoreSearcher([.adamID(result.adamID): result])
 				)
 			)

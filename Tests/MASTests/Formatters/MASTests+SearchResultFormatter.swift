@@ -20,10 +20,7 @@ extension MASTests {
 	static func formatsSingleResult() {
 		#expect(
 			consequencesOf(
-				format(
-					[SearchResult(formattedPrice: "$9.87", trackId: 12345, trackName: "Awesome App", version: "19.2.1")],
-					false
-				)
+				format([SearchResult(adamID: 12345, formattedPrice: "$9.87", name: "Awesome App", version: "19.2.1")], false)
 			)
 			== Consequences("12345  Awesome App  (19.2.1)") // swiftformat:disable:this indent
 		)
@@ -33,10 +30,7 @@ extension MASTests {
 	static func formatsSingleResultWithPrice() {
 		#expect(
 			consequencesOf(
-				format(
-					[SearchResult(formattedPrice: "$9.87", trackId: 12345, trackName: "Awesome App", version: "19.2.1")],
-					true
-				)
+				format([SearchResult(adamID: 12345, formattedPrice: "$9.87", name: "Awesome App", version: "19.2.1")], true)
 			)
 			== Consequences("12345  Awesome App  (19.2.1)  $9.87") // swiftformat:disable:this indent
 		)
@@ -48,8 +42,8 @@ extension MASTests {
 			consequencesOf(
 				format(
 					[
-						SearchResult(formattedPrice: "$9.87", trackId: 12345, trackName: "Awesome App", version: "19.2.1"),
-						SearchResult(formattedPrice: "$0.01", trackId: 67890, trackName: "Even Better App", version: "1.2.0"),
+						SearchResult(adamID: 12345, formattedPrice: "$9.87", name: "Awesome App", version: "19.2.1"),
+						SearchResult(adamID: 67890, formattedPrice: "$0.01", name: "Even Better App", version: "1.2.0"),
 					],
 					false
 				)
@@ -64,8 +58,8 @@ extension MASTests {
 			consequencesOf(
 				format(
 					[
-						SearchResult(formattedPrice: "$9.87", trackId: 12345, trackName: "Awesome App", version: "19.2.1"),
-						SearchResult(formattedPrice: "$0.01", trackId: 67890, trackName: "Even Better App", version: "1.2.0"),
+						SearchResult(adamID: 12345, formattedPrice: "$9.87", name: "Awesome App", version: "19.2.1"),
+						SearchResult(adamID: 67890, formattedPrice: "$0.01", name: "Even Better App", version: "1.2.0"),
 					],
 					true
 				)

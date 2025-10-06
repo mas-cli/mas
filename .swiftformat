@@ -66,7 +66,6 @@
 --max-width 120
 --organization-mode type
 --organize-types actor,class,enum,extension,struct
---preserve-acronyms bundleId,minimumOsVersion,sellerUrl,trackId,trackViewUrl
 --property-types inferred
 --ranges no-space
 --redundant-async always
