@@ -107,13 +107,17 @@ extension MAS {
 ///   - printer: `Printer`.
 /// - Throws: An `Error` if any problem occurs.
 private func uninstallApps(atPaths appPaths: [String], printer: Printer) throws {
-	let finderItems = try finderItems()
-
 	guard let uid = ProcessInfo.processInfo.sudoUID else {
 		throw MASError.runtimeError("Failed to get original uid")
 	}
 	guard let gid = ProcessInfo.processInfo.sudoGID else {
 		throw MASError.runtimeError("Failed to get original gid")
+	}
+	guard let finder = SBApplication(bundleIdentifier: "com.apple.finder") as FinderApplication? else {
+		throw MASError.runtimeError("Failed to obtain Finder access: com.apple.finder does not exist")
+	}
+	guard let items = finder.items else {
+		throw MASError.runtimeError("Failed to obtain Finder access: finder.items does not exist")
 	}
 
 	let fileManager = FileManager.default
@@ -147,7 +151,7 @@ private func uninstallApps(atPaths appPaths: [String], printer: Printer) throws 
 			}
 		}
 
-		let object = finderItems.object(atLocation: URL(fileURLWithPath: appPath))
+		let object = items().object(atLocation: URL(fileURLWithPath: appPath))
 		guard let item = object as? FinderItem else {
 			printer.error(
 				"""
@@ -183,15 +187,4 @@ private func uninstallApps(atPaths appPaths: [String], printer: Printer) throws 
 		chownPath = deletedURL.path
 		printer.info("Deleted '", appPath, "' to '", chownPath, "'", separator: "")
 	}
-}
-
-private func finderItems() throws -> SBElementArray {
-	guard let finder = SBApplication(bundleIdentifier: "com.apple.finder") as FinderApplication? else {
-		throw MASError.runtimeError("Failed to obtain Finder access: com.apple.finder does not exist")
-	}
-	guard let items = finder.items else {
-		throw MASError.runtimeError("Failed to obtain Finder access: finder.items does not exist")
-	}
-
-	return items()
 }
