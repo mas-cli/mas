@@ -40,122 +40,108 @@ struct Consequences<Value: Equatable>: Equatable {
 	}
 }
 
+private struct StdStreamCapture { // swiftlint:disable:this one_declaration_per_file
+	let outOriginalFD: Int32
+	let errOriginalFD: Int32
+	let outDuplicateFD: Int32
+	let errDuplicateFD: Int32
+	let outPipe: Pipe
+	let errPipe: Pipe
+
+	init() {
+		outOriginalFD = fileno(stdout)
+		errOriginalFD = fileno(stderr)
+
+		outDuplicateFD = dup(outOriginalFD)
+		errDuplicateFD = dup(errOriginalFD)
+
+		outPipe = Pipe()
+		errPipe = Pipe()
+
+		dup2(outPipe.fileHandleForWriting.fileDescriptor, outOriginalFD)
+		dup2(errPipe.fileHandleForWriting.fileDescriptor, errOriginalFD)
+	}
+
+	func finishAndRead(encoding: String.Encoding) -> (stdout: String, stderr: String) {
+		fflush(stdout)
+		fflush(stderr)
+		dup2(outDuplicateFD, outOriginalFD)
+		dup2(errDuplicateFD, errOriginalFD)
+		outPipe.fileHandleForWriting.closeFile()
+		errPipe.fileHandleForWriting.closeFile()
+
+		close(outDuplicateFD)
+		close(errDuplicateFD)
+
+		return (
+			String(data: outPipe.fileHandleForReading.readDataToEndOfFile(), encoding: encoding) ?? "",
+			String(data: errPipe.fileHandleForReading.readDataToEndOfFile(), encoding: encoding) ?? ""
+		)
+	}
+}
+
 enum NoValue: Equatable { // swiftlint:disable:this one_declaration_per_file
 	// Empty
 }
 
 func consequencesOf(
-	streamEncoding: String.Encoding = .utf8,
+	encoding: String.Encoding = .utf8,
 	_ body: @autoclosure () throws -> Void
 ) -> Consequences<NoValue> {
-	consequencesOf(streamEncoding: streamEncoding, try {
+	let capture = StdStreamCapture()
+	var thrownError: (any Error)?
+	do {
 		try body()
-		return nil as NoValue?
-	}())
+	} catch {
+		thrownError = error
+	}
+	let (stdout, stderr) = capture.finishAndRead(encoding: encoding)
+	return Consequences(thrownError, stdout, stderr)
 }
 
 func consequencesOf(
-	streamEncoding: String.Encoding = .utf8,
+	encoding: String.Encoding = .utf8,
 	_ body: @autoclosure () async throws -> Void
 ) async -> Consequences<NoValue> {
-	await consequencesOf(streamEncoding: streamEncoding, try await {
+	let capture = StdStreamCapture()
+	var thrownError: (any Error)?
+	do {
 		try await body()
-		return nil as NoValue?
-	}())
+	} catch {
+		thrownError = error
+	}
+	let (stdout, stderr) = capture.finishAndRead(encoding: encoding)
+	return Consequences(thrownError, stdout, stderr)
 }
 
 func consequencesOf<Value: Equatable>(
-	streamEncoding: String.Encoding = .utf8,
+	encoding: String.Encoding = .utf8,
 	_ body: @autoclosure () throws -> Value?
 ) -> Consequences<Value> {
-	let outOriginalFD = fileno(stdout)
-	let errOriginalFD = fileno(stderr)
-
-	let outDuplicateFD = dup(outOriginalFD)
-	defer {
-		close(outDuplicateFD)
-	}
-
-	let errDuplicateFD = dup(errOriginalFD)
-	defer {
-		close(errDuplicateFD)
-	}
-
-	let outPipe = Pipe()
-	let errPipe = Pipe()
-
-	dup2(outPipe.fileHandleForWriting.fileDescriptor, outOriginalFD)
-	dup2(errPipe.fileHandleForWriting.fileDescriptor, errOriginalFD)
-
+	let capture = StdStreamCapture()
 	var value: Value?
 	var thrownError: (any Error)?
 	do {
-		defer {
-			fflush(stdout)
-			fflush(stderr)
-			dup2(outDuplicateFD, outOriginalFD)
-			dup2(errDuplicateFD, errOriginalFD)
-			outPipe.fileHandleForWriting.closeFile()
-			errPipe.fileHandleForWriting.closeFile()
-		}
-
 		value = try body()
 	} catch {
 		thrownError = error
 	}
-
-	return Consequences(
-		value,
-		thrownError,
-		String(data: outPipe.fileHandleForReading.readDataToEndOfFile(), encoding: streamEncoding) ?? "",
-		String(data: errPipe.fileHandleForReading.readDataToEndOfFile(), encoding: streamEncoding) ?? ""
-	)
+	let (stdout, stderr) = capture.finishAndRead(encoding: encoding)
+	return Consequences(value, thrownError, stdout, stderr)
 }
 
 func consequencesOf<Value: Equatable>(
-	streamEncoding: String.Encoding = .utf8,
+	encoding: String.Encoding = .utf8,
 	_ body: @autoclosure () async throws -> Value?
 ) async -> Consequences<Value> {
-	let outOriginalFD = fileno(stdout)
-	let errOriginalFD = fileno(stderr)
-
-	let outDuplicateFD = dup(outOriginalFD)
-	defer {
-		close(outDuplicateFD)
-	}
-
-	let errDuplicateFD = dup(errOriginalFD)
-	defer {
-		close(errDuplicateFD)
-	}
-
-	let outPipe = Pipe()
-	let errPipe = Pipe()
-
-	dup2(outPipe.fileHandleForWriting.fileDescriptor, outOriginalFD)
-	dup2(errPipe.fileHandleForWriting.fileDescriptor, errOriginalFD)
-
+	let capture = StdStreamCapture()
 	var value: Value?
 	var thrownError: (any Error)?
 	do {
-		defer {
-			fflush(stdout)
-			fflush(stderr)
-			dup2(outDuplicateFD, outOriginalFD)
-			dup2(errDuplicateFD, errOriginalFD)
-			outPipe.fileHandleForWriting.closeFile()
-			errPipe.fileHandleForWriting.closeFile()
-		}
-
 		value = try await body()
 	} catch {
 		thrownError = error
 	}
-
-	return Consequences(
-		value,
-		thrownError,
-		String(data: outPipe.fileHandleForReading.readDataToEndOfFile(), encoding: streamEncoding) ?? "",
-		String(data: errPipe.fileHandleForReading.readDataToEndOfFile(), encoding: streamEncoding) ?? ""
-	)
+	let (stdout, stderr) = capture.finishAndRead(encoding: encoding)
+	return Consequences(value, thrownError, stdout, stderr)
 }
