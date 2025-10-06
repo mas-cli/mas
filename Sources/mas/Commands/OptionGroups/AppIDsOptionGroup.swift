@@ -34,16 +34,16 @@ extension AppIDsOptionGroup {
 	}
 }
 
-extension Array where Element: AppIdentifying {
+extension [InstalledApp] {
 	func filter(by appIDsOptionGroup: some AppIDsOptionGroup, printer: Printer) -> [Element] {
 		appIDsOptionGroup.appIDStrings.isEmpty
 		? self // swiftformat:disable:this indent
 		: appIDsOptionGroup.appIDs.flatMap { appID in
-			let appIdentifyings = filter { appID.matches($0) }
-			if appIdentifyings.isEmpty {
+			let installedApps = filter { $0.matches(appID) }
+			if installedApps.isEmpty {
 				printer.error(appID.notInstalledMessage)
 			}
-			return appIdentifyings
+			return installedApps
 		}
 	}
 }

@@ -90,7 +90,7 @@ extension MAS {
 
 			var uninstallingAppSet = OrderedSet<InstalledApp>()
 			for appID in requiredAppIDsOptionGroup.appIDs {
-				let installedApps = installedApps.filter { appID.matches($0) }
+				let installedApps = installedApps.filter { $0.matches(appID) }
 				installedApps.isEmpty
 				? printer.error(appID.notInstalledMessage) // swiftformat:disable:this indent
 				: uninstallingAppSet.formUnion(installedApps)

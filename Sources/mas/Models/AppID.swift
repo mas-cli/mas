@@ -31,15 +31,6 @@ enum AppID: CustomStringConvertible, Hashable {
 		self = .bundleID(string)
 	}
 
-	func matches(_ appIdentifying: some AppIdentifying) -> Bool {
-		switch self {
-		case let .adamID(adamID):
-			adamID == appIdentifying.adamID
-		case let .bundleID(bundleID):
-			bundleID == appIdentifying.bundleID
-		}
-	}
-
 	func adamID(searcher: some AppStoreSearcher) async throws -> ADAMID {
 		switch self {
 		case let .adamID(adamID):
