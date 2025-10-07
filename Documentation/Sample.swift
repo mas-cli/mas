@@ -8,7 +8,8 @@
 // MARK: Types & naming
 
 /// The first letter of a type should be uppercase.
-/// Prefer structs. When a class is necessary, default to making it `final`.
+///
+/// Prefer structs. When a class is necessary, default to making it `final`
 final class Sample {
 	let name: String
 
