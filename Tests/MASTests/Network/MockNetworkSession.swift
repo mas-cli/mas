@@ -15,6 +15,7 @@ struct MockNetworkSession: NetworkSession {
 	/// Initializes a mock URL session with a resource for the response.
 	///
 	/// - Parameter responseResource: Resource containing response body.
+	/// - Throws: An `Error` if any problem occurs.
 	init(responseResource: String) throws {
 		data = (try Data(fromResource: responseResource), URLResponse())
 	}
