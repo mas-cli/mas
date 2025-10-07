@@ -6,6 +6,7 @@
 //
 
 internal import ArgumentParser
+private import Foundation
 
 extension MAS {
 	/// Searches for apps in the Mac App Store.
@@ -37,8 +38,26 @@ extension MAS {
 			guard !results.isEmpty else {
 				throw MASError.noSearchResultsFound(for: searchTerm)
 			}
+			guard let maxADAMIDLength = results.map({ String(describing: $0.adamID).count }).max() else {
+				return
+			}
+			guard let maxAppNameLength = results.map(\.name.count).max() else {
+				return
+			}
 
-			printer.info(SearchResultFormatter.format(results, includePrice: price))
+			let format = "%\(maxADAMIDLength)lu  %@  (%@)\(price ? "  %@" : "")"
+			printer.info(
+				results.map { result in
+					String(
+						format: format,
+						result.adamID,
+						result.name.padding(toLength: maxAppNameLength, withPad: " ", startingAt: 0),
+						result.version,
+						result.formattedPrice
+					)
+				}
+				.joined(separator: "\n")
+			)
 		}
 	}
 }
