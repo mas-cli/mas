@@ -33,9 +33,34 @@ extension MAS {
 		private func run(printer: Printer, searcher: some AppStoreSearcher) async {
 			var spacing = ""
 			await requiredAppIDsOptionGroup.forEachAppID(printer: printer) { appID in
-				printer.info("", AppInfoFormatter.format(app: try await searcher.lookup(appID: appID)), separator: spacing)
+				let result = try await searcher.lookup(appID: appID)
+				printer.info(
+					"",
+					"""
+					\(result.name) \(result.version) [\(result.formattedPrice)]
+					By: \(result.vendorName)
+					Released: \(result.releaseDate.humanReadableDate)
+					Minimum OS: \(result.minimumOSVersion)
+					Size: \(result.fileSizeBytes.humanReadableSize)
+					From: \(result.appStoreURL)
+					""",
+					separator: spacing
+				)
 				spacing = "\n"
 			}
 		}
+	}
+}
+
+private extension String {
+	var humanReadableSize: String {
+		ByteCountFormatter.string(fromByteCount: Int64(self) ?? 0, countStyle: .file)
+	}
+
+	var humanReadableDate: String {
+		ISO8601DateFormatter().date(from: self).map { date in
+			ISO8601DateFormatter.string(from: date, timeZone: .current, formatOptions: [.withFullDate])
+		}
+		?? "" // swiftformat:disable:this indent
 	}
 }

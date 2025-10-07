@@ -6,6 +6,7 @@
 //
 
 internal import ArgumentParser
+private import Foundation
 
 extension MAS {
 	/// Lists all apps installed from the Mac App Store.
@@ -39,7 +40,25 @@ extension MAS {
 					"""
 				)
 			} else {
-				printer.info(AppListFormatter.format(installedApps))
+				guard let maxADAMIDLength = installedApps.map({ String(describing: $0.adamID).count }).max() else {
+					return
+				}
+				guard let maxAppNameLength = installedApps.map(\.name.count).max() else {
+					return
+				}
+
+				let format = "%\(maxADAMIDLength)lu  %@  (%@)"
+				printer.info(
+					installedApps.map { installedApp in
+						String(
+							format: format,
+							installedApp.adamID,
+							installedApp.name.padding(toLength: maxAppNameLength, withPad: " ", startingAt: 0),
+							installedApp.version
+						)
+					}
+					.joined(separator: "\n")
+				)
 			}
 		}
 	}
