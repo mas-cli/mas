@@ -19,7 +19,7 @@ extension Data {
 	init(
 		fromResource resourcePath: String?,
 		withExtension ext: String? = "json",
-		inSubfolderPath subfolderPath: String? = "Resources"
+		inSubfolderPath subfolderPath: String? = ""
 	) throws {
 		guard
 			let resourceURL = Bundle.module.url(forResource: resourcePath, withExtension: ext, subdirectory: subfolderPath)

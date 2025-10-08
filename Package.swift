@@ -48,7 +48,7 @@ _ = Package(
 		.testTarget(
 			name: "MASTests",
 			dependencies: ["mas"],
-			resources: [.copy("Resources")],
+			resources: [.process("Resources")],
 			swiftSettings: swiftSettings
 		),
 	],
