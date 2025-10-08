@@ -41,15 +41,15 @@ extension MAS {
 			guard !uninstallingApps.isEmpty else {
 				return
 			}
-
-			if dryRun {
+			guard !dryRun else {
 				for installedApp in uninstallingApps {
 					printer.notice("'", installedApp.name, "' '", installedApp.path, "'", separator: "")
 				}
 				printer.notice("(not removed, dry run)")
-			} else {
-				try uninstallApps(atPaths: uninstallingApps.map(\.path), printer: printer)
+				return
 			}
+
+			try uninstallApps(atPaths: uninstallingApps.map(\.path), printer: printer)
 		}
 
 		private func uninstallingApps(

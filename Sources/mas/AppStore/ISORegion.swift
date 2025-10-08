@@ -10,21 +10,9 @@ private import StoreKit
 
 var region: String {
 	get async {
-		if
-			let alpha3 = await storefrontAlpha3,
-			let alpha2 = alpha2(fromAlpha3: alpha3.uppercased())
-		{
-			alpha2
-		} else if
-			let alpha3 = SKPaymentQueue.default().storefront?.countryCode,
-			let alpha2 = alpha2(fromAlpha3: alpha3.uppercased())
-		{
-			alpha2
-		} else if #available(macOS 13, *) {
-			Locale.autoupdatingCurrent.region?.identifier ?? "US"
-		} else {
-			Locale.autoupdatingCurrent.regionCode ?? "US"
-		}
+		await storefrontAlpha3.flatMap { alpha2(fromAlpha3: $0.uppercased()) } // swiftformat:disable:next indent
+		?? SKPaymentQueue.default().storefront.flatMap { alpha2(fromAlpha3: $0.countryCode.uppercased()) }
+		?? localeRegion // swiftformat:disable:this indent
 	}
 }
 
@@ -35,6 +23,14 @@ private var storefrontAlpha3: String? {
 		} else {
 			nil
 		}
+	}
+}
+
+private var localeRegion: String {
+	if #available(macOS 13, *) {
+		Locale.autoupdatingCurrent.region?.identifier ?? "US"
+	} else {
+		Locale.autoupdatingCurrent.regionCode ?? "US"
 	}
 }
 

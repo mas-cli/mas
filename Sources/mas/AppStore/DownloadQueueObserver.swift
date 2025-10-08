@@ -41,16 +41,16 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 		else {
 			return
 		}
-		guard status.isCancelled || !shouldCancel(download, true) else {
+		guard !status.isCancelled, !status.isFailed else {
+			queue.removeDownload(withItemIdentifier: adamID)
+			return
+		}
+		guard !shouldCancel(download, true) else {
 			queue.cancelDownload(download, promptToConfirm: false, askToDelete: false)
 			return
 		}
 
-		if status.isFailed || status.isCancelled {
-			queue.removeDownload(withItemIdentifier: adamID)
-		} else {
-			prevPhaseType = printer.progress(for: metadata.appNameAndVersion, status: status, prevPhaseType: prevPhaseType)
-		}
+		prevPhaseType = printer.progress(for: metadata.appNameAndVersion, status: status, prevPhaseType: prevPhaseType)
 	}
 
 	func downloadQueue(_: CKDownloadQueue, changedWithAddition _: SSDownload) {
@@ -67,19 +67,23 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 		}
 
 		printer.terminateEphemeral()
-		if status.isFailed {
+
+		guard !status.isFailed else {
 			errorHandler?(status.error ?? MASError.runtimeError("Failed to download \(metadata.appNameAndVersion)"))
-		} else if status.isCancelled {
+			return
+		}
+		guard !status.isCancelled else {
 			guard shouldCancel(download, false) else {
 				errorHandler?(MASError.cancelled)
 				return
 			}
 
 			completionHandler?()
-		} else {
-			printer.notice("Installed", metadata.appNameAndVersion)
-			completionHandler?()
+			return
 		}
+
+		printer.notice("Installed", metadata.appNameAndVersion)
+		completionHandler?()
 	}
 
 	func observeDownloadQueue(_ queue: CKDownloadQueue = .shared()) async throws {

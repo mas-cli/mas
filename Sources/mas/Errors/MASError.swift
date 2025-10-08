@@ -25,11 +25,8 @@ extension MASError: CustomStringConvertible {
 		case .cancelled:
 			"Download cancelled"
 		case let .jsonParsing(data):
-			if let unparsable = String(data: data, encoding: .utf8) {
-				"Unable to parse response as JSON:\n\(unparsable)"
-			} else {
-				"Unable to parse response as JSON"
-			}
+			String(data: data, encoding: .utf8).map { "Unable to parse response as JSON:\n\($0)" }
+			?? "Unable to parse response as JSON" // swiftformat:disable:this indent
 		case .noDownloads:
 			"No downloads began"
 		case let .noSearchResultsFound(searchTerm):

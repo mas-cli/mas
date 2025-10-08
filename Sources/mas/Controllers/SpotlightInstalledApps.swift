@@ -22,14 +22,12 @@ var installedApps: [InstalledApp] {
 
 		let query = NSMetadataQuery()
 		query.predicate = NSPredicate(format: "kMDItemAppStoreAdamID LIKE '*'")
-		query.searchScopes =
-			if let volume = UserDefaults(suiteName: "com.apple.appstored")?.dictionary(forKey: "PreferredVolume")?["name"] {
-				[applicationsFolder, "/Volumes/\(volume)\(applicationsFolder)"]
-			} else {
-				[applicationsFolder]
-			}
+		query.searchScopes = UserDefaults(suiteName: "com.apple.appstored")?
+		.dictionary(forKey: "PreferredVolume")?["name"] // swiftformat:disable indent
+		.map { [applicationsFolder, "/Volumes/\($0)\(applicationsFolder)"] }
+		?? [applicationsFolder]
 
-		return await withCheckedContinuation { continuation in
+		return await withCheckedContinuation { continuation in // swiftformat:enable indent
 			observer = NotificationCenter.default.addObserver(
 				forName: .NSMetadataQueryDidFinishGathering,
 				object: query,
@@ -45,18 +43,15 @@ var installedApps: [InstalledApp] {
 				continuation.resume(
 					returning: query.results
 					.compactMap { result in // swiftformat:disable indent
-						if let item = result as? NSMetadataItem {
+						(result as? NSMetadataItem).map { item in
 							InstalledApp(
 								adamID: item.value(forAttribute: "kMDItemAppStoreAdamID") as? ADAMID ?? 0,
 								bundleID: item.value(forAttribute: NSMetadataItemCFBundleIdentifierKey) as? String ?? "",
-								name: (item.value(forAttribute: "_kMDItemDisplayNameWithExtensions") as? String ?? "").removingSuffix(
-									".app"
-								),
+								name: (item.value(forAttribute: "_kMDItemDisplayNameWithExtensions") as? String ?? "")
+								.removingSuffix(".app"),
 								path: item.value(forAttribute: NSMetadataItemPathKey) as? String ?? "",
 								version: item.value(forAttribute: NSMetadataItemVersionKey) as? String ?? ""
 							)
-						} else {
-							nil
 						}
 					}
 					.sorted { $0.name.localizedStandardCompare($1.name) == .orderedAscending } // swiftformat:enable indent
