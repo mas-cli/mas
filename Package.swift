@@ -39,7 +39,7 @@ _ = Package(
 			dependencies: [
 				.product(name: "ArgumentParser", package: "swift-argument-parser"),
 				.product(name: "Atomics", package: "swift-atomics"),
-				.product(name: "Collections", package: "swift-collections"),
+				.product(name: "OrderedCollections", package: "swift-collections"),
 			],
 			swiftSettings: swiftSettings,
 			linkerSettings: [.unsafeFlags(["-F", "/System/Library/PrivateFrameworks"])],
