@@ -18,8 +18,8 @@ extension Data {
 	/// - Throws: An `Error` if any problem occurs.
 	init(
 		fromResource resourcePath: String?,
-		withExtension ext: String? = nil,
-		inSubfolderPath subfolderPath: String? = "Resources"
+		withExtension ext: String? = "json",
+		inSubfolderPath subfolderPath: String? = ""
 	) throws {
 		guard
 			let resourceURL = Bundle.module.url(forResource: resourcePath, withExtension: ext, subdirectory: subfolderPath)
