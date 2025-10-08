@@ -59,7 +59,7 @@ var installedApps: [InstalledApp] {
 							nil
 						}
 					}
-					.sorted { $0.name.caseInsensitiveCompare($1.name) == .orderedAscending } // swiftformat:enable indent
+					.sorted { $0.name.localizedStandardCompare($1.name) == .orderedAscending } // swiftformat:enable indent
 				)
 			}
 
