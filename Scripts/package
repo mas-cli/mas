@@ -11,7 +11,7 @@
 print_notice '📦 Packaging installer for' "${@}"
 
 export MAS_DO_NOT_PRINT_NOTICE=
-Scripts/build "${1:-}" "${@:2}"
+Scripts/build "${1:-}" -c release "${@:2}"
 unset MAS_DO_NOT_PRINT_NOTICE
 
 build_dir=.build
