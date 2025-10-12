@@ -7,7 +7,7 @@
 
 internal import Foundation
 
-enum MASError: Error, Equatable {
+enum MASError: Error {
 	case cancelled
 	case jsonParsing(input: String? = nil)
 	case noDownloads
