@@ -8,6 +8,7 @@
 struct SearchResult {
 	let adamID: ADAMID
 	let appStoreURL: String
+	// periphery:ignore
 	let bundleID: String
 	let fileSizeBytes: String
 	let formattedPrice: String
@@ -18,6 +19,7 @@ struct SearchResult {
 	let vendorURL: String?
 	let version: String
 
+	// periphery:ignore
 	init(
 		adamID: ADAMID = 0,
 		appStoreURL: String = "",

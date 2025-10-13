@@ -44,6 +44,11 @@ fi
 if ! [[ -v 'opts[-P]' ]]; then
 	printf -- $'--> 🌀 Periphery\n'
 	export MAS_INSTALL_METHOD=lint
+	script -q /dev/null periphery scan --exclude-tests |
+	 (grep -vxE '(?:\x1b\[0;1;32m|\^D\x08{2})\* (?:\x1b\[0;0m\x1b\[0;1m)?No unused code detected\.(?:\x1b\[0;0m)?\r' || true)
+	((exit_status |= ${?}))
+
+	printf -- $'--> 🌀 Periphery Tests\n'
 	script -q /dev/null periphery scan |
 	 (grep -vxE '(?:\x1b\[0;1;32m|\^D\x08{2})\* (?:\x1b\[0;0m\x1b\[0;1m)?No unused code detected\.(?:\x1b\[0;0m)?\r' || true)
 	((exit_status |= ${?}))
