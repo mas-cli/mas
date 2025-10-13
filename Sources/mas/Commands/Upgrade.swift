@@ -19,7 +19,7 @@ extension MAS {
 		var optionalAppIDsOptionGroup: OptionalAppIDsOptionGroup
 
 		func run() async throws {
-			try await run(installedApps: await installedApps)
+			try await run(installedApps: try await installedApps)
 		}
 
 		func run(installedApps: [InstalledApp]) async throws {

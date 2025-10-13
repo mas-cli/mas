@@ -25,7 +25,7 @@ extension MAS {
 		var requiredAppIDsOptionGroup: RequiredAppIDsOptionGroup
 
 		func run() async throws {
-			try run(installedApps: await installedApps)
+			try run(installedApps: try await installedApps)
 		}
 
 		func run(installedApps: [InstalledApp]) throws {

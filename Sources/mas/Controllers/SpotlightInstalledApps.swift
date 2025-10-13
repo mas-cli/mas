@@ -8,11 +8,17 @@
 private import Foundation
 private import ObjectiveC
 
-private var applicationsFolder: String { "/Applications" }
+private extension String {
+	func removingSuffix(_ suffix: Self) -> Self {
+		hasSuffix(suffix)
+		? Self(dropLast(suffix.count)) // swiftformat:disable:this indent
+		: self
+	}
+}
 
 @MainActor
 var installedApps: [InstalledApp] {
-	get async {
+	get async throws {
 		var observer: (any NSObjectProtocol)?
 		defer {
 			if let observer {
@@ -27,14 +33,18 @@ var installedApps: [InstalledApp] {
 		.map { [applicationsFolder, "/Volumes/\($0)\(applicationsFolder)"] }
 		?? [applicationsFolder]
 
-		return await withCheckedContinuation { continuation in // swiftformat:enable indent
+		return try await withCheckedThrowingContinuation { continuation in // swiftformat:enable indent
 			observer = NotificationCenter.default.addObserver(
 				forName: .NSMetadataQueryDidFinishGathering,
 				object: query,
 				queue: nil
 			) { notification in
 				guard let query = notification.object as? NSMetadataQuery else {
-					continuation.resume(returning: [])
+					continuation.resume(
+						throwing: MASError.runtimeError(
+							"Notification Center returned a \(type(of: notification.object)) instead of a NSMetadataQuery"
+						)
+					)
 					return
 				}
 
@@ -63,10 +73,4 @@ var installedApps: [InstalledApp] {
 	}
 }
 
-private extension String {
-	func removingSuffix(_ suffix: Self) -> Self {
-		hasSuffix(suffix)
-		? Self(dropLast(suffix.count)) // swiftformat:disable:this indent
-		: self
-	}
-}
+private var applicationsFolder: String { "/Applications" }
