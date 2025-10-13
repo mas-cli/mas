@@ -14,13 +14,13 @@ struct Downloader {
 
 	func downloadApp(
 		withADAMID adamID: ADAMID,
-		purchasing: Bool = false,
+		getting: Bool = false,
 		forceDownload: Bool = false, // swiftlint:disable:this function_default_parameter_at_end
 		installedApps: [InstalledApp]
 	) async throws {
 		if !forceDownload, let installedApp = installedApps.first(where: { $0.adamID == adamID }) {
 			printer.warning(
-				purchasing ? "Already purchased: " : "Already installed: ",
+				getting ? "Already gotten: " : "Already installed: ",
 				installedApp.name,
 				" (",
 				adamID,
@@ -30,17 +30,17 @@ struct Downloader {
 			return
 		}
 
-		try await downloadApp(withADAMID: adamID, purchasing: purchasing)
+		try await downloadApp(withADAMID: adamID, getting: getting)
 	}
 
 	func downloadApp(
 		withADAMID adamID: ADAMID,
-		purchasing: Bool = false,
+		getting: Bool = false,
 		shouldCancel: @Sendable @escaping (SSDownload, Bool) -> Bool = { _, _ in false },
 		withAttemptCount attemptCount: UInt32 = 3
 	) async throws {
 		do {
-			let purchase = await SSPurchase(adamID: adamID, purchasing: purchasing)
+			let purchase = await SSPurchase(adamID: adamID, getting: getting)
 			_ = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
 				CKPurchaseController.shared().perform(purchase, withOptions: 0) { _, _, error, response in
 					if let error {
@@ -83,7 +83,7 @@ struct Downloader {
 			)
 			try await downloadApp(
 				withADAMID: adamID,
-				purchasing: purchasing,
+				getting: getting,
 				shouldCancel: shouldCancel,
 				withAttemptCount: attemptCount
 			)

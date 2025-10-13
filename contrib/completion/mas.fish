@@ -27,25 +27,28 @@ complete -c mas -n "__fish_seen_subcommand_from help" -xa "account"
 complete -c mas -n "__fish_use_subcommand" -f -a config -d "Output mas config & related system info"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "config"
 complete -c mas -n "__fish_seen_subcommand_from config" -l markdown -d "Output as Markdown"
+### get
+complete -c mas -n "__fish_use_subcommand" -f -a get -d "Get & install free apps from the Mac App Store"
+complete -c mas -n "__fish_seen_subcommand_from help" -xa "get"
 ### help
 complete -c mas -n "__fish_use_subcommand" -f -a help -d "Output general or command-specific help"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "help"
 ### home
 complete -c mas -n "__fish_use_subcommand" -f -a home -d "Open Mac App Store app pages in the default web browser"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "home"
-complete -c mas -n "__fish_seen_subcommand_from home info install open purchase vendor" -xa "(__fish_mas_list_available)"
+complete -c mas -n "__fish_seen_subcommand_from get home info install open seller" -xa "(__fish_mas_list_available)"
 ### info
 complete -c mas -n "__fish_use_subcommand" -f -a info -d "Output app information from the Mac App Store"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "info"
 ### install
-complete -c mas -n "__fish_use_subcommand" -f -a install -d "Install previously purchased apps from the Mac App Store"
+complete -c mas -n "__fish_use_subcommand" -f -a install -d "Install previously gotten apps from the Mac App Store"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "install"
 complete -c mas -n "__fish_seen_subcommand_from install lucky" -l force -d "Force reinstall"
 ### list
 complete -c mas -n "__fish_use_subcommand" -f -a list -d "List all apps installed from the Mac App Store"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "list"
 ### lucky
-complete -c mas -n "__fish_use_subcommand" -f -a lucky -d "Install the first app returned from searching the Mac App Store (app must have been previously purchased)"
+complete -c mas -n "__fish_use_subcommand" -f -a lucky -d "Install the first app returned from searching the Mac App Store (app must have been previously gotten)"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "lucky"
 ### open
 complete -c mas -n "__fish_use_subcommand" -f -a open -d "Open app page in 'App Store.app'"
@@ -54,9 +57,6 @@ complete -c mas -n "__fish_seen_subcommand_from help" -xa "open"
 complete -c mas -n "__fish_use_subcommand" -f -a outdated -d "List pending app updates from the Mac App Store"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "outdated"
 complete -c mas -n "__fish_seen_subcommand_from outdated" -l verbose -d "Output warnings about app IDs unknown to the Mac App Store"
-### purchase
-complete -c mas -n "__fish_use_subcommand" -f -a purchase -d "\"Purchase\" & install free apps from the Mac App Store"
-complete -c mas -n "__fish_seen_subcommand_from help" -xa "purchase"
 ### region
 complete -c mas -n "__fish_use_subcommand" -f -a region -d "Output the region of the Mac App Store"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "region"
@@ -68,6 +68,9 @@ complete -c mas -n "__fish_seen_subcommand_from reset" -l debug -d "Output debug
 complete -c mas -n "__fish_use_subcommand" -f -a search -d "Search for apps in the Mac App Store"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "search"
 complete -c mas -n "__fish_seen_subcommand_from search" -l price -d "Output the price of each app"
+### seller
+complete -c mas -n "__fish_use_subcommand" -f -a seller -d "Open apps' seller pages in the default web browser"
+complete -c mas -n "__fish_seen_subcommand_from help" -xa "seller"
 ### signin
 complete -c mas -n "__fish_use_subcommand" -f -a signin -d "Sign in to an Apple Account in the Mac App Store"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "signin"
@@ -80,13 +83,10 @@ complete -c mas -n "__fish_use_subcommand" -f -a uninstall -d "Uninstall apps in
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "uninstall"
 complete -c mas -n "__fish_seen_subcommand_from uninstall" -l dry-run -d "Perform dry run"
 complete -c mas -n "__fish_seen_subcommand_from uninstall" -x -a "(__fish_mas_list_installed)"
-### upgrade
-complete -c mas -n "__fish_use_subcommand" -f -a upgrade -d "Upgrade outdated apps installed from the Mac App Store"
-complete -c mas -n "__fish_seen_subcommand_from help" -xa "upgrade"
-complete -c mas -n "__fish_seen_subcommand_from upgrade" -x -a "(__fish_mas_outdated_installed)"
-### vendor
-complete -c mas -n "__fish_use_subcommand" -f -a vendor -d "Open apps' vendor pages in the default web browser"
-complete -c mas -n "__fish_seen_subcommand_from help" -xa "vendor"
+### update
+complete -c mas -n "__fish_use_subcommand" -f -a update -d "Update outdated apps installed from the Mac App Store"
+complete -c mas -n "__fish_seen_subcommand_from help" -xa "update"
+complete -c mas -n "__fish_seen_subcommand_from update" -x -a "(__fish_mas_outdated_installed)"
 ### version
 complete -c mas -n "__fish_use_subcommand" -f -a version -d "Output version number"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "version"

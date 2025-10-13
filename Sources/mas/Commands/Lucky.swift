@@ -9,7 +9,7 @@ internal import ArgumentParser
 
 extension MAS {
 	/// Installs the first app returned from searching the Mac App Store (app must
-	/// have been previously purchased).
+	/// have been previously gotten).
 	///
 	/// Uses the iTunes Search API:
 	///
@@ -17,7 +17,7 @@ extension MAS {
 	struct Lucky: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
 			abstract: "Install the first app returned from searching the Mac App Store",
-			discussion: "App will install only if it has already been purchased"
+			discussion: "App will install only if it has already been gotten"
 		)
 
 		@OptionGroup

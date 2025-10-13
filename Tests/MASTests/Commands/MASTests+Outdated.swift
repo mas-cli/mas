@@ -15,14 +15,14 @@ extension MASTests {
 		let result =
 			SearchResult(
 				adamID: 490_461_369,
-				appStoreURL: "https://apps.apple.com/us/app/bandwidth/id490461369?mt=12&uo=4",
+				appStorePageURL: "https://apps.apple.com/us/app/bandwidth/id490461369?mt=12&uo=4",
 				bundleID: "au.haroldchu.mac.Bandwidth",
 				fileSizeBytes: "998130",
 				minimumOSVersion: "10.13",
 				name: "Bandwidth+",
 				releaseDate: "2024-09-02T00:27:00Z",
-				vendorName: "Harold Chu",
-				vendorURL: "https://example.com",
+				sellerName: "Harold Chu",
+				sellerURL: "https://example.com",
 				version: "1.28"
 			)
 		let actual = await consequencesOf(

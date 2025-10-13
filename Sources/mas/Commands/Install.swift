@@ -8,10 +8,10 @@
 internal import ArgumentParser
 
 extension MAS {
-	/// Installs previously purchased apps from the Mac App Store.
+	/// Installs previously gotten apps from the Mac App Store.
 	struct Install: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
-			abstract: "Install previously purchased apps from the Mac App Store"
+			abstract: "Install previously gotten apps from the Mac App Store"
 		)
 
 		@OptionGroup

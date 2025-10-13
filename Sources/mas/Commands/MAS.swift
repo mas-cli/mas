@@ -14,6 +14,7 @@ struct MAS: AsyncParsableCommand {
 		subcommands: [
 			Account.self,
 			Config.self,
+			Get.self,
 			Home.self,
 			Info.self,
 			Install.self,
@@ -21,15 +22,14 @@ struct MAS: AsyncParsableCommand {
 			Lucky.self,
 			Open.self,
 			Outdated.self,
-			Purchase.self,
 			Region.self,
 			Reset.self,
 			Search.self,
+			Seller.self,
 			SignIn.self,
 			SignOut.self,
 			Uninstall.self,
-			Upgrade.self,
-			Vendor.self,
+			Update.self,
 			Version.self,
 		]
 	)

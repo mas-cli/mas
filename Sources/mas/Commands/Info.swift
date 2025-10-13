@@ -38,11 +38,11 @@ extension MAS {
 					"",
 					"""
 					\(result.name) \(result.version) [\(result.formattedPrice)]
-					By: \(result.vendorName)
+					By: \(result.sellerName)
 					Released: \(result.releaseDate.humanReadableDate)
 					Minimum OS: \(result.minimumOSVersion)
 					Size: \(result.fileSizeBytes.humanReadableSize)
-					From: \(result.appStoreURL)
+					From: \(result.appStorePageURL)
 					""",
 					separator: spacing
 				)

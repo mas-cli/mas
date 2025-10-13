@@ -61,7 +61,7 @@ it, running mas might report errors similar to:
 
 To get Swift 5 support on macOS versions older than 10.14.4 (Mojave), you can:
 
-- Upgrade to macOS 10.14.4 (Mojave) or newer.
+- Update to macOS 10.14.4 (Mojave) or newer.
 - Install the [Swift 5 Runtime Support for Command Line Tools](https://support.apple.com/en-us/106446).
 - Install Xcode 10.2 or newer to `/Applications/Xcode.app`.
 
@@ -129,7 +129,7 @@ $ mas list
 
 #### `mas outdated`
 
-`mas outdated` outputs all applications installed from the Mac App Store on your Mac that have pending upgrades.
+`mas outdated` outputs all applications installed from the Mac App Store on your Mac that have pending updates.
 
 ```console
 $ mas outdated
@@ -137,24 +137,24 @@ $ mas outdated
 640199958 Developer (10.6.5 -> 10.6.6)
 ```
 
-Run [`mas upgrade`](#mas-upgrade) to install pending upgrades.
+Run [`mas update`](#mas-update) to install pending updates.
 
 ### ⬇️ Installing Apps
 
 All the commands in this section require you to be logged into an Apple Account in the Mac App Store.
 
 > Depending on your Apple Account settings, you might need to re-authenticate yourself in the Mac App Store to perform a
-> purchase, install, lucky, or upgrade, even if you are already signed in to an Apple Account in the Mac App Store.
+> get, install, lucky, or update, even if you are already signed in to an Apple Account in the Mac App Store.
 
-#### `mas purchase`
+#### `mas get`
 
-`mas purchase <app-id>…` installs free applications that you haven't yet gotten/"purchased" from the Mac App Store.
+`mas get <app-id>…` installs free applications that you haven't yet gotten/"purchased" from the Mac App Store.
 
-> `purchase` is currently a misnomer, because it currently can only "purchase" free apps. To purchase apps that cost
-> money, please purchase them directly in the Mac App Store.
+> The `purchase` alias is currently a misnomer, because it currently can only "purchase" free apps. To purchase apps
+> that cost money, please purchase them directly in the Mac App Store.
 
 ```console
-$ mas purchase 497799835
+$ mas get 497799835
 ==> Downloading Xcode
 ==> Installed Xcode
 ```
@@ -185,17 +185,17 @@ $ mas lucky Xcode
 
 All the commands in this section require you to be logged into an Apple Account in the Mac App Store.
 
-> mas only installs/upgrades applications from the Mac App Store.
+> mas only installs/updates applications from the Mac App Store.
 >
 > Use [`softwareupdate(8)`](https://www.unix.com/man-page/osx/8/softwareupdate) to install system updates (e.g., Xcode
 > Command Line Tools, Safari, etc.)
 
-#### `mas upgrade`
+#### `mas update`
 
-`mas upgrade` upgrades outdated apps installed from the Mac App Store. Without any arguments, it upgrades all such apps.
+`mas update` updates outdated apps installed from the Mac App Store. Without any arguments, it updates all such apps.
 
 ```console
-$ mas upgrade
+$ mas update
 Upgrading 2 outdated applications:
 Xcode (15.4) -> (16.0)
 Developer (10.6.5) -> (10.6.6)
@@ -205,10 +205,10 @@ Developer (10.6.5) -> (10.6.6)
 ==> Installed Developer
 ```
 
-Upgrades can be performed selectively by providing app IDs to `mas upgrade`.
+Updates can be performed selectively by providing app IDs to `mas update`.
 
 ```console
-$ mas upgrade 715768417
+$ mas update 715768417
 Upgrading 1 outdated application:
 Xcode (15.4) -> (16.0)
 ==> Downloading Xcode
@@ -292,7 +292,7 @@ brew install reattach-to-user-namespace
 reattach-to-user-namespace mas install
 ```
 
-### 📭 `mas list`, `mas outdated`, `mas uninstall`, or `mas upgrade` does not detect installed apps
+### 📭 `mas list`, `mas outdated`, `mas uninstall`, or `mas update` does not detect installed apps
 
 mas 2.0.0+ sources data for installed Mac App Store apps from macOS's Spotlight metadata store.
 
@@ -328,13 +328,13 @@ sudo mdutil -Eai on
 
 ## 🚫 When something doesn't work
 
-If you see the following error, it's probably because you haven't yet "purchased" the app through the Mac App Store. See
-[#46](https://github.com/mas-cli/mas/issues/46#issuecomment-248581233).
+If you see the following error, it's probably because you haven't yet gotten/"purchased" the app through the Mac App
+Store. See [#46](https://github.com/mas-cli/mas/issues/46#issuecomment-248581233).
 
 > This redownload is not available for this Apple Account either because it was bought by a different user or the item
 > was refunded or canceled.
 
-If mas doesn't work for you as expected (e.g., you can't install/upgrade apps), run `mas reset`, then try again. If the
+If mas doesn't work for you as expected (e.g., you can't install/update apps), run `mas reset`, then try again. If the
 issue persists, please [file a bug](https://github.com/mas-cli/mas/issues/new). All feedback is much appreciated! ✨
 
 ## 🏗 Build from source
