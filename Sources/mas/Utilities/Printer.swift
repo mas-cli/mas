@@ -24,18 +24,13 @@ struct Printer {
 
 	/// Prints to `stdout`.
 	func info(_ items: Any..., separator: String = " ", terminator: String = "\n") {
-		Swift.print(items, separator: separator, terminator: terminator)
+		print(items.map(String.init(describing:)), separator: separator, terminator: terminator, to: .standardOutput)
 	}
 
 	/// Clears current line from `stdout`, then prints to `stdout`, then flushes `stdout`.
 	func ephemeral(_ items: Any..., separator: String = " ", terminator: String = "\n") {
 		clearCurrentLine(of: .standardOutput)
-		Swift.print(items, separator: separator, terminator: terminator)
-		do {
-			try FileHandle.standardOutput.synchronize()
-		} catch {
-			// Do nothing
-		}
+		print(items.map(String.init(describing:)), separator: separator, terminator: terminator, to: .standardOutput)
 	}
 
 	/// Clears current line of `stdout`.
@@ -63,9 +58,13 @@ struct Printer {
 			prefix: "Error:",
 			format: "4;31",
 			separator: separator,
-			terminator: error.map { "\(items.isEmpty ? "" : "\n")\($0)\(terminator)" } ?? terminator,
+			terminator: error.map { "\(items.isEmpty ? " " : "\n")\($0)\(terminator)" } ?? terminator,
 			to: .standardError
 		)
+	}
+
+	private func print(_ items: [String], separator: String, terminator: String, to fileHandle: FileHandle) {
+		fileHandle.write(Data(items.joined(separator: separator).appending(terminator).utf8))
 	}
 
 	private func print( // swiftlint:disable:this function_parameter_count
@@ -76,27 +75,22 @@ struct Printer {
 		terminator: String,
 		to fileHandle: FileHandle
 	) {
-		fileHandle.write(
-			Data(
-				(
-					isatty(fileHandle.fileDescriptor) != 0
-					? "\(csi)\(format)m\(prefix)\(csi)0m " // swiftformat:disable:this indent
-					: "\(prefix) "
-				)
-				.appending(items.map { String(describing: $0) }.joined(separator: separator).appending(terminator))
-				.utf8
-			)
+		let formattedPrefix =
+			isatty(fileHandle.fileDescriptor) != 0
+			? "\(csi)\(format)m\(prefix)\(csi)0m" // swiftformat:disable:this indent
+			: "\(prefix)"
+		print(
+			items.first.map { ["\(formattedPrefix) \($0)"] + items.dropFirst().map(String.init(describing:)) }
+			?? [formattedPrefix], // swiftformat:disable:this indent
+			separator: separator,
+			terminator: terminator,
+			to: fileHandle
 		)
 	}
 
 	private func clearCurrentLine(of fileHandle: FileHandle) {
 		if isatty(fileHandle.fileDescriptor) != 0 {
 			fileHandle.write(Data("\(csi)2K\(csi)0G".utf8))
-			do {
-				try fileHandle.synchronize()
-			} catch {
-				// Do nothing
-			}
 		}
 	}
 }
