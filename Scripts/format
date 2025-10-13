@@ -17,6 +17,8 @@ ensure_command_available markdownlint-cli2 swiftformat swiftlint
 zmodload zsh/zutil
 zparseopts -D -A opts A
 
+export MAS_INSTALL_METHOD=format
+
 printf -- $'--> 🕊​ SwiftFormat\n'
 script -q /dev/null swiftformat --strict --markdown-files format-strict . |
  (grep -vxE '(?:\^D\x08{2})?Running SwiftFormat\.{3}\r|Reading (?:config|swift-version) file at .*|\x1b\[32mSwiftFormat completed in \d+(?:\.\d+)?s\.\x1b\[0m\r|0/\d+ files formatted\.\r' || true)
@@ -27,7 +29,6 @@ swiftlint --fix --quiet --reporter relative-path
 # shellcheck disable=SC1046,SC1047,SC1072,SC1073
 if ! [[ -v 'opts[-A]' ]]; then
 	printf -- $'--> 🔬 SwiftLint Analyze\n'
-	export MAS_INSTALL_METHOD=format
 	# shellcheck disable=SC1036
 	swiftlint analyze --fix --quiet --reporter relative-path --compiler-log-path\
 	 =(xcodebuild -scheme mas -destination "platform=macOS,arch=$(arch),variant=macos" 2>&1)
