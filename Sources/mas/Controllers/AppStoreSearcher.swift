@@ -16,7 +16,7 @@ protocol AppStoreSearcher {
 	/// - Returns: A `SearchResult` for the given `appID` if `appID` is valid.
 	/// - Throws: A `MASError.unknownAppID(appID)` if `appID` is invalid.
 	///   Some other `Error` if any other problem occurs.
-	func lookup(appID: AppID, inRegion region: String) async throws -> SearchResult
+	func lookup(appID: AppID, inRegion region: Region) async throws -> SearchResult
 
 	/// Searches for apps.
 	///
@@ -26,7 +26,7 @@ protocol AppStoreSearcher {
 	///     search for apps.
 	/// - Returns: A `[SearchResult]` matching `searchTerm`.
 	/// - Throws: An `Error` if any problem occurs.
-	func search(for searchTerm: String, inRegion region: String) async throws -> [SearchResult]
+	func search(for searchTerm: String, inRegion region: Region) async throws -> [SearchResult]
 }
 
 extension AppStoreSearcher {

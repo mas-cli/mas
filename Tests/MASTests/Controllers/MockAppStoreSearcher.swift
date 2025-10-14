@@ -14,7 +14,7 @@ struct MockAppStoreSearcher: AppStoreSearcher {
 		self.resultByAppID = resultByAppID
 	}
 
-	func lookup(appID: AppID, inRegion _: String) throws -> SearchResult {
+	func lookup(appID: AppID, inRegion _: Region) throws -> SearchResult {
 		guard let result = resultByAppID[appID] else {
 			throw MASError.unknownAppID(appID)
 		}
@@ -22,7 +22,7 @@ struct MockAppStoreSearcher: AppStoreSearcher {
 		return result
 	}
 
-	func search(for searchTerm: String, inRegion _: String) -> [SearchResult] {
+	func search(for searchTerm: String, inRegion _: Region) -> [SearchResult] {
 		resultByAppID.filter { $1.name.contains(searchTerm) }.map { $1 }
 	}
 }
