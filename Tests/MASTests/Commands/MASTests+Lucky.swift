@@ -12,14 +12,13 @@ internal import Testing
 extension MASTests {
 	@Test(.disabled())
 	static func luckyInstallsAppForFirstSearchResult() async {
-		#expect(
-			await consequencesOf(
-				try await MAS.Lucky.parse(["Slack"]).run(
-					installedApps: [],
-					searcher: ITunesSearchAppStoreSearcher(networkSession: try MockNetworkSession(responseResource: "slack"))
-				)
+		let actual = await consequencesOf(
+			try await MAS.Lucky.parse(["Slack"]).run(
+				installedApps: [],
+				searcher: ITunesSearchAppStoreSearcher(networkSession: try MockNetworkSession(responseResource: "slack"))
 			)
-			== Consequences() // swiftformat:disable:this indent
 		)
+		let expected = Consequences()
+		#expect(actual == expected)
 	}
 }

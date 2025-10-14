@@ -24,13 +24,13 @@ extension Data {
 		guard
 			let resourceURL = Bundle.module.url(forResource: resourcePath, withExtension: ext, subdirectory: subfolderPath)
 		else {
-			throw MASError.runtimeError( // swiftformat:disable wrapConditionalBodies
+			throw MASError.runtimeError(
 				"""
 				Failed to find resource\
-				\({ if let resourcePath { " at \(resourcePath)" } else { "" } }())\
-				\({ if let ext { " with extension \(ext)" } else { "" } }())\
-				\({ if let subfolderPath { " in subfolder \(subfolderPath)" } else { "" } }())
-				""" // swiftformat:enable wrapConditionalBodies
+				\(resourcePath.map { " at \($0)" } ?? "")\
+				\(ext.map { " with extension \($0)" } ?? "")\
+				\(subfolderPath.map { " in subfolder \($0)" } ?? "")
+				"""
 			)
 		}
 
