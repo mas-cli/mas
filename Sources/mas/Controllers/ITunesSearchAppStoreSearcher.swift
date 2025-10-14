@@ -24,7 +24,7 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 	///
 	/// - Parameters:
 	///   - appID: App ID.
-	///   - region: The ISO 3166-1 region alpha-2 of the storefront in which to
+	///   - region: The ISO 3166-1 alpha-2 region of the storefront in which to
 	///     lookup apps.
 	/// - Returns: A `SearchResult` for the given `appID` if `appID` is valid.
 	/// - Throws: A `MASError.unknownAppID(appID)` if `appID` is invalid.
@@ -41,7 +41,7 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 	///
 	/// - Parameters:
 	///   - searchTerm: Term for which to search.
-	///   - region: The ISO 3166-1 region alpha-2 of the storefront in which to
+	///   - region: The ISO 3166-1 alpha-2 region of the storefront in which to
 	///     search for apps.
 	/// - Returns: A `[SearchResult]` matching `searchTerm`.
 	/// - Throws: An `Error` if any problem occurs.
@@ -53,7 +53,7 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 	///
 	/// - Parameters:
 	///   - appID: App ID.
-	///   - region: The ISO 3166-1 region alpha-2 of the storefront in which to
+	///   - region: The ISO 3166-1 alpha-2 region of the storefront in which to
 	///     lookup apps.
 	/// - Returns: URL for the lookup service.
 	/// - Throws: An `MASError.urlParsing` if `appID` can't be encoded.
@@ -72,7 +72,7 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 	///
 	/// - Parameters:
 	///   - searchTerm: term for which to search in MAS.
-	///   - region: The ISO 3166-1 region alpha-2 of the storefront in which to
+	///   - region: The ISO 3166-1 alpha-2 region of the storefront in which to
 	///     search for apps.
 	/// - Returns: URL for the search service.
 	/// - Throws: An `MASError.urlParsing` if `searchTerm` can't be encoded.
