@@ -143,7 +143,7 @@ private extension Printer {
 			}
 		}
 
-		if isatty(fileno(stdout)) != 0 {
+		if isatty(FileHandle.standardOutput.fileDescriptor) != 0 {
 			// Only output the progress bar if connected to a terminal
 			let progressState = status.progressState
 			let totalLength = 60

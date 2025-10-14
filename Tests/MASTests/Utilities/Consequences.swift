@@ -49,8 +49,8 @@ private struct StdStreamCapture { // swiftlint:disable:this one_declaration_per_
 	let errPipe: Pipe
 
 	init() {
-		outOriginalFD = fileno(stdout)
-		errOriginalFD = fileno(stderr)
+		outOriginalFD = FileHandle.standardOutput.fileDescriptor
+		errOriginalFD = FileHandle.standardError.fileDescriptor
 
 		outDuplicateFD = dup(outOriginalFD)
 		errDuplicateFD = dup(errOriginalFD)
