@@ -5,7 +5,7 @@
 // Copyright © 2018 mas-cli. All rights reserved.
 //
 
-struct InstalledApp: Hashable, Sendable {
+struct InstalledApp: Sendable {
 	let adamID: ADAMID
 	let bundleID: String
 	let name: String
