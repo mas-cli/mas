@@ -28,7 +28,7 @@ _ = Package(
 	platforms: [.macOS(.v10_15)],
 	products: [.executable(name: "mas", targets: ["mas"])],
 	dependencies: [
-		.package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.6.1"),
+		.package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.6.2"),
 		.package(url: "https://github.com/apple/swift-atomics.git", from: "1.3.0"),
 		.package(url: "https://github.com/apple/swift-collections.git", from: "1.3.0"),
 	],
