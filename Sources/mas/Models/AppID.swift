@@ -23,12 +23,12 @@ enum AppID: CustomStringConvertible, Hashable {
 	}
 
 	init(from string: String, forceBundleID: Bool = false) {
-		if !forceBundleID, let adamID = ADAMID(string) {
-			self = .adamID(adamID)
+		guard !forceBundleID, let adamID = ADAMID(string) else {
+			self = .bundleID(string)
 			return
 		}
 
-		self = .bundleID(string)
+		self = .adamID(adamID)
 	}
 
 	func adamID(searcher: some AppStoreSearcher) async throws -> ADAMID {

@@ -25,7 +25,7 @@ extension MAS {
 		var requiredAppIDsOptionGroup: RequiredAppIDsOptionGroup
 
 		func run() async throws {
-			try run(installedApps: await installedApps)
+			try run(installedApps: try await installedApps)
 		}
 
 		func run(installedApps: [InstalledApp]) throws {
@@ -37,25 +37,25 @@ extension MAS {
 				throw MASError.runtimeError("Apps installed from the Mac App Store require root permission to remove")
 			}
 
-			let uninstallingApps = try uninstallingApps(fromInstalledApps: installedApps, printer: printer)
-			guard !uninstallingApps.isEmpty else {
+			let uninstallingAppPaths = try uninstallingAppPaths(fromInstalledApps: installedApps, printer: printer)
+			guard !uninstallingAppPaths.isEmpty else {
+				return
+			}
+			guard !dryRun else {
+				printer.notice("Dry run. A wet run would uninstall:\n")
+				for uninstallingAppPath in uninstallingAppPaths {
+					printer.info(uninstallingAppPath)
+				}
 				return
 			}
 
-			if dryRun {
-				for installedApp in uninstallingApps {
-					printer.notice("'", installedApp.name, "' '", installedApp.path, "'", separator: "")
-				}
-				printer.notice("(not removed, dry run)")
-			} else {
-				try uninstallApps(atPaths: uninstallingApps.map(\.path), printer: printer)
-			}
+			try uninstallApps(atPaths: uninstallingAppPaths, printer: printer)
 		}
 
-		private func uninstallingApps(
+		private func uninstallingAppPaths(
 			fromInstalledApps installedApps: [InstalledApp],
 			printer: Printer
-		) throws -> [InstalledApp] {
+		) throws -> [String] {
 			guard let sudoGroupName = ProcessInfo.processInfo.sudoGroupName else {
 				throw MASError.runtimeError("Failed to get original group name")
 			}
@@ -88,14 +88,14 @@ extension MAS {
 				}
 			}
 
-			var uninstallingAppSet = OrderedSet<InstalledApp>()
+			var uninstallingAppPathSet = OrderedSet<String>()
 			for appID in requiredAppIDsOptionGroup.appIDs {
-				let installedApps = installedApps.filter { $0.matches(appID) }
-				installedApps.isEmpty
+				let installedAppPaths = installedApps.filter { $0.matches(appID) }.map(\.path)
+				installedAppPaths.isEmpty
 				? printer.error(appID.notInstalledMessage) // swiftformat:disable:this indent
-				: uninstallingAppSet.formUnion(installedApps)
+				: uninstallingAppPathSet.formUnion(installedAppPaths)
 			}
-			return Array(uninstallingAppSet)
+			return Array(uninstallingAppPathSet)
 		}
 	}
 }

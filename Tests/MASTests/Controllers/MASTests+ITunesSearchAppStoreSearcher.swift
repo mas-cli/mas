@@ -11,34 +11,23 @@ internal import Testing
 extension MASTests {
 	@Test
 	static func iTunesSearchesForSlack() async {
-		let consequences = await consequencesOf(
+		let actual = await consequencesOf(
 			try await ITunesSearchAppStoreSearcher(networkSession: try MockNetworkSession(responseResource: "slack"))
 			.search(for: "slack") // swiftformat:disable:this indent
 		)
-		#expect(
-			consequences.value?.count == 39
-			&& consequences.error == nil // swiftformat:disable indent
-			&& consequences.stdout.isEmpty
-			&& consequences.stderr.isEmpty
-		) // swiftformat:enable indent
+		#expect(actual.value?.count == 39 && actual.error == nil && actual.stdout.isEmpty && actual.stderr.isEmpty)
 	}
 
 	@Test
 	static func looksUpSlack() async {
 		let adamID = 803_453_959 as ADAMID
-
-		let consequences = await consequencesOf(
+		let actual = await consequencesOf(
 			try await ITunesSearchAppStoreSearcher(networkSession: try MockNetworkSession(responseResource: "lookup"))
 			.lookup(appID: .adamID(adamID)) // swiftformat:disable:this indent
 		)
-		#expect(
-			consequences.error == nil
-			&& consequences.stdout.isEmpty // swiftformat:disable:this indent
-			&& consequences.stderr.isEmpty // swiftformat:disable:this indent
-		)
-
-		guard let result = consequences.value else {
-			#expect(consequences.value != nil)
+		#expect(actual.error == nil && actual.stdout.isEmpty && actual.stderr.isEmpty)
+		guard let result = actual.value else {
+			#expect(actual.value != nil)
 			return
 		}
 

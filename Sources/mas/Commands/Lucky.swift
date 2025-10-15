@@ -26,7 +26,7 @@ extension MAS {
 		var searchTermOptionGroup: SearchTermOptionGroup
 
 		func run() async throws {
-			try await run(installedApps: await installedApps, searcher: ITunesSearchAppStoreSearcher())
+			try await run(installedApps: try await installedApps, searcher: ITunesSearchAppStoreSearcher())
 		}
 
 		func run(installedApps: [InstalledApp], searcher: some AppStoreSearcher) async throws {
@@ -45,7 +45,7 @@ extension MAS {
 				throw MASError.noSearchResultsFound(for: searchTerm)
 			}
 
-			if let installedApp = installedApps.first(where: { $0.adamID == adamID }), !forceOptionGroup.force {
+			if !forceOptionGroup.force, let installedApp = installedApps.first(where: { $0.adamID == adamID }) {
 				downloader.printer.warning(
 					"Already installed: ",
 					installedApp.name,
@@ -54,9 +54,10 @@ extension MAS {
 					")",
 					separator: ""
 				)
-			} else {
-				try await downloader.downloadApp(withADAMID: adamID)
+				return
 			}
+
+			try await downloader.downloadApp(withADAMID: adamID)
 		}
 	}
 }

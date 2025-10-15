@@ -8,11 +8,17 @@
 private import Foundation
 private import ObjectiveC
 
-private var applicationsFolder: String { "/Applications" }
+private extension String {
+	func removingSuffix(_ suffix: Self) -> Self {
+		hasSuffix(suffix)
+		? Self(dropLast(suffix.count)) // swiftformat:disable:this indent
+		: self
+	}
+}
 
 @MainActor
 var installedApps: [InstalledApp] {
-	get async {
+	get async throws {
 		var observer: (any NSObjectProtocol)?
 		defer {
 			if let observer {
@@ -22,21 +28,23 @@ var installedApps: [InstalledApp] {
 
 		let query = NSMetadataQuery()
 		query.predicate = NSPredicate(format: "kMDItemAppStoreAdamID LIKE '*'")
-		query.searchScopes =
-			if let volume = UserDefaults(suiteName: "com.apple.appstored")?.dictionary(forKey: "PreferredVolume")?["name"] {
-				[applicationsFolder, "/Volumes/\(volume)\(applicationsFolder)"]
-			} else {
-				[applicationsFolder]
-			}
+		query.searchScopes = UserDefaults(suiteName: "com.apple.appstored")?
+		.dictionary(forKey: "PreferredVolume")?["name"] // swiftformat:disable indent
+		.map { [applicationsFolder, "/Volumes/\($0)\(applicationsFolder)"] }
+		?? [applicationsFolder]
 
-		return await withCheckedContinuation { continuation in
+		return try await withCheckedThrowingContinuation { continuation in // swiftformat:enable indent
 			observer = NotificationCenter.default.addObserver(
 				forName: .NSMetadataQueryDidFinishGathering,
 				object: query,
 				queue: nil
 			) { notification in
 				guard let query = notification.object as? NSMetadataQuery else {
-					continuation.resume(returning: [])
+					continuation.resume(
+						throwing: MASError.runtimeError(
+							"Notification Center returned a \(type(of: notification.object)) instead of a NSMetadataQuery"
+						)
+					)
 					return
 				}
 
@@ -45,21 +53,18 @@ var installedApps: [InstalledApp] {
 				continuation.resume(
 					returning: query.results
 					.compactMap { result in // swiftformat:disable indent
-						if let item = result as? NSMetadataItem {
+						(result as? NSMetadataItem).map { item in
 							InstalledApp(
 								adamID: item.value(forAttribute: "kMDItemAppStoreAdamID") as? ADAMID ?? 0,
 								bundleID: item.value(forAttribute: NSMetadataItemCFBundleIdentifierKey) as? String ?? "",
-								name: (item.value(forAttribute: "_kMDItemDisplayNameWithExtensions") as? String ?? "").removingSuffix(
-									".app"
-								),
+								name: (item.value(forAttribute: "_kMDItemDisplayNameWithExtensions") as? String ?? "")
+								.removingSuffix(".app"),
 								path: item.value(forAttribute: NSMetadataItemPathKey) as? String ?? "",
 								version: item.value(forAttribute: NSMetadataItemVersionKey) as? String ?? ""
 							)
-						} else {
-							nil
 						}
 					}
-					.sorted { $0.name.caseInsensitiveCompare($1.name) == .orderedAscending } // swiftformat:enable indent
+					.sorted { $0.name.localizedStandardCompare($1.name) == .orderedAscending } // swiftformat:enable indent
 				)
 			}
 
@@ -68,10 +73,4 @@ var installedApps: [InstalledApp] {
 	}
 }
 
-private extension String {
-	func removingSuffix(_ suffix: Self) -> Self {
-		hasSuffix(suffix)
-		? Self(dropLast(suffix.count)) // swiftformat:disable:this indent
-		: self
-	}
-}
+private var applicationsFolder: String { "/Applications" }

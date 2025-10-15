@@ -24,12 +24,12 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 	///
 	/// - Parameters:
 	///   - appID: App ID.
-	///   - region: The ISO 3166-1 region alpha-2 of the storefront in which to
+	///   - region: The ISO 3166-1 alpha-2 region of the storefront in which to
 	///     lookup apps.
 	/// - Returns: A `SearchResult` for the given `appID` if `appID` is valid.
 	/// - Throws: A `MASError.unknownAppID(appID)` if `appID` is invalid.
 	///   Some other `Error` if any other problem occurs.
-	func lookup(appID: AppID, inRegion region: String) async throws -> SearchResult {
+	func lookup(appID: AppID, inRegion region: Region) async throws -> SearchResult {
 		guard let result = try await getSearchResults(from: try lookupURL(forAppID: appID, inRegion: region)).first else {
 			throw MASError.unknownAppID(appID)
 		}
@@ -41,11 +41,11 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 	///
 	/// - Parameters:
 	///   - searchTerm: Term for which to search.
-	///   - region: The ISO 3166-1 region alpha-2 of the storefront in which to
+	///   - region: The ISO 3166-1 alpha-2 region of the storefront in which to
 	///     search for apps.
 	/// - Returns: A `[SearchResult]` matching `searchTerm`.
 	/// - Throws: An `Error` if any problem occurs.
-	func search(for searchTerm: String, inRegion region: String) async throws -> [SearchResult] {
+	func search(for searchTerm: String, inRegion region: Region) async throws -> [SearchResult] {
 		try await getSearchResults(from: try searchURL(for: searchTerm, inRegion: region))
 	}
 
@@ -53,11 +53,11 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 	///
 	/// - Parameters:
 	///   - appID: App ID.
-	///   - region: The ISO 3166-1 region alpha-2 of the storefront in which to
+	///   - region: The ISO 3166-1 alpha-2 region of the storefront in which to
 	///     lookup apps.
 	/// - Returns: URL for the lookup service.
 	/// - Throws: An `MASError.urlParsing` if `appID` can't be encoded.
-	private func lookupURL(forAppID appID: AppID, inRegion region: String) throws -> URL {
+	private func lookupURL(forAppID appID: AppID, inRegion region: Region) throws -> URL {
 		let queryItem =
 			switch appID {
 			case let .adamID(adamID):
@@ -72,15 +72,15 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 	///
 	/// - Parameters:
 	///   - searchTerm: term for which to search in MAS.
-	///   - region: The ISO 3166-1 region alpha-2 of the storefront in which to
+	///   - region: The ISO 3166-1 alpha-2 region of the storefront in which to
 	///     search for apps.
 	/// - Returns: URL for the search service.
 	/// - Throws: An `MASError.urlParsing` if `searchTerm` can't be encoded.
-	private func searchURL(for searchTerm: String, inRegion region: String) throws -> URL {
+	private func searchURL(for searchTerm: String, inRegion region: Region) throws -> URL {
 		try url("search", URLQueryItem(name: "term", value: searchTerm), inRegion: region)
 	}
 
-	private func url(_ action: String, _ queryItem: URLQueryItem, inRegion region: String) throws -> URL {
+	private func url(_ action: String, _ queryItem: URLQueryItem, inRegion region: Region) throws -> URL {
 		let urlBase = "https://itunes.apple.com/\(action)"
 		guard var urlComponents = URLComponents(string: urlBase) else {
 			throw MASError.urlParsing(urlBase)
@@ -96,7 +96,7 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 		urlComponents.queryItems = queryItems
 
 		guard let url = urlComponents.url else {
-			throw MASError.urlParsing("\(urlBase)?\(queryItems.map { String(describing: $0) }.joined(separator: "&"))")
+			throw MASError.urlParsing("\(urlBase)?\(queryItems.map(String.init(describing:)).joined(separator: "&"))")
 		}
 
 		return url
@@ -107,7 +107,7 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 		do {
 			return try JSONDecoder().decode(SearchResultList.self, from: data).results
 		} catch {
-			throw MASError.jsonParsing(data: data)
+			throw MASError.jsonParsing(input: String(data: data, encoding: .utf8))
 		}
 	}
 }

@@ -8,7 +8,7 @@ body:
   attributes:
     label: Configuration
     placeholder: Output of `mas config`
-    render: console
+    render: text
   validations:
     required: true
 - type: textarea

@@ -12,11 +12,10 @@ internal import Testing
 extension MASTests {
 	@Test(.disabled())
 	static func purchasesApps() async {
-		#expect(
-			await consequencesOf(
-				try await MAS.Purchase.parse(["999"]).run(installedApps: [], searcher: MockAppStoreSearcher())
-			)
-			== Consequences() // swiftformat:disable:this indent
+		let actual = await consequencesOf(
+			try await MAS.Purchase.parse(["999"]).run(installedApps: [], searcher: MockAppStoreSearcher())
 		)
+		let expected = Consequences()
+		#expect(actual == expected)
 	}
 }

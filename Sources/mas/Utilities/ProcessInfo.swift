@@ -14,29 +14,14 @@ extension ProcessInfo {
 	}
 
 	var sudoGroupName: String? {
-		guard
-			let sudoGID,
-			let group = getgrgid(sudoGID)
-		else {
-			return nil
-		}
-
-		return String(validatingCString: group.pointee.gr_name)
+		sudoGID.flatMap { String(validatingCString: getgrgid($0).pointee.gr_name) }
 	}
 
 	var sudoUID: uid_t? {
-		if let uid = environment["SUDO_UID"] {
-			uid_t(uid)
-		} else {
-			nil
-		}
+		environment["SUDO_UID"].flatMap { uid_t($0) }
 	}
 
 	var sudoGID: gid_t? {
-		if let gid = environment["SUDO_GID"] {
-			gid_t(gid)
-		} else {
-			nil
-		}
+		environment["SUDO_GID"].flatMap { gid_t($0) }
 	}
 }

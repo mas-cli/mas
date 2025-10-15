@@ -12,17 +12,17 @@ internal import Testing
 extension MASTests {
 	@Test
 	static func parsesSearchResultListFromBBEditJSON() {
-		#expect(
+		let actual =
 			consequencesOf(try JSONDecoder().decode(SearchResultList.self, from: Data(fromResource: "bbedit")).resultCount)
-			== Consequences(1) // swiftformat:disable:this indent
-		)
+		let expected = Consequences(1)
+		#expect(actual == expected)
 	}
 
 	@Test
 	static func parsesSearchResultListFromThingsJSON() {
-		#expect(
+		let actual =
 			consequencesOf(try JSONDecoder().decode(SearchResultList.self, from: Data(fromResource: "things")).resultCount)
-			== Consequences(50) // swiftformat:disable:this indent
-		)
+		let expected = Consequences(50)
+		#expect(actual == expected)
 	}
 }

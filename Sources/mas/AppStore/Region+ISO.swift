@@ -1,5 +1,5 @@
 //
-// ISORegion.swift
+// Region+ISO.swift
 // mas
 //
 // Copyright © 2024 mas-cli. All rights reserved.
@@ -8,27 +8,18 @@
 private import Foundation
 private import StoreKit
 
-var region: String {
+typealias Region = String
+private typealias Alpha3 = String
+
+var region: Region {
 	get async {
-		if
-			let alpha3 = await storefrontAlpha3,
-			let alpha2 = alpha2(fromAlpha3: alpha3.uppercased())
-		{
-			alpha2
-		} else if
-			let alpha3 = SKPaymentQueue.default().storefront?.countryCode,
-			let alpha2 = alpha2(fromAlpha3: alpha3.uppercased())
-		{
-			alpha2
-		} else if #available(macOS 13, *) {
-			Locale.autoupdatingCurrent.region?.identifier ?? "US"
-		} else {
-			Locale.autoupdatingCurrent.regionCode ?? "US"
-		}
+		await storefrontAlpha3.flatMap { mas.region(fromAlpha3: $0.uppercased()) } // swiftformat:disable:next indent
+		?? SKPaymentQueue.default().storefront.flatMap { mas.region(fromAlpha3: $0.countryCode.uppercased()) }
+		?? localeRegion // swiftformat:disable:this indent
 	}
 }
 
-private var storefrontAlpha3: String? {
+private var storefrontAlpha3: Alpha3? {
 	get async {
 		if #available(macOS 12, *) {
 			await Storefront.current?.countryCode
@@ -38,7 +29,15 @@ private var storefrontAlpha3: String? {
 	}
 }
 
-private func alpha2(fromAlpha3 alpha3: String) -> String? { // swiftlint:disable:this function_body_length
+private var localeRegion: Region {
+	if #available(macOS 13, *) {
+		Locale.autoupdatingCurrent.region?.identifier ?? "US"
+	} else {
+		Locale.autoupdatingCurrent.regionCode ?? "US"
+	}
+}
+
+private func region(fromAlpha3 alpha3: Alpha3) -> Region? { // swiftlint:disable:this function_body_length
 	switch alpha3 { // swiftlint:disable switch_case_on_newline
 	case "AFG": "AF"
 	case "ALA": "AX"

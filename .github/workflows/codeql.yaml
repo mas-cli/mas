@@ -50,7 +50,7 @@ jobs:
       if: matrix.language == 'swift'
       shell: bash
       run: |
-        Scripts/build codeql
+        Scripts/build codeql -c release
 
     - name: 🔍 Perform CodeQL analysis
       uses: github/codeql-action/analyze@v4

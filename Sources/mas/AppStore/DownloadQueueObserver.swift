@@ -10,11 +10,6 @@ private import Darwin
 private import Foundation
 private import StoreFoundation
 
-private var downloadingPhaseType: Int64 { 0 }
-private var installingPhaseType: Int64 { 1 }
-private var initialPhaseType: Int64 { 4 }
-private var downloadedPhaseType: Int64 { 5 }
-
 final class DownloadQueueObserver: CKDownloadQueueObserver {
 	private let adamID: ADAMID
 	private let printer: Printer
@@ -46,16 +41,16 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 		else {
 			return
 		}
-		guard status.isCancelled || !shouldCancel(download, true) else {
+		guard !status.isCancelled, !status.isFailed else {
+			queue.removeDownload(withItemIdentifier: adamID)
+			return
+		}
+		guard !shouldCancel(download, true) else {
 			queue.cancelDownload(download, promptToConfirm: false, askToDelete: false)
 			return
 		}
 
-		if status.isFailed || status.isCancelled {
-			queue.removeDownload(withItemIdentifier: adamID)
-		} else {
-			prevPhaseType = printer.progress(for: metadata.appNameAndVersion, status: status, prevPhaseType: prevPhaseType)
-		}
+		prevPhaseType = printer.progress(for: metadata.appNameAndVersion, status: status, prevPhaseType: prevPhaseType)
 	}
 
 	func downloadQueue(_: CKDownloadQueue, changedWithAddition _: SSDownload) {
@@ -72,19 +67,23 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 		}
 
 		printer.terminateEphemeral()
-		if status.isFailed {
+
+		guard !status.isFailed else {
 			errorHandler?(status.error ?? MASError.runtimeError("Failed to download \(metadata.appNameAndVersion)"))
-		} else if status.isCancelled {
+			return
+		}
+		guard !status.isCancelled else {
 			guard shouldCancel(download, false) else {
 				errorHandler?(MASError.cancelled)
 				return
 			}
 
 			completionHandler?()
-		} else {
-			printer.notice("Installed", metadata.appNameAndVersion)
-			completionHandler?()
+			return
 		}
+
+		printer.notice("Installed", metadata.appNameAndVersion)
+		completionHandler?()
 	}
 
 	func observeDownloadQueue(_ queue: CKDownloadQueue = .shared()) async throws {
@@ -143,7 +142,7 @@ private extension Printer {
 			}
 		}
 
-		if isatty(fileno(stdout)) != 0 {
+		if isatty(FileHandle.standardOutput.fileDescriptor) != 0 {
 			// Only output the progress bar if connected to a terminal
 			let progressState = status.progressState
 			let totalLength = 60
@@ -193,3 +192,8 @@ private extension SSDownloadPhase {
 		}
 	}
 }
+
+private let downloadingPhaseType = 0 as Int64
+private let installingPhaseType = 1 as Int64
+private let initialPhaseType = 4 as Int64
+private let downloadedPhaseType = 5 as Int64

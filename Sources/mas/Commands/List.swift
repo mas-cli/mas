@@ -19,7 +19,7 @@ extension MAS {
 		var optionalAppIDsOptionGroup: OptionalAppIDsOptionGroup
 
 		func run() async throws {
-			try run(installedApps: await installedApps)
+			try run(installedApps: try await installedApps)
 		}
 
 		func run(installedApps: [InstalledApp]) throws {
@@ -28,7 +28,7 @@ extension MAS {
 
 		private func run(printer: Printer, installedApps: [InstalledApp]) {
 			let installedApps = installedApps.filter(by: optionalAppIDsOptionGroup, printer: printer)
-			if installedApps.isEmpty {
+			guard !installedApps.isEmpty else {
 				printer.warning(
 					"""
 					No installed apps found
@@ -39,27 +39,27 @@ extension MAS {
 					sudo mdutil -Eai on
 					"""
 				)
-			} else {
-				guard let maxADAMIDLength = installedApps.map({ String(describing: $0.adamID).count }).max() else {
-					return
-				}
-				guard let maxAppNameLength = installedApps.map(\.name.count).max() else {
-					return
-				}
-
-				let format = "%\(maxADAMIDLength)lu  %@  (%@)"
-				printer.info(
-					installedApps.map { installedApp in
-						String(
-							format: format,
-							installedApp.adamID,
-							installedApp.name.padding(toLength: maxAppNameLength, withPad: " ", startingAt: 0),
-							installedApp.version
-						)
-					}
-					.joined(separator: "\n")
-				)
+				return
 			}
+			guard let maxADAMIDLength = installedApps.map({ String(describing: $0.adamID).count }).max() else {
+				return
+			}
+			guard let maxAppNameLength = installedApps.map(\.name.count).max() else {
+				return
+			}
+
+			let format = "%\(maxADAMIDLength)lu  %@  (%@)"
+			printer.info(
+				installedApps.map { installedApp in
+					String(
+						format: format,
+						installedApp.adamID,
+						installedApp.name.padding(toLength: maxAppNameLength, withPad: " ", startingAt: 0),
+						installedApp.version
+					)
+				}
+				.joined(separator: "\n")
+			)
 		}
 	}
 }

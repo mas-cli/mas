@@ -10,8 +10,6 @@ internal import ArgumentParser
 private import Foundation
 private import ObjectiveC
 
-private var masScheme: String { "macappstore" }
-
 extension MAS {
 	/// Opens app page in 'App Store.app'.
 	///
@@ -76,3 +74,5 @@ private func openMacAppStorePage(forURLString urlString: String) async throws {
 
 	try await url.open()
 }
+
+private let masScheme = "macappstore"

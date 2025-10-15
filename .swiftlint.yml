@@ -9,6 +9,7 @@ excluded:
 - .build/
 - .idea/
 - .swiftpm/
+- .vscode/
 opt_in_rules:
 - all
 analyzer_rules:

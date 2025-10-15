@@ -7,9 +7,9 @@
 
 internal import Foundation
 
-enum MASError: Error, Equatable {
+enum MASError: Error {
 	case cancelled
-	case jsonParsing(data: Data)
+	case jsonParsing(input: String? = nil)
 	case noDownloads
 	case noSearchResultsFound(for: String)
 	case noVendorWebsite(forAppID: AppID)
@@ -24,12 +24,8 @@ extension MASError: CustomStringConvertible {
 		switch self {
 		case .cancelled:
 			"Download cancelled"
-		case let .jsonParsing(data):
-			if let unparsable = String(data: data, encoding: .utf8) {
-				"Unable to parse response as JSON:\n\(unparsable)"
-			} else {
-				"Unable to parse response as JSON"
-			}
+		case let .jsonParsing(input):
+			input.map { "Unable to parse input as JSON:\n\($0)" } ?? "Unable to parse input as JSON"
 		case .noDownloads:
 			"No downloads began"
 		case let .noSearchResultsFound(searchTerm):

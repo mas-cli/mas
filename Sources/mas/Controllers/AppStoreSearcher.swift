@@ -11,22 +11,22 @@ protocol AppStoreSearcher {
 	///
 	/// - Parameters:
 	///   - appID: App ID.
-	///   - region: The ISO 3166-1 region alpha-2 of the storefront in which to
+	///   - region: The ISO 3166-1 alpha-2 region of the storefront in which to
 	///     lookup apps.
 	/// - Returns: A `SearchResult` for the given `appID` if `appID` is valid.
 	/// - Throws: A `MASError.unknownAppID(appID)` if `appID` is invalid.
 	///   Some other `Error` if any other problem occurs.
-	func lookup(appID: AppID, inRegion region: String) async throws -> SearchResult
+	func lookup(appID: AppID, inRegion region: Region) async throws -> SearchResult
 
 	/// Searches for apps.
 	///
 	/// - Parameters:
 	///   - searchTerm: Term for which to search.
-	///   - region: The ISO 3166-1 region alpha-2 of the storefront in which to
+	///   - region: The ISO 3166-1 alpha-2 region of the storefront in which to
 	///     search for apps.
 	/// - Returns: A `[SearchResult]` matching `searchTerm`.
 	/// - Throws: An `Error` if any problem occurs.
-	func search(for searchTerm: String, inRegion region: String) async throws -> [SearchResult]
+	func search(for searchTerm: String, inRegion region: Region) async throws -> [SearchResult]
 }
 
 extension AppStoreSearcher {

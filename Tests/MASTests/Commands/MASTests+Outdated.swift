@@ -25,21 +25,20 @@ extension MASTests {
 				vendorURL: "https://example.com",
 				version: "1.28"
 			)
-		#expect(
-			await consequencesOf(
-				try await MAS.Outdated.parse([]).run(
-					installedApps: [
-						InstalledApp(
-							adamID: result.adamID,
-							bundleID: result.bundleID,
-							name: result.name,
-							path: "/Applications/Bandwidth+.app",
-							version: "1.27"
-						),
-					]
-				)
+		let actual = await consequencesOf(
+			try await MAS.Outdated.parse([]).run(
+				installedApps: [
+					InstalledApp(
+						adamID: result.adamID,
+						bundleID: result.bundleID,
+						name: result.name,
+						path: "/Applications/Bandwidth+.app",
+						version: "1.27"
+					),
+				]
 			)
-			== Consequences(nil, "490461369 Bandwidth+ (1.27 -> 1.28)\n") // swiftformat:disable:this indent
 		)
+		let expected = Consequences(nil, "490461369 Bandwidth+ (1.27 -> 1.28)\n")
+		#expect(actual == expected)
 	}
 }

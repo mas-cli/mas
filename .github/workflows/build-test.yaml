@@ -51,7 +51,7 @@ jobs:
       run: Scripts/bootstrap
 
     - name: 🏗 Build
-      run: Scripts/build build-test
+      run: Scripts/build build-test -c release
 
     - name: 🧪 Test
       run: Scripts/test

@@ -20,6 +20,8 @@ ensure_command_available git markdownlint-cli2 periphery shellcheck swiftformat 
 zmodload zsh/zutil
 zparseopts -D -A opts A P
 
+export MAS_INSTALL_METHOD=lint
+
 exit_status=0
 
 printf -- $'--> 🕊​ SwiftFormat\n'
@@ -34,7 +36,6 @@ swiftlint --strict --quiet --reporter relative-path
 # shellcheck disable=SC1046,SC1047,SC1072,SC1073
 if ! [[ -v 'opts[-A]' ]]; then
 	printf -- $'--> 🔬 SwiftLint Analyze\n'
-	export MAS_INSTALL_METHOD=lint
 	# shellcheck disable=SC1036
 	swiftlint analyze --strict --quiet --reporter relative-path --compiler-log-path\
 	 =(xcodebuild -scheme mas -destination "platform=macOS,arch=$(arch),variant=macos" 2>&1)
@@ -43,7 +44,11 @@ fi
 
 if ! [[ -v 'opts[-P]' ]]; then
 	printf -- $'--> 🌀 Periphery\n'
-	export MAS_INSTALL_METHOD=lint
+	script -q /dev/null periphery scan --exclude-tests |
+	 (grep -vxE '(?:\x1b\[0;1;32m|\^D\x08{2})\* (?:\x1b\[0;0m\x1b\[0;1m)?No unused code detected\.(?:\x1b\[0;0m)?\r' || true)
+	((exit_status |= ${?}))
+
+	printf -- $'--> 🌀 Periphery Tests\n'
 	script -q /dev/null periphery scan |
 	 (grep -vxE '(?:\x1b\[0;1;32m|\^D\x08{2})\* (?:\x1b\[0;0m\x1b\[0;1m)?No unused code detected\.(?:\x1b\[0;0m)?\r' || true)
 	((exit_status |= ${?}))

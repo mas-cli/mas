@@ -12,9 +12,9 @@ internal import Testing
 extension MASTests {
 	@Test(.disabled())
 	static func doesNotInstallAppsWhenNoAppIDs() async {
-		#expect(
+		let actual =
 			await consequencesOf(try await MAS.Install.parse([]).run(installedApps: [], searcher: MockAppStoreSearcher()))
-			== Consequences() // swiftformat:disable:this indent
-		)
+		let expected = Consequences()
+		#expect(actual == expected)
 	}
 }

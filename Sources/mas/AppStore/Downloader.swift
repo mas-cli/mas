@@ -29,6 +29,7 @@ struct Downloader {
 			)
 			return
 		}
+
 		try await downloadApp(withADAMID: adamID, purchasing: purchasing)
 	}
 
@@ -44,18 +45,21 @@ struct Downloader {
 				CKPurchaseController.shared().perform(purchase, withOptions: 0) { _, _, error, response in
 					if let error {
 						continuation.resume(throwing: error)
-					} else if response?.downloads?.isEmpty == false {
-						Task {
-							do {
-								try await DownloadQueueObserver(adamID: adamID, printer: printer, shouldCancel: shouldCancel)
-								.observeDownloadQueue() // swiftformat:disable:this indent
-								continuation.resume()
-							} catch {
-								continuation.resume(throwing: error)
-							}
-						}
-					} else {
+						return
+					}
+					guard response?.downloads?.isEmpty == false else {
 						continuation.resume(throwing: MASError.noDownloads)
+						return
+					}
+
+					Task {
+						do {
+							try await DownloadQueueObserver(adamID: adamID, printer: printer, shouldCancel: shouldCancel)
+							.observeDownloadQueue() // swiftformat:disable:this indent
+							continuation.resume()
+						} catch {
+							continuation.resume(throwing: error)
+						}
 					}
 				}
 			}

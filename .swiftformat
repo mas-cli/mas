@@ -80,3 +80,4 @@
 --wrap-effects never
 --wrap-return-type never
 --wrap-ternary before-operators
+--xcode-indentation enabled
