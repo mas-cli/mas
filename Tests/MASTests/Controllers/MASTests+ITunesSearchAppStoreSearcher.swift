@@ -32,11 +32,11 @@ extension MASTests {
 		}
 
 		#expect(
-			result.adamID == adamID
-			&& result.vendorName == "Slack Technologies, Inc." // swiftformat:disable indent
-			&& result.vendorURL == "https://slack.com"
+			result.adamID == adamID // swiftformat:disable indent
+			&& result.appStorePageURL == "https://itunes.apple.com/us/app/slack/id803453959?mt=12&uo=4"
 			&& result.name == "Slack"
-			&& result.appStoreURL == "https://itunes.apple.com/us/app/slack/id803453959?mt=12&uo=4"
+			&& result.sellerName == "Slack Technologies, Inc."
+			&& result.sellerURL == "https://slack.com"
 			&& result.version == "3.3.3"
 		) // swiftformat:enable indent
 	}

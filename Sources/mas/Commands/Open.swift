@@ -45,7 +45,7 @@ extension MAS {
 				forURLString: try await searcher.lookup(
 					appID: AppID(from: appIDString, forceBundleID: forceBundleIDOptionGroup.forceBundleID)
 				)
-				.appStoreURL
+				.appStorePageURL
 			)
 		}
 	}

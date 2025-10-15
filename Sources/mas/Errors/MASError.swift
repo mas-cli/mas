@@ -12,7 +12,7 @@ enum MASError: Error {
 	case jsonParsing(input: String? = nil)
 	case noDownloads
 	case noSearchResultsFound(for: String)
-	case noVendorWebsite(forAppID: AppID)
+	case noSellerURL(forAppID: AppID)
 	case notSupported
 	case runtimeError(String)
 	case unknownAppID(AppID)
@@ -30,8 +30,8 @@ extension MASError: CustomStringConvertible {
 			"No downloads began"
 		case let .noSearchResultsFound(searchTerm):
 			"No apps found in the Mac App Store for search term: \(searchTerm)"
-		case let .noVendorWebsite(appID):
-			"No vendor website available for \(appID)"
+		case let .noSellerURL(appID):
+			"No seller website available for \(appID)"
 		case .notSupported:
 			"""
 			This command is not supported on this macOS version due to changes in macOS

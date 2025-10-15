@@ -7,7 +7,7 @@
 
 struct SearchResult: Equatable {
 	let adamID: ADAMID
-	let appStoreURL: String
+	let appStorePageURL: String
 	// periphery:ignore
 	let bundleID: String
 	let fileSizeBytes: String
@@ -15,34 +15,34 @@ struct SearchResult: Equatable {
 	let minimumOSVersion: String
 	let name: String
 	let releaseDate: String
-	let vendorName: String
-	let vendorURL: String?
+	let sellerName: String
+	let sellerURL: String?
 	let version: String
 
 	// periphery:ignore
 	init(
 		adamID: ADAMID = 0,
-		appStoreURL: String = "",
+		appStorePageURL: String = "",
 		bundleID: String = "",
 		fileSizeBytes: String = "0",
 		formattedPrice: String? = "0",
 		minimumOSVersion: String = "",
 		name: String = "",
 		releaseDate: String = "",
-		vendorName: String = "",
-		vendorURL: String? = nil,
+		sellerName: String = "",
+		sellerURL: String? = nil,
 		version: String = ""
 	) {
 		self.adamID = adamID
-		self.appStoreURL = appStoreURL
+		self.appStorePageURL = appStorePageURL
 		self.bundleID = bundleID
 		self.fileSizeBytes = fileSizeBytes
 		self.formattedPrice = formattedPrice ?? "?"
 		self.minimumOSVersion = minimumOSVersion
 		self.name = name
 		self.releaseDate = releaseDate
-		self.vendorName = vendorName
-		self.vendorURL = vendorURL
+		self.sellerName = sellerName
+		self.sellerURL = sellerURL
 		self.version = version
 	}
 }
@@ -50,15 +50,15 @@ struct SearchResult: Equatable {
 extension SearchResult: Decodable {
 	enum CodingKeys: String, CodingKey {
 		case adamID = "trackId"
-		case appStoreURL = "trackViewUrl"
+		case appStorePageURL = "trackViewUrl"
 		case bundleID = "bundleId"
 		case fileSizeBytes
 		case formattedPrice
 		case minimumOSVersion = "minimumOsVersion"
 		case name = "trackName"
 		case releaseDate = "currentVersionReleaseDate"
-		case vendorName = "sellerName"
-		case vendorURL = "sellerUrl"
+		case sellerName
+		case sellerURL = "sellerUrl"
 		case version
 	}
 }

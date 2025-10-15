@@ -24,13 +24,13 @@ extension MASTests {
 				searcher: MockAppStoreSearcher(
 					SearchResult(
 						adamID: 1,
-						appStoreURL: "https://awesome.app",
+						appStorePageURL: "https://awesome.app",
 						fileSizeBytes: "1000000",
 						formattedPrice: "$2.00",
 						minimumOSVersion: "10.14",
 						name: "Awesome App",
 						releaseDate: "2019-01-07T18:53:13Z",
-						vendorName: "Awesome Dev",
+						sellerName: "Awesome Dev",
 						version: "1.0"
 					)
 				)

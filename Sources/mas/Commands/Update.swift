@@ -1,5 +1,5 @@
 //
-// Upgrade.swift
+// Update.swift
 // mas
 //
 // Copyright © 2015 mas-cli. All rights reserved.
@@ -9,10 +9,11 @@ internal import ArgumentParser
 private import StoreFoundation
 
 extension MAS {
-	/// Upgrades outdated apps installed from the Mac App Store.
-	struct Upgrade: AsyncParsableCommand {
+	/// Updates outdated apps installed from the Mac App Store.
+	struct Update: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
-			abstract: "Upgrade outdated apps installed from the Mac App Store"
+			abstract: "Update outdated apps installed from the Mac App Store",
+			aliases: ["upgrade"]
 		)
 
 		@OptionGroup

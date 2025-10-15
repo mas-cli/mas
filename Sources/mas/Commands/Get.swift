@@ -1,5 +1,5 @@
 //
-// Purchase.swift
+// Get.swift
 // mas
 //
 // Copyright © 2025 mas-cli. All rights reserved.
@@ -8,10 +8,11 @@
 internal import ArgumentParser
 
 extension MAS {
-	/// "Purchases" & installs free apps from the Mac App Store.
-	struct Purchase: AsyncParsableCommand {
+	/// Gets & installs free apps from the Mac App Store.
+	struct Get: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
-			abstract: "\"Purchase\" & install free apps from the Mac App Store"
+			abstract: "Get & install free apps from the Mac App Store",
+			aliases: ["purchase"]
 		)
 
 		@OptionGroup
@@ -28,7 +29,7 @@ extension MAS {
 					do {
 						try await downloader.downloadApp(
 							withADAMID: try await appID.adamID(searcher: searcher),
-							purchasing: true,
+							getting: true,
 							installedApps: installedApps
 						)
 					} catch {

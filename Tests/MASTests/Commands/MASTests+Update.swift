@@ -1,5 +1,5 @@
 //
-// MASTests+Upgrade.swift
+// MASTests+Update.swift
 // mas
 //
 // Copyright © 2018 mas-cli. All rights reserved.
@@ -11,8 +11,8 @@ internal import Testing
 
 extension MASTests {
 	@Test(.disabled())
-	static func findsNoUpgrades() async {
-		let actual = await consequencesOf(try await MAS.Upgrade.parse([]).run(installedApps: []))
+	static func findsNoUpdates() async {
+		let actual = await consequencesOf(try await MAS.Update.parse([]).run(installedApps: []))
 		let expected = Consequences()
 		#expect(actual == expected)
 	}

@@ -1,5 +1,5 @@
 //
-// MASTests+Purchase.swift
+// MASTests+Get.swift
 // mas
 //
 // Copyright © 2020 mas-cli. All rights reserved.
@@ -11,9 +11,9 @@ internal import Testing
 
 extension MASTests {
 	@Test(.disabled())
-	static func purchasesApps() async {
+	static func getsApps() async {
 		let actual = await consequencesOf(
-			try await MAS.Purchase.parse(["999"]).run(installedApps: [], searcher: MockAppStoreSearcher())
+			try await MAS.Get.parse(["999"]).run(installedApps: [], searcher: MockAppStoreSearcher())
 		)
 		let expected = Consequences()
 		#expect(actual == expected)
