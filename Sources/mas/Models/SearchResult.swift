@@ -5,7 +5,7 @@
 // Copyright © 2018 mas-cli. All rights reserved.
 //
 
-struct SearchResult {
+struct SearchResult: Equatable {
 	let adamID: ADAMID
 	let appStoreURL: String
 	// periphery:ignore
@@ -60,11 +60,5 @@ extension SearchResult: Decodable {
 		case vendorName = "sellerName"
 		case vendorURL = "sellerUrl"
 		case version
-	}
-}
-
-extension SearchResult: Hashable {
-	func hash(into hasher: inout Hasher) {
-		hasher.combine(adamID)
 	}
 }
