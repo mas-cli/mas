@@ -10,17 +10,17 @@ internal import Foundation
 
 /// Mock NetworkSession for testing with a saved response payload file.
 struct MockNetworkSession: NetworkSession {
-	private let data: (Data, URLResponse)
+	private let dataResponse: (Data, URLResponse)
 
 	/// Initializes a mock URL session with a resource for the response.
 	///
 	/// - Parameter responseResource: Resource containing response body.
 	/// - Throws: An `Error` if any problem occurs.
 	init(responseResource: String) throws {
-		data = (try Data(fromResource: responseResource), URLResponse())
+		dataResponse = (try Data(fromResource: responseResource), URLResponse())
 	}
 
 	func data(from _: URL) -> (Data, URLResponse) {
-		data
+		dataResponse
 	}
 }
