@@ -10,11 +10,6 @@ private import Darwin
 private import Foundation
 private import StoreFoundation
 
-private var downloadingPhaseType: Int64 { 0 }
-private var installingPhaseType: Int64 { 1 }
-private var initialPhaseType: Int64 { 4 }
-private var downloadedPhaseType: Int64 { 5 }
-
 final class DownloadQueueObserver: CKDownloadQueueObserver {
 	private let adamID: ADAMID
 	private let printer: Printer
@@ -193,3 +188,8 @@ private extension SSDownloadPhase {
 		}
 	}
 }
+
+private let downloadingPhaseType = 0 as Int64
+private let installingPhaseType = 1 as Int64
+private let initialPhaseType = 4 as Int64
+private let downloadedPhaseType = 5 as Int64

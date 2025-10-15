@@ -122,4 +122,4 @@ extension MAS {
 }
 
 /// Terminal Control Sequence Indicator.
-private var csi: String { "\u{001B}[" }
+private let csi = "\u{001B}["

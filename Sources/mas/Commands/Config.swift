@@ -9,9 +9,6 @@ internal import ArgumentParser
 private import Darwin
 private import Foundation
 
-private var unknown: String { "unknown" }
-private var sysCtlByName: String { "sysctlbyname" }
-
 extension MAS {
 	/// Outputs mas config & related system info.
 	struct Config: AsyncParsableCommand {
@@ -60,3 +57,6 @@ private func configStringValue(_ name: String) -> String {
 
 	return String(cString: buffer, encoding: .utf8) ?? unknown
 }
+
+private let unknown = "unknown"
+private let sysCtlByName = "sysctlbyname"

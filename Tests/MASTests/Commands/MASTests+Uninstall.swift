@@ -9,15 +9,6 @@ private import ArgumentParser
 @testable private import mas
 internal import Testing
 
-private let adamID = 12345 as ADAMID
-private let app = InstalledApp(
-	adamID: adamID,
-	bundleID: "com.some.app",
-	name: "Some App",
-	path: "/tmp/Some.app",
-	version: "1.0"
-)
-
 extension MASTests {
 	@Test(.disabled())
 	static func uninstallDryRunCannotRemoveMissingApp() {
@@ -47,3 +38,12 @@ extension MASTests {
 		#expect(actual == expected)
 	}
 }
+
+private let adamID = 12345 as ADAMID
+private let app = InstalledApp(
+	adamID: adamID,
+	bundleID: "com.some.app",
+	name: "Some App",
+	path: "/tmp/Some.app",
+	version: "1.0"
+)
