@@ -12,13 +12,12 @@ internal import Testing
 extension MASTests {
 	@Test
 	static func searchesForSlack() async {
-		let result = SearchResult(adamID: 1111, name: "slack", version: "0.0")
 		let actual = await consequencesOf(
 			try await MAS.Search.parse(["slack"]).run(
-				searcher: MockAppStoreSearcher([.adamID(result.adamID): result])
+				searcher: MockAppStoreSearcher(SearchResult(adamID: 1, name: "slack", version: "0.0"))
 			)
 		)
-		let expected = Consequences(nil, "1111  slack  (0.0)\n")
+		let expected = Consequences(nil, "1  slack  (0.0)\n")
 		#expect(actual == expected)
 	}
 

@@ -19,20 +19,21 @@ extension MASTests {
 
 	@Test
 	static func outputsAppInfo() async {
-		let result = SearchResult(
-			adamID: 1111,
-			appStoreURL: "https://awesome.app",
-			fileSizeBytes: "1024",
-			formattedPrice: "$2.00",
-			minimumOSVersion: "10.14",
-			name: "Awesome App",
-			releaseDate: "2019-01-07T18:53:13Z",
-			vendorName: "Awesome Dev",
-			version: "1.0"
-		)
 		let actual = await consequencesOf(
-			try await MAS.Info.parse([String(result.adamID)]).run(
-				searcher: MockAppStoreSearcher([.adamID(result.adamID): result])
+			try await MAS.Info.parse(["1"]).run(
+				searcher: MockAppStoreSearcher(
+					SearchResult(
+						adamID: 1,
+						appStoreURL: "https://awesome.app",
+						fileSizeBytes: "1000000",
+						formattedPrice: "$2.00",
+						minimumOSVersion: "10.14",
+						name: "Awesome App",
+						releaseDate: "2019-01-07T18:53:13Z",
+						vendorName: "Awesome Dev",
+						version: "1.0"
+					)
+				)
 			)
 		)
 		let expected = Consequences(
@@ -42,7 +43,7 @@ extension MASTests {
 			By: Awesome Dev
 			Released: 2019-01-07
 			Minimum OS: 10.14
-			Size: 1 KB
+			Size: 1 MB
 			From: https://awesome.app
 
 			"""
