@@ -98,12 +98,12 @@ $ mas search Xcode
 [...]
 ```
 
-#### `mas info`
+#### `mas lookup`
 
-`mas info <app-id>` outputs more detailed information about an application available from the Mac App Store.
+`mas lookup <app-id>` outputs more detailed information about an application available from the Mac App Store.
 
 ```console
-$ mas info 497799835
+$ mas lookup 497799835
 Xcode 16.0 [Free]
 By: Apple Inc.
 Released: 2024-09-16
