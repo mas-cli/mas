@@ -8,5 +8,4 @@
 disable_update_check: true
 quiet: true
 relative_results: true
-retain_assign_only_properties: false
 strict: true

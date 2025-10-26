@@ -14,7 +14,7 @@ opt_in_rules:
 - all
 analyzer_rules:
 - all
-disabled_rules: # Never enable
+disabled_rules:
 - contrasted_opening_brace
 - explicit_acl
 - explicit_enum_raw_value
@@ -26,7 +26,6 @@ disabled_rules: # Never enable
 - no_grouping_extension
 - no_magic_numbers
 - prefixed_toplevel_constant
-- sorted_enum_cases
 - strict_fileprivate
 - vertical_whitespace_between_cases
 - void_function_in_ternary
