@@ -13,7 +13,7 @@ extension MASTests {
 	@Test
 	static func parsesSearchResultFromThingsThatGoBumpJSON() {
 		let actual = consequencesOf(
-			try JSONDecoder().decode(SearchResult.self, from: Data(fromResource: "things-that-go-bump")).adamID
+			try JSONDecoder().decode(SearchResult.self, from: Data(fromResource: "things-lookup")).adamID
 		)
 		let expected = Consequences(1_472_954_003 as ADAMID)
 		#expect(actual == expected)
