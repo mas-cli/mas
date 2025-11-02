@@ -23,8 +23,12 @@ A command-line interface for the Mac App Store. Designed for scripting & automat
 ## 📲 Installation
 
 </summary>
+<details>
+<summary>
 
 ### 🔮 macOS 10.15 (Catalina) or newer
+
+</summary>
 
 #### 🍺 Homebrew core formula
 
@@ -42,7 +46,13 @@ brew install mas
 sudo port install mas
 ```
 
+</details>
+<details>
+<summary>
+
 ### 🧮 macOS 10.11 (El Capitan) - 10.14 (Mojave)
+
+</summary>
 
 #### 🍻 Custom Homebrew tap
 
@@ -73,14 +83,19 @@ To get Swift 5 support on macOS versions older than 10.14.4 (Mojave), you can:
 - Install Xcode 10.2 or newer to `/Applications/Xcode.app`.
 
 </details>
+</details>
 <details>
 <summary>
 
 ## 🤳 Usage
 
 </summary>
+<details>
+<summary>
 
 ### 🪪 App IDs
+
+</summary>
 
 Each application in the Mac App Store has an integer app identifier (app ID). mas commands accept app IDs as arguments &
 output app IDs to uniquely identify apps.
@@ -94,7 +109,13 @@ Alternatively, to find an app's app ID:
 3. Extract the app ID from the URL.
    - e.g., extract app ID `497799835` from the URL for Xcode (<https://apps.apple.com/us/app/xcode/id497799835?mt=12>)
 
+</details>
+<details>
+<summary>
+
 ### 🛍 Info from the Mac App Store
+
+</summary>
 
 None of the commands in this section require you to be logged into an Apple Account, neither for your macOS user nor in
 the Mac App Store.
@@ -125,7 +146,13 @@ Size: 2.98 GB
 From: https://apps.apple.com/us/app/xcode/id497799835?mt=12&uo=4
 ```
 
+</details>
+<details>
+<summary>
+
 ### 📚 Info from Your Local App Library
+
+</summary>
 
 All the commands in this section require you to be logged into an Apple Account for your macOS user.
 
@@ -152,7 +179,13 @@ $ mas outdated
 
 Run [`mas update`](#mas-update) to install pending updates.
 
+</details>
+<details>
+<summary>
+
 ### ⬇️ Installing Apps
+
+</summary>
 
 All the commands in this section require you to be logged into an Apple Account in the Mac App Store.
 
@@ -194,7 +227,13 @@ $ mas lucky Xcode
 ==> Installed Xcode
 ```
 
+</details>
+<details>
+<summary>
+
 ### 🆕 Upgrading Apps
+
+</summary>
 
 All the commands in this section require you to be logged into an Apple Account in the Mac App Store.
 
@@ -228,7 +267,13 @@ Xcode (15.4) -> (16.0)
 ==> Installed Xcode
 ```
 
+</details>
+<details>
+<summary>
+
 ### 🪪 Mac App Store Account Management
+
+</summary>
 
 All the commands in this section interact with the Apple Account for which you are signed in to the Mac App Store. These
 commands do not interact with the Apple Account for which your macOS user is signed in.
@@ -262,14 +307,19 @@ mas signin mas@example.com MyPassword
 `mas signout` signs out from the current Apple Account in the Mac App Store.
 
 </details>
+</details>
 <details>
 <summary>
 
 ## 🧩 Integrations
 
 </summary>
+<details>
+<summary>
 
 ### 🍻 Homebrew Bundle
+
+</summary>
 
 If mas is installed:
 
@@ -279,11 +329,18 @@ If mas is installed:
 
 See the [Homebrew Bundle documentation](https://docs.brew.sh/Brew-Bundle-and-Brewfile) for more details.
 
+</details>
+<details>
+<summary>
+
 ### ⚙️ Topgrade
+
+</summary>
 
 If mas is installed, when you run [Topgrade](https://github.com/topgrade-rs/topgrade), your Mac App Store apps will be
 updated.
 
+</details>
 </details>
 <details>
 <summary>
@@ -291,8 +348,12 @@ updated.
 ## ⚠️ Known Issues
 
 </summary>
+<details>
+<summary>
 
 ### 💥 Changed Apple Private Frameworks
+
+</summary>
 
 mas uses multiple undocumented Apple private frameworks to implement much of its functionality. Over time, Apple has
 silently changed these frameworks, breaking some functionality. Known issues include:
@@ -302,18 +363,36 @@ silently changed these frameworks, breaking some functionality. Known issues inc
 - ⛔ The `account` command is not supported on macOS 12 (Monterey) or newer
   [#417](https://github.com/mas-cli/mas/issues/417)
 
+</details>
+<details>
+<summary>
+
 ### ⏳ Eventual Consistency
+
+</summary>
 
 The Mac App Store operates on eventual consistency, so the versions seen by various parts of mas or the Mac App Store
 might be inconsistent for short periods of time. This might cause symptoms like
 [#384](https://github.com/mas-cli/mas/issues/384) & [#387](https://github.com/mas-cli/mas/issues/387).
 
+</details>
+<details>
+<summary>
+
 ### 📱 iOS & iPadOS Apps
+
+</summary>
 
 Apple Silicon Macs can install & run iOS & iPadOS apps from the Mac App Store. mas does not yet support such apps.
 [#321](https://github.com/mas-cli/mas/issues/321)
 
+</details>
+<details>
+<summary>
+
 ### 📺 Using `tmux`
+
+</summary>
 
 mas operates via the same system services as the Mac App Store. These exist as separate processes with communication
 through XPC. As a result of this, mas experiences similar problems as the pasteboard when running inside `tmux`. A
@@ -328,7 +407,13 @@ brew install reattach-to-user-namespace
 reattach-to-user-namespace mas install
 ```
 
+</details>
+<details>
+<summary>
+
 ### 📭 `mas list`, `mas outdated`, `mas uninstall`, or `mas update` does not detect installed apps
+
+</summary>
 
 mas 2.0.0+ sources data for installed Mac App Store apps from macOS's Spotlight metadata store.
 
@@ -362,6 +447,7 @@ by running:
 sudo mdutil -Eai on
 ```
 
+</details>
 </details>
 <details>
 <summary>
