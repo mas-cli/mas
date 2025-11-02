@@ -13,7 +13,7 @@ A command-line interface for the Mac App Store. Designed for scripting & automat
 [![license: MIT](https://img.shields.io/badge/license-MIT-750014.svg?style=for-the-badge)](LICENSE)
 [![language: Swift 6.0](https://img.shields.io/badge/language-Swift_6.0-F05138.svg?style=for-the-badge)](https://www.swift.org)
 [![build, test & lint status](https://img.shields.io/github/actions/workflow/status/mas-cli/mas/build-test.yaml?label=build,%20test%20%26%20lint&style=for-the-badge)](
-    https://github.com/mas-cli/mas/actions/workflows/build-test.yaml?query=branch%3Amain
+  https://github.com/mas-cli/mas/actions/workflows/build-test.yaml?query=branch%3Amain
 )
 [![dependencies status](https://img.shields.io/librariesio/github/mas-cli/mas?style=for-the-badge)](Package.swift)
 
