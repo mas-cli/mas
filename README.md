@@ -19,7 +19,9 @@ A command-line interface for the Mac App Store. Designed for scripting & automat
 
 ## 📲 Installation
 
-### 🍺 Homebrew
+### 🔮 macOS 10.15 (Catalina) or newer
+
+#### 🍺 Homebrew core formula
 
 [Homebrew](https://brew.sh) is the preferred way to install:
 
@@ -27,9 +29,7 @@ A command-line interface for the Mac App Store. Designed for scripting & automat
 brew install mas
 ```
 
-⚠️ macOS 10.15 (Catalina) or newer is required to install mas from the Homebrew core formula.
-
-### 🔌 MacPorts
+#### 🔌 MacPorts
 
 [MacPorts](https://www.macports.org/install.php) is an alternative way to install:
 
@@ -37,9 +37,7 @@ brew install mas
 sudo port install mas
 ```
 
-⚠️ macOS 10.15 (Catalina) or newer is required to install mas from MacPorts.
-
-### 🧮 Older macOS Versions
+### 🧮 macOS 10.11 (El Capitan) - 10.14 (Mojave)
 
 #### 🍻 Custom Homebrew tap
 
