@@ -336,7 +336,7 @@ Store. See [#46](https://github.com/mas-cli/mas/issues/46#issuecomment-248581233
 > was refunded or canceled.
 
 If mas doesn't work for you as expected (e.g., you can't install/update apps), run `mas reset`, then try again. If the
-issue persists, please [file a bug](https://github.com/mas-cli/mas/issues/new). All feedback is much appreciated! ✨
+issue persists, please [file a bug](https://github.com/mas-cli/mas/issues/new). All feedback is much appreciated!
 
 ## 🏗 Build from source
 
