@@ -97,7 +97,7 @@ flag includes each app's price in the output.
 $ mas search Xcode
 497799835 Xcode
 688199928 Docs for Xcode
-[...]
+…
 ```
 
 #### `mas lookup`
