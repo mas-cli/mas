@@ -282,7 +282,7 @@ Apple Silicon Macs can install & run iOS & iPadOS apps from the Mac App Store. m
 
 mas operates via the same system services as the Mac App Store. These exist as separate processes with communication
 through XPC. As a result of this, mas experiences similar problems as the pasteboard when running inside `tmux`. A
-[wrapper tool exists](https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard) to fix pasteboard behavior which also
+[wrapper tool exists](https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard) to fix pasteboard behavior, which also
 works for mas.
 
 You should consider configuring `tmux` to use the wrapper, but, if you do not wish to do this, it can be used on a
