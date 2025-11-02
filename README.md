@@ -225,7 +225,7 @@ commands do not interact with the Apple Account for which your macOS user is sig
 #### `mas signin`
 
 > ⛔ The `signin` command is not supported on macOS 10.13 (High Sierra) or newer. On those macOS versions, please sign in
-> via the Mac App Store instead. Please see [Known Issues](#known-issues).
+> via the Mac App Store instead. Please see [Known Issues](#️-known-issues).
 
 On macOS 10.12 (Sierra) or older, `mas signin <apple-id>` signs in to the specified Apple Account in the Mac App Store.
 
@@ -255,8 +255,7 @@ mas signin mas@example.com MyPassword
 mas integrates with [homebrew-bundle]. If mas is installed, when you run `brew bundle dump`, your Mac App Store apps
 will be included in the created Brewfile. See the [homebrew-bundle] docs for more details.
 
-<!-- markdownlint-disable-next-line MD033 -->
-## <a name="known-issues"></a> ⚠️ Known Issues
+## ⚠️ Known Issues
 
 ### 💥 Changed Apple Private Frameworks
 
