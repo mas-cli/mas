@@ -72,7 +72,7 @@ config:
     list_items: true
   blanks-around-lists: true
   no-inline-html:
-    allowed_elements: [h1]
+    allowed_elements: [details, h1, summary]
   no-bare-urls: true
   hr-style:
     style: consistent

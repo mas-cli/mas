@@ -17,7 +17,12 @@ A command-line interface for the Mac App Store. Designed for scripting & automat
 )
 [![dependencies status](https://img.shields.io/librariesio/github/mas-cli/mas?style=for-the-badge)](Package.swift)
 
+<details>
+<summary>
+
 ## 📲 Installation
+
+</summary>
 
 ### 🔮 macOS 10.15 (Catalina) or newer
 
@@ -67,7 +72,13 @@ To get Swift 5 support on macOS versions older than 10.14.4 (Mojave), you can:
 - Install the [Swift 5 Runtime Support for Command Line Tools](https://support.apple.com/en-us/106446).
 - Install Xcode 10.2 or newer to `/Applications/Xcode.app`.
 
+</details>
+<details>
+<summary>
+
 ## 🤳 Usage
+
+</summary>
 
 ### 🪪 App IDs
 
@@ -250,7 +261,13 @@ mas signin mas@example.com MyPassword
 
 `mas signout` signs out from the current Apple Account in the Mac App Store.
 
+</details>
+<details>
+<summary>
+
 ## 🧩 Integrations
+
+</summary>
 
 ### 🍻 Homebrew Bundle
 
@@ -267,7 +284,13 @@ See the [Homebrew Bundle documentation](https://docs.brew.sh/Brew-Bundle-and-Bre
 If mas is installed, when you run [Topgrade](https://github.com/topgrade-rs/topgrade), your Mac App Store apps will be
 updated.
 
+</details>
+<details>
+<summary>
+
 ## ⚠️ Known Issues
+
+</summary>
 
 ### 💥 Changed Apple Private Frameworks
 
@@ -339,7 +362,13 @@ by running:
 sudo mdutil -Eai on
 ```
 
+</details>
+<details>
+<summary>
+
 ## ❗ Troubleshooting
+
+</summary>
 
 If you see the following error, it's probably because you haven't yet gotten/"purchased" the app through the Mac App
 Store. See [#46](https://github.com/mas-cli/mas/issues/46#issuecomment-248581233).
@@ -350,7 +379,13 @@ Store. See [#46](https://github.com/mas-cli/mas/issues/46#issuecomment-248581233
 If mas doesn't work for you as expected (e.g., you can't install/update apps), run `mas reset`, then try again. If the
 issue persists, please [file a bug](https://github.com/mas-cli/mas/issues/new). All feedback is much appreciated!
 
+</details>
+<details>
+<summary>
+
 ## 🏗 Building
+
+</summary>
 
 You can build from Xcode by opening the root mas directory, or from the terminal:
 
@@ -360,7 +395,13 @@ Scripts/build
 
 Build output can be found in the `.build` directory within the project.
 
+</details>
+<details>
+<summary>
+
 ## 🧪 Tests
+
+</summary>
 
 Tests are written using [Swift Testing](https://github.com/swiftlang/swift-testing).
 
@@ -368,9 +409,17 @@ Tests are written using [Swift Testing](https://github.com/swiftlang/swift-testi
 Scripts/test
 ```
 
+</details>
+<details>
+<summary>
+
 ## 📄 License
+
+</summary>
 
 Code is under the [MIT license](LICENSE).
 
 mas was originally created by Andrew Naylor ([@argon on GitHub](https://github.com/argon) /
 [@argon on X](https://x.com/argon)).
+
+</details>
