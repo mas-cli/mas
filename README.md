@@ -501,12 +501,9 @@ reattach-to-user-namespace mas install
 
 </summary>
 
-mas 2.0.0+ sources data for installed Mac App Store apps from macOS's Spotlight metadata store.
+mas 2.0.0+ sources data for installed Mac App Store apps from macOS's Spotlight Metadata Server (aka MDS).
 
-mas can only interact with installed Mac App Store apps if they have been indexed by the Spotlight Metadata Server (aka
-MDS) background processes.
-
-You can check if a Mac App Store app has been indexed in the metadata store by running:
+You can check if a Mac App Store app is properly indexed in the MDS by running:
 
 ```console
 ## General format:
@@ -519,14 +516,14 @@ $ mdls -rn kMDItemAppStoreAdamID /Applications/WhatsApp.app
 310633997
 ```
 
-If an app has been indexed in the metadata store, given its ADAM ID, you can find the path to the app by running:
+If an app has been indexed in the MDS, you can find the path to the app by running:
 
 ```shell
 mdfind 'kMDItemAppStoreAdamID == <adam-id>'
 ```
 
-If any of your Mac App Store apps are not indexed, you can enable/rebuild the metadata store for all file system volumes
-by running:
+If any of your Mac App Store apps are not indexed, you can enable/rebuild the MDS for all file system volumes by
+running:
 
 ```shell
 sudo mdutil -Eai on
