@@ -555,13 +555,13 @@ issue persists, please [file a bug](https://github.com/mas-cli/mas/issues/new). 
 
 </summary>
 
-You can build from Xcode by opening the root mas directory, or from the terminal:
+mas can be built in Xcode or built by the following script:
 
 ```shell
 Scripts/build
 ```
 
-Build output can be found in the `.build` directory within the project.
+Build output can be found in the `.build` folder in the project's root folder.
 
 </details>
 <details>
