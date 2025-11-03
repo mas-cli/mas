@@ -250,10 +250,22 @@ mas signin mas@example.com MyPassword
 
 `mas signout` signs out from the current Apple Account in the Mac App Store.
 
-## 🍺 Homebrew integration
+## 🧩 Integrations
 
-mas integrates with [homebrew-bundle]. If mas is installed, when you run `brew bundle dump`, your Mac App Store apps
-will be included in the created Brewfile. See the [homebrew-bundle] docs for more details.
+### 🍻 Homebrew Bundle
+
+If mas is installed:
+
+- When you run `brew bundle dump`, your Mac App Store apps will be included in the generated `Brewfile`.
+- When you run Homebrew Bundle commands on a `Brewfile` that contains Mac App Store apps, they will be processed by the
+  command.
+
+See the [Homebrew Bundle documentation](https://docs.brew.sh/Brew-Bundle-and-Brewfile) for more details.
+
+### ⚙️ Topgrade
+
+If mas is installed, when you run [Topgrade](https://github.com/topgrade-rs/topgrade), your Mac App Store apps will be
+updated.
 
 ## ⚠️ Known Issues
 
@@ -362,5 +374,3 @@ Code is under the [MIT license](LICENSE).
 
 mas was originally created by Andrew Naylor ([@argon on GitHub](https://github.com/argon) /
 [@argon on X](https://x.com/argon)).
-
-[homebrew-bundle]: https://github.com/Homebrew/homebrew-bundle
