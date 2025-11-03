@@ -38,10 +38,10 @@ extension MAS {
 			guard !results.isEmpty else {
 				throw MASError.noSearchResultsFound(for: searchTerm)
 			}
-			guard let maxADAMIDLength = results.map({ String(describing: $0.adamID).count }).max() else {
-				return
-			}
-			guard let maxAppNameLength = results.map(\.name.count).max() else {
+			guard
+				let maxADAMIDLength = results.map({ String(describing: $0.adamID).count }).max(),
+				let maxAppNameLength = results.map(\.name.count).max()
+			else {
 				return
 			}
 

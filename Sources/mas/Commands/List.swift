@@ -41,10 +41,10 @@ extension MAS {
 				)
 				return
 			}
-			guard let maxADAMIDLength = installedApps.map({ String(describing: $0.adamID).count }).max() else {
-				return
-			}
-			guard let maxAppNameLength = installedApps.map(\.name.count).max() else {
+			guard
+				let maxADAMIDLength = installedApps.map({ String(describing: $0.adamID).count }).max(),
+				let maxAppNameLength = installedApps.map(\.name.count).max()
+			else {
 				return
 			}
 
