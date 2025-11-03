@@ -143,7 +143,7 @@ Alternatively, to find an app's ADAM ID:
 
 </summary>
 
-None of the commands in this section require you to be logged into an Apple Account, neither for your macOS user nor in
+The commands in this section do not require you to be logged into an Apple Account, neither for your macOS user nor for
 the Mac App Store.
 
 <details>
@@ -153,8 +153,9 @@ the Mac App Store.
 
 </summary>
 
-`mas search <search-term>` searches by name for applications available from the Mac App Store. Providing the `--price`
-flag includes each app's price in the output.
+`mas search <search-term>` searches by name for applications available from the Mac App Store.
+
+Providing the `--price` flag includes each app's price in the output.
 
 ```console
 $ mas search Xcode
@@ -252,7 +253,7 @@ All the commands in this section require you to be logged into an Apple Account 
 `mas get <app-id>…` installs free applications that you haven't yet gotten/"purchased" from the Mac App Store.
 
 > The `purchase` alias is currently a misnomer, because it currently can only "purchase" free apps. To purchase apps
-> that cost money, please purchase them directly in the Mac App Store.
+> that cost money, purchase them directly in the Mac App Store.
 
 ```console
 $ mas get 497799835
@@ -359,8 +360,8 @@ commands do not interact with the Apple Account for which your macOS user is sig
 
 </summary>
 
-> ⛔ The `signin` command is not supported on macOS 10.13 (High Sierra) or newer. On those macOS versions, please sign in
-> via the Mac App Store instead. Please see [Known Issues](#️-known-issues).
+> ⛔ The `signin` command is not supported on macOS 10.13 (High Sierra) or newer. On those macOS versions, sign in via
+> the Mac App Store instead (see the [known issue](#-broken-apple-private-frameworks)).
 
 On macOS 10.12 (Sierra) or older, `mas signin <apple-id>` signs in to the specified Apple Account in the Mac App Store.
 
