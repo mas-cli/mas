@@ -73,4 +73,4 @@ var installedApps: [InstalledApp] {
 	}
 }
 
-private var applicationsFolder: String { "/Applications" }
+private let applicationsFolder = "/Applications"
