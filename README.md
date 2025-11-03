@@ -410,9 +410,8 @@ mas signin mas@example.com MyPassword
 
 If mas is installed:
 
-- When you run `brew bundle dump`, your Mac App Store apps will be included in the generated `Brewfile`.
-- When you run Homebrew Bundle commands on a `Brewfile` that contains Mac App Store apps, they will be processed by the
-  command.
+- `brew bundle dump` includes installed Mac App Store apps in the generated `Brewfile`.
+- Homebrew Bundle commands will process Mac App Store apps included in a `Brewfile`.
 
 See the [Homebrew Bundle documentation](https://docs.brew.sh/Brew-Bundle-and-Brewfile) for more details.
 
@@ -424,8 +423,7 @@ See the [Homebrew Bundle documentation](https://docs.brew.sh/Brew-Bundle-and-Bre
 
 </summary>
 
-If mas is installed, when you run [Topgrade](https://github.com/topgrade-rs/topgrade), your Mac App Store apps will be
-updated.
+If mas is installed, running [Topgrade](https://github.com/topgrade-rs/topgrade) updates installed Mac App Store apps.
 
 </details>
 </details>
