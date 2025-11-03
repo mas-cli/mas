@@ -217,7 +217,7 @@ Xcode (15.4) -> (16.0)
 ==> Installed Xcode
 ```
 
-### Mac App Store Account Management
+### 🪪 Mac App Store Account Management
 
 All the commands in this section interact with the Apple Account for which you are signed in to the Mac App Store. These
 commands do not interact with the Apple Account for which your macOS user is signed in.
@@ -327,7 +327,7 @@ by running:
 sudo mdutil -Eai on
 ```
 
-## 🚫 When something doesn't work
+## ❗ Troubleshooting
 
 If you see the following error, it's probably because you haven't yet gotten/"purchased" the app through the Mac App
 Store. See [#46](https://github.com/mas-cli/mas/issues/46#issuecomment-248581233).
@@ -338,7 +338,7 @@ Store. See [#46](https://github.com/mas-cli/mas/issues/46#issuecomment-248581233
 If mas doesn't work for you as expected (e.g., you can't install/update apps), run `mas reset`, then try again. If the
 issue persists, please [file a bug](https://github.com/mas-cli/mas/issues/new). All feedback is much appreciated!
 
-## 🏗 Build from source
+## 🏗 Building
 
 You can build from Xcode by opening the root mas directory, or from the terminal:
 
