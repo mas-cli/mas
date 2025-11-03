@@ -441,8 +441,9 @@ updated.
 
 </summary>
 
-mas uses multiple undocumented Apple private frameworks to implement much of its functionality. Over time, Apple has
-silently changed these frameworks, breaking some functionality. Known issues include:
+mas uses multiple undocumented Apple private frameworks to implement much of its functionality.
+
+Over time, Apple has silently changed these frameworks, breaking some functionality, including:
 
 - ⛔ The `signin` command is not supported on macOS 10.13 (High Sierra) or newer.
   [#164](https://github.com/mas-cli/mas/issues/164)
@@ -457,9 +458,10 @@ silently changed these frameworks, breaking some functionality. Known issues inc
 
 </summary>
 
-The Mac App Store operates on eventual consistency, so the versions seen by various parts of mas or the Mac App Store
-might be inconsistent for short periods of time. This might cause symptoms like
-[#384](https://github.com/mas-cli/mas/issues/384) & [#387](https://github.com/mas-cli/mas/issues/387).
+The Mac App Store operates on eventual consistency.
+
+The versions seen by various parts of mas or the Mac App Store might be inconsistent for days
+([#384](https://github.com/mas-cli/mas/issues/384) & [#387](https://github.com/mas-cli/mas/issues/387)).
 
 </details>
 <details>
@@ -469,8 +471,9 @@ might be inconsistent for short periods of time. This might cause symptoms like
 
 </summary>
 
-Apple Silicon Macs can install & run iOS & iPadOS apps from the Mac App Store. mas does not yet support such apps.
-[#321](https://github.com/mas-cli/mas/issues/321)
+Apple Silicon Macs can install iOS & iPadOS apps from the Mac App Store.
+
+mas does not yet support such apps ([#321](https://github.com/mas-cli/mas/issues/321)).
 
 </details>
 <details>
@@ -480,13 +483,15 @@ Apple Silicon Macs can install & run iOS & iPadOS apps from the Mac App Store. m
 
 </summary>
 
-mas operates via the same system services as the Mac App Store. These exist as separate processes with communication
-through XPC. As a result of this, mas experiences similar problems as the pasteboard when running inside `tmux`. A
-[wrapper tool exists](https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard) to fix pasteboard behavior, which also
-works for mas.
+mas depends on the same XPC system services as the Mac App Store.
 
-You should consider configuring `tmux` to use the wrapper, but, if you do not wish to do this, it can be used on a
-one-off basis as follows:
+mas thus experiences similar problems as the pasteboard when running inside `tmux`.
+
+This [wrapper](https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard) allows pasteboard & mas to work inside `tmux`.
+
+`tmux` can be configured to always use the wrapper.
+
+Alternatively, the wrapper can be used on a one-off basis:
 
 ```shell
 brew install reattach-to-user-namespace
@@ -497,33 +502,32 @@ reattach-to-user-namespace mas install
 <details>
 <summary>
 
-### 📭 Undetected installed apps
+### 🤷 Undetected installed apps
 
 </summary>
 
 mas 2.0.0+ sources data for installed Mac App Store apps from macOS's Spotlight Metadata Server (aka MDS).
 
-You can check if a Mac App Store app is properly indexed in the MDS by running:
+You can check if a Mac App Store app is properly indexed in the MDS:
 
 ```console
 ## General format:
-$ mdls -rn kMDItemAppStoreAdamID /path/to/app
-## Outputs nothing if the app is not indexed
+$ mdls -rn kMDItemAppStoreAdamID <path-to-app>
 ## Outputs the ADAM ID if the app is indexed
+## Outputs nothing if the app is not indexed
 
 ## Example:
 $ mdls -rn kMDItemAppStoreAdamID /Applications/WhatsApp.app
 310633997
 ```
 
-If an app has been indexed in the MDS, you can find the path to the app by running:
+If an app has been indexed in the MDS, the path to the app can be found:
 
 ```shell
 mdfind 'kMDItemAppStoreAdamID == <adam-id>'
 ```
 
-If any of your Mac App Store apps are not indexed, you can enable/rebuild the MDS for all file system volumes by
-running:
+If any of Mac App Store apps are not indexed, the MDS can be enabled/rebuilt for all file system volumes:
 
 ```shell
 sudo mdutil -Eai on
