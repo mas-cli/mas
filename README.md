@@ -537,16 +537,34 @@ sudo mdutil -Eai on
 ## ❗ Troubleshooting
 
 </summary>
+<details>
+<summary>
 
-If you see the following error, it's probably because you haven't yet gotten or purchased the app through the Mac App
-Store. See [#46](https://github.com/mas-cli/mas/issues/46#issuecomment-248581233).
+### 🚫 Redownload not available
+
+</summary>
+
+If the following error occurs, you probably haven't yet gotten or purchased the app from the Mac App Store
+([#46](https://github.com/mas-cli/mas/issues/46#issuecomment-248581233)).
 
 > This redownload is not available for this Apple Account either because it was bought by a different user or the item
 > was refunded or canceled.
 
-If mas doesn't work for you as expected (e.g., you can't install/update apps), run `mas reset`, then try again. If the
-issue persists, please [file a bug](https://github.com/mas-cli/mas/issues/new). All feedback is much appreciated!
+</details>
+<details>
+<summary>
 
+### ❓ Other issues
+
+</summary>
+
+If mas doesn't work as expected (e.g., apps can't be installed/updated), run `mas reset`, then try again.
+
+If the issue persists, please [file a bug](https://github.com/mas-cli/mas/issues/new).
+
+All feedback is much appreciated!
+
+</details>
 </details>
 <details>
 <summary>
