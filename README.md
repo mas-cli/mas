@@ -1,4 +1,4 @@
-<h1 align="center"><img src="mas-cli.png" alt="mas-cli" width="450" height="138"></h1>
+<h1 align="center"><img src="mas.png" alt="mas" width="450" height="138"></h1>
 
 # mas
 
