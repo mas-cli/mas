@@ -4,8 +4,6 @@
 
 </h1>
 
-mas is a command-line interface for the Mac App Store that is designed for scripting & automation.
-
 [![current release version](https://img.shields.io/github/v/release/mas-cli/mas.svg?style=for-the-badge)](https://github.com/mas-cli/mas/releases)
 [![supported OS: macOS 10.15+](https://img.shields.io/badge/Supported_OS-macOS_10.15%2B-teal?style=for-the-badge)](Package.swift)
 [![license: MIT](https://img.shields.io/badge/license-MIT-750014.svg?style=for-the-badge)](LICENSE)
@@ -14,6 +12,8 @@ mas is a command-line interface for the Mac App Store that is designed for scrip
   https://github.com/mas-cli/mas/actions/workflows/build-test.yaml?query=branch%3Amain
 )
 [![dependencies status](https://img.shields.io/librariesio/github/mas-cli/mas?style=for-the-badge)](Package.swift)
+
+mas is a command-line interface for the Mac App Store that is designed for scripting & automation.
 
 <details>
 <summary>
