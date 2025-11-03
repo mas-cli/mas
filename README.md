@@ -268,7 +268,7 @@ $ mas get 497799835
 
 </summary>
 
-`mas install <app-id>…` installs apps that you have already gotten/"purchased" from the Mac App Store. Providing the
+`mas install <app-id>…` installs apps that you have already gotten or purchased from the Mac App Store. Providing the
 `--force` flag re-installs the app even if it is already installed on your Mac.
 
 ```console
@@ -286,7 +286,7 @@ $ mas install 497799835
 </summary>
 
 `mas lucky <search-term>` installs the first result that would be returned by `mas search <search-term>`. Like
-`mas install`, `mas lucky` can only install apps that have previously been gotten/"purchased".
+`mas install`, `mas lucky` can only install apps that have previously been gotten or purchased.
 
 ```console
 $ mas lucky Xcode
@@ -538,7 +538,7 @@ sudo mdutil -Eai on
 
 </summary>
 
-If you see the following error, it's probably because you haven't yet gotten/"purchased" the app through the Mac App
+If you see the following error, it's probably because you haven't yet gotten or purchased the app through the Mac App
 Store. See [#46](https://github.com/mas-cli/mas/issues/46#issuecomment-248581233).
 
 > This redownload is not available for this Apple Account either because it was bought by a different user or the item
