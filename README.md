@@ -1,4 +1,8 @@
-<h1 align="center"><img src="mas.png" alt="mas"></h1>
+<h1 align="center">
+
+![mas](mas.png)
+
+</h1>
 
 # mas
 
