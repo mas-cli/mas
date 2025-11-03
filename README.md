@@ -123,17 +123,17 @@ To get Swift 5 support on macOS versions older than 10.14.4 (Mojave), you can:
 
 </summary>
 
-Each application in the Mac App Store has an integer app identifier (app ID). mas commands accept app IDs as arguments &
-output app IDs to uniquely identify apps.
+Each application in the Mac App Store has a unique integer app identifier (ADAM ID) & a unique text app identifier
+(bundle ID). mas commands accept either form of app ID as arguments.
 
-`mas search` & `mas list` can be used to find the app IDs of relevant apps.
+`mas search` & `mas list` can be used to find the ADAM IDs of apps.
 
-Alternatively, to find an app's app ID:
+Alternatively, to find an app's ADAM ID:
 
 1. Find the app in the Mac App Store
 2. Select `Share` > `Copy Link`
-3. Extract the app ID from the URL.
-   - e.g., extract app ID `497799835` from the URL for Xcode (<https://apps.apple.com/us/app/xcode/id497799835?mt=12>)
+3. Extract the ADAM ID from the URL.
+   - e.g., extract ADAM ID `497799835` from the URL for Xcode (<https://apps.apple.com/us/app/xcode/id497799835?mt=12>)
 
 </details>
 <details>
@@ -512,18 +512,17 @@ You can check if a Mac App Store app has been indexed in the metadata store by r
 ## General format:
 $ mdls -rn kMDItemAppStoreAdamID /path/to/app
 ## Outputs nothing if the app is not indexed
-## Outputs the app ID if the app is indexed
+## Outputs the ADAM ID if the app is indexed
 
 ## Example:
 $ mdls -rn kMDItemAppStoreAdamID /Applications/WhatsApp.app
 310633997
 ```
 
-If an app has been indexed in the metadata store, given its app ID, you can find the path to the app by running:
+If an app has been indexed in the metadata store, given its ADAM ID, you can find the path to the app by running:
 
-```console
-$ mdfind 'kMDItemAppStoreAdamID == 310633997'
-/Applications/WhatsApp.app
+```shell
+mdfind 'kMDItemAppStoreAdamID == <adam-id>'
 ```
 
 If any of your Mac App Store apps are not indexed, you can enable/rebuild the metadata store for all file system volumes
