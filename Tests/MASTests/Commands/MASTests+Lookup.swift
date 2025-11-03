@@ -1,5 +1,5 @@
 //
-// MASTests+Info.swift
+// MASTests+Lookup.swift
 // mas
 //
 // Copyright © 2018 mas-cli. All rights reserved.
@@ -11,8 +11,8 @@ internal import Testing
 
 extension MASTests {
 	@Test
-	static func cannotFindAppInfoForUnknownAppID() async {
-		let actual = await consequencesOf(try await MAS.Info.parse(["999"]).run(searcher: MockAppStoreSearcher()))
+	static func cannotLookupAppInfoForUnknownAppID() async {
+		let actual = await consequencesOf(try await MAS.Lookup.parse(["999"]).run(searcher: MockAppStoreSearcher()))
 		let expected = Consequences(ExitCode(1), "", "Error: No apps found in the Mac App Store for ADAM ID 999\n")
 		#expect(actual == expected)
 	}
@@ -20,7 +20,7 @@ extension MASTests {
 	@Test
 	static func outputsAppInfo() async {
 		let actual = await consequencesOf(
-			try await MAS.Info.parse(["1"]).run(
+			try await MAS.Lookup.parse(["1"]).run(
 				searcher: MockAppStoreSearcher(
 					SearchResult(
 						adamID: 1,

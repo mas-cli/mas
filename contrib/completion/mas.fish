@@ -36,10 +36,7 @@ complete -c mas -n "__fish_seen_subcommand_from help" -xa "help"
 ### home
 complete -c mas -n "__fish_use_subcommand" -f -a home -d "Open Mac App Store app pages in the default web browser"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "home"
-complete -c mas -n "__fish_seen_subcommand_from get home info install open seller" -xa "(__fish_mas_list_available)"
-### info
-complete -c mas -n "__fish_use_subcommand" -f -a info -d "Output app information from the Mac App Store"
-complete -c mas -n "__fish_seen_subcommand_from help" -xa "info"
+complete -c mas -n "__fish_seen_subcommand_from get home install lookup open seller" -xa "(__fish_mas_list_available)"
 ### install
 complete -c mas -n "__fish_use_subcommand" -f -a install -d "Install previously gotten apps from the Mac App Store"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "install"
@@ -47,6 +44,9 @@ complete -c mas -n "__fish_seen_subcommand_from install lucky" -l force -d "Forc
 ### list
 complete -c mas -n "__fish_use_subcommand" -f -a list -d "List all apps installed from the Mac App Store"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "list"
+### lookup
+complete -c mas -n "__fish_use_subcommand" -f -a lookup -d "Output app information from the Mac App Store"
+complete -c mas -n "__fish_seen_subcommand_from help" -xa "lookup"
 ### lucky
 complete -c mas -n "__fish_use_subcommand" -f -a lucky -d "Install the first app returned from searching the Mac App Store (app must have been previously gotten)"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "lucky"

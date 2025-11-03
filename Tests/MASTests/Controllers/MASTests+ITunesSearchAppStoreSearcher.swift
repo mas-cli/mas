@@ -22,7 +22,7 @@ extension MASTests {
 	static func looksUpSlack() async {
 		let adamID = 803_453_959 as ADAMID
 		let actual = await consequencesOf(
-			try await ITunesSearchAppStoreSearcher(networkSession: try MockNetworkSession(responseResource: "lookup"))
+			try await ITunesSearchAppStoreSearcher(networkSession: try MockNetworkSession(responseResource: "slack-lookup"))
 			.lookup(appID: .adamID(adamID)) // swiftformat:disable:this indent
 		)
 		#expect(actual.error == nil && actual.stdout.isEmpty && actual.stderr.isEmpty)

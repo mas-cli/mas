@@ -1,5 +1,5 @@
 //
-// Info.swift
+// Lookup.swift
 // mas
 //
 // Copyright © 2016 mas-cli. All rights reserved.
@@ -14,9 +14,10 @@ extension MAS {
 	/// Uses the iTunes Lookup API:
 	///
 	/// https://performance-partners.apple.com/search-api
-	struct Info: AsyncParsableCommand {
+	struct Lookup: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
-			abstract: "Output app information from the Mac App Store"
+			abstract: "Output app information from the Mac App Store",
+			aliases: ["info"]
 		)
 
 		@OptionGroup
