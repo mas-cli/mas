@@ -30,7 +30,7 @@ mas is a command-line interface for the Mac App Store that is designed for scrip
 <details>
 <summary>
 
-#### 🍺 Homebrew core formula
+#### 🍺 Homebrew Core formula
 
 </summary>
 
@@ -92,7 +92,7 @@ Alternatively, binaries & sources are available from [GitHub Releases](https://g
 <details>
 <summary>
 
-#### 🕊 Swift 5 Runtime Support
+#### 🕊 Swift 5 runtime support
 
 </summary>
 
@@ -188,7 +188,7 @@ From: https://apps.apple.com/us/app/xcode/id497799835?mt=12&uo=4
 <details>
 <summary>
 
-### 📚 Info from Your Local App Library
+### 📚 Info from your local app library
 
 </summary>
 
@@ -233,7 +233,7 @@ Run [`mas update`](#mas-update) to install pending updates.
 <details>
 <summary>
 
-### ⬇️ Installing Apps
+### ⬇️ Installing apps
 
 </summary>
 
@@ -299,7 +299,7 @@ $ mas lucky Xcode
 <details>
 <summary>
 
-### 🆕 Upgrading Apps
+### 🆕 Upgrading apps
 
 </summary>
 
@@ -345,7 +345,7 @@ Xcode (15.4) -> (16.0)
 <details>
 <summary>
 
-### 🪪 Mac App Store Account Management
+### 🪪 Mac App Store account management
 
 </summary>
 
@@ -431,13 +431,13 @@ updated.
 <details>
 <summary>
 
-## ⚠️ Known Issues
+## ⚠️ Known issues
 
 </summary>
 <details>
 <summary>
 
-### 💥 Changed Apple Private Frameworks
+### 💥 Broken Apple private frameworks
 
 </summary>
 
@@ -453,7 +453,7 @@ silently changed these frameworks, breaking some functionality. Known issues inc
 <details>
 <summary>
 
-### ⏳ Eventual Consistency
+### ⏳ Eventual consistency
 
 </summary>
 
@@ -465,7 +465,7 @@ might be inconsistent for short periods of time. This might cause symptoms like
 <details>
 <summary>
 
-### 📱 iOS & iPadOS Apps
+### 📱 iOS & iPadOS apps
 
 </summary>
 
@@ -476,7 +476,7 @@ Apple Silicon Macs can install & run iOS & iPadOS apps from the Mac App Store. m
 <details>
 <summary>
 
-### 📺 Using `tmux`
+### 📺 `tmux`
 
 </summary>
 
@@ -497,7 +497,7 @@ reattach-to-user-namespace mas install
 <details>
 <summary>
 
-### 📭 `mas list`, `mas outdated`, `mas uninstall`, or `mas update` does not detect installed apps
+### 📭 Undetected installed apps
 
 </summary>
 
@@ -571,7 +571,7 @@ Build output can be found in the `.build` directory within the project.
 <details>
 <summary>
 
-## 🧪 Tests
+## 🧪 Testing
 
 </summary>
 
