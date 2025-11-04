@@ -9,9 +9,7 @@ internal import ArgumentParser
 
 protocol AppIDsOptionGroup: ParsableArguments {
 	var forceBundleIDOptionGroup: ForceBundleIDOptionGroup { get }
-	var forceBundleID: Bool { get }
 	var appIDStrings: [String] { get }
-	var appIDs: [AppID] { get }
 }
 
 extension AppIDsOptionGroup {
