@@ -2,121 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "https://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 	<dict>
-		<key>adi-client</key>
-		<string>379332956</string>
-		<key>application-identifier</key>
-		<string>com.apple.AppStore</string>
-		<key>com.apple.Contacts.database-allow</key>
-		<true/>
-		<key>com.apple.accounts.appleaccount.fullaccess</key>
-		<true/>
 		<key>com.apple.application-identifier</key>
 		<string>com.apple.AppStore</string>
-		<key>com.apple.authkit.client.internal</key>
-		<true/>
-		<key>com.apple.developer.associated-domains</key>
-		<array/>
-		<key>com.apple.developer.game-center</key>
-		<array>
-			<string>Account</string>
-			<string>Scores</string>
-			<string>Achievements</string>
-			<string>Challenges</string>
-			<string>Multiplayer</string>
-			<string>TurnBasedMultiplayer</string>
-		</array>
-		<key>com.apple.itunesstored.private</key>
-		<true/>
-		<key>com.apple.launchservices.receivereferrerrurl</key>
-		<true/>
-		<key>com.apple.payment.all-access</key>
-		<true/>
-		<key>com.apple.payment.amp-card-enrollment</key>
-		<true/>
-		<key>com.apple.payment.card-on-file</key>
-		<true/>
-		<key>com.apple.private.CoreAuthentication.SPI</key>
-		<true/>
-		<key>com.apple.private.LocalAuthentication.DTO</key>
-		<true/>
-		<key>com.apple.private.LocalAuthentication.DTO.FallbackToNoAuth</key>
-		<true/>
-		<key>com.apple.private.accounts.allaccounts</key>
-		<true/>
-		<key>com.apple.private.applemediaservices</key>
-		<true/>
-		<key>com.apple.private.appstoreagent</key>
-		<true/>
-		<key>com.apple.private.appstorecomponents</key>
-		<true/>
-		<key>com.apple.private.appstored</key>
-		<array>
-			<string>Ocelot</string>
-			<string>Purchase</string>
-			<string>Library</string>
-			<string>Update</string>
-			<string>PurchaseHistory</string>
-			<string>IAPHistory</string>
-			<string>Install</string>
-		</array>
-		<key>com.apple.private.biometrickit.allow-default</key>
-		<true/>
-		<key>com.apple.private.commerce</key>
-		<array>
-			<string>Accounts</string>
-		</array>
-		<key>com.apple.private.commercekit.appstore</key>
-		<true/>
-		<key>com.apple.private.contactsui</key>
-		<true/>
-		<key>com.apple.private.familycircle</key>
-		<true/>
-		<key>com.apple.private.game-center</key>
-		<array>
-			<string>Account</string>
-			<string>Authenticate</string>
-			<string>Profile</string>
-			<string>Friends</string>
-			<string>Games</string>
-			<string>Scores</string>
-			<string>Achievements</string>
-			<string>Challenges</string>
-			<string>Multiplayer</string>
-			<string>TurnBasedMultiplayer</string>
-			<string>GameStats</string>
-		</array>
-		<key>com.apple.private.hid.client.event-dispatch.internal</key>
-		<true/>
-		<key>com.apple.private.icloud-account-access</key>
-		<true/>
-		<key>com.apple.private.jetpackassetd</key>
-		<true/>
-		<key>com.apple.private.notificationcenter-system</key>
-		<array>
-			<dict>
-				<key>identifier</key>
-				<string>com.apple.appstoreagent</string>
-			</dict>
-		</array>
-		<key>com.apple.private.rtcreportingd</key>
-		<true/>
-		<key>com.apple.private.storekit</key>
-		<array>
-			<string>AdvancedPurchase</string>
-		</array>
-		<key>com.apple.private.swc.additional-service-details-consumer</key>
-		<true/>
-		<key>com.apple.private.swc.system-app</key>
-		<true/>
-		<key>com.apple.private.tcc.allow</key>
-		<array>
-			<string>kTCCServiceAddressBook</string>
-			<string>kTCCServiceCamera</string>
-		</array>
-		<key>com.apple.runningboard.jetengine</key>
-		<true/>
-		<key>com.apple.security.app-sandbox</key>
-		<true/>
 		<key>com.apple.security.device.camera</key>
 		<true/>
 		<key>com.apple.security.exception.shared-preference.read-write</key>
@@ -232,16 +119,6 @@
 		<array>
 			<string>com.apple.AppleMediaServices</string>
 			<string>com.apple.appstored</string>
-		</array>
-		<key>com.apple.storekit.client-override</key>
-		<true/>
-		<key>com.apple.symptom_analytics.query</key>
-		<true/>
-		<key>com.apple.symptoms.NetworkOfInterest</key>
-		<true/>
-		<key>keychain-access-groups</key>
-		<array>
-			<string>apple</string>
 		</array>
 	</dict>
 </plist>
