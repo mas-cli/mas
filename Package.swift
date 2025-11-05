@@ -42,7 +42,22 @@ _ = Package(
 				.product(name: "OrderedCollections", package: "swift-collections"),
 			],
 			swiftSettings: swiftSettings,
-			linkerSettings: [.unsafeFlags(["-F", "/System/Library/PrivateFrameworks"])],
+			linkerSettings: [
+				.unsafeFlags(
+					[
+						"-F",
+						"/System/Library/PrivateFrameworks",
+						"-Xlinker",
+						"-sectcreate",
+						"-Xlinker",
+						"__TEXT",
+						"-Xlinker",
+						"__info_plist",
+						"-Xlinker",
+						"Sources/mas/Info.plist",
+					]
+				),
+			],
 			plugins: [.plugin(name: "MASBuildToolPlugin")]
 		),
 		.testTarget(

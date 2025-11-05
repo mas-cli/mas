@@ -3,7 +3,9 @@
 <plist version="1.0">
 	<dict>
 		<key>com.apple.application-identifier</key>
-		<string>com.apple.AppStore</string>
+		<string>io.github.mas-cli.mas</string>
+		<key>com.apple.security.app-sandbox</key>
+		<true/>
 		<key>com.apple.security.device.camera</key>
 		<true/>
 		<key>com.apple.security.exception.shared-preference.read-write</key>
