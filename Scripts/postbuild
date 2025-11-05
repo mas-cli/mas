@@ -1,0 +1,11 @@
+#!/bin/zsh -GNdefgku
+#
+# Scripts/postbuild
+# mas
+#
+# Postbuilds the Swift executable.
+#
+
+. "${0:a:h}/_setup_script"
+
+codesign -s "${1}" --strict --options runtime --entitlements mas.entitlements ./.build/release/mas

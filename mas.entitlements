@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "https://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>com.apple.application-identifier</key>
+		<string>io.github.mas-cli.mas</string>
+		<key>com.apple.security.app-sandbox</key>
+		<true/>
+		<key>com.apple.security.device.camera</key>
+		<true/>
+		<key>com.apple.security.exception.shared-preference.read-write</key>
+		<array>
+			<string>com.apple.AppStore</string>
+			<string>com.apple.AppleMediaServices</string>
+			<string>com.apple.gamecenter</string>
+		</array>
+		<key>com.apple.security.files.user-selected.read-only</key>
+		<true/>
+		<key>com.apple.security.network.client</key>
+		<true/>
+		<key>com.apple.security.personal-information.addressbook</key>
+		<true/>
+		<key>com.apple.security.temporary-exception.files.absolute-path.read-only</key>
+		<array>
+			<string>/Library/Preferences/com.apple.storeagent.plist</string>
+			<string>/Library/Preferences/com.apple.commerce.plist</string>
+			<string>/AppleInternal/Library/Jet/</string>
+		</array>
+		<key>com.apple.security.temporary-exception.mach-lookup.global-name</key>
+		<array>
+			<string>com.apple.storagekitd</string>
+			<string>com.apple.commerce</string>
+			<string>com.apple.appstored.xpc.storequeue</string>
+			<string>com.apple.ak.auth.xpc</string>
+			<string>com.apple.ak.anisette.xpc</string>
+			<string>com.apple.appstoreagent.xpc</string>
+			<string>com.apple.CARenderServer</string>
+			<string>com.apple.askpermissiond</string>
+			<string>com.apple.storeaccountd</string>
+			<string>com.apple.storeassetd</string>
+			<string>com.apple.storeuid</string>
+			<string>com.apple.storedownloadd</string>
+			<string>com.apple.cmio.registerassistantservice</string>
+			<string>com.apple.corefollowup.agent</string>
+			<string>com.apple.appstorecomponentsd.xpc</string>
+			<string>com.apple.xpc.amsengagementd</string>
+			<string>com.apple.AMSUIPaymentViewService</string>
+			<string>com.apple.ap.promotedcontent.identifiermanager</string>
+			<string>com.apple.ap.promotedcontent.configurationsystem</string>
+			<string>com.apple.jetpackassetd.xpc</string>
+		</array>
+		<key>com.apple.security.temporary-exception.sbpl</key>
+		<array>
+			<string>
+				(allow mach-issue-extension
+				(require-all (extension-class &quot;com.apple.app-sandbox.mach&quot;)
+				(require-any
+				(global-name &quot;com.apple.commerce&quot;)
+				(global-name &quot;com.apple.storedownloadd&quot;)
+				(global-name &quot;com.apple.storeaccountd&quot;)
+				(global-name &quot;com.apple.storeassetd&quot;)
+				(global-name &quot;com.apple.storeuid&quot;)
+				(global-name &quot;com.apple.cmio.registerassistantservice&quot;)
+				(global-name &quot;com.apple.askpermissiond&quot;))))
+			</string>
+			<string>
+				(read-write-and-issue-extensions
+				(require-any
+				(home-literal &quot;/Library/Caches/com.apple.WebKit.WebContent&quot;)
+				(home-literal &quot;/Library/Caches/WebKit&quot;)
+				(home-literal &quot;/Library/Logs/appstore.log&quot;)
+				(home-literal &quot;/Library/Internet Plug-Ins&quot;)
+				(home-literal &quot;/Library/Preferences/com.apple.appstore.plist&quot;)
+				(home-literal &quot;/Library/Preferences/com.apple.commerce.plist&quot;)))
+			</string>
+			<string>
+				(allow file-read* file-write*
+				(home-subpath &quot;/Library/Caches/com.apple.AppleMediaServices&quot;)
+				(home-subpath &quot;/Library/Logs/com.apple.StoreServices&quot;))
+			</string>
+			<string>
+				(read-only-and-issue-extensions
+				(require-any
+				(literal &quot;/Library/Preferences/SystemConfiguration/preferences.plist&quot;)
+				(literal &quot;/Applications&quot;)
+				(home-literal &quot;/Library/Preferences/pbs.plist&quot;)
+				(literal &quot;/Library/Caches/com.apple.DiagnosticReporting.Networks.plist&quot;)
+				(literal &quot;/Library/Preferences/com.apple.commerce.plist&quot;)
+				(regex #&quot;^/Users/Shared&quot;)
+				(regex #&quot;^/private/var/folders/[a-z0-9]+/[a-z0-9_]+/[A-Z]/com\.apple\.metal/&quot;)
+				(regex #&quot;^/private/var/folders/[a-z0-9]+/[a-z0-9_]+/[A-Z]/com\.apple\.WebProcess\+com\.apple\.appstore/&quot;)))
+			</string>
+			<string>
+				(allow nvram-get)
+				(nvram-variable “4D1EDE05-38C7-4a6a-9CC6-4BCCA8B38C14:MLB”)
+				(nvram-variable “4D1EDE05-38C7-4a6a-9CC6-4BCCA8B38C14:ROM”))
+			</string>
+			<string>(allow distributed-notification-post)</string>
+			<string>(allow authorization-right-obtain (right-name &quot;com.apple.AOSNotification.FindMyMac.modify&quot;))
+			</string>
+			<string>(allow authorization-right-obtain (right-name &quot;com.apple.AppStore.preferences.AutoUpdate&quot;))
+			</string>
+			<string>
+				(allow user-preference-read user-preference-write
+				(preference-domain &quot;com.apple.AppStore&quot;))
+			</string>
+		</array>
+		<key>com.apple.security.temporary-exception.shared-preference.read-only</key>
+		<array>
+			<string>com.apple.storeagent</string>
+			<string>com.apple.appstore</string>
+			<string>com.apple.commerce</string>
+			<string>com.apple.rtcreportingd</string>
+			<string>com.apple.safaridavclient</string>
+			<string>com.apple.logind</string>
+			<string>com.apple.storeuid</string>
+			<string>com.apple.AppStoreComponents</string>
+			<string>com.apple.applicationaccess</string>
+		</array>
+		<key>com.apple.security.temporary-exception.shared-preference.read-write</key>
+		<array>
+			<string>com.apple.AppleMediaServices</string>
+			<string>com.apple.appstored</string>
+		</array>
+	</dict>
+</plist>
