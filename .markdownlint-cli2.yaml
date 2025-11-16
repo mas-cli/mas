@@ -11,123 +11,46 @@ gitignore: true
 noBanner: true
 noProgress: true
 config:
-  default: true
-  extends: null
-  heading-increment: true
   heading-style:
-    style: consistent
+    style: atx
   ul-style:
-    style: consistent
-  list-indent: true
-  ul-indent:
-    indent: 2
-    start_indented: false
-    start_indent: 2
+    style: dash
   no-trailing-spaces:
-    br_spaces: 2
-    list_item_empty_lines: false
+    code_blocks: true
     strict: true
   no-hard-tabs:
     code_blocks: false
     spaces_per_tab: 2
-  no-reversed-links: true
-  no-multiple-blanks:
-    maximum: 1
   line-length:
     line_length: 120
-    heading_line_length: 100
-    code_block_line_length: 80
-    code_blocks: true
-    tables: true
-    headings: true
-    strict: false
     stern: true
-  commands-show-output: true
-  no-missing-space-atx: true
-  no-multiple-space-atx: true
-  no-missing-space-closed-atx: true
-  no-multiple-space-closed-atx: true
-  blanks-around-headings:
-    lines_above: 1
-    lines_below: 1
-  heading-start-left: true
-  no-duplicate-heading:
-    siblings_only: false
-  single-h1:
-    front_matter_title: ^\\s*title\\s*[:=]
-    level: 1
-  no-trailing-punctuation:
-    punctuation: .,;:!。，；：！
-  no-multiple-space-blockquote:
-    list_items: true
-  no-blanks-blockquote: true
   ol-prefix:
-    style: one_or_ordered
-  list-marker-space:
-    ul_single: 1
-    ol_single: 1
-    ul_multi: 1
-    ol_multi: 1
+    style: ordered
   blanks-around-fences:
-    list_items: true
-  blanks-around-lists: true
+    list_items: false
   no-inline-html:
     allowed_elements: [details, h1, summary]
-  no-bare-urls: true
   hr-style:
-    style: consistent
-  no-emphasis-as-heading:
-    punctuation: .,;:!?。，；：！？
-  no-space-in-emphasis: true
-  no-space-in-code: true
-  no-space-in-links: true
+    style: ---
   fenced-code-language:
-    allowed_languages: []
-    language_only: false
-  first-line-h1:
-    allow_preamble: false
-    front_matter_title: ^\\s*title\\s*[:=]
-    level: 1
-  no-empty-links: true
-  required-headings: true
+    allowed_languages: [console, shell]
+    language_only: true
   proper-names:
-    names: []
-    code_blocks: true
-    html_elements: true
-  no-alt-text: true
+    names: [mas]
   code-block-style:
-    style: consistent
-  single-trailing-newline: true
+    style: fenced
   code-fence-style:
-    style: consistent
+    style: backtick
   emphasis-style:
-    style: consistent
+    style: underscore
   strong-style:
-    style: consistent
-  link-fragments:
-    ignore_case: false
-    ignored_pattern: ''
+    style: asterisk
   reference-links-images:
-    ignored_labels:
-    - x
-    shortcut_syntax: false
-  link-image-reference-definitions:
-    ignored_definitions:
-    - //
+    shortcut_syntax: true
   link-image-style:
-    autolink: true
-    inline: true
-    full: true
-    collapsed: true
-    shortcut: true
-    url_inline: true
+    shortcut: false
+    url_inline: false
   table-pipe-style:
-    style: consistent
-  table-column-count: true
-  blanks-around-tables: true
-  descriptive-link-text:
-    prohibited_texts:
-    - click here
-    - here
-    - link
-    - more
+    style: leading_and_trailing
+  table-column-style:
+    style: aligned
