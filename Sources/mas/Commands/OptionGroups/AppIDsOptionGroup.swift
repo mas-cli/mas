@@ -13,12 +13,8 @@ protocol AppIDsOptionGroup: ParsableArguments {
 }
 
 extension AppIDsOptionGroup {
-	var forceBundleID: Bool {
-		forceBundleIDOptionGroup.forceBundleID
-	}
-
 	var appIDs: [AppID] {
-		appIDStrings.map { AppID(from: $0, forceBundleID: forceBundleID) }
+		appIDStrings.map { AppID(from: $0, forceBundleID: forceBundleIDOptionGroup.forceBundleID) }
 	}
 
 	func forEachAppID(printer: Printer, _ body: (AppID) async throws -> Void) async {
