@@ -48,8 +48,15 @@ struct Printer {
 
 	/// Prints to `stderr`, prefixed with "Warning: "; if connected to a terminal,
 	/// the prefix is yellow & underlined.
-	func warning(_ items: Any..., separator: String = " ", terminator: String = "\n") {
-		print(items, prefix: "Warning:", format: "4;33", separator: separator, terminator: terminator, to: .standardError)
+	func warning(_ items: Any..., error: (any Error)? = nil, separator: String = " ", terminator: String = "\n") {
+		print(
+			items,
+			prefix: "Warning:",
+			format: "4;33",
+			separator: separator,
+			terminator: error.map { "\(items.isEmpty ? " " : "\n")\($0)\(terminator)" } ?? terminator,
+			to: .standardError
+		)
 	}
 
 	/// Prints to `stderr`, prefixed with "Error: "; if connected to a terminal,

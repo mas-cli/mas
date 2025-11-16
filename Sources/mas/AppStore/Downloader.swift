@@ -75,11 +75,10 @@ struct Downloader {
 
 			let attemptCount = attemptCount - 1
 			printer.warning(
-				"Network error (",
+				"Network error,",
 				attemptCount,
-				attemptCount == 1 ? " attempt remaining):\n" : " attempts remaining):\n",
-				error,
-				separator: ""
+				attemptCount == 1 ? "attempt remaining:" : "attempts remaining:",
+				error: error
 			)
 			try await downloadApp(
 				withADAMID: adamID,
