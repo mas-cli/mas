@@ -11,46 +11,46 @@ gitignore: true
 noBanner: true
 noProgress: true
 config:
-  heading-style:
-    style: atx
-  ul-style:
-    style: dash
-  no-trailing-spaces:
-    code_blocks: true
-    strict: true
-  no-hard-tabs:
-    code_blocks: false
-    spaces_per_tab: 2
-  line-length:
-    line_length: 120
-    stern: true
-  ol-prefix:
-    style: ordered
   blanks-around-fences:
     list_items: false
-  no-inline-html:
-    allowed_elements: [details, h1, summary]
-  hr-style:
-    style: ---
-  fenced-code-language:
-    allowed_languages: [console, shell]
-    language_only: true
-  proper-names:
-    names: [mas]
   code-block-style:
     style: fenced
   code-fence-style:
     style: backtick
   emphasis-style:
     style: underscore
-  strong-style:
-    style: asterisk
-  reference-links-images:
-    shortcut_syntax: true
+  fenced-code-language:
+    allowed_languages: [console, shell]
+    language_only: true
+  heading-style:
+    style: atx
+  hr-style:
+    style: ---
+  line-length:
+    line_length: 120
+    stern: true
   link-image-style:
     shortcut: false
     url_inline: false
-  table-pipe-style:
-    style: leading_and_trailing
+  no-hard-tabs:
+    code_blocks: false
+    spaces_per_tab: 2
+  no-inline-html:
+    allowed_elements: [details, h1, summary]
+  no-trailing-spaces:
+    code_blocks: true
+    strict: true
+  ol-prefix:
+    style: ordered
+  proper-names:
+    names: [mas]
+  reference-links-images:
+    shortcut_syntax: true
+  strong-style:
+    style: asterisk
   table-column-style:
     style: aligned
+  table-pipe-style:
+    style: leading_and_trailing
+  ul-style:
+    style: dash
