@@ -132,22 +132,14 @@ private func uninstallApps(atPaths appPaths: [String], printer: Printer) throws 
 			continue
 		}
 		guard chown(appPath, uid, gid) == 0 else {
-			printer.error("Failed to change ownership of '", appPath, "' to uid ", uid, " & gid ", gid, separator: "")
+			printer.error("Failed to change ownership of", appPath.quoted, "to uid", uid, "& gid", gid)
 			continue
 		}
 
 		var chownPath = appPath
 		defer {
 			if chown(chownPath, appUID, appGID) != 0 {
-				printer.warning(
-					"Failed to revert ownership of '",
-					chownPath,
-					"' back to uid ",
-					appUID,
-					" & gid ",
-					appGID,
-					separator: ""
-				)
+				printer.warning("Failed to revert ownership of", chownPath.quoted, "back to uid", appUID, "& gid", appGID)
 			}
 		}
 
@@ -185,6 +177,6 @@ private func uninstallApps(atPaths appPaths: [String], printer: Printer) throws 
 		}
 
 		chownPath = deletedURL.path
-		printer.info("Deleted '", appPath, "' to '", chownPath, "'", separator: "")
+		printer.info("Deleted", appPath.quoted, "to", chownPath.quoted)
 	}
 }
