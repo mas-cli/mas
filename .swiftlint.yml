@@ -15,6 +15,7 @@ opt_in_rules:
 analyzer_rules:
 - all
 disabled_rules:
+- closure_body_length
 - contrasted_opening_brace
 - explicit_acl
 - explicit_enum_raw_value
@@ -22,17 +23,17 @@ disabled_rules:
 - explicit_top_level_acl
 - explicit_type_interface
 - file_header
+- function_body_length
 - no_extension_access_modifier
 - no_grouping_extension
 - no_magic_numbers
 - prefixed_toplevel_constant
 - strict_fileprivate
+- type_body_length
 - vertical_whitespace_between_cases
 - void_function_in_ternary
 attributes:
   always_on_line_above: ['@MainActor', '@OptionGroup', '@objc']
-closure_body_length:
-  warning: 35
 cyclomatic_complexity:
   ignores_case_statements: true
   warning: 13
@@ -58,8 +59,6 @@ file_types_order:
   - extension
   - preview_provider
   - library_content_provider
-function_body_length:
-  warning: 80
 indentation_width:
   indentation_width: 2
   include_multiline_strings: false
