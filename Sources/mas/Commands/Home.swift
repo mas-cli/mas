@@ -20,7 +20,7 @@ extension MAS {
 		)
 
 		@OptionGroup
-		var requiredAppIDsOptionGroup: RequiredAppIDsOptionGroup
+		private var requiredAppIDsOptionGroup: RequiredAppIDsOptionGroup
 
 		func run() async throws {
 			try await run(searcher: ITunesSearchAppStoreSearcher())

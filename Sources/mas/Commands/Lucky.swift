@@ -21,9 +21,9 @@ extension MAS {
 		)
 
 		@OptionGroup
-		var forceOptionGroup: ForceOptionGroup
+		private var forceOptionGroup: ForceOptionGroup
 		@OptionGroup
-		var searchTermOptionGroup: SearchTermOptionGroup
+		private var searchTermOptionGroup: SearchTermOptionGroup
 
 		func run() async throws {
 			try await run(installedApps: try await installedApps, searcher: ITunesSearchAppStoreSearcher())

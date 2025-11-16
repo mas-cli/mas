@@ -20,9 +20,9 @@ extension MAS {
 
 		/// Flag indicating that removal shouldn't be performed.
 		@Flag(help: "Perform dry run")
-		var dryRun = false
+		private var dryRun = false
 		@OptionGroup
-		var requiredAppIDsOptionGroup: RequiredAppIDsOptionGroup
+		private var requiredAppIDsOptionGroup: RequiredAppIDsOptionGroup
 
 		func run() async throws {
 			try run(installedApps: try await installedApps)

@@ -22,9 +22,9 @@ extension MAS {
 		)
 
 		@OptionGroup
-		var forceBundleIDOptionGroup: ForceBundleIDOptionGroup
+		private var forceBundleIDOptionGroup: ForceBundleIDOptionGroup
 		@Argument(help: ArgumentHelp("App ID", valueName: "app-id"))
-		var appIDString: String?
+		private var appIDString: String?
 
 		func run() async throws {
 			try await run(searcher: ITunesSearchAppStoreSearcher())

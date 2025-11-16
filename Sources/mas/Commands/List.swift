@@ -16,7 +16,7 @@ extension MAS {
 		)
 
 		@OptionGroup
-		var optionalAppIDsOptionGroup: OptionalAppIDsOptionGroup
+		private var optionalAppIDsOptionGroup: OptionalAppIDsOptionGroup
 
 		func run() async throws {
 			try run(installedApps: try await installedApps)

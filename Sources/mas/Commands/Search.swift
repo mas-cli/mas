@@ -20,9 +20,9 @@ extension MAS {
 		)
 
 		@Flag(help: "Output the price of each app")
-		var price = false
+		private var price = false
 		@OptionGroup
-		var searchTermOptionGroup: SearchTermOptionGroup
+		private var searchTermOptionGroup: SearchTermOptionGroup
 
 		func run() async throws {
 			try await run(searcher: ITunesSearchAppStoreSearcher())

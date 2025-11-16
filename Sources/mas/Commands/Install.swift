@@ -15,9 +15,9 @@ extension MAS {
 		)
 
 		@OptionGroup
-		var forceOptionGroup: ForceOptionGroup
+		private var forceOptionGroup: ForceOptionGroup
 		@OptionGroup
-		var requiredAppIDsOptionGroup: RequiredAppIDsOptionGroup
+		private var requiredAppIDsOptionGroup: RequiredAppIDsOptionGroup
 
 		func run() async throws {
 			try await run(installedApps: try await installedApps, searcher: ITunesSearchAppStoreSearcher())
