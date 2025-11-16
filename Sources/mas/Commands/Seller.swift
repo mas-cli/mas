@@ -34,7 +34,7 @@ extension MAS {
 		private func run(printer: Printer, searcher: some AppStoreSearcher) async {
 			await requiredAppIDsOptionGroup.forEachAppID(printer: printer) { appID in
 				guard let urlString = try await searcher.lookup(appID: appID).sellerURL else {
-					throw MASError.noSellerURL(forAppID: appID)
+					throw MASError.runtimeError("No seller website available for \(appID)")
 				}
 				guard let url = URL(string: urlString) else {
 					throw MASError.urlParsing(urlString)

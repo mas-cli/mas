@@ -107,7 +107,9 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 		do {
 			return try JSONDecoder().decode(SearchResultList.self, from: data).results
 		} catch {
-			throw MASError.jsonParsing(input: String(data: data, encoding: .utf8))
+			throw MASError.runtimeError(
+				"Unable to parse input as JSON\(String(data: data, encoding: .utf8).map { ":\n\($0)" } ?? "")"
+			)
 		}
 	}
 }

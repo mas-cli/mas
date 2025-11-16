@@ -48,7 +48,7 @@ struct Downloader {
 						return
 					}
 					guard response?.downloads?.isEmpty == false else {
-						continuation.resume(throwing: MASError.noDownloads)
+						continuation.resume(throwing: MASError.runtimeError("No downloads began"))
 						return
 					}
 

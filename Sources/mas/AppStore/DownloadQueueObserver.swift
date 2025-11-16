@@ -109,12 +109,7 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 			return
 		}
 		guard !status.isCancelled else {
-			guard shouldCancel(download, false) else {
-				errorHandler?(MASError.cancelled)
-				return
-			}
-
-			completionHandler?()
+			shouldCancel(download, false) ? completionHandler?() : errorHandler?(MASError.runtimeError("Download cancelled"))
 			return
 		}
 
