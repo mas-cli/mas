@@ -50,7 +50,7 @@ print_notice() {
 	else
 		prefix=$'==>'
 	fi
-	printf $'%s %s mas %s%s\n' "${prefix}" "${1}" "${MAS_VERSION:-$(Scripts/version)}" "${${*:2}:+ (arguments: ${*:2})}"
+	printf $'%s %s mas %s%s\n' "${prefix}" "${1}" "${MAS_VERSION:-$(Scripts/version)}" "${${*:2}:+ (arguments: ${${(q)@:2}[*]})}"
 }
 
 ensure_command_available() {

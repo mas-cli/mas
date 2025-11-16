@@ -74,7 +74,7 @@ for script in Scripts/***/*(.); do
 done
 
 printf -- $'--> 🐚 ShellCheck\n'
-shellcheck -s bash -o all -e SC1088,SC1102,SC2066,SC2296,SC2299,SC2300,SC2301,SC2312 -a -P SCRIPTDIR Scripts/***/*(.)
+shellcheck -s bash -o all -e SC1088,SC1102,SC2066,SC2296,SC2298,SC2299,SC2300,SC2301,SC2312 -a -P SCRIPTDIR Scripts/***/*(.)
 ((exit_status |= ${?}))
 
 printf -- $'--> 🚷 Non-Executables\n'
