@@ -15,7 +15,7 @@ extension MASTests {
 		let actual = consequencesOf(
 			try MAS.main(try MAS.Uninstall.parse(["--dry-run", String(adamID)])) { try $0.run(installedApps: []) }
 		)
-		let expected = Consequences(nil, "No installed apps with ADAM ID \(adamID)")
+		let expected = Consequences(nil, "", "Error: No installed apps with ADAM ID \(adamID)")
 		#expect(actual == expected)
 	}
 
@@ -24,7 +24,7 @@ extension MASTests {
 		let actual = consequencesOf(
 			try MAS.main(try MAS.Uninstall.parse(["--dry-run", String(adamID)])) { try $0.run(installedApps: [app]) }
 		)
-		let expected = Consequences(nil, "==> 'Some App' '/tmp/Some.app'\n==> (not removed, dry run)\n")
+		let expected = Consequences(nil, "==> Dry run. A wet run would uninstall:\n\n/Applications/Some.app\n")
 		#expect(actual == expected)
 	}
 
@@ -32,7 +32,7 @@ extension MASTests {
 	func uninstallCannotRemoveMissingApp() {
 		let actual =
 			consequencesOf(try MAS.main(try MAS.Uninstall.parse([String(adamID)])) { try $0.run(installedApps: []) })
-		let expected = Consequences(nil, "No installed apps with ADAM ID \(adamID)")
+		let expected = Consequences(nil, "", "Error: No installed apps with ADAM ID \(adamID)")
 		#expect(actual == expected)
 	}
 
@@ -50,6 +50,6 @@ private let app = InstalledApp(
 	adamID: adamID,
 	bundleID: "com.some.app",
 	name: "Some App",
-	path: "/tmp/Some.app",
+	path: "/Applications/Some.app",
 	version: "1.0"
 )
