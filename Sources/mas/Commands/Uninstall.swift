@@ -77,10 +77,10 @@ private func uninstallApps(atPaths appPaths: [String]) throws {
 		throw MASError.runtimeError("Failed to get original gid")
 	}
 	guard let finder = SBApplication(bundleIdentifier: "com.apple.finder") as (any FinderApplication)? else {
-		throw MASError.runtimeError("Failed to obtain Finder access: com.apple.finder does not exist")
+		throw MASError.runtimeError("Failed to obtain Finder access: bundle com.apple.finder does not exist")
 	}
 	guard let items = finder.items else {
-		throw MASError.runtimeError("Failed to obtain Finder access: finder.items does not exist")
+		throw MASError.runtimeError("Failed to obtain Finder access: FinderApplication.items() does not exist")
 	}
 
 	let fileManager = FileManager.default
@@ -110,7 +110,7 @@ private func uninstallApps(atPaths appPaths: [String]) throws {
 		guard let item = object as? any FinderItem else {
 			MAS.printer.error(
 				"""
-				Failed to obtain Finder access: finder.items().object(atLocation: URL(fileURLWithPath:\
+				Failed to obtain Finder access: FinderApplication.items().object(atLocation: URL(fileURLWithPath:\
 				 \"\(appPath)\") is a \(type(of: object)) that does not conform to FinderItem
 				"""
 			)
@@ -123,7 +123,7 @@ private func uninstallApps(atPaths appPaths: [String]) throws {
 		guard let deletedURLString = (delete() as any FinderItem).URL else {
 			MAS.printer.error(
 				"""
-				Failed to revert ownership of deleted '\(appPath)' back to uid \(appUID) & gid \(appGID):\
+				Failed to revert ownership of uninstalled \(appPath.quoted) back to uid \(appUID) & gid \(appGID):\
 				 delete result did not have a URL
 				"""
 			)
@@ -132,7 +132,7 @@ private func uninstallApps(atPaths appPaths: [String]) throws {
 		guard let deletedURL = URL(string: deletedURLString) else {
 			MAS.printer.error(
 				"""
-				Failed to revert ownership of deleted '\(appPath)' back to uid \(appUID) & gid \(appGID):\
+				Failed to revert ownership of uninstalled \(appPath.quoted) back to uid \(appUID) & gid \(appGID):\
 				 delete result URL is invalid: \(deletedURLString)
 				"""
 			)
@@ -140,6 +140,6 @@ private func uninstallApps(atPaths appPaths: [String]) throws {
 		}
 
 		chownPath = deletedURL.path
-		MAS.printer.info("Deleted", appPath.quoted, "to", chownPath.quoted)
+		MAS.printer.info("Uninstalled", appPath.quoted, "to", chownPath.quoted)
 	}
 }
