@@ -50,7 +50,43 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 			return
 		}
 
-		prevPhaseType = printer.progress(for: metadata.appNameAndVersion, status: status, prevPhaseType: prevPhaseType)
+		let appNameAndVersion = metadata.appNameAndVersion
+		let currPhaseType = status.activePhase?.phaseType
+		if prevPhaseType != currPhaseType {
+			switch currPhaseType {
+			case downloadingPhaseType:
+				if prevPhaseType == initialPhaseType {
+					printer.progressHeader(for: appNameAndVersion, status: status)
+				}
+			case downloadedPhaseType:
+				if prevPhaseType == downloadingPhaseType {
+					printer.progressHeader(for: appNameAndVersion, status: status)
+				}
+			case installingPhaseType:
+				printer.progressHeader(for: appNameAndVersion, status: status)
+			default:
+				break
+			}
+		}
+
+		if isatty(FileHandle.standardOutput.fileDescriptor) != 0 {
+			// Only output the progress bar if connected to a terminal
+			let percentComplete = status.percentComplete
+			let totalLength = 60
+			let completedLength = Int(percentComplete * Float(totalLength))
+			printer.ephemeral(
+				String(repeating: "#", count: completedLength),
+				String(repeating: "-", count: totalLength - completedLength),
+				" ",
+				String(format: "%.1f%%", floor(percentComplete * 1000) / 10),
+				" ",
+				status.activePhaseDescription,
+				separator: "",
+				terminator: ""
+			)
+		}
+
+		prevPhaseType = currPhaseType
 	}
 
 	func downloadQueue(_: CKDownloadQueue, changedWithAddition _: SSDownload) {
@@ -107,15 +143,6 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 	}
 }
 
-private struct ProgressState { // swiftlint:disable:this one_declaration_per_file
-	let percentComplete: Float
-	let phase: String
-
-	var percentage: String {
-		String(format: "%.1f%%", floor(percentComplete * 1000) / 10)
-	}
-}
-
 private extension SSDownloadMetadata {
 	var appNameAndVersion: String {
 		"\(title ?? "unknown app") (\(bundleVersion ?? "unknown version"))"
@@ -123,46 +150,7 @@ private extension SSDownloadMetadata {
 }
 
 private extension Printer {
-	func progress(for appNameAndVersion: String, status: SSDownloadStatus, prevPhaseType: Int64?) -> Int64? {
-		let currPhaseType = status.activePhase?.phaseType
-		if prevPhaseType != currPhaseType {
-			switch currPhaseType {
-			case downloadingPhaseType:
-				if prevPhaseType == initialPhaseType {
-					progressHeader(for: appNameAndVersion, status: status)
-				}
-			case downloadedPhaseType:
-				if prevPhaseType == downloadingPhaseType {
-					progressHeader(for: appNameAndVersion, status: status)
-				}
-			case installingPhaseType:
-				progressHeader(for: appNameAndVersion, status: status)
-			default:
-				break
-			}
-		}
-
-		if isatty(FileHandle.standardOutput.fileDescriptor) != 0 {
-			// Only output the progress bar if connected to a terminal
-			let progressState = status.progressState
-			let totalLength = 60
-			let completedLength = Int(progressState.percentComplete * Float(totalLength))
-			ephemeral(
-				String(repeating: "#", count: completedLength),
-				String(repeating: "-", count: totalLength - completedLength),
-				" ",
-				progressState.percentage,
-				" ",
-				progressState.phase,
-				separator: "",
-				terminator: ""
-			)
-		}
-
-		return currPhaseType
-	}
-
-	private func progressHeader(for appNameAndVersion: String, status: SSDownloadStatus) {
+	func progressHeader(for appNameAndVersion: String, status: SSDownloadStatus) {
 		terminateEphemeral()
 		notice(status.activePhaseDescription, appNameAndVersion)
 	}
@@ -170,23 +158,15 @@ private extension Printer {
 
 private extension SSDownloadStatus {
 	var activePhaseDescription: String {
-		activePhase?.phaseDescription ?? "Processing"
-	}
-
-	var progressState: ProgressState {
-		ProgressState(percentComplete: percentComplete, phase: activePhaseDescription)
-	}
-}
-
-private extension SSDownloadPhase {
-	var phaseDescription: String {
-		switch phaseType {
+		switch activePhase?.phaseType {
 		case downloadedPhaseType:
 			"Downloaded"
 		case downloadingPhaseType:
 			"Downloading"
 		case installingPhaseType:
 			"Installing"
+		case nil:
+			"Processing"
 		default:
 			"Waiting"
 		}
