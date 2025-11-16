@@ -18,7 +18,7 @@ extension MAS {
 			try await MAS.run { await run(printer: $0) }
 		}
 
-		func run(printer: Printer) async {
+		private func run(printer: Printer) async {
 			printer.info(await region)
 		}
 	}

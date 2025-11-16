@@ -18,7 +18,7 @@ extension MAS {
 			try await MAS.run { try await run(printer: $0) }
 		}
 
-		func run(printer: Printer) async throws {
+		private func run(printer: Printer) async throws {
 			guard let appleAccount = try await appleAccount.emailAddress else {
 				throw MASError.runtimeError("Not signed in to an Apple Account in the Mac App Store")
 			}

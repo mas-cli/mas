@@ -20,7 +20,7 @@ extension MAS {
 			try MAS.run { run(printer: $0) }
 		}
 
-		func run(printer _: Printer) {
+		private func run(printer _: Printer) {
 			ISServiceProxy.genericShared().accountService.signOut()
 		}
 	}

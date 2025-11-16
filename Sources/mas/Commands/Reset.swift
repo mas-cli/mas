@@ -33,7 +33,7 @@ extension MAS {
 		///
 		/// As `storeagent` no longer exists, terminates all processes known to be
 		/// associated with the Mac App Store.
-		func run(printer: Printer) {
+		private func run(printer: Printer) {
 			for bundleID in ["com.apple.dock", "com.apple.storeuid"] {
 				for app in NSRunningApplication.runningApplications(withBundleIdentifier: bundleID) where !app.terminate() {
 					printer.warning("Failed to terminate app with bundle ID:", bundleID)
