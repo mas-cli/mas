@@ -35,14 +35,11 @@ extension MAS {
 		private func run(printer: Printer, searcher: some AppStoreSearcher) async throws {
 			let searchTerm = searchTermOptionGroup.searchTerm
 			let results = try await searcher.search(for: searchTerm)
-			guard !results.isEmpty else {
-				throw MASError.noSearchResultsFound(for: searchTerm)
-			}
 			guard
 				let maxADAMIDLength = results.map({ String(describing: $0.adamID).count }).max(),
-				let maxAppNameLength = results.map(\.name.count).max()
+				let maxNameLength = results.map(\.name.count).max()
 			else {
-				return
+				throw MASError.noSearchResultsFound(for: searchTerm)
 			}
 
 			let format = "%\(maxADAMIDLength)lu  %@  (%@)\(price ? "  %@" : "")"
@@ -51,7 +48,7 @@ extension MAS {
 					String(
 						format: format,
 						result.adamID,
-						result.name.padding(toLength: maxAppNameLength, withPad: " ", startingAt: 0),
+						result.name.padding(toLength: maxNameLength, withPad: " ", startingAt: 0),
 						result.version,
 						result.formattedPrice
 					)
