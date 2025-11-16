@@ -14,27 +14,30 @@ extension MAS {
 	/// Uses the iTunes Lookup API:
 	///
 	/// https://performance-partners.apple.com/search-api
-	struct Home: AsyncParsableCommand {
+	struct Home: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
 			abstract: "Open Mac App Store app pages in the default web browser"
 		)
 
 		@OptionGroup
-		var requiredAppIDsOptionGroup: RequiredAppIDsOptionGroup
+		private var requiredAppIDsOptionGroup: RequiredAppIDsOptionGroup
 
-		func run() async throws {
-			try await run(searcher: ITunesSearchAppStoreSearcher())
+		func run() async {
+			await run(searcher: ITunesSearchAppStoreSearcher())
 		}
 
-		func run(searcher: some AppStoreSearcher) async throws {
-			try await MAS.run { await run(printer: $0, searcher: searcher) }
+		func run(searcher: some AppStoreSearcher) async {
+			await run(searchResults: await requiredAppIDsOptionGroup.appIDs.lookupResults(from: searcher))
 		}
 
-		private func run(printer: Printer, searcher: some AppStoreSearcher) async {
-			await requiredAppIDsOptionGroup.forEachAppID(printer: printer) { appID in
-				let urlString = try await searcher.lookup(appID: appID).appStorePageURL
-				guard let url = URL(string: urlString) else {
-					throw MASError.urlParsing(urlString)
+		func run(searchResults: [SearchResult]) async {
+			await run(appStorePageURLs: searchResults.map(\.appStorePageURL))
+		}
+
+		func run(appStorePageURLs: [String]) async {
+			await appStorePageURLs.forEach(attemptTo: "open") { appStorePageURL in
+				guard let url = URL(string: appStorePageURL) else {
+					throw MASError.urlParsing(appStorePageURL)
 				}
 
 				try await url.open()

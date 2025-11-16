@@ -16,37 +16,47 @@ extension MAS {
 	/// Uses the iTunes Lookup API:
 	///
 	/// https://performance-partners.apple.com/search-api
-	struct Open: AsyncParsableCommand {
+	struct Open: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
 			abstract: "Open app page in 'App Store.app'"
 		)
 
 		@OptionGroup
-		var forceBundleIDOptionGroup: ForceBundleIDOptionGroup
+		private var forceBundleIDOptionGroup: ForceBundleIDOptionGroup
 		@Argument(help: ArgumentHelp("App ID", valueName: "app-id"))
-		var appIDString: String?
+		private var appIDString: String?
 
-		func run() async throws {
-			try await run(searcher: ITunesSearchAppStoreSearcher())
+		func run() async {
+			do {
+				try await run(searcher: ITunesSearchAppStoreSearcher())
+			} catch {
+				printer.error(error: error)
+			}
 		}
 
 		func run(searcher: some AppStoreSearcher) async throws {
-			try await MAS.run { try await run(printer: $0, searcher: searcher) }
+			try await run(appStorePageURL: appStorePageURL(searcher: searcher))
 		}
 
-		private func run(printer _: Printer, searcher: some AppStoreSearcher) async throws {
-			guard let appIDString else {
-				// If no app ID was given, just open the MAS GUI app
+		func run(appStorePageURL: String?) async throws {
+			guard let appStorePageURL else {
+				// If no App Store Page URL was given, just open the MAS GUI app
 				try await openMacAppStore()
 				return
 			}
 
-			try await openMacAppStorePage(
-				forURLString: try await searcher.lookup(
-					appID: AppID(from: appIDString, forceBundleID: forceBundleIDOptionGroup.forceBundleID)
-				)
-				.appStorePageURL
+			try await openMacAppStorePage(forAppStorePageURL: appStorePageURL)
+		}
+
+		private func appStorePageURL(searcher: some AppStoreSearcher) async throws -> String? {
+			guard let appIDString else {
+				return nil
+			}
+
+			return try await searcher.lookup(
+				appID: AppID(from: appIDString, forceBundleID: forceBundleIDOptionGroup.forceBundleID)
 			)
+			.appStorePageURL
 		}
 	}
 }
@@ -55,14 +65,16 @@ private func openMacAppStore() async throws {
 	guard let macappstoreSchemeURL = URL(string: "macappstore:") else {
 		throw MASError.runtimeError("Failed to create URL from macappstore scheme")
 	}
-	guard let appURL = NSWorkspace.shared.urlForApplication(toOpen: macappstoreSchemeURL) else {
+
+	let workspace = NSWorkspace.shared
+	guard let appURL = workspace.urlForApplication(toOpen: macappstoreSchemeURL) else {
 		throw MASError.runtimeError("Failed to find app to open macappstore URLs")
 	}
 
-	try await NSWorkspace.shared.openApplication(at: appURL, configuration: NSWorkspace.OpenConfiguration())
+	try await workspace.openApplication(at: appURL, configuration: NSWorkspace.OpenConfiguration())
 }
 
-private func openMacAppStorePage(forURLString urlString: String) async throws {
+private func openMacAppStorePage(forAppStorePageURL urlString: String) async throws {
 	guard var urlComponents = URLComponents(string: urlString) else {
 		throw MASError.urlParsing(urlString)
 	}

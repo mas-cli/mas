@@ -10,9 +10,7 @@ private import ObjectiveC
 
 private extension String {
 	func removingSuffix(_ suffix: Self) -> Self {
-		hasSuffix(suffix)
-		? Self(dropLast(suffix.count)) // swiftformat:disable:this indent
-		: self
+		hasSuffix(suffix) ? Self(dropLast(suffix.count)) : self
 	}
 }
 

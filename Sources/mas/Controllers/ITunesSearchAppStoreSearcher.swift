@@ -30,11 +30,13 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 	/// - Throws: A `MASError.unknownAppID(appID)` if `appID` is invalid.
 	///   Some other `Error` if any other problem occurs.
 	func lookup(appID: AppID, inRegion region: Region) async throws -> SearchResult {
-		guard let result = try await getSearchResults(from: try lookupURL(forAppID: appID, inRegion: region)).first else {
+		guard
+			let searchResult = try await getSearchResults(from: try lookupURL(forAppID: appID, inRegion: region)).first
+		else {
 			throw MASError.unknownAppID(appID)
 		}
 
-		return result
+		return searchResult
 	}
 
 	/// Searches for apps.
@@ -107,7 +109,9 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 		do {
 			return try JSONDecoder().decode(SearchResultList.self, from: data).results
 		} catch {
-			throw MASError.jsonParsing(input: String(data: data, encoding: .utf8))
+			throw MASError.runtimeError(
+				"Unable to parse input as JSON\(String(data: data, encoding: .utf8).map { ":\n\($0)" } ?? "")"
+			)
 		}
 	}
 }

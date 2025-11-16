@@ -5,9 +5,12 @@
 // Copyright © 2025 mas-cli. All rights reserved.
 //
 
+@testable private import mas
 internal import Testing
 
 @Suite(.serialized)
-enum MASTests {
-	// Empty
+struct MASTests {
+	init() {
+		MAS.printer.resetErrorCount()
+	}
 }

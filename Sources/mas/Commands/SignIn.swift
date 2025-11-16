@@ -15,22 +15,20 @@ extension MAS {
 			abstract: "Sign in to an Apple Account in the Mac App Store"
 		)
 
-		@Flag(help: "Provide password via graphical dialog")
-		var dialog = false // swiftlint:disable:this unused_declaration
 		// periphery:ignore
-		@Argument(help: "Apple Account")
-		var appleAccount: String // swiftlint:disable:this unused_declaration
-		@Argument(help: "Password")
-		var password = "" // swiftlint:disable:this unused_declaration
+		@Flag(help: "Provide password via graphical dialog") // swiftformat:disable:next unusedPrivateDeclarations
+		private var dialog = false // swiftlint:disable:this unused_declaration
+		// periphery:ignore
+		@Argument(help: "Apple Account") // swiftformat:disable:next unusedPrivateDeclarations
+		private var appleAccount: String // swiftlint:disable:this unused_declaration
+		// periphery:ignore
+		@Argument(help: "Password") // swiftformat:disable:next unusedPrivateDeclarations
+		private var password = "" // swiftlint:disable:this unused_declaration
 
-		func run() throws {
-			try MAS.run { try run(printer: $0) }
-		}
-
-		func run(printer _: Printer) throws {
+		func run() {
 			// Signing in is no longer possible as of High Sierra.
 			// https://github.com/mas-cli/mas/issues/164
-			throw MASError.notSupported
+			printer.error(error: MASError.notSupported)
 		}
 	}
 }

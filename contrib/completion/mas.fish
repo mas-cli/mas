@@ -48,7 +48,7 @@ complete -c mas -n "__fish_seen_subcommand_from help" -xa "list"
 complete -c mas -n "__fish_use_subcommand" -f -a lookup -d "Output app information from the Mac App Store"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "lookup"
 ### lucky
-complete -c mas -n "__fish_use_subcommand" -f -a lucky -d "Install the first app returned from searching the Mac App Store (app must have been previously gotten)"
+complete -c mas -n "__fish_use_subcommand" -f -a lucky -d "Install the first app returned from searching the Mac App Store"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "lucky"
 ### open
 complete -c mas -n "__fish_use_subcommand" -f -a open -d "Open app page in 'App Store.app'"
@@ -61,7 +61,7 @@ complete -c mas -n "__fish_seen_subcommand_from outdated" -l verbose -d "Output 
 complete -c mas -n "__fish_use_subcommand" -f -a region -d "Output the region of the Mac App Store"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "region"
 ### reset
-complete -c mas -n "__fish_use_subcommand" -f -a reset -d "Reset Mac App Store running processes"
+complete -c mas -n "__fish_use_subcommand" -f -a reset -d "Reset Mac App Store processes & clear cached Mac App Store downloads"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "reset"
 complete -c mas -n "__fish_seen_subcommand_from reset" -l debug -d "Output debug information"
 ### search

@@ -11,8 +11,8 @@ internal import Testing
 
 extension MASTests {
 	@Test(.disabled())
-	static func signsOut() {
-		let actual = consequencesOf(try MAS.SignOut.parse([]).run())
+	func signsOut() {
+		let actual = consequencesOf(try MAS.main(try MAS.SignOut.parse([])))
 		let expected = Consequences()
 		#expect(actual == expected)
 	}

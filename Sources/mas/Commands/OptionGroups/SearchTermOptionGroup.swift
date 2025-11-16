@@ -9,7 +9,7 @@ internal import ArgumentParser
 
 struct SearchTermOptionGroup: ParsableArguments {
 	@Argument(help: ArgumentHelp("Search terms are concatenated into a single search", valueName: "search-term"))
-	var searchTermElements: [String]
+	private var searchTermElements: [String]
 
 	var searchTerm: String {
 		searchTermElements.joined(separator: " ")

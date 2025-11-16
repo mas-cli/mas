@@ -5,12 +5,12 @@
 // Copyright © 2024 mas-cli. All rights reserved.
 //
 
-private import AppKit
+internal import AppKit
 private import Foundation
 private import ObjectiveC
 
 extension URL {
-	func open() async throws {
-		try await NSWorkspace.shared.open(self, configuration: NSWorkspace.OpenConfiguration())
+	func open(configuration: NSWorkspace.OpenConfiguration = NSWorkspace.OpenConfiguration()) async throws {
+		try await NSWorkspace.shared.open(self, configuration: configuration)
 	}
 }

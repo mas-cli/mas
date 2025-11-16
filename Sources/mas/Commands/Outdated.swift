@@ -11,30 +11,30 @@ private import StoreFoundation
 extension MAS {
 	/// Outputs a list of installed apps which have updates available to be
 	/// installed from the Mac App Store.
-	struct Outdated: AsyncParsableCommand {
+	struct Outdated: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
 			abstract: "List pending app updates from the Mac App Store"
 		)
 
 		@OptionGroup
-		var optionalAppIDsOptionGroup: OptionalAppIDsOptionGroup
+		private var optionalAppIDsOptionGroup: OptionalAppIDsOptionGroup
 
-		func run() async throws {
-			try await run(installedApps: try await installedApps)
+		func run() async {
+			do {
+				await run(installedApps: try await installedApps)
+			} catch {
+				printer.error(error: error)
+			}
 		}
 
-		func run(installedApps: [InstalledApp]) async throws {
-			try await MAS.run { await run(downloader: Downloader(printer: $0), installedApps: installedApps) }
-		}
-
-		private func run(downloader: Downloader, installedApps: [InstalledApp]) async {
+		func run(installedApps: [InstalledApp]) async {
 			await withTaskGroup(of: Void.self) { group in
-				for installedApp in installedApps.filter(by: optionalAppIDsOptionGroup, printer: downloader.printer) {
+				for installedApp in installedApps.filter(by: optionalAppIDsOptionGroup) {
 					group.addTask {
 						do {
-							try await downloader.downloadApp(withADAMID: installedApp.adamID) { download, shouldOutput in
+							try await downloadApp(withADAMID: installedApp.adamID) { download, shouldOutput in
 								if shouldOutput, let metadata = download.metadata, installedApp.version != metadata.bundleVersion {
-									downloader.printer.info(
+									printer.info(
 										installedApp.adamID,
 										" ",
 										installedApp.name,
@@ -49,7 +49,7 @@ extension MAS {
 								return true
 							}
 						} catch {
-							downloader.printer.error(error: error)
+							printer.error(error: error)
 						}
 					}
 				}

@@ -14,41 +14,41 @@ extension MAS {
 	/// Uses the iTunes Lookup API:
 	///
 	/// https://performance-partners.apple.com/search-api
-	struct Lookup: AsyncParsableCommand {
+	struct Lookup: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
 			abstract: "Output app information from the Mac App Store",
 			aliases: ["info"]
 		)
 
 		@OptionGroup
-		var requiredAppIDsOptionGroup: RequiredAppIDsOptionGroup
+		private var requiredAppIDsOptionGroup: RequiredAppIDsOptionGroup
 
-		func run() async throws {
-			try await run(searcher: ITunesSearchAppStoreSearcher())
+		func run() async {
+			await run(searcher: ITunesSearchAppStoreSearcher())
 		}
 
-		func run(searcher: some AppStoreSearcher) async throws {
-			try await MAS.run { await run(printer: $0, searcher: searcher) }
+		func run(searcher: some AppStoreSearcher) async {
+			run(searchResults: await requiredAppIDsOptionGroup.appIDs.lookupResults(from: searcher))
 		}
 
-		private func run(printer: Printer, searcher: some AppStoreSearcher) async {
-			var spacing = ""
-			await requiredAppIDsOptionGroup.forEachAppID(printer: printer) { appID in
-				let result = try await searcher.lookup(appID: appID)
-				printer.info(
-					"",
-					"""
-					\(result.name) \(result.version) [\(result.formattedPrice)]
-					By: \(result.sellerName)
-					Released: \(result.releaseDate.humanReadableDate)
-					Minimum OS: \(result.minimumOSVersion)
-					Size: \(result.fileSizeBytes.humanReadableSize)
-					From: \(result.appStorePageURL)
-					""",
-					separator: spacing
-				)
-				spacing = "\n"
+		func run(searchResults: [SearchResult]) {
+			guard !searchResults.isEmpty else {
+				return
 			}
+
+			printer.info(
+				searchResults.map { searchResult in
+					"""
+					\(searchResult.name) \(searchResult.version) [\(searchResult.formattedPrice)]
+					By: \(searchResult.sellerName)
+					Released: \(searchResult.releaseDate.humanReadableDate)
+					Minimum OS: \(searchResult.minimumOSVersion)
+					Size: \(searchResult.fileSizeBytes.humanReadableSize)
+					From: \(searchResult.appStorePageURL)
+					"""
+				}
+				.joined(separator: "\n\n")
+			)
 		}
 	}
 }

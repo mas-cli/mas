@@ -9,34 +9,31 @@ internal import ArgumentParser
 
 extension MAS {
 	/// Installs previously gotten apps from the Mac App Store.
-	struct Install: AsyncParsableCommand {
+	struct Install: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
 			abstract: "Install previously gotten apps from the Mac App Store"
 		)
 
 		@OptionGroup
-		var forceOptionGroup: ForceOptionGroup
+		private var forceOptionGroup: ForceOptionGroup
 		@OptionGroup
-		var requiredAppIDsOptionGroup: RequiredAppIDsOptionGroup
+		private var requiredAppIDsOptionGroup: RequiredAppIDsOptionGroup
 
-		func run() async throws {
-			try await run(installedApps: try await installedApps, searcher: ITunesSearchAppStoreSearcher())
+		func run() async {
+			do {
+				await run(installedApps: try await installedApps, searcher: ITunesSearchAppStoreSearcher())
+			} catch {
+				printer.error(error: error)
+			}
 		}
 
-		func run(installedApps: [InstalledApp], searcher: some AppStoreSearcher) async throws {
-			try await MAS.run { printer in
-				let downloader = Downloader(printer: printer)
-				for appID in requiredAppIDsOptionGroup.appIDs {
-					do {
-						try await downloader.downloadApp(
-							withADAMID: try await appID.adamID(searcher: searcher),
-							forceDownload: forceOptionGroup.force,
-							installedApps: installedApps
-						)
-					} catch {
-						printer.error(error: error)
-					}
-				}
+		func run(installedApps: [InstalledApp], searcher: some AppStoreSearcher) async {
+			await run(installedApps: installedApps, adamIDs: await requiredAppIDsOptionGroup.appIDs.adamIDs(from: searcher))
+		}
+
+		func run(installedApps: [InstalledApp], adamIDs: [ADAMID]) async {
+			await adamIDs.forEach(attemptTo: "install app for ADAM ID") { adamID in
+				try await downloadApp(withADAMID: adamID, forceDownload: forceOptionGroup.force, installedApps: installedApps)
 			}
 		}
 	}

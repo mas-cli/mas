@@ -11,16 +11,12 @@ private import Foundation
 
 extension MAS {
 	/// Outputs mas config & related system info.
-	struct Config: AsyncParsableCommand {
+	struct Config: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
 			abstract: "Output mas config & related system info"
 		)
 
-		func run() async throws {
-			try await MAS.run { await run(printer: $0) }
-		}
-
-		func run(printer: Printer) async {
+		func run() async {
 			printer.info(
 				"""
 				mas ▁▁▁▁ \(MAS.version)
@@ -28,8 +24,8 @@ extension MAS {
 				from ▁▁▁ \(MAS.installMethod)
 				origin ▁ \(MAS.gitOrigin)
 				rev ▁▁▁▁ \(MAS.gitRevision)
-				driver ▁ \(MAS.swiftDriverVersion)
 				swift ▁▁ \(MAS.swiftVersion)
+				driver ▁ \(MAS.swiftDriverVersion)
 				region ▁ \(await region)
 				macos ▁▁ \(
 					ProcessInfo.processInfo.operatingSystemVersionString.dropFirst(8).replacingOccurrences(of: "Build ", with: "")

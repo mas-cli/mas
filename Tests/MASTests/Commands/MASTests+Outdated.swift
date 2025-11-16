@@ -11,8 +11,8 @@ internal import Testing
 
 extension MASTests {
 	@Test(.disabled())
-	static func outputsOutdatedApps() async {
-		let result =
+	func outputsOutdatedApps() async {
+		let searchResult =
 			SearchResult(
 				adamID: 490_461_369,
 				appStorePageURL: "https://apps.apple.com/us/app/bandwidth/id490461369?mt=12&uo=4",
@@ -26,17 +26,19 @@ extension MASTests {
 				version: "1.28"
 			)
 		let actual = await consequencesOf(
-			try await MAS.Outdated.parse([]).run(
-				installedApps: [
-					InstalledApp(
-						adamID: result.adamID,
-						bundleID: result.bundleID,
-						name: result.name,
-						path: "/Applications/Bandwidth+.app",
-						version: "1.27"
-					),
-				]
-			)
+			await MAS.main(try MAS.Outdated.parse([])) { command in
+				await command.run(
+					installedApps: [
+						InstalledApp(
+							adamID: searchResult.adamID,
+							bundleID: searchResult.bundleID,
+							name: searchResult.name,
+							path: "/Applications/Bandwidth+.app",
+							version: "1.27"
+						),
+					]
+				)
+			}
 		)
 		let expected = Consequences(nil, "490461369 Bandwidth+ (1.27 -> 1.28)\n")
 		#expect(actual == expected)

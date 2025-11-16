@@ -13,33 +13,19 @@ protocol AppIDsOptionGroup: ParsableArguments {
 }
 
 extension AppIDsOptionGroup {
-	var forceBundleID: Bool {
-		forceBundleIDOptionGroup.forceBundleID
-	}
-
 	var appIDs: [AppID] {
-		appIDStrings.map { AppID(from: $0, forceBundleID: forceBundleID) }
-	}
-
-	func forEachAppID(printer: Printer, _ body: (AppID) async throws -> Void) async {
-		for appID in appIDs {
-			do {
-				try await body(appID)
-			} catch {
-				printer.error(error: error)
-			}
-		}
+		appIDStrings.map { AppID(from: $0, forceBundleID: forceBundleIDOptionGroup.forceBundleID) }
 	}
 }
 
 extension [InstalledApp] {
-	func filter(by appIDsOptionGroup: some AppIDsOptionGroup, printer: Printer) -> [Element] {
+	func filter(by appIDsOptionGroup: some AppIDsOptionGroup) -> [Element] {
 		appIDsOptionGroup.appIDStrings.isEmpty
 		? self // swiftformat:disable:this indent
 		: appIDsOptionGroup.appIDs.flatMap { appID in
 			let installedApps = filter { $0.matches(appID) }
 			if installedApps.isEmpty {
-				printer.error(appID.notInstalledMessage)
+				MAS.printer.error(appID.notInstalledMessage)
 			}
 			return installedApps
 		}

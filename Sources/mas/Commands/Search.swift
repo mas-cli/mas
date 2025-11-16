@@ -14,46 +14,45 @@ extension MAS {
 	/// Uses the iTunes Search API:
 	///
 	/// https://performance-partners.apple.com/search-api
-	struct Search: AsyncParsableCommand {
+	struct Search: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
 			abstract: "Search for apps in the Mac App Store"
 		)
 
 		@Flag(help: "Output the price of each app")
-		var price = false
+		private var price = false
 		@OptionGroup
-		var searchTermOptionGroup: SearchTermOptionGroup
+		private var searchTermOptionGroup: SearchTermOptionGroup
 
-		func run() async throws {
-			try await run(searcher: ITunesSearchAppStoreSearcher())
+		func run() async {
+			do {
+				try await run(searcher: ITunesSearchAppStoreSearcher())
+			} catch {
+				printer.error(error: error)
+			}
 		}
 
 		func run(searcher: some AppStoreSearcher) async throws {
-			try await MAS.run { try await run(printer: $0, searcher: searcher) }
+			try run(searchResults: try await searcher.search(for: searchTermOptionGroup.searchTerm))
 		}
 
-		private func run(printer: Printer, searcher: some AppStoreSearcher) async throws {
-			let searchTerm = searchTermOptionGroup.searchTerm
-			let results = try await searcher.search(for: searchTerm)
-			guard !results.isEmpty else {
-				throw MASError.noSearchResultsFound(for: searchTerm)
-			}
+		func run(searchResults: [SearchResult]) throws {
 			guard
-				let maxADAMIDLength = results.map({ String(describing: $0.adamID).count }).max(),
-				let maxAppNameLength = results.map(\.name.count).max()
+				let maxADAMIDLength = searchResults.map({ String(describing: $0.adamID).count }).max(),
+				let maxNameLength = searchResults.map(\.name.count).max()
 			else {
-				return
+				throw MASError.noSearchResultsFound(for: searchTermOptionGroup.searchTerm)
 			}
 
 			let format = "%\(maxADAMIDLength)lu  %@  (%@)\(price ? "  %@" : "")"
 			printer.info(
-				results.map { result in
+				searchResults.map { searchResult in
 					String(
 						format: format,
-						result.adamID,
-						result.name.padding(toLength: maxAppNameLength, withPad: " ", startingAt: 0),
-						result.version,
-						result.formattedPrice
+						searchResult.adamID,
+						searchResult.name.padding(toLength: maxNameLength, withPad: " ", startingAt: 0),
+						searchResult.version,
+						searchResult.formattedPrice
 					)
 				}
 				.joined(separator: "\n")

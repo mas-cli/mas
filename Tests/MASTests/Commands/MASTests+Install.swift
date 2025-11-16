@@ -11,9 +11,10 @@ internal import Testing
 
 extension MASTests {
 	@Test(.disabled())
-	static func doesNotInstallAppsWhenNoAppIDs() async {
-		let actual =
-			await consequencesOf(try await MAS.Install.parse([]).run(installedApps: [], searcher: MockAppStoreSearcher()))
+	func doesNotInstallAppsWhenNoAppIDs() async {
+		let actual = await consequencesOf(
+			await MAS.main(try MAS.Install.parse([])) { await $0.run(installedApps: [], adamIDs: []) }
+		)
 		let expected = Consequences()
 		#expect(actual == expected)
 	}

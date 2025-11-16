@@ -8,7 +8,7 @@
 internal import ArgumentParser
 
 @main
-struct MAS: AsyncParsableCommand {
+struct MAS: AsyncParsableCommand, Sendable {
 	static let configuration = CommandConfiguration(
 		abstract: "Mac App Store command-line interface",
 		subcommands: [
@@ -33,4 +33,60 @@ struct MAS: AsyncParsableCommand {
 			Version.self,
 		]
 	)
+
+	static let printer = Printer()
+
+	static func main() async { // swiftlint:disable:this unused_declaration
+		await main(nil)
+	}
+
+	static func main(_ arguments: [String]?) async { // swiftlint:disable:this discouraged_optional_collection
+		do {
+			let command = try parseAsRoot(arguments)
+			if let command = cast(command, as: (any AsyncParsableCommand & Sendable).self) {
+				try await main(command)
+			} else {
+				try main(command)
+			}
+
+			let errorCount = printer.errorCount
+			if errorCount > 0 {
+				throw ExitCode(errorCount >= UInt64(Int32.max) ? Int32.max : Int32(errorCount))
+			}
+		} catch {
+			exit(withError: error)
+		}
+	}
+
+	static func main(_ command: some ParsableCommand) throws {
+		try main(command) { command in
+			var command = command
+			try command.run()
+		}
+	}
+
+	static func main(_ command: some AsyncParsableCommand & Sendable) async throws {
+		try await main(command) { command in
+			var command = command
+			try await command.run()
+		}
+	}
+
+	static func main<Command: ParsableCommand, E: Error>(
+		_ command: Command,
+		_ body: (Command) throws(E) -> Void
+	) throws(E) {
+		try body(command)
+	}
+
+	static func main<Command: AsyncParsableCommand & Sendable, E: Error>(
+		_ command: Command,
+		_ body: (Command) async throws(E) -> Void
+	) async throws(E) {
+		try await body(command)
+	}
+}
+
+private func cast<T>(_ instance: Any, as _: T.Type) -> T? {
+	instance as? T
 }

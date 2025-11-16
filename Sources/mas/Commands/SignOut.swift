@@ -16,11 +16,7 @@ extension MAS {
 			abstract: "Sign out of the Apple Account currently signed in to the Mac App Store"
 		)
 
-		func run() throws {
-			try MAS.run { run(printer: $0) }
-		}
-
-		func run(printer _: Printer) {
+		func run() {
 			ISServiceProxy.genericShared().accountService.signOut()
 		}
 	}

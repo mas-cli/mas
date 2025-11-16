@@ -19,7 +19,6 @@ struct SearchResult: Equatable {
 	let sellerURL: String?
 	let version: String
 
-	// periphery:ignore
 	init(
 		adamID: ADAMID = 0,
 		appStorePageURL: String = "",
@@ -32,7 +31,7 @@ struct SearchResult: Equatable {
 		sellerName: String = "",
 		sellerURL: String? = nil,
 		version: String = ""
-	) {
+	) { // periphery:ignore
 		self.adamID = adamID
 		self.appStorePageURL = appStorePageURL
 		self.bundleID = bundleID

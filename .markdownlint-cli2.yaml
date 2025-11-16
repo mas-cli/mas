@@ -4,130 +4,53 @@
 # .markdownlint-cli2.yaml
 # mas
 #
-# markdownlint-cli2 0.18.1 / markdownlint 0.38.0
+# markdownlint-cli2 0.19.0 / markdownlint 0.39.0
 #
 ---
 gitignore: true
 noBanner: true
 noProgress: true
 config:
-  default: true
-  extends: null
-  heading-increment: true
+  blanks-around-fences:
+    list_items: false
+  code-block-style:
+    style: fenced
+  code-fence-style:
+    style: backtick
+  emphasis-style:
+    style: underscore
+  fenced-code-language:
+    allowed_languages: [console, shell]
+    language_only: true
   heading-style:
-    style: consistent
-  ul-style:
-    style: consistent
-  list-indent: true
-  ul-indent:
-    indent: 2
-    start_indented: false
-    start_indent: 2
-  no-trailing-spaces:
-    br_spaces: 2
-    list_item_empty_lines: false
-    strict: true
+    style: atx
+  hr-style:
+    style: ---
+  line-length:
+    line_length: 120
+    stern: true
+  link-image-style:
+    shortcut: false
+    url_inline: false
   no-hard-tabs:
     code_blocks: false
     spaces_per_tab: 2
-  no-reversed-links: true
-  no-multiple-blanks:
-    maximum: 1
-  line-length:
-    line_length: 120
-    heading_line_length: 100
-    code_block_line_length: 80
-    code_blocks: true
-    tables: true
-    headings: true
-    strict: false
-    stern: true
-  commands-show-output: true
-  no-missing-space-atx: true
-  no-multiple-space-atx: true
-  no-missing-space-closed-atx: true
-  no-multiple-space-closed-atx: true
-  blanks-around-headings:
-    lines_above: 1
-    lines_below: 1
-  heading-start-left: true
-  no-duplicate-heading:
-    siblings_only: false
-  single-h1:
-    front_matter_title: ^\\s*title\\s*[:=]
-    level: 1
-  no-trailing-punctuation:
-    punctuation: .,;:!。，；：！
-  no-multiple-space-blockquote:
-    list_items: true
-  no-blanks-blockquote: true
-  ol-prefix:
-    style: one_or_ordered
-  list-marker-space:
-    ul_single: 1
-    ol_single: 1
-    ul_multi: 1
-    ol_multi: 1
-  blanks-around-fences:
-    list_items: true
-  blanks-around-lists: true
   no-inline-html:
     allowed_elements: [details, h1, summary]
-  no-bare-urls: true
-  hr-style:
-    style: consistent
-  no-emphasis-as-heading:
-    punctuation: .,;:!?。，；：！？
-  no-space-in-emphasis: true
-  no-space-in-code: true
-  no-space-in-links: true
-  fenced-code-language:
-    allowed_languages: []
-    language_only: false
-  first-line-h1:
-    allow_preamble: false
-    front_matter_title: ^\\s*title\\s*[:=]
-    level: 1
-  no-empty-links: true
-  required-headings: true
-  proper-names:
-    names: []
+  no-trailing-spaces:
     code_blocks: true
-    html_elements: true
-  no-alt-text: true
-  code-block-style:
-    style: consistent
-  single-trailing-newline: true
-  code-fence-style:
-    style: consistent
-  emphasis-style:
-    style: consistent
-  strong-style:
-    style: consistent
-  link-fragments:
-    ignore_case: false
-    ignored_pattern: ''
+    strict: true
+  ol-prefix:
+    style: ordered
+  proper-names:
+    names: [mas]
   reference-links-images:
-    ignored_labels:
-    - x
-    shortcut_syntax: false
-  link-image-reference-definitions:
-    ignored_definitions:
-    - //
-  link-image-style:
-    autolink: true
-    inline: true
-    full: true
-    collapsed: true
-    shortcut: true
-    url_inline: true
+    shortcut_syntax: true
+  strong-style:
+    style: asterisk
+  table-column-style:
+    style: aligned
   table-pipe-style:
-    style: consistent
-  table-column-count: true
-  blanks-around-tables: true
-  descriptive-link-text:
-    prohibited_texts:
-    - click here
-    - here
-    - link
-    - more
+    style: leading_and_trailing
+  ul-style:
+    style: dash
