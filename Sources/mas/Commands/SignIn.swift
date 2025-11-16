@@ -24,13 +24,11 @@ extension MAS {
 		var password = "" // swiftlint:disable:this unused_declaration
 
 		func run() throws {
-			try MAS.run { try run(printer: $0) }
-		}
-
-		private func run(printer _: Printer) throws {
-			// Signing in is no longer possible as of High Sierra.
-			// https://github.com/mas-cli/mas/issues/164
-			throw MASError.notSupported
+			try MAS.run { _ in
+				// Signing in is no longer possible as of High Sierra.
+				// https://github.com/mas-cli/mas/issues/164
+				throw MASError.notSupported
+			}
 		}
 	}
 }
