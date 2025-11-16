@@ -55,11 +55,13 @@ private func openMacAppStore() async throws {
 	guard let macappstoreSchemeURL = URL(string: "macappstore:") else {
 		throw MASError.runtimeError("Failed to create URL from macappstore scheme")
 	}
-	guard let appURL = NSWorkspace.shared.urlForApplication(toOpen: macappstoreSchemeURL) else {
+
+	let workspace = NSWorkspace.shared
+	guard let appURL = workspace.urlForApplication(toOpen: macappstoreSchemeURL) else {
 		throw MASError.runtimeError("Failed to find app to open macappstore URLs")
 	}
 
-	try await NSWorkspace.shared.openApplication(at: appURL, configuration: NSWorkspace.OpenConfiguration())
+	try await workspace.openApplication(at: appURL, configuration: NSWorkspace.OpenConfiguration())
 }
 
 private func openMacAppStorePage(forURLString urlString: String) async throws {
