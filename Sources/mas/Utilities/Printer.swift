@@ -10,9 +10,11 @@ private import Atomics
 private import Darwin
 internal import Foundation
 
-/// Prints to `stdout` and `stderr` with ANSI color codes when connected to a terminal.
+/// Prints to `stdout` and `stderr` with ANSI color codes when connected to a
+/// terminal.
 ///
-/// Can only be initialized by the `run` global functions, which throw an `ExitCode(1)` iff any errors were printed.
+/// Can only be initialized by the `run` global functions, which throw an
+/// `ExitCode(1)` iff any errors were printed.
 struct Printer {
 	private let errorCounter = ManagedAtomic<UInt64>(0)
 
@@ -27,7 +29,8 @@ struct Printer {
 		print(items.map(String.init(describing:)), separator: separator, terminator: terminator, to: .standardOutput)
 	}
 
-	/// Clears current line from `stdout`, then prints to `stdout`, then flushes `stdout`.
+	/// Clears current line from `stdout`, then prints to `stdout`, then flushes
+	/// `stdout`.
 	func ephemeral(_ items: Any..., separator: String = " ", terminator: String = "\n") {
 		clearCurrentLine(of: .standardOutput)
 		print(items.map(String.init(describing:)), separator: separator, terminator: terminator, to: .standardOutput)
@@ -43,14 +46,14 @@ struct Printer {
 		print(items, prefix: "==>", format: "1;34", separator: separator, terminator: terminator, to: .standardOutput)
 	}
 
-	/// Prints to `stderr`, prefixed with "Warning: "; if connected to a terminal, the prefix is yellow &
-	/// underlined.
+	/// Prints to `stderr`, prefixed with "Warning: "; if connected to a terminal,
+	/// the prefix is yellow & underlined.
 	func warning(_ items: Any..., separator: String = " ", terminator: String = "\n") {
 		print(items, prefix: "Warning:", format: "4;33", separator: separator, terminator: terminator, to: .standardError)
 	}
 
-	/// Prints to `stderr`, prefixed with "Error: "; if connected to a terminal, the prefix is red &
-	/// underlined.
+	/// Prints to `stderr`, prefixed with "Error: "; if connected to a terminal,
+	/// the prefix is red & underlined.
 	func error(_ items: Any..., error: (any Error)? = nil, separator: String = " ", terminator: String = "\n") {
 		errorCounter.wrappingIncrement(ordering: .relaxed)
 		print(
