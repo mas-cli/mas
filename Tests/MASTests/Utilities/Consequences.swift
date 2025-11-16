@@ -41,12 +41,12 @@ struct Consequences<Value: Equatable>: Equatable {
 }
 
 private struct StdStreamCapture { // swiftlint:disable:this one_declaration_per_file
-	let outOriginalFD: Int32
-	let errOriginalFD: Int32
-	let outDuplicateFD: Int32
-	let errDuplicateFD: Int32
-	let outPipe: Pipe
-	let errPipe: Pipe
+	private let outOriginalFD: Int32
+	private let errOriginalFD: Int32
+	private let outDuplicateFD: Int32
+	private let errDuplicateFD: Int32
+	private let outPipe: Pipe
+	private let errPipe: Pipe
 
 	init() {
 		outOriginalFD = FileHandle.standardOutput.fileDescriptor
@@ -62,7 +62,7 @@ private struct StdStreamCapture { // swiftlint:disable:this one_declaration_per_
 		dup2(errPipe.fileHandleForWriting.fileDescriptor, errOriginalFD)
 	}
 
-	func finishAndRead(encoding: String.Encoding) -> (stdout: String, stderr: String) {
+	fileprivate func finishAndRead(encoding: String.Encoding) -> (stdout: String, stderr: String) {
 		fflush(stdout)
 		fflush(stderr)
 		dup2(outDuplicateFD, outOriginalFD)
