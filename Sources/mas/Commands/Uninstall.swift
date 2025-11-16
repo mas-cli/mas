@@ -37,7 +37,7 @@ extension MAS {
 				throw MASError.runtimeError("Apps installed from the Mac App Store require root permission to remove")
 			}
 
-			let uninstallingAppPaths = try uninstallingAppPaths(fromInstalledApps: installedApps)
+			let uninstallingAppPaths = uninstallingAppPaths(fromInstalledApps: installedApps)
 			guard !uninstallingAppPaths.isEmpty else {
 				return
 			}
@@ -52,39 +52,7 @@ extension MAS {
 			try uninstallApps(atPaths: uninstallingAppPaths)
 		}
 
-		private func uninstallingAppPaths(fromInstalledApps installedApps: [InstalledApp]) throws -> [String] {
-			guard let sudoGroupName = ProcessInfo.processInfo.sudoGroupName else {
-				throw MASError.runtimeError("Failed to get original group name")
-			}
-			guard let sudoGID = ProcessInfo.processInfo.sudoGID else {
-				throw MASError.runtimeError("Failed to get original gid")
-			}
-			guard setegid(sudoGID) == 0 else {
-				throw MASError.runtimeError("Failed to switch effective group from 'wheel' to '\(sudoGroupName)'")
-			}
-
-			defer {
-				if setegid(0) != 0 {
-					printer.warning("Failed to revert effective group from '", sudoGroupName, "' back to 'wheel'", separator: "")
-				}
-			}
-
-			guard let sudoUserName = ProcessInfo.processInfo.sudoUserName else {
-				throw MASError.runtimeError("Failed to get original user name")
-			}
-			guard let sudoUID = ProcessInfo.processInfo.sudoUID else {
-				throw MASError.runtimeError("Failed to get original uid")
-			}
-			guard seteuid(sudoUID) == 0 else {
-				throw MASError.runtimeError("Failed to switch effective user from 'root' to '\(sudoUserName)'")
-			}
-
-			defer {
-				if seteuid(0) != 0 {
-					printer.warning("Failed to revert effective user from '", sudoUserName, "' back to 'root'", separator: "")
-				}
-			}
-
+		private func uninstallingAppPaths(fromInstalledApps installedApps: [InstalledApp]) -> [String] {
 			var uninstallingAppPathSet = OrderedSet<String>()
 			for appID in requiredAppIDsOptionGroup.appIDs {
 				let installedAppPaths = installedApps.filter { $0.matches(appID) }.map(\.path)
