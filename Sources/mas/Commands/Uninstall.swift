@@ -33,10 +33,7 @@ extension MAS {
 		}
 
 		private func run(installedApps: [InstalledApp]) throws {
-			guard NSUserName() == "root" else {
-				throw MASError.runtimeError("Apps installed from the App Store require root permission to uninstall")
-			}
-
+			try requireRootUserAndWheelGroup(withErrorMessageSuffix: "to uninstall apps")
 			let uninstallingAppPathOrderedSet = uninstallingAppPathOrderedSet(from: installedApps)
 			guard !uninstallingAppPathOrderedSet.isEmpty else {
 				return
@@ -72,12 +69,8 @@ extension MAS {
 /// - Throws: An `Error` if any problem occurs.
 private func uninstallApps(atPaths appPathSequence: some Sequence<String>) throws {
 	let processInfo = ProcessInfo.processInfo
-	guard let uid = processInfo.sudoUID else {
-		throw MASError.runtimeError("Failed to get sudo uid")
-	}
-	guard let gid = processInfo.sudoGID else {
-		throw MASError.runtimeError("Failed to get sudo gid")
-	}
+	let uid = try processInfo.sudoUID
+	let gid = try processInfo.sudoGID
 	guard let finder = SBApplication(bundleIdentifier: "com.apple.finder") as (any FinderApplication)? else {
 		throw MASError.runtimeError("Failed to obtain Finder access: bundle com.apple.finder does not exist")
 	}

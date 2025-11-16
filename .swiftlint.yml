@@ -36,7 +36,7 @@ attributes:
   always_on_line_above: ['@Flag', '@MainActor', '@OptionGroup', '@objc']
 cyclomatic_complexity:
   ignores_case_statements: true
-  warning: 13
+  warning: 12
 deployment_target:
   macOS_deployment_target: 10.15
   macOSApplicationExtension_deployment_target: 10.15
@@ -51,7 +51,7 @@ explicit_init:
 file_length:
   ignore_comment_only_lines: true
 file_name:
-  excluded: [SpotlightInstalledApps.swift]
+  excluded: [Group.swift, SpotlightInstalledApps.swift, User.swift]
 file_types_order:
   order:
   - main_type

@@ -6,6 +6,7 @@
 //
 
 internal import ArgumentParser
+private import Foundation
 
 extension MAS {
 	/// Gets & installs free apps from the App Store.
@@ -20,19 +21,25 @@ extension MAS {
 
 		func run() async {
 			do {
-				await run(installedApps: try await installedApps, appCatalog: ITunesSearchAppCatalog())
+				try await run(installedApps: try await installedApps, appCatalog: ITunesSearchAppCatalog())
 			} catch {
 				printer.error(error: error)
 			}
 		}
 
-		private func run(installedApps: [InstalledApp], appCatalog: some AppCatalog) async {
-			await run(installedApps: installedApps, adamIDs: await requiredAppIDsOptionGroup.appIDs.adamIDs(from: appCatalog))
+		private func run(installedApps: [InstalledApp], appCatalog: some AppCatalog) async throws {
+			try await run(
+				installedApps: installedApps,
+				adamIDs: await requiredAppIDsOptionGroup.appIDs.adamIDs(from: appCatalog)
+			)
 		}
 
-		private func run(installedApps: [InstalledApp], adamIDs: [ADAMID]) async {
-			await adamIDs.forEach(attemptTo: "get app for ADAM ID") { adamID in
-				try await downloadApp(withADAMID: adamID, getting: true, installedApps: installedApps)
+		private func run(installedApps: [InstalledApp], adamIDs: [ADAMID]) async throws {
+			try requireRootUserAndWheelGroup(withErrorMessageSuffix: "to get apps")
+			try await ProcessInfo.processInfo.runAsSudoEffectiveUserAndSudoEffectiveGroup {
+				await adamIDs.forEach(attemptTo: "get app for ADAM ID") { adamID in
+					try await downloadApp(withADAMID: adamID, getting: true, installedApps: installedApps)
+				}
 			}
 		}
 	}
