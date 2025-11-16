@@ -27,16 +27,12 @@ extension MAS {
 		}
 
 		func run(installedApps: [InstalledApp], searcher: some AppStoreSearcher) async {
-			for appID in requiredAppIDsOptionGroup.appIDs {
-				do {
-					try await downloadApp(
-						withADAMID: try await appID.adamID(searcher: searcher),
-						getting: true,
-						installedApps: installedApps
-					)
-				} catch {
-					printer.error(error: error)
-				}
+			await run(installedApps: installedApps, adamIDs: await requiredAppIDsOptionGroup.appIDs.adamIDs(from: searcher))
+		}
+
+		func run(installedApps: [InstalledApp], adamIDs: [ADAMID]) async {
+			await adamIDs.forEach(attemptTo: "get app for ADAM ID") { adamID in
+				try await downloadApp(withADAMID: adamID, getting: true, installedApps: installedApps)
 			}
 		}
 	}

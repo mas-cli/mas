@@ -12,7 +12,7 @@ internal import Testing
 extension MASTests {
 	@Test(.disabled())
 	func outputsOutdatedApps() async {
-		let result =
+		let searchResult =
 			SearchResult(
 				adamID: 490_461_369,
 				appStorePageURL: "https://apps.apple.com/us/app/bandwidth/id490461369?mt=12&uo=4",
@@ -30,9 +30,9 @@ extension MASTests {
 				await command.run(
 					installedApps: [
 						InstalledApp(
-							adamID: result.adamID,
-							bundleID: result.bundleID,
-							name: result.name,
+							adamID: searchResult.adamID,
+							bundleID: searchResult.bundleID,
+							name: searchResult.name,
 							path: "/Applications/Bandwidth+.app",
 							version: "1.27"
 						),

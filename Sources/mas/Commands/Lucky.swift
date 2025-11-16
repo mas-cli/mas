@@ -39,6 +39,10 @@ extension MAS {
 				throw MASError.noSearchResultsFound(for: searchTerm)
 			}
 
+			try await run(installedApps: installedApps, adamID: adamID)
+		}
+
+		func run(installedApps: [InstalledApp], adamID: ADAMID) async throws {
 			try await downloadApp(withADAMID: adamID, forceDownload: forceOptionGroup.force, installedApps: installedApps)
 		}
 	}

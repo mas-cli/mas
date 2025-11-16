@@ -13,9 +13,7 @@ extension MASTests {
 	@Test(.disabled())
 	func doesNotInstallAppsWhenNoAppIDs() async {
 		let actual = await consequencesOf(
-			await MAS.main(try MAS.Install.parse([])) { command in
-				await command.run(installedApps: [], searcher: MockAppStoreSearcher())
-			}
+			await MAS.main(try MAS.Install.parse([])) { await $0.run(installedApps: [], adamIDs: []) }
 		)
 		let expected = Consequences()
 		#expect(actual == expected)

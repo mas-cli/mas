@@ -16,16 +16,6 @@ extension AppIDsOptionGroup {
 	var appIDs: [AppID] {
 		appIDStrings.map { AppID(from: $0, forceBundleID: forceBundleIDOptionGroup.forceBundleID) }
 	}
-
-	func forEachAppID(_ body: (AppID) async throws -> Void) async {
-		for appID in appIDs {
-			do {
-				try await body(appID)
-			} catch {
-				MAS.printer.error(error: error)
-			}
-		}
-	}
 }
 
 extension [InstalledApp] {

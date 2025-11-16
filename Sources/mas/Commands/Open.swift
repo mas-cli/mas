@@ -35,18 +35,28 @@ extension MAS {
 		}
 
 		func run(searcher: some AppStoreSearcher) async throws {
-			guard let appIDString else {
-				// If no app ID was given, just open the MAS GUI app
+			try await run(appStorePageURL: appStorePageURL(searcher: searcher))
+		}
+
+		func run(appStorePageURL: String?) async throws {
+			guard let appStorePageURL else {
+				// If no App Store Page URL was given, just open the MAS GUI app
 				try await openMacAppStore()
 				return
 			}
 
-			try await openMacAppStorePage(
-				forURLString: try await searcher.lookup(
-					appID: AppID(from: appIDString, forceBundleID: forceBundleIDOptionGroup.forceBundleID)
-				)
-				.appStorePageURL
+			try await openMacAppStorePage(forAppStorePageURL: appStorePageURL)
+		}
+
+		private func appStorePageURL(searcher: some AppStoreSearcher) async throws -> String? {
+			guard let appIDString else {
+				return nil
+			}
+
+			return try await searcher.lookup(
+				appID: AppID(from: appIDString, forceBundleID: forceBundleIDOptionGroup.forceBundleID)
 			)
+			.appStorePageURL
 		}
 	}
 }
@@ -64,7 +74,7 @@ private func openMacAppStore() async throws {
 	try await workspace.openApplication(at: appURL, configuration: NSWorkspace.OpenConfiguration())
 }
 
-private func openMacAppStorePage(forURLString urlString: String) async throws {
+private func openMacAppStorePage(forAppStorePageURL urlString: String) async throws {
 	guard var urlComponents = URLComponents(string: urlString) else {
 		throw MASError.urlParsing(urlString)
 	}

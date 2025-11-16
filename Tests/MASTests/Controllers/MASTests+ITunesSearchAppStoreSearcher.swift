@@ -26,18 +26,18 @@ extension MASTests {
 			.lookup(appID: .adamID(adamID)) // swiftformat:disable:this indent
 		)
 		#expect(actual.error == nil && actual.stdout.isEmpty && actual.stderr.isEmpty)
-		guard let result = actual.value else {
+		guard let searchResult = actual.value else {
 			#expect(actual.value != nil)
 			return
 		}
 
 		#expect(
-			result.adamID == adamID // swiftformat:disable indent
-			&& result.appStorePageURL == "https://itunes.apple.com/us/app/slack/id803453959?mt=12&uo=4"
-			&& result.name == "Slack"
-			&& result.sellerName == "Slack Technologies, Inc."
-			&& result.sellerURL == "https://slack.com"
-			&& result.version == "3.3.3"
+			searchResult.adamID == adamID // swiftformat:disable indent
+			&& searchResult.appStorePageURL == "https://itunes.apple.com/us/app/slack/id803453959?mt=12&uo=4"
+			&& searchResult.name == "Slack"
+			&& searchResult.sellerName == "Slack Technologies, Inc."
+			&& searchResult.sellerURL == "https://slack.com"
+			&& searchResult.version == "3.3.3"
 		) // swiftformat:enable indent
 	}
 }

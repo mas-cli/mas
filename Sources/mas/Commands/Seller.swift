@@ -28,12 +28,26 @@ extension MAS {
 		}
 
 		func run(searcher: some AppStoreSearcher) async {
-			await requiredAppIDsOptionGroup.forEachAppID { appID in
-				guard let urlString = try await searcher.lookup(appID: appID).sellerURL else {
-					throw MASError.runtimeError("No seller website available for \(appID)")
+			await run(searchResults: await requiredAppIDsOptionGroup.appIDs.lookupResults(from: searcher))
+		}
+
+		func run(searchResults: [SearchResult]) async {
+			await run(
+				sellerURLs: searchResults.compactMap { searchResult in
+					guard let sellerURL = searchResult.sellerURL else {
+						MAS.printer.error("No seller website available for", searchResult.adamID)
+						return nil
+					}
+
+					return sellerURL
 				}
-				guard let url = URL(string: urlString) else {
-					throw MASError.urlParsing(urlString)
+			)
+		}
+
+		func run(sellerURLs: [String]) async {
+			await sellerURLs.forEach(attemptTo: "open") { sellerURL in
+				guard let url = URL(string: sellerURL) else {
+					throw MASError.urlParsing(sellerURL)
 				}
 
 				try await url.open()

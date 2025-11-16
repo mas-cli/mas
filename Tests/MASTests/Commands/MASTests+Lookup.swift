@@ -11,20 +11,20 @@ internal import Testing
 
 extension MASTests {
 	@Test
-	func cannotLookupAppInfoForUnknownAppID() async {
-		let actual = await consequencesOf(
-			await MAS.main(try MAS.Lookup.parse(["999"])) { await $0.run(searcher: MockAppStoreSearcher()) }
+	func cannotLookupAppInfoForUnknownAppID() {
+		let actual = consequencesOf(
+			MAS.main(try MAS.Lookup.parse(["999"])) { $0.run(searchResults: []) }
 		)
-		let expected = Consequences(nil, "", "Error: No apps found in the Mac App Store for ADAM ID 999\n")
+		let expected = Consequences()
 		#expect(actual == expected)
 	}
 
 	@Test
-	func outputsAppInfo() async {
-		let actual = await consequencesOf(
-			await MAS.main(try MAS.Lookup.parse(["1"])) { command in
-				await command.run(
-					searcher: MockAppStoreSearcher(
+	func outputsAppInfo() {
+		let actual = consequencesOf(
+			MAS.main(try MAS.Lookup.parse(["1"])) { command in
+				command.run(
+					searchResults: [
 						SearchResult(
 							adamID: 1,
 							appStorePageURL: "https://awesome.app",
@@ -35,8 +35,8 @@ extension MASTests {
 							releaseDate: "2019-01-07T18:53:13Z",
 							sellerName: "Awesome Dev",
 							version: "1.0"
-						)
-					)
+						),
+					]
 				)
 			}
 		)

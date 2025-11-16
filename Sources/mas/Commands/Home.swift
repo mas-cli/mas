@@ -27,10 +27,17 @@ extension MAS {
 		}
 
 		func run(searcher: some AppStoreSearcher) async {
-			await requiredAppIDsOptionGroup.forEachAppID { appID in
-				let urlString = try await searcher.lookup(appID: appID).appStorePageURL
-				guard let url = URL(string: urlString) else {
-					throw MASError.urlParsing(urlString)
+			await run(searchResults: await requiredAppIDsOptionGroup.appIDs.lookupResults(from: searcher))
+		}
+
+		func run(searchResults: [SearchResult]) async {
+			await run(appStorePageURLs: searchResults.map(\.appStorePageURL))
+		}
+
+		func run(appStorePageURLs: [String]) async {
+			await appStorePageURLs.forEach(attemptTo: "open") { appStorePageURL in
+				guard let url = URL(string: appStorePageURL) else {
+					throw MASError.urlParsing(appStorePageURL)
 				}
 
 				try await url.open()

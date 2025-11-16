@@ -11,10 +11,10 @@ internal import Testing
 
 extension MASTests {
 	@Test
-	func searchesForSlack() async {
-		let actual = await consequencesOf(
-			try await MAS.main(try MAS.Search.parse(["slack"])) { command in
-				try await command.run(searcher: MockAppStoreSearcher(SearchResult(adamID: 1, name: "slack", version: "0.0")))
+	func searchesForSlack() {
+		let actual = consequencesOf(
+			try MAS.main(try MAS.Search.parse(["slack"])) { command in
+				try command.run(searchResults: [SearchResult(adamID: 1, name: "slack", version: "0.0")])
 			}
 		)
 		let expected = Consequences(nil, "1  slack  (0.0)\n")
@@ -22,11 +22,9 @@ extension MASTests {
 	}
 
 	@Test
-	func cannotSearchForNonexistentApp() async {
+	func cannotSearchForNonexistentApp() {
 		let searchTerm = "nonexistent"
-		let actual = await consequencesOf(
-			try await MAS.main(try MAS.Search.parse([searchTerm])) { try await $0.run(searcher: MockAppStoreSearcher()) }
-		)
+		let actual = consequencesOf(try MAS.main(try MAS.Search.parse([searchTerm])) { try $0.run(searchResults: []) })
 		let expected = Consequences(MASError.noSearchResultsFound(for: searchTerm))
 		#expect(actual == expected)
 	}

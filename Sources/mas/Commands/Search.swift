@@ -33,24 +33,26 @@ extension MAS {
 		}
 
 		func run(searcher: some AppStoreSearcher) async throws {
-			let searchTerm = searchTermOptionGroup.searchTerm
-			let results = try await searcher.search(for: searchTerm)
+			try run(searchResults: try await searcher.search(for: searchTermOptionGroup.searchTerm))
+		}
+
+		func run(searchResults: [SearchResult]) throws {
 			guard
-				let maxADAMIDLength = results.map({ String(describing: $0.adamID).count }).max(),
-				let maxNameLength = results.map(\.name.count).max()
+				let maxADAMIDLength = searchResults.map({ String(describing: $0.adamID).count }).max(),
+				let maxNameLength = searchResults.map(\.name.count).max()
 			else {
-				throw MASError.noSearchResultsFound(for: searchTerm)
+				throw MASError.noSearchResultsFound(for: searchTermOptionGroup.searchTerm)
 			}
 
 			let format = "%\(maxADAMIDLength)lu  %@  (%@)\(price ? "  %@" : "")"
 			printer.info(
-				results.map { result in
+				searchResults.map { searchResult in
 					String(
 						format: format,
-						result.adamID,
-						result.name.padding(toLength: maxNameLength, withPad: " ", startingAt: 0),
-						result.version,
-						result.formattedPrice
+						searchResult.adamID,
+						searchResult.name.padding(toLength: maxNameLength, withPad: " ", startingAt: 0),
+						searchResult.version,
+						searchResult.formattedPrice
 					)
 				}
 				.joined(separator: "\n")
