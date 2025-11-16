@@ -16,7 +16,7 @@ extension MAS {
 	/// Store.
 	struct Reset: ParsableCommand {
 		static let configuration = CommandConfiguration(
-			abstract: "Reset Mac App Store processes"
+			abstract: "Reset Mac App Store processes & clear cached Mac App Store downloads"
 		)
 
 		func run() throws {
