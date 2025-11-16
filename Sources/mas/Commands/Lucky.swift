@@ -31,33 +31,18 @@ extension MAS {
 
 		func run(installedApps: [InstalledApp], searcher: some AppStoreSearcher) async throws {
 			try await MAS.run { printer in
-				try await run(downloader: Downloader(printer: printer), installedApps: installedApps, searcher: searcher)
-			}
-		}
+				let downloader = Downloader(printer: printer)
+				let searchTerm = searchTermOptionGroup.searchTerm
+				guard let adamID = try await searcher.search(for: searchTerm).first?.adamID else {
+					throw MASError.noSearchResultsFound(for: searchTerm)
+				}
 
-		private func run(
-			downloader: Downloader,
-			installedApps: [InstalledApp],
-			searcher: some AppStoreSearcher
-		) async throws {
-			let searchTerm = searchTermOptionGroup.searchTerm
-			guard let adamID = try await searcher.search(for: searchTerm).first?.adamID else {
-				throw MASError.noSearchResultsFound(for: searchTerm)
-			}
-
-			if !forceOptionGroup.force, let installedApp = installedApps.first(where: { $0.adamID == adamID }) {
-				downloader.printer.warning(
-					"Already installed: ",
-					installedApp.name,
-					" (search term ",
-					searchTerm,
-					")",
-					separator: ""
+				try await downloader.downloadApp(
+					withADAMID: adamID,
+					forceDownload: forceOptionGroup.force,
+					installedApps: installedApps
 				)
-				return
 			}
-
-			try await downloader.downloadApp(withADAMID: adamID)
 		}
 	}
 }
