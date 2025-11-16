@@ -18,7 +18,7 @@ internal import Foundation
 struct Printer {
 	private let errorCounter = ManagedAtomic<UInt64>(0)
 
-	var errorCount: UInt64 { errorCounter.load(ordering: .acquiring) }
+	fileprivate var errorCount: UInt64 { errorCounter.load(ordering: .acquiring) }
 
 	fileprivate init() {
 		// Do nothing
