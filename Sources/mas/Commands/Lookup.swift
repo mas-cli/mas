@@ -14,7 +14,7 @@ extension MAS {
 	/// Uses the iTunes Lookup API:
 	///
 	/// https://performance-partners.apple.com/search-api
-	struct Lookup: AsyncParsableCommand {
+	struct Lookup: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
 			abstract: "Output app information from the Mac App Store",
 			aliases: ["info"]
@@ -23,17 +23,13 @@ extension MAS {
 		@OptionGroup
 		private var requiredAppIDsOptionGroup: RequiredAppIDsOptionGroup
 
-		func run() async throws {
-			try await run(searcher: ITunesSearchAppStoreSearcher())
+		func run() async {
+			await run(searcher: ITunesSearchAppStoreSearcher())
 		}
 
-		func run(searcher: some AppStoreSearcher) async throws {
-			try await MAS.run { await run(printer: $0, searcher: searcher) }
-		}
-
-		private func run(printer: Printer, searcher: some AppStoreSearcher) async {
+		func run(searcher: some AppStoreSearcher) async {
 			var spacing = ""
-			await requiredAppIDsOptionGroup.forEachAppID(printer: printer) { appID in
+			await requiredAppIDsOptionGroup.forEachAppID { appID in
 				let result = try await searcher.lookup(appID: appID)
 				printer.info(
 					"",

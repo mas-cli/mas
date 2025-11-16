@@ -12,28 +12,22 @@ private import Darwin
 private import Foundation
 
 extension MAS {
-	/// Terminates several macOS processes & deletes files to reset the Mac App
-	/// Store.
+	/// Mimics the "Reset Application" command in the Mac App Store debug menu,
+	/// which performs the following steps:
+	///
+	/// - `killall Dock`
+	/// - `killall storeagent` (`storeagent` no longer exists)
+	/// - deletes the `com.apple.appstore` download folder
+	/// - clears cookies (appears to be a no-op)
+	///
+	/// As `storeagent` no longer exists, terminates all processes known to be
+	/// associated with the Mac App Store.
 	struct Reset: ParsableCommand {
 		static let configuration = CommandConfiguration(
 			abstract: "Reset Mac App Store processes & clear cached Mac App Store downloads"
 		)
 
-		func run() throws {
-			try MAS.run { run(printer: $0) }
-		}
-
-		/// The "Reset Application" command in the Mac App Store debug menu performs
-		/// the following steps:
-		///
-		/// - `killall Dock`
-		/// - `killall storeagent` (`storeagent` no longer exists)
-		/// - deletes the `com.apple.appstore` download folder
-		/// - clears cookies (appears to be a no-op)
-		///
-		/// As `storeagent` no longer exists, terminates all processes known to be
-		/// associated with the Mac App Store.
-		private func run(printer: Printer) {
+		func run() {
 			for bundleID in ["com.apple.dock", "com.apple.storeuid"] {
 				for app in NSRunningApplication.runningApplications(withBundleIdentifier: bundleID) where !app.terminate() {
 					printer.warning("Failed to terminate app with bundle ID:", bundleID)

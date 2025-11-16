@@ -11,29 +11,35 @@ internal import Testing
 
 extension MASTests {
 	@Test(.disabled())
-	static func uninstallDryRunCannotRemoveMissingApp() {
-		let actual = consequencesOf(try MAS.Uninstall.parse(["--dry-run", String(adamID)]).run(installedApps: []))
+	func uninstallDryRunCannotRemoveMissingApp() {
+		let actual = consequencesOf(
+			try MAS.main(try MAS.Uninstall.parse(["--dry-run", String(adamID)])) { try $0.run(installedApps: []) }
+		)
 		let expected = Consequences(nil, "No installed apps with ADAM ID \(adamID)")
 		#expect(actual == expected)
 	}
 
 	@Test(.disabled())
-	static func uninstallDryRunFindsApp() {
-		let actual = consequencesOf(try MAS.Uninstall.parse(["--dry-run", String(adamID)]).run(installedApps: [app]))
+	func uninstallDryRunFindsApp() {
+		let actual = consequencesOf(
+			try MAS.main(try MAS.Uninstall.parse(["--dry-run", String(adamID)])) { try $0.run(installedApps: [app]) }
+		)
 		let expected = Consequences(nil, "==> 'Some App' '/tmp/Some.app'\n==> (not removed, dry run)\n")
 		#expect(actual == expected)
 	}
 
 	@Test(.disabled())
-	static func uninstallCannotRemoveMissingApp() {
-		let actual = consequencesOf(try MAS.Uninstall.parse([String(adamID)]).run(installedApps: []))
+	func uninstallCannotRemoveMissingApp() {
+		let actual =
+			consequencesOf(try MAS.main(try MAS.Uninstall.parse([String(adamID)])) { try $0.run(installedApps: []) })
 		let expected = Consequences(nil, "No installed apps with ADAM ID \(adamID)")
 		#expect(actual == expected)
 	}
 
 	@Test(.disabled())
-	static func uninstallRemovesApp() {
-		let actual = consequencesOf(try MAS.Uninstall.parse([String(adamID)]).run(installedApps: [app]))
+	func uninstallRemovesApp() {
+		let actual =
+			consequencesOf(try MAS.main(try MAS.Uninstall.parse([String(adamID)])) { try $0.run(installedApps: [app]) })
 		let expected = Consequences()
 		#expect(actual == expected)
 	}

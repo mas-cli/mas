@@ -10,7 +10,7 @@ internal import Testing
 
 extension MASTests {
 	@Test
-	static func iTunesSearchesForSlack() async {
+	func iTunesSearchesForSlack() async {
 		let actual = await consequencesOf(
 			try await ITunesSearchAppStoreSearcher(networkSession: try MockNetworkSession(responseResource: "slack"))
 			.search(for: "slack") // swiftformat:disable:this indent
@@ -19,7 +19,7 @@ extension MASTests {
 	}
 
 	@Test
-	static func looksUpSlack() async {
+	func looksUpSlack() async {
 		let adamID = 803_453_959 as ADAMID
 		let actual = await consequencesOf(
 			try await ITunesSearchAppStoreSearcher(networkSession: try MockNetworkSession(responseResource: "slack-lookup"))

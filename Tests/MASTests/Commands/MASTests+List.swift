@@ -11,8 +11,8 @@ internal import Testing
 
 extension MASTests {
 	@Test
-	static func listsApps() {
-		let actual = consequencesOf(try MAS.List.parse([]).run(installedApps: []))
+	func listsApps() {
+		let actual = consequencesOf(MAS.main(try MAS.List.parse([])) { $0.run(installedApps: []) })
 		let expected = Consequences(
 			nil,
 			"",

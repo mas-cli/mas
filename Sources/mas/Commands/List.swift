@@ -10,7 +10,7 @@ private import Foundation
 
 extension MAS {
 	/// Lists all apps installed from the Mac App Store.
-	struct List: AsyncParsableCommand {
+	struct List: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
 			abstract: "List all apps installed from the Mac App Store"
 		)
@@ -18,16 +18,16 @@ extension MAS {
 		@OptionGroup
 		private var optionalAppIDsOptionGroup: OptionalAppIDsOptionGroup
 
-		func run() async throws {
-			try run(installedApps: try await installedApps)
+		func run() async {
+			do {
+				run(installedApps: try await installedApps)
+			} catch {
+				printer.error(error: error)
+			}
 		}
 
-		func run(installedApps: [InstalledApp]) throws {
-			try MAS.run { run(printer: $0, installedApps: installedApps) }
-		}
-
-		private func run(printer: Printer, installedApps: [InstalledApp]) {
-			let installedApps = installedApps.filter(by: optionalAppIDsOptionGroup, printer: printer)
+		func run(installedApps: [InstalledApp]) {
+			let installedApps = installedApps.filter(by: optionalAppIDsOptionGroup)
 			guard
 				let maxADAMIDLength = installedApps.map({ String(describing: $0.adamID).count }).max(),
 				let maxNameLength = installedApps.map(\.name.count).max()

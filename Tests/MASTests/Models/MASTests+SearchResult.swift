@@ -11,7 +11,7 @@ internal import Testing
 
 extension MASTests {
 	@Test
-	static func parsesSearchResultFromThingsThatGoBumpJSON() {
+	func parsesSearchResultFromThingsThatGoBumpJSON() {
 		let actual = consequencesOf(
 			try JSONDecoder().decode(SearchResult.self, from: Data(fromResource: "things-lookup")).adamID
 		)

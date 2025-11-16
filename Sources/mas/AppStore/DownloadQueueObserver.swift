@@ -12,20 +12,14 @@ private import StoreFoundation
 
 final class DownloadQueueObserver: CKDownloadQueueObserver {
 	private let adamID: ADAMID
-	private let printer: Printer
 	private let shouldCancel: (SSDownload, Bool) -> Bool
 
 	private var completionHandler: (() -> Void)?
 	private var errorHandler: ((any Error) -> Void)?
 	private var prevPhaseType: Int64?
 
-	init(
-		adamID: ADAMID,
-		printer: Printer,
-		shouldCancel: @Sendable @escaping (SSDownload, Bool) -> Bool = { _, _ in false }
-	) {
+	init(adamID: ADAMID, shouldCancel: @Sendable @escaping (SSDownload, Bool) -> Bool = { _, _ in false }) {
 		self.adamID = adamID
-		self.printer = printer
 		self.shouldCancel = shouldCancel
 	}
 
@@ -56,14 +50,14 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 			switch currPhaseType {
 			case downloadingPhaseType:
 				if prevPhaseType == initialPhaseType {
-					printer.progressHeader(for: appNameAndVersion, status: status)
+					MAS.printer.progressHeader(for: appNameAndVersion, status: status)
 				}
 			case downloadedPhaseType:
 				if prevPhaseType == downloadingPhaseType {
-					printer.progressHeader(for: appNameAndVersion, status: status)
+					MAS.printer.progressHeader(for: appNameAndVersion, status: status)
 				}
 			case installingPhaseType:
-				printer.progressHeader(for: appNameAndVersion, status: status)
+				MAS.printer.progressHeader(for: appNameAndVersion, status: status)
 			default:
 				break
 			}
@@ -74,7 +68,7 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 			let percentComplete = status.percentComplete
 			let totalLength = 60
 			let completedLength = Int(percentComplete * Float(totalLength))
-			printer.ephemeral(
+			MAS.printer.ephemeral(
 				String(repeating: "#", count: completedLength),
 				String(repeating: "-", count: totalLength - completedLength),
 				" ",
@@ -102,7 +96,7 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 			return
 		}
 
-		printer.terminateEphemeral()
+		MAS.printer.terminateEphemeral()
 
 		guard !status.isFailed else {
 			errorHandler?(status.error ?? MASError.runtimeError("Failed to download \(metadata.appNameAndVersion)"))
@@ -113,7 +107,7 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 			return
 		}
 
-		printer.notice("Installed", metadata.appNameAndVersion)
+		MAS.printer.notice("Installed", metadata.appNameAndVersion)
 		completionHandler?()
 	}
 

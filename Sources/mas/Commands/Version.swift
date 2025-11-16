@@ -14,11 +14,7 @@ extension MAS {
 			abstract: "Output version number"
 		)
 
-		func run() throws {
-			try MAS.run { run(printer: $0) }
-		}
-
-		private func run(printer: Printer) {
+		func run() {
 			printer.info(MAS.version)
 		}
 	}

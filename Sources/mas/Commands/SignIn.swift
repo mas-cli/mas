@@ -25,12 +25,10 @@ extension MAS {
 		@Argument(help: "Password") // swiftformat:disable:next unusedPrivateDeclarations
 		private var password = "" // swiftlint:disable:this unused_declaration
 
-		func run() throws {
-			try MAS.run { _ in
-				// Signing in is no longer possible as of High Sierra.
-				// https://github.com/mas-cli/mas/issues/164
-				throw MASError.notSupported
-			}
+		func run() {
+			// Signing in is no longer possible as of High Sierra.
+			// https://github.com/mas-cli/mas/issues/164
+			printer.error(error: MASError.notSupported)
 		}
 	}
 }

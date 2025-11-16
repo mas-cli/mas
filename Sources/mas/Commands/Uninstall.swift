@@ -13,7 +13,7 @@ private import ScriptingBridge
 
 extension MAS {
 	/// Uninstalls apps installed from the Mac App Store.
-	struct Uninstall: AsyncParsableCommand {
+	struct Uninstall: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
 			abstract: "Uninstall apps installed from the Mac App Store"
 		)
@@ -24,20 +24,20 @@ extension MAS {
 		@OptionGroup
 		private var requiredAppIDsOptionGroup: RequiredAppIDsOptionGroup
 
-		func run() async throws {
-			try run(installedApps: try await installedApps)
+		func run() async {
+			do {
+				try run(installedApps: try await installedApps)
+			} catch {
+				printer.error(error: error)
+			}
 		}
 
 		func run(installedApps: [InstalledApp]) throws {
-			try MAS.run { try run(printer: $0, installedApps: installedApps) }
-		}
-
-		private func run(printer: Printer, installedApps: [InstalledApp]) throws {
 			guard NSUserName() == "root" else {
 				throw MASError.runtimeError("Apps installed from the Mac App Store require root permission to remove")
 			}
 
-			let uninstallingAppPaths = try uninstallingAppPaths(fromInstalledApps: installedApps, printer: printer)
+			let uninstallingAppPaths = try uninstallingAppPaths(fromInstalledApps: installedApps)
 			guard !uninstallingAppPaths.isEmpty else {
 				return
 			}
@@ -49,13 +49,10 @@ extension MAS {
 				return
 			}
 
-			try uninstallApps(atPaths: uninstallingAppPaths, printer: printer)
+			try uninstallApps(atPaths: uninstallingAppPaths)
 		}
 
-		private func uninstallingAppPaths(
-			fromInstalledApps installedApps: [InstalledApp],
-			printer: Printer
-		) throws -> [String] {
+		private func uninstallingAppPaths(fromInstalledApps installedApps: [InstalledApp]) throws -> [String] {
 			guard let sudoGroupName = ProcessInfo.processInfo.sudoGroupName else {
 				throw MASError.runtimeError("Failed to get original group name")
 			}
@@ -102,11 +99,9 @@ extension MAS {
 
 /// Uninstalls all apps located at any of the elements of `appPaths`.
 ///
-/// - Parameters:
-///   - appPaths: Paths to apps to be uninstalled.
-///   - printer: `Printer`.
+/// - Parameter: appPaths: Paths to apps to be uninstalled.
 /// - Throws: An `Error` if any problem occurs.
-private func uninstallApps(atPaths appPaths: [String], printer: Printer) throws {
+private func uninstallApps(atPaths appPaths: [String]) throws {
 	guard let uid = ProcessInfo.processInfo.sudoUID else {
 		throw MASError.runtimeError("Failed to get original uid")
 	}
@@ -124,28 +119,28 @@ private func uninstallApps(atPaths appPaths: [String], printer: Printer) throws 
 	for appPath in appPaths {
 		let attributes = try fileManager.attributesOfItem(atPath: appPath)
 		guard let appUID = attributes[.ownerAccountID] as? uid_t else {
-			printer.error("Failed to get uid of", appPath)
+			MAS.printer.error("Failed to get uid of", appPath)
 			continue
 		}
 		guard let appGID = attributes[.groupOwnerAccountID] as? gid_t else {
-			printer.error("Failed to get gid of", appPath)
+			MAS.printer.error("Failed to get gid of", appPath)
 			continue
 		}
 		guard chown(appPath, uid, gid) == 0 else {
-			printer.error("Failed to change ownership of", appPath.quoted, "to uid", uid, "& gid", gid)
+			MAS.printer.error("Failed to change ownership of", appPath.quoted, "to uid", uid, "& gid", gid)
 			continue
 		}
 
 		var chownPath = appPath
 		defer {
 			if chown(chownPath, appUID, appGID) != 0 {
-				printer.warning("Failed to revert ownership of", chownPath.quoted, "back to uid", appUID, "& gid", appGID)
+				MAS.printer.warning("Failed to revert ownership of", chownPath.quoted, "back to uid", appUID, "& gid", appGID)
 			}
 		}
 
 		let object = items().object(atLocation: URL(fileURLWithPath: appPath))
 		guard let item = object as? any FinderItem else {
-			printer.error(
+			MAS.printer.error(
 				"""
 				Failed to obtain Finder access: finder.items().object(atLocation: URL(fileURLWithPath:\
 				 \"\(appPath)\") is a \(type(of: object)) that does not conform to FinderItem
@@ -154,11 +149,11 @@ private func uninstallApps(atPaths appPaths: [String], printer: Printer) throws 
 			continue
 		}
 		guard let delete = item.delete else {
-			printer.error("Failed to obtain Finder access: FinderItem.delete does not exist")
+			MAS.printer.error("Failed to obtain Finder access: FinderItem.delete does not exist")
 			continue
 		}
 		guard let deletedURLString = (delete() as any FinderItem).URL else {
-			printer.error(
+			MAS.printer.error(
 				"""
 				Failed to revert ownership of deleted '\(appPath)' back to uid \(appUID) & gid \(appGID):\
 				 delete result did not have a URL
@@ -167,7 +162,7 @@ private func uninstallApps(atPaths appPaths: [String], printer: Printer) throws 
 			continue
 		}
 		guard let deletedURL = URL(string: deletedURLString) else {
-			printer.error(
+			MAS.printer.error(
 				"""
 				Failed to revert ownership of deleted '\(appPath)' back to uid \(appUID) & gid \(appGID):\
 				 delete result URL is invalid: \(deletedURLString)
@@ -177,6 +172,6 @@ private func uninstallApps(atPaths appPaths: [String], printer: Printer) throws 
 		}
 
 		chownPath = deletedURL.path
-		printer.info("Deleted", appPath.quoted, "to", chownPath.quoted)
+		MAS.printer.info("Deleted", appPath.quoted, "to", chownPath.quoted)
 	}
 }

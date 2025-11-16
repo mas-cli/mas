@@ -14,7 +14,7 @@ extension MAS {
 	/// Uses the iTunes Search API:
 	///
 	/// https://performance-partners.apple.com/search-api
-	struct Search: AsyncParsableCommand {
+	struct Search: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
 			abstract: "Search for apps in the Mac App Store"
 		)
@@ -24,15 +24,15 @@ extension MAS {
 		@OptionGroup
 		private var searchTermOptionGroup: SearchTermOptionGroup
 
-		func run() async throws {
-			try await run(searcher: ITunesSearchAppStoreSearcher())
+		func run() async {
+			do {
+				try await run(searcher: ITunesSearchAppStoreSearcher())
+			} catch {
+				printer.error(error: error)
+			}
 		}
 
 		func run(searcher: some AppStoreSearcher) async throws {
-			try await MAS.run { try await run(printer: $0, searcher: searcher) }
-		}
-
-		private func run(printer: Printer, searcher: some AppStoreSearcher) async throws {
 			let searchTerm = searchTermOptionGroup.searchTerm
 			let results = try await searcher.search(for: searchTerm)
 			guard

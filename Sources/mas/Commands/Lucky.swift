@@ -14,7 +14,7 @@ extension MAS {
 	/// Uses the iTunes Search API:
 	///
 	/// https://performance-partners.apple.com/search-api
-	struct Lucky: AsyncParsableCommand {
+	struct Lucky: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
 			abstract: "Install the first app returned from searching the Mac App Store",
 			discussion: "App will install only if it has already been gotten"
@@ -25,24 +25,21 @@ extension MAS {
 		@OptionGroup
 		private var searchTermOptionGroup: SearchTermOptionGroup
 
-		func run() async throws {
-			try await run(installedApps: try await installedApps, searcher: ITunesSearchAppStoreSearcher())
+		func run() async {
+			do {
+				try await run(installedApps: try await installedApps, searcher: ITunesSearchAppStoreSearcher())
+			} catch {
+				printer.error(error: error)
+			}
 		}
 
 		func run(installedApps: [InstalledApp], searcher: some AppStoreSearcher) async throws {
-			try await MAS.run { printer in
-				let downloader = Downloader(printer: printer)
-				let searchTerm = searchTermOptionGroup.searchTerm
-				guard let adamID = try await searcher.search(for: searchTerm).first?.adamID else {
-					throw MASError.noSearchResultsFound(for: searchTerm)
-				}
-
-				try await downloader.downloadApp(
-					withADAMID: adamID,
-					forceDownload: forceOptionGroup.force,
-					installedApps: installedApps
-				)
+			let searchTerm = searchTermOptionGroup.searchTerm
+			guard let adamID = try await searcher.search(for: searchTerm).first?.adamID else {
+				throw MASError.noSearchResultsFound(for: searchTerm)
 			}
+
+			try await downloadApp(withADAMID: adamID, forceDownload: forceOptionGroup.force, installedApps: installedApps)
 		}
 	}
 }

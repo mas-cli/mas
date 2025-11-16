@@ -9,7 +9,7 @@ internal import ArgumentParser
 
 extension MAS {
 	/// Installs previously gotten apps from the Mac App Store.
-	struct Install: AsyncParsableCommand {
+	struct Install: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
 			abstract: "Install previously gotten apps from the Mac App Store"
 		)
@@ -19,23 +19,24 @@ extension MAS {
 		@OptionGroup
 		private var requiredAppIDsOptionGroup: RequiredAppIDsOptionGroup
 
-		func run() async throws {
-			try await run(installedApps: try await installedApps, searcher: ITunesSearchAppStoreSearcher())
+		func run() async {
+			do {
+				await run(installedApps: try await installedApps, searcher: ITunesSearchAppStoreSearcher())
+			} catch {
+				printer.error(error: error)
+			}
 		}
 
-		func run(installedApps: [InstalledApp], searcher: some AppStoreSearcher) async throws {
-			try await MAS.run { printer in
-				let downloader = Downloader(printer: printer)
-				for appID in requiredAppIDsOptionGroup.appIDs {
-					do {
-						try await downloader.downloadApp(
-							withADAMID: try await appID.adamID(searcher: searcher),
-							forceDownload: forceOptionGroup.force,
-							installedApps: installedApps
-						)
-					} catch {
-						printer.error(error: error)
-					}
+		func run(installedApps: [InstalledApp], searcher: some AppStoreSearcher) async {
+			for appID in requiredAppIDsOptionGroup.appIDs {
+				do {
+					try await downloadApp(
+						withADAMID: try await appID.adamID(searcher: searcher),
+						forceDownload: forceOptionGroup.force,
+						installedApps: installedApps
+					)
+				} catch {
+					printer.error(error: error)
 				}
 			}
 		}

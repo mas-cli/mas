@@ -11,9 +11,11 @@ internal import Testing
 
 extension MASTests {
 	@Test
-	static func cannotFindSellerURLForUnknownAppID() async {
-		let actual = await consequencesOf(try await MAS.Seller.parse(["999"]).run(searcher: MockAppStoreSearcher()))
-		let expected = Consequences(ExitCode(1), "", "Error: No apps found in the Mac App Store for ADAM ID 999\n")
+	func cannotFindSellerURLForUnknownAppID() async {
+		let actual = await consequencesOf(
+			await MAS.main(try MAS.Seller.parse(["999"])) { await $0.run(searcher: MockAppStoreSearcher()) }
+		)
+		let expected = Consequences(nil, "", "Error: No apps found in the Mac App Store for ADAM ID 999\n")
 		#expect(actual == expected)
 	}
 }

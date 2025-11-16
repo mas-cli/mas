@@ -11,16 +11,12 @@ private import Foundation
 
 extension MAS {
 	/// Outputs mas config & related system info.
-	struct Config: AsyncParsableCommand {
+	struct Config: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
 			abstract: "Output mas config & related system info"
 		)
 
-		func run() async throws {
-			try await MAS.run { await run(printer: $0) }
-		}
-
-		private func run(printer: Printer) async {
+		func run() async {
 			printer.info(
 				"""
 				mas ▁▁▁▁ \(MAS.version)

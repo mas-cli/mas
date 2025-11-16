@@ -11,9 +11,12 @@ internal import Testing
 
 extension MASTests {
 	@Test
-	static func cannotOpenUnknownAppID() async {
-		let actual = await consequencesOf(try await MAS.Open.parse(["999"]).run(searcher: MockAppStoreSearcher()))
-		let expected = Consequences(ExitCode(1), "", "Error: \(MASError.unknownAppID(.adamID(999)))\n")
+	func cannotOpenUnknownAppID() async {
+		let adamID = 999 as ADAMID
+		let actual = await consequencesOf(
+			try await MAS.main(try MAS.Open.parse([String(adamID)])) { try await $0.run(searcher: MockAppStoreSearcher()) }
+		)
+		let expected = Consequences(MASError.unknownAppID(.adamID(adamID)))
 		#expect(actual == expected)
 	}
 }

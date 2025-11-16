@@ -12,17 +12,13 @@ internal import Foundation
 
 /// Prints to `stdout` and `stderr` with ANSI color codes when connected to a
 /// terminal.
-///
-/// Can only be initialized by the `run` global functions, which throw an
-/// `ExitCode(1)` iff any errors were printed.
 struct Printer {
 	private let errorCounter = ManagedAtomic<UInt64>(0)
 
-	fileprivate var errorCount: UInt64 { errorCounter.load(ordering: .acquiring) }
+	var errorCount: UInt64 { errorCounter.load(ordering: .acquiring) }
 
-	fileprivate init() {
-		// Do nothing
-	}
+	// swiftlint:disable:next unused_declaration
+	func resetErrorCount() { errorCounter.store(0, ordering: .releasing) } // periphery:ignore
 
 	/// Prints to `stdout`.
 	func info(_ items: Any..., separator: String = " ", terminator: String = "\n") {
@@ -98,32 +94,6 @@ struct Printer {
 	private func clearCurrentLine(of fileHandle: FileHandle) {
 		if isatty(fileHandle.fileDescriptor) != 0 {
 			fileHandle.write(Data("\(csi)2K\(csi)0G".utf8))
-		}
-	}
-}
-
-extension MAS {
-	static func run(_ expression: (Printer) throws -> Void) throws {
-		let printer = Printer()
-		do {
-			try expression(printer)
-		} catch {
-			printer.error(error: error)
-		}
-		if printer.errorCount > 0 {
-			throw ExitCode(1)
-		}
-	}
-
-	static func run(_ expression: (Printer) async throws -> Void) async throws {
-		let printer = Printer()
-		do {
-			try await expression(printer)
-		} catch {
-			printer.error(error: error)
-		}
-		if printer.errorCount > 0 {
-			throw ExitCode(1)
 		}
 	}
 }

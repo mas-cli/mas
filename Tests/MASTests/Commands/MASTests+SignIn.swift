@@ -11,9 +11,9 @@ internal import Testing
 
 extension MASTests {
 	@Test
-	static func signsIn() {
-		let actual = consequencesOf(try MAS.SignIn.parse(["", ""]).run())
-		let expected = Consequences(ExitCode(1), "", "Error: \(MASError.notSupported)\n")
+	func signsIn() {
+		let actual = consequencesOf(try MAS.main(try MAS.SignIn.parse(["", ""])))
+		let expected = Consequences(nil, "", "Error: \(MASError.notSupported)\n")
 		#expect(actual == expected)
 	}
 }

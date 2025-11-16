@@ -16,7 +16,7 @@ extension MAS {
 	/// Uses the iTunes Lookup API:
 	///
 	/// https://performance-partners.apple.com/search-api
-	struct Open: AsyncParsableCommand {
+	struct Open: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
 			abstract: "Open app page in 'App Store.app'"
 		)
@@ -26,15 +26,15 @@ extension MAS {
 		@Argument(help: ArgumentHelp("App ID", valueName: "app-id"))
 		private var appIDString: String?
 
-		func run() async throws {
-			try await run(searcher: ITunesSearchAppStoreSearcher())
+		func run() async {
+			do {
+				try await run(searcher: ITunesSearchAppStoreSearcher())
+			} catch {
+				printer.error(error: error)
+			}
 		}
 
 		func run(searcher: some AppStoreSearcher) async throws {
-			try await MAS.run { try await run(printer: $0, searcher: searcher) }
-		}
-
-		private func run(printer _: Printer, searcher: some AppStoreSearcher) async throws {
 			guard let appIDString else {
 				// If no app ID was given, just open the MAS GUI app
 				try await openMacAppStore()
