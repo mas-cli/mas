@@ -28,8 +28,8 @@ extension MAS {
 				from ▁▁▁ \(MAS.installMethod)
 				origin ▁ \(MAS.gitOrigin)
 				rev ▁▁▁▁ \(MAS.gitRevision)
-				driver ▁ \(MAS.swiftDriverVersion)
 				swift ▁▁ \(MAS.swiftVersion)
+				driver ▁ \(MAS.swiftDriverVersion)
 				region ▁ \(await region)
 				macos ▁▁ \(
 					ProcessInfo.processInfo.operatingSystemVersionString.dropFirst(8).replacingOccurrences(of: "Build ", with: "")
