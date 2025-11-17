@@ -1,12 +1,12 @@
 //
-// SearchResultList.swift
+// CatalogAppResults.swift
 // mas
 //
 // Copyright © 2018 mas-cli. All rights reserved.
 //
 
-struct SearchResultList: Decodable {
+struct CatalogAppResults: Decodable {
 	// periphery:ignore
 	let resultCount: Int // swiftlint:disable:this unused_declaration
-	let results: [SearchResult]
+	let results: [CatalogApp]
 }

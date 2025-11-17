@@ -20,14 +20,14 @@ extension MAS {
 
 		func run() async {
 			do {
-				await run(installedApps: try await installedApps, searcher: ITunesSearchAppStoreSearcher())
+				await run(installedApps: try await installedApps, appCatalog: ITunesSearchAppCatalog())
 			} catch {
 				printer.error(error: error)
 			}
 		}
 
-		func run(installedApps: [InstalledApp], searcher: some AppStoreSearcher) async {
-			await run(installedApps: installedApps, adamIDs: await requiredAppIDsOptionGroup.appIDs.adamIDs(from: searcher))
+		func run(installedApps: [InstalledApp], appCatalog: some AppCatalog) async {
+			await run(installedApps: installedApps, adamIDs: await requiredAppIDsOptionGroup.appIDs.adamIDs(from: appCatalog))
 		}
 
 		func run(installedApps: [InstalledApp], adamIDs: [ADAMID]) async {

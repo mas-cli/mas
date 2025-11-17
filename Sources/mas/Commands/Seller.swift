@@ -24,18 +24,18 @@ extension MAS {
 		private var requiredAppIDsOptionGroup: RequiredAppIDsOptionGroup
 
 		func run() async {
-			await run(searcher: ITunesSearchAppStoreSearcher())
+			await run(appCatalog: ITunesSearchAppCatalog())
 		}
 
-		func run(searcher: some AppStoreSearcher) async {
-			await run(searchResults: await requiredAppIDsOptionGroup.appIDs.lookupResults(from: searcher))
+		func run(appCatalog: some AppCatalog) async {
+			await run(catalogApps: await requiredAppIDsOptionGroup.appIDs.lookupCatalogApps(from: appCatalog))
 		}
 
-		func run(searchResults: [SearchResult]) async {
+		func run(catalogApps: [CatalogApp]) async {
 			await run(
-				sellerURLs: searchResults.compactMap { searchResult in
-					guard let sellerURL = searchResult.sellerURL else {
-						MAS.printer.error("No seller website available for", searchResult.adamID)
+				sellerURLs: catalogApps.compactMap { catalogApp in
+					guard let sellerURL = catalogApp.sellerURL else {
+						MAS.printer.error("No seller website available for", catalogApp.adamID)
 						return nil
 					}
 

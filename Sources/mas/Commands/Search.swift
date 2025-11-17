@@ -26,33 +26,33 @@ extension MAS {
 
 		func run() async {
 			do {
-				try await run(searcher: ITunesSearchAppStoreSearcher())
+				try await run(appCatalog: ITunesSearchAppCatalog())
 			} catch {
 				printer.error(error: error)
 			}
 		}
 
-		func run(searcher: some AppStoreSearcher) async throws {
-			try run(searchResults: try await searcher.search(for: searchTermOptionGroup.searchTerm))
+		func run(appCatalog: some AppCatalog) async throws {
+			try run(catalogApps: try await appCatalog.search(for: searchTermOptionGroup.searchTerm))
 		}
 
-		func run(searchResults: [SearchResult]) throws {
+		func run(catalogApps: [CatalogApp]) throws {
 			guard
-				let maxADAMIDLength = searchResults.map({ String(describing: $0.adamID).count }).max(),
-				let maxNameLength = searchResults.map(\.name.count).max()
+				let maxADAMIDLength = catalogApps.map({ String(describing: $0.adamID).count }).max(),
+				let maxNameLength = catalogApps.map(\.name.count).max()
 			else {
-				throw MASError.noSearchResultsFound(for: searchTermOptionGroup.searchTerm)
+				throw MASError.noCatalogAppsFound(for: searchTermOptionGroup.searchTerm)
 			}
 
 			let format = "%\(maxADAMIDLength)lu  %@  (%@)\(price ? "  %@" : "")"
 			printer.info(
-				searchResults.map { searchResult in
+				catalogApps.map { catalogApp in
 					String(
 						format: format,
-						searchResult.adamID,
-						searchResult.name.padding(toLength: maxNameLength, withPad: " ", startingAt: 0),
-						searchResult.version,
-						searchResult.formattedPrice
+						catalogApp.adamID,
+						catalogApp.name.padding(toLength: maxNameLength, withPad: " ", startingAt: 0),
+						catalogApp.version,
+						catalogApp.formattedPrice
 					)
 				}
 				.joined(separator: "\n")

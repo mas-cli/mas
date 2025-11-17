@@ -1,11 +1,11 @@
 //
-// SearchResult.swift
+// CatalogApp.swift
 // mas
 //
 // Copyright © 2018 mas-cli. All rights reserved.
 //
 
-struct SearchResult: Equatable {
+struct CatalogApp: Equatable {
 	let adamID: ADAMID
 	let appStorePageURL: String
 	// periphery:ignore
@@ -46,7 +46,7 @@ struct SearchResult: Equatable {
 	}
 }
 
-extension SearchResult: Decodable {
+extension CatalogApp: Decodable {
 	enum CodingKeys: String, CodingKey {
 		case adamID = "trackId"
 		case appStorePageURL = "trackViewUrl"

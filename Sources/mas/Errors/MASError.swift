@@ -8,7 +8,7 @@
 internal import Foundation
 
 enum MASError: Error {
-	case noSearchResultsFound(for: String)
+	case noCatalogAppsFound(for: String)
 	case notSupported
 	case runtimeError(String)
 	case unknownAppID(AppID)
@@ -18,7 +18,7 @@ enum MASError: Error {
 extension MASError: CustomStringConvertible {
 	var description: String {
 		switch self {
-		case let .noSearchResultsFound(searchTerm):
+		case let .noCatalogAppsFound(searchTerm):
 			"No apps found in the Mac App Store for search term: \(searchTerm)"
 		case .notSupported:
 			"""

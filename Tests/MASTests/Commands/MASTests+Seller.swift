@@ -13,7 +13,7 @@ extension MASTests {
 	@Test
 	func cannotFindSellerURLForUnknownAppID() async {
 		let actual = await consequencesOf(
-			await MAS.main(try MAS.Seller.parse(["999"])) { await $0.run(searchResults: []) }
+			await MAS.main(try MAS.Seller.parse(["999"])) { await $0.run(catalogApps: []) }
 		)
 		let expected = Consequences()
 		#expect(actual == expected)

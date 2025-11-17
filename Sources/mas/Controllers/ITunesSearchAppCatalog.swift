@@ -1,5 +1,5 @@
 //
-// ITunesSearchAppStoreSearcher.swift
+// ITunesSearchAppCatalog.swift
 // mas
 //
 // Copyright © 2018 mas-cli. All rights reserved.
@@ -7,12 +7,12 @@
 
 private import Foundation
 
-/// Manages searching the MAS catalog.
+/// Uses the iTunes Search & Lookup APIs to search for, and to look up, apps from the MAS catalog.
 ///
 /// Uses the iTunes Search & Lookup APIs:
 ///
 /// https://performance-partners.apple.com/search-api
-struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
+struct ITunesSearchAppCatalog: AppCatalog {
 	private let networkSession: any NetworkSession
 
 	/// Designated initializer.
@@ -26,17 +26,17 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 	///   - appID: App ID.
 	///   - region: The ISO 3166-1 alpha-2 region of the storefront in which to
 	///     lookup apps.
-	/// - Returns: A `SearchResult` for the given `appID` if `appID` is valid.
+	/// - Returns: A `CatalogApp` for the given `appID` if `appID` is valid.
 	/// - Throws: A `MASError.unknownAppID(appID)` if `appID` is invalid.
 	///   Some other `Error` if any other problem occurs.
-	func lookup(appID: AppID, inRegion region: Region) async throws -> SearchResult {
+	func lookup(appID: AppID, inRegion region: Region) async throws -> CatalogApp {
 		guard
-			let searchResult = try await getSearchResults(from: try lookupURL(forAppID: appID, inRegion: region)).first
+			let catalogApp = try await getCatalogApps(from: try lookupURL(forAppID: appID, inRegion: region)).first
 		else {
 			throw MASError.unknownAppID(appID)
 		}
 
-		return searchResult
+		return catalogApp
 	}
 
 	/// Searches for apps.
@@ -45,10 +45,10 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 	///   - searchTerm: Term for which to search.
 	///   - region: The ISO 3166-1 alpha-2 region of the storefront in which to
 	///     search for apps.
-	/// - Returns: A `[SearchResult]` matching `searchTerm`.
+	/// - Returns: A `[CatalogApp]` matching `searchTerm`.
 	/// - Throws: An `Error` if any problem occurs.
-	func search(for searchTerm: String, inRegion region: Region) async throws -> [SearchResult] {
-		try await getSearchResults(from: try searchURL(for: searchTerm, inRegion: region))
+	func search(for searchTerm: String, inRegion region: Region) async throws -> [CatalogApp] {
+		try await getCatalogApps(from: try searchURL(for: searchTerm, inRegion: region))
 	}
 
 	/// Builds the lookup URL for an app.
@@ -104,10 +104,10 @@ struct ITunesSearchAppStoreSearcher: AppStoreSearcher {
 		return url
 	}
 
-	private func getSearchResults(from url: URL) async throws -> [SearchResult] {
+	private func getCatalogApps(from url: URL) async throws -> [CatalogApp] {
 		let (data, _) = try await networkSession.data(from: url)
 		do {
-			return try JSONDecoder().decode(SearchResultList.self, from: data).results
+			return try JSONDecoder().decode(CatalogAppResults.self, from: data).results
 		} catch {
 			throw MASError.runtimeError(
 				"Unable to parse input as JSON\(String(data: data, encoding: .utf8).map { ":\n\($0)" } ?? "")"

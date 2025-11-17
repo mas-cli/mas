@@ -14,7 +14,7 @@ extension MASTests {
 	func searchesForSlack() {
 		let actual = consequencesOf(
 			try MAS.main(try MAS.Search.parse(["slack"])) { command in
-				try command.run(searchResults: [SearchResult(adamID: 1, name: "slack", version: "0.0")])
+				try command.run(catalogApps: [CatalogApp(adamID: 1, name: "slack", version: "0.0")])
 			}
 		)
 		let expected = Consequences(nil, "1  slack  (0.0)\n")
@@ -24,8 +24,8 @@ extension MASTests {
 	@Test
 	func cannotSearchForNonexistentApp() {
 		let searchTerm = "nonexistent"
-		let actual = consequencesOf(try MAS.main(try MAS.Search.parse([searchTerm])) { try $0.run(searchResults: []) })
-		let expected = Consequences(MASError.noSearchResultsFound(for: searchTerm))
+		let actual = consequencesOf(try MAS.main(try MAS.Search.parse([searchTerm])) { try $0.run(catalogApps: []) })
+		let expected = Consequences(MASError.noCatalogAppsFound(for: searchTerm))
 		#expect(actual == expected)
 	}
 }

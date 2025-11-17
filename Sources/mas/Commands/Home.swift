@@ -23,15 +23,15 @@ extension MAS {
 		private var requiredAppIDsOptionGroup: RequiredAppIDsOptionGroup
 
 		func run() async {
-			await run(searcher: ITunesSearchAppStoreSearcher())
+			await run(appCatalog: ITunesSearchAppCatalog())
 		}
 
-		func run(searcher: some AppStoreSearcher) async {
-			await run(searchResults: await requiredAppIDsOptionGroup.appIDs.lookupResults(from: searcher))
+		func run(appCatalog: some AppCatalog) async {
+			await run(catalogApps: await requiredAppIDsOptionGroup.appIDs.lookupCatalogApps(from: appCatalog))
 		}
 
-		func run(searchResults: [SearchResult]) async {
-			await run(appStorePageURLs: searchResults.map(\.appStorePageURL))
+		func run(catalogApps: [CatalogApp]) async {
+			await run(appStorePageURLs: catalogApps.map(\.appStorePageURL))
 		}
 
 		func run(appStorePageURLs: [String]) async {
