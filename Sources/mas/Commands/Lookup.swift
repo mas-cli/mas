@@ -24,27 +24,27 @@ extension MAS {
 		private var requiredAppIDsOptionGroup: RequiredAppIDsOptionGroup
 
 		func run() async {
-			await run(searcher: ITunesSearchAppStoreSearcher())
+			await run(appCatalog: ITunesSearchAppCatalog())
 		}
 
-		func run(searcher: some AppStoreSearcher) async {
-			run(searchResults: await requiredAppIDsOptionGroup.appIDs.lookupResults(from: searcher))
+		func run(appCatalog: some AppCatalog) async {
+			run(catalogApps: await requiredAppIDsOptionGroup.appIDs.lookupCatalogApps(from: appCatalog))
 		}
 
-		func run(searchResults: [SearchResult]) {
-			guard !searchResults.isEmpty else {
+		func run(catalogApps: [CatalogApp]) {
+			guard !catalogApps.isEmpty else {
 				return
 			}
 
 			printer.info(
-				searchResults.map { searchResult in
+				catalogApps.map { catalogApp in
 					"""
-					\(searchResult.name) \(searchResult.version) [\(searchResult.formattedPrice)]
-					By: \(searchResult.sellerName)
-					Released: \(searchResult.releaseDate.humanReadableDate)
-					Minimum OS: \(searchResult.minimumOSVersion)
-					Size: \(searchResult.fileSizeBytes.humanReadableSize)
-					From: \(searchResult.appStorePageURL)
+					\(catalogApp.name) \(catalogApp.version) [\(catalogApp.formattedPrice)]
+					By: \(catalogApp.sellerName)
+					Released: \(catalogApp.releaseDate.humanReadableDate)
+					Minimum OS: \(catalogApp.minimumOSVersion)
+					Size: \(catalogApp.fileSizeBytes.humanReadableSize)
+					From: \(catalogApp.appStorePageURL)
 					"""
 				}
 				.joined(separator: "\n\n")

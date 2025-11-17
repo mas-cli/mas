@@ -13,7 +13,7 @@ extension MASTests {
 	@Test
 	func cannotLookupAppInfoForUnknownAppID() {
 		let actual = consequencesOf(
-			MAS.main(try MAS.Lookup.parse(["999"])) { $0.run(searchResults: []) }
+			MAS.main(try MAS.Lookup.parse(["999"])) { $0.run(catalogApps: []) }
 		)
 		let expected = Consequences()
 		#expect(actual == expected)
@@ -24,8 +24,8 @@ extension MASTests {
 		let actual = consequencesOf(
 			MAS.main(try MAS.Lookup.parse(["1"])) { command in
 				command.run(
-					searchResults: [
-						SearchResult(
+					catalogApps: [
+						CatalogApp(
 							adamID: 1,
 							appStorePageURL: "https://awesome.app",
 							fileSizeBytes: "1000000",

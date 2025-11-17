@@ -12,8 +12,8 @@ internal import Testing
 extension MASTests {
 	@Test(.disabled())
 	func outputsOutdatedApps() async {
-		let searchResult =
-			SearchResult(
+		let catalogApp =
+			CatalogApp(
 				adamID: 490_461_369,
 				appStorePageURL: "https://apps.apple.com/us/app/bandwidth/id490461369?mt=12&uo=4",
 				bundleID: "au.haroldchu.mac.Bandwidth",
@@ -30,9 +30,9 @@ extension MASTests {
 				await command.run(
 					installedApps: [
 						InstalledApp(
-							adamID: searchResult.adamID,
-							bundleID: searchResult.bundleID,
-							name: searchResult.name,
+							adamID: catalogApp.adamID,
+							bundleID: catalogApp.bundleID,
+							name: catalogApp.name,
 							path: "/Applications/Bandwidth+.app",
 							version: "1.27"
 						),

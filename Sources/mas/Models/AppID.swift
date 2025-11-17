@@ -31,12 +31,12 @@ enum AppID: CustomStringConvertible {
 		self = .adamID(adamID)
 	}
 
-	func adamID(searcher: some AppStoreSearcher) async throws -> ADAMID {
+	func adamID(appCatalog: some AppCatalog) async throws -> ADAMID {
 		switch self {
 		case let .adamID(adamID):
 			adamID
 		case .bundleID:
-			try await searcher.lookup(appID: self).adamID
+			try await appCatalog.lookup(appID: self).adamID
 		}
 	}
 }
@@ -44,11 +44,11 @@ enum AppID: CustomStringConvertible {
 typealias ADAMID = UInt64
 
 extension [AppID] {
-	func adamIDs(from searcher: some AppStoreSearcher) async -> [ADAMID] {
-		await compactMap(attemptingTo: "get ADAM ID for") { try await $0.adamID(searcher: searcher) }
+	func adamIDs(from appCatalog: some AppCatalog) async -> [ADAMID] {
+		await compactMap(attemptingTo: "get ADAM ID for") { try await $0.adamID(appCatalog: appCatalog) }
 	}
 
-	func lookupResults(from searcher: some AppStoreSearcher) async -> [SearchResult] {
-		await compactMap(attemptingTo: "lookup app for") { try await searcher.lookup(appID: $0) }
+	func lookupCatalogApps(from appCatalog: some AppCatalog) async -> [CatalogApp] {
+		await compactMap(attemptingTo: "lookup app for") { try await appCatalog.lookup(appID: $0) }
 	}
 }

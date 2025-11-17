@@ -28,14 +28,14 @@ extension MAS {
 
 		func run() async {
 			do {
-				try await run(searcher: ITunesSearchAppStoreSearcher())
+				try await run(appCatalog: ITunesSearchAppCatalog())
 			} catch {
 				printer.error(error: error)
 			}
 		}
 
-		func run(searcher: some AppStoreSearcher) async throws {
-			try await run(appStorePageURL: appStorePageURL(searcher: searcher))
+		func run(appCatalog: some AppCatalog) async throws {
+			try await run(appStorePageURL: appStorePageURL(appCatalog: appCatalog))
 		}
 
 		func run(appStorePageURL: String?) async throws {
@@ -48,12 +48,12 @@ extension MAS {
 			try await openMacAppStorePage(forAppStorePageURL: appStorePageURL)
 		}
 
-		private func appStorePageURL(searcher: some AppStoreSearcher) async throws -> String? {
+		private func appStorePageURL(appCatalog: some AppCatalog) async throws -> String? {
 			guard let appIDString else {
 				return nil
 			}
 
-			return try await searcher.lookup(
+			return try await appCatalog.lookup(
 				appID: AppID(from: appIDString, forceBundleID: forceBundleIDOptionGroup.forceBundleID)
 			)
 			.appStorePageURL

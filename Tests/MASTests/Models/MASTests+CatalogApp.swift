@@ -1,5 +1,5 @@
 //
-// MASTests+SearchResult.swift
+// MASTests+CatalogApp.swift
 // mas
 //
 // Copyright © 2020 mas-cli. All rights reserved.
@@ -11,9 +11,9 @@ internal import Testing
 
 extension MASTests {
 	@Test
-	func parsesSearchResultFromThingsThatGoBumpJSON() {
+	func parsesCatalogAppFromThingsThatGoBumpJSON() {
 		let actual = consequencesOf(
-			try JSONDecoder().decode(SearchResult.self, from: Data(fromResource: "things-lookup")).adamID
+			try JSONDecoder().decode(CatalogApp.self, from: Data(fromResource: "things-lookup")).adamID
 		)
 		let expected = Consequences(1_472_954_003 as ADAMID)
 		#expect(actual == expected)
