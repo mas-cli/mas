@@ -37,7 +37,7 @@ extension MAS {
 				throw MASError.runtimeError("Apps installed from the Mac App Store require root permission to uninstall")
 			}
 
-			let uninstallingAppPaths = uninstallingAppPaths(fromInstalledApps: installedApps)
+			let uninstallingAppPaths = uninstallingAppPaths(from: installedApps)
 			guard !uninstallingAppPaths.isEmpty else {
 				return
 			}
@@ -52,7 +52,7 @@ extension MAS {
 			try uninstallApps(atPaths: uninstallingAppPaths)
 		}
 
-		private func uninstallingAppPaths(fromInstalledApps installedApps: [InstalledApp]) -> [String] {
+		private func uninstallingAppPaths(from installedApps: [InstalledApp]) -> [String] {
 			var uninstallingAppPathSet = OrderedSet<String>()
 			for appID in requiredAppIDsOptionGroup.appIDs {
 				let installedAppPaths = installedApps.filter { $0.matches(appID) }.map(\.path)
