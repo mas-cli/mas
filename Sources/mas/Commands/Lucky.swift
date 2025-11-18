@@ -18,7 +18,7 @@ extension MAS {
 	struct Lucky: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
 			abstract: "Install the first app returned from searching the App Store",
-			discussion: "App will install only if it has already been gotten"
+			discussion: "App will install only if it has already been gotten\n\(requiresRootPrivilegesMessage)"
 		)
 
 		@OptionGroup

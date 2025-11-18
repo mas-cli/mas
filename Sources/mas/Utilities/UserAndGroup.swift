@@ -63,3 +63,5 @@ func requireRootUserAndWheelGroup(withErrorMessageSuffix errorMessageSuffix: Str
 	try requireRootUser(withErrorMessageSuffix: errorMessageSuffix)
 	try requireWheelGroup(withErrorMessageSuffix: errorMessageSuffix)
 }
+
+let requiresRootPrivilegesMessage = "Requires root privileges"

@@ -14,6 +14,7 @@ extension MAS {
 	struct Update: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
 			abstract: "Update outdated apps installed from the App Store",
+			discussion: requiresRootPrivilegesMessage,
 			aliases: ["upgrade"]
 		)
 

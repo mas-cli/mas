@@ -13,6 +13,7 @@ extension MAS {
 	struct Get: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
 			abstract: "Get & install free apps from the App Store",
+			discussion: requiresRootPrivilegesMessage,
 			aliases: ["purchase"]
 		)
 
