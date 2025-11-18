@@ -71,4 +71,10 @@ var installedApps: [InstalledApp] {
 	}
 }
 
+var nonTestFlightInstalledApps: [InstalledApp] {
+	get async throws {
+		try await installedApps.filter { $0.adamID != 0 }
+	}
+}
+
 private let applicationsFolder = "/Applications"

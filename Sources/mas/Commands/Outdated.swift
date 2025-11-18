@@ -21,7 +21,7 @@ extension MAS {
 
 		func run() async {
 			do {
-				await run(installedApps: try await installedApps)
+				await run(installedApps: try await nonTestFlightInstalledApps)
 			} catch {
 				printer.error(error: error)
 			}
