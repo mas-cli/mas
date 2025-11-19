@@ -16,7 +16,7 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 
 	private var completionHandler: (() -> Void)?
 	private var errorHandler: ((any Error) -> Void)?
-	private var prevPhaseType: Int64?
+	private var prevPhaseType: PhaseType?
 
 	init(adamID: ADAMID, shouldCancel: @Sendable @escaping (SSDownload, Bool) -> Bool = { _, _ in false }) {
 		self.adamID = adamID
@@ -50,14 +50,14 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 			switch currPhaseType {
 			case downloadingPhaseType:
 				if prevPhaseType == initialPhaseType {
-					MAS.printer.progressHeader(for: appNameAndVersion, status: status)
+					MAS.printer.progress(status: status, for: appNameAndVersion)
 				}
 			case downloadedPhaseType:
 				if prevPhaseType == downloadingPhaseType {
-					MAS.printer.progressHeader(for: appNameAndVersion, status: status)
+					MAS.printer.progress(status: status, for: appNameAndVersion)
 				}
 			case installingPhaseType:
-				MAS.printer.progressHeader(for: appNameAndVersion, status: status)
+				MAS.printer.progress(status: status, for: appNameAndVersion)
 			default:
 				break
 			}
@@ -65,14 +65,17 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 
 		if isatty(FileHandle.standardOutput.fileDescriptor) != 0 {
 			// Only output the progress bar if connected to a terminal
-			let percentComplete = status.percentComplete
+			let percentComplete = min(
+				status.percentComplete / (currPhaseType == downloadingPhaseType ? 0.8 : 0.2),
+				1.0
+			)
 			let totalLength = 60
 			let completedLength = Int(percentComplete * Float(totalLength))
 			MAS.printer.ephemeral(
 				String(repeating: "#", count: completedLength),
 				String(repeating: "-", count: totalLength - completedLength),
 				" ",
-				String(format: "%.1f%%", floor(percentComplete * 1000) / 10),
+				String(format: "%.0f%%", floor(percentComplete * 100).rounded()),
 				" ",
 				status.activePhaseDescription,
 				separator: "",
@@ -132,6 +135,8 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 	}
 }
 
+private typealias PhaseType = Int64
+
 private extension SSDownloadMetadata {
 	var appNameAndVersion: String {
 		"\(title ?? "unknown app") (\(bundleVersion ?? "unknown version"))"
@@ -139,7 +144,7 @@ private extension SSDownloadMetadata {
 }
 
 private extension Printer {
-	func progressHeader(for appNameAndVersion: String, status: SSDownloadStatus) {
+	func progress(status: SSDownloadStatus, for appNameAndVersion: String) {
 		terminateEphemeral()
 		notice(status.activePhaseDescription, appNameAndVersion)
 	}
@@ -162,7 +167,7 @@ private extension SSDownloadStatus {
 	}
 }
 
-private let downloadingPhaseType = 0 as Int64
-private let installingPhaseType = 1 as Int64
-private let initialPhaseType = 4 as Int64
-private let downloadedPhaseType = 5 as Int64
+private let downloadingPhaseType = 0 as PhaseType
+private let installingPhaseType = 1 as PhaseType
+private let initialPhaseType = 4 as PhaseType
+private let downloadedPhaseType = 5 as PhaseType

@@ -15,10 +15,13 @@ internal import Foundation
 struct Printer {
 	private let errorCounter = ManagedAtomic<UInt64>(0)
 
-	var errorCount: UInt64 { errorCounter.load(ordering: .acquiring) }
+	var errorCount: UInt64 {
+		errorCounter.load(ordering: .acquiring)
+	}
 
-	// swiftlint:disable:next unused_declaration
-	func resetErrorCount() { errorCounter.store(0, ordering: .releasing) } // periphery:ignore
+	func resetErrorCount() { // periphery:ignore
+		errorCounter.store(0, ordering: .releasing) // swiftlint:disable:previous unused_declaration
+	}
 
 	/// Prints to `stdout`.
 	func info(_ items: Any..., separator: String = " ", terminator: String = "\n") {
@@ -50,7 +53,7 @@ struct Printer {
 			prefix: "Warning:",
 			format: "4;33",
 			separator: separator,
-			terminator: error.map { "\(items.isEmpty ? " " : "\n")\($0)\(terminator)" } ?? terminator,
+			terminator: errorTerminator(items, error: error, terminator: terminator),
 			to: .standardError
 		)
 	}
@@ -64,9 +67,17 @@ struct Printer {
 			prefix: "Error:",
 			format: "4;31",
 			separator: separator,
-			terminator: error.map { "\(items.isEmpty ? " " : "\n")\($0)\(terminator)" } ?? terminator,
+			terminator: errorTerminator(items, error: error, terminator: terminator),
 			to: .standardError
 		)
+	}
+
+	private func errorTerminator(_ items: Any..., error: (any Error)?, terminator: String) -> String {
+		error.map { error in
+			let errorDescription = String(describing: error)
+			return "\(errorDescription.isEmpty ? "" : items.isEmpty ? " " : "\n")\(errorDescription)\(terminator)"
+		}
+		?? terminator // swiftformat:disable:this indent
 	}
 
 	private func print(_ items: [String], separator: String, terminator: String, to fileHandle: FileHandle) {
