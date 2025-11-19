@@ -38,7 +38,7 @@ func downloadApp(
 ) async throws {
 	do {
 		let purchase = await SSPurchase(adamID: adamID, getting: getting)
-		_ = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+		try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
 			CKPurchaseController.shared().perform(purchase, withOptions: 0) { _, _, error, response in
 				if let error {
 					continuation.resume(throwing: error)
