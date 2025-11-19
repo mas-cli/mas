@@ -35,19 +35,21 @@ extension MAS {
 
 		private func run(installedApps: [InstalledApp]) throws {
 			try requireRootUserAndWheelGroup(withErrorMessageSuffix: "to uninstall apps")
-			let uninstallingAppPathOrderedSet = uninstallingAppPathOrderedSet(from: installedApps)
-			guard !uninstallingAppPathOrderedSet.isEmpty else {
-				return
-			}
-			guard !dryRun else {
-				printer.notice("Dry run. A wet run would uninstall:\n")
-				for uninstallingAppPath in uninstallingAppPathOrderedSet {
-					printer.info(uninstallingAppPath)
+			try ProcessInfo.processInfo.runAsSudoEffectiveUserAndSudoEffectiveGroup {
+				let uninstallingAppPathOrderedSet = uninstallingAppPathOrderedSet(from: installedApps)
+				guard !uninstallingAppPathOrderedSet.isEmpty else {
+					return
 				}
-				return
-			}
+				guard !dryRun else {
+					printer.notice("Dry run. A wet run would uninstall:\n")
+					for uninstallingAppPath in uninstallingAppPathOrderedSet {
+						printer.info(uninstallingAppPath)
+					}
+					return
+				}
 
-			try uninstallApps(atPaths: uninstallingAppPathOrderedSet)
+				try uninstallApps(atPaths: uninstallingAppPathOrderedSet)
+			}
 		}
 
 		private func uninstallingAppPathOrderedSet(from installedApps: [InstalledApp]) -> OrderedSet<String> {
@@ -90,15 +92,27 @@ private func uninstallApps(atPaths appPathSequence: some Sequence<String>) throw
 			MAS.printer.error("Failed to get gid of", appPath)
 			continue
 		}
-		guard chown(appPath, uid, gid) == 0 else {
+		guard try run(asEffectiveUID: 0, andEffectiveGID: 0, { chown(appPath, uid, gid) == 0 }) else {
 			MAS.printer.error("Failed to change ownership of", appPath.quoted, "to uid", uid, "& gid", gid)
 			continue
 		}
 
 		var chownPath = appPath
 		defer {
-			if chown(chownPath, appUID, appGID) != 0 {
-				MAS.printer.warning("Failed to revert ownership of", chownPath.quoted, "back to uid", appUID, "& gid", appGID)
+			do {
+				if try run(asEffectiveUID: 0, andEffectiveGID: 0, { chown(chownPath, appUID, appGID) != 0 }) {
+					throw MASError.runtimeError("")
+				}
+			} catch {
+				MAS.printer.warning(
+					"Failed to revert ownership of",
+					chownPath.quoted,
+					"back to uid",
+					appUID,
+					"& gid",
+					appGID,
+					error: error
+				)
 			}
 		}
 
