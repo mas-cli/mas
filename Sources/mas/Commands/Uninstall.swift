@@ -70,11 +70,12 @@ extension MAS {
 /// - Parameter: appPaths: Paths to apps to be uninstalled.
 /// - Throws: An `Error` if any problem occurs.
 private func uninstallApps(atPaths appPaths: [String]) throws {
-	guard let uid = ProcessInfo.processInfo.sudoUID else {
-		throw MASError.runtimeError("Failed to get original uid")
+	let processInfo = ProcessInfo.processInfo
+	guard let uid = processInfo.sudoUID else {
+		throw MASError.runtimeError("Failed to get sudo uid")
 	}
-	guard let gid = ProcessInfo.processInfo.sudoGID else {
-		throw MASError.runtimeError("Failed to get original gid")
+	guard let gid = processInfo.sudoGID else {
+		throw MASError.runtimeError("Failed to get sudo gid")
 	}
 	guard let finder = SBApplication(bundleIdentifier: "com.apple.finder") as (any FinderApplication)? else {
 		throw MASError.runtimeError("Failed to obtain Finder access: bundle com.apple.finder does not exist")
