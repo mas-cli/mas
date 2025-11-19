@@ -65,14 +65,17 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 
 		if isatty(FileHandle.standardOutput.fileDescriptor) != 0 {
 			// Only output the progress bar if connected to a terminal
-			let percentComplete = status.percentComplete
+			let percentComplete = min(
+				status.percentComplete / (currPhaseType == downloadingPhaseType ? 0.8 : 0.2),
+				1.0
+			)
 			let totalLength = 60
 			let completedLength = Int(percentComplete * Float(totalLength))
 			MAS.printer.ephemeral(
 				String(repeating: "#", count: completedLength),
 				String(repeating: "-", count: totalLength - completedLength),
 				" ",
-				String(format: "%.1f%%", floor(percentComplete * 1000) / 10),
+				String(format: "%.0f%%", floor(percentComplete * 100).rounded()),
 				" ",
 				status.activePhaseDescription,
 				separator: "",
