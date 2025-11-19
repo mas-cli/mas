@@ -29,31 +29,48 @@ extension MAS {
 
 		func run(installedApps: [InstalledApp]) async {
 			await withTaskGroup(of: Void.self) { group in
-				for installedApp in installedApps.filter(by: optionalAppIDsOptionGroup) {
+				let installedApps = installedApps.filter(by: optionalAppIDsOptionGroup)
+				let maxConcurrentTaskCount = min(installedApps.count, 16)
+				var index = 0
+				while index < maxConcurrentTaskCount {
+					let installedApp = installedApps[index]
+					index += 1
 					group.addTask {
-						do {
-							try await downloadApp(withADAMID: installedApp.adamID) { download, shouldOutput in
-								if shouldOutput, let metadata = download.metadata, installedApp.version != metadata.bundleVersion {
-									printer.info(
-										installedApp.adamID,
-										" ",
-										installedApp.name,
-										" (",
-										installedApp.version,
-										" -> ",
-										metadata.bundleVersion ?? "unknown",
-										")",
-										separator: ""
-									)
-								}
-								return true
-							}
-						} catch {
-							printer.error(error: error)
-						}
+						await installedApp.outputMessageIfOutdated()
+					}
+				}
+
+				for await _ in group {
+					guard index < installedApps.count else {
+						break
+					}
+
+					let installedApp = installedApps[index]
+					index += 1
+					if !group.addTaskUnlessCancelled(operation: { await installedApp.outputMessageIfOutdated() }) {
+						break
 					}
 				}
 			}
 		}
+	}
+}
+
+private extension InstalledApp {
+	func outputMessageIfOutdated() async {
+		do {
+			try await downloadApp(withADAMID: adamID) { download, shouldOutput in
+				if shouldOutput, let metadata = download.metadata, version != metadata.bundleVersion {
+					outputOutdatedMessage(newVersion: metadata.bundleVersion)
+				}
+				return true
+			}
+		} catch {
+			MAS.printer.error(error: error)
+		}
+	}
+
+	private func outputOutdatedMessage(newVersion: String?) {
+		MAS.printer.info(adamID, " ", name, " (", version, " -> ", newVersion ?? "unknown", ")", separator: "")
 	}
 }
