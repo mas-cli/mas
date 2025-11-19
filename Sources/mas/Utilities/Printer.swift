@@ -53,7 +53,7 @@ struct Printer {
 			prefix: "Warning:",
 			format: "4;33",
 			separator: separator,
-			terminator: error.map { "\(items.isEmpty ? " " : "\n")\($0)\(terminator)" } ?? terminator,
+			terminator: errorTerminator(items, error: error, terminator: terminator),
 			to: .standardError
 		)
 	}
@@ -67,9 +67,17 @@ struct Printer {
 			prefix: "Error:",
 			format: "4;31",
 			separator: separator,
-			terminator: error.map { "\(items.isEmpty ? " " : "\n")\($0)\(terminator)" } ?? terminator,
+			terminator: errorTerminator(items, error: error, terminator: terminator),
 			to: .standardError
 		)
+	}
+
+	private func errorTerminator(_ items: Any..., error: (any Error)?, terminator: String) -> String {
+		error.map { error in
+			let errorDescription = String(describing: error)
+			return "\(errorDescription.isEmpty ? "" : items.isEmpty ? " " : "\n")\(errorDescription)\(terminator)"
+		}
+		?? terminator // swiftformat:disable:this indent
 	}
 
 	private func print(_ items: [String], separator: String, terminator: String, to fileHandle: FileHandle) {
