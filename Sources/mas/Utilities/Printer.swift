@@ -15,10 +15,13 @@ internal import Foundation
 struct Printer {
 	private let errorCounter = ManagedAtomic<UInt64>(0)
 
-	var errorCount: UInt64 { errorCounter.load(ordering: .acquiring) }
+	var errorCount: UInt64 {
+		errorCounter.load(ordering: .acquiring)
+	}
 
-	// swiftlint:disable:next unused_declaration
-	func resetErrorCount() { errorCounter.store(0, ordering: .releasing) } // periphery:ignore
+	func resetErrorCount() { // periphery:ignore
+		errorCounter.store(0, ordering: .releasing) // swiftlint:disable:previous unused_declaration
+	}
 
 	/// Prints to `stdout`.
 	func info(_ items: Any..., separator: String = " ", terminator: String = "\n") {
