@@ -16,7 +16,7 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 
 	private var completionHandler: (() -> Void)?
 	private var errorHandler: ((any Error) -> Void)?
-	private var prevPhaseType: Int64?
+	private var prevPhaseType: PhaseType?
 
 	init(adamID: ADAMID, shouldCancel: @Sendable @escaping (SSDownload, Bool) -> Bool = { _, _ in false }) {
 		self.adamID = adamID
@@ -132,6 +132,8 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 	}
 }
 
+private typealias PhaseType = Int64
+
 private extension SSDownloadMetadata {
 	var appNameAndVersion: String {
 		"\(title ?? "unknown app") (\(bundleVersion ?? "unknown version"))"
@@ -162,7 +164,7 @@ private extension SSDownloadStatus {
 	}
 }
 
-private let downloadingPhaseType = 0 as Int64
-private let installingPhaseType = 1 as Int64
-private let initialPhaseType = 4 as Int64
-private let downloadedPhaseType = 5 as Int64
+private let downloadingPhaseType = 0 as PhaseType
+private let installingPhaseType = 1 as PhaseType
+private let initialPhaseType = 4 as PhaseType
+private let downloadedPhaseType = 5 as PhaseType
