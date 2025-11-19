@@ -1,5 +1,5 @@
 brew "git"               # 2.52.0
-brew "ipsw"              # 3.1.638
+brew "ipsw"              # 3.1.639
 brew "markdownlint-cli2" # 0.19.0
 brew "periphery"         # 3.2.0
 brew "shellcheck"        # 0.11.0
