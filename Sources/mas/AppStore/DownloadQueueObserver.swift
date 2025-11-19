@@ -50,14 +50,14 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 			switch currPhaseType {
 			case downloadingPhaseType:
 				if prevPhaseType == initialPhaseType {
-					MAS.printer.progressHeader(for: appNameAndVersion, status: status)
+					MAS.printer.progress(status: status, for: appNameAndVersion)
 				}
 			case downloadedPhaseType:
 				if prevPhaseType == downloadingPhaseType {
-					MAS.printer.progressHeader(for: appNameAndVersion, status: status)
+					MAS.printer.progress(status: status, for: appNameAndVersion)
 				}
 			case installingPhaseType:
-				MAS.printer.progressHeader(for: appNameAndVersion, status: status)
+				MAS.printer.progress(status: status, for: appNameAndVersion)
 			default:
 				break
 			}
@@ -139,7 +139,7 @@ private extension SSDownloadMetadata {
 }
 
 private extension Printer {
-	func progressHeader(for appNameAndVersion: String, status: SSDownloadStatus) {
+	func progress(status: SSDownloadStatus, for appNameAndVersion: String) {
 		terminateEphemeral()
 		notice(status.activePhaseDescription, appNameAndVersion)
 	}
