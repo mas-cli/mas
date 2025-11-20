@@ -9,20 +9,20 @@
 
 /// The first letter of a type should be uppercase.
 ///
-/// Prefer structs. When a class is necessary, default to making it `final`
+/// Prefer structs. When a class is necessary, default to making it `final`.
 final class Sample {
 	let name: String
 
-	/// If the first letter of an acronym is lowercase, the entire thing should
-	/// be lowercase.
+	/// If the first letter of an acronym is lowercase, the entire thing should be
+	/// lowercase.
 	let json: Any
 
 	deinit {
 		// Clean up resources
 	}
 
-	/// If the first letter of an acronym is uppercase, the entire thing should
-	/// be uppercase.
+	/// If the first letter of an acronym is uppercase, the entire thing should be
+	/// uppercase.
 	static func decode(from json: JSON) -> Self {
 		Self(json: json)
 	}
@@ -60,7 +60,8 @@ APIClient.getAwesomeness { [weak self] result in
 	show(result)
 }
 
-/// Use if-let to check for not `nil` (even if using an implicitly unwrapped variable from an API).
+/// Use if-let to check for not `nil` (even if using an implicitly unwrapped
+/// variable from an API).
 func someUnauditedAPI(thing: String?) {
 	if let thing {
 		printer.info(thing)

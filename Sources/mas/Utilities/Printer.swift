@@ -40,7 +40,8 @@ struct Printer {
 		clearCurrentLine(of: .standardOutput)
 	}
 
-	/// Prints to `stdout`, prefixed with "==> "; if connected to a terminal, the prefix is blue.
+	/// Prints to `stdout`, prefixed with "==> "; if connected to a terminal, the
+	/// prefix is blue.
 	func notice(_ items: Any..., separator: String = " ", terminator: String = "\n") {
 		print(items, prefix: "==>", format: "1;34", separator: separator, terminator: terminator, to: .standardOutput)
 	}

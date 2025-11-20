@@ -7,7 +7,8 @@
 
 private import Foundation
 
-/// Uses the iTunes Search & Lookup APIs to search for, and to look up, apps from the MAS catalog.
+/// Uses the iTunes Search & Lookup APIs to search for, and to look up, apps
+/// from the MAS catalog.
 ///
 /// Uses the iTunes Search & Lookup APIs:
 ///
