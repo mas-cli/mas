@@ -65,7 +65,7 @@ func downloadApp(
 		}
 
 		// If the download failed due to network issues, try again. Otherwise, fail
-		// immediately.
+		// immediately
 		guard (error as NSError).domain == NSURLErrorDomain else {
 			throw error
 		}

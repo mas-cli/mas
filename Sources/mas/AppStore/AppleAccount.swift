@@ -17,7 +17,7 @@ struct AppleAccount: Sendable {
 var appleAccount: AppleAccount {
 	get async throws {
 		if #available(macOS 12, *) {
-			// Account information is no longer available on macOS 12+.
+			// Account information is no longer available on macOS 12+
 			// https://github.com/mas-cli/mas/issues/417
 			throw MASError.notSupported
 		}
