@@ -37,30 +37,28 @@ extension MAS {
 				throw MASError.runtimeError("Apps installed from the Mac App Store require root permission to uninstall")
 			}
 
-			let uninstallingAppPaths = uninstallingAppPaths(from: installedApps)
-			guard !uninstallingAppPaths.isEmpty else {
+			let uninstallingAppPathOrderedSet = uninstallingAppPathOrderedSet(from: installedApps)
+			guard !uninstallingAppPathOrderedSet.isEmpty else {
 				return
 			}
 			guard !dryRun else {
 				printer.notice("Dry run. A wet run would uninstall:\n")
-				for uninstallingAppPath in uninstallingAppPaths {
+				for uninstallingAppPath in uninstallingAppPathOrderedSet {
 					printer.info(uninstallingAppPath)
 				}
 				return
 			}
 
-			try uninstallApps(atPaths: uninstallingAppPaths)
+			try uninstallApps(atPaths: uninstallingAppPathOrderedSet)
 		}
 
-		private func uninstallingAppPaths(from installedApps: [InstalledApp]) -> [String] {
-			var uninstallingAppPathSet = OrderedSet<String>()
-			for appID in requiredAppIDsOptionGroup.appIDs {
+		private func uninstallingAppPathOrderedSet(from installedApps: [InstalledApp]) -> OrderedSet<String> {
+			requiredAppIDsOptionGroup.appIDs.reduce(into: OrderedSet<String>()) { uninstallingAppPathSet, appID in
 				let installedAppPaths = installedApps.filter { $0.matches(appID) }.map(\.path)
 				installedAppPaths.isEmpty
 				? printer.error(appID.notInstalledMessage) // swiftformat:disable:this indent
 				: uninstallingAppPathSet.formUnion(installedAppPaths)
 			}
-			return Array(uninstallingAppPathSet)
 		}
 	}
 }
@@ -69,7 +67,7 @@ extension MAS {
 ///
 /// - Parameter: appPaths: Paths to apps to be uninstalled.
 /// - Throws: An `Error` if any problem occurs.
-private func uninstallApps(atPaths appPaths: [String]) throws {
+private func uninstallApps(atPaths appPathSequence: some Sequence<String>) throws {
 	let processInfo = ProcessInfo.processInfo
 	guard let uid = processInfo.sudoUID else {
 		throw MASError.runtimeError("Failed to get sudo uid")
@@ -85,7 +83,7 @@ private func uninstallApps(atPaths appPaths: [String]) throws {
 	}
 
 	let fileManager = FileManager.default
-	for appPath in appPaths {
+	for appPath in appPathSequence {
 		let attributes = try fileManager.attributesOfItem(atPath: appPath)
 		guard let appUID = attributes[.ownerAccountID] as? uid_t else {
 			MAS.printer.error("Failed to get uid of", appPath)
