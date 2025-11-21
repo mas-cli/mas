@@ -40,7 +40,7 @@ struct Consequences<Value: Equatable>: Equatable {
 	}
 }
 
-private struct StdStreamCapture { // swiftlint:disable:this one_declaration_per_file
+private struct StandardStreamCapture { // swiftlint:disable:this one_declaration_per_file
 	private let encoding: String.Encoding
 	private let outOriginalFD: Int32
 	private let errOriginalFD: Int32
@@ -101,7 +101,7 @@ func consequencesOf(
 	encoding: String.Encoding = .utf8,
 	_ body: @autoclosure () throws -> Void
 ) -> Consequences<NoValue> {
-	let capture = StdStreamCapture(encoding: encoding)
+	let capture = StandardStreamCapture(encoding: encoding)
 	do {
 		return capture.consequences(value: try body())
 	} catch {
@@ -113,7 +113,7 @@ func consequencesOf(
 	encoding: String.Encoding = .utf8,
 	_ body: @autoclosure () async throws -> Void
 ) async -> Consequences<NoValue> {
-	let capture = StdStreamCapture(encoding: encoding)
+	let capture = StandardStreamCapture(encoding: encoding)
 	do {
 		return capture.consequences(value: try await body())
 	} catch {
@@ -125,7 +125,7 @@ func consequencesOf<Value: Equatable>(
 	encoding: String.Encoding = .utf8,
 	_ body: @autoclosure () throws -> Value?
 ) -> Consequences<Value> {
-	let capture = StdStreamCapture(encoding: encoding)
+	let capture = StandardStreamCapture(encoding: encoding)
 	do {
 		return capture.consequences(value: try body())
 	} catch {
@@ -137,7 +137,7 @@ func consequencesOf<Value: Equatable>(
 	encoding: String.Encoding = .utf8,
 	_ body: @autoclosure () async throws -> Value?
 ) async -> Consequences<Value> {
-	let capture = StdStreamCapture(encoding: encoding)
+	let capture = StandardStreamCapture(encoding: encoding)
 	do {
 		return capture.consequences(value: try await body())
 	} catch {
