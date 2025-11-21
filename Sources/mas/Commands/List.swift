@@ -9,10 +9,10 @@ internal import ArgumentParser
 private import Foundation
 
 extension MAS {
-	/// Lists all apps installed from the Mac App Store.
+	/// Lists all apps installed from the App Store.
 	struct List: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
-			abstract: "List all apps installed from the Mac App Store"
+			abstract: "List all apps installed from the App Store"
 		)
 
 		@OptionGroup

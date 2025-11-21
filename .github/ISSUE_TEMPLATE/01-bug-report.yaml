@@ -55,7 +55,7 @@ body:
 
       ````text
       ```console
-      ## In the Mac App Store GUI, click on…
+      ## In the App Store GUI, click on…
       $ mas list
       123  App 1  (4.5.6)
       124  App 2  (10.2)

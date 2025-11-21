@@ -8,16 +8,16 @@
 internal import ArgumentParser
 
 extension MAS {
-	/// Outputs the Apple Account signed in to the Mac App Store.
+	/// Outputs the Apple Account signed in to the App Store.
 	struct Account: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
-			abstract: "Output the Apple Account signed in to the Mac App Store"
+			abstract: "Output the Apple Account signed in to the App Store"
 		)
 
 		func run() async {
 			do {
 				guard let appleAccount = try await appleAccount.emailAddress else {
-					printer.error("Not signed in to an Apple Account in the Mac App Store")
+					printer.error("Not signed in to an Apple Account in the App Store")
 					return
 				}
 

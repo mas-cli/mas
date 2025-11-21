@@ -125,14 +125,14 @@ To get Swift 5 support on macOS versions older than 10.14.4 (Mojave), you can:
 
 </summary>
 
-Each application in the Mac App Store has a unique integer app identifier (ADAM ID) & a unique text app identifier
+Each application in the App Store has a unique integer app identifier (ADAM ID) & a unique text app identifier
 (bundle ID). mas commands accept either form of app ID as arguments.
 
 `mas search` & `mas list` can be used to find the ADAM IDs of apps.
 
 Alternatively, to find an app's ADAM ID:
 
-1. Find the app in the Mac App Store
+1. Find the app in the App Store
 2. Select `Share` > `Copy Link`
 3. Extract the ADAM ID from the URL.
    - e.g., extract ADAM ID `497799835` from the URL for Xcode (<https://apps.apple.com/us/app/xcode/id497799835?mt=12>)
@@ -141,12 +141,12 @@ Alternatively, to find an app's ADAM ID:
 <details>
 <summary>
 
-### 🛍 Info from the Mac App Store
+### 🛍 Info from the App Store
 
 </summary>
 
 The commands in this section do not require you to be logged into an Apple Account, neither for your macOS user nor for
-the Mac App Store.
+the App Store.
 
 <details>
 <summary>
@@ -155,7 +155,7 @@ the Mac App Store.
 
 </summary>
 
-`mas search <search-term>` searches by name for applications available from the Mac App Store.
+`mas search <search-term>` searches by name for applications available from the App Store.
 
 Providing the `--price` flag includes each app's price in the output.
 
@@ -174,7 +174,7 @@ $ mas search Xcode
 
 </summary>
 
-`mas lookup <app-id>` outputs more detailed information about an application available from the Mac App Store.
+`mas lookup <app-id>` outputs more detailed information about an application available from the App Store.
 
 ```console
 $ mas lookup 497799835
@@ -204,7 +204,7 @@ All the commands in this section require you to be logged into an Apple Account 
 
 </summary>
 
-`mas list` outputs all the applications on your Mac that were installed from the Mac App Store.
+`mas list` outputs all the applications on your Mac that were installed from the App Store.
 
 ```console
 $ mas list
@@ -221,7 +221,7 @@ $ mas list
 
 </summary>
 
-`mas outdated` outputs all applications installed from the Mac App Store on your Mac that have pending updates.
+`mas outdated` outputs all applications installed from the App Store on your Mac that have pending updates.
 
 ```console
 $ mas outdated
@@ -240,10 +240,10 @@ Run [`mas update`](#mas-update) to install pending updates.
 
 </summary>
 
-All the commands in this section require you to be logged into an Apple Account in the Mac App Store.
+All the commands in this section require you to be logged into an Apple Account in the App Store.
 
-> Depending on your Apple Account settings, you might need to re-authenticate yourself in the Mac App Store to perform a
-> get, install, lucky, or update, even if you are already signed in to an Apple Account in the Mac App Store.
+> Depending on your Apple Account settings, you might need to re-authenticate yourself in the App Store to perform a
+> get, install, lucky, or update, even if you are already signed in to an Apple Account in the App Store.
 
 <details>
 <summary>
@@ -252,10 +252,10 @@ All the commands in this section require you to be logged into an Apple Account 
 
 </summary>
 
-`mas get <app-id>…` installs free applications that you haven't yet gotten/"purchased" from the Mac App Store.
+`mas get <app-id>…` installs free applications that you haven't yet gotten/"purchased" from the App Store.
 
 > The `purchase` alias is currently a misnomer, because it currently can only "purchase" free apps. To purchase apps
-> that cost money, purchase them directly in the Mac App Store.
+> that cost money, purchase them directly in the App Store.
 
 ```console
 $ mas get 497799835
@@ -271,7 +271,7 @@ $ mas get 497799835
 
 </summary>
 
-`mas install <app-id>…` installs apps that you have already gotten or purchased from the Mac App Store. Providing the
+`mas install <app-id>…` installs apps that you have already gotten or purchased from the App Store. Providing the
 `--force` flag re-installs the app even if it is already installed on your Mac.
 
 ```console
@@ -306,9 +306,9 @@ $ mas lucky Xcode
 
 </summary>
 
-All the commands in this section require you to be logged into an Apple Account in the Mac App Store.
+All the commands in this section require you to be logged into an Apple Account in the App Store.
 
-> mas only installs/updates applications from the Mac App Store.
+> mas only installs/updates applications from the App Store.
 >
 > Use [`softwareupdate(8)`](https://www.unix.com/man-page/osx/8/softwareupdate) to install system updates (e.g., Xcode
 > Command Line Tools, Safari, etc.)
@@ -320,7 +320,7 @@ All the commands in this section require you to be logged into an Apple Account 
 
 </summary>
 
-`mas update` updates outdated apps installed from the Mac App Store. Without any arguments, it updates all such apps.
+`mas update` updates outdated apps installed from the App Store. Without any arguments, it updates all such apps.
 
 ```console
 $ mas update
@@ -348,11 +348,11 @@ Xcode (15.4) -> (16.0)
 <details>
 <summary>
 
-### 🪪 Mac App Store account management
+### 🪪 App Store account management
 
 </summary>
 
-All the commands in this section interact with the Apple Account for which you are signed in to the Mac App Store. These
+All the commands in this section interact with the Apple Account for which you are signed in to the App Store. These
 commands do not interact with the Apple Account for which your macOS user is signed in.
 
 <details>
@@ -363,16 +363,16 @@ commands do not interact with the Apple Account for which your macOS user is sig
 </summary>
 
 > ⛔ The `signin` command is not supported on macOS 10.13 (High Sierra) or newer. On those macOS versions, sign in via
-> the Mac App Store instead (see the [known issue](#-broken-apple-private-frameworks)).
+> the App Store instead (see the [known issue](#-broken-apple-private-frameworks)).
 
-On macOS 10.12 (Sierra) or older, `mas signin <apple-id>` signs in to the specified Apple Account in the Mac App Store.
+On macOS 10.12 (Sierra) or older, `mas signin <apple-id>` signs in to the specified Apple Account in the App Store.
 
 ```console
 $ mas signin mas@example.com
 Password:
 ```
 
-Providing the `--dialog` flag signs in using a graphical dialog provided by Mac App Store.
+Providing the `--dialog` flag signs in using a graphical dialog provided by App Store.
 
 ```shell
 mas signin --dialog mas@example.com
@@ -392,7 +392,7 @@ mas signin mas@example.com MyPassword
 
 </summary>
 
-`mas signout` signs out from the current Apple Account in the Mac App Store.
+`mas signout` signs out from the current Apple Account in the App Store.
 
 </details>
 </details>
@@ -412,8 +412,8 @@ mas signin mas@example.com MyPassword
 
 If mas is installed:
 
-- `brew bundle dump` includes installed Mac App Store apps in the generated `Brewfile`.
-- Homebrew Bundle commands will process Mac App Store apps included in a `Brewfile`.
+- `brew bundle dump` includes installed App Store apps in the generated `Brewfile`.
+- Homebrew Bundle commands will process App Store apps included in a `Brewfile`.
 
 See the [Homebrew Bundle documentation](https://docs.brew.sh/Brew-Bundle-and-Brewfile) for more details.
 
@@ -425,7 +425,7 @@ See the [Homebrew Bundle documentation](https://docs.brew.sh/Brew-Bundle-and-Bre
 
 </summary>
 
-If mas is installed, running [Topgrade](https://github.com/topgrade-rs/topgrade) updates installed Mac App Store apps.
+If mas is installed, running [Topgrade](https://github.com/topgrade-rs/topgrade) updates installed App Store apps.
 
 </details>
 </details>
@@ -459,9 +459,9 @@ Over time, Apple has silently changed these frameworks, breaking some functional
 
 </summary>
 
-The Mac App Store operates on eventual consistency.
+The App Store operates on eventual consistency.
 
-The versions seen by various parts of mas or the Mac App Store might be inconsistent for days
+The versions seen by various parts of mas or the App Store might be inconsistent for days
 ([#384](https://github.com/mas-cli/mas/issues/384) & [#387](https://github.com/mas-cli/mas/issues/387)).
 
 </details>
@@ -472,7 +472,7 @@ The versions seen by various parts of mas or the Mac App Store might be inconsis
 
 </summary>
 
-Apple Silicon Macs can install iOS & iPadOS apps from the Mac App Store.
+Apple Silicon Macs can install iOS & iPadOS apps from the App Store.
 
 mas does not yet support such apps ([#321](https://github.com/mas-cli/mas/issues/321)).
 
@@ -484,7 +484,7 @@ mas does not yet support such apps ([#321](https://github.com/mas-cli/mas/issues
 
 </summary>
 
-mas depends on the same XPC system services as the Mac App Store.
+mas depends on the same XPC system services as the App Store.
 
 mas thus experiences similar problems as the pasteboard when running inside `tmux`.
 
@@ -507,9 +507,9 @@ reattach-to-user-namespace mas install
 
 </summary>
 
-mas 2.0.0+ sources data for installed Mac App Store apps from macOS's Spotlight Metadata Server (aka MDS).
+mas 2.0.0+ sources data for installed App Store apps from macOS's Spotlight Metadata Server (aka MDS).
 
-You can check if a Mac App Store app is properly indexed in the MDS:
+You can check if an App Store app is properly indexed in the MDS:
 
 ```console
 ## General format:
@@ -528,7 +528,7 @@ If an app has been indexed in the MDS, the path to the app can be found:
 mdfind 'kMDItemAppStoreAdamID == <adam-id>'
 ```
 
-If any of Mac App Store apps are not indexed, the MDS can be enabled/rebuilt for all file system volumes:
+If any App Store apps are not indexed, the MDS can be enabled/rebuilt for all file system volumes:
 
 ```shell
 sudo mdutil -Eai on
@@ -549,7 +549,7 @@ sudo mdutil -Eai on
 
 </summary>
 
-If the following error occurs, you probably haven't yet gotten or purchased the app from the Mac App Store
+If the following error occurs, you probably haven't yet gotten or purchased the app from the App Store
 ([#46](https://github.com/mas-cli/mas/issues/46#issuecomment-248581233)).
 
 > This redownload is not available for this Apple Account either because it was bought by a different user or the item

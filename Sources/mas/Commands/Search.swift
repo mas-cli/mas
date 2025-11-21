@@ -9,14 +9,14 @@ internal import ArgumentParser
 private import Foundation
 
 extension MAS {
-	/// Searches for apps in the Mac App Store.
+	/// Searches for apps in the App Store.
 	///
 	/// Uses the iTunes Search API:
 	///
 	/// https://performance-partners.apple.com/search-api
 	struct Search: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
-			abstract: "Search for apps in the Mac App Store"
+			abstract: "Search for apps in the App Store"
 		)
 
 		@Flag(help: "Output the price of each app")

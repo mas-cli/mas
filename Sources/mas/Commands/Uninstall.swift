@@ -12,10 +12,10 @@ private import OrderedCollections
 private import ScriptingBridge
 
 extension MAS {
-	/// Uninstalls apps installed from the Mac App Store.
+	/// Uninstalls apps installed from the App Store.
 	struct Uninstall: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
-			abstract: "Uninstall apps installed from the Mac App Store"
+			abstract: "Uninstall apps installed from the App Store"
 		)
 
 		/// Flag indicating that removal shouldn't be performed.
@@ -34,7 +34,7 @@ extension MAS {
 
 		func run(installedApps: [InstalledApp]) throws {
 			guard NSUserName() == "root" else {
-				throw MASError.runtimeError("Apps installed from the Mac App Store require root permission to uninstall")
+				throw MASError.runtimeError("Apps installed from the App Store require root permission to uninstall")
 			}
 
 			let uninstallingAppPathOrderedSet = uninstallingAppPathOrderedSet(from: installedApps)
