@@ -9,7 +9,7 @@ private import ArgumentParser
 @testable private import mas
 internal import Testing
 
-extension MASTests {
+private extension MASTests {
 	@Test
 	func outputsVersion() {
 		let actual = consequencesOf(try MAS.main(try MAS.Version.parse([])))

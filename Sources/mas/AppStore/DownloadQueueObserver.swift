@@ -137,16 +137,16 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 
 private typealias PhaseType = Int64
 
-private extension SSDownloadMetadata {
-	var appNameAndVersion: String {
-		"\(title ?? "unknown app") (\(bundleVersion ?? "unknown version"))"
-	}
-}
-
 private extension Printer {
 	func progress(status: SSDownloadStatus, for appNameAndVersion: String) {
 		terminateEphemeral()
 		notice(status.activePhaseDescription, appNameAndVersion)
+	}
+}
+
+private extension SSDownloadMetadata {
+	var appNameAndVersion: String {
+		"\(title ?? "unknown app") (\(bundleVersion ?? "unknown version"))"
 	}
 }
 

@@ -13,7 +13,8 @@
 )
 [![dependencies status](https://img.shields.io/librariesio/github/mas-cli/mas?style=for-the-badge)](Package.swift)
 
-mas is a command-line interface for the Mac App Store that is designed for scripting & automation.
+mas is a command-line interface for the Mac App Store that is designed for
+scripting & automation.
 
 <details>
 <summary>
@@ -48,7 +49,8 @@ brew install mas
 
 </summary>
 
-[MacPorts](https://www.macports.org/install.php) is an alternative way to install:
+[MacPorts](https://www.macports.org/install.php) is an alternative way to
+install:
 
 ```shell
 sudo port install mas
@@ -69,10 +71,11 @@ sudo port install mas
 
 </summary>
 
-The [mas custom Homebrew tap](https://github.com/mas-cli/homebrew-tap) provides pre-built bottles for all macOS versions
-since 10.11 (El Capitan).
+The [mas custom Homebrew tap](https://github.com/mas-cli/homebrew-tap) provides
+pre-built bottles for all macOS versions since 10.11 (El Capitan).
 
-The newest versions of mas, however, are only available for macOS 10.15+ (Catalina or newer).
+The newest versions of mas, however, are only available for macOS 10.15+
+(Catalina or newer).
 
 To install mas from the custom tap:
 
@@ -88,7 +91,8 @@ brew install mas-cli/tap/mas
 
 </summary>
 
-Alternatively, binaries & sources are available from [GitHub Releases](https://github.com/mas-cli/mas/releases).
+Alternatively, binaries & sources are available from
+[GitHub Releases](https://github.com/mas-cli/mas/releases).
 
 </details>
 <details>
@@ -98,16 +102,19 @@ Alternatively, binaries & sources are available from [GitHub Releases](https://g
 
 </summary>
 
-mas requires Swift 5 runtime support. macOS 10.14.4 (Mojave) & newer include it, but earlier releases do not. Without
-it, running mas might report errors similar to:
+mas requires Swift 5 runtime support. macOS 10.14.4 (Mojave) & newer include it,
+but earlier releases do not. Without it, running mas might report errors similar
+to:
 
 > dyld: Symbol not found: _$s11SubSequenceSlTl
 
 To get Swift 5 support on macOS versions older than 10.14.4 (Mojave), you can:
 
-- Update to macOS 10.14.4 (Mojave) or newer.
-- Install the [Swift 5 Runtime Support for Command Line Tools](https://support.apple.com/en-us/106446).
-- Install Xcode 10.2 or newer to `/Applications/Xcode.app`.
+- Update to macOS 10.14.4 (Mojave) or newer
+- Install the [Swift 5 Runtime Support for Command Line Tools](
+    https://support.apple.com/en-us/106446
+  )
+- Install Xcode 10.2 or newer to `/Applications/Xcode.app`
 
 </details>
 </details>
@@ -125,28 +132,30 @@ To get Swift 5 support on macOS versions older than 10.14.4 (Mojave), you can:
 
 </summary>
 
-Each application in the Mac App Store has a unique integer app identifier (ADAM ID) & a unique text app identifier
-(bundle ID). mas commands accept either form of app ID as arguments.
+Each app in the App Store has a unique integer app identifier (ADAM ID) & a
+unique text app identifier (bundle ID). mas commands accept either form of app
+ID as arguments.
 
 `mas search` & `mas list` can be used to find the ADAM IDs of apps.
 
 Alternatively, to find an app's ADAM ID:
 
-1. Find the app in the Mac App Store
+1. Find the app in the App Store
 2. Select `Share` > `Copy Link`
-3. Extract the ADAM ID from the URL.
-   - e.g., extract ADAM ID `497799835` from the URL for Xcode (<https://apps.apple.com/us/app/xcode/id497799835?mt=12>)
+3. Extract the ADAM ID from the URL
+   - e.g., extract ADAM ID `497799835` from the URL for Xcode
+     (<https://apps.apple.com/us/app/xcode/id497799835?mt=12>)
 
 </details>
 <details>
 <summary>
 
-### 🛍 Info from the Mac App Store
+### 🛍 Info from the App Store
 
 </summary>
 
-The commands in this section do not require you to be logged into an Apple Account, neither for your macOS user nor for
-the Mac App Store.
+The commands in this section do not require you to be logged into an Apple
+Account, neither for your macOS user nor for the App Store.
 
 <details>
 <summary>
@@ -155,7 +164,8 @@ the Mac App Store.
 
 </summary>
 
-`mas search <search-term>` searches by name for applications available from the Mac App Store.
+`mas search <search-term>` searches by name for apps available from the App
+Store.
 
 Providing the `--price` flag includes each app's price in the output.
 
@@ -174,7 +184,8 @@ $ mas search Xcode
 
 </summary>
 
-`mas lookup <app-id>` outputs more detailed information about an application available from the Mac App Store.
+`mas lookup <app-id>` outputs more detailed information about an app available
+from the App Store.
 
 ```console
 $ mas lookup 497799835
@@ -195,7 +206,8 @@ From: https://apps.apple.com/us/app/xcode/id497799835?mt=12&uo=4
 
 </summary>
 
-All the commands in this section require you to be logged into an Apple Account for your macOS user.
+All the commands in this section require you to be logged into an Apple Account
+for your macOS user.
 
 <details>
 <summary>
@@ -204,7 +216,8 @@ All the commands in this section require you to be logged into an Apple Account 
 
 </summary>
 
-`mas list` outputs all the applications on your Mac that were installed from the Mac App Store.
+`mas list` outputs all the apps on your Mac that were installed from the App
+Store.
 
 ```console
 $ mas list
@@ -221,7 +234,8 @@ $ mas list
 
 </summary>
 
-`mas outdated` outputs all applications installed from the Mac App Store on your Mac that have pending updates.
+`mas outdated` outputs all apps installed from the App Store on your Mac that
+have pending updates.
 
 ```console
 $ mas outdated
@@ -240,10 +254,12 @@ Run [`mas update`](#mas-update) to install pending updates.
 
 </summary>
 
-All the commands in this section require you to be logged into an Apple Account in the Mac App Store.
+All the commands in this section require you to be logged into an Apple Account
+in the App Store.
 
-> Depending on your Apple Account settings, you might need to re-authenticate yourself in the Mac App Store to perform a
-> get, install, lucky, or update, even if you are already signed in to an Apple Account in the Mac App Store.
+> Depending on your Apple Account settings, you might need to re-authenticate in
+> the App Store to perform a `get`, `install`, `lucky`, or `update`, even if you
+> are already signed in to an Apple Account in the App Store.
 
 <details>
 <summary>
@@ -252,10 +268,12 @@ All the commands in this section require you to be logged into an Apple Account 
 
 </summary>
 
-`mas get <app-id>…` installs free applications that you haven't yet gotten/"purchased" from the Mac App Store.
+`mas get <app-id>…` installs free apps that you haven't yet gotten/"purchased"
+from the App Store.
 
-> The `purchase` alias is currently a misnomer, because it currently can only "purchase" free apps. To purchase apps
-> that cost money, purchase them directly in the Mac App Store.
+> The `purchase` alias is currently a misnomer, because it currently can only
+> "purchase" free apps. To purchase apps that cost money, purchase them directly
+> in the App Store.
 
 ```console
 $ mas get 497799835
@@ -271,8 +289,9 @@ $ mas get 497799835
 
 </summary>
 
-`mas install <app-id>…` installs apps that you have already gotten or purchased from the Mac App Store. Providing the
-`--force` flag re-installs the app even if it is already installed on your Mac.
+`mas install <app-id>…` installs apps that you have already gotten or purchased
+from the App Store. Providing the `--force` flag re-installs the app even if it
+is already installed on your Mac.
 
 ```console
 $ mas install 497799835
@@ -288,8 +307,9 @@ $ mas install 497799835
 
 </summary>
 
-`mas lucky <search-term>` installs the first result that would be returned by `mas search <search-term>`. Like
-`mas install`, `mas lucky` can only install apps that have previously been gotten or purchased.
+`mas lucky <search-term>` installs the first result that would be returned by
+`mas search <search-term>`. Like `mas install`, `mas lucky` can only install
+apps that have previously been gotten or purchased.
 
 ```console
 $ mas lucky Xcode
@@ -306,12 +326,13 @@ $ mas lucky Xcode
 
 </summary>
 
-All the commands in this section require you to be logged into an Apple Account in the Mac App Store.
+All the commands in this section require you to be logged into an Apple Account
+in the App Store.
 
-> mas only installs/updates applications from the Mac App Store.
+> mas only installs/updates apps from the App Store.
 >
-> Use [`softwareupdate(8)`](https://www.unix.com/man-page/osx/8/softwareupdate) to install system updates (e.g., Xcode
-> Command Line Tools, Safari, etc.)
+> Use [`softwareupdate(8)`](https://www.unix.com/man-page/osx/8/softwareupdate)
+> to install system updates (e.g., Xcode Command Line Tools, Safari, etc.)
 
 <details>
 <summary>
@@ -320,7 +341,8 @@ All the commands in this section require you to be logged into an Apple Account 
 
 </summary>
 
-`mas update` updates outdated apps installed from the Mac App Store. Without any arguments, it updates all such apps.
+`mas update` updates outdated apps installed from the App Store. Without any
+arguments, it updates all such apps.
 
 ```console
 $ mas update
@@ -348,12 +370,13 @@ Xcode (15.4) -> (16.0)
 <details>
 <summary>
 
-### 🪪 Mac App Store account management
+### 🪪 App Store account management
 
 </summary>
 
-All the commands in this section interact with the Apple Account for which you are signed in to the Mac App Store. These
-commands do not interact with the Apple Account for which your macOS user is signed in.
+All the commands in this section interact with the Apple Account for which you
+are signed in to the App Store. These commands do not interact with the Apple
+Account for which your macOS user is signed in.
 
 <details>
 <summary>
@@ -362,17 +385,20 @@ commands do not interact with the Apple Account for which your macOS user is sig
 
 </summary>
 
-> ⛔ The `signin` command is not supported on macOS 10.13 (High Sierra) or newer. On those macOS versions, sign in via
-> the Mac App Store instead (see the [known issue](#-broken-apple-private-frameworks)).
+> ⛔ The `signin` command is not supported on macOS 10.13 (High Sierra) or newer.
+> On those macOS versions, sign in via the App Store instead (see the
+> [known issue](#-broken-apple-private-frameworks)).
 
-On macOS 10.12 (Sierra) or older, `mas signin <apple-id>` signs in to the specified Apple Account in the Mac App Store.
+On macOS 10.12 (Sierra) or older, `mas signin <apple-id>` signs in to the
+specified Apple Account in the App Store.
 
 ```console
 $ mas signin mas@example.com
 Password:
 ```
 
-Providing the `--dialog` flag signs in using a graphical dialog provided by Mac App Store.
+Providing the `--dialog` flag signs in using a graphical dialog provided by App
+Store.
 
 ```shell
 mas signin --dialog mas@example.com
@@ -392,7 +418,7 @@ mas signin mas@example.com MyPassword
 
 </summary>
 
-`mas signout` signs out from the current Apple Account in the Mac App Store.
+`mas signout` signs out from the current Apple Account in the App Store.
 
 </details>
 </details>
@@ -412,10 +438,13 @@ mas signin mas@example.com MyPassword
 
 If mas is installed:
 
-- `brew bundle dump` includes installed Mac App Store apps in the generated `Brewfile`.
-- Homebrew Bundle commands will process Mac App Store apps included in a `Brewfile`.
+- `brew bundle dump` includes installed App Store apps in the generated
+  `Brewfile`
+- Homebrew Bundle commands will process App Store apps included in a `Brewfile`
 
-See the [Homebrew Bundle documentation](https://docs.brew.sh/Brew-Bundle-and-Brewfile) for more details.
+See the
+[Homebrew Bundle documentation](https://docs.brew.sh/Brew-Bundle-and-Brewfile)
+for more details.
 
 </details>
 <details>
@@ -425,7 +454,8 @@ See the [Homebrew Bundle documentation](https://docs.brew.sh/Brew-Bundle-and-Bre
 
 </summary>
 
-If mas is installed, running [Topgrade](https://github.com/topgrade-rs/topgrade) updates installed Mac App Store apps.
+If mas is installed, running [Topgrade](https://github.com/topgrade-rs/topgrade)
+updates installed App Store apps.
 
 </details>
 </details>
@@ -442,11 +472,13 @@ If mas is installed, running [Topgrade](https://github.com/topgrade-rs/topgrade)
 
 </summary>
 
-mas uses multiple undocumented Apple private frameworks to implement much of its functionality.
+mas uses multiple undocumented Apple private frameworks to implement much of its
+functionality.
 
-Over time, Apple has silently changed these frameworks, breaking some functionality, including:
+Over time, Apple has silently changed these frameworks, breaking some
+functionality, including:
 
-- ⛔ The `signin` command is not supported on macOS 10.13 (High Sierra) or newer.
+- ⛔ The `signin` command is not supported on macOS 10.13 (High Sierra) or newer
   [#164](https://github.com/mas-cli/mas/issues/164)
 - ⛔ The `account` command is not supported on macOS 12 (Monterey) or newer
   [#417](https://github.com/mas-cli/mas/issues/417)
@@ -459,10 +491,11 @@ Over time, Apple has silently changed these frameworks, breaking some functional
 
 </summary>
 
-The Mac App Store operates on eventual consistency.
+The App Store operates on eventual consistency.
 
-The versions seen by various parts of mas or the Mac App Store might be inconsistent for days
-([#384](https://github.com/mas-cli/mas/issues/384) & [#387](https://github.com/mas-cli/mas/issues/387)).
+The versions seen by various parts of mas or the App Store might be inconsistent
+for days ([#384](https://github.com/mas-cli/mas/issues/384) &
+[#387](https://github.com/mas-cli/mas/issues/387)).
 
 </details>
 <details>
@@ -472,9 +505,10 @@ The versions seen by various parts of mas or the Mac App Store might be inconsis
 
 </summary>
 
-Apple Silicon Macs can install iOS & iPadOS apps from the Mac App Store.
+Apple Silicon Macs can install iOS & iPadOS apps from the App Store.
 
-mas does not yet support such apps ([#321](https://github.com/mas-cli/mas/issues/321)).
+mas does not yet support such apps
+([#321](https://github.com/mas-cli/mas/issues/321)).
 
 </details>
 <details>
@@ -484,11 +518,13 @@ mas does not yet support such apps ([#321](https://github.com/mas-cli/mas/issues
 
 </summary>
 
-mas depends on the same XPC system services as the Mac App Store.
+mas depends on the same XPC system services as the App Store.
 
-mas thus experiences similar problems as the pasteboard when running inside `tmux`.
+mas thus experiences similar problems as the pasteboard when running inside
+`tmux`.
 
-This [wrapper](https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard) allows pasteboard & mas to work inside `tmux`.
+This [wrapper](https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard) allows
+pasteboard & mas to work inside `tmux`.
 
 `tmux` can be configured to always use the wrapper.
 
@@ -507,9 +543,10 @@ reattach-to-user-namespace mas install
 
 </summary>
 
-mas 2.0.0+ sources data for installed Mac App Store apps from macOS's Spotlight Metadata Server (aka MDS).
+mas 2.0.0+ sources data for installed App Store apps from macOS's Spotlight
+Metadata Server (aka MDS).
 
-You can check if a Mac App Store app is properly indexed in the MDS:
+You can check if an App Store app is properly indexed in the MDS:
 
 ```console
 ## General format:
@@ -528,7 +565,8 @@ If an app has been indexed in the MDS, the path to the app can be found:
 mdfind 'kMDItemAppStoreAdamID == <adam-id>'
 ```
 
-If any of Mac App Store apps are not indexed, the MDS can be enabled/rebuilt for all file system volumes:
+If any App Store apps are not indexed, the MDS can be enabled/rebuilt for all
+file system volumes:
 
 ```shell
 sudo mdutil -Eai on
@@ -549,11 +587,12 @@ sudo mdutil -Eai on
 
 </summary>
 
-If the following error occurs, you probably haven't yet gotten or purchased the app from the Mac App Store
+If the following error occurs, you probably haven't yet gotten or purchased the
+app from the App Store
 ([#46](https://github.com/mas-cli/mas/issues/46#issuecomment-248581233)).
 
-> This redownload is not available for this Apple Account either because it was bought by a different user or the item
-> was refunded or canceled.
+> This redownload is not available for this Apple Account either because it was
+> bought by a different user or the item was refunded or canceled.
 
 </details>
 <details>
@@ -563,9 +602,11 @@ If the following error occurs, you probably haven't yet gotten or purchased the 
 
 </summary>
 
-If mas doesn't work as expected (e.g., apps can't be installed/updated), run `mas reset`, then try again.
+If mas doesn't work as expected (e.g., apps can't be installed/updated), run
+`mas reset`, then try again.
 
-If the issue persists, please [file a bug](https://github.com/mas-cli/mas/issues/new).
+If the issue persists, please
+[file a bug](https://github.com/mas-cli/mas/issues/new).
 
 All feedback is much appreciated!
 
@@ -594,7 +635,8 @@ Build output can be found in the `.build` folder in the project's root folder.
 
 </summary>
 
-Tests are implemented in [Swift Testing](https://github.com/swiftlang/swift-testing).
+Tests are implemented in
+[Swift Testing](https://github.com/swiftlang/swift-testing).
 
 Tests can be run by the following script:
 
@@ -612,7 +654,8 @@ Scripts/test
 
 Code is under the [MIT license](LICENSE).
 
-mas was originally created by Andrew Naylor ([@argon on GitHub](https://github.com/argon) /
+mas was originally created by Andrew Naylor
+([@argon on GitHub](https://github.com/argon) /
 [@argon on X](https://x.com/argon)).
 
 </details>

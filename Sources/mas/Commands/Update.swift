@@ -9,10 +9,10 @@ internal import ArgumentParser
 private import StoreFoundation
 
 extension MAS {
-	/// Updates outdated apps installed from the Mac App Store.
+	/// Updates outdated apps installed from the App Store.
 	struct Update: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
-			abstract: "Update outdated apps installed from the Mac App Store",
+			abstract: "Update outdated apps installed from the App Store",
 			aliases: ["upgrade"]
 		)
 

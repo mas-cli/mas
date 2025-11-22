@@ -34,11 +34,11 @@ extension MAS {
 			}
 		}
 
-		func run(appCatalog: some AppCatalog) async throws {
+		private func run(appCatalog: some AppCatalog) async throws {
 			try await run(appStorePageURL: appStorePageURL(appCatalog: appCatalog))
 		}
 
-		func run(appStorePageURL: String?) async throws {
+		private func run(appStorePageURL: String?) async throws {
 			guard let appStorePageURL else {
 				// If no App Store Page URL was given, just open the MAS GUI app
 				try await openMacAppStore()

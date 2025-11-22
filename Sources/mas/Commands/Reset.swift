@@ -12,8 +12,8 @@ private import Darwin
 private import Foundation
 
 extension MAS {
-	/// Mimics the "Reset Application" command in the Mac App Store debug menu,
-	/// which performs the following steps:
+	/// Mimics the "Reset Application" command in the App Store debug menu, which
+	/// performs the following steps:
 	///
 	/// - `killall Dock`
 	/// - `killall storeagent` (`storeagent` no longer exists)
@@ -21,10 +21,10 @@ extension MAS {
 	/// - clears cookies (appears to be a no-op)
 	///
 	/// As `storeagent` no longer exists, terminates all processes known to be
-	/// associated with the Mac App Store.
+	/// associated with the App Store.
 	struct Reset: ParsableCommand {
 		static let configuration = CommandConfiguration(
-			abstract: "Reset Mac App Store processes & clear cached Mac App Store downloads"
+			abstract: "Reset App Store processes & clear cached App Store downloads"
 		)
 
 		func run() {

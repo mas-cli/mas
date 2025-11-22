@@ -8,7 +8,7 @@
 internal import ArgumentParser
 
 extension MAS {
-	/// Installs the first app returned from searching the Mac App Store (app must
+	/// Installs the first app returned from searching the App Store (app must
 	/// have been previously gotten).
 	///
 	/// Uses the iTunes Search API:
@@ -16,7 +16,7 @@ extension MAS {
 	/// https://performance-partners.apple.com/search-api
 	struct Lucky: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
-			abstract: "Install the first app returned from searching the Mac App Store",
+			abstract: "Install the first app returned from searching the App Store",
 			discussion: "App will install only if it has already been gotten"
 		)
 
@@ -33,7 +33,7 @@ extension MAS {
 			}
 		}
 
-		func run(installedApps: [InstalledApp], appCatalog: some AppCatalog) async throws {
+		private func run(installedApps: [InstalledApp], appCatalog: some AppCatalog) async throws {
 			let searchTerm = searchTermOptionGroup.searchTerm
 			guard let adamID = try await appCatalog.search(for: searchTerm).first?.adamID else {
 				throw MASError.noCatalogAppsFound(for: searchTerm)
@@ -42,7 +42,7 @@ extension MAS {
 			try await run(installedApps: installedApps, adamID: adamID)
 		}
 
-		func run(installedApps: [InstalledApp], adamID: ADAMID) async throws {
+		private func run(installedApps: [InstalledApp], adamID: ADAMID) async throws {
 			try await downloadApp(withADAMID: adamID, forceDownload: forceOptionGroup.force, installedApps: installedApps)
 		}
 	}

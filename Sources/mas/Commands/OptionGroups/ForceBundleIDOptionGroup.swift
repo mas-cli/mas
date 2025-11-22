@@ -8,6 +8,6 @@
 private import ArgumentParser
 
 struct ForceBundleIDOptionGroup: ParsableArguments {
-	@Flag(name: .customLong("bundle"), help: ArgumentHelp("Process all app IDs as bundle IDs"))
+	@Flag(name: .customLong("bundle"), help: "Process all app IDs as bundle IDs")
 	var forceBundleID = false
 }

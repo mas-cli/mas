@@ -12,7 +12,7 @@ extension Array {
 		return try await compactMap(into: &transformedElements, transform)
 	}
 
-	func compactMap<T, E: Error>(
+	private func compactMap<T, E: Error>(
 		into transformedElements: inout [T],
 		_ transform: (Element) async throws(E) -> T?
 	) async throws(E) -> [T] {
@@ -25,15 +25,24 @@ extension Array {
 		}
 		return transformedElements
 	}
+}
 
+extension Array {
 	func compactMap<T, E: Error>(
+		attemptingTo attempting: String,
+		_ transform: (Element) async throws(E) -> T?
+	) async -> [T] {
+		await compactMap(handlingErrors: { MAS.printer.error(failedTo, attempting, $0, error: $1) }, transform)
+	}
+
+	private func compactMap<T, E: Error>(
 		handlingErrors errorHandler: (Element, E) async -> Void,
 		_ transform: (Element) async throws(E) -> T?
 	) async -> [T] { // swiftformat:disable:next semicolons
 		await compactMap(handlingErrors: { await errorHandler($0, $1); return nil }, transform)
 	}
 
-	func compactMap<T, E: Error>(
+	private func compactMap<T, E: Error>(
 		handlingErrors errorHandler: (Element, E) async -> T?,
 		_ transform: (Element) async throws(E) -> T?
 	) async -> [T] {
@@ -56,15 +65,14 @@ extension Array {
 			}
 		}
 	}
+}
 
-	func compactMap<T, E: Error>(
-		attemptingTo attempting: String,
-		_ transform: (Element) async throws(E) -> T?
-	) async -> [T] {
-		await compactMap(handlingErrors: { MAS.printer.error(failedTo, attempting, $0, error: $1) }, transform)
+extension Array {
+	func forEach<E: Error>(attemptTo actionText: String, _ body: (Element) async throws(E) -> Void) async {
+		await forEach(handlingErrors: { MAS.printer.error(failedTo, actionText, $0, error: $1) }, body)
 	}
 
-	func forEach<E: Error>(
+	private func forEach<E: Error>(
 		handlingErrors errorHandler: (Element, E) async -> Void,
 		_ body: (Element) async throws(E) -> Void
 	) async {
@@ -75,10 +83,6 @@ extension Array {
 				await errorHandler(element, error)
 			}
 		}
-	}
-
-	func forEach<E: Error>(attemptTo actionText: String, _ body: (Element) async throws(E) -> Void) async {
-		await forEach(handlingErrors: { MAS.printer.error(failedTo, actionText, $0, error: $1) }, body)
 	}
 }
 

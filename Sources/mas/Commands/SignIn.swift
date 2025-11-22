@@ -8,11 +8,11 @@
 internal import ArgumentParser
 
 extension MAS {
-	/// Signs in to an Apple Account in the Mac App Store.
+	/// Signs in to an Apple Account in the App Store.
 	struct SignIn: ParsableCommand {
 		static let configuration = CommandConfiguration(
 			commandName: "signin",
-			abstract: "Sign in to an Apple Account in the Mac App Store"
+			abstract: "Sign in to an Apple Account in the App Store"
 		)
 
 		// periphery:ignore
@@ -26,7 +26,7 @@ extension MAS {
 		private var password = "" // swiftlint:disable:this unused_declaration
 
 		func run() {
-			// Signing in is no longer possible as of High Sierra.
+			// Signing in is no longer possible as of High Sierra
 			// https://github.com/mas-cli/mas/issues/164
 			printer.error(error: MASError.notSupported)
 		}

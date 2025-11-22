@@ -11,6 +11,7 @@ internal import ArgumentParser
 struct MAS: AsyncParsableCommand, Sendable {
 	static let configuration = CommandConfiguration(
 		abstract: "Mac App Store command-line interface",
+		version: Self.version,
 		subcommands: [
 			Account.self,
 			Config.self,
@@ -36,11 +37,11 @@ struct MAS: AsyncParsableCommand, Sendable {
 
 	static let printer = Printer()
 
-	static func main() async { // swiftlint:disable:this unused_declaration
+	private static func main() async { // swiftlint:disable:this unused_declaration
 		await main(nil)
 	}
 
-	static func main(_ arguments: [String]?) async { // swiftlint:disable:this discouraged_optional_collection
+	private static func main(_ arguments: [String]?) async { // swiftlint:disable:this discouraged_optional_collection
 		do {
 			let command = try parseAsRoot(arguments)
 			if let command = cast(command, as: (any AsyncParsableCommand & Sendable).self) {
@@ -57,7 +58,9 @@ struct MAS: AsyncParsableCommand, Sendable {
 			exit(withError: error)
 		}
 	}
+}
 
+extension MAS {
 	static func main(_ command: some ParsableCommand) throws {
 		try main(command) { command in
 			var command = command

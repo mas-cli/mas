@@ -9,7 +9,7 @@ private import ArgumentParser
 @testable private import mas
 internal import Testing
 
-extension MASTests {
+private extension MASTests {
 	@Test
 	func listsApps() {
 		let actual = consequencesOf(MAS.main(try MAS.List.parse([])) { $0.run(installedApps: []) })

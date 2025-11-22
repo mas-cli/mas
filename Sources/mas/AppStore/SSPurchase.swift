@@ -26,9 +26,9 @@ extension SSPurchase {
 		self.downloadMetadata = downloadMetadata
 
 		do {
-			let appleAccount = try await appleAccount
-			accountIdentifier = appleAccount.dsID
-			appleID = appleAccount.emailAddress
+			let (emailAddress, dsID) = try await appleAccount
+			accountIdentifier = dsID
+			appleID = emailAddress
 		} catch {
 			// Do nothing
 		}

@@ -9,7 +9,7 @@ private import Foundation
 @testable private import mas
 internal import Testing
 
-extension MASTests {
+private extension MASTests {
 	@Test
 	func parsesCatalogAppFromThingsThatGoBumpJSON() {
 		let actual = consequencesOf(

@@ -10,10 +10,10 @@ private import StoreFoundation
 
 extension MAS {
 	/// Outputs a list of installed apps which have updates available to be
-	/// installed from the Mac App Store.
+	/// installed from the App Store.
 	struct Outdated: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
-			abstract: "List pending app updates from the Mac App Store"
+			abstract: "List pending app updates from the App Store"
 		)
 
 		@OptionGroup

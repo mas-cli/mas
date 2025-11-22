@@ -9,14 +9,14 @@ internal import ArgumentParser
 private import Foundation
 
 extension MAS {
-	/// Outputs app information from the Mac App Store.
+	/// Outputs app information from the App Store.
 	///
 	/// Uses the iTunes Lookup API:
 	///
 	/// https://performance-partners.apple.com/search-api
 	struct Lookup: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
-			abstract: "Output app information from the Mac App Store",
+			abstract: "Output app information from the App Store",
 			aliases: ["info"]
 		)
 
@@ -27,11 +27,11 @@ extension MAS {
 			await run(appCatalog: ITunesSearchAppCatalog())
 		}
 
-		func run(appCatalog: some AppCatalog) async {
+		private func run(appCatalog: some AppCatalog) async {
 			run(catalogApps: await requiredAppIDsOptionGroup.appIDs.lookupCatalogApps(from: appCatalog))
 		}
 
-		func run(catalogApps: [CatalogApp]) {
+		func run(catalogApps: [CatalogApp]) { // swiftformat:disable:this organizeDeclarations
 			guard !catalogApps.isEmpty else {
 				return
 			}

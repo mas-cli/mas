@@ -40,7 +40,8 @@ struct Consequences<Value: Equatable>: Equatable {
 	}
 }
 
-private struct StdStreamCapture { // swiftlint:disable:this one_declaration_per_file
+private struct StandardStreamCapture { // swiftlint:disable:this one_declaration_per_file
+	private let encoding: String.Encoding
 	private let outOriginalFD: Int32
 	private let errOriginalFD: Int32
 	private let outDuplicateFD: Int32
@@ -48,7 +49,9 @@ private struct StdStreamCapture { // swiftlint:disable:this one_declaration_per_
 	private let outPipe: Pipe
 	private let errPipe: Pipe
 
-	init() {
+	init(encoding: String.Encoding) {
+		self.encoding = encoding
+
 		outOriginalFD = FileHandle.standardOutput.fileDescriptor
 		errOriginalFD = FileHandle.standardError.fileDescriptor
 
@@ -62,7 +65,17 @@ private struct StdStreamCapture { // swiftlint:disable:this one_declaration_per_
 		dup2(errPipe.fileHandleForWriting.fileDescriptor, errOriginalFD)
 	}
 
-	fileprivate func finishAndRead(encoding: String.Encoding) -> (stdout: String, stderr: String) {
+	func consequences(value _: Void, error: (any Error)? = nil) -> Consequences<NoValue> {
+		let (stdout, stderr) = finishAndRead(encoding: encoding)
+		return Consequences(nil as NoValue?, error, stdout, stderr)
+	}
+
+	func consequences<Value>(value: Value? = nil, error: (any Error)? = nil) -> Consequences<Value> {
+		let (stdout, stderr) = finishAndRead(encoding: encoding)
+		return Consequences(value, error, stdout, stderr)
+	}
+
+	private func finishAndRead(encoding: String.Encoding) -> (stdout: String, stderr: String) {
 		fflush(stdout)
 		fflush(stderr)
 		dup2(outDuplicateFD, outOriginalFD)
@@ -88,60 +101,46 @@ func consequencesOf(
 	encoding: String.Encoding = .utf8,
 	_ body: @autoclosure () throws -> Void
 ) -> Consequences<NoValue> {
-	let capture = StdStreamCapture()
-	var thrownError: (any Error)?
+	let capture = StandardStreamCapture(encoding: encoding)
 	do {
-		try body()
+		return capture.consequences(value: try body())
 	} catch {
-		thrownError = error
+		return capture.consequences(error: error)
 	}
-	let (stdout, stderr) = capture.finishAndRead(encoding: encoding)
-	return Consequences(thrownError, stdout, stderr)
 }
 
 func consequencesOf(
 	encoding: String.Encoding = .utf8,
 	_ body: @autoclosure () async throws -> Void
 ) async -> Consequences<NoValue> {
-	let capture = StdStreamCapture()
-	var thrownError: (any Error)?
+	let capture = StandardStreamCapture(encoding: encoding)
 	do {
-		try await body()
+		return capture.consequences(value: try await body())
 	} catch {
-		thrownError = error
+		return capture.consequences(error: error)
 	}
-	let (stdout, stderr) = capture.finishAndRead(encoding: encoding)
-	return Consequences(thrownError, stdout, stderr)
 }
 
 func consequencesOf<Value: Equatable>(
 	encoding: String.Encoding = .utf8,
 	_ body: @autoclosure () throws -> Value?
 ) -> Consequences<Value> {
-	let capture = StdStreamCapture()
-	var value: Value?
-	var thrownError: (any Error)?
+	let capture = StandardStreamCapture(encoding: encoding)
 	do {
-		value = try body()
+		return capture.consequences(value: try body())
 	} catch {
-		thrownError = error
+		return capture.consequences(error: error)
 	}
-	let (stdout, stderr) = capture.finishAndRead(encoding: encoding)
-	return Consequences(value, thrownError, stdout, stderr)
 }
 
 func consequencesOf<Value: Equatable>(
 	encoding: String.Encoding = .utf8,
 	_ body: @autoclosure () async throws -> Value?
 ) async -> Consequences<Value> {
-	let capture = StdStreamCapture()
-	var value: Value?
-	var thrownError: (any Error)?
+	let capture = StandardStreamCapture(encoding: encoding)
 	do {
-		value = try await body()
+		return capture.consequences(value: try await body())
 	} catch {
-		thrownError = error
+		return capture.consequences(error: error)
 	}
-	let (stdout, stderr) = capture.finishAndRead(encoding: encoding)
-	return Consequences(value, thrownError, stdout, stderr)
 }

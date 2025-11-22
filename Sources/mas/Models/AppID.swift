@@ -31,7 +31,7 @@ enum AppID: CustomStringConvertible {
 		self = .adamID(adamID)
 	}
 
-	func adamID(appCatalog: some AppCatalog) async throws -> ADAMID {
+	fileprivate func adamID(appCatalog: some AppCatalog) async throws -> ADAMID {
 		switch self {
 		case let .adamID(adamID):
 			adamID

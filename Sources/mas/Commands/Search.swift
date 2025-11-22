@@ -9,14 +9,14 @@ internal import ArgumentParser
 private import Foundation
 
 extension MAS {
-	/// Searches for apps in the Mac App Store.
+	/// Searches for apps in the App Store.
 	///
 	/// Uses the iTunes Search API:
 	///
 	/// https://performance-partners.apple.com/search-api
 	struct Search: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
-			abstract: "Search for apps in the Mac App Store"
+			abstract: "Search for apps in the App Store"
 		)
 
 		@Flag(help: "Output the price of each app")
@@ -32,11 +32,11 @@ extension MAS {
 			}
 		}
 
-		func run(appCatalog: some AppCatalog) async throws {
+		private func run(appCatalog: some AppCatalog) async throws {
 			try run(catalogApps: try await appCatalog.search(for: searchTermOptionGroup.searchTerm))
 		}
 
-		func run(catalogApps: [CatalogApp]) throws {
+		func run(catalogApps: [CatalogApp]) throws { // swiftformat:disable:this organizeDeclarations
 			guard
 				let maxADAMIDLength = catalogApps.map({ String(describing: $0.adamID).count }).max(),
 				let maxNameLength = catalogApps.map(\.name.count).max()
