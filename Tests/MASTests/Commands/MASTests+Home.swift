@@ -9,7 +9,7 @@ private import ArgumentParser
 @testable private import mas
 internal import Testing
 
-extension MASTests {
+private extension MASTests {
 	@Test
 	func cannotFindAppHomeForUnknownAppID() async {
 		let actual = await consequencesOf(

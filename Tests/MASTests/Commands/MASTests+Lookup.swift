@@ -9,7 +9,7 @@ private import ArgumentParser
 @testable private import mas
 internal import Testing
 
-extension MASTests {
+private extension MASTests {
 	@Test
 	func cannotLookupAppInfoForUnknownAppID() {
 		let actual = consequencesOf(

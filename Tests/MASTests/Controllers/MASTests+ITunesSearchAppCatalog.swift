@@ -8,7 +8,7 @@
 @testable private import mas
 internal import Testing
 
-extension MASTests {
+private extension MASTests {
 	@Test
 	func iTunesSearchesForSlack() async {
 		let actual = await consequencesOf(
