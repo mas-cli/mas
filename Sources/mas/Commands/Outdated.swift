@@ -115,6 +115,26 @@ private extension InstalledApp {
 
 private extension [OutdatedApp] {
 	func printOutdatedMessages() {
-		MAS.printer.info(map { "\($0.adamID) \($0.name) (\($0.version) -> \($1))" }.joined(separator: "\n"))
+		guard
+			let maxADAMIDLength = map({ String(describing: $0.installedApp.adamID).count }).max(),
+			let maxNameLength = map(\.installedApp.name.count).max(),
+			let maxVersionLength = map(\.installedApp.version.count).max()
+		else {
+			return
+		}
+
+		let format = "%\(maxADAMIDLength)lu  %@  (%@ -> %@)"
+		MAS.printer.info(
+			map { installedApp, newVersion in
+				String(
+					format: format,
+					installedApp.adamID,
+					installedApp.name.padding(toLength: maxNameLength, withPad: " ", startingAt: 0),
+					installedApp.version.padding(toLength: maxVersionLength, withPad: " ", startingAt: 0),
+					newVersion
+				)
+			}
+			.joined(separator: "\n")
+		)
 	}
 }
