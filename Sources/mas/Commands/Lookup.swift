@@ -27,11 +27,11 @@ extension MAS {
 			await run(appCatalog: ITunesSearchAppCatalog())
 		}
 
-		func run(appCatalog: some AppCatalog) async {
+		private func run(appCatalog: some AppCatalog) async {
 			run(catalogApps: await requiredAppIDsOptionGroup.appIDs.lookupCatalogApps(from: appCatalog))
 		}
 
-		func run(catalogApps: [CatalogApp]) {
+		func run(catalogApps: [CatalogApp]) { // swiftformat:disable:this organizeDeclarations
 			guard !catalogApps.isEmpty else {
 				return
 			}

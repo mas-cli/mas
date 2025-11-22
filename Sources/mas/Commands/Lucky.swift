@@ -33,7 +33,7 @@ extension MAS {
 			}
 		}
 
-		func run(installedApps: [InstalledApp], appCatalog: some AppCatalog) async throws {
+		private func run(installedApps: [InstalledApp], appCatalog: some AppCatalog) async throws {
 			let searchTerm = searchTermOptionGroup.searchTerm
 			guard let adamID = try await appCatalog.search(for: searchTerm).first?.adamID else {
 				throw MASError.noCatalogAppsFound(for: searchTerm)
@@ -42,7 +42,7 @@ extension MAS {
 			try await run(installedApps: installedApps, adamID: adamID)
 		}
 
-		func run(installedApps: [InstalledApp], adamID: ADAMID) async throws {
+		private func run(installedApps: [InstalledApp], adamID: ADAMID) async throws {
 			try await downloadApp(withADAMID: adamID, forceDownload: forceOptionGroup.force, installedApps: installedApps)
 		}
 	}

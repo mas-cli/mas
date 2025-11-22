@@ -27,11 +27,11 @@ extension MAS {
 			await run(appCatalog: ITunesSearchAppCatalog())
 		}
 
-		func run(appCatalog: some AppCatalog) async {
+		private func run(appCatalog: some AppCatalog) async {
 			await run(catalogApps: await requiredAppIDsOptionGroup.appIDs.lookupCatalogApps(from: appCatalog))
 		}
 
-		func run(catalogApps: [CatalogApp]) async {
+		func run(catalogApps: [CatalogApp]) async { // swiftformat:disable:this organizeDeclarations
 			await run(
 				sellerURLs: catalogApps.compactMap { catalogApp in
 					guard let sellerURL = catalogApp.sellerURL else {
@@ -44,7 +44,7 @@ extension MAS {
 			)
 		}
 
-		func run(sellerURLs: [String]) async {
+		private func run(sellerURLs: [String]) async { // swiftformat:disable:this organizeDeclarations
 			await sellerURLs.forEach(attemptTo: "open") { sellerURL in
 				guard let url = URL(string: sellerURL) else {
 					throw MASError.urlParsing(sellerURL)

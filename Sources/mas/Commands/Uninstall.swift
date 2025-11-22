@@ -32,7 +32,7 @@ extension MAS {
 			}
 		}
 
-		func run(installedApps: [InstalledApp]) throws {
+		private func run(installedApps: [InstalledApp]) throws {
 			guard NSUserName() == "root" else {
 				throw MASError.runtimeError("Apps installed from the App Store require root permission to uninstall")
 			}

@@ -27,11 +27,11 @@ extension MAS {
 			}
 		}
 
-		func run(installedApps: [InstalledApp], appCatalog: some AppCatalog) async {
+		private func run(installedApps: [InstalledApp], appCatalog: some AppCatalog) async {
 			await run(installedApps: installedApps, adamIDs: await requiredAppIDsOptionGroup.appIDs.adamIDs(from: appCatalog))
 		}
 
-		func run(installedApps: [InstalledApp], adamIDs: [ADAMID]) async {
+		private func run(installedApps: [InstalledApp], adamIDs: [ADAMID]) async {
 			await adamIDs.forEach(attemptTo: "install app for ADAM ID") { adamID in
 				try await downloadApp(withADAMID: adamID, forceDownload: forceOptionGroup.force, installedApps: installedApps)
 			}
