@@ -38,8 +38,14 @@ extension Array {
 	private func compactMap<T, E: Error>(
 		handlingErrors errorHandler: (Element, E) async -> Void,
 		_ transform: (Element) async throws(E) -> T?
-	) async -> [T] { // swiftformat:disable:next semicolons
-		await compactMap(handlingErrors: { await errorHandler($0, $1); return nil }, transform)
+	) async -> [T] {
+		await compactMap(
+			handlingErrors: { element, error in
+				await errorHandler(element, error)
+				return nil
+			},
+			transform
+		)
 	}
 
 	private func compactMap<T, E: Error>(

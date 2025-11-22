@@ -33,55 +33,28 @@ func downloadApp(
 func downloadApp(
 	withADAMID adamID: ADAMID,
 	getting: Bool = false,
-	shouldCancel: @Sendable @escaping (SSDownload, Bool) -> Bool = { _, _ in false },
-	withAttemptCount attemptCount: UInt32 = 3
+	shouldCancel: @Sendable @escaping (SSDownload, Bool) -> Bool = { _, _ in false }
 ) async throws {
-	do {
-		let purchase = await SSPurchase(adamID: adamID, getting: getting)
-		try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-			CKPurchaseController.shared().perform(purchase, withOptions: 0) { _, _, error, response in
-				if let error {
-					continuation.resume(throwing: error)
-					return
-				}
-				guard response?.downloads?.isEmpty == false else {
-					continuation.resume(throwing: MASError.runtimeError("No downloads began"))
-					return
-				}
+	let purchase = await SSPurchase(adamID: adamID, getting: getting)
+	try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+		CKPurchaseController.shared().perform(purchase, withOptions: 0) { _, _, error, response in
+			if let error {
+				continuation.resume(throwing: error)
+				return
+			}
+			guard response?.downloads?.isEmpty == false else {
+				continuation.resume(throwing: MASError.runtimeError("No downloads began"))
+				return
+			}
 
-				Task {
-					do {
-						try await DownloadQueueObserver(adamID: adamID, shouldCancel: shouldCancel).observeDownloadQueue()
-						continuation.resume()
-					} catch {
-						continuation.resume(throwing: error)
-					}
+			Task {
+				do {
+					try await DownloadQueueObserver(adamID: adamID, shouldCancel: shouldCancel).observeDownloadQueue()
+					continuation.resume()
+				} catch {
+					continuation.resume(throwing: error)
 				}
 			}
 		}
-	} catch {
-		guard attemptCount > 1 else {
-			throw error
-		}
-
-		// If the download failed due to network issues, try again. Otherwise, fail
-		// immediately
-		guard (error as NSError).domain == NSURLErrorDomain else {
-			throw error
-		}
-
-		let attemptCount = attemptCount - 1
-		MAS.printer.warning(
-			"Network error,",
-			attemptCount,
-			attemptCount == 1 ? "attempt remaining:" : "attempts remaining:",
-			error: error
-		)
-		try await downloadApp(
-			withADAMID: adamID,
-			getting: getting,
-			shouldCancel: shouldCancel,
-			withAttemptCount: attemptCount
-		)
 	}
 }
