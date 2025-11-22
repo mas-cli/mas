@@ -11,6 +11,7 @@ internal import ArgumentParser
 struct MAS: AsyncParsableCommand, Sendable {
 	static let configuration = CommandConfiguration(
 		abstract: "Mac App Store command-line interface",
+		version: Self.version,
 		subcommands: [
 			Account.self,
 			Config.self,
