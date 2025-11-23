@@ -46,7 +46,7 @@ extension MAS {
 					)
 				}
 			} catch {
-				MAS.printer.error(error: error)
+				printer.error(error: error)
 			}
 		}
 

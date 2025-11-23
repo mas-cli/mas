@@ -29,7 +29,7 @@ func reset(effectiveGID gid: gid_t) {
 
 func requireWheelGroup(withErrorMessageSuffix errorMessageSuffix: String? = nil) throws {
 	guard getgid() == 0 else {
-		throw MASError.runtimeError("The effective group must be wheel\(errorMessageSuffix.map { " \($0)" } ?? "").")
+		throw MASError.runtimeError("The group must be wheel\(errorMessageSuffix.map { " \($0)" } ?? "").")
 	}
 }
 
