@@ -92,16 +92,24 @@ private func uninstallApps(atPaths appPathSequence: some Sequence<String>) throw
 			MAS.printer.error("Failed to get gid of", appPath)
 			continue
 		}
-		guard try run(asEffectiveUID: 0, andEffectiveGID: 0, { chown(appPath, uid, gid) == 0 }) else {
-			MAS.printer.error("Failed to change ownership of", appPath.quoted, "to uid", uid, "& gid", gid)
+
+		do {
+			try run(asEffectiveUID: 0, andEffectiveGID: 0) {
+				try fileManager.setAttributes([.ownerAccountID: uid, .groupOwnerAccountID: gid], ofItemAtPath: appPath)
+			}
+		} catch {
+			MAS.printer.error("Failed to change ownership of", appPath.quoted, "to uid", uid, "& gid", gid, error: error)
 			continue
 		}
 
 		var chownPath = appPath
 		defer {
 			do {
-				if try run(asEffectiveUID: 0, andEffectiveGID: 0, { chown(chownPath, appUID, appGID) != 0 }) {
-					throw MASError.runtimeError("")
+				try run(asEffectiveUID: 0, andEffectiveGID: 0) {
+					try fileManager.setAttributes(
+						[.ownerAccountID: appUID, .groupOwnerAccountID: appGID],
+						ofItemAtPath: chownPath
+					)
 				}
 			} catch {
 				MAS.printer.warning(

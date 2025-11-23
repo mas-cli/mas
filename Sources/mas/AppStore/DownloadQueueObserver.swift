@@ -321,6 +321,7 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 			try run(asEffectiveUID: 0, andEffectiveGID: 0) {
 				try fileManager.createDirectory(at: receiptURL.deletingLastPathComponent(), withIntermediateDirectories: true)
 				try fileManager.copyItem(at: receiptHardLinkURL, to: receiptURL)
+				try fileManager.setAttributes([.ownerAccountID: 0, .groupOwnerAccountID: 0], ofItemAtPath: receiptURL.path)
 			}
 		} catch {
 			throw MASError.runtimeError(
