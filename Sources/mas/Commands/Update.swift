@@ -6,6 +6,7 @@
 //
 
 internal import ArgumentParser
+private import Foundation
 private import StoreFoundation
 
 extension MAS {
@@ -13,6 +14,7 @@ extension MAS {
 	struct Update: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
 			abstract: "Update outdated apps installed from the App Store",
+			discussion: requiresRootPrivilegesMessage,
 			aliases: ["upgrade"]
 		)
 
@@ -24,18 +26,28 @@ extension MAS {
 		private var optionalAppIDsOptionGroup: OptionalAppIDsOptionGroup
 
 		func run() async {
-			await accurateOptionGroup.run(
-				accurate: { shouldIgnoreUnknownApps in
-					await accurate(
-						installedApps: try await nonTestFlightInstalledApps,
-						appCatalog: ITunesSearchAppCatalog(),
-						shouldIgnoreUnknownApps: shouldIgnoreUnknownApps
+			do {
+				try requireRootUserAndWheelGroup(withErrorMessageSuffix: "to update apps")
+				try await ProcessInfo.processInfo.runAsSudoEffectiveUserAndSudoEffectiveGroup {
+					await accurateOptionGroup.run(
+						accurate: { shouldIgnoreUnknownApps in
+							await accurate(
+								installedApps: try await nonTestFlightInstalledApps,
+								appCatalog: ITunesSearchAppCatalog(),
+								shouldIgnoreUnknownApps: shouldIgnoreUnknownApps
+							)
+						},
+						inaccurate: {
+							await inaccurate(
+								installedApps: try await nonTestFlightInstalledApps,
+								appCatalog: ITunesSearchAppCatalog()
+							)
+						}
 					)
-				},
-				inaccurate: {
-					await inaccurate(installedApps: try await nonTestFlightInstalledApps, appCatalog: ITunesSearchAppCatalog())
 				}
-			)
+			} catch {
+				MAS.printer.error(error: error)
+			}
 		}
 
 		private func accurate(

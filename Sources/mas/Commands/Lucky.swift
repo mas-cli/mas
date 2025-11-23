@@ -6,6 +6,7 @@
 //
 
 internal import ArgumentParser
+private import Foundation
 
 extension MAS {
 	/// Installs the first app returned from searching the App Store (app must
@@ -17,7 +18,7 @@ extension MAS {
 	struct Lucky: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
 			abstract: "Install the first app returned from searching the App Store",
-			discussion: "App will install only if it has already been gotten"
+			discussion: "App will install only if it has already been gotten\n\(requiresRootPrivilegesMessage)"
 		)
 
 		@OptionGroup
@@ -43,7 +44,10 @@ extension MAS {
 		}
 
 		private func run(installedApps: [InstalledApp], adamID: ADAMID) async throws {
-			try await downloadApp(withADAMID: adamID, forceDownload: forceOptionGroup.force, installedApps: installedApps)
+			try requireRootUserAndWheelGroup(withErrorMessageSuffix: "to install apps")
+			try await ProcessInfo.processInfo.runAsSudoEffectiveUserAndSudoEffectiveGroup {
+				try await downloadApp(withADAMID: adamID, forceDownload: forceOptionGroup.force, installedApps: installedApps)
+			}
 		}
 	}
 }

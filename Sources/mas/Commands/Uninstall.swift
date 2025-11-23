@@ -15,7 +15,8 @@ extension MAS {
 	/// Uninstalls apps installed from the App Store.
 	struct Uninstall: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
-			abstract: "Uninstall apps installed from the App Store"
+			abstract: "Uninstall apps installed from the App Store",
+			discussion: requiresRootPrivilegesMessage
 		)
 
 		/// Flag indicating that removal shouldn't be performed.
@@ -33,23 +34,22 @@ extension MAS {
 		}
 
 		private func run(installedApps: [InstalledApp]) throws {
-			guard NSUserName() == "root" else {
-				throw MASError.runtimeError("Apps installed from the App Store require root permission to uninstall")
-			}
-
-			let uninstallingAppPathOrderedSet = uninstallingAppPathOrderedSet(from: installedApps)
-			guard !uninstallingAppPathOrderedSet.isEmpty else {
-				return
-			}
-			guard !dryRun else {
-				printer.notice("Dry run. A wet run would uninstall:\n")
-				for uninstallingAppPath in uninstallingAppPathOrderedSet {
-					printer.info(uninstallingAppPath)
+			try requireRootUserAndWheelGroup(withErrorMessageSuffix: "to uninstall apps")
+			try ProcessInfo.processInfo.runAsSudoEffectiveUserAndSudoEffectiveGroup {
+				let uninstallingAppPathOrderedSet = uninstallingAppPathOrderedSet(from: installedApps)
+				guard !uninstallingAppPathOrderedSet.isEmpty else {
+					return
 				}
-				return
-			}
+				guard !dryRun else {
+					printer.notice("Dry run. A wet run would uninstall:\n")
+					for uninstallingAppPath in uninstallingAppPathOrderedSet {
+						printer.info(uninstallingAppPath)
+					}
+					return
+				}
 
-			try uninstallApps(atPaths: uninstallingAppPathOrderedSet)
+				try uninstallApps(atPaths: uninstallingAppPathOrderedSet)
+			}
 		}
 
 		private func uninstallingAppPathOrderedSet(from installedApps: [InstalledApp]) -> OrderedSet<String> {
@@ -72,12 +72,8 @@ extension MAS {
 /// - Throws: An `Error` if any problem occurs.
 private func uninstallApps(atPaths appPathSequence: some Sequence<String>) throws {
 	let processInfo = ProcessInfo.processInfo
-	guard let uid = processInfo.sudoUID else {
-		throw MASError.runtimeError("Failed to get sudo uid")
-	}
-	guard let gid = processInfo.sudoGID else {
-		throw MASError.runtimeError("Failed to get sudo gid")
-	}
+	let uid = try processInfo.sudoUID
+	let gid = try processInfo.sudoGID
 	guard let finder = SBApplication(bundleIdentifier: "com.apple.finder") as (any FinderApplication)? else {
 		throw MASError.runtimeError("Failed to obtain Finder access: bundle com.apple.finder does not exist")
 	}
@@ -96,15 +92,27 @@ private func uninstallApps(atPaths appPathSequence: some Sequence<String>) throw
 			MAS.printer.error("Failed to get gid of", appPath)
 			continue
 		}
-		guard chown(appPath, uid, gid) == 0 else {
+		guard try run(asEffectiveUID: 0, andEffectiveGID: 0, { chown(appPath, uid, gid) == 0 }) else {
 			MAS.printer.error("Failed to change ownership of", appPath.quoted, "to uid", uid, "& gid", gid)
 			continue
 		}
 
 		var chownPath = appPath
 		defer {
-			if chown(chownPath, appUID, appGID) != 0 {
-				MAS.printer.warning("Failed to revert ownership of", chownPath.quoted, "back to uid", appUID, "& gid", appGID)
+			do {
+				if try run(asEffectiveUID: 0, andEffectiveGID: 0, { chown(chownPath, appUID, appGID) != 0 }) {
+					throw MASError.runtimeError("")
+				}
+			} catch {
+				MAS.printer.warning(
+					"Failed to revert ownership of",
+					chownPath.quoted,
+					"back to uid",
+					appUID,
+					"& gid",
+					appGID,
+					error: error
+				)
 			}
 		}
 
