@@ -66,9 +66,9 @@ extension MAS {
 	}
 }
 
-/// Uninstalls all apps located at any of the elements of `appPaths`.
+/// Uninstalls all apps located at any of the elements of `appPathSequence`.
 ///
-/// - Parameter: appPaths: Paths to apps to be uninstalled.
+/// - Parameter: appPathSequence: Paths to apps to be uninstalled.
 /// - Throws: An `Error` if any problem occurs.
 private func uninstallApps(atPaths appPathSequence: some Sequence<String>) throws {
 	let processInfo = ProcessInfo.processInfo

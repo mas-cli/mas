@@ -1,6 +1,6 @@
 # All Files
 
-- Before committing run `Scripts/lint` to detect linting violations
+- Before committing, run `Scripts/lint` to detect linting violations
 - Run `Scripts/format` to automatically fix many linting violations
 - Remove unnecessary trailing whitespace
   - Note that 2 trailing spaces is valid Markdown to create a line break like

@@ -103,14 +103,14 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 			switch currPhaseType {
 			case .downloading:
 				if prevPhaseType == .initial {
-					MAS.printer.progress(phase: currPhaseType, for: metadata.appNameAndVersion)
+					MAS.printer.progress(phaseType: currPhaseType, for: metadata.appNameAndVersion)
 				}
 			case .downloaded:
 				if prevPhaseType == .downloading {
-					MAS.printer.progress(phase: currPhaseType, for: metadata.appNameAndVersion)
+					MAS.printer.progress(phaseType: currPhaseType, for: metadata.appNameAndVersion)
 				}
 			case .installing:
-				MAS.printer.progress(phase: currPhaseType, for: metadata.appNameAndVersion)
+				MAS.printer.progress(phaseType: currPhaseType, for: metadata.appNameAndVersion)
 			default:
 				break
 			}
@@ -390,9 +390,9 @@ private extension PhaseType? {
 }
 
 private extension Printer {
-	func progress(phase: PhaseType?, for appNameAndVersion: String) {
+	func progress(phaseType: PhaseType?, for appNameAndVersion: String) {
 		clearCurrentLine(of: .standardOutput)
-		notice(phase.description, appNameAndVersion)
+		notice(phaseType.description, appNameAndVersion)
 	}
 }
 
