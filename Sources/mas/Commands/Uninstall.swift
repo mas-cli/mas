@@ -55,9 +55,12 @@ extension MAS {
 		private func uninstallingAppPathOrderedSet(from installedApps: [InstalledApp]) -> OrderedSet<String> {
 			requiredAppIDsOptionGroup.appIDs.reduce(into: OrderedSet<String>()) { uninstallingAppPathSet, appID in
 				let installedAppPaths = installedApps.filter { $0.matches(appID) }.map(\.path)
-				installedAppPaths.isEmpty
-				? printer.error(appID.notInstalledMessage) // swiftformat:disable:this indent
-				: uninstallingAppPathSet.formUnion(installedAppPaths)
+				guard !installedAppPaths.isEmpty else {
+					printer.error(appID.notInstalledMessage)
+					return
+				}
+
+				uninstallingAppPathSet.formUnion(installedAppPaths)
 			}
 		}
 	}

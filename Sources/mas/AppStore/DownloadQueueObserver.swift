@@ -44,40 +44,37 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 			return
 		}
 
-		let appNameAndVersion = metadata.appNameAndVersion
-		let currPhaseType = status.activePhase?.phaseType
+		let currPhaseType = status.activePhaseType
 		if prevPhaseType != currPhaseType {
 			switch currPhaseType {
-			case downloadingPhaseType:
-				if prevPhaseType == initialPhaseType {
-					MAS.printer.progress(status: status, for: appNameAndVersion)
+			case .downloading:
+				if prevPhaseType == .initial {
+					MAS.printer.progress(phase: currPhaseType, for: metadata.appNameAndVersion)
 				}
-			case downloadedPhaseType:
-				if prevPhaseType == downloadingPhaseType {
-					MAS.printer.progress(status: status, for: appNameAndVersion)
+			case .downloaded:
+				if prevPhaseType == .downloading {
+					MAS.printer.progress(phase: currPhaseType, for: metadata.appNameAndVersion)
 				}
-			case installingPhaseType:
-				MAS.printer.progress(status: status, for: appNameAndVersion)
+			case .installing:
+				MAS.printer.progress(phase: currPhaseType, for: metadata.appNameAndVersion)
 			default:
 				break
 			}
 		}
 
-		if isatty(FileHandle.standardOutput.fileDescriptor) != 0 {
-			// Only output the progress bar if connected to a terminal
-			let percentComplete = min(
-				status.percentComplete / (currPhaseType == downloadingPhaseType ? 0.8 : 0.2),
-				1.0
-			)
+		let percentComplete = status.phasePercentComplete
+		if isatty(FileHandle.standardOutput.fileDescriptor) != 0, percentComplete != 0 || currPhaseType != .initial {
+			// Output the progress bar iff connected to a terminal
 			let totalLength = 60
 			let completedLength = Int(percentComplete * Float(totalLength))
-			MAS.printer.ephemeral(
+			MAS.printer.clearCurrentLine(of: .standardOutput)
+			MAS.printer.info(
 				String(repeating: "#", count: completedLength),
 				String(repeating: "-", count: totalLength - completedLength),
 				" ",
 				String(format: "%.0f%%", floor(percentComplete * 100).rounded()),
 				" ",
-				status.activePhaseDescription,
+				status.activePhaseType.description,
 				separator: "",
 				terminator: ""
 			)
@@ -99,19 +96,29 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 			return
 		}
 
-		MAS.printer.terminateEphemeral()
+		MAS.printer.clearCurrentLine(of: .standardOutput)
 
-		guard !status.isFailed else {
-			errorHandler?(status.error ?? MASError.runtimeError("Failed to download \(metadata.appNameAndVersion)"))
-			return
-		}
-		guard !status.isCancelled else {
-			shouldCancel(download, false) ? completionHandler?() : errorHandler?(MASError.runtimeError("Download cancelled"))
-			return
-		}
+		do {
+			if let error = status.error {
+				throw error
+			}
+			guard !status.isFailed else {
+				throw MASError.runtimeError("Failed to download \(metadata.appNameAndVersion)")
+			}
+			guard !status.isCancelled else {
+				guard shouldCancel(download, false) else {
+					throw MASError.runtimeError("Download cancelled")
+				}
 
-		MAS.printer.notice("Installed", metadata.appNameAndVersion)
-		completionHandler?()
+				completionHandler?()
+				return
+			}
+
+			MAS.printer.notice("Installed", metadata.appNameAndVersion)
+			completionHandler?()
+		} catch {
+			errorHandler?(error)
+		}
 	}
 
 	func observeDownloadQueue(_ queue: CKDownloadQueue = .shared()) async throws {
@@ -135,12 +142,38 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 	}
 }
 
-private typealias PhaseType = Int64
+private enum PhaseType: Int64 { // swiftlint:disable sorted_enum_cases
+	case initial = 4 // swiftlint:disable:previous one_declaration_per_file
+	case downloading = 0
+	case downloaded = 5
+	case installing = 1 // swiftlint:enable sorted_enum_cases
+}
+
+extension PhaseType: CustomStringConvertible {
+	var description: String {
+		switch self {
+		case .downloading:
+			"Downloading"
+		case .downloaded:
+			"Downloaded"
+		case .installing:
+			"Installing"
+		default:
+			"Waiting"
+		}
+	}
+}
+
+private extension PhaseType? {
+	var description: String {
+		map(\.description) ?? "Processing"
+	}
+}
 
 private extension Printer {
-	func progress(status: SSDownloadStatus, for appNameAndVersion: String) {
-		terminateEphemeral()
-		notice(status.activePhaseDescription, appNameAndVersion)
+	func progress(phase: PhaseType?, for appNameAndVersion: String) {
+		clearCurrentLine(of: .standardOutput)
+		notice(phase.description, appNameAndVersion)
 	}
 }
 
@@ -151,23 +184,7 @@ private extension SSDownloadMetadata {
 }
 
 private extension SSDownloadStatus {
-	var activePhaseDescription: String {
-		switch activePhase?.phaseType {
-		case downloadedPhaseType:
-			"Downloaded"
-		case downloadingPhaseType:
-			"Downloading"
-		case installingPhaseType:
-			"Installing"
-		case nil:
-			"Processing"
-		default:
-			"Waiting"
-		}
+	var activePhaseType: PhaseType? {
+		activePhase.flatMap { PhaseType(rawValue: $0.phaseType) }
 	}
 }
-
-private let downloadingPhaseType = 0 as PhaseType
-private let installingPhaseType = 1 as PhaseType
-private let initialPhaseType = 4 as PhaseType
-private let downloadedPhaseType = 5 as PhaseType

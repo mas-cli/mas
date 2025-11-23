@@ -28,18 +28,6 @@ struct Printer {
 		print(items.map(String.init(describing:)), separator: separator, terminator: terminator, to: .standardOutput)
 	}
 
-	/// Clears current line from `stdout`, then prints to `stdout`, then flushes
-	/// `stdout`.
-	func ephemeral(_ items: Any..., separator: String = " ", terminator: String = "\n") {
-		clearCurrentLine(of: .standardOutput)
-		print(items.map(String.init(describing:)), separator: separator, terminator: terminator, to: .standardOutput)
-	}
-
-	/// Clears current line of `stdout`.
-	func terminateEphemeral() {
-		clearCurrentLine(of: .standardOutput)
-	}
-
 	/// Prints to `stdout`, prefixed with "==> "; if connected to a terminal, the
 	/// prefix is blue.
 	func notice(_ items: Any..., separator: String = " ", terminator: String = "\n") {
@@ -73,6 +61,12 @@ struct Printer {
 		)
 	}
 
+	func clearCurrentLine(of fileHandle: FileHandle) {
+		if isatty(fileHandle.fileDescriptor) != 0 {
+			fileHandle.write(Data("\(csi)2K\(csi)0G".utf8))
+		}
+	}
+
 	private func errorTerminator(_ items: Any..., error: (any Error)?, terminator: String) -> String {
 		error.map { error in
 			let errorDescription = String(describing: error)
@@ -101,12 +95,6 @@ struct Printer {
 			terminator: terminator,
 			to: fileHandle
 		)
-	}
-
-	private func clearCurrentLine(of fileHandle: FileHandle) {
-		if isatty(fileHandle.fileDescriptor) != 0 {
-			fileHandle.write(Data("\(csi)2K\(csi)0G".utf8))
-		}
 	}
 }
 
