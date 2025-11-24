@@ -75,7 +75,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		self.action = action
 		self.adamID = adamID
 		self.shouldCancel = shouldCancel
-		downloadFolderURL = URL(fileURLWithPath: "\(CKDownloadDirectory(nil))/\(adamID)", isDirectory: true)
+		downloadFolderURL = URL(filePath: "\(CKDownloadDirectory(nil))/\(adamID)", directoryHint: .isDirectory)
 	}
 
 	deinit {
@@ -321,7 +321,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		}
 
 		let process = Process()
-		process.executableURL = URL(fileURLWithPath: "/usr/bin/mdimport", isDirectory: false)
+		process.executableURL = URL(filePath: "/usr/bin/mdimport", directoryHint: .notDirectory)
 		process.arguments = [appFolderURL.path]
 		let standardOutputPipe = Pipe()
 		process.standardOutput = standardOutputPipe
@@ -364,7 +364,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		}
 
 		let process = Process()
-		process.executableURL = URL(fileURLWithPath: "/usr/sbin/installer", isDirectory: false)
+		process.executableURL = URL(filePath: "/usr/sbin/installer", directoryHint: .notDirectory)
 		process.arguments = ["-dumplog", "-pkg", pkgHardLinkPath, "-target", "/"]
 		let standardOutputPipe = Pipe()
 		process.standardOutput = standardOutputPipe
