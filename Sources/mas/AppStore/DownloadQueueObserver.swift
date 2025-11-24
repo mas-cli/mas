@@ -87,7 +87,7 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 					existing: pkgHardLinkURL // swiftformat:enable indent
 				)
 			} catch {
-				MAS.printer.error(error: error)
+				MAS.printer.warning("Failed to link pkg for", metadata.appNameAndVersion, error: error)
 			}
 
 			receiptHardLinkURL = try hardLinkURL(
@@ -95,7 +95,7 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 				existing: receiptHardLinkURL
 			)
 		} catch {
-			MAS.printer.error(error: error)
+			MAS.printer.warning("Failed to link receipt for", metadata.appNameAndVersion, error: error)
 		}
 
 		let currPhaseType = status.activePhaseType
@@ -163,14 +163,14 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 					throw error
 				}
 
-				try manuallyInstall()
+				try manuallyInstall(appNameAndVersion: metadata.appNameAndVersion)
 			} else {
 				guard !status.isFailed else {
 					throw MASError.runtimeError("Failed to download \(metadata.appNameAndVersion)")
 				}
 				guard !status.isCancelled else {
 					guard shouldCancel(download, false) else {
-						throw MASError.runtimeError("Download cancelled")
+						throw MASError.runtimeError("Download cancelled for \(metadata.appNameAndVersion)")
 					}
 
 					completionHandler?()
@@ -206,7 +206,7 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 	}
 
 	private func hardLinkURL(to url: URL?, existing existingHardLinkURL: URL?) throws -> URL? {
-		guard let url, !url.linksToSameInode(as: existingHardLinkURL) else {
+		guard let url, !(try url.linksToSameInode(as: existingHardLinkURL)) else {
 			return existingHardLinkURL
 		}
 
@@ -222,20 +222,20 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 		return hardLinkURL
 	}
 
-	private func manuallyInstall() throws {
+	private func manuallyInstall(appNameAndVersion: String) throws {
 		guard pkgHardLinkURL != nil else {
-			throw MASError.runtimeError("Failed to find pkg to install")
+			throw MASError.runtimeError("Failed to find pkg to install for \(appNameAndVersion)")
 		}
 		guard receiptHardLinkURL != nil else {
-			throw MASError.runtimeError("Failed to find receipt to import")
+			throw MASError.runtimeError("Failed to find receipt to import for \(appNameAndVersion)")
 		}
 
-		try spotlightImport(try install())
+		try spotlightImport(appNameAndVersion: appNameAndVersion, from: try install(appNameAndVersion: appNameAndVersion))
 	}
 
-	private func install() throws -> URL {
+	private func install(appNameAndVersion: String) throws -> URL {
 		guard let pkgHardLinkPath = pkgHardLinkURL?.path else {
-			throw MASError.runtimeError("Failed to find pkg to install")
+			throw MASError.runtimeError("Failed to find pkg to install for \(appNameAndVersion)")
 		}
 
 		let process = Process()
@@ -248,7 +248,7 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 		do {
 			try run(asEffectiveUID: 0, andEffectiveGID: 0) { try process.run() }
 		} catch {
-			throw MASError.runtimeError("Failed to install \(pkgHardLinkPath)", error: error)
+			throw MASError.runtimeError("Failed to install \(appNameAndVersion) from \(pkgHardLinkPath)", error: error)
 		}
 		process.waitUntilExit()
 		let standardOutputText =
@@ -258,7 +258,7 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 		guard process.terminationStatus == 0 else {
 			throw MASError.runtimeError(
 				"""
-				Failed to install \(pkgHardLinkPath)
+				Failed to install \(appNameAndVersion) from \(pkgHardLinkPath)
 				Exit status: \(process.terminationStatus)\(
 					standardOutputText.trimmingCharacters(in: .whitespacesAndNewlines).prependIfNotEmpty("\n\nStandard output:\n")
 				)\(standardErrorText.trimmingCharacters(in: .whitespacesAndNewlines).prependIfNotEmpty("\n\nStandard error:\n"))
@@ -268,51 +268,45 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 
 		let appFolderURLResults =
 			appFolderURLRegex.matches(in: standardErrorText, range: NSRange(location: 0, length: standardErrorText.count))
-		guard let appFolderURLResult = appFolderURLResults.first else {
+		guard
+			let appFolderURLResult = appFolderURLResults.first,
+			let appFolderURLNSRange = appFolderURLResult.range(at: 1) as NSRange?,
+			appFolderURLNSRange.location != NSNotFound,
+			let appFolderURLRange = Range(appFolderURLNSRange, in: standardErrorText)
+		else {
 			throw MASError.runtimeError(
-				"Failed to find app folder URL in installer output",
-				error: MASError.runtimeError(standardErrorText)
-			)
-		}
-
-		let appFolderURLNSRange = appFolderURLResult.range(at: 1)
-		guard appFolderURLNSRange.location != NSNotFound else {
-			throw MASError.runtimeError(
-				"Failed to find app folder URL in installer output",
-				error: MASError.runtimeError(standardErrorText)
-			)
-		}
-		guard let appFolderURLRange = Range(appFolderURLNSRange, in: standardErrorText) else {
-			throw MASError.runtimeError(
-				"Failed to find app folder URL in installer output",
-				error: MASError.runtimeError(standardErrorText)
+				"Failed to find app folder URL in installer output for \(appNameAndVersion)",
+				error: standardErrorText
 			)
 		}
 
 		let appFolderURLString = String(standardErrorText[appFolderURLRange])
 		if appFolderURLResults.count > 1 {
 			MAS.printer.warning(
-				"Found multiple app folder URLs in installer output, using the first:",
+				"Found multiple app folder URLs in installer output for ",
+				appNameAndVersion,
+				", using the first: ",
 				appFolderURLString,
-				error: MASError.runtimeError(standardErrorText)
+				error: MASError.runtimeError(standardErrorText),
+				separator: ""
 			)
 		}
 		guard let appFolderURL = URL(string: appFolderURLString) else {
 			throw MASError.runtimeError(
-				"Failed to parse app folder URL from \(appFolderURLString)",
-				error: MASError.runtimeError(standardErrorText)
+				"Failed to parse app folder URL for \(appNameAndVersion) from \(appFolderURLString)",
+				error: standardErrorText
 			)
 		}
 
 		return appFolderURL
 	}
 
-	private func spotlightImport(_ appFolderURL: URL) throws {
+	private func spotlightImport(appNameAndVersion: String, from appFolderURL: URL) throws {
 		guard let receiptHardLinkURL else {
-			throw MASError.runtimeError("Failed to find receipt to import")
+			throw MASError.runtimeError("Failed to find receipt to import for \(appNameAndVersion)")
 		}
 		guard let pkgHardLinkPath = pkgHardLinkURL?.path else {
-			throw MASError.runtimeError("Failed to find pkg to install")
+			throw MASError.runtimeError("Failed to find pkg to install for \(appNameAndVersion)")
 		}
 
 		let receiptURL = appFolderURL.appendingPathComponent("Contents/_MASReceipt/receipt")
@@ -325,7 +319,10 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 			}
 		} catch {
 			throw MASError.runtimeError(
-				"Failed to copy receipt from \(receiptHardLinkURL.path.quoted) to \(receiptURL.path.quoted)",
+				"""
+				Failed to copy receipt for \(appNameAndVersion) from \(receiptHardLinkURL.path.quoted) to\
+				 \(receiptURL.path.quoted)
+				""",
 				error: error
 			)
 		}
@@ -340,13 +337,13 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 		do {
 			try process.run()
 		} catch {
-			throw MASError.runtimeError("Failed to install \(pkgHardLinkPath)", error: error)
+			throw MASError.runtimeError("Failed to install \(appNameAndVersion) from \(pkgHardLinkPath)", error: error)
 		}
 		process.waitUntilExit()
 		guard process.terminationStatus == 0 else {
 			throw MASError.runtimeError(
 				"""
-				Failed to install \(pkgHardLinkPath)
+				Failed to install \(appNameAndVersion) from \(pkgHardLinkPath)
 				Exit status: \(process.terminationStatus)\(
 					String(data: standardOutputPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8)?
 					.trimmingCharacters(in: .whitespacesAndNewlines) // swiftformat:disable indent
@@ -415,30 +412,20 @@ private extension String {
 }
 
 private extension URL {
-	func linksToSameInode(as url: URL?) -> Bool {
+	func linksToSameInode(as url: URL?) throws -> Bool {
 		guard let url, url.isFileURL, isFileURL else {
 			return false
 		}
-
-		do {
-			guard
-				let fileResourceID1 = try resourceValues(forKeys: [.fileResourceIdentifierKey]).fileResourceIdentifier
-			else {
-				MAS.printer.warning("Failed to get file resource identifier for", path)
-				return false
-			}
-			guard
-				let fileResourceID2 = try url.resourceValues(forKeys: [.fileResourceIdentifierKey]).fileResourceIdentifier
-			else {
-				MAS.printer.warning("Failed to get file resource identifier for", url.path)
-				return false
-			}
-
-			return fileResourceID1.isEqual(fileResourceID2)
-		} catch {
-			MAS.printer.warning("Failed to get resource values", error: error)
-			return false
+		guard let fileResourceID1 = try resourceValues(forKeys: [.fileResourceIdentifierKey]).fileResourceIdentifier else {
+			throw MASError.runtimeError("Failed to get file resource identifier for \(path)")
 		}
+		guard
+			let fileResourceID2 = try url.resourceValues(forKeys: [.fileResourceIdentifierKey]).fileResourceIdentifier
+		else {
+			throw MASError.runtimeError("Failed to get file resource identifier for \(url.path)")
+		}
+
+		return fileResourceID1.isEqual(fileResourceID2)
 	}
 }
 
