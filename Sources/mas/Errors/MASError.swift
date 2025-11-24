@@ -13,6 +13,10 @@ enum MASError: Error {
 	case runtimeError(String, error: (any Error)? = nil)
 	case unknownAppID(AppID)
 	case urlParsing(String)
+
+	static func runtimeError(_ message: String, error: String) -> Self {
+		runtimeError(message, error: runtimeError(error))
+	}
 }
 
 extension MASError: CustomStringConvertible {
