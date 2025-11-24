@@ -19,6 +19,6 @@ if [[ "${branch}" = HEAD ]]; then
 fi
 
 printf $'%s%s%s\n'\
- "${branch:+"${branch}-"}"\
  "${"$(git describe --tags 2>/dev/null)"#v}"\
+ "${branch:+"-${branch}"}"\
  "${"$(git diff-index HEAD --;git ls-files --exclude-standard --others)":+"${MAS_DIRTY_INDICATOR-+}"}"
