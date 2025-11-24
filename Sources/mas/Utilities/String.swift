@@ -5,11 +5,9 @@
 // Copyright © 2025 mas-cli. All rights reserved.
 //
 
-private import Foundation
-
 extension String {
 	var quoted: String {
-		"'\(replacingOccurrences(of: "'", with: "\\'"))'"
+		"'\(replacing("'", with: "\\'"))'"
 	}
 
 	func removingSuffix(_ suffix: Self) -> Self {

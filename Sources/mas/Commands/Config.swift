@@ -30,7 +30,10 @@ extension MAS {
 				store ▁▁ \(appStoreRegion)
 				region ▁ \(macRegion)
 				macos ▁▁ \(
-					ProcessInfo.processInfo.operatingSystemVersionString.dropFirst(8).replacingOccurrences(of: "Build ", with: "")
+					ProcessInfo.processInfo
+					.operatingSystemVersionString // swiftformat:disable:this indent
+					.dropFirst(8) // swiftformat:disable:this indent
+					.replacing("Build ", with: "", maxReplacements: 1) // swiftformat:disable:this indent
 				)
 				mac ▁▁▁▁ \(configStringValue("hw.product"))
 				cpu ▁▁▁▁ \(configStringValue("machdep.cpu.brand_string"))
