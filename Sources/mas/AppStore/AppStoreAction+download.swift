@@ -191,7 +191,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		} catch {
 			MAS.printer.warning(
 				"Failed to read contents of download folder",
-				downloadFolderURL.path.quoted,
+				downloadFolderURL.path(percentEncoded: false).quoted,
 				"for",
 				snapshot.appNameAndVersion,
 				error: error
@@ -290,7 +290,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 	}
 
 	private func install(appNameAndVersion: String) throws {
-		guard let pkgHardLinkPath = pkgHardLinkURL?.path else {
+		guard let pkgHardLinkPath = pkgHardLinkURL?.path(percentEncoded: false) else {
 			throw MASError.error("Failed to find pkg to \(action) \(appNameAndVersion)")
 		}
 		guard let receiptHardLinkURL else {
@@ -302,19 +302,22 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		do {
 			let fileManager = FileManager.default
 			try run(asEffectiveUID: 0, andEffectiveGID: 0) {
-				if fileManager.fileExists(atPath: receiptURL.path) {
+				if fileManager.fileExists(atPath: receiptURL.path(percentEncoded: false)) {
 					try fileManager.removeItem(at: receiptURL)
 				} else {
 					try fileManager.createDirectory(at: receiptURL.deletingLastPathComponent(), withIntermediateDirectories: true)
 				}
 				try fileManager.copyItem(at: receiptHardLinkURL, to: receiptURL)
-				try fileManager.setAttributes([.ownerAccountID: 0, .groupOwnerAccountID: 0], ofItemAtPath: receiptURL.path)
+				try fileManager.setAttributes(
+					[.ownerAccountID: 0, .groupOwnerAccountID: 0],
+					ofItemAtPath: receiptURL.path(percentEncoded: false)
+				)
 			}
 		} catch {
 			throw MASError.error(
 				"""
-				Failed to copy receipt for \(appNameAndVersion) from \(receiptHardLinkURL.path.quoted) to\
-				 \(receiptURL.path.quoted)
+				Failed to copy receipt for \(appNameAndVersion) from \(receiptHardLinkURL.path(percentEncoded: false).quoted)\
+				 to \(receiptURL.path(percentEncoded: false).quoted)
 				""",
 				error: error
 			)
@@ -322,7 +325,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 
 		let process = Process()
 		process.executableURL = URL(filePath: "/usr/bin/mdimport", directoryHint: .notDirectory)
-		process.arguments = [appFolderURL.path]
+		process.arguments = [appFolderURL.path(percentEncoded: false)]
 		let standardOutputPipe = Pipe()
 		process.standardOutput = standardOutputPipe
 		let standardErrorPipe = Pipe()
@@ -359,7 +362,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 	}
 
 	private func installPkg(appNameAndVersion: String) throws -> URL {
-		guard let pkgHardLinkPath = pkgHardLinkURL?.path else {
+		guard let pkgHardLinkPath = pkgHardLinkURL?.path(percentEncoded: false) else {
 			throw MASError.error("Failed to find pkg to \(action) \(appNameAndVersion)")
 		}
 
@@ -509,10 +512,10 @@ private extension URL {
 			return false
 		}
 		guard let fileID1 = try resourceValues(forKeys: [.fileResourceIdentifierKey]).fileResourceIdentifier else {
-			throw MASError.error("Failed to get file resource identifier for \(path)")
+			throw MASError.error("Failed to get file resource identifier for \(path(percentEncoded: false))")
 		}
 		guard let fileID2 = try url.resourceValues(forKeys: [.fileResourceIdentifierKey]).fileResourceIdentifier else {
-			throw MASError.error("Failed to get file resource identifier for \(url.path)")
+			throw MASError.error("Failed to get file resource identifier for \(url.path(percentEncoded: false))")
 		}
 
 		return fileID1.isEqual(fileID2)
@@ -524,7 +527,12 @@ private func deleteTempFolder(containing url: URL?, fileType: String) {
 		do {
 			try FileManager.default.removeItem(at: url.deletingLastPathComponent())
 		} catch {
-			MAS.printer.warning("Failed to delete temp folder containing", fileType, url.path, error: error)
+			MAS.printer.warning(
+				"Failed to delete temp folder containing",
+				fileType,
+				url.path(percentEncoded: false),
+				error: error
+			)
 		}
 	}
 }
