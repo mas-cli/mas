@@ -3,6 +3,8 @@
 # Scripts/clean
 # mas
 #
+# Copyright © 2025 mas-cli. All rights reserved.
+#
 # Deletes the build directory & other generated files.
 #
 

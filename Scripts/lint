@@ -3,7 +3,7 @@
 # Scripts/lint
 # mas
 #
-# Linting checks for development & CI.
+# Copyright © 2025 mas-cli. All rights reserved.
 #
 # Reports style violations without making any modifications to the code.
 #

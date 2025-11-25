@@ -3,6 +3,8 @@
 # Scripts/setup_workflow_repo
 # mas
 #
+# Copyright © 2025 mas-cli. All rights reserved.
+#
 # Sets up the repo for use in a GitHub workflow.
 #
 

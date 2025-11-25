@@ -3,7 +3,9 @@
 # Scripts/release_start
 # mas
 #
-# Start the release process by creating & pushing a signed annotated version tag to the GitHub mas-cli/mas repo.
+# Copyright © 2025 mas-cli. All rights reserved.
+#
+# Starts the release process by creating & pushing a signed annotated version tag to the GitHub mas-cli/mas repo.
 #
 # Usage: release_start <version-tag-name> <version-title> [<version-ref>]
 #

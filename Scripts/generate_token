@@ -3,6 +3,8 @@
 # Scripts/generate_token
 # mas
 #
+# Copyright © 2025 mas-cli. All rights reserved.
+#
 # Generates a GitHub App installation access token for GitHub Workflows.
 #
 

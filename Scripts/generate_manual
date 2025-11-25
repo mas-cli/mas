@@ -3,7 +3,9 @@
 # Scripts/generate_manual
 # mas
 #
-# Generate man page.
+# Copyright © 2025 mas-cli. All rights reserved.
+#
+# Generates man page.
 #
 
 . "${0:A:h}/_setup_script"

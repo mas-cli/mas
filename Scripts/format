@@ -3,6 +3,8 @@
 # Scripts/format
 # mas
 #
+# Copyright © 2025 mas-cli. All rights reserved.
+#
 # Automatically formats & fixes style violations using various tools.
 #
 # Please keep in sync with Scripts/lint.

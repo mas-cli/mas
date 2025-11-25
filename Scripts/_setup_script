@@ -3,7 +3,9 @@
 # Scripts/_setup_script
 # mas
 #
-# Boilerplate setup for scripts.
+# Copyright © 2025 mas-cli. All rights reserved.
+#
+# Performs boilerplate setup for scripts.
 #
 
 builtin unalias -as

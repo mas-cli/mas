@@ -3,7 +3,9 @@
 # Scripts/release_cancel
 # mas
 #
-# Cancel a GitHub draft release.
+# Copyright © 2025 mas-cli. All rights reserved.
+#
+# Cancels a GitHub draft release.
 #
 # Usage: release_cancel <draft-release-tag>
 #

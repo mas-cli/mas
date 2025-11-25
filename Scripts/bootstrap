@@ -3,6 +3,8 @@
 # Scripts/bootstrap
 # mas
 #
+# Copyright © 2025 mas-cli. All rights reserved.
+#
 # Installs dependencies for Scripts/format & Scripts/lint.
 #
 # Usage: bootstrap [<brew-bundle-install-argument>...]
