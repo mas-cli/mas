@@ -54,14 +54,14 @@ extension MAS {
 }
 
 private extension String {
-	var humanReadableSize: String {
-		Int64(self).map { ByteCountFormatter.string(fromByteCount: $0, countStyle: .file) } ?? "0"
+	var humanReadableSize: Self {
+		Int64(self).map { ByteCountFormatter.string(fromByteCount: $0, countStyle: .file) } ?? self
 	}
 
-	var humanReadableDate: String {
+	var humanReadableDate: Self {
 		ISO8601DateFormatter().date(from: self).map { date in
 			ISO8601DateFormatter.string(from: date, timeZone: .current, formatOptions: [.withFullDate])
 		}
-		?? "" // swiftformat:disable:this indent
+		?? self // swiftformat:disable:this indent
 	}
 }
