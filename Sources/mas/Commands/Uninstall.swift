@@ -27,29 +27,29 @@ extension MAS {
 
 		func run() async {
 			do {
-				try run(installedApps: try await installedApps)
+				try requireRootUserAndWheelGroup(withErrorMessageSuffix: "to uninstall apps")
+				try await ProcessInfo.processInfo.runAsSudoEffectiveUserAndSudoEffectiveGroup {
+					try run(installedApps: try await installedApps)
+				}
 			} catch {
 				printer.error(error: error)
 			}
 		}
 
 		private func run(installedApps: [InstalledApp]) throws {
-			try requireRootUserAndWheelGroup(withErrorMessageSuffix: "to uninstall apps")
-			try ProcessInfo.processInfo.runAsSudoEffectiveUserAndSudoEffectiveGroup {
-				let uninstallingAppPathOrderedSet = uninstallingAppPathOrderedSet(from: installedApps)
-				guard !uninstallingAppPathOrderedSet.isEmpty else {
-					return
-				}
-				guard !dryRun else {
-					printer.notice("Dry run. A wet run would uninstall:\n")
-					for uninstallingAppPath in uninstallingAppPathOrderedSet {
-						printer.info(uninstallingAppPath)
-					}
-					return
-				}
-
-				try uninstallApps(atPaths: uninstallingAppPathOrderedSet)
+			let uninstallingAppPathOrderedSet = uninstallingAppPathOrderedSet(from: installedApps)
+			guard !uninstallingAppPathOrderedSet.isEmpty else {
+				return
 			}
+			guard !dryRun else {
+				printer.notice("Dry run. A wet run would uninstall:\n")
+				for uninstallingAppPath in uninstallingAppPathOrderedSet {
+					printer.info(uninstallingAppPath)
+				}
+				return
+			}
+
+			try uninstallApps(atPaths: uninstallingAppPathOrderedSet)
 		}
 
 		private func uninstallingAppPathOrderedSet(from installedApps: [InstalledApp]) -> OrderedSet<String> {
@@ -124,18 +124,18 @@ private func uninstallApps(atPaths appPathSequence: some Sequence<String>) throw
 			}
 		}
 
-		let object = items().object(atLocation: URL(fileURLWithPath: appPath))
+		let object = items().object(atLocation: URL(fileURLWithPath: appPath, isDirectory: true))
 		guard let item = object as? any FinderItem else {
 			MAS.printer.error(
 				"""
-				Failed to obtain Finder access: FinderApplication.items().object(atLocation: URL(fileURLWithPath:\
-				 \"\(appPath)\") is a \(type(of: object)) that does not conform to FinderItem
+				Failed to obtain Finder access for \(appPath.quoted): FinderApplication.items().object(atLocation:) returned a\
+				 \(type(of: object)), which does not conform to FinderItem
 				"""
 			)
 			continue
 		}
 		guard let delete = item.delete else {
-			MAS.printer.error("Failed to obtain Finder access: FinderItem.delete does not exist")
+			MAS.printer.error("Failed to obtain Finder access for \(appPath.quoted): FinderItem.delete does not exist")
 			continue
 		}
 		guard let deletedURLString = (delete() as any FinderItem).URL else {

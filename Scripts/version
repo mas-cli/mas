@@ -3,10 +3,12 @@
 # Scripts/version
 # mas
 #
+# Copyright © 2025 mas-cli. All rights reserved.
+#
 # Outputs the mas version.
 #
 
-. "${0:a:h}/_setup_script"
+. "${0:A:h}/_setup_script"
 
 branch="${"$(git rev-parse --abbrev-ref HEAD)":/main}"
 

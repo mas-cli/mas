@@ -28,7 +28,10 @@ extension MAS {
 
 		func run() async {
 			do {
-				try await run(installedApps: try await installedApps, appCatalog: ITunesSearchAppCatalog())
+				try requireRootUserAndWheelGroup(withErrorMessageSuffix: "to install apps")
+				try await ProcessInfo.processInfo.runAsSudoEffectiveUserAndSudoEffectiveGroup {
+					try await run(installedApps: try await installedApps, appCatalog: ITunesSearchAppCatalog())
+				}
 			} catch {
 				printer.error(error: error)
 			}
@@ -44,10 +47,7 @@ extension MAS {
 		}
 
 		private func run(installedApps: [InstalledApp], adamID: ADAMID) async throws {
-			try requireRootUserAndWheelGroup(withErrorMessageSuffix: "to install apps")
-			try await ProcessInfo.processInfo.runAsSudoEffectiveUserAndSudoEffectiveGroup {
-				try await downloadApp(withADAMID: adamID, forceDownload: forceOptionGroup.force, installedApps: installedApps)
-			}
+			try await downloadApp(withADAMID: adamID, forceDownload: forceOptionGroup.force, installedApps: installedApps)
 		}
 	}
 }

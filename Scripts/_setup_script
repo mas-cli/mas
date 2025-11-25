@@ -3,7 +3,9 @@
 # Scripts/_setup_script
 # mas
 #
-# Boilerplate setup for scripts.
+# Copyright © 2025 mas-cli. All rights reserved.
+#
+# Performs boilerplate setup for scripts.
 #
 
 builtin unalias -as
@@ -34,7 +36,7 @@ unset KEYBOARD_HACK
 unset TMPSUFFIX
 unset WORDCHARS
 
-mas_dir="${0:a:h:h}"
+mas_dir="${0:A:h:h}"
 
 if ! cd -- "${mas_dir}"; then
 	printf $'Error: Failed to cd into mas directory: %s\n' "${mas_dir}" >&2

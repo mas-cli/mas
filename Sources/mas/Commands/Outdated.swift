@@ -28,11 +28,13 @@ extension MAS {
 		func run() async {
 			await accurateOptionGroup.run(
 				accurate: { shouldIgnoreUnknownApps in
-					await accurate(
-						installedApps: try await nonTestFlightInstalledApps,
-						appCatalog: ITunesSearchAppCatalog(),
-						shouldIgnoreUnknownApps: shouldIgnoreUnknownApps
-					)
+					try await ProcessInfo.processInfo.runAsSudoEffectiveUserAndSudoEffectiveGroupIfRootUser {
+						await accurate(
+							installedApps: try await nonTestFlightInstalledApps,
+							appCatalog: ITunesSearchAppCatalog(),
+							shouldIgnoreUnknownApps: shouldIgnoreUnknownApps
+						)
+					}
 				},
 				inaccurate: {
 					await inaccurate(installedApps: try await nonTestFlightInstalledApps, appCatalog: ITunesSearchAppCatalog())

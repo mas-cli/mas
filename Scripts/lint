@@ -3,19 +3,19 @@
 # Scripts/lint
 # mas
 #
-# Linting checks for development & CI.
+# Copyright © 2025 mas-cli. All rights reserved.
 #
 # Reports style violations without making any modifications to the code.
 #
 # Please keep in sync with Scripts/format.
 #
 
-. "${0:a:h}/_setup_script"
+. "${0:A:h}/_setup_script"
 
 print_notice '🚨 Linting' "${@}"
 
 # shellcheck disable=SC2310
-ensure_command_available git markdownlint-cli2 periphery shellcheck swiftformat swiftlint yamllint || exit "${?}"
+ensure_command_available git markdownlint-cli2 periphery shellcheck swiftformat swiftlint yamllint || exit
 
 zmodload zsh/zutil
 zparseopts -D -A opts A P

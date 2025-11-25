@@ -3,10 +3,12 @@
 # Scripts/generate_token
 # mas
 #
+# Copyright © 2025 mas-cli. All rights reserved.
+#
 # Generates a GitHub App installation access token for GitHub Workflows.
 #
 
-. "${0:a:h}/_setup_script"
+. "${0:A:h}/_setup_script"
 
 header=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9
 payload="${${$(printf '{"iss":%s,"iat":%s,"exp":%s}' "${TOKEN_APP_ID}" "$(("$(date +%s)" - 60))"\

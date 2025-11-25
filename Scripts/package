@@ -3,10 +3,12 @@
 # Scripts/package
 # mas
 #
+# Copyright © 2025 mas-cli. All rights reserved.
+#
 # Builds .pkg installer.
 #
 
-. "${0:a:h}/_setup_script"
+. "${0:A:h}/_setup_script"
 
 print_notice '📦 Packaging installer for' "${@}"
 

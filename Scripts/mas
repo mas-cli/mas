@@ -1,0 +1,13 @@
+#!/bin/zsh -Ndefgku
+
+# Copyright © 2025 mas-cli. All rights reserved.
+
+case "${1:-}" in
+get|install|lucky|purchase|uninstall|update|upgrade)
+	if [[ "${UID}" != 0 ]]; then
+		exec sudo -k "${0:A:h}/mas-bin" "${@}"
+	fi
+	;&
+*)
+	exec "${0:A:h}/mas-bin" "${@}"
+esac

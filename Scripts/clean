@@ -3,10 +3,12 @@
 # Scripts/clean
 # mas
 #
+# Copyright © 2025 mas-cli. All rights reserved.
+#
 # Deletes the build directory & other generated files.
 #
 
-. "${0:a:h}/_setup_script"
+. "${0:A:h}/_setup_script"
 
 print_notice '🗑​ Cleaning' "${@}"
 
