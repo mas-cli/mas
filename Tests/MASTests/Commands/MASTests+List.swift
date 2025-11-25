@@ -12,7 +12,7 @@ internal import Testing
 private extension MASTests {
 	@Test
 	func listsApps() {
-		let actual = consequencesOf(MAS.main(try MAS.List.parse([])) { $0.run(installedApps: []) })
+		let actual = consequencesOf(try MAS.main(try MAS.List.parse([])) { $0.run(installedApps: []) })
 		let expected = Consequences(
 			nil,
 			"",

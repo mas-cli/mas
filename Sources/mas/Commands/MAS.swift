@@ -6,6 +6,7 @@
 //
 
 internal import ArgumentParser
+private import Foundation
 
 @main
 struct MAS: AsyncParsableCommand, Sendable {
@@ -75,18 +76,27 @@ extension MAS {
 		}
 	}
 
-	static func main<Command: ParsableCommand, E: Error>(
-		_ command: Command,
-		_ body: (Command) throws(E) -> Void
-	) throws(E) {
-		try body(command)
+	static func main<Command: ParsableCommand>(_ command: Command, _ body: (Command) throws -> Void) throws {
+		do {
+			try ProcessInfo.processInfo.runAsSudoEffectiveUserAndSudoEffectiveGroupIfRootEffectiveUser {
+				try body(command)
+			}
+		} catch let error as MASError {
+			printer.error(error: error)
+		}
 	}
 
-	static func main<Command: AsyncParsableCommand & Sendable, E: Error>(
+	static func main<Command: AsyncParsableCommand & Sendable>(
 		_ command: Command,
-		_ body: (Command) async throws(E) -> Void
-	) async throws(E) {
-		try await body(command)
+		_ body: (Command) async throws -> Void
+	) async throws {
+		do {
+			try await ProcessInfo.processInfo.runAsSudoEffectiveUserAndSudoEffectiveGroupIfRootEffectiveUser {
+				try await body(command)
+			}
+		} catch let error as MASError {
+			printer.error(error: error)
+		}
 	}
 }
 

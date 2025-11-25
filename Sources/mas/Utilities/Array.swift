@@ -17,11 +17,7 @@ extension Array {
 		_ transform: (Element) async throws(E) -> T?
 	) async throws(E) -> [T] {
 		for element in self {
-			guard let transformedElement = try await transform(element) else {
-				continue
-			}
-
-			transformedElements.append(transformedElement)
+			try await transform(element).map { transformedElements.append($0) }
 		}
 		return transformedElements
 	}

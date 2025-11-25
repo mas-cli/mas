@@ -26,11 +26,8 @@ struct InstalledApp: Sendable {
 
 extension [InstalledApp] {
 	func filter(if shouldFilter: Bool, appCatalog: some AppCatalog, shouldWarnIfAppUnknown: Bool) async -> Self {
-		guard shouldFilter else {
-			return self
-		}
-
-		return await compactMap { installedApp in
+		shouldFilter
+		? await compactMap { installedApp in // swiftformat:disable indent
 			do {
 				_ = try await appCatalog.lookup(appID: .adamID(installedApp.adamID))
 				return installedApp
@@ -39,5 +36,6 @@ extension [InstalledApp] {
 				return nil
 			}
 		}
-	}
+		: self
+	} // swiftformat:enable indent
 }

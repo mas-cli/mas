@@ -13,7 +13,7 @@ private extension MASTests {
 	@Test
 	func cannotFindAppHomeForUnknownAppID() async {
 		let actual = await consequencesOf(
-			await MAS.main(try MAS.Home.parse(["999"])) { await $0.run(catalogApps: []) }
+			try await MAS.main(try MAS.Home.parse(["999"])) { await $0.run(catalogApps: []) }
 		)
 		let expected = Consequences()
 		#expect(actual == expected)
