@@ -262,15 +262,14 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 				"""
 			)
 		}
-
-		let appFolderURLResults =
-			appFolderURLRegex.matches(in: standardErrorText, range: NSRange(location: 0, length: standardErrorText.count))
 		guard
-			let appFolderURLResult = appFolderURLResults.first,
+			let appFolderURLResult = appFolderURLRegex // swiftformat:disable indent
+			.matches(in: standardErrorText, range: NSRange(location: 0, length: standardErrorText.count))
+			.first,
 			let appFolderURLNSRange = appFolderURLResult.range(at: 1) as NSRange?,
 			appFolderURLNSRange.location != NSNotFound,
 			let appFolderURLRange = Range(appFolderURLNSRange, in: standardErrorText)
-		else {
+		else { // swiftformat:enable indent
 			throw MASError.runtimeError(
 				"Failed to find app folder URL in installer output for \(appNameAndVersion)",
 				error: standardErrorText
@@ -278,16 +277,6 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 		}
 
 		let appFolderURLString = String(standardErrorText[appFolderURLRange])
-		if appFolderURLResults.count > 1 {
-			MAS.printer.warning(
-				"Found multiple app folder URLs in installer output for ",
-				appNameAndVersion,
-				", using the first: ",
-				appFolderURLString,
-				error: MASError.runtimeError(standardErrorText),
-				separator: ""
-			)
-		}
 		guard let appFolderURL = URL(string: appFolderURLString) else {
 			throw MASError.runtimeError(
 				"Failed to parse app folder URL for \(appNameAndVersion) from \(appFolderURLString)",
