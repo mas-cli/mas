@@ -26,20 +26,22 @@ extension MAS {
 		private var optionalAppIDsOptionGroup: OptionalAppIDsOptionGroup
 
 		func run() async {
-			await accurateOptionGroup.run(
-				accurate: { shouldIgnoreUnknownApps in
-					try await ProcessInfo.processInfo.runAsSudoEffectiveUserAndSudoEffectiveGroupIfRootUser {
+			do {
+				try await accurateOptionGroup.run(
+					accurate: { shouldIgnoreUnknownApps in
 						await accurate(
 							installedApps: try await nonTestFlightInstalledApps,
 							appCatalog: ITunesSearchAppCatalog(),
 							shouldIgnoreUnknownApps: shouldIgnoreUnknownApps
 						)
+					},
+					inaccurate: {
+						await inaccurate(installedApps: try await nonTestFlightInstalledApps, appCatalog: ITunesSearchAppCatalog())
 					}
-				},
-				inaccurate: {
-					await inaccurate(installedApps: try await nonTestFlightInstalledApps, appCatalog: ITunesSearchAppCatalog())
-				}
-			)
+				)
+			} catch {
+				printer.error(error: error)
+			}
 		}
 
 		private func accurate(

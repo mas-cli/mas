@@ -28,9 +28,7 @@ extension MAS {
 		func run() async {
 			do {
 				try requireRootUserAndWheelGroup(withErrorMessageSuffix: "to uninstall apps")
-				try await ProcessInfo.processInfo.runAsSudoEffectiveUserAndSudoEffectiveGroup {
-					try run(installedApps: try await installedApps)
-				}
+				try run(installedApps: try await installedApps)
 			} catch {
 				printer.error(error: error)
 			}

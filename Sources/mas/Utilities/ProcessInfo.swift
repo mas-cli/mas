@@ -29,13 +29,21 @@ extension ProcessInfo {
 		}
 	}
 
+	func runAsSudoEffectiveUserAndSudoEffectiveGroup<T>(_ body: () throws -> T) throws -> T {
+		try run(asEffectiveUID: sudoUID, andEffectiveGID: sudoGID, body)
+	}
+
 	func runAsSudoEffectiveUserAndSudoEffectiveGroup<T>(_ body: () async throws -> T) async throws -> T {
 		try await run(asEffectiveUID: sudoUID, andEffectiveGID: sudoGID, body)
 	}
 
-	func runAsSudoEffectiveUserAndSudoEffectiveGroupIfRootUser<T>(_ body: () async throws -> T) async throws -> T {
-		getuid() == 0
-		? try await runAsSudoEffectiveUserAndSudoEffectiveGroup(body) // swiftformat:disable:this indent
-		: try await body()
+	func runAsSudoEffectiveUserAndSudoEffectiveGroupIfRootEffectiveUser<T>(_ body: () throws -> T) throws -> T {
+		geteuid() == 0 ? try runAsSudoEffectiveUserAndSudoEffectiveGroup(body) : try body()
+	}
+
+	func runAsSudoEffectiveUserAndSudoEffectiveGroupIfRootEffectiveUser<T>(
+		_ body: () async throws -> T
+	) async throws -> T {
+		geteuid() == 0 ? try await runAsSudoEffectiveUserAndSudoEffectiveGroup(body) : try await body()
 	}
 }

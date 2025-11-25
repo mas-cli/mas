@@ -29,9 +29,7 @@ extension MAS {
 		func run() async {
 			do {
 				try requireRootUserAndWheelGroup(withErrorMessageSuffix: "to install apps")
-				try await ProcessInfo.processInfo.runAsSudoEffectiveUserAndSudoEffectiveGroup {
-					try await run(installedApps: try await installedApps, appCatalog: ITunesSearchAppCatalog())
-				}
+				try await run(installedApps: try await installedApps, appCatalog: ITunesSearchAppCatalog())
 			} catch {
 				printer.error(error: error)
 			}

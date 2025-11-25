@@ -28,23 +28,18 @@ extension MAS {
 		func run() async {
 			do {
 				try requireRootUserAndWheelGroup(withErrorMessageSuffix: "to update apps")
-				try await ProcessInfo.processInfo.runAsSudoEffectiveUserAndSudoEffectiveGroup {
-					await accurateOptionGroup.run(
-						accurate: { shouldIgnoreUnknownApps in
-							await accurate(
-								installedApps: try await nonTestFlightInstalledApps,
-								appCatalog: ITunesSearchAppCatalog(),
-								shouldIgnoreUnknownApps: shouldIgnoreUnknownApps
-							)
-						},
-						inaccurate: {
-							await inaccurate(
-								installedApps: try await nonTestFlightInstalledApps,
-								appCatalog: ITunesSearchAppCatalog()
-							)
-						}
-					)
-				}
+				try await accurateOptionGroup.run(
+					accurate: { shouldIgnoreUnknownApps in
+						await accurate(
+							installedApps: try await nonTestFlightInstalledApps,
+							appCatalog: ITunesSearchAppCatalog(),
+							shouldIgnoreUnknownApps: shouldIgnoreUnknownApps
+						)
+					},
+					inaccurate: {
+						await inaccurate(installedApps: try await nonTestFlightInstalledApps, appCatalog: ITunesSearchAppCatalog())
+					}
+				)
 			} catch {
 				printer.error(error: error)
 			}

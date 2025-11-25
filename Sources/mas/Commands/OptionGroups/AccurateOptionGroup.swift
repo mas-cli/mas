@@ -11,18 +11,14 @@ struct AccurateOptionGroup: ParsableArguments {
 	@Flag
 	private var accuracy = OutdatedAccuracy.inaccurate
 
-	func run(accurate: (Bool) async throws -> Void, inaccurate: () async throws -> Void) async {
-		do {
-			switch accuracy {
-			case .accurate:
-				try await accurate(false)
-			case .accurateIgnoreUnknownApps:
-				try await accurate(true)
-			case .inaccurate:
-				try await inaccurate()
-			}
-		} catch {
-			MAS.printer.error(error: error)
+	func run(accurate: (Bool) async throws -> Void, inaccurate: () async throws -> Void) async rethrows {
+		switch accuracy {
+		case .accurate:
+			try await accurate(false)
+		case .accurateIgnoreUnknownApps:
+			try await accurate(true)
+		case .inaccurate:
+			try await inaccurate()
 		}
 	}
 }
