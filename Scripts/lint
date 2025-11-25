@@ -10,7 +10,7 @@
 # Please keep in sync with Scripts/format.
 #
 
-. "${0:a:h}/_setup_script"
+. "${0:A:h}/_setup_script"
 
 print_notice '🚨 Linting' "${@}"
 

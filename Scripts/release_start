@@ -16,7 +16,7 @@
 # <version-ref> if optional value supplied, must be on the main branch; defaults to HEAD
 #
 
-. "${0:a:h}/_setup_script"
+. "${0:A:h}/_setup_script"
 
 tag="${1}"
 title="${2}"

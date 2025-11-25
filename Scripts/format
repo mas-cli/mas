@@ -8,7 +8,7 @@
 # Please keep in sync with Scripts/lint.
 #
 
-. "${0:a:h}/_setup_script"
+. "${0:A:h}/_setup_script"
 
 print_notice '🧹 Formatting' "${@}"
 

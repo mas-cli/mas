@@ -6,7 +6,7 @@
 # Generate man page.
 #
 
-. "${0:a:h}/_setup_script"
+. "${0:A:h}/_setup_script"
 
 print_notice '📖 Generating man pages for' "${@}"
 

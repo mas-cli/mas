@@ -6,7 +6,7 @@
 # Generates headers for Apple private frameworks.
 #
 
-. "${0:a:h}/_setup_script"
+. "${0:A:h}/_setup_script"
 
 ensure_command_available ipsw
 

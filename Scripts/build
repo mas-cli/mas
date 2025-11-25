@@ -6,7 +6,7 @@
 # Builds the Swift package.
 #
 
-. "${0:a:h}/_setup_script"
+. "${0:A:h}/_setup_script"
 
 print_notice '🏗​ Building' "${@}"
 
