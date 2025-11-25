@@ -394,9 +394,9 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 			)
 		}
 		guard
-			let appFolderURLSubstring = appFolderURLRegex
-			.matches(in: standardErrorText, range: NSRange(location: 0, length: standardErrorText.count))
-			.compactMap({ $0.captureGroupMatch(number: 1, in: standardErrorText) })
+			let appFolderURLSubstring = standardErrorText
+			.matches(of: appFolderURLRegex)
+			.compactMap(\.1)
 			.min(by: { $0.count < $1.count })
 		else {
 			throw MASError.error(
@@ -537,5 +537,4 @@ private func deleteTempFolder(containing url: URL?, fileType: String) {
 	}
 }
 
-// swiftlint:disable:next force_try
-private let appFolderURLRegex = try! NSRegularExpression(pattern: #"PackageKit: Registered bundle (\S+) for uid 0"#)
+private nonisolated(unsafe) let appFolderURLRegex = /PackageKit: Registered bundle (\S+) for uid 0/

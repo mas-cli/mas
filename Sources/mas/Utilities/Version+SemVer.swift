@@ -90,27 +90,16 @@ protocol SemVer: CoreIntegerVersion, SemVerSyntax, MajorMinorPatchInteger {}
 extension SemVer where Integer: FixedWidthInteger {
 	static func parse(_ versionString: String, defaultCoreElement: Integer? = nil) // swiftformat:disable:next indent
 	throws -> (major: Integer, minor: Integer, patch: Integer, prereleaseElements: [String], buildElements: [String]) {
-		func coreElement(from result: NSTextCheckingResult, captureGroupNumber: Int) -> Integer? {
-			result.captureGroupMatch(number: captureGroupNumber, in: versionString).flatMap { Integer(String($0)) }
-			?? defaultCoreElement // swiftformat:disable:this indent
-		}
-
 		guard
-			let result = semVerRegex.firstMatch(in: versionString, range: NSRange(location: 0, length: versionString.count)),
-			let major = coreElement(from: result, captureGroupNumber: 1),
-			let minor = coreElement(from: result, captureGroupNumber: 2),
-			let patch = coreElement(from: result, captureGroupNumber: 3)
+			let match = versionString.wholeMatch(of: semVerRegex),
+			let major = Integer(String(match.1)) ?? defaultCoreElement,
+			let minor = Integer(String(match.2)) ?? defaultCoreElement,
+			let patch = Integer(String(match.3)) ?? defaultCoreElement
 		else {
 			throw MASError.error("Failed to parse SemVer from \(versionString)")
 		}
 
-		return (
-			major,
-			minor,
-			patch,
-			result.elements(fromCaptureGroupNumber: 4, in: versionString),
-			result.elements(fromCaptureGroupNumber: 5, in: versionString)
-		)
+		return (major, minor, patch, match.4.elements, match.5.elements)
 	}
 }
 
@@ -161,12 +150,10 @@ struct UniversalSemVer: SemVerSyntax {
 	let buildElements: [String]
 
 	init(from versionString: String) {
-		let result // swiftformat:disable:next indent
-		= universalSemVerRegex.firstMatch(in: versionString, range: NSRange(location: 0, length: versionString.count))!
-		// swiftlint:disable:previous force_unwrapping
-		coreElements = result.elements(fromCaptureGroupNumber: 1, in: versionString)
-		prereleaseElements = result.elements(fromCaptureGroupNumber: 2, in: versionString)
-		buildElements = result.elements(fromCaptureGroupNumber: 3, in: versionString)
+		let match = versionString.wholeMatch(of: universalSemVerRegex)! // swiftlint:disable:this force_unwrapping
+		coreElements = match.1.elements
+		prereleaseElements = match.2.elements
+		buildElements = match.3.elements
 	}
 }
 
@@ -179,13 +166,6 @@ private extension BigInt {
 private extension FixedWidthInteger {
 	func compare(to that: Self) -> ComparisonResult {
 		self < that ? .orderedAscending : self == that ? .orderedSame : .orderedDescending
-	}
-}
-
-private extension NSTextCheckingResult {
-	func elements(fromCaptureGroupNumber captureGroupNumber: Int, in string: String) -> [String] {
-		captureGroupMatch(number: captureGroupNumber, in: string).map { $0.split(separator: ".") }?.map(String.init(_:))
-		?? [] // swiftformat:disable:this indent
 	}
 }
 
@@ -210,6 +190,12 @@ private extension [String] {
 	}
 }
 
+private extension Substring? {
+	var elements: [String] {
+		map { $0.split(separator: ".") }?.map(String.init(_:)) ?? []
+	}
+}
+
 extension Version {
 	func compareSemVer(to that: Self) -> ComparisonResult {
 		let coreComparison = coreElements.compareSemVerElements(to: that.coreElements)
@@ -226,9 +212,6 @@ extension Version {
 	}
 }
 
-// swiftlint:disable:next force_try
-private let semVerRegex = try! NSRegularExpression( // swiftlint:disable:next line_length
-	pattern: #"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$"#
-)
-// swiftlint:disable:next force_try
-private let universalSemVerRegex = try! NSRegularExpression(pattern: #"^([^-+]*+)?+(?:-([^+]*+))?+(?:\+(.*+))?+$"#)
+private nonisolated(unsafe) let semVerRegex =
+	/(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?/
+private nonisolated(unsafe) let universalSemVerRegex = /([^-+]*+)?+(?:-([^+]*+))?+(?:\+(.*+))?+/

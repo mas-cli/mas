@@ -66,6 +66,7 @@ indentation_width:
   include_multiline_strings: false
 line_length:
   ignores_multiline_strings: true
+  ignores_regex_literals: true
 modifier_order:
   preferred_modifier_order:
   - acl
