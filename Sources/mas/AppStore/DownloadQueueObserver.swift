@@ -52,16 +52,7 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 		}
 
 		do {
-			let fileManager = FileManager.default
-			var isDirectory = false as ObjCBool
-			guard
-				fileManager.fileExists(atPath: downloadFolderURL.path, isDirectory: &isDirectory),
-				isDirectory.boolValue
-			else {
-				return
-			}
-
-			let downloadFolderChildURLs = try fileManager
+			let downloadFolderChildURLs = try FileManager.default
 			.contentsOfDirectory( // swiftformat:disable indent
 				at: downloadFolderURL,
 				includingPropertiesForKeys: [.contentModificationDateKey, .isRegularFileKey]
@@ -90,12 +81,22 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 				MAS.printer.warning("Failed to link pkg for", metadata.appNameAndVersion, error: error)
 			}
 
-			receiptHardLinkURL = try hardLinkURL(
-				to: downloadFolderChildURLs.first { $0.lastPathComponent == "receipt" },
-				existing: receiptHardLinkURL
-			)
+			do {
+				receiptHardLinkURL = try hardLinkURL(
+					to: downloadFolderChildURLs.first { $0.lastPathComponent == "receipt" },
+					existing: receiptHardLinkURL
+				)
+			} catch {
+				MAS.printer.warning("Failed to link receipt for", metadata.appNameAndVersion, error: error)
+			}
 		} catch {
-			MAS.printer.warning("Failed to link receipt for", metadata.appNameAndVersion, error: error)
+			MAS.printer.warning(
+				"Failed to read contents of download folder",
+				downloadFolderURL.path.quoted,
+				"for",
+				metadata.appNameAndVersion,
+				error: error
+			)
 		}
 
 		let currPhaseType = status.activePhaseType
@@ -239,7 +240,7 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 		}
 
 		let process = Process()
-		process.executableURL = URL(fileURLWithPath: "/usr/sbin/installer")
+		process.executableURL = URL(fileURLWithPath: "/usr/sbin/installer", isDirectory: false)
 		process.arguments = ["-dumplog", "-pkg", pkgHardLinkPath, "-target", "/"]
 		let standardOutputPipe = Pipe()
 		process.standardOutput = standardOutputPipe
@@ -309,7 +310,7 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 			throw MASError.runtimeError("Failed to find pkg to install for \(appNameAndVersion)")
 		}
 
-		let receiptURL = appFolderURL.appendingPathComponent("Contents/_MASReceipt/receipt")
+		let receiptURL = appFolderURL.appendingPathComponent("Contents/_MASReceipt/receipt", isDirectory: false)
 		do {
 			let fileManager = FileManager.default
 			try run(asEffectiveUID: 0, andEffectiveGID: 0) {
@@ -328,7 +329,7 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 		}
 
 		let process = Process()
-		process.executableURL = URL(fileURLWithPath: "/usr/bin/mdimport")
+		process.executableURL = URL(fileURLWithPath: "/usr/bin/mdimport", isDirectory: false)
 		process.arguments = [appFolderURL.path]
 		let standardOutputPipe = Pipe()
 		process.standardOutput = standardOutputPipe
