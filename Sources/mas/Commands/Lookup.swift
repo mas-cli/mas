@@ -7,7 +7,6 @@
 
 internal import ArgumentParser
 private import Foundation
-private import ObjectiveC
 
 extension MAS {
 	/// Outputs app information from the App Store.
@@ -54,19 +53,11 @@ extension MAS {
 
 private extension String {
 	var humanReadableSize: Self {
-		Int64(self).map { size in
-			let formatter = ByteCountFormatter()
-			formatter.allowedUnits = .useMB
-			formatter.allowsNonnumericFormatting = false
-			return formatter.string(fromByteCount: size)
-		}
-		?? self // swiftformat:disable:this indent
+		Int64(self).map { $0.formatted(.byteCount(style: .file, allowedUnits: .mb, spellsOutZero: false)) } ?? self
 	}
 
 	var isoCalendarDate: Self {
-		ISO8601DateFormatter().date(from: self).map { date in
-			ISO8601DateFormatter.string(from: date, timeZone: .current, formatOptions: [.withFullDate])
-		}
+		(try? Date(self, strategy: .iso8601).formatted(Date.ISO8601FormatStyle(timeZone: .current).year().month().day()))
 		?? self // swiftformat:disable:this indent
 	}
 }
