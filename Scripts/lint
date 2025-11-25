@@ -15,7 +15,7 @@
 print_notice '🚨 Linting' "${@}"
 
 # shellcheck disable=SC2310
-ensure_command_available git markdownlint-cli2 periphery shellcheck swiftformat swiftlint yamllint || exit "${?}"
+ensure_command_available git markdownlint-cli2 periphery shellcheck swiftformat swiftlint yamllint || exit
 
 zmodload zsh/zutil
 zparseopts -D -A opts A P
