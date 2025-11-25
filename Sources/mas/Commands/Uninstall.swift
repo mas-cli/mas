@@ -27,29 +27,29 @@ extension MAS {
 
 		func run() async {
 			do {
-				try run(installedApps: try await installedApps)
+				try requireRootUserAndWheelGroup(withErrorMessageSuffix: "to uninstall apps")
+				try await ProcessInfo.processInfo.runAsSudoEffectiveUserAndSudoEffectiveGroup {
+					try run(installedApps: try await installedApps)
+				}
 			} catch {
 				printer.error(error: error)
 			}
 		}
 
 		private func run(installedApps: [InstalledApp]) throws {
-			try requireRootUserAndWheelGroup(withErrorMessageSuffix: "to uninstall apps")
-			try ProcessInfo.processInfo.runAsSudoEffectiveUserAndSudoEffectiveGroup {
-				let uninstallingAppPathOrderedSet = uninstallingAppPathOrderedSet(from: installedApps)
-				guard !uninstallingAppPathOrderedSet.isEmpty else {
-					return
-				}
-				guard !dryRun else {
-					printer.notice("Dry run. A wet run would uninstall:\n")
-					for uninstallingAppPath in uninstallingAppPathOrderedSet {
-						printer.info(uninstallingAppPath)
-					}
-					return
-				}
-
-				try uninstallApps(atPaths: uninstallingAppPathOrderedSet)
+			let uninstallingAppPathOrderedSet = uninstallingAppPathOrderedSet(from: installedApps)
+			guard !uninstallingAppPathOrderedSet.isEmpty else {
+				return
 			}
+			guard !dryRun else {
+				printer.notice("Dry run. A wet run would uninstall:\n")
+				for uninstallingAppPath in uninstallingAppPathOrderedSet {
+					printer.info(uninstallingAppPath)
+				}
+				return
+			}
+
+			try uninstallApps(atPaths: uninstallingAppPathOrderedSet)
 		}
 
 		private func uninstallingAppPathOrderedSet(from installedApps: [InstalledApp]) -> OrderedSet<String> {
