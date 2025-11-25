@@ -61,7 +61,7 @@ var installedApps: [InstalledApp] {
 							)
 						}
 					}
-					.sorted { $0.name.localizedStandardCompare($1.name) == .orderedAscending } // swiftformat:enable indent
+					.sorted(using: KeyPathComparator(\.name, comparator: .localizedStandard)) // swiftformat:enable indent
 				)
 			}
 
