@@ -67,11 +67,7 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 						}
 
 						let resources = try url.resourceValues(forKeys: [.contentModificationDateKey, .isRegularFileKey])
-						guard resources.isRegularFile == true, let modificationDate = resources.contentModificationDate else {
-							return nil
-						}
-
-						return (url, modificationDate)
+						return resources.isRegularFile == true ? resources.contentModificationDate.map { (url, $0) } : nil
 					}
 					.max { $0.1 > $1.1 }?
 					.0,
@@ -431,14 +427,12 @@ private extension URL {
 }
 
 private func deleteTempFolder(containing url: URL?, fileType: String) {
-	guard let url else {
-		return
-	}
-
-	do {
-		try FileManager.default.removeItem(at: url.deletingLastPathComponent())
-	} catch {
-		MAS.printer.warning("Failed to delete temp folder containing", fileType, url.path, error: error)
+	url.map { url in
+		do {
+			try FileManager.default.removeItem(at: url.deletingLastPathComponent())
+		} catch {
+			MAS.printer.warning("Failed to delete temp folder containing", fileType, url.path, error: error)
+		}
 	}
 }
 

@@ -55,7 +55,7 @@ extension MAS {
 
 private extension String {
 	var humanReadableSize: String {
-		ByteCountFormatter.string(fromByteCount: Int64(self) ?? 0, countStyle: .file)
+		Int64(self).map { ByteCountFormatter.string(fromByteCount: $0, countStyle: .file) } ?? "0"
 	}
 
 	var humanReadableDate: String {
