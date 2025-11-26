@@ -16,20 +16,20 @@ export MAS_DO_NOT_PRINT_NOTICE=
 Scripts/build "${1:-}" -c release "${@:2}"
 unset MAS_DO_NOT_PRINT_NOTICE
 
-build_dir=.build
-destination_dir="${build_dir}/destination"
-mas_executable="${destination_dir}/mas"
+build_folder=.build
+destination_folder="${build_folder}/destination"
+mas_executable="${destination_folder}/mas"
 version="$(Scripts/version)"
 
-mkdir -p "${destination_dir}"
+mkdir -p "${destination_folder}"
 ln -f "$(swift build -c release --show-bin-path "${@:2}")/mas" "${mas_executable}"
 
 pkgbuild\
  --identifier io.github.mas-cli.mas\
  --install-location /usr/local/bin\
  --version "${version}"\
- --root "${destination_dir}"\
- "${build_dir}/mas_components.pkg"
+ --root "${destination_folder}"\
+ "${build_folder}/mas_components.pkg"
 
 # shellcheck disable=SC1036
 productbuild\
@@ -60,5 +60,5 @@ productbuild\
 </installer-gui-script>
 END
 )\
- --package-path "${build_dir}"\
- "${build_dir}/mas-${version}-${${(s: :o)$(lipo -archs "${mas_executable}")}// /-}.pkg"
+ --package-path "${build_folder}"\
+ "${build_folder}/mas-${version}-${${(s: :o)$(lipo -archs "${mas_executable}")}// /-}.pkg"

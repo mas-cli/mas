@@ -5,7 +5,7 @@
 #
 # Copyright © 2025 mas-cli. All rights reserved.
 #
-# Deletes the build directory & other generated files.
+# Deletes the build folder & other generated files.
 #
 
 . "${0:A:h}/_setup_script"

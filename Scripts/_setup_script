@@ -36,10 +36,10 @@ unset KEYBOARD_HACK
 unset TMPSUFFIX
 unset WORDCHARS
 
-mas_dir="${0:A:h:h}"
+mas_folder="${0:A:h:h}"
 
-if ! cd -- "${mas_dir}"; then
-	printf $'Error: Failed to cd into mas directory: %s\n' "${mas_dir}" >&2
+if ! cd -- "${mas_folder}"; then
+	printf $'Error: Failed to cd into mas folder: %s\n' "${mas_folder}" >&2
 	exit 1
 fi
 
