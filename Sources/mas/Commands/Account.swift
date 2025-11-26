@@ -9,17 +9,15 @@ internal import ArgumentParser
 
 extension MAS {
 	/// Outputs the Apple Account signed in to the App Store.
-	struct Account: AsyncParsableCommand, Sendable {
+	struct Account: ParsableCommand {
 		static let configuration = CommandConfiguration(
 			abstract: "Output the Apple Account signed in to the App Store"
 		)
 
-		func run() async throws {
-			guard let appleAccount = try await appleAccount.emailAddress else {
-				throw MASError.error("Not signed in to an Apple Account in the App Store")
-			}
-
-			printer.info(appleAccount)
+		func run() throws {
+			// Account information is no longer available starting with macOS 12 (Monterey)
+			// https://github.com/mas-cli/mas/issues/417
+			throw MASError.unsupportedCommand(MAS.Account._commandName)
 		}
 	}
 }

@@ -11,8 +11,8 @@ internal import Testing
 
 private extension MASTests {
 	@Test
-	func errorsAccountNotSupported() async {
-		let actual = await consequencesOf(try await MAS.main(try MAS.Account.parse([])))
+	func errorsAccountNotSupported() {
+		let actual = consequencesOf(try MAS.main(try MAS.Account.parse([])))
 		let expected = Consequences(nil, "", "Error: \(MASError.unsupportedCommand(MAS.Account._commandName))\n")
 		#expect(actual == expected)
 	}

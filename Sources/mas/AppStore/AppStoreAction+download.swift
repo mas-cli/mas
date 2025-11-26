@@ -31,14 +31,6 @@ extension AppStoreAction { // swiftlint:disable:this file_types_order
 		downloadMetadata.itemIdentifier = adamID
 		purchase.downloadMetadata = downloadMetadata
 
-		do {
-			let (emailAddress, dsID) = try await appleAccount
-			purchase.accountIdentifier = dsID
-			purchase.appleID = emailAddress
-		} catch {
-			// Do nothing
-		}
-
 		let queue = CKDownloadQueue.shared()
 		let observer = DownloadQueueObserver(for: self, of: adamID, shouldCancel: shouldCancel)
 		let observerUUID = queue.add(observer)

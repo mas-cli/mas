@@ -5,7 +5,7 @@
 </h1>
 
 [![current release version](https://img.shields.io/github/v/release/mas-cli/mas.svg?style=for-the-badge)](https://github.com/mas-cli/mas/releases)
-[![supported OS: macOS 10.15+](https://img.shields.io/badge/Supported_OS-macOS_10.15%2B-teal?style=for-the-badge)](Package.swift)
+[![supported OS: macOS 13+](https://img.shields.io/badge/Supported_OS-macOS_13%2B-teal?style=for-the-badge)](Package.swift)
 [![license: MIT](https://img.shields.io/badge/license-MIT-750014.svg?style=for-the-badge)](LICENSE)
 [![language: Swift 6.0](https://img.shields.io/badge/language-Swift_6.0-F05138.svg?style=for-the-badge)](https://www.swift.org)
 [![build, test & lint status](https://img.shields.io/github/actions/workflow/status/mas-cli/mas/build-test.yaml?label=build,%20test%20%26%20lint&style=for-the-badge)](
@@ -25,7 +25,7 @@ scripting & automation.
 <details>
 <summary>
 
-### 🔮 macOS 10.15 (Catalina) or newer
+### 🔮 macOS 13 (Ventura) or newer
 
 </summary>
 <details>
@@ -61,7 +61,7 @@ sudo port install mas
 <details>
 <summary>
 
-### 🧮 macOS 10.11 (El Capitan) - 10.14 (Mojave)
+### 🧮 macOS 10.11 (El Capitan) - 12 (Monterey)
 
 </summary>
 <details>
@@ -74,8 +74,8 @@ sudo port install mas
 The [mas-cli Homebrew tap](https://github.com/mas-cli/homebrew-tap) provides
 pre-built bottles for all macOS versions since 10.11 (El Capitan).
 
-The newest versions of mas, however, are only available for macOS 10.15+
-(Catalina or newer).
+The newest versions of mas, however, are only available for macOS 13+ (Ventura
+or newer).
 
 To install mas from the tap:
 

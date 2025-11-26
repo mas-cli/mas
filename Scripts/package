@@ -60,7 +60,7 @@ productbuild\
 	<options customize="never" require-scripts="false" hostArchitectures="'"${(j:,:)archs[@]}"'"/>
 	<volume-check>
 		<allowed-os-versions>
-			<os-version min="10.15"/>
+			<os-version min="13"/>
 		</allowed-os-versions>
 	</volume-check>
 	<choices-outline>
