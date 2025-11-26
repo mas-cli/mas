@@ -22,7 +22,7 @@
 @property (readonly, nullable) NSString *bundleShortVersionString;
 @property (retain, nullable) NSString *bundleVersion;
 @property (retain, nullable) NSString *buyParameters;
-@property (readonly, nullable) NSNumber *collectionID NS_AVAILABLE_MAC(13);
+@property (readonly, nullable) NSNumber *collectionID;
 @property (retain, nullable) NSString *collectionName;
 @property (retain, nullable) NSDictionary *dictionary;
 @property (retain, nullable) NSString *downloadKey;
@@ -40,7 +40,7 @@
 @property BOOL isMDMProvided;
 @property unsigned long long itemIdentifier;
 @property (retain, nullable) NSString *kind;
-@property (retain, nullable) NSString *managedAppUUIDString NS_AVAILABLE_MAC(13);
+@property (retain, nullable) NSString *managedAppUUIDString;
 @property (readonly) BOOL needsSoftwareInstallOperation;
 @property (retain, nullable) NSURL *preflightPackageURL;
 @property (retain, nullable) NSString *productType;
@@ -48,14 +48,14 @@
 @property (getter=isRental) BOOL rental;
 @property (readonly, getter=isSample) BOOL sample;
 @property (retain, nullable) NSArray<NSMutableDictionary<NSString *, id> *> *sinfs;
-@property (readonly, nullable) NSString *sortArtist NS_AVAILABLE_MAC(13);
-@property (readonly, nullable) NSString *sortName NS_AVAILABLE_MAC(13);
+@property (readonly, nullable) NSString *sortArtist;
+@property (readonly, nullable) NSString *sortName;
 @property (retain, nullable) NSString *subtitle;
 @property (retain, nullable) NSURL *thumbnailImageURL;
 @property (retain, nullable) NSString *title;
 @property (retain, nullable) NSString *transactionIdentifier;
 @property (readonly, nullable) NSNumber *uncompressedSize;
-@property (retain, nullable) NSNumber *version NS_AVAILABLE_MAC(13);
+@property (retain, nullable) NSNumber *version;
 
 - (nullable id)_valueForFirstAvailableKey:(nullable id)key;
 - (nonnull instancetype)copyWithZone:(nullable struct _NSZone *)zone;

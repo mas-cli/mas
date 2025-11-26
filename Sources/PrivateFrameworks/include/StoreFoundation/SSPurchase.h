@@ -25,7 +25,7 @@
 @property BOOL isUpdate;
 @property BOOL isVPP;
 @property unsigned long long itemIdentifier;
-@property (retain, nonatomic, nullable) NSString *managedAppUUIDString NS_AVAILABLE_MAC(13);
+@property (retain, nonatomic, nullable) NSString *managedAppUUIDString;
 @property (readonly) BOOL needsAuthentication;
 @property (retain, nonatomic, nullable) NSString *parentalControls;
 @property (weak, nullable) ISOperation *purchaseOperation;

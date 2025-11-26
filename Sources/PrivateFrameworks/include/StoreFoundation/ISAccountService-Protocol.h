@@ -15,7 +15,7 @@
 - (void)addAccountStoreObserver:(nullable id <ISAccountStoreObserver>)observer; // Unverified observer type
 - (void)addURLBagObserver:(nullable id <ISURLBagObserver>)observer;
 - (void)authIsExpiredWithReplyBlock:(nonnull void (^)(BOOL))block; // Unverified block parameter types
-- (void)dictionaryForDSID:(nullable NSNumber *)dsID withReplyBlock:(nonnull void (^)(NSDictionary * _Nullable))block NS_AVAILABLE_MAC(13); // Unverified dsID type / block parameter types
+- (void)dictionaryForDSID:(nullable NSNumber *)dsID withReplyBlock:(nonnull void (^)(NSDictionary * _Nullable))block; // Unverified dsID type / block parameter types
 - (void)dictionaryWithReplyBlock:(nonnull void (^)(NSDictionary * _Nonnull))block; // Unverified block parameter types
 - (void)generateTouchIDHeadersForDSID:(nullable NSNumber *)dsID challenge:(nullable NSString *)challenge caller:(nullable id)caller replyBlock:(nonnull void (^)(NSDictionary * _Nonnull, NSError * _Nullable))block; // Unverified dsID type / challenge type / caller type / block parameter types
 - (void)getTouchIDPreferenceWithReplyBlock:(nonnull void (^)(BOOL, ISStoreAccount * _Nullable, NSError * _Nullable))block; // Unverified block parameter types
@@ -24,12 +24,12 @@
 - (void)invalidateAllBags;
 - (void)isValidWithReplyBlock:(nonnull void (^)(BOOL))block; // Unverified block parameter types
 - (void)loadURLBagWithType:(unsigned long long)type replyBlock:(nonnull void (^)(BOOL, BOOL, NSError * _Nullable))block; // Unverified block parameter types
-- (void)needsSilentADIActionForURL:(nullable NSURL *)url dsID:(nullable NSNumber *)dsID withReplyBlock:(nonnull void (^)(BOOL))block NS_AVAILABLE_MAC(13); // Unverified url type / dsID type / block parameter types
+- (void)needsSilentADIActionForURL:(nullable NSURL *)url dsID:(nullable NSNumber *)dsID withReplyBlock:(nonnull void (^)(BOOL))block; // Unverified url type / dsID type / block parameter types
 - (void)needsSilentADIActionForURL:(nullable NSURL *)url withReplyBlock:(nonnull void (^)(BOOL))block; // Unverified url type / block parameter types
 - (void)primaryAccountWithReplyBlock:(nonnull void (^)(ISStoreAccount * _Nullable))block; // Unverified block parameter types
 - (void)processURLResponse:(nullable NSURLResponse *)urlResponse forRequest:(nullable NSURLRequest *)request; // Unverified urlResponse type / request type
-- (void)processURLResponse:(nullable NSURLResponse *)urlResponse forRequest:(nullable NSURLRequest *)request dsID:(nullable NSNumber *)dsID NS_AVAILABLE_MAC(13); // Unverified urlResponse type / request type / dsID type
-- (void)regexWithKey:(nullable NSString *)key dsID:(nullable NSNumber *)dsID matchesString:(nullable NSString *)string replyBlock:(nonnull void (^)(BOOL))block NS_AVAILABLE_MAC(13); // Unverified key type / dsID type / string type / block parameter types
+- (void)processURLResponse:(nullable NSURLResponse *)urlResponse forRequest:(nullable NSURLRequest *)request dsID:(nullable NSNumber *)dsID; // Unverified urlResponse type / request type / dsID type
+- (void)regexWithKey:(nullable NSString *)key dsID:(nullable NSNumber *)dsID matchesString:(nullable NSString *)string replyBlock:(nonnull void (^)(BOOL))block; // Unverified key type / dsID type / string type / block parameter types
 - (void)regexWithKey:(nullable NSString *)key matchesString:(nullable NSString *)string replyBlock:(nonnull void (^)(BOOL))block; // Unverified key type / string type / block parameter types
 - (void)removeAccountStoreObserver:(nullable id <ISAccountStoreObserver>)observer; // Unverified observer type
 - (void)removeURLBagObserver:(nullable id <ISURLBagObserver>)observer; // Unverified observer type
@@ -40,9 +40,9 @@
 - (void)signOut;
 - (void)storeFrontWithReplyBlock:(nonnull void (^)(NSString * _Nonnull))block; // Unverified block parameter types
 - (void)updateTouchIDSettingsForDSID:(nullable NSNumber *)dsID replyBlock:(nonnull void (^)(BOOL, NSError * _Nullable))block; // Unverified dsID type / block parameter types
-- (void)urlIsTrustedByURLBag:(nullable NSURL *)urlBag dsID:(nullable NSNumber *)dsID withReplyBlock:(nonnull void (^)(BOOL))block NS_AVAILABLE_MAC(13); // Unverified urlBag type / dsID type / block parameter types
+- (void)urlIsTrustedByURLBag:(nullable NSURL *)urlBag dsID:(nullable NSNumber *)dsID withReplyBlock:(nonnull void (^)(BOOL))block; // Unverified urlBag type / dsID type / block parameter types
 - (void)urlIsTrustedByURLBag:(nullable NSURL *)urlBag withReplyBlock:(nonnull void (^)(BOOL))block; // Unverified urlBag type / block parameter types
-- (void)valueForURLBagKey:(nullable NSString *)bagKey dsID:(nullable NSNumber *)dsID withReplyBlock:(nonnull void (^)(NSURL * _Nullable))block NS_AVAILABLE_MAC(13); // Unverified bagKey type / dsID type / block parameter types
+- (void)valueForURLBagKey:(nullable NSString *)bagKey dsID:(nullable NSNumber *)dsID withReplyBlock:(nonnull void (^)(NSURL * _Nullable))block; // Unverified bagKey type / dsID type / block parameter types
 - (void)valueForURLBagKey:(nullable NSString *)bagKey withReplyBlock:(nonnull void (^)(NSURL * _Nullable))block; // Unverified bagKey type / block parameter types
 
 @optional
