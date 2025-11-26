@@ -15,7 +15,6 @@
 @property (readonly, nonatomic, nonnull) id <ISDownloadService> downloadService;
 @property (readonly, nonatomic, weak, nullable) id <ISServiceRemoteObject> exportedObject;
 @property (readonly, nonatomic, nullable) Protocol *exportedProtocol;
-@property (readonly, nonatomic, nonnull) id <ISInAppService> inAppService NS_DEPRECATED_MAC(10_9, 12);
 @property (retain, nonatomic, nullable) ISStoreClient *storeClient;
 @property (readonly, nonatomic, nonnull) id <ISTransactionService> transactionService;
 @property (readonly, nonatomic, nonnull) id <ISUIService> uiService;
@@ -28,8 +27,6 @@
 - (nonnull NSXPCConnection *)connectionWithServiceName:(nonnull NSString *)serviceName protocol:(nonnull Protocol *)protocol isMachService:(BOOL)isMachService;
 - (void)downloadServiceSynchronousBlock:(nonnull UnknownBlock)block;
 - (nonnull id <ISDownloadService>)downloadServiceWithErrorHandler:(nullable UnknownBlock)handler;
-- (void)inAppServiceSynchronousBlock:(nonnull UnknownBlock)block NS_DEPRECATED_MAC(10_9, 12);
-- (nonnull id <ISInAppService>)inAppServiceWithErrorHandler:(nullable UnknownBlock)handler NS_DEPRECATED_MAC(10_9, 12);
 - (nonnull instancetype)initWithStoreClient:(nullable ISStoreClient *)client; // Unverified client type
 - (nonnull id)objectProxyForServiceName:(nonnull NSString *)serviceName protocol:(nonnull id)protocol interfaceClassName:(nullable NSString *)interfaceClassName isMachService:(BOOL)isMachService errorHandler:(nullable UnknownBlock)handler;
 - (void)performSynchronousBlock:(nonnull UnknownBlock)block withServiceName:(nonnull NSString *)serviceName protocol:(nonnull Protocol *)protocol isMachService:(BOOL)isMachService interfaceClassName:(nullable NSString *)interfaceClassName;

@@ -66,8 +66,6 @@
 - (nonnull instancetype)initWithDictionary:(nullable NSDictionary *)dictionary;
 - (nonnull instancetype)initWithKind:(nullable NSString *)kind;
 - (nullable id)localServerInfo;
-- (void)setExtractionCanBeStreamed:(BOOL)extractionCanBeStreamed NS_DEPRECATED_MAC(10_9, 12);
-- (void)setUncompressedSize:(nullable NSNumber *)uncompressedSize NS_DEPRECATED_MAC(10_9, 12);
 - (void)setValue:(nullable id)value forMetadataKey:(nonnull NSString *)key; // Unverified key type
 
 @end
