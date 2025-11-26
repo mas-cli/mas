@@ -13,7 +13,7 @@ private extension MASTests {
 	@Test
 	func errorsAccountNotSupported() async {
 		let actual = await consequencesOf(try await MAS.main(try MAS.Account.parse([])))
-		let expected = Consequences(nil, "", "Error: \(MASError.notSupported)\n")
+		let expected = Consequences(nil, "", "Error: \(MASError.unsupportedCommand)\n")
 		#expect(actual == expected)
 	}
 }
