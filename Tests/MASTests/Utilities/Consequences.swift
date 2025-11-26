@@ -88,10 +88,10 @@ private struct StandardStreamCapture { // swiftlint:disable:this one_declaration
 		close(outDuplicateFD)
 		close(errDuplicateFD)
 
-		return (
-			String(data: outPipe.fileHandleForReading.readDataToEndOfFile(), encoding: encoding) ?? "",
-			String(data: errPipe.fileHandleForReading.readDataToEndOfFile(), encoding: encoding) ?? ""
-		)
+		return ( // swiftlint:disable:next force_try
+			try! outPipe.fileHandleForReading.readToEnd().flatMap { String(data: $0, encoding: encoding) } ?? "",
+			try! errPipe.fileHandleForReading.readToEnd().flatMap { String(data: $0, encoding: encoding) } ?? ""
+		) // swiftlint:disable:previous force_try
 	}
 }
 

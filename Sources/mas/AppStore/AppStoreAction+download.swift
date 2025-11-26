@@ -338,12 +338,16 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 				"""
 				Failed to \(action) \(appNameAndVersion) from \(pkgHardLinkPath)
 				Exit status: \(process.terminationStatus)\(
-					String(data: standardOutputPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8)?
-					.trimmingCharacters(in: .whitespacesAndNewlines) // swiftformat:disable indent
+					try standardOutputPipe.fileHandleForReading
+					.readToEnd() // swiftformat:disable indent
+					.flatMap { String(data: $0, encoding: .utf8) }?
+					.trimmingCharacters(in: .whitespacesAndNewlines)
 					.prependIfNotEmpty("\n\nStandard output:\n")
 					?? ""
-				)\(String(data: standardErrorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8)?
-					.trimmingCharacters(in: .whitespacesAndNewlines) // swiftformat:enable indent
+				)\(try standardErrorPipe.fileHandleForReading // swiftformat:enable indent
+					.readToEnd()
+					.flatMap { String(data: $0, encoding: .utf8) }?
+					.trimmingCharacters(in: .whitespacesAndNewlines)
 					.prependIfNotEmpty("\n\nStandard error:\n")
 					?? "" // swiftformat:disable:this wrap
 				)
@@ -373,9 +377,9 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		}
 		process.waitUntilExit()
 		let standardOutputText =
-			String(data: standardOutputPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? ""
+			try standardOutputPipe.fileHandleForReading.readToEnd().flatMap { String(data: $0, encoding: .utf8) } ?? ""
 		let standardErrorText =
-			String(data: standardErrorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? ""
+			try standardErrorPipe.fileHandleForReading.readToEnd().flatMap { String(data: $0, encoding: .utf8) } ?? ""
 		guard process.terminationStatus == 0 else {
 			throw MASError.error(
 				"""
