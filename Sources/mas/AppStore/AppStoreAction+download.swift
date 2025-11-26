@@ -284,7 +284,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 			appropriateFor: fileManager.homeDirectoryForCurrentUser,
 			create: true
 		)
-		.appendingPathComponent("\(adamID)-\(url.lastPathComponent)", isDirectory: false)
+		.appending(path: "\(adamID)-\(url.lastPathComponent)", directoryHint: .notDirectory)
 		try fileManager.linkItem(at: url, to: hardLinkURL)
 		return hardLinkURL
 	}
@@ -298,7 +298,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		}
 
 		let appFolderURL = try installPkg(appNameAndVersion: appNameAndVersion)
-		let receiptURL = appFolderURL.appendingPathComponent("Contents/_MASReceipt/receipt", isDirectory: false)
+		let receiptURL = appFolderURL.appending(path: "Contents/_MASReceipt/receipt", directoryHint: .notDirectory)
 		do {
 			let fileManager = FileManager.default
 			try run(asEffectiveUID: 0, andEffectiveGID: 0) {

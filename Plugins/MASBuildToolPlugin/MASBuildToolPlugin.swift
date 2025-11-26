@@ -14,7 +14,7 @@ struct MASBuildToolPlugin: BuildToolPlugin {
 		[
 			.prebuildCommand(
 				displayName: "Prebuild mas",
-				executable: context.package.directoryURL.appendingPathComponent("Scripts/prebuild", isDirectory: false),
+				executable: context.package.directoryURL.appending(path: "Scripts/prebuild", directoryHint: .notDirectory),
 				arguments: [context.pluginWorkDirectoryURL.path],
 				environment: ProcessInfo.processInfo.environment,
 				outputFilesDirectory: context.pluginWorkDirectoryURL
