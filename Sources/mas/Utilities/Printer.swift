@@ -71,7 +71,11 @@ struct Printer: Sendable {
 
 	func clearCurrentLine(of fileHandle: FileHandle) {
 		if fileHandle.isTerminal {
-			fileHandle.write(Data("\(csi)2K\(csi)0G".utf8))
+			do {
+				try fileHandle.write(contentsOf: Data("\(csi)2K\(csi)0G".utf8))
+			} catch {
+				// Do nothing
+			}
 		}
 	}
 
@@ -102,7 +106,11 @@ struct Printer: Sendable {
 	}
 
 	private func print(_ items: [String], separator: String, terminator: String, to fileHandle: FileHandle) {
-		fileHandle.write(Data(items.joined(separator: separator).appending(terminator).utf8))
+		do {
+			try fileHandle.write(contentsOf: Data(items.joined(separator: separator).appending(terminator).utf8))
+		} catch {
+			// Do nothing
+		}
 	}
 
 	private func print(
