@@ -264,8 +264,7 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 		}
 		guard
 			let appFolderURLResult = appFolderURLRegex // swiftformat:disable indent
-			.matches(in: standardErrorText, range: NSRange(location: 0, length: standardErrorText.count))
-			.first,
+			.firstMatch(in: standardErrorText, range: NSRange(location: 0, length: standardErrorText.count)),
 			let appFolderURLNSRange = appFolderURLResult.range(at: 1) as NSRange?,
 			appFolderURLNSRange.location != NSNotFound,
 			let appFolderURLRange = Range(appFolderURLNSRange, in: standardErrorText)

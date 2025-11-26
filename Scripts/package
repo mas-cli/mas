@@ -16,20 +16,36 @@ export MAS_DO_NOT_PRINT_NOTICE=
 Scripts/build "${1:-}" -c release "${@:2}"
 unset MAS_DO_NOT_PRINT_NOTICE
 
-build_dir=.build
-destination_dir="${build_dir}/destination"
-mas_executable="${destination_dir}/mas"
+build_folder=.build
+destination_folder="${build_folder}/destination"
+installation_folder=/usr/local/opt/mas
+installation_staging_folder="${destination_folder}${installation_folder}"
+usr_local_bin_staging_folder="${destination_folder}/usr/local/bin"
 version="$(Scripts/version)"
 
-mkdir -p "${destination_dir}"
-ln -f "$(swift build -c release --show-bin-path "${@:2}")/mas" "${mas_executable}"
+swift package generate-manual
+
+mkdir -p "${installation_staging_folder}/bin"
+mkdir -p "${installation_staging_folder}/etc/bash_completion.d"
+mkdir -p "${installation_staging_folder}/share/fish/vendor_completions.d"
+mkdir -p "${installation_staging_folder}/share/man/man1"
+mkdir -p "${usr_local_bin_staging_folder}"
+
+cp LICENSE README.md "${installation_staging_folder}"
+cp Scripts/mas "${installation_staging_folder}/bin/mas"
+cp contrib/completion/mas-completion.bash "${installation_staging_folder}/etc/bash_completion.d/mas"
+cp contrib/completion/mas.fish "${installation_staging_folder}/share/fish/vendor_completions.d/mas.fish"
+ln -f "$(swift build -c release --show-bin-path "${@:2}")/mas" "${installation_staging_folder}/bin/mas-bin"
+ln -f .build/plugins/GenerateManual/outputs/mas/mas.1 "${installation_staging_folder}/share/man/man1/mas.1"
+
+ln -fs "${installation_folder}/bin/mas" "${usr_local_bin_staging_folder}/mas"
 
 pkgbuild\
  --identifier io.github.mas-cli.mas\
- --install-location /usr/local/bin\
+ --install-location /\
  --version "${version}"\
- --root "${destination_dir}"\
- "${build_dir}/mas_components.pkg"
+ --root "${destination_folder}"\
+ "${build_folder}/mas_components.pkg"
 
 # shellcheck disable=SC1036
 productbuild\
@@ -60,5 +76,5 @@ productbuild\
 </installer-gui-script>
 END
 )\
- --package-path "${build_dir}"\
- "${build_dir}/mas-${version}-${${(s: :o)$(lipo -archs "${mas_executable}")}// /-}.pkg"
+ --package-path "${build_folder}"\
+ "${build_folder}/mas-${version}-${${(s: :o)$(lipo -archs "${installation_staging_folder}/bin/mas-bin")}// /-}.pkg"

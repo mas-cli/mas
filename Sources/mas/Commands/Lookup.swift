@@ -7,6 +7,7 @@
 
 internal import ArgumentParser
 private import Foundation
+private import ObjectiveC
 
 extension MAS {
 	/// Outputs app information from the App Store.
@@ -41,7 +42,7 @@ extension MAS {
 					"""
 					\(catalogApp.name) \(catalogApp.version) [\(catalogApp.formattedPrice)]
 					By: \(catalogApp.sellerName)
-					Released: \(catalogApp.releaseDate.humanReadableDate)
+					Released: \(catalogApp.releaseDate.isoCalendarDate)
 					Minimum OS: \(catalogApp.minimumOSVersion)
 					Size: \(catalogApp.fileSizeBytes.humanReadableSize)
 					From: \(catalogApp.appStorePageURL)
@@ -55,10 +56,16 @@ extension MAS {
 
 private extension String {
 	var humanReadableSize: Self {
-		Int64(self).map { ByteCountFormatter.string(fromByteCount: $0, countStyle: .file) } ?? self
+		Int64(self).map { size in
+			let formatter = ByteCountFormatter()
+			formatter.allowedUnits = .useMB
+			formatter.allowsNonnumericFormatting = false
+			return formatter.string(fromByteCount: size)
+		}
+		?? self // swiftformat:disable:this indent
 	}
 
-	var humanReadableDate: Self {
+	var isoCalendarDate: Self {
 		ISO8601DateFormatter().date(from: self).map { date in
 			ISO8601DateFormatter.string(from: date, timeZone: .current, formatOptions: [.withFullDate])
 		}
