@@ -12,9 +12,7 @@ internal import Testing
 private extension MASTests {
 	@Test
 	func cannotLookupAppInfoForUnknownAppID() {
-		let actual = consequencesOf(
-			try MAS.main(try MAS.Lookup.parse(["999"])) { $0.run(catalogApps: []) }
-		)
+		let actual = consequencesOf(try MAS.main(try MAS.Lookup.parse(["1"])) { $0.run(catalogApps: []) })
 		let expected = Consequences()
 		#expect(actual == expected)
 	}
