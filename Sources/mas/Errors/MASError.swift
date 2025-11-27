@@ -32,7 +32,7 @@ extension MASError: CustomStringConvertible {
 			See https://github.com/mas-cli/mas#known-issues
 			"""
 		case let .urlParsing(string):
-			"Unable to parse URL from \(string)"
+			"Failed to parse URL from \(string)"
 		}
 	}
 }
