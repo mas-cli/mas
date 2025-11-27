@@ -18,7 +18,7 @@ typealias AppleAccount = (
 var appleAccount: AppleAccount {
 	get async throws {
 		if #available(macOS 12, *) {
-			// Account information is no longer available on macOS 12+
+			// Account information is no longer available starting with macOS 12 (Monterey)
 			// https://github.com/mas-cli/mas/issues/417
 			throw MASError.unsupportedCommand(MAS.Account._commandName)
 		}
