@@ -42,7 +42,7 @@ func downloadApp(
 				return
 			}
 			guard response?.downloads?.isEmpty == false else {
-				continuation.resume(throwing: MASError.runtimeError("No downloads initiated for ADAMID \(adamID)"))
+				continuation.resume(throwing: MASError.runtimeError("No downloads initiated for ADAM ID \(adamID)"))
 				return
 			}
 

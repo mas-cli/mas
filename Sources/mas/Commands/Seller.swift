@@ -35,7 +35,7 @@ extension MAS {
 			await run(
 				sellerURLs: catalogApps.compactMap { catalogApp in
 					guard let sellerURL = catalogApp.sellerURL else {
-						printer.error("No seller website available for ADAMID", catalogApp.adamID)
+						printer.error("No seller website available for ADAM ID", catalogApp.adamID)
 						return nil
 					}
 
