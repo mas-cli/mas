@@ -17,7 +17,7 @@ print_notice '🧹 Formatting' "${@}"
 ensure_command_available markdownlint-cli2 swiftformat swiftlint
 
 zmodload zsh/zutil
-zparseopts -D -A opts A
+zparseopts -D -A received_flag A
 
 export -r MAS_INSTALL_METHOD=format
 
@@ -29,7 +29,7 @@ printf -- $'--> 🦅 SwiftLint\n'
 swiftlint --fix --quiet --reporter relative-path
 
 # shellcheck disable=SC1046,SC1047,SC1072,SC1073
-if ! [[ -v 'opts[-A]' ]]; then
+if ! [[ -v 'received_flag[-A]' ]]; then
 	printf -- $'--> 🔬 SwiftLint Analyze\n'
 	# shellcheck disable=SC1036
 	swiftlint analyze --fix --quiet --reporter relative-path --compiler-log-path\
