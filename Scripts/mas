@@ -10,4 +10,5 @@ get|install|lucky|purchase|uninstall|update|upgrade)
 	;&
 *)
 	exec "${0:A:h}/mas-bin" "${@}"
+	;;
 esac

@@ -10,8 +10,8 @@
 
 . "${0:A:h}/_setup_script"
 
-header=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9
-payload="${${$(printf '{"iss":%s,"iat":%s,"exp":%s}' "${TOKEN_APP_ID}" "$(("$(date +%s)" - 60))"\
+readonly header=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9
+readonly payload="${${$(printf '{"iss":%s,"iat":%s,"exp":%s}' "${TOKEN_APP_ID}" "$(("$(date +%s)" - 60))"\
  "$(("$(date +%s)" + 540))" | base64)//[=$'\n']}//\/+/_-}"
 
 

@@ -19,9 +19,9 @@ ensure_command_available actionlint git markdownlint-cli2 periphery shellcheck s
 zmodload zsh/zutil
 zparseopts -D -A opts A P
 
-export MAS_INSTALL_METHOD=lint
+export -r MAS_INSTALL_METHOD=lint
 
-exit_status=0
+integer exit_status=0
 
 printf -- $'--> 🕊​ SwiftFormat\n'
 script -q /dev/null swiftformat --lint --markdown-files format-strict . |
@@ -82,7 +82,7 @@ shellcheck -s bash -o all -e SC1088,SC1102,SC2066,SC2296,SC2298,SC2299,SC2300,SC
 
 printf -- $'--> 🚷 Non-Executables\n'
 readonly -a non_executables=(Scripts/***/*(N.^f+111))
-if ((${#non_executables[@]})); then
+if (("${#non_executables[@]}")); then
 	printf $'%s\n' "${non_executables[@]}"
 	((exit_status |= 1))
 fi

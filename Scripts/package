@@ -16,12 +16,13 @@ export MAS_DO_NOT_PRINT_NOTICE=
 Scripts/build "${1:-}" -c release "${@:2}"
 unset MAS_DO_NOT_PRINT_NOTICE
 
-build_folder=.build
-destination_folder="${build_folder}/destination"
-installation_folder=/usr/local/opt/mas
-installation_staging_folder="${destination_folder}${installation_folder}"
-usr_local_bin_staging_folder="${destination_folder}/usr/local/bin"
+readonly build_folder=.build
+readonly destination_folder="${build_folder}/destination"
+readonly installation_folder=/usr/local/opt/mas
+readonly installation_staging_folder="${destination_folder}${installation_folder}"
+readonly usr_local_bin_staging_folder="${destination_folder}/usr/local/bin"
 version="$(Scripts/version)"
+readonly version
 
 swift package generate-manual
 

@@ -19,7 +19,7 @@ ensure_command_available markdownlint-cli2 swiftformat swiftlint
 zmodload zsh/zutil
 zparseopts -D -A opts A
 
-export MAS_INSTALL_METHOD=format
+export -r MAS_INSTALL_METHOD=format
 
 printf -- $'--> 🕊​ SwiftFormat\n'
 script -q /dev/null swiftformat --strict --markdown-files format-strict . |
@@ -42,7 +42,7 @@ markdownlint-cli2 --fix -- ***/*.md(.)
 
 printf -- $'--> 🚷 Non-Executables\n'
 readonly -a non_executables=(Scripts/***/*(N.^f+111))
-if ((${#non_executables[@]})); then
+if (("${#non_executables[@]}")); then
 	chmod -vv a+x "${non_executables[@]}"
 	exit 1
 fi

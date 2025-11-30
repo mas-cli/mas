@@ -12,6 +12,6 @@
 
 print_notice '🏗​ Building' "${@}"
 
-export MAS_INSTALL_METHOD="${1:-}"
+export -r MAS_INSTALL_METHOD="${1:-}"
 
 swift build "${@:2}"
