@@ -17,7 +17,8 @@ extension MAS {
 	struct Lucky: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
 			abstract: "Install the first app returned from searching the App Store",
-			discussion: "App will install only if it has already been gotten\n\(requiresRootPrivilegesMessage)"
+			discussion: // swiftformat:disable:next indent
+				"App will install only if it has already been gotten\n\n\(requiresRootPrivilegesMessage(to: "install"))"
 		)
 
 		@OptionGroup
@@ -27,7 +28,6 @@ extension MAS {
 
 		func run() async {
 			do {
-				try requireRootUserAndWheelGroup(withErrorMessageSuffix: "to install apps")
 				try await run(installedApps: try await installedApps, appCatalog: ITunesSearchAppCatalog())
 			} catch {
 				printer.error(error: error)
@@ -44,7 +44,11 @@ extension MAS {
 		}
 
 		private func run(installedApps: [InstalledApp], adamID: ADAMID) async throws {
-			try await downloadApp(withADAMID: adamID, forceDownload: forceOptionGroup.force, installedApps: installedApps)
+			try await AppStore.install.apps(
+				withADAMIDs: [adamID],
+				force: forceOptionGroup.force,
+				installedApps: installedApps
+			)
 		}
 	}
 }

@@ -12,7 +12,7 @@ extension MAS {
 	struct Install: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
 			abstract: "Install previously gotten apps from the App Store",
-			discussion: requiresRootPrivilegesMessage
+			discussion: requiresRootPrivilegesMessage()
 		)
 
 		@OptionGroup
@@ -22,21 +22,21 @@ extension MAS {
 
 		func run() async {
 			do {
-				try requireRootUserAndWheelGroup(withErrorMessageSuffix: "to install apps")
-				await run(installedApps: try await installedApps, appCatalog: ITunesSearchAppCatalog())
+				try await run(installedApps: try await installedApps, appCatalog: ITunesSearchAppCatalog())
 			} catch {
 				printer.error(error: error)
 			}
 		}
 
-		private func run(installedApps: [InstalledApp], appCatalog: some AppCatalog) async {
-			await run(installedApps: installedApps, adamIDs: await requiredAppIDsOptionGroup.appIDs.adamIDs(from: appCatalog))
+		private func run(installedApps: [InstalledApp], appCatalog: some AppCatalog) async throws {
+			try await run(
+				installedApps: installedApps,
+				adamIDs: await requiredAppIDsOptionGroup.appIDs.lookupCatalogApps(from: appCatalog).map(\.adamID)
+			)
 		}
 
-		private func run(installedApps: [InstalledApp], adamIDs: [ADAMID]) async {
-			await adamIDs.forEach(attemptTo: "install app for ADAM ID") { adamID in
-				try await downloadApp(withADAMID: adamID, forceDownload: forceOptionGroup.force, installedApps: installedApps)
-			}
+		private func run(installedApps: [InstalledApp], adamIDs: [ADAMID]) async throws {
+			try await AppStore.install.apps(withADAMIDs: adamIDs, force: forceOptionGroup.force, installedApps: installedApps)
 		}
 	}
 }

@@ -25,28 +25,25 @@ extension Array {
 
 extension Array {
 	func compactMap<T, E: Error>(
-		attemptingTo attempting: String,
+		attemptingTo effect: String,
 		_ transform: (Element) async throws(E) -> T?
 	) async -> [T] {
-		await compactMap(handlingErrors: { MAS.printer.error(failedTo, attempting, $0, error: $1) }, transform)
+		await compactMap(transform) { MAS.printer.error($1 is MASError ? [] : [failedTo, effect, $0], error: $1) }
 	}
 
 	private func compactMap<T, E: Error>(
-		handlingErrors errorHandler: (Element, E) async -> Void,
-		_ transform: (Element) async throws(E) -> T?
+		_ transform: (Element) async throws(E) -> T?,
+		handlingErrors errorHandler: (Element, E) async -> Void
 	) async -> [T] {
-		await compactMap(
-			handlingErrors: { element, error in
-				await errorHandler(element, error)
-				return nil
-			},
-			transform
-		)
+		await compactMap(transform) { element, error in
+			await errorHandler(element, error)
+			return nil
+		}
 	}
 
 	private func compactMap<T, E: Error>(
-		handlingErrors errorHandler: (Element, E) async -> T?,
-		_ transform: (Element) async throws(E) -> T?
+		_ transform: (Element) async throws(E) -> T?,
+		handlingErrors errorHandler: (Element, E) async -> T?
 	) async -> [T] {
 		await compactMap { (element: Element) async -> T? in
 			do {
@@ -70,13 +67,13 @@ extension Array {
 }
 
 extension Array {
-	func forEach<E: Error>(attemptTo actionText: String, _ body: (Element) async throws(E) -> Void) async {
-		await forEach(handlingErrors: { MAS.printer.error(failedTo, actionText, $0, error: $1) }, body)
+	func forEach<E: Error>(attemptTo effect: String, _ body: (Element) async throws(E) -> Void) async {
+		await forEach(body) { MAS.printer.error($1 is MASError ? [] : [failedTo, effect, $0], error: $1) }
 	}
 
 	private func forEach<E: Error>(
-		handlingErrors errorHandler: (Element, E) async -> Void,
-		_ body: (Element) async throws(E) -> Void
+		_ body: (Element) async throws(E) -> Void,
+		handlingErrors errorHandler: (Element, E) async -> Void
 	) async {
 		for element in self {
 			do {

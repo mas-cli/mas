@@ -11,7 +11,10 @@ struct AccurateOptionGroup: ParsableArguments {
 	@Flag
 	private var accuracy = OutdatedAccuracy.inaccurate
 
-	func run(accurate: (Bool) async throws -> Void, inaccurate: () async throws -> Void) async rethrows {
+	func outdatedApps(
+		accurate: (Bool) async throws -> [OutdatedApp],
+		inaccurate: () async throws -> [OutdatedApp]
+	) async rethrows -> [OutdatedApp] {
 		switch accuracy {
 		case .accurate:
 			try await accurate(false)

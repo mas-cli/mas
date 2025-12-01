@@ -26,9 +26,3 @@ func reset(effectiveGID gid: gid_t) {
 		MAS.printer.warning(error: error)
 	}
 }
-
-func requireWheelGroup(withErrorMessageSuffix errorMessageSuffix: String? = nil) throws {
-	guard getgid() == 0 else {
-		throw MASError.runtimeError("The group must be wheel\(errorMessageSuffix.map { " \($0)" } ?? "").")
-	}
-}

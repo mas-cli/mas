@@ -271,7 +271,7 @@ in the App Store.
 `mas get <app-id>…` installs free apps that you haven't yet gotten/"purchased"
 from the App Store.
 
-[Requires root privileges](#-root-privileges).
+[Requires root privileges to install apps](#-root-privileges).
 
 > The `purchase` alias is currently a misnomer, because it currently can only
 > "purchase" free apps. To purchase apps that cost money, purchase them directly
@@ -295,7 +295,7 @@ $ mas get 497799835
 from the App Store. Providing the `--force` flag re-installs the app even if it
 is already installed on your Mac.
 
-[Requires root privileges](#-root-privileges).
+[Requires root privileges to install apps](#-root-privileges).
 
 ```console
 $ mas install 497799835
@@ -315,7 +315,7 @@ $ mas install 497799835
 `mas search <search-term>`. Like `mas install`, `mas lucky` can only install
 apps that have previously been gotten or purchased.
 
-[Requires root privileges](#-root-privileges).
+[Requires root privileges to install apps](#-root-privileges).
 
 ```console
 $ mas lucky Xcode
@@ -350,7 +350,7 @@ in the App Store.
 `mas update` updates outdated apps installed from the App Store. Without any
 arguments, it updates all such apps.
 
-[Requires root privileges](#-root-privileges).
+[Requires root privileges to update apps](#-root-privileges).
 
 ```console
 $ mas update
@@ -440,7 +440,7 @@ mas signin mas@example.com MyPassword
 Root privileges are now necessary to install/update apps from the App Store,
 because Apple secured `installd` on macOS 26.1+, 15.7.2+ & 14.8.2+ to fix
 [CVE-2025-43411](https://nvd.nist.gov/vuln/detail/CVE-2025-43411). To simplify
-the code, mas 4.0.0+ requires root privileges for the affected commands for all
+the code, mas 4.0.0+ requires root privileges to install/update apps for all
 versions of macOS, even older ones for which `installd` hasn't been secured.
 Most users are already, or soon will be, using affected macOS versions.
 
@@ -452,15 +452,12 @@ root privileges if you run mas without them, so you needn't remember to use
 Root privileges can be granted by running using `sudo mas …` on the command
 line, or, if you run `mas` by itself without `sudo`, by entering your macOS
 account password when prompted by `mas`. If you choose the latter route, the
-supplied password is read directly from the terminal by a call to `sudo` in the
-`mas` wrapper shell script; it is never seen by any mas code, nor is it stored
-in any way.
+supplied password is piped directly from the terminal to an external process
+`sudo` call in the `mas` executable; your password is never seen by any mas
+code, nor is it stored in any way.
 
-Any sudo credentials granted by the `sudo` calls in the `mas` wrapper shell
-script are discarded immediately after they are used. If, however, you call
-`sudo mas …` from the command line, the credentials established by `sudo` will
-not be invalidated by `mas`, and thus continue to be valid for subsequent
-commands, pursuant to your sudo timeout settings.
+Any sudo credentials used or established by the `mas` executable will remain
+valid, pursuant to your user-configured sudo timeout settings.
 
 </details>
 </details>

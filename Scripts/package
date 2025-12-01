@@ -33,10 +33,9 @@ mkdir -p "${installation_staging_folder}/share/man/man1"
 mkdir -p "${usr_local_bin_staging_folder}"
 
 cp LICENSE README.md "${installation_staging_folder}"
-cp Scripts/mas "${installation_staging_folder}/bin/mas"
 cp contrib/completion/mas-completion.bash "${installation_staging_folder}/etc/bash_completion.d/mas"
 cp contrib/completion/mas.fish "${installation_staging_folder}/share/fish/vendor_completions.d/mas.fish"
-ln -f "$(swift build -c release --show-bin-path "${@:2}")/mas" "${installation_staging_folder}/bin/mas-bin"
+ln -f "$(swift build -c release --show-bin-path "${@:2}")/mas" "${installation_staging_folder}/bin/mas"
 ln -f .build/plugins/GenerateManual/outputs/mas/mas.1 "${installation_staging_folder}/share/man/man1/mas.1"
 
 ln -fs "${installation_folder}/bin/mas" "${usr_local_bin_staging_folder}/mas"
@@ -76,4 +75,4 @@ productbuild\
 </installer-gui-script>
 ')\
  --package-path "${build_folder}"\
- "${build_folder}/mas-${version//\//_}-${${(s: :o)$(lipo -archs "${installation_staging_folder}/bin/mas-bin")}// /-}.pkg"
+ "${build_folder}/mas-${version//\//_}-${${(s: :o)$(lipo -archs "${installation_staging_folder}/bin/mas")}// /-}.pkg"

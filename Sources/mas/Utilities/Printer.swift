@@ -25,40 +25,49 @@ struct Printer {
 
 	/// Prints to `stdout`.
 	func info(_ items: Any..., separator: String = " ", terminator: String = "\n") {
+		info(items, separator: separator, terminator: terminator)
+	}
+
+	/// Prints to `stdout`.
+	func info(_ items: [Any], separator: String = " ", terminator: String = "\n") {
 		print(items.map(String.init(describing:)), separator: separator, terminator: terminator, to: .standardOutput)
 	}
 
 	/// Prints to `stdout`, prefixed with "==> "; if connected to a terminal, the
 	/// prefix is blue.
 	func notice(_ items: Any..., separator: String = " ", terminator: String = "\n") {
+		notice(items, separator: separator, terminator: terminator)
+	}
+
+	/// Prints to `stdout`, prefixed with "==> "; if connected to a terminal, the
+	/// prefix is blue.
+	func notice(_ items: [Any], separator: String = " ", terminator: String = "\n") {
 		print(items, prefix: "==>", format: "1;34", separator: separator, terminator: terminator, to: .standardOutput)
 	}
 
 	/// Prints to `stderr`, prefixed with "Warning: "; if connected to a terminal,
 	/// the prefix is yellow & underlined.
 	func warning(_ items: Any..., error: (any Error)? = nil, separator: String = " ", terminator: String = "\n") {
-		print(
-			items,
-			prefix: "Warning:",
-			format: "4;33",
-			separator: separator,
-			terminator: errorTerminator(items, error: error, terminator: terminator),
-			to: .standardError
-		)
+		warning(items, error: error, separator: separator, terminator: terminator)
+	}
+
+	/// Prints to `stderr`, prefixed with "Warning: "; if connected to a terminal,
+	/// the prefix is yellow & underlined.
+	func warning(_ items: [Any], error: (any Error)? = nil, separator: String = " ", terminator: String = "\n") {
+		problem(items, prefix: "Warning:", format: "4;33", error: error, separator: separator, terminator: terminator)
 	}
 
 	/// Prints to `stderr`, prefixed with "Error: "; if connected to a terminal,
 	/// the prefix is red & underlined.
 	func error(_ items: Any..., error: (any Error)? = nil, separator: String = " ", terminator: String = "\n") {
+		self.error(items, error: error, separator: separator, terminator: terminator)
+	}
+
+	/// Prints to `stderr`, prefixed with "Error: "; if connected to a terminal,
+	/// the prefix is red & underlined.
+	func error(_ items: [Any], error: (any Error)? = nil, separator: String = " ", terminator: String = "\n") {
 		errorCounter.wrappingIncrement(ordering: .relaxed)
-		print(
-			items,
-			prefix: "Error:",
-			format: "4;31",
-			separator: separator,
-			terminator: errorTerminator(items, error: error, terminator: terminator),
-			to: .standardError
-		)
+		problem(items, prefix: "Error:", format: "4;31", error: error, separator: separator, terminator: terminator)
 	}
 
 	func clearCurrentLine(of fileHandle: FileHandle) {
@@ -67,19 +76,37 @@ struct Printer {
 		}
 	}
 
-	private func errorTerminator(_ items: Any..., error: (any Error)?, terminator: String) -> String {
-		error.map { error in
-			let errorDescription = String(describing: error)
-			return "\(errorDescription.isEmpty ? "" : items.isEmpty ? " " : "\n")\(errorDescription)\(terminator)"
+	private func problem(
+		_ items: [Any],
+		prefix: String,
+		format: String,
+		error: (any Error)?,
+		separator: String,
+		terminator: String
+	) {
+		guard !items.isEmpty || (error != nil && !(error is ExitCode)) else {
+			return
 		}
-		?? terminator // swiftformat:disable:this indent
+
+		print(
+			items,
+			prefix: prefix,
+			format: format,
+			separator: separator,
+			terminator: error.map { error in
+				let errorDescription = String(describing: error)
+				return "\(errorDescription.isEmpty ? "" : items.isEmpty ? " " : "\n")\(errorDescription)\(terminator)"
+			}
+			?? terminator, // swiftformat:disable:this indent
+			to: .standardError
+		)
 	}
 
 	private func print(_ items: [String], separator: String, terminator: String, to fileHandle: FileHandle) {
 		fileHandle.write(Data(items.joined(separator: separator).appending(terminator).utf8))
 	}
 
-	private func print( // swiftlint:disable:this function_parameter_count
+	private func print(
 		_ items: [Any],
 		prefix: String,
 		format: String,

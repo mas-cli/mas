@@ -26,9 +26,3 @@ func reset(effectiveUID uid: uid_t) {
 		MAS.printer.warning(error: error)
 	}
 }
-
-func requireRootUser(withErrorMessageSuffix errorMessageSuffix: String? = nil) throws {
-	guard getuid() == 0 else {
-		throw MASError.runtimeError("The user must be root\(errorMessageSuffix.map { " \($0)" } ?? "").")
-	}
-}

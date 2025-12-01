@@ -8,16 +8,17 @@
 private import StoreFoundation
 
 extension SSPurchase {
-	convenience init(adamID: ADAMID, getting: Bool) async {
+	convenience init(_ action: AppStoreAction, appWithADAMID adamID: ADAMID) async {
 		self.init(
 			buyParameters: """
 				productType=C&price=0&pg=default&appExtVrsId=0&pricingParameters=\
-				\(getting ? "STDQ&macappinstalledconfirmed=1" : "STDRDL")&salableAdamId=\(adamID)
+				\(action == .get ? "STDQ&macappinstalledconfirmed=1" : "STDRDL")&salableAdamId=\(adamID)
 				"""
 		)
 
 		// Possibly unnecessary…
-		isRedownload = !getting
+		isRedownload = action != .get
+		isUpdate = action == .update
 
 		itemIdentifier = adamID
 
