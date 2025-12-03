@@ -7,6 +7,7 @@ body:
   id: config
   attributes:
     label: Configuration
+    description: Output of `mas config`
     placeholder: Output of `mas config`
     render: text
   validations:
@@ -36,7 +37,7 @@ body:
 - type: markdown
   attributes:
     value: |
-      # Console command & output formatting instructions
+      ## Console command & output formatting instructions
 
       Provide console commands & output as copied, pasted & formatted text, instead of as screenshots.
 
