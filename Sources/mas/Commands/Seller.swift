@@ -33,21 +33,21 @@ extension MAS {
 
 		func run(catalogApps: [CatalogApp]) async { // swiftformat:disable:this organizeDeclarations
 			await run(
-				sellerURLs: catalogApps.compactMap { catalogApp in
-					guard let sellerURL = catalogApp.sellerURL else {
+				sellerURLStrings: catalogApps.compactMap { catalogApp in
+					guard let sellerURLString = catalogApp.sellerURLString else {
 						printer.error("No seller website available for ADAM ID", catalogApp.adamID)
 						return nil
 					}
 
-					return sellerURL
+					return sellerURLString
 				}
 			)
 		}
 
-		private func run(sellerURLs: [String]) async { // swiftformat:disable:this organizeDeclarations
-			await sellerURLs.forEach(attemptTo: "open") { sellerURL in
-				guard let url = URL(string: sellerURL) else {
-					throw MASError.unparsableURL(sellerURL)
+		private func run(sellerURLStrings: [String]) async { // swiftformat:disable:this organizeDeclarations
+			await sellerURLStrings.forEach(attemptTo: "open") { sellerURLString in
+				guard let url = URL(string: sellerURLString) else {
+					throw MASError.unparsableURL(sellerURLString)
 				}
 
 				try await url.open()

@@ -35,10 +35,10 @@ private extension MASTests {
 
 		#expect(
 			catalogApp.adamID == adamID // swiftformat:disable indent
-			&& catalogApp.appStorePageURL == "https://itunes.apple.com/us/app/slack/id803453959?mt=12&uo=4"
+			&& catalogApp.appStorePageURLString == "https://itunes.apple.com/us/app/slack/id803453959?mt=12&uo=4"
 			&& catalogApp.name == "Slack"
 			&& catalogApp.sellerName == "Slack Technologies, Inc."
-			&& catalogApp.sellerURL == "https://slack.com"
+			&& catalogApp.sellerURLString == "https://slack.com"
 			&& catalogApp.version == "3.3.3"
 		) // swiftformat:enable indent
 	}

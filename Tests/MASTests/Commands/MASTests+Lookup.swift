@@ -25,7 +25,7 @@ private extension MASTests {
 					catalogApps: [
 						CatalogApp(
 							adamID: 1,
-							appStorePageURL: "https://awesome.app",
+							appStorePageURLString: "https://awesome.app",
 							fileSizeBytes: "1000000",
 							formattedPrice: "$2.00",
 							minimumOSVersion: "10.14",

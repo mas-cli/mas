@@ -84,9 +84,9 @@ struct ITunesSearchAppCatalog: AppCatalog {
 	}
 
 	private func url(_ action: String, _ queryItem: URLQueryItem, inRegion region: Region) throws -> URL {
-		let urlBase = "https://itunes.apple.com/\(action)"
-		guard var urlComponents = URLComponents(string: urlBase) else {
-			throw MASError.unparsableURL(urlBase)
+		let urlString = "https://itunes.apple.com/\(action)"
+		guard var urlComponents = URLComponents(string: urlString) else {
+			throw MASError.unparsableURL(urlString)
 		}
 
 		let queryItems = [
@@ -99,7 +99,7 @@ struct ITunesSearchAppCatalog: AppCatalog {
 		urlComponents.queryItems = queryItems
 
 		guard let url = urlComponents.url else {
-			throw MASError.unparsableURL("\(urlBase)?\(queryItems.map(String.init(describing:)).joined(separator: "&"))")
+			throw MASError.unparsableURL("\(urlString)?\(queryItems.map(String.init(describing:)).joined(separator: "&"))")
 		}
 
 		return url

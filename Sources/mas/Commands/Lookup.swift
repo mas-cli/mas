@@ -41,7 +41,7 @@ extension MAS {
 					Released: \(catalogApp.releaseDate.isoCalendarDate)
 					Minimum OS: \(catalogApp.minimumOSVersion)
 					Size: \(catalogApp.fileSizeBytes.humanReadableSize)
-					From: \(catalogApp.appStorePageURL)
+					From: \(catalogApp.appStorePageURLString)
 
 					"""
 				}
