@@ -47,7 +47,7 @@ extension MAS {
 		private func run(sellerURLs: [String]) async { // swiftformat:disable:this organizeDeclarations
 			await sellerURLs.forEach(attemptTo: "open") { sellerURL in
 				guard let url = URL(string: sellerURL) else {
-					throw MASError.urlParsing(sellerURL)
+					throw MASError.unparsableURL(sellerURL)
 				}
 
 				try await url.open()

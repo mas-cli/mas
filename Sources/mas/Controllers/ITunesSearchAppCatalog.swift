@@ -59,7 +59,7 @@ struct ITunesSearchAppCatalog: AppCatalog {
 	///   - region: The ISO 3166-1 alpha-2 region of the storefront in which to
 	///     lookup apps.
 	/// - Returns: URL for the lookup service.
-	/// - Throws: An `MASError.urlParsing` if `appID` can't be encoded.
+	/// - Throws: An `MASError.unparsableURL` if `appID` can't be encoded.
 	private func lookupURL(forAppID appID: AppID, inRegion region: Region) throws -> URL {
 		let queryItem =
 			switch appID {
@@ -78,7 +78,7 @@ struct ITunesSearchAppCatalog: AppCatalog {
 	///   - region: The ISO 3166-1 alpha-2 region of the storefront in which to
 	///     search for apps.
 	/// - Returns: URL for the search service.
-	/// - Throws: An `MASError.urlParsing` if `searchTerm` can't be encoded.
+	/// - Throws: An `MASError.unparsableURL` if `searchTerm` can't be encoded.
 	private func searchURL(for searchTerm: String, inRegion region: Region) throws -> URL {
 		try url("search", URLQueryItem(name: "term", value: searchTerm), inRegion: region)
 	}
@@ -86,7 +86,7 @@ struct ITunesSearchAppCatalog: AppCatalog {
 	private func url(_ action: String, _ queryItem: URLQueryItem, inRegion region: Region) throws -> URL {
 		let urlBase = "https://itunes.apple.com/\(action)"
 		guard var urlComponents = URLComponents(string: urlBase) else {
-			throw MASError.urlParsing(urlBase)
+			throw MASError.unparsableURL(urlBase)
 		}
 
 		let queryItems = [
@@ -99,7 +99,7 @@ struct ITunesSearchAppCatalog: AppCatalog {
 		urlComponents.queryItems = queryItems
 
 		guard let url = urlComponents.url else {
-			throw MASError.urlParsing("\(urlBase)?\(queryItems.map(String.init(describing:)).joined(separator: "&"))")
+			throw MASError.unparsableURL("\(urlBase)?\(queryItems.map(String.init(describing:)).joined(separator: "&"))")
 		}
 
 		return url

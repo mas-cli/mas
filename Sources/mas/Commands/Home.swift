@@ -37,7 +37,7 @@ extension MAS {
 		private func run(appStorePageURLs: [String]) async { // swiftformat:disable:this organizeDeclarations
 			await appStorePageURLs.forEach(attemptTo: "open") { appStorePageURL in
 				guard let url = URL(string: appStorePageURL) else {
-					throw MASError.urlParsing(appStorePageURL)
+					throw MASError.unparsableURL(appStorePageURL)
 				}
 
 				try await url.open()

@@ -76,12 +76,12 @@ private func openMacAppStore() async throws {
 
 private func openMacAppStorePage(forAppStorePageURL urlString: String) async throws {
 	guard var urlComponents = URLComponents(string: urlString) else {
-		throw MASError.urlParsing(urlString)
+		throw MASError.unparsableURL(urlString)
 	}
 
 	urlComponents.scheme = masScheme
 	guard let url = urlComponents.url else {
-		throw MASError.urlParsing(String(describing: urlComponents))
+		throw MASError.unparsableURL(String(describing: urlComponents))
 	}
 
 	try await url.open()

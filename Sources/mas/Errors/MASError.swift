@@ -9,8 +9,8 @@ enum MASError: Error {
 	case noCatalogAppsFound(for: String)
 	case runtimeError(String, error: (any Error)? = nil)
 	case unknownAppID(AppID)
+	case unparsableURL(String)
 	case unsupportedCommand(String)
-	case urlParsing(String)
 
 	static func runtimeError(_ message: String, error: String) -> Self {
 		runtimeError(message, error: runtimeError(error))
@@ -26,13 +26,13 @@ extension MASError: CustomStringConvertible {
 			"\(message)\(error.map { ":\n\($0)" } ?? "")"
 		case let .unknownAppID(appID):
 			"No apps found in the App Store for \(appID)"
+		case let .unparsableURL(string):
+			"Failed to parse URL from \(string)"
 		case let .unsupportedCommand(commandName):
 			"""
 			\(commandName) is not supported on this macOS version due to changes in macOS
 			See https://github.com/mas-cli/mas#known-issues
 			"""
-		case let .urlParsing(string):
-			"Failed to parse URL from \(string)"
 		}
 	}
 }
