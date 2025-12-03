@@ -65,10 +65,10 @@ extension MAS {
 			let uid = try processInfo.sudoUID
 			let gid = try processInfo.sudoGID
 			guard let finder = SBApplication(bundleIdentifier: "com.apple.finder") as (any FinderApplication)? else {
-				throw MASError.runtimeError("Failed to obtain Finder access: bundle com.apple.finder does not exist")
+				throw MASError.error("Failed to obtain Finder access: bundle com.apple.finder does not exist")
 			}
 			guard let items = finder.items else {
-				throw MASError.runtimeError("Failed to obtain Finder access: FinderApplication.items() does not exist")
+				throw MASError.error("Failed to obtain Finder access: FinderApplication.items() does not exist")
 			}
 
 			let fileManager = FileManager.default

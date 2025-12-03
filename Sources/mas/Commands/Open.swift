@@ -63,12 +63,12 @@ extension MAS {
 
 private func openMacAppStore() async throws {
 	guard let macAppStoreSchemeURL = URL(string: "macappstore:") else {
-		throw MASError.runtimeError("Failed to create URL from macappstore scheme")
+		throw MASError.error("Failed to create URL from macappstore scheme")
 	}
 
 	let workspace = NSWorkspace.shared
 	guard let appURL = workspace.urlForApplication(toOpen: macAppStoreSchemeURL) else {
-		throw MASError.runtimeError("Failed to find app to open macappstore URLs")
+		throw MASError.error("Failed to find app to open macappstore URLs")
 	}
 
 	try await workspace.openApplication(at: appURL, configuration: NSWorkspace.OpenConfiguration())

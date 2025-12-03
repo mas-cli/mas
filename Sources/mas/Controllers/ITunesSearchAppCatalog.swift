@@ -110,7 +110,7 @@ struct ITunesSearchAppCatalog: AppCatalog {
 		do {
 			return try JSONDecoder().decode(CatalogAppResults.self, from: data).results
 		} catch {
-			throw MASError.runtimeError(
+			throw MASError.error(
 				"Failed to parse response from \(url) as JSON",
 				error: String(data: data, encoding: .utf8) ?? ""
 			)

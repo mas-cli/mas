@@ -57,7 +57,7 @@ enum AppStoreAction {
 					return
 				}
 				guard response?.downloads?.isEmpty == false else {
-					continuation.resume(throwing: MASError.runtimeError("No downloads initiated for ADAM ID \(adamID)"))
+					continuation.resume(throwing: MASError.error("No downloads initiated for ADAM ID \(adamID)"))
 					return
 				}
 

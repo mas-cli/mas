@@ -11,9 +11,7 @@ private import Foundation
 
 func sudo(_ executableName: String, args: some Sequence<String>) throws {
 	guard let executablePath = Bundle.main.executablePath else {
-		throw MASError.runtimeError(
-			"Failed to get the executable path for sudo \(executableName) \(args.joined(separator: " "))"
-		)
+		throw MASError.error("Failed to get the executable path for sudo \(executableName) \(args.joined(separator: " "))")
 	}
 
 	try sudo([executablePath] + args)
@@ -30,7 +28,7 @@ private func sudo(_ args: some Sequence<String>) throws {
 	var pid = 0 as pid_t
 	let spawnStatus = posix_spawn(&pid, "/usr/bin/sudo", nil, nil, cArgs + [nil], environ)
 	guard spawnStatus == 0 else {
-		throw MASError.runtimeError(
+		throw MASError.error(
 			"Failed to spawn installer process",
 			error: String(cString: strerror(spawnStatus)),
 			separator: ": "

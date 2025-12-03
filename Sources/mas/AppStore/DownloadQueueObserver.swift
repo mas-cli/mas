@@ -163,11 +163,11 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 				try install(appNameAndVersion: metadata.appNameAndVersion)
 			} else {
 				guard !status.isFailed else {
-					throw MASError.runtimeError("Failed to download \(metadata.appNameAndVersion)")
+					throw MASError.error("Failed to download \(metadata.appNameAndVersion)")
 				}
 				guard !status.isCancelled else {
 					guard shouldCancel(download, false) else {
-						throw MASError.runtimeError("Download cancelled for \(metadata.appNameAndVersion)")
+						throw MASError.error("Download cancelled for \(metadata.appNameAndVersion)")
 					}
 
 					completionHandler?()
@@ -221,10 +221,10 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 
 	private func install(appNameAndVersion: String) throws {
 		guard let receiptHardLinkURL else {
-			throw MASError.runtimeError("Failed to find receipt to import for \(appNameAndVersion)")
+			throw MASError.error("Failed to find receipt to import for \(appNameAndVersion)")
 		}
 		guard let pkgHardLinkPath = pkgHardLinkURL?.path else {
-			throw MASError.runtimeError("Failed to find pkg to install for \(appNameAndVersion)")
+			throw MASError.error("Failed to find pkg to install for \(appNameAndVersion)")
 		}
 
 		let appFolderURL = try installPkg(appNameAndVersion: appNameAndVersion)
@@ -237,7 +237,7 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 				try fileManager.setAttributes([.ownerAccountID: 0, .groupOwnerAccountID: 0], ofItemAtPath: receiptURL.path)
 			}
 		} catch {
-			throw MASError.runtimeError(
+			throw MASError.error(
 				"""
 				Failed to copy receipt for \(appNameAndVersion) from \(receiptHardLinkURL.path.quoted) to\
 				 \(receiptURL.path.quoted)
@@ -256,11 +256,11 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 		do {
 			try process.run()
 		} catch {
-			throw MASError.runtimeError("Failed to install \(appNameAndVersion) from \(pkgHardLinkPath)", error: error)
+			throw MASError.error("Failed to install \(appNameAndVersion) from \(pkgHardLinkPath)", error: error)
 		}
 		process.waitUntilExit()
 		guard process.terminationStatus == 0 else {
-			throw MASError.runtimeError(
+			throw MASError.error(
 				"""
 				Failed to install \(appNameAndVersion) from \(pkgHardLinkPath)
 				Exit status: \(process.terminationStatus)\(
@@ -278,7 +278,7 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 
 	private func installPkg(appNameAndVersion: String) throws -> URL {
 		guard let pkgHardLinkPath = pkgHardLinkURL?.path else {
-			throw MASError.runtimeError("Failed to find pkg to install for \(appNameAndVersion)")
+			throw MASError.error("Failed to find pkg to install for \(appNameAndVersion)")
 		}
 
 		let process = Process()
@@ -291,7 +291,7 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 		do {
 			try run(asEffectiveUID: 0, andEffectiveGID: 0) { try process.run() }
 		} catch {
-			throw MASError.runtimeError("Failed to install \(appNameAndVersion) from \(pkgHardLinkPath)", error: error)
+			throw MASError.error("Failed to install \(appNameAndVersion) from \(pkgHardLinkPath)", error: error)
 		}
 		process.waitUntilExit()
 		let standardOutputText =
@@ -299,7 +299,7 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 		let standardErrorText =
 			String(data: standardErrorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? ""
 		guard process.terminationStatus == 0 else {
-			throw MASError.runtimeError(
+			throw MASError.error(
 				"""
 				Failed to install \(appNameAndVersion) from \(pkgHardLinkPath)
 				Exit status: \(process.terminationStatus)\(
@@ -315,7 +315,7 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 			appFolderURLNSRange.location != NSNotFound,
 			let appFolderURLRange = Range(appFolderURLNSRange, in: standardErrorText)
 		else { // swiftformat:enable indent
-			throw MASError.runtimeError(
+			throw MASError.error(
 				"Failed to find app folder URL in installer output for \(appNameAndVersion)",
 				error: standardErrorText
 			)
@@ -323,7 +323,7 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 
 		let appFolderURLString = String(standardErrorText[appFolderURLRange])
 		guard let appFolderURL = URL(string: appFolderURLString) else {
-			throw MASError.runtimeError(
+			throw MASError.error(
 				"Failed to parse app folder URL for \(appNameAndVersion) from \(appFolderURLString)",
 				error: standardErrorText
 			)
@@ -392,12 +392,12 @@ private extension URL {
 			return false
 		}
 		guard let fileResourceID1 = try resourceValues(forKeys: [.fileResourceIdentifierKey]).fileResourceIdentifier else {
-			throw MASError.runtimeError("Failed to get file resource identifier for \(path)")
+			throw MASError.error("Failed to get file resource identifier for \(path)")
 		}
 		guard
 			let fileResourceID2 = try url.resourceValues(forKeys: [.fileResourceIdentifierKey]).fileResourceIdentifier
 		else {
-			throw MASError.runtimeError("Failed to get file resource identifier for \(url.path)")
+			throw MASError.error("Failed to get file resource identifier for \(url.path)")
 		}
 
 		return fileResourceID1.isEqual(fileResourceID2)

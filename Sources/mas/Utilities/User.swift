@@ -15,7 +15,7 @@ private extension uid_t {
 
 func set(effectiveUID uid: uid_t) throws {
 	guard seteuid(uid) == 0 else {
-		throw MASError.runtimeError("Failed to switch effective user from \(geteuid().nameAndID) to \(uid.nameAndID)")
+		throw MASError.error("Failed to switch effective user from \(geteuid().nameAndID) to \(uid.nameAndID)")
 	}
 }
 
