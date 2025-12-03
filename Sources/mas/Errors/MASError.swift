@@ -31,7 +31,7 @@ extension MASError: CustomStringConvertible {
 		case let .unsupportedCommand(commandName):
 			"""
 			\(commandName) is not supported on this macOS version due to changes in macOS
-			See https://github.com/mas-cli/mas#known-issues
+			See https://github.com/mas-cli/mas#%EF%B8%8F-known-issues
 			"""
 		}
 	}

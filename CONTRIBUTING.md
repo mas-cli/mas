@@ -19,11 +19,11 @@ By participating in this project, you agree to abide by the
 This project uses [trunk-based development](https://trunkbaseddevelopment.com),
 where `main` is the trunk.
 
-- [Fork the repository](https://github.com/mas-cli/mas#fork-destination-box) on
+- [Fork the repository](https://github.com/mas-cli/mas#fork-button) on
   GitHub
 - Clone your fork: `git clone git@github.com:your-username/mas.git`
 - Create a topic branch instead of [working directly on `main`](
-    https://softwareengineering.stackexchange.com/questions/223400
+    https://softwareengineering.stackexchange.com/questions/223400/when-should-i-stop-committing-to-master-on-new-projects
   )
   - To branch a topic branch from `main` named, e.g., `feature`, run:
     `git checkout -b feature main`

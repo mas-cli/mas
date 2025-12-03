@@ -645,8 +645,9 @@ app from the App Store
 If mas doesn't work as expected (e.g., apps can't be installed/updated), run
 `mas reset`, then try again.
 
-If the issue persists, please
-[file a bug](https://github.com/mas-cli/mas/issues/new).
+If the issue persists, please [file a bug](
+  https://github.com/mas-cli/mas/issues/new?template=01-bug-report.yaml
+).
 
 All feedback is much appreciated!
 
@@ -676,7 +677,7 @@ Build output can be found in the `.build` folder in the project's root folder.
 </summary>
 
 Tests are implemented in
-[Swift Testing](https://github.com/swiftlang/swift-testing).
+[Swift Testing](https://developer.apple.com/xcode/swift-testing).
 
 Tests can be run by the following script:
 
