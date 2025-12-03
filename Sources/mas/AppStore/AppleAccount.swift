@@ -5,6 +5,7 @@
 // Copyright © 2025 mas-cli. All rights reserved.
 //
 
+private import ArgumentParser
 internal import Foundation
 private import StoreFoundation
 
@@ -19,7 +20,7 @@ var appleAccount: AppleAccount {
 		if #available(macOS 12, *) {
 			// Account information is no longer available on macOS 12+
 			// https://github.com/mas-cli/mas/issues/417
-			throw MASError.unsupportedCommand
+			throw MASError.unsupportedCommand(MAS.Account._commandName)
 		}
 		return await withCheckedContinuation { continuation in
 			ISServiceProxy.genericShared().accountService.primaryAccount { account in

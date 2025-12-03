@@ -13,7 +13,7 @@ private extension MASTests {
 	@Test
 	func signsIn() {
 		let actual = consequencesOf(try MAS.main(try MAS.SignIn.parse(["", ""])))
-		let expected = Consequences(nil, "", "Error: \(MASError.unsupportedCommand)\n")
+		let expected = Consequences(nil, "", "Error: \(MASError.unsupportedCommand(MAS.SignIn._commandName))\n")
 		#expect(actual == expected)
 	}
 }
