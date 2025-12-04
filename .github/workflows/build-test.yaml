@@ -19,16 +19,14 @@ jobs:
       matrix:
         include:
         - runner: macos-14
-          xcode: 16.2
         - runner: macos-15
-          xcode: ''
+        - runner: macos-15-intel
         - runner: macos-26
-          xcode: ''
     runs-on: ${{matrix.runner}}
     defaults:
       run:
-        # Force all run commands to not use Rosetta 2
-        shell: arch -arm64 /bin/zsh -Negku {0}
+        # Force all run commands to not use Rosetta 2 on arm64
+        shell: ${{endsWith(matrix.runner, '-intel') && '/bin/zsh -Negku {0}' || 'arch -arm64 /bin/zsh -Negku {0}'}}
     steps:
     - name: 🛒 Checkout repo
       env:
@@ -44,8 +42,8 @@ jobs:
       run: Scripts/setup_workflow_repo
 
     - name: 🛠 Select newest available Xcode
-      if: ${{matrix.xcode != ''}}
-      run: sudo xcode-select -s /Applications/Xcode_${{matrix.xcode}}.app/Contents/Developer
+      if: ${{matrix.runner == 'macos-14'}}
+      run: sudo xcode-select -s /Applications/Xcode_16.2.app/Contents/Developer
 
     - name: 👢 Bootstrap
       run: Scripts/bootstrap
