@@ -41,9 +41,7 @@ enum AppID: CustomStringConvertible {
 	}
 }
 
-typealias ADAMID = UInt64
-
-extension [AppID] {
+extension [AppID] { // swiftlint:disable:this file_types_order
 	func adamIDs(from appCatalog: some AppCatalog) async -> [ADAMID] {
 		await compactMap(attemptingTo: "get ADAM ID for") { try await $0.adamID(appCatalog: appCatalog) }
 	}
@@ -52,3 +50,5 @@ extension [AppID] {
 		await compactMap(attemptingTo: "lookup app for") { try await appCatalog.lookup(appID: $0) }
 	}
 }
+
+typealias ADAMID = UInt64
