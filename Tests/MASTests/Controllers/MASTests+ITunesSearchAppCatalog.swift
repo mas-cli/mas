@@ -14,8 +14,10 @@ private extension MASTests {
 		let actual = await consequencesOf(
 			try await ITunesSearchAppCatalog(networkSession: try MockNetworkSession(responseResource: "slack"))
 			.search(for: "slack") // swiftformat:disable:this indent
+			.count // swiftformat:disable:this indent
 		)
-		#expect(actual.value?.count == 39 && actual.error == nil && actual.stdout.isEmpty && actual.stderr.isEmpty)
+		let expected = Consequences(39)
+		#expect(actual == expected)
 	}
 
 	@Test
