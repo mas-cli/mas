@@ -189,11 +189,11 @@ from the App Store.
 
 ```console
 $ mas lookup 497799835
-Xcode 16.0 [Free]
+Xcode 26.1.1 [Free]
 By: Apple Inc.
-Released: 2024-09-16
-Minimum OS: 14.5
-Size: 2.98 GB
+Released: 2025-11-11
+Minimum OS: 15.6
+Size: 2,913.8 MB
 From: https://apps.apple.com/us/app/xcode/id497799835?mt=12&uo=4
 ```
 
@@ -271,7 +271,7 @@ in the App Store.
 `mas get <app-id>…` installs free apps that you haven't yet gotten/"purchased"
 from the App Store.
 
-[Requires root privileges.](#-root-privileges)
+[Requires root privileges](#-root-privileges).
 
 > The `purchase` alias is currently a misnomer, because it currently can only
 > "purchase" free apps. To purchase apps that cost money, purchase them directly
@@ -295,7 +295,7 @@ $ mas get 497799835
 from the App Store. Providing the `--force` flag re-installs the app even if it
 is already installed on your Mac.
 
-[Requires root privileges.](#-root-privileges)
+[Requires root privileges](#-root-privileges).
 
 ```console
 $ mas install 497799835
@@ -315,7 +315,7 @@ $ mas install 497799835
 `mas search <search-term>`. Like `mas install`, `mas lucky` can only install
 apps that have previously been gotten or purchased.
 
-[Requires root privileges.](#-root-privileges)
+[Requires root privileges](#-root-privileges).
 
 ```console
 $ mas lucky Xcode
@@ -350,7 +350,7 @@ in the App Store.
 `mas update` updates outdated apps installed from the App Store. Without any
 arguments, it updates all such apps.
 
-[Requires root privileges.](#-root-privileges)
+[Requires root privileges](#-root-privileges).
 
 ```console
 $ mas update
@@ -438,12 +438,11 @@ mas signin mas@example.com MyPassword
 </summary>
 
 Root privileges are now necessary to install/update apps from the App Store,
-beacuse Apple secured `installd` on macOS 26.1+, 15.7.2+ & 14.8.2+ to fix this
-[CVE](https://nvd.nist.gov/vuln/detail/CVE-2025-43411). The workaround requires
-running mas with root privileges for the affected commands. mas 4.0.0+ requires
-root privileges for the affected commands for all versions of macOS, even older
-ones, to simplify the code, and because most users will be using affected macOS
-versions already, or soon will be.
+because Apple secured `installd` on macOS 26.1+, 15.7.2+ & 14.8.2+ to fix
+[CVE-2025-43411](https://nvd.nist.gov/vuln/detail/CVE-2025-43411). To simplify
+the code, mas 4.0.0+ requires root privileges for the affected commands for all
+versions of macOS, even older ones for which `installd` hasn't been secured.
+Most users are already, or soon will be, using affected macOS versions.
 
 Root privileges were always necessary to uninstall apps from the App Store,
 because such apps are owned by the `root` user on macOS. mas 4.0.0+ will request
@@ -455,10 +454,12 @@ line, or, if you run `mas` by itself without `sudo`, by entering your macOS
 account password when prompted by `mas`. If you choose the latter route, the
 supplied password is read directly from the terminal by a call to `sudo` in the
 `mas` wrapper shell script; it is never seen by any mas code, nor is it stored
-in any way; any credentials granted by the `sudo` calls in the `mas` wrapper
-shell script are discarded immediately after they are used. If, however, you
-call `sudo mas …` from the command line, the credentials established by `sudo`
-will not be invalidated by `mas`, and thus continue to be valid for subsequent
+in any way.
+
+Any sudo credentials granted by the `sudo` calls in the `mas` wrapper shell
+script are discarded immediately after they are used. If, however, you call
+`sudo mas …` from the command line, the credentials established by `sudo` will
+not be invalidated by `mas`, and thus continue to be valid for subsequent
 commands, pursuant to your sudo timeout settings.
 
 </details>
@@ -518,10 +519,12 @@ functionality.
 Over time, Apple has silently changed these frameworks, breaking some
 functionality, including:
 
-- ⛔ The `signin` command is not supported on macOS 10.13 (High Sierra) or newer
-  [#164](https://github.com/mas-cli/mas/issues/164)
-- ⛔ The `account` command is not supported on macOS 12 (Monterey) or newer
-  [#417](https://github.com/mas-cli/mas/issues/417)
+- [The `account` command is not supported on macOS 12 (Monterey) or newer](
+    https://github.com/mas-cli/mas/issues/417
+  )
+- [The `signin` command is not supported on macOS 10.13 (High Sierra) or newer](
+    https://github.com/mas-cli/mas/issues/164
+  )
 
 </details>
 <details>
@@ -533,9 +536,8 @@ functionality, including:
 
 The App Store operates on eventual consistency.
 
-The versions seen by various parts of mas or the App Store might be inconsistent
-for days ([#384](https://github.com/mas-cli/mas/issues/384) &
-[#387](https://github.com/mas-cli/mas/issues/387)).
+[The app versions seen by various parts of mas or the App Store might be
+inconsistent for days](https://github.com/mas-cli/mas/issues/387).
 
 </details>
 <details>
@@ -547,8 +549,9 @@ for days ([#384](https://github.com/mas-cli/mas/issues/384) &
 
 Apple Silicon Macs can install iOS & iPadOS apps from the App Store.
 
-mas does not yet support such apps
-([#321](https://github.com/mas-cli/mas/issues/321)).
+[mas does not yet support iOS or iPadOS apps](
+  https://github.com/mas-cli/mas/issues/321
+).
 
 </details>
 <details>
@@ -627,9 +630,8 @@ sudo mdutil -Eai on
 
 </summary>
 
-If the following error occurs, you probably haven't yet gotten or purchased the
-app from the App Store
-([#46](https://github.com/mas-cli/mas/issues/46#issuecomment-248581233)).
+If the following error occurs, you probably [haven't yet gotten or purchased the
+app from the App Store](#mas-install).
 
 > This redownload is not available for this Apple Account either because it was
 > bought by a different user or the item was refunded or canceled.
