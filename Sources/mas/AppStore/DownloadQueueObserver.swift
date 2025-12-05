@@ -123,8 +123,8 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 				String(repeating: "#", count: completedLength),
 				String(repeating: "-", count: totalLength - completedLength),
 				" ",
-				String(format: "%.0f%%", floor(percentComplete * 100).rounded()),
-				" ",
+				UInt64((percentComplete * 100).rounded()),
+				"% ",
 				status.activePhaseType.description,
 				separator: "",
 				terminator: ""
