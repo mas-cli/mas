@@ -1,3 +1,4 @@
+brew "actionlint"        # 1.7.9
 brew "git"               # 2.52.0
 brew "ipsw"              # 3.1.643
 brew "markdownlint-cli2" # 0.20.0
