@@ -51,7 +51,7 @@ private func configStringValue(_ name: String) -> String {
 		return unknown
 	}
 
-	return String(cString: buffer, encoding: .utf8) ?? unknown
+	return String(cString: &buffer)
 }
 
 private let unknown = "unknown"

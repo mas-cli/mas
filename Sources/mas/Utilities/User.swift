@@ -7,15 +7,9 @@
 
 internal import Darwin
 
-func userName(for uid: uid_t) -> String? {
-	String(validatingCString: getpwuid(uid).pointee.pw_name)
-}
-
 func set(effectiveUID uid: uid_t) throws {
 	guard seteuid(uid) == 0 else {
-		throw MASError.runtimeError(
-			"Failed to switch effective user from \(geteuid().nameAndID) to \(uid.nameAndID)"
-		)
+		throw MASError.runtimeError("Failed to switch effective user from \(geteuid().nameAndID) to \(uid.nameAndID)")
 	}
 }
 
@@ -35,6 +29,6 @@ func requireRootUser(withErrorMessageSuffix errorMessageSuffix: String? = nil) t
 
 private extension uid_t {
 	var nameAndID: String {
-		"\(userName(for: self).quoted) (\(self))"
+		"\(String(cString: getpwuid(self).pointee.pw_name).quoted) (\(self))"
 	}
 }

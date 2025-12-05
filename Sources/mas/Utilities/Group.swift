@@ -7,15 +7,9 @@
 
 internal import Darwin
 
-func groupName(for gid: gid_t) -> String? {
-	String(validatingCString: getgrgid(gid).pointee.gr_name)
-}
-
 func set(effectiveGID gid: gid_t) throws {
 	guard setegid(gid) == 0 else {
-		throw MASError.runtimeError(
-			"Failed to switch effective group from \(getegid().nameAndID) to \(gid.nameAndID)"
-		)
+		throw MASError.runtimeError("Failed to switch effective group from \(getegid().nameAndID) to \(gid.nameAndID)")
 	}
 }
 
@@ -35,6 +29,6 @@ func requireWheelGroup(withErrorMessageSuffix errorMessageSuffix: String? = nil)
 
 private extension gid_t {
 	var nameAndID: String {
-		"\(groupName(for: self).quoted) (\(self))"
+		"\(String(cString: getgrgid(self).pointee.gr_name).quoted) (\(self))"
 	}
 }
