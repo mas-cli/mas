@@ -19,7 +19,6 @@ readonly -a frameworks=("${@:-*(/)}")
 
 cd Sources/PrivateFrameworks
 
-# shellcheck disable=SC1009
 for framework in ${~frameworks[@]}; do
 	! [[ -v 'received_flag[-X]' ]] && ipsw class-dump --headers --output . /System/Volumes/Preboot/Cryptexes/OS/System/Library/dyld/dyld_shared_cache_arm64e -- "${framework}"
 

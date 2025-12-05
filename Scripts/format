@@ -37,7 +37,6 @@ if ! [[ -v 'received_flag[-A]' ]]; then
 fi
 
 printf -- $'--> 〽️ Markdown\n'
-# shellcheck disable=SC1036
 markdownlint-cli2 --fix -- ***/*.md(.)
 
 printf -- $'--> 🚷 Non-Executables\n'

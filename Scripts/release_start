@@ -44,7 +44,7 @@ if [[ "${title}" =~ [[:cntrl:]$'\t\n\r'] ]]; then
 	exit 3
 fi
 
-# shellcheck disable=SC1009,SC1027,SC1036,SC1072,SC1073
+# shellcheck disable=SC1027,SC1036,SC1072,SC1073
 if [[ "${title}" = (' '*|*' ') ]]; then
 	printf $'\'%s\' is not a valid version title, which may not begin or end with a space\n' "${title}" >&2
 	exit 4

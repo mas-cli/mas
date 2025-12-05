@@ -15,7 +15,7 @@ readonly payload="${${$(printf '{"iss":%s,"iat":%s,"exp":%s}' "${TOKEN_APP_ID}" 
  "$(("$(date +%s)" + 540))" | base64)//[=$'\n']}//\/+/_-}"
 
 
-# shellcheck disable=SC1009,SC1036,SC1072,SC1073
+# shellcheck disable=SC1036,SC1072,SC1073
 curl\
  -sX POST\
  -H "Authorization: Bearer ${header}.${payload}.${${$(printf %s "${header}.${payload}" |

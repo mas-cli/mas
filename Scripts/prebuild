@@ -13,6 +13,7 @@
 print_notice '🎬 Prebuilding' "${@}"
 
 # Generate Swift file containing build information.
+# shellcheck disable=SC1102
 cat <<EOF >"${1}/MAS+BuildInformation.swift"
 //
 // MAS+BuildInformation.swift
