@@ -31,9 +31,9 @@ private var storefrontAlpha3: Alpha3? {
 
 private var localeRegion: Region {
 	if #available(macOS 13, *) {
-		Locale.autoupdatingCurrent.region?.identifier ?? "US"
+		Locale.current.region?.identifier ?? "US"
 	} else {
-		Locale.autoupdatingCurrent.regionCode ?? "US"
+		Locale.current.regionCode ?? "US"
 	}
 }
 
