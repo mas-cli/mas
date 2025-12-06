@@ -281,7 +281,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		let hardLinkURL = try fileManager.url(
 			for: .itemReplacementDirectory,
 			in: .userDomainMask,
-			appropriateFor: fileManager.homeDirectoryForCurrentUser,
+			appropriateFor: URL.homeDirectory,
 			create: true
 		)
 		.appending(path: "\(adamID)-\(url.lastPathComponent)", directoryHint: .notDirectory)
