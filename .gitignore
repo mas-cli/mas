@@ -2,3 +2,5 @@
 /.idea/
 /.swiftpm/
 /.vscode/
+.DS_Store
+*~
