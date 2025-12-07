@@ -77,4 +77,4 @@ productbuild\
 END
 )\
  --package-path "${build_folder}"\
- "${build_folder}/mas-${version}-${${(s: :o)$(lipo -archs "${installation_staging_folder}/bin/mas-bin")}// /-}.pkg"
+ "${build_folder}/mas-${version//\//_}-${${(s: :o)$(lipo -archs "${installation_staging_folder}/bin/mas-bin")}// /-}.pkg"
