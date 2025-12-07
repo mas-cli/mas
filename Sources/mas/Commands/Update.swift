@@ -6,7 +6,6 @@
 //
 
 internal import ArgumentParser
-private import Foundation
 private import StoreFoundation
 
 extension MAS {

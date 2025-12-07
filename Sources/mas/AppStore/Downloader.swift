@@ -6,7 +6,6 @@
 //
 
 private import CommerceKit
-private import Foundation
 internal import StoreFoundation
 
 func downloadApp(

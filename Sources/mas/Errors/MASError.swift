@@ -5,8 +5,6 @@
 // Copyright © 2015 mas-cli. All rights reserved.
 //
 
-internal import Foundation
-
 enum MASError: Error {
 	case noCatalogAppsFound(for: String)
 	case notSupported

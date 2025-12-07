@@ -5,8 +5,6 @@
 // Copyright © 2018 mas-cli. All rights reserved.
 //
 
-private import Foundation
-
 struct InstalledApp: Sendable {
 	let adamID: ADAMID
 	let bundleID: String

@@ -6,7 +6,6 @@
 //
 
 internal import ArgumentParser
-private import Foundation
 
 extension MAS {
 	/// Installs previously gotten apps from the App Store.
