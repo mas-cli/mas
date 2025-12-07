@@ -15,11 +15,11 @@ ensure_command_available ipsw
 zmodload zsh/zutil
 zparseopts -D -A received_flag C X
 
-readonly -a frameworks=("${@:-*(/)}")
+readonly -a frameworks_globs=("${@:-*(/)}")
 
-cd Sources/PrivateFrameworks
+cd Sources/PrivateFrameworks/include
 
-for framework in ${~frameworks[@]}; do
+for framework in ${~frameworks_globs[@]}; do
 	! [[ -v 'received_flag[-X]' ]] && ipsw class-dump --headers --output . /System/Volumes/Preboot/Cryptexes/OS/System/Library/dyld/dyld_shared_cache_arm64e -- "${framework}"
 
 	# shellcheck disable=SC1046,SC1047,SC1072,SC1073
