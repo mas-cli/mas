@@ -27,7 +27,6 @@ config:
   hr-style:
     style: ---
   line-length:
-    line_length: 120
     stern: true
   link-image-style:
     shortcut: false
