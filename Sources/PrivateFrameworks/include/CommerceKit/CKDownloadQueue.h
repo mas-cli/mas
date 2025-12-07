@@ -34,7 +34,7 @@
 - (void)pauseDownloadWithItemIdentifier:(unsigned long long)identifier;
 - (void)performedIconAnimationForDownloadWithIdentifier:(unsigned long long)identifier;
 - (void)removeDownloadWithItemIdentifier:(unsigned long long)identifier;
-- (void)removeObserver:(nullable NSString *)observer; // Unverified observer type
+- (void)removeObserver:(nullable NSString *)observerUUID; // Unverified observerUUID type
 - (void)resumeDownloadWithItemIdentifier:(unsigned long long)identifier;
 - (void)unlockApplicationsWithBundleIdentifier:(nullable NSString *)bundleID; // Unverified bundleID type
 

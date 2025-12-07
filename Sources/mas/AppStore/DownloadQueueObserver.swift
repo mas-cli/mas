@@ -183,9 +183,9 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 	}
 
 	func observeDownloadQueue(_ queue: CKDownloadQueue = .shared()) async throws {
-		let observerID = queue.add(self)
+		let observerUUID = queue.add(self)
 		defer {
-			queue.removeObserver(observerID)
+			queue.removeObserver(observerUUID)
 		}
 
 		try await withCheckedThrowingContinuation { continuation in
