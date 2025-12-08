@@ -160,7 +160,7 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 					throw error
 				}
 
-				try manuallyInstall(appNameAndVersion: metadata.appNameAndVersion)
+				try install(appNameAndVersion: metadata.appNameAndVersion)
 			} else {
 				guard !status.isFailed else {
 					throw MASError.runtimeError("Failed to download \(metadata.appNameAndVersion)")
@@ -219,18 +219,7 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 		return hardLinkURL
 	}
 
-	private func manuallyInstall(appNameAndVersion: String) throws {
-		guard pkgHardLinkURL != nil else {
-			throw MASError.runtimeError("Failed to find pkg to install for \(appNameAndVersion)")
-		}
-		guard receiptHardLinkURL != nil else {
-			throw MASError.runtimeError("Failed to find receipt to import for \(appNameAndVersion)")
-		}
-
-		try spotlightImport(appNameAndVersion: appNameAndVersion, from: try install(appNameAndVersion: appNameAndVersion))
-	}
-
-	private func install(appNameAndVersion: String) throws -> URL {
+	private func installPkg(appNameAndVersion: String) throws -> URL {
 		guard let pkgHardLinkPath = pkgHardLinkURL?.path else {
 			throw MASError.runtimeError("Failed to find pkg to install for \(appNameAndVersion)")
 		}
@@ -286,7 +275,7 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 		return appFolderURL
 	}
 
-	private func spotlightImport(appNameAndVersion: String, from appFolderURL: URL) throws {
+	private func install(appNameAndVersion: String) throws {
 		guard let receiptHardLinkURL else {
 			throw MASError.runtimeError("Failed to find receipt to import for \(appNameAndVersion)")
 		}
@@ -294,6 +283,7 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 			throw MASError.runtimeError("Failed to find pkg to install for \(appNameAndVersion)")
 		}
 
+		let appFolderURL = try installPkg(appNameAndVersion: appNameAndVersion)
 		let receiptURL = appFolderURL.appendingPathComponent("Contents/_MASReceipt/receipt", isDirectory: false)
 		do {
 			let fileManager = FileManager.default
