@@ -100,6 +100,12 @@ extension MAS {
 	}
 }
 
+extension ParsableCommand {
+	static func requiresRootPrivilegesMessage(to action: String = String(describing: Self.self).lowercased()) -> String {
+		"Requires root privileges to \(action) apps"
+	}
+}
+
 private func cast<T>(_ instance: Any, as _: T.Type) -> T? {
 	instance as? T
 }

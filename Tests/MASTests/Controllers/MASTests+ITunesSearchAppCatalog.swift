@@ -14,8 +14,10 @@ private extension MASTests {
 		let actual = await consequencesOf(
 			try await ITunesSearchAppCatalog(networkSession: try MockNetworkSession(responseResource: "slack"))
 			.search(for: "slack") // swiftformat:disable:this indent
+			.count // swiftformat:disable:this indent
 		)
-		#expect(actual.value?.count == 39 && actual.error == nil && actual.stdout.isEmpty && actual.stderr.isEmpty)
+		let expected = Consequences(39)
+		#expect(actual == expected)
 	}
 
 	@Test
@@ -33,10 +35,10 @@ private extension MASTests {
 
 		#expect(
 			catalogApp.adamID == adamID // swiftformat:disable indent
-			&& catalogApp.appStorePageURL == "https://itunes.apple.com/us/app/slack/id803453959?mt=12&uo=4"
+			&& catalogApp.appStorePageURLString == "https://apps.apple.com/us/app/slack-for-desktop/id803453959?mt=12"
 			&& catalogApp.name == "Slack"
 			&& catalogApp.sellerName == "Slack Technologies, Inc."
-			&& catalogApp.sellerURL == "https://slack.com"
+			&& catalogApp.sellerURLString == "https://slack.com"
 			&& catalogApp.version == "3.3.3"
 		) // swiftformat:enable indent
 	}

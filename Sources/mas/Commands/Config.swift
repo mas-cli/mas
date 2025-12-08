@@ -11,12 +11,12 @@ private import Foundation
 
 extension MAS {
 	/// Outputs mas config & related system info.
-	struct Config: AsyncParsableCommand, Sendable {
+	struct Config: ParsableCommand {
 		static let configuration = CommandConfiguration(
 			abstract: "Output mas config & related system info"
 		)
 
-		func run() async {
+		func run() {
 			printer.info(
 				"""
 				mas ▁▁▁▁ \(MAS.version)
@@ -26,7 +26,7 @@ extension MAS {
 				rev ▁▁▁▁ \(MAS.gitRevision)
 				swift ▁▁ \(MAS.swiftVersion)
 				driver ▁ \(MAS.swiftDriverVersion)
-				region ▁ \(await region)
+				region ▁ \(region)
 				macos ▁▁ \(
 					ProcessInfo.processInfo.operatingSystemVersionString.dropFirst(8).replacingOccurrences(of: "Build ", with: "")
 				)
@@ -51,7 +51,7 @@ private func configStringValue(_ name: String) -> String {
 		return unknown
 	}
 
-	return String(cString: buffer, encoding: .utf8) ?? unknown
+	return String(cString: &buffer)
 }
 
 private let unknown = "unknown"

@@ -19,5 +19,11 @@ if ! whence brew >/dev/null; then
 fi
 
 brew update -q
-brew bundle upgrade -q "${@}"
-brew upgrade -q "${(f)$(brew deps --union "${(f)$(brew bundle list)}")}"
+installed_formulae=("${(f)$(brew list --formulae)}")
+readonly -a installed_formulae
+bootstrap_formulae=("${(f)$(brew deps --union "${(f)$(brew bundle list --formulae)}")}")
+readonly -a bootstrap_formulae
+# shellcheck disable=SC2086
+(("${#installed_formulae:*bootstrap_formulae}")) && brew upgrade --overwrite -q ${installed_formulae:*bootstrap_formulae}
+brew bundle upgrade -fq "${@}"
+brew upgrade --overwrite -q "${bootstrap_formulae[@]}"

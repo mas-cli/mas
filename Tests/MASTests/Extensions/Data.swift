@@ -24,7 +24,7 @@ extension Data {
 		guard
 			let resourceURL = Bundle.module.url(forResource: resourcePath, withExtension: ext, subdirectory: subfolderPath)
 		else {
-			throw MASError.runtimeError(
+			throw MASError.error(
 				"""
 				Failed to find resource\
 				\(resourcePath.map { " at \($0)" } ?? "")\

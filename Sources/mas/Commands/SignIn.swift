@@ -26,9 +26,9 @@ extension MAS {
 		private var password = "" // swiftlint:disable:this unused_declaration
 
 		func run() {
-			// Signing in is no longer possible as of High Sierra
+			// Signing in is no longer possible starting with macOS 10.13 (High Sierra)
 			// https://github.com/mas-cli/mas/issues/164
-			printer.error(error: MASError.notSupported)
+			printer.error(error: MASError.unsupportedCommand(Self._commandName))
 		}
 	}
 }

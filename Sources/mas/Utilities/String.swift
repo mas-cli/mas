@@ -12,9 +12,3 @@ extension String {
 		"'\(replacingOccurrences(of: "'", with: "\\'"))'"
 	}
 }
-
-extension String? {
-	var quoted: String {
-		map(\.quoted) ?? "unknown"
-	}
-}

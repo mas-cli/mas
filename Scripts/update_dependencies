@@ -1,0 +1,21 @@
+#!/bin/zsh -GNdefgku
+#
+# Scripts/update_dependencies
+# mas
+#
+# Copyright © 2025 mas-cli. All rights reserved.
+#
+# Update dependencies.
+#
+
+. "${0:A:h}/_setup_script"
+
+print_notice '⬆️​ Updating dependencies for' "${@}"
+
+printf -- $'--> 🍺 Homebrew\n'
+export MAS_DO_NOT_PRINT_NOTICE=
+Scripts/bootstrap
+unset MAS_DO_NOT_PRINT_NOTICE
+
+printf -- $'--> 🕊​ Swift\n'
+swift package update

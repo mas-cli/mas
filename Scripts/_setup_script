@@ -23,21 +23,20 @@ setopt\
  pipefail\
  no_rcs\
  no_unset
-export HISTCHARS='!^#'
-export IFS=$' \t\n\0'
-export NULLCMD=cat
-export PAGER=cat
-export READNULLCMD=cat
-export TMPDIR="${"${TMPDIR:-/tmp/}"/%(#b)([^\/])/"${match[1]}"/}"
-export TMPPREFIX="${TMPPREFIX:-"${TMPDIR}"zsh}"
+export -r HISTCHARS='!^#'
+export -r IFS=$' \t\n\0'
+export -r NULLCMD=cat
+export -r PAGER=cat
+export -r READNULLCMD=cat
+export -r TMPDIR="${"${TMPDIR:-/tmp/}"/%(#b)([^\/])/"${match[1]}"/}"
+export -r TMPPREFIX="${TMPPREFIX:-"${TMPDIR}"zsh}"
 unset CDPATH
 unset ENV
 unset KEYBOARD_HACK
 unset TMPSUFFIX
 unset WORDCHARS
 
-mas_folder="${0:A:h:h}"
-
+readonly mas_folder="${0:A:h:h}"
 if ! cd -- "${mas_folder}"; then
 	printf $'Error: Failed to cd into mas folder: %s\n' "${mas_folder}" >&2
 	exit 1
@@ -45,18 +44,17 @@ fi
 
 print_notice() {
 	[[ -v MAS_DO_NOT_PRINT_NOTICE ]] && return
-
-	local prefix
 	if [[ -t 1 ]]; then
-		prefix=$'\e[1;34m==>\e[0m'
+		local -r prefix=$'\e[1;34m==>\e[0m'
 	else
-		prefix=$'==>'
+		local -r prefix=$'==>'
 	fi
 	printf $'%s %s mas %s%s\n' "${prefix}" "${1}" "${MAS_VERSION:-$(Scripts/version)}" "${${*:2}:+ (arguments: ${${(q)@:2}[*]})}"
 }
 
 ensure_command_available() {
-	local return_status=0
+	local -i return_status=0
+	local command
 	for command in "${@}"; do
 		if ! whence "${command}" >/dev/null; then
 			printf $'error: %s is not installed. Run \'Scripts/bootstrap\' or \'brew install %s\'.\n' "${command}" "${command}" >&2

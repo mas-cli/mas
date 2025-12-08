@@ -20,9 +20,9 @@
 
 . "${0:A:h}/_setup_script"
 
-tag="${1}"
-title="${2}"
-ref="${3:-HEAD}"
+readonly tag="${1}"
+readonly title="${2}"
+readonly ref="${3:-HEAD}"
 
 export MAS_VERSION="${tag#v}"
 print_notice '🚀 Starting release for' "${@}"
@@ -34,7 +34,7 @@ if [[ ! "${tag}" =~ '^v[[:digit:]]+(\.[[:digit:]]+)*(-(alpha|beta|rc)\.[[:digit:
 	exit 1
 fi
 
-if [[ "${#title}" -gt 64 ]]; then
+if (("${#title}" > 64)); then
 	printf $'\'%s\' is too long for a version title, which may contain at most 64 characters\n' "${title}" >&2
 	exit 2
 fi
@@ -44,7 +44,7 @@ if [[ "${title}" =~ [[:cntrl:]$'\t\n\r'] ]]; then
 	exit 3
 fi
 
-# shellcheck disable=SC1009,SC1027,SC1036,SC1072,SC1073
+# shellcheck disable=SC1027,SC1036,SC1072,SC1073
 if [[ "${title}" = (' '*|*' ') ]]; then
 	printf $'\'%s\' is not a valid version title, which may not begin or end with a space\n' "${title}" >&2
 	exit 4

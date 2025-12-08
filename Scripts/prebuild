@@ -13,20 +13,27 @@
 print_notice '🎬 Prebuilding' "${@}"
 
 # Generate Swift file containing build information.
-cat <<EOF >"${1}/MAS+BuildInformation.swift"
-//
+# shellcheck disable=SC1102
+printf $'//
 // MAS+BuildInformation.swift
 // mas
 //
-// Copyright © $(date '+%Y') mas-cli. All rights reserved.
+// Copyright © $(date '\''+%%Y'\'') mas-cli. All rights reserved.
 //
 
 extension MAS {
-	static let version = "$(Scripts/version)"
-	static let installMethod = "${MAS_INSTALL_METHOD:-unknown}"
-	static let gitOrigin = "$(git remote get-url origin)"
-	static let gitRevision = "$(git rev-parse HEAD)"
-	static let swiftVersion = "$(printf %s "${${$(swift --version 2>/dev/null)#Apple Swift version }%%$'\n'*}")"
-	static let swiftDriverVersion = "$(printf %s "${${$((swift --version 3>&2 2>&1 1>&3) 2>/dev/null)#swift-driver version: }% }")"
+	static let version = "%s"
+	static let installMethod = "%s"
+	static let gitOrigin = "%s"
+	static let gitRevision = "%s"
+	static let swiftVersion = "%s"
+	static let swiftDriverVersion = "%s"
 }
-EOF
+'\
+ "$(Scripts/version)"\
+ "${MAS_INSTALL_METHOD:-unknown}"\
+ "$(git remote get-url origin)"\
+ "$(git rev-parse HEAD)"\
+ "$(printf %s "${${$(swift --version 2>/dev/null)#Apple Swift version }%%$'\n'*}")"\
+ "$(printf %s "${${$((swift --version 3>&2 2>&1 1>&3) 2>/dev/null)#swift-driver version: }% }")"\
+ >"${1}/MAS+BuildInformation.swift"

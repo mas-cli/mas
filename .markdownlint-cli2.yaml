@@ -4,7 +4,7 @@
 # .markdownlint-cli2.yaml
 # mas
 #
-# markdownlint-cli2 0.19.1 / markdownlint 0.39.0
+# markdownlint-cli2 0.20.0 / markdownlint 0.40.0
 #
 ---
 gitignore: true
@@ -27,7 +27,6 @@ config:
   hr-style:
     style: ---
   line-length:
-    line_length: 120
     stern: true
   link-image-style:
     shortcut: false

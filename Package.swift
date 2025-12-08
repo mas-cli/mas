@@ -1,6 +1,5 @@
 // swift-tools-version:6.0
 
-private import Foundation
 private import PackageDescription
 
 private let swiftSettings = [
@@ -10,17 +9,6 @@ private let swiftSettings = [
 	.enableUpcomingFeature("InternalImportsByDefault"),
 	.enableUpcomingFeature("MemberImportVisibility"),
 	.enableUpcomingFeature("NonisolatedNonsendingByDefault"),
-	.unsafeFlags(
-		try FileManager.default
-		.contentsOfDirectory( // swiftformat:disable indent
-			at: URL(fileURLWithPath: #filePath, isDirectory: false)
-			.deletingLastPathComponent()
-			.appendingPathComponent("Sources/PrivateFrameworks", isDirectory: true),
-			includingPropertiesForKeys: [.isDirectoryKey]
-		)
-		.filter(\.hasDirectoryPath)
-		.flatMap { ["-Xcc", "-fmodule-map-file=\($0.path)/module.modulemap"] }
-	), // swiftformat:enable indent
 ]
 
 _ = Package(
@@ -35,12 +23,14 @@ _ = Package(
 	],
 	targets: [
 		.plugin(name: "MASBuildToolPlugin", capability: .buildTool()),
+		.target(name: "PrivateFrameworks"),
 		.executableTarget(
 			name: "mas",
 			dependencies: [
 				.product(name: "ArgumentParser", package: "swift-argument-parser"),
 				.product(name: "Atomics", package: "swift-atomics"),
 				.product(name: "OrderedCollections", package: "swift-collections"),
+				"PrivateFrameworks",
 				"Version",
 			],
 			swiftSettings: swiftSettings,

@@ -30,25 +30,12 @@ enum AppID: CustomStringConvertible {
 
 		self = .adamID(adamID)
 	}
-
-	fileprivate func adamID(appCatalog: some AppCatalog) async throws -> ADAMID {
-		switch self {
-		case let .adamID(adamID):
-			adamID
-		case .bundleID:
-			try await appCatalog.lookup(appID: self).adamID
-		}
-	}
 }
 
-typealias ADAMID = UInt64
-
-extension [AppID] {
-	func adamIDs(from appCatalog: some AppCatalog) async -> [ADAMID] {
-		await compactMap(attemptingTo: "get ADAM ID for") { try await $0.adamID(appCatalog: appCatalog) }
-	}
-
+extension [AppID] { // swiftlint:disable:this file_types_order
 	func lookupCatalogApps(from appCatalog: some AppCatalog) async -> [CatalogApp] {
 		await compactMap(attemptingTo: "lookup app for") { try await appCatalog.lookup(appID: $0) }
 	}
 }
+
+typealias ADAMID = UInt64

@@ -5,9 +5,9 @@
 // Copyright © 2018 mas-cli. All rights reserved.
 //
 
-struct CatalogApp: Equatable {
+struct CatalogApp {
 	let adamID: ADAMID
-	let appStorePageURL: String
+	let appStorePageURLString: String
 	// periphery:ignore
 	let bundleID: String
 	let fileSizeBytes: String
@@ -16,12 +16,12 @@ struct CatalogApp: Equatable {
 	let name: String
 	let releaseDate: String
 	let sellerName: String
-	let sellerURL: String?
+	let sellerURLString: String?
 	let version: String
 
 	init(
 		adamID: ADAMID = 0,
-		appStorePageURL: String = "",
+		appStorePageURLString: String = "",
 		bundleID: String = "",
 		fileSizeBytes: String = "0",
 		formattedPrice: String? = "0",
@@ -29,11 +29,11 @@ struct CatalogApp: Equatable {
 		name: String = "",
 		releaseDate: String = "",
 		sellerName: String = "",
-		sellerURL: String? = nil,
+		sellerURLString: String? = nil,
 		version: String = ""
 	) { // periphery:ignore
 		self.adamID = adamID
-		self.appStorePageURL = appStorePageURL
+		self.appStorePageURLString = appStorePageURLString
 		self.bundleID = bundleID
 		self.fileSizeBytes = fileSizeBytes
 		self.formattedPrice = formattedPrice ?? "?"
@@ -41,7 +41,7 @@ struct CatalogApp: Equatable {
 		self.name = name
 		self.releaseDate = releaseDate
 		self.sellerName = sellerName
-		self.sellerURL = sellerURL
+		self.sellerURLString = sellerURLString
 		self.version = version
 	}
 }
@@ -49,7 +49,7 @@ struct CatalogApp: Equatable {
 extension CatalogApp: Decodable {
 	enum CodingKeys: String, CodingKey {
 		case adamID = "trackId"
-		case appStorePageURL = "trackViewUrl"
+		case appStorePageURLString = "trackViewUrl"
 		case bundleID = "bundleId"
 		case fileSizeBytes
 		case formattedPrice
@@ -57,7 +57,7 @@ extension CatalogApp: Decodable {
 		case name = "trackName"
 		case releaseDate = "currentVersionReleaseDate"
 		case sellerName
-		case sellerURL = "sellerUrl"
+		case sellerURLString = "sellerUrl"
 		case version
 	}
 }

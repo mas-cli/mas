@@ -14,15 +14,14 @@
 
 print_notice '🚨 Linting' "${@}"
 
-# shellcheck disable=SC2310
-ensure_command_available git markdownlint-cli2 periphery shellcheck swiftformat swiftlint yamllint || exit
+ensure_command_available actionlint git markdownlint-cli2 periphery shellcheck swiftformat swiftlint yamllint || exit
 
 zmodload zsh/zutil
-zparseopts -D -A opts A P
+zparseopts -D -A received_flag A P
 
-export MAS_INSTALL_METHOD=lint
+export -r MAS_INSTALL_METHOD=lint
 
-exit_status=0
+integer exit_status=0
 
 printf -- $'--> 🕊​ SwiftFormat\n'
 script -q /dev/null swiftformat --lint --markdown-files format-strict . |
@@ -34,7 +33,7 @@ swiftlint --strict --quiet --reporter relative-path
 ((exit_status |= ${?}))
 
 # shellcheck disable=SC1046,SC1047,SC1072,SC1073
-if ! [[ -v 'opts[-A]' ]]; then
+if ! [[ -v 'received_flag[-A]' ]]; then
 	printf -- $'--> 🔬 SwiftLint Analyze\n'
 	# shellcheck disable=SC1036
 	swiftlint analyze --strict --quiet --reporter relative-path --compiler-log-path\
@@ -42,7 +41,7 @@ if ! [[ -v 'opts[-A]' ]]; then
 	((exit_status |= ${?}))
 fi
 
-if ! [[ -v 'opts[-P]' ]]; then
+if ! [[ -v 'received_flag[-P]' ]]; then
 	printf -- $'--> 🌀 Periphery\n'
 	script -q /dev/null periphery scan --exclude-tests |
 	 (grep -vxE '(?:\x1b\[0;1;32m|\^D\x08{2})\* (?:\x1b\[0;0m\x1b\[0;1m)?No unused code detected\.(?:\x1b\[0;0m)?\r' || true)
@@ -55,7 +54,6 @@ if ! [[ -v 'opts[-P]' ]]; then
 fi
 
 printf -- $'--> 〽️ Markdown\n'
-# shellcheck disable=SC1036
 markdownlint-cli2 -- ***/*.md(.)
 ((exit_status |= ${?}))
 
@@ -73,13 +71,17 @@ for script in Scripts/***/*(.); do
 	((exit_status |= ${?}))
 done
 
+printf -- $'--> 🐙 ActionLint\n'
+actionlint -shellcheck shellcheck
+((exit_status |= ${?}))
+
 printf -- $'--> 🐚 ShellCheck\n'
-shellcheck -s bash -o all -e SC1088,SC1102,SC2066,SC2296,SC2298,SC2299,SC2300,SC2301,SC2312 -a -P SCRIPTDIR Scripts/***/*(.)
+shellcheck -s bash -o all -e SC1009,SC1088,SC2296,SC2298,SC2299,SC2300,SC2301,SC2312 -a -P SCRIPTDIR Scripts/***/*(.)
 ((exit_status |= ${?}))
 
 printf -- $'--> 🚷 Non-Executables\n'
 readonly -a non_executables=(Scripts/***/*(N.^f+111))
-if ((${#non_executables[@]})); then
+if (("${#non_executables[@]}")); then
 	printf $'%s\n' "${non_executables[@]}"
 	((exit_status |= 1))
 fi

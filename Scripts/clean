@@ -13,14 +13,14 @@
 print_notice '🗑​ Cleaning' "${@}"
 
 zmodload zsh/zutil
-zparseopts -D -A opts D P r x
+zparseopts -D -A received_flag D P r x
 
-if ! [[ -v 'opts[-P]' ]]; then
-	swift package "${${opts[-D]+clean}:-reset}"
+if ! [[ -v 'received_flag[-P]' ]]; then
+	swift package "${${received_flag[-D]+clean}:-reset}"
 fi
-if [[ -v 'opts[-r]' && -e Package.resolved ]]; then
+if [[ -v 'received_flag[-r]' && -e Package.resolved ]]; then
 	trash Package.resolved
 fi
-if [[ -v 'opts[-x]' && -d .swiftpm ]]; then
+if [[ -v 'received_flag[-x]' && -d .swiftpm ]]; then
 	trash .swiftpm
 fi

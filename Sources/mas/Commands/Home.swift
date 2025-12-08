@@ -31,13 +31,13 @@ extension MAS {
 		}
 
 		func run(catalogApps: [CatalogApp]) async { // swiftformat:disable:this organizeDeclarations
-			await run(appStorePageURLs: catalogApps.map(\.appStorePageURL))
+			await run(appStorePageURLStrings: catalogApps.map(\.appStorePageURLString))
 		}
 
-		private func run(appStorePageURLs: [String]) async { // swiftformat:disable:this organizeDeclarations
-			await appStorePageURLs.forEach(attemptTo: "open") { appStorePageURL in
-				guard let url = URL(string: appStorePageURL) else {
-					throw MASError.urlParsing(appStorePageURL)
+		private func run(appStorePageURLStrings: [String]) async { // swiftformat:disable:this organizeDeclarations
+			await appStorePageURLStrings.forEach(attemptTo: "open") { appStorePageURLString in
+				guard let url = URL(string: appStorePageURLString) else {
+					throw MASError.unparsableURL(appStorePageURLString)
 				}
 
 				try await url.open()

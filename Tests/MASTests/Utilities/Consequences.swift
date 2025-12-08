@@ -7,7 +7,7 @@
 
 internal import Foundation
 
-struct Consequences<Value: Equatable>: Equatable {
+struct Consequences<Value> {
 	let value: Value?
 	let error: (any Error)?
 	let stdout: String
@@ -23,7 +23,9 @@ struct Consequences<Value: Equatable>: Equatable {
 		self.stdout = stdout
 		self.stderr = stderr
 	}
+}
 
+extension Consequences: Equatable where Value: Equatable { // swiftlint:disable:this file_types_order
 	static func == (lhs: Self, rhs: Self) -> Bool {
 		guard lhs.value == rhs.value, lhs.stdout == rhs.stdout, lhs.stderr == rhs.stderr else {
 			return false
@@ -121,7 +123,7 @@ func consequencesOf(
 	}
 }
 
-func consequencesOf<Value: Equatable>(
+func consequencesOf<Value>(
 	encoding: String.Encoding = .utf8,
 	_ body: @autoclosure () throws -> Value?
 ) -> Consequences<Value> {
@@ -133,7 +135,7 @@ func consequencesOf<Value: Equatable>(
 	}
 }
 
-func consequencesOf<Value: Equatable>(
+func consequencesOf<Value>(
 	encoding: String.Encoding = .utf8,
 	_ body: @autoclosure () async throws -> Value?
 ) async -> Consequences<Value> {

@@ -50,7 +50,7 @@ let cool = yTown(5) { foo in
 	// …
 }
 
-// Strongify weak references in async closures.
+// Strongify weak references in async closures
 APIClient.getAwesomeness { [weak self] result in
 	guard let self else {
 		return
@@ -95,7 +95,7 @@ private extension MyClass {
 // MARK: Breaking up long lines
 
 // If a guard clause requires multiple lines, chop it down, then start the else
-// clause on a new line.
+// clause on a new line
 guard
 	let oneItem = somethingFailable(),
 	let secondItem = somethingFailable2()

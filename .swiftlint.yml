@@ -17,6 +17,7 @@ analyzer_rules:
 disabled_rules:
 - closure_body_length
 - contrasted_opening_brace
+- cyclomatic_complexity
 - explicit_acl
 - explicit_enum_raw_value
 - explicit_self
@@ -34,9 +35,6 @@ disabled_rules:
 - vertical_whitespace_between_cases
 attributes:
   always_on_line_above: ['@Flag', '@MainActor', '@OptionGroup', '@objc']
-cyclomatic_complexity:
-  ignores_case_statements: true
-  warning: 12
 deployment_target:
   macOS_deployment_target: 10.15
   macOSApplicationExtension_deployment_target: 10.15
@@ -59,6 +57,8 @@ file_types_order:
   - extension
   - preview_provider
   - library_content_provider
+function_parameter_count:
+  warning: 6
 indentation_width:
   indentation_width: 2
   include_multiline_strings: false
@@ -115,8 +115,10 @@ unused_import:
     - _math
     - _signal
     - _stdio
+    - _string
     - DarwinFoundation
     - sys_types
+    - sys_wait
     - unistd
   - module: Swift
     allowed_transitive_imports:

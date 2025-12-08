@@ -12,7 +12,7 @@
 
 . "${0:A:h}/_setup_script"
 
-tag="${1}"
+readonly tag="${1}"
 
 export MAS_VERSION="${tag#v}"
 print_notice '❌ Canceling release for' "${@}"
@@ -20,6 +20,7 @@ unset MAS_VERSION
 printf $'\n'
 
 bump_url="$(gh release -R https://github.com/mas-cli/mas download "${tag}" -p bump.url -O - 2>/dev/null || true)"
+readonly bump_url
 if [[ -n "${bump_url}" ]]; then
 	gh pr close "${bump_url}" -d
 	printf $'\n'

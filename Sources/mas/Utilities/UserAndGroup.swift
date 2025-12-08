@@ -58,10 +58,3 @@ func run<T>(asEffectiveUID uid: uid_t, andEffectiveGID gid: gid_t, _ body: () as
 	}
 	return try await body()
 }
-
-func requireRootUserAndWheelGroup(withErrorMessageSuffix errorMessageSuffix: String? = nil) throws {
-	try requireRootUser(withErrorMessageSuffix: errorMessageSuffix)
-	try requireWheelGroup(withErrorMessageSuffix: errorMessageSuffix)
-}
-
-let requiresRootPrivilegesMessage = "Requires root privileges"

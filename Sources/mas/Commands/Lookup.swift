@@ -33,10 +33,6 @@ extension MAS {
 		}
 
 		func run(catalogApps: [CatalogApp]) { // swiftformat:disable:this organizeDeclarations
-			guard !catalogApps.isEmpty else {
-				return
-			}
-
 			printer.info(
 				catalogApps.map { catalogApp in
 					"""
@@ -45,10 +41,12 @@ extension MAS {
 					Released: \(catalogApp.releaseDate.isoCalendarDate)
 					Minimum OS: \(catalogApp.minimumOSVersion)
 					Size: \(catalogApp.fileSizeBytes.humanReadableSize)
-					From: \(catalogApp.appStorePageURL)
+					From: \(catalogApp.appStorePageURLString)
+
 					"""
 				}
-				.joined(separator: "\n\n")
+				.joined(separator: "\n"),
+				terminator: ""
 			)
 		}
 	}

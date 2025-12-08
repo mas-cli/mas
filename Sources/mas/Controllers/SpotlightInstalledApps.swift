@@ -39,7 +39,7 @@ var installedApps: [InstalledApp] {
 			) { notification in
 				guard let query = notification.object as? NSMetadataQuery else {
 					continuation.resume(
-						throwing: MASError.runtimeError(
+						throwing: MASError.error(
 							"Notification Center returned a \(type(of: notification.object)) instead of a NSMetadataQuery"
 						)
 					)

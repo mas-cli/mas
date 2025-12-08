@@ -22,6 +22,7 @@ trim_trailing_whitespace = true
 
 [*.md]
 # Trailing spaces have meaning in Markdown
+max_line_length = 80
 trim_trailing_whitespace = false
 
 [{*.yaml,*.yml}]
