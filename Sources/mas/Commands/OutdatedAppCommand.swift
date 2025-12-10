@@ -21,12 +21,8 @@ protocol OutdatedAppCommand: AsyncParsableCommand, Sendable {
 }
 
 extension OutdatedAppCommand { // swiftlint:disable:this file_types_order
-	func run() async { // swiftlint:disable:this unused_declaration
-		do {
-			try await run(installedApps: try await nonTestFlightInstalledApps, appCatalog: ITunesSearchAppCatalog())
-		} catch {
-			MAS.printer.error(error: error)
-		}
+	func run() async throws {
+		try await run(installedApps: try await nonTestFlightInstalledApps, appCatalog: ITunesSearchAppCatalog())
 	}
 
 	private func run(installedApps: [InstalledApp], appCatalog: some AppCatalog) async throws {

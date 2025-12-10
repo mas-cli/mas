@@ -26,12 +26,8 @@ extension MAS {
 		@Argument(help: ArgumentHelp("App ID", valueName: "app-id"))
 		private var appIDString: String?
 
-		func run() async {
-			do {
-				try await run(appCatalog: ITunesSearchAppCatalog())
-			} catch {
-				printer.error(error: error)
-			}
+		func run() async throws {
+			try await run(appCatalog: ITunesSearchAppCatalog())
 		}
 
 		private func run(appCatalog: some AppCatalog) async throws {

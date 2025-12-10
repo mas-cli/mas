@@ -81,8 +81,8 @@ extension MAS {
 			try ProcessInfo.processInfo.runAsSudoEffectiveUserAndSudoEffectiveGroupIfRootEffectiveUser {
 				try body(command)
 			}
-		} catch let error as MASError {
-			printer.error(error: error)
+		} catch {
+			printer.error(error: try error.failure)
 		}
 	}
 
@@ -94,8 +94,20 @@ extension MAS {
 			try await ProcessInfo.processInfo.runAsSudoEffectiveUserAndSudoEffectiveGroupIfRootEffectiveUser {
 				try await body(command)
 			}
-		} catch let error as MASError {
-			printer.error(error: error)
+		} catch {
+			printer.error(error: try error.failure)
+		}
+	}
+}
+
+private extension Error {
+	var failure: Self {
+		get throws {
+			guard !MAS.exitCode(for: self).isSuccess else {
+				throw self
+			}
+
+			return self
 		}
 	}
 }
