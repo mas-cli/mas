@@ -44,7 +44,7 @@ struct MAS: AsyncParsableCommand, Sendable {
 
 	private static func main(_ arguments: [String]?) async { // swiftlint:disable:this discouraged_optional_collection
 		do {
-			let command = try parseAsRoot(arguments)
+			let command = try parseAsRootExitOnFailure(arguments)
 			if let command = cast(command, as: (any AsyncParsableCommand & Sendable).self) {
 				try await main(command)
 			} else {
@@ -57,6 +57,17 @@ struct MAS: AsyncParsableCommand, Sendable {
 			}
 		} catch {
 			exit(withError: error)
+		}
+	}
+
+	private static func parseAsRootExitOnFailure(_ arguments: [String]?) throws -> any ParsableCommand {
+		do { // swiftlint:disable:previous discouraged_optional_collection
+			return try parseAsRoot(arguments)
+		} catch {
+			printer.error(
+				fullMessage(for: try error.failure).replacingOccurrences(of: "^Error: ", with: "", options: .regularExpression)
+			)
+			exit(withError: exitCode(for: error))
 		}
 	}
 }
