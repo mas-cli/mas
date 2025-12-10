@@ -114,7 +114,7 @@ struct Printer {
 		terminator: String,
 		to fileHandle: FileHandle
 	) {
-		let formattedPrefix = isatty(fileHandle.fileDescriptor) != 0 ? "\(csi)\(format)m\(prefix)\(csi)0m" : "\(prefix)"
+		let formattedPrefix = isatty(fileHandle.fileDescriptor) != 0 ? "\(csi)\(format)m\(prefix)\(csi)0m" : prefix
 		print(
 			items.first.map { ["\(formattedPrefix) \($0)"] + items.dropFirst().map(String.init(describing:)) }
 			?? [formattedPrefix], // swiftformat:disable:this indent
