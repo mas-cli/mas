@@ -90,10 +90,13 @@ private extension InstalledApp {
 					let alreadyResumed = ManagedAtomic(false)
 					do {
 						try await AppStore.install.app(withADAMID: adamID) { download, shouldOutput in
-							if shouldOutput, let metadata = download.metadata, version != metadata.bundleVersion {
-								if !alreadyResumed.exchange(true, ordering: .acquiringAndReleasing) {
-									continuation.resume(returning: OutdatedApp(self, metadata.bundleVersion ?? "unknown"))
-								}
+							if
+								shouldOutput,
+								let metadata = download.metadata,
+								version != metadata.bundleVersion,
+								!alreadyResumed.exchange(true, ordering: .acquiringAndReleasing)
+							{
+								continuation.resume(returning: OutdatedApp(self, metadata.bundleVersion ?? "unknown"))
 							}
 							return true
 						}
