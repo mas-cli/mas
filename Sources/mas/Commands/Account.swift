@@ -14,17 +14,12 @@ extension MAS {
 			abstract: "Output the Apple Account signed in to the App Store"
 		)
 
-		func run() async {
-			do {
-				guard let appleAccount = try await appleAccount.emailAddress else {
-					printer.error("Not signed in to an Apple Account in the App Store")
-					return
-				}
-
-				printer.info(appleAccount)
-			} catch {
-				printer.error(error: error)
+		func run() async throws {
+			guard let appleAccount = try await appleAccount.emailAddress else {
+				throw MASError.error("Not signed in to an Apple Account in the App Store")
 			}
+
+			printer.info(appleAccount)
 		}
 	}
 }

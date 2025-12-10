@@ -25,10 +25,10 @@ extension MAS {
 		@Argument(help: "Password") // swiftformat:disable:next unusedPrivateDeclarations
 		private var password = "" // swiftlint:disable:this unused_declaration
 
-		func run() {
+		func run() throws {
 			// Signing in is no longer possible starting with macOS 10.13 (High Sierra)
 			// https://github.com/mas-cli/mas/issues/164
-			printer.error(error: MASError.unsupportedCommand(Self._commandName))
+			throw MASError.unsupportedCommand(Self._commandName)
 		}
 	}
 }

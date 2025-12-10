@@ -21,12 +21,8 @@ protocol OutdatedAppCommand: AsyncParsableCommand, Sendable {
 }
 
 extension OutdatedAppCommand { // swiftlint:disable:this file_types_order
-	func run() async { // swiftlint:disable:this unused_declaration
-		do {
-			try await run(installedApps: try await nonTestFlightInstalledApps, appCatalog: ITunesSearchAppCatalog())
-		} catch {
-			MAS.printer.error(error: error)
-		}
+	func run() async throws {
+		try await run(installedApps: try await nonTestFlightInstalledApps, appCatalog: ITunesSearchAppCatalog())
 	}
 
 	private func run(installedApps: [InstalledApp], appCatalog: some AppCatalog) async throws {
@@ -94,10 +90,13 @@ private extension InstalledApp {
 					let alreadyResumed = ManagedAtomic(false)
 					do {
 						try await AppStore.install.app(withADAMID: adamID) { download, shouldOutput in
-							if shouldOutput, let metadata = download.metadata, version != metadata.bundleVersion {
-								if !alreadyResumed.exchange(true, ordering: .acquiringAndReleasing) {
-									continuation.resume(returning: OutdatedApp(self, metadata.bundleVersion ?? "unknown"))
-								}
+							if
+								shouldOutput,
+								let metadata = download.metadata,
+								version != metadata.bundleVersion,
+								!alreadyResumed.exchange(true, ordering: .acquiringAndReleasing)
+							{
+								continuation.resume(returning: OutdatedApp(self, metadata.bundleVersion ?? "unknown"))
 							}
 							return true
 						}

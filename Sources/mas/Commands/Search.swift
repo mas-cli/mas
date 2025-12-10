@@ -24,12 +24,8 @@ extension MAS {
 		@OptionGroup
 		private var searchTermOptionGroup: SearchTermOptionGroup
 
-		func run() async {
-			do {
-				try await run(appCatalog: ITunesSearchAppCatalog())
-			} catch {
-				printer.error(error: error)
-			}
+		func run() async throws {
+			try await run(appCatalog: ITunesSearchAppCatalog())
 		}
 
 		private func run(appCatalog: some AppCatalog) async throws {

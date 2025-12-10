@@ -25,12 +25,8 @@ extension MAS {
 		@OptionGroup
 		private var requiredAppIDsOptionGroup: RequiredAppIDsOptionGroup
 
-		func run() async {
-			do {
-				try run(installedApps: try await installedApps)
-			} catch {
-				printer.error(error: error)
-			}
+		func run() async throws {
+			try run(installedApps: try await installedApps)
 		}
 
 		private func run(installedApps: [InstalledApp]) throws {
