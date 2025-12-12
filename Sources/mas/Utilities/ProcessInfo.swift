@@ -11,7 +11,7 @@ private import Foundation
 extension ProcessInfo {
 	var sudoUID: uid_t {
 		get throws {
-			guard let sudoUID = environment["SUDO_UID"].flatMap({ uid_t($0) }) else {
+			guard let sudoUID = environment["SUDO_UID"].flatMap(uid_t.init) else {
 				throw MASError.error("Failed to get sudo uid")
 			}
 
@@ -21,7 +21,7 @@ extension ProcessInfo {
 
 	var sudoGID: gid_t {
 		get throws {
-			guard let sudoGID = environment["SUDO_GID"].flatMap({ gid_t($0) }) else {
+			guard let sudoGID = environment["SUDO_GID"].flatMap(gid_t.init) else {
 				throw MASError.error("Failed to get sudo gid")
 			}
 
