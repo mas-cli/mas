@@ -317,11 +317,9 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 				error: standardErrorText
 			)
 		}
-
-		let appFolderURLString = String(standardErrorText[appFolderURLRange])
-		guard let appFolderURL = URL(string: appFolderURLString) else {
+		guard let appFolderURL = URL(string: String(standardErrorText[appFolderURLRange])) else {
 			throw MASError.error(
-				"Failed to parse app folder URL for \(appNameAndVersion) from \(appFolderURLString)",
+				"Failed to parse app folder URL for \(appNameAndVersion) from \(standardErrorText[appFolderURLRange])",
 				error: standardErrorText
 			)
 		}
