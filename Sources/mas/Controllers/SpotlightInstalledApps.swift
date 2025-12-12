@@ -5,6 +5,7 @@
 // Copyright © 2025 mas-cli. All rights reserved.
 //
 
+private import Atomics
 private import Foundation
 private import ObjectiveC
 
@@ -32,11 +33,15 @@ var installedApps: [InstalledApp] {
 		?? [applicationsFolder]
 
 		return try await withCheckedThrowingContinuation { continuation in // swiftformat:enable indent
+			let alreadyResumed = ManagedAtomic(false)
 			observer = NotificationCenter.default.addObserver(
 				forName: .NSMetadataQueryDidFinishGathering,
 				object: query,
 				queue: nil
 			) { notification in
+				guard !alreadyResumed.exchange(true, ordering: .acquiringAndReleasing) else {
+					return
+				}
 				guard let query = notification.object as? NSMetadataQuery else {
 					continuation.resume(
 						throwing: MASError.error(
