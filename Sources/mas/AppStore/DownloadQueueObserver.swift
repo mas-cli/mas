@@ -173,6 +173,9 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 					completionHandler?()
 					return
 				}
+				
+				// Trigger Spotlight re-index to sync App Store state
+				reindexInstalledApp()
 			}
 
 			MAS.printer.notice("Installed", metadata.appNameAndVersion)
@@ -330,6 +333,37 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 		}
 
 		return appFolderURL
+	}
+	
+	private func reindexInstalledApp() {
+		// Use mdfind to locate the app by ADAM ID
+		let findProcess = Process()
+		findProcess.executableURL = URL(fileURLWithPath: "/usr/bin/mdfind", isDirectory: false)
+		findProcess.arguments = ["kMDItemAppStoreAdamID == \(adamID)"]
+		let outputPipe = Pipe()
+		findProcess.standardOutput = outputPipe
+		
+		do {
+				try findProcess.run()
+				findProcess.waitUntilExit()
+				
+				guard
+						let output = String(data: outputPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8),
+						let appPath = output.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: "\n").first,
+						!appPath.isEmpty
+				else {
+						return
+				}
+				
+				// Trigger Spotlight re-index
+				let mdimportProcess = Process()
+				mdimportProcess.executableURL = URL(fileURLWithPath: "/usr/bin/mdimport", isDirectory: false)
+				mdimportProcess.arguments = [appPath]
+				try mdimportProcess.run()
+				mdimportProcess.waitUntilExit()
+		} catch {
+				MAS.printer.warning("Failed to reindex app with ADAM ID \(adamID)", error: error)
+		}
 	}
 }
 
