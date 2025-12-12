@@ -7,7 +7,6 @@
 
 private import ArgumentParser
 private import Atomics
-private import Darwin
 internal import Foundation
 
 /// Prints to `stdout` and `stderr` with ANSI color codes when connected to a

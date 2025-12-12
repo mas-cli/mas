@@ -6,12 +6,9 @@
 //
 
 internal import CommerceKit
-private import CoreFoundation
-private import CoreServices
-private import Darwin
 private import Foundation
 private import ObjectiveC
-private import StoreFoundation
+internal import StoreFoundation
 
 final class DownloadQueueObserver: CKDownloadQueueObserver {
 	private let adamID: ADAMID
