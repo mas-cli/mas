@@ -62,8 +62,8 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 							return nil
 						}
 
-						let resources = try url.resourceValues(forKeys: [.contentModificationDateKey, .isRegularFileKey])
-						return resources.isRegularFile == true ? resources.contentModificationDate.map { (url, $0) } : nil
+						let resourceValues = try url.resourceValues(forKeys: [.contentModificationDateKey, .isRegularFileKey])
+						return resourceValues.isRegularFile == true ? resourceValues.contentModificationDate.map { (url, $0) } : nil
 					}
 					.max { $0.1 > $1.1 }?
 					.0,
@@ -121,7 +121,7 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 				" ",
 				UInt64((percentComplete * 100).rounded()),
 				"% ",
-				status.activePhaseType.description,
+				currPhaseType.description,
 				separator: "",
 				terminator: ""
 			)
@@ -385,16 +385,14 @@ private extension URL {
 		guard let url, url.isFileURL, isFileURL else {
 			return false
 		}
-		guard let fileResourceID1 = try resourceValues(forKeys: [.fileResourceIdentifierKey]).fileResourceIdentifier else {
+		guard let fileID1 = try resourceValues(forKeys: [.fileResourceIdentifierKey]).fileResourceIdentifier else {
 			throw MASError.error("Failed to get file resource identifier for \(path)")
 		}
-		guard
-			let fileResourceID2 = try url.resourceValues(forKeys: [.fileResourceIdentifierKey]).fileResourceIdentifier
-		else {
+		guard let fileID2 = try url.resourceValues(forKeys: [.fileResourceIdentifierKey]).fileResourceIdentifier else {
 			throw MASError.error("Failed to get file resource identifier for \(url.path)")
 		}
 
-		return fileResourceID1.isEqual(fileResourceID2)
+		return fileID1.isEqual(fileID2)
 	}
 }
 
