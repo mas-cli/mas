@@ -70,7 +70,7 @@ struct Printer {
 	}
 
 	func clearCurrentLine(of fileHandle: FileHandle) {
-		if isatty(fileHandle.fileDescriptor) != 0 {
+		if fileHandle.isTerminal {
 			fileHandle.write(Data("\(csi)2K\(csi)0G".utf8))
 		}
 	}
@@ -113,7 +113,7 @@ struct Printer {
 		terminator: String,
 		to fileHandle: FileHandle
 	) {
-		let formattedPrefix = isatty(fileHandle.fileDescriptor) != 0 ? "\(csi)\(format)m\(prefix)\(csi)0m" : prefix
+		let formattedPrefix = fileHandle.isTerminal ? "\(csi)\(format)m\(prefix)\(csi)0m" : prefix
 		print(
 			items.first.map { ["\(formattedPrefix) \($0)"] + items.dropFirst().map(String.init(describing:)) }
 			?? [formattedPrefix], // swiftformat:disable:this indent

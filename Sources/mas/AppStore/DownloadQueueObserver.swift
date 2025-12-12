@@ -111,7 +111,7 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 		}
 
 		let percentComplete = status.phasePercentComplete
-		if isatty(FileHandle.standardOutput.fileDescriptor) != 0, percentComplete != 0 || currPhaseType != .initial {
+		if FileHandle.standardOutput.isTerminal, percentComplete != 0 || currPhaseType != .initial {
 			// Output the progress bar iff connected to a terminal
 			let totalLength = 60
 			let completedLength = Int(percentComplete * Float(totalLength))
