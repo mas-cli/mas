@@ -26,7 +26,8 @@ extension MAS {
 				rev ▁▁▁▁ \(MAS.gitRevision)
 				swift ▁▁ \(MAS.swiftVersion)
 				driver ▁ \(MAS.swiftDriverVersion)
-				region ▁ \(region)
+				store ▁▁ \(appStoreRegion)
+				region ▁ \(macRegion)
 				macos ▁▁ \(
 					ProcessInfo.processInfo.operatingSystemVersionString.dropFirst(8).replacingOccurrences(of: "Build ", with: "")
 				)
