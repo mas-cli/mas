@@ -23,7 +23,6 @@ struct MAS: AsyncParsableCommand, Sendable {
 			Lucky.self,
 			Open.self,
 			Outdated.self,
-			Region.self,
 			Reset.self,
 			Search.self,
 			Seller.self,
