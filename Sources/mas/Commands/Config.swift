@@ -20,7 +20,8 @@ extension MAS {
 			printer.info(
 				"""
 				mas ▁▁▁▁ \(MAS.version)
-				arch ▁▁▁ \(configStringValue("hw.machine"))
+				slice ▁▁ \(runningSliceArchitecture)
+				slices ▁ \(supportedSliceArchitectures.joined(separator: " "))
 				from ▁▁▁ \(MAS.installMethod)
 				origin ▁ \(MAS.gitOrigin)
 				rev ▁▁▁▁ \(MAS.gitRevision)
@@ -33,10 +34,42 @@ extension MAS {
 				)
 				mac ▁▁▁▁ \(configStringValue("hw.product"))
 				cpu ▁▁▁▁ \(configStringValue("machdep.cpu.brand_string"))
+				arch ▁▁▁ \(configStringValue("hw.machine"))
 				"""
 			)
 		}
 	}
+}
+
+private var runningSliceArchitecture: String {
+	var info = utsname()
+	return uname(&info) == 0
+	? withUnsafePointer(to: &info.machine) { pointer in // swiftformat:disable indent
+		pointer.withMemoryRebound(to: CChar.self, capacity: MemoryLayout.size(ofValue: pointer), String.init(cString:))
+	}
+	: unknown
+} // swiftformat:enable indent
+
+private var supportedSliceArchitectures: [String] {
+	Bundle.main.executableArchitectures.map { archIDs in
+		archIDs.map { archID in
+			switch archID.intValue {
+			case 0x100000c:
+				"arm64"
+			case NSBundleExecutableArchitectureI386:
+				"i386"
+			case NSBundleExecutableArchitecturePPC:
+				"ppc"
+			case NSBundleExecutableArchitecturePPC64:
+				"ppc64"
+			case NSBundleExecutableArchitectureX86_64:
+				"x86_64"
+			default:
+				"0x\(String(archID.intValue, radix: 16))"
+			}
+		}
+	}
+	?? [] // swiftformat:disable:this indent
 }
 
 private func configStringValue(_ name: String) -> String {
