@@ -6,12 +6,9 @@
 //
 
 internal import CommerceKit
-private import CoreFoundation
-private import CoreServices
-private import Darwin
 private import Foundation
 private import ObjectiveC
-private import StoreFoundation
+internal import StoreFoundation
 
 final class DownloadQueueObserver: CKDownloadQueueObserver {
 	private let adamID: ADAMID
@@ -52,13 +49,12 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 		}
 
 		do {
-			let downloadFolderChildURLs = try FileManager.default
-			.contentsOfDirectory( // swiftformat:disable indent
+			let downloadFolderChildURLs = try FileManager.default.contentsOfDirectory(
 				at: downloadFolderURL,
 				includingPropertiesForKeys: [.contentModificationDateKey, .isRegularFileKey]
 			)
 
-			do { // swiftformat:enable indent
+			do {
 				pkgHardLinkURL = try hardLinkURL(
 					to: try downloadFolderChildURLs
 					.compactMap { url -> (URL, Date)? in // swiftformat:disable indent
@@ -66,8 +62,8 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 							return nil
 						}
 
-						let resources = try url.resourceValues(forKeys: [.contentModificationDateKey, .isRegularFileKey])
-						return resources.isRegularFile == true ? resources.contentModificationDate.map { (url, $0) } : nil
+						let resourceValues = try url.resourceValues(forKeys: [.contentModificationDateKey, .isRegularFileKey])
+						return resourceValues.isRegularFile == true ? resourceValues.contentModificationDate.map { (url, $0) } : nil
 					}
 					.max { $0.1 > $1.1 }?
 					.0,
@@ -114,7 +110,7 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 		}
 
 		let percentComplete = status.phasePercentComplete
-		if isatty(FileHandle.standardOutput.fileDescriptor) != 0, percentComplete != 0 || currPhaseType != .initial {
+		if FileHandle.standardOutput.isTerminal, percentComplete != 0 || currPhaseType != .initial {
 			// Output the progress bar iff connected to a terminal
 			let totalLength = 60
 			let completedLength = Int(percentComplete * Float(totalLength))
@@ -125,7 +121,7 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 				" ",
 				UInt64((percentComplete * 100).rounded()),
 				"% ",
-				status.activePhaseType.description,
+				currPhaseType.description,
 				separator: "",
 				terminator: ""
 			)
@@ -320,11 +316,9 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 				error: standardErrorText
 			)
 		}
-
-		let appFolderURLString = String(standardErrorText[appFolderURLRange])
-		guard let appFolderURL = URL(string: appFolderURLString) else {
+		guard let appFolderURL = URL(string: String(standardErrorText[appFolderURLRange])) else {
 			throw MASError.error(
-				"Failed to parse app folder URL for \(appNameAndVersion) from \(appFolderURLString)",
+				"Failed to parse app folder URL for \(appNameAndVersion) from \(standardErrorText[appFolderURLRange])",
 				error: standardErrorText
 			)
 		}
@@ -333,11 +327,11 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 	}
 }
 
-private enum PhaseType: Int64 { // swiftlint:disable sorted_enum_cases
-	case initial = 4 // swiftlint:disable:previous one_declaration_per_file
+private enum PhaseType: Int64 { // swiftlint:disable:this one_declaration_per_file
+	case initial = 4 // swiftlint:disable:this sorted_enum_cases
 	case downloading = 0
-	case downloaded = 5
-	case installing = 1 // swiftlint:enable sorted_enum_cases
+	case downloaded = 5 // swiftlint:disable:this sorted_enum_cases
+	case installing = 1
 }
 
 extension PhaseType: CustomStringConvertible {
@@ -391,16 +385,14 @@ private extension URL {
 		guard let url, url.isFileURL, isFileURL else {
 			return false
 		}
-		guard let fileResourceID1 = try resourceValues(forKeys: [.fileResourceIdentifierKey]).fileResourceIdentifier else {
+		guard let fileID1 = try resourceValues(forKeys: [.fileResourceIdentifierKey]).fileResourceIdentifier else {
 			throw MASError.error("Failed to get file resource identifier for \(path)")
 		}
-		guard
-			let fileResourceID2 = try url.resourceValues(forKeys: [.fileResourceIdentifierKey]).fileResourceIdentifier
-		else {
+		guard let fileID2 = try url.resourceValues(forKeys: [.fileResourceIdentifierKey]).fileResourceIdentifier else {
 			throw MASError.error("Failed to get file resource identifier for \(url.path)")
 		}
 
-		return fileResourceID1.isEqual(fileResourceID2)
+		return fileID1.isEqual(fileID2)
 	}
 }
 

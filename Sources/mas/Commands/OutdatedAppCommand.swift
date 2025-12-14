@@ -70,9 +70,9 @@ extension OutdatedAppCommand { // swiftlint:disable:this file_types_order
 			},
 			inaccurate: {
 				await installedApps
-				.filter(by: optionalAppIDsOptionGroup) // swiftformat:disable indent
+				.filter(by: optionalAppIDsOptionGroup) // swiftformat:disable:this indent
 				.outdated(appCatalog: appCatalog, shouldWarnIfUnknownApp: verboseOptionGroup.verbose)
-			}
+			} // swiftformat:disable:previous indent
 		)
 	}
 }
@@ -149,8 +149,9 @@ private extension [InstalledApp] {
 		if shouldFilter: Bool,
 		shouldWarnIfUnknownApp: Bool
 	) async -> Self {
-		shouldFilter
-		? await compactMap { installedApp in // swiftformat:disable indent
+		!shouldFilter
+		? self // swiftformat:disable:this indent
+		: await compactMap { installedApp in
 			do {
 				_ = try await appCatalog.lookup(appID: .adamID(installedApp.adamID))
 				return installedApp
@@ -159,8 +160,7 @@ private extension [InstalledApp] {
 				return nil
 			}
 		}
-		: self
-	} // swiftformat:enable indent
+	}
 
 	func outdated(appCatalog: some AppCatalog, shouldWarnIfUnknownApp: Bool) async -> [OutdatedApp] {
 		await compactMap { installedApp in
