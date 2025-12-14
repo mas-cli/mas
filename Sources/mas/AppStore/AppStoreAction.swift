@@ -47,10 +47,6 @@ enum AppStoreAction {
 			try await app(withADAMID: adamID) { _, _ in false }
 		}
 	}
-
-	func app(withADAMID adamID: ADAMID, shouldCancel: @Sendable @escaping (String?, Bool) -> Bool) async throws {
-		try await SSPurchase(self, appWithADAMID: adamID).download(shouldCancel: shouldCancel)
-	}
 }
 
 typealias AppStore = AppStoreAction

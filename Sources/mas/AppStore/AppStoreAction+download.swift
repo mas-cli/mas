@@ -1,5 +1,5 @@
 //
-// SSPurchase.swift
+// AppStoreAction+download.swift
 // mas
 //
 // Copyright © 2015 mas-cli. All rights reserved.
@@ -10,7 +10,13 @@ private import Foundation
 private import ObjectiveC
 private import StoreFoundation
 
-extension SSPurchase {
+extension AppStoreAction { // swiftlint:disable:this file_types_order
+	func app(withADAMID adamID: ADAMID, shouldCancel: @Sendable @escaping (String?, Bool) -> Bool) async throws {
+		try await SSPurchase(self, appWithADAMID: adamID).download(shouldCancel: shouldCancel)
+	}
+}
+
+private extension SSPurchase { // swiftlint:disable:this file_types_order
 	convenience init(_ action: AppStoreAction, appWithADAMID adamID: ADAMID) async {
 		self.init(
 			buyParameters: """
