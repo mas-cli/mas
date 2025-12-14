@@ -26,8 +26,8 @@ struct AccurateOptionGroup: ParsableArguments {
 	}
 }
 
-private enum OutdatedAccuracy: String, EnumerableFlag {
-	case accurate // swiftlint:disable:previous one_declaration_per_file
+private enum OutdatedAccuracy: String, EnumerableFlag { // swiftlint:disable:this one_declaration_per_file
+	case accurate
 	case accurateIgnoreUnknownApps
 	case inaccurate
 

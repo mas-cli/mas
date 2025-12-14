@@ -49,13 +49,12 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 		}
 
 		do {
-			let downloadFolderChildURLs = try FileManager.default
-			.contentsOfDirectory( // swiftformat:disable indent
+			let downloadFolderChildURLs = try FileManager.default.contentsOfDirectory(
 				at: downloadFolderURL,
 				includingPropertiesForKeys: [.contentModificationDateKey, .isRegularFileKey]
 			)
 
-			do { // swiftformat:enable indent
+			do {
 				pkgHardLinkURL = try hardLinkURL(
 					to: try downloadFolderChildURLs
 					.compactMap { url -> (URL, Date)? in // swiftformat:disable indent
@@ -328,11 +327,11 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 	}
 }
 
-private enum PhaseType: Int64 { // swiftlint:disable sorted_enum_cases
-	case initial = 4 // swiftlint:disable:previous one_declaration_per_file
+private enum PhaseType: Int64 { // swiftlint:disable:this one_declaration_per_file
+	case initial = 4 // swiftlint:disable:this sorted_enum_cases
 	case downloading = 0
-	case downloaded = 5
-	case installing = 1 // swiftlint:enable sorted_enum_cases
+	case downloaded = 5 // swiftlint:disable:this sorted_enum_cases
+	case installing = 1
 }
 
 extension PhaseType: CustomStringConvertible {

@@ -112,7 +112,6 @@ unused_import:
     - _DarwinFoundation2
     - _DarwinFoundation3
     - _limits
-    - _math
     - _signal
     - _stdio
     - _string
