@@ -61,7 +61,7 @@ private var supportedSliceArchitectures: [String] {
 			}
 
 			return switch arch {
-			case 0x100000c:
+			case NSBundleExecutableArchitectureARM64:
 				"arm64"
 			case NSBundleExecutableArchitectureI386:
 				"i386"
