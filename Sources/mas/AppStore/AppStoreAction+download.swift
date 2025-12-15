@@ -1,53 +1,142 @@
 //
-// DownloadQueueObserver.swift
+// AppStoreAction+download.swift
 // mas
 //
 // Copyright © 2015 mas-cli. All rights reserved.
 //
 
-internal import CommerceKit
+private import CommerceKit
 private import Foundation
 private import ObjectiveC
-internal import StoreFoundation
+private import StoreFoundation
 
-final class DownloadQueueObserver: CKDownloadQueueObserver {
+extension AppStoreAction { // swiftlint:disable:this file_types_order
+	func app(withADAMID adamID: ADAMID, shouldCancel: @Sendable @escaping (String?, Bool) -> Bool) async throws {
+		try await SSPurchase(self, appWithADAMID: adamID).download(shouldCancel: shouldCancel)
+	}
+}
+
+private extension SSPurchase { // swiftlint:disable:this file_types_order
+	convenience init(_ action: AppStoreAction, appWithADAMID adamID: ADAMID) async {
+		self.init(
+			buyParameters: """
+				productType=C&price=0&pg=default&appExtVrsId=0&pricingParameters=\
+				\(action == .get ? "STDQ&macappinstalledconfirmed=1" : "STDRDL")&salableAdamId=\(adamID)
+				"""
+		)
+
+		// Possibly unnecessary…
+		isRedownload = action != .get
+		isUpdate = action == .update
+
+		itemIdentifier = adamID
+
+		let downloadMetadata = SSDownloadMetadata(kind: "software")
+		downloadMetadata.itemIdentifier = adamID
+		self.downloadMetadata = downloadMetadata
+
+		do {
+			let (emailAddress, dsID) = try await appleAccount
+			accountIdentifier = dsID
+			appleID = emailAddress
+		} catch {
+			// Do nothing
+		}
+	}
+
+	func download(shouldCancel: @Sendable @escaping (String?, Bool) -> Bool) async throws {
+		let adamID = itemIdentifier
+		let queue = CKDownloadQueue.shared()
+		let observer = DownloadQueueObserver(adamID: adamID, shouldCancel: shouldCancel)
+		let observerUUID = queue.add(observer)
+		defer {
+			queue.removeObserver(observerUUID)
+		}
+
+		try await withCheckedThrowingContinuation { continuation in
+			observer.set(continuation: continuation)
+
+			CKPurchaseController.shared().perform(self, withOptions: 0) { _, _, error, response in
+				if let error {
+					Task {
+						await observer.resumeOnce { $0.resume(throwing: error) }
+					}
+				} else if response?.downloads?.isEmpty != false {
+					Task {
+						await observer.resumeOnce { continuation in
+							continuation.resume(throwing: MASError.error("No downloads initiated for ADAM ID \(adamID)"))
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+private actor DownloadQueueObserver: CKDownloadQueueObserver {
 	private let adamID: ADAMID
-	private let shouldCancel: (SSDownload, Bool) -> Bool
+	private let shouldCancel: @Sendable (String?, Bool) -> Bool
 	private let downloadFolderURL: URL
 
-	private var completionHandler: (() -> Void)?
-	private var errorHandler: ((any Error) -> Void)?
 	private var prevPhaseType: PhaseType?
 	private var pkgHardLinkURL: URL?
 	private var receiptHardLinkURL: URL?
+	private var alreadyResumed = false
 
-	init(adamID: ADAMID, shouldCancel: @Sendable @escaping (SSDownload, Bool) -> Bool = { _, _ in false }) {
+	private nonisolated(unsafe) var continuation: CheckedContinuation<Void, any Error>?
+
+	init(adamID: ADAMID, shouldCancel: @Sendable @escaping (String?, Bool) -> Bool) {
 		self.adamID = adamID
 		self.shouldCancel = shouldCancel
 		downloadFolderURL = URL(fileURLWithPath: "\(CKDownloadDirectory(nil))/\(adamID)", isDirectory: true)
 	}
 
 	deinit {
+		if !alreadyResumed, let continuation {
+			continuation.resume(
+				throwing: MASError.error("Observer deallocated before download completed for ADAM ID \(adamID)")
+			)
+		}
+	}
+
+	nonisolated func set(continuation: CheckedContinuation<Void, any Error>) {
+		self.continuation = continuation
+	}
+
+	nonisolated func downloadQueue(_: CKDownloadQueue, changedWithAddition _: SSDownload) {
 		// Do nothing
 	}
 
-	func downloadQueue(_ queue: CKDownloadQueue, statusChangedFor download: SSDownload) {
-		guard
-			let metadata = download.metadata,
-			metadata.itemIdentifier == adamID,
-			let status = download.status
-		else {
+	nonisolated func downloadQueue(_ queue: CKDownloadQueue, statusChangedFor download: SSDownload) {
+		guard let snapshot = DownloadSnapshot(of: download), snapshot.adamID == adamID else {
 			return
 		}
-		guard !status.isCancelled, !status.isFailed else {
+		guard !snapshot.isCancelled, !snapshot.isFailed else {
 			queue.removeDownload(withItemIdentifier: adamID)
 			return
 		}
-		guard !shouldCancel(download, true) else {
+		guard !shouldCancel(snapshot.version, true) else {
 			queue.cancelDownload(download, promptToConfirm: false, askToDelete: false)
 			return
 		}
 
+		Task {
+			await statusChanged(snapshot)
+		}
+	}
+
+	nonisolated func downloadQueue(_: CKDownloadQueue, changedWithRemoval download: SSDownload) {
+		guard let snapshot = DownloadSnapshot(of: download), snapshot.adamID == adamID else {
+			return
+		}
+
+		Task {
+			await removed(snapshot)
+		}
+	}
+
+	func statusChanged(_ snapshot: DownloadSnapshot) {
+		// Refresh hard links to latest artifacts in the download directory
 		do {
 			let downloadFolderChildURLs = try FileManager.default.contentsOfDirectory(
 				at: downloadFolderURL,
@@ -70,7 +159,7 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 					existing: pkgHardLinkURL // swiftformat:enable indent
 				)
 			} catch {
-				MAS.printer.warning("Failed to link pkg for", metadata.appNameAndVersion, error: error)
+				MAS.printer.warning("Failed to link pkg for", snapshot.appNameAndVersion, error: error)
 			}
 
 			do {
@@ -79,37 +168,32 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 					existing: receiptHardLinkURL
 				)
 			} catch {
-				MAS.printer.warning("Failed to link receipt for", metadata.appNameAndVersion, error: error)
+				MAS.printer.warning("Failed to link receipt for", snapshot.appNameAndVersion, error: error)
 			}
 		} catch {
 			MAS.printer.warning(
 				"Failed to read contents of download folder",
 				downloadFolderURL.path.quoted,
 				"for",
-				metadata.appNameAndVersion,
+				snapshot.appNameAndVersion,
 				error: error
 			)
 		}
 
-		let currPhaseType = status.activePhaseType
+		let currPhaseType = snapshot.activePhaseType
 		if prevPhaseType != currPhaseType {
 			switch currPhaseType {
-			case .downloading:
-				if prevPhaseType == .initial {
-					MAS.printer.progress(phaseType: currPhaseType, for: metadata.appNameAndVersion)
-				}
-			case .downloaded:
-				if prevPhaseType == .downloading {
-					MAS.printer.progress(phaseType: currPhaseType, for: metadata.appNameAndVersion)
-				}
-			case .installing:
-				MAS.printer.progress(phaseType: currPhaseType, for: metadata.appNameAndVersion)
+			case
+				.downloading where prevPhaseType == .initial,
+				.downloaded where prevPhaseType == .downloading,
+				.installing:
+				MAS.printer.progress(phaseType: currPhaseType, for: snapshot.appNameAndVersion)
 			default:
 				break
 			}
 		}
 
-		let percentComplete = status.phasePercentComplete
+		let percentComplete = snapshot.percentComplete
 		if FileHandle.standardOutput.isTerminal, percentComplete != 0 || currPhaseType != .initial {
 			// Output the progress bar iff connected to a terminal
 			let totalLength = 60
@@ -130,72 +214,50 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 		prevPhaseType = currPhaseType
 	}
 
-	func downloadQueue(_: CKDownloadQueue, changedWithAddition _: SSDownload) {
-		// Do nothing
-	}
-
-	func downloadQueue(_: CKDownloadQueue, changedWithRemoval download: SSDownload) {
-		guard
-			let metadata = download.metadata,
-			metadata.itemIdentifier == adamID,
-			let status = download.status
-		else {
-			return
-		}
-
-		defer {
-			deleteTempFolder(containing: pkgHardLinkURL, fileType: "pkg")
-			deleteTempFolder(containing: receiptHardLinkURL, fileType: "receipt")
-		}
-
+	func removed(_ snapshot: DownloadSnapshot) {
 		MAS.printer.clearCurrentLine(of: .standardOutput)
 
 		do {
-			if let error = status.error as? NSError {
-				guard error.domain == "PKInstallErrorDomain", error.code == 201 else {
+			if let error = snapshot.error {
+				guard error is Ignorable else {
 					throw error
 				}
 
-				try install(appNameAndVersion: metadata.appNameAndVersion)
+				try install(appNameAndVersion: snapshot.appNameAndVersion)
 			} else {
-				guard !status.isFailed else {
-					throw MASError.error("Failed to download \(metadata.appNameAndVersion)")
+				guard !snapshot.isFailed else {
+					throw MASError.error("Failed to download \(snapshot.appNameAndVersion)")
 				}
-				guard !status.isCancelled else {
-					guard shouldCancel(download, false) else {
-						throw MASError.error("Download cancelled for \(metadata.appNameAndVersion)")
+				guard !snapshot.isCancelled else {
+					guard shouldCancel(snapshot.version, false) else {
+						throw MASError.error("Download cancelled for \(snapshot.appNameAndVersion)")
 					}
 
-					completionHandler?()
+					resumeOnce { $0.resume() }
 					return
 				}
 			}
 
-			MAS.printer.notice("Installed", metadata.appNameAndVersion)
-			completionHandler?()
+			MAS.printer.notice("Installed", snapshot.appNameAndVersion)
+			resumeOnce { $0.resume() }
 		} catch {
-			errorHandler?(error)
+			resumeOnce { $0.resume(throwing: error) }
 		}
 	}
 
-	func observeDownloadQueue(_ queue: CKDownloadQueue = .shared()) async throws {
-		let observerUUID = queue.add(self)
-		defer {
-			queue.removeObserver(observerUUID)
+	func resumeOnce(performing action: (CheckedContinuation<Void, any Error>) -> Void) {
+		guard !alreadyResumed else {
+			return
+		}
+		guard let continuation else {
+			MAS.printer.error("Failed to obtain download continuation for ADAM ID \(adamID)")
+			return
 		}
 
-		try await withCheckedThrowingContinuation { continuation in
-			completionHandler = {
-				self.completionHandler = nil
-				self.errorHandler = nil
-				continuation.resume()
-			}
-			errorHandler = { error in
-				self.completionHandler = nil
-				self.errorHandler = nil
-				continuation.resume(throwing: error)
-			}
-		}
+		alreadyResumed = true
+		action(continuation)
+		deleteTempFolder(containing: pkgHardLinkURL, fileType: "pkg")
+		deleteTempFolder(containing: receiptHardLinkURL, fileType: "receipt")
 	}
 
 	private func hardLinkURL(to url: URL?, existing existingHardLinkURL: URL?) throws -> URL? {
@@ -261,11 +323,11 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 				Failed to install \(appNameAndVersion) from \(pkgHardLinkPath)
 				Exit status: \(process.terminationStatus)\(
 					String(data: standardOutputPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8)?
-					.trimmingCharacters(in: .whitespacesAndNewlines) // swiftformat:disable indent
-					.prependIfNotEmpty("\n\nStandard output:\n") ?? ""
+					.trimmingCharacters(in: .whitespacesAndNewlines) // swiftformat:disable:this indent
+					.prependIfNotEmpty("\n\nStandard output:\n") ?? "" // swiftformat:disable:this indent
 				)\(String(data: standardErrorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8)?
 					.trimmingCharacters(in: .whitespacesAndNewlines)
-					.prependIfNotEmpty("\n\nStandard error:\n") ?? "" // swiftformat:enable indent
+					.prependIfNotEmpty("\n\nStandard error:\n") ?? "" // swiftformat:disable:this indent
 				)
 				"""
 			)
@@ -305,12 +367,12 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 			)
 		}
 		guard
-			let appFolderURLResult = appFolderURLRegex // swiftformat:disable indent
+			let appFolderURLResult = appFolderURLRegex
 			.firstMatch(in: standardErrorText, range: NSRange(location: 0, length: standardErrorText.count)),
 			let appFolderURLNSRange = appFolderURLResult.range(at: 1) as NSRange?,
 			appFolderURLNSRange.location != NSNotFound,
 			let appFolderURLRange = Range(appFolderURLNSRange, in: standardErrorText)
-		else { // swiftformat:enable indent
+		else {
 			throw MASError.error(
 				"Failed to find app folder URL in installer output for \(appNameAndVersion)",
 				error: standardErrorText
@@ -325,6 +387,38 @@ final class DownloadQueueObserver: CKDownloadQueueObserver {
 
 		return appFolderURL
 	}
+}
+
+private struct DownloadSnapshot: Sendable { // swiftlint:disable:this one_declaration_per_file
+	let adamID: ADAMID
+	let version: String?
+	let appNameAndVersion: String
+	let activePhaseType: PhaseType?
+	let percentComplete: Float
+	let isCancelled: Bool
+	let isFailed: Bool
+	let error: (any Error)?
+
+	init?(of download: SSDownload) {
+		guard let metadata = download.metadata, let status = download.status else {
+			return nil
+		}
+
+		adamID = metadata.itemIdentifier
+		version = metadata.bundleVersion
+		appNameAndVersion = "\(metadata.title ?? "unknown app") (\(version ?? "unknown version"))"
+		activePhaseType = status.activePhase.flatMap { PhaseType(rawValue: $0.phaseType) }
+		percentComplete = status.phasePercentComplete
+		isCancelled = status.isCancelled
+		isFailed = status.isFailed
+		error = status.error.map { $0 as NSError }.map { error in
+			error.domain == "PKInstallErrorDomain" && error.code == 201 ? Ignorable.installerWorkaround : error as any Error
+		}
+	}
+}
+
+private enum Ignorable: Error { // swiftlint:disable:this one_declaration_per_file
+	case installerWorkaround
 }
 
 private enum PhaseType: Int64 { // swiftlint:disable:this one_declaration_per_file
@@ -359,18 +453,6 @@ private extension Printer {
 	func progress(phaseType: PhaseType?, for appNameAndVersion: String) {
 		clearCurrentLine(of: .standardOutput)
 		notice(phaseType.description, appNameAndVersion)
-	}
-}
-
-private extension SSDownloadMetadata {
-	var appNameAndVersion: String {
-		"\(title ?? "unknown app") (\(bundleVersion ?? "unknown version"))"
-	}
-}
-
-private extension SSDownloadStatus {
-	var activePhaseType: PhaseType? {
-		activePhase.flatMap { PhaseType(rawValue: $0.phaseType) }
 	}
 }
 

@@ -6,8 +6,8 @@
 //
 
 private import ArgumentParser
-private import CommerceKit
-internal import StoreFoundation
+private import Darwin
+private import StoreFoundation
 
 enum AppStoreAction {
 	case get
@@ -45,31 +45,6 @@ enum AppStoreAction {
 
 		await adamIDs.forEach(attemptTo: "\(self) app for ADAM ID") { adamID in
 			try await app(withADAMID: adamID) { _, _ in false }
-		}
-	}
-
-	func app(withADAMID adamID: ADAMID, shouldCancel: @Sendable @escaping (SSDownload, Bool) -> Bool) async throws {
-		let purchase = await SSPurchase(self, appWithADAMID: adamID)
-		try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-			CKPurchaseController.shared().perform(purchase, withOptions: 0) { _, _, error, response in
-				if let error {
-					continuation.resume(throwing: error)
-					return
-				}
-				guard response?.downloads?.isEmpty == false else {
-					continuation.resume(throwing: MASError.error("No downloads initiated for ADAM ID \(adamID)"))
-					return
-				}
-
-				Task {
-					do {
-						try await DownloadQueueObserver(adamID: adamID, shouldCancel: shouldCancel).observeDownloadQueue()
-						continuation.resume()
-					} catch {
-						continuation.resume(throwing: error)
-					}
-				}
-			}
 		}
 	}
 }

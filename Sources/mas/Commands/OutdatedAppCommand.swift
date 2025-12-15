@@ -89,14 +89,14 @@ private extension InstalledApp {
 				Task {
 					let alreadyResumed = ManagedAtomic(false)
 					do {
-						try await AppStore.install.app(withADAMID: adamID) { download, shouldOutput in
+						try await AppStore.install.app(withADAMID: adamID) { appStoreVersion, shouldOutput in
 							if
 								shouldOutput,
-								let metadata = download.metadata,
-								version != metadata.bundleVersion,
+								let appStoreVersion,
+								version != appStoreVersion,
 								!alreadyResumed.exchange(true, ordering: .acquiringAndReleasing)
 							{
-								continuation.resume(returning: OutdatedApp(self, metadata.bundleVersion ?? "unknown"))
+								continuation.resume(returning: OutdatedApp(self, appStoreVersion))
 							}
 							return true
 						}

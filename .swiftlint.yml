@@ -48,6 +48,7 @@ explicit_init:
   include_bare_init: true
 file_length:
   ignore_comment_only_lines: true
+  warning: 500
 file_name:
   excluded: [Group.swift, SpotlightInstalledApps.swift, User.swift]
 file_types_order:
@@ -64,6 +65,20 @@ indentation_width:
   include_multiline_strings: false
 line_length:
   ignores_multiline_strings: true
+modifier_order:
+  preferred_modifier_order:
+  - acl
+  - setterACL
+  - override
+  - isolation
+  - dynamic
+  - mutators
+  - lazy
+  - final
+  - required
+  - convenience
+  - typeMethods
+  - owned
 multiline_arguments:
   first_argument_location: next_line
 non_optional_string_data_conversion:
