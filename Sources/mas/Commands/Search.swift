@@ -48,7 +48,7 @@ extension MAS {
 						catalogApp.adamID,
 						catalogApp.name.padding(toLength: maxNameLength, withPad: " ", startingAt: 0),
 						catalogApp.version,
-						catalogApp.formattedPrice
+						catalogApp.displayPrice
 					)
 				}
 				.joined(separator: "\n")

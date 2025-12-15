@@ -193,17 +193,17 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 			}
 		}
 
-		let percentComplete = snapshot.percentComplete
-		if FileHandle.standardOutput.isTerminal, percentComplete != 0 || currPhaseType != .initial {
+		let phasePercentComplete = snapshot.phasePercentComplete
+		if FileHandle.standardOutput.isTerminal, phasePercentComplete != 0 || currPhaseType != .initial {
 			// Output the progress bar iff connected to a terminal
 			let totalLength = 60
-			let completedLength = Int(percentComplete * Float(totalLength))
+			let completedLength = Int(phasePercentComplete * Float(totalLength))
 			MAS.printer.clearCurrentLine(of: .standardOutput)
 			MAS.printer.info(
 				String(repeating: "#", count: completedLength),
 				String(repeating: "-", count: totalLength - completedLength),
 				" ",
-				UInt64((percentComplete * 100).rounded()),
+				UInt64((phasePercentComplete * 100).rounded()),
 				"% ",
 				currPhaseType.description,
 				separator: "",
@@ -323,11 +323,13 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 				Failed to install \(appNameAndVersion) from \(pkgHardLinkPath)
 				Exit status: \(process.terminationStatus)\(
 					String(data: standardOutputPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8)?
-					.trimmingCharacters(in: .whitespacesAndNewlines) // swiftformat:disable:this indent
-					.prependIfNotEmpty("\n\nStandard output:\n") ?? "" // swiftformat:disable:this indent
+					.trimmingCharacters(in: .whitespacesAndNewlines) // swiftformat:disable indent
+					.prependIfNotEmpty("\n\nStandard output:\n")
+					?? ""
 				)\(String(data: standardErrorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8)?
-					.trimmingCharacters(in: .whitespacesAndNewlines)
-					.prependIfNotEmpty("\n\nStandard error:\n") ?? "" // swiftformat:disable:this indent
+					.trimmingCharacters(in: .whitespacesAndNewlines) // swiftformat:enable indent
+					.prependIfNotEmpty("\n\nStandard error:\n")
+					?? "" // swiftformat:disable:this wrap
 				)
 				"""
 			)
@@ -394,7 +396,7 @@ private struct DownloadSnapshot: Sendable { // swiftlint:disable:this one_declar
 	let version: String?
 	let appNameAndVersion: String
 	let activePhaseType: PhaseType?
-	let percentComplete: Float
+	let phasePercentComplete: Float
 	let isCancelled: Bool
 	let isFailed: Bool
 	let error: (any Error)?
@@ -408,7 +410,7 @@ private struct DownloadSnapshot: Sendable { // swiftlint:disable:this one_declar
 		version = metadata.bundleVersion
 		appNameAndVersion = "\(metadata.title ?? "unknown app") (\(version ?? "unknown version"))"
 		activePhaseType = status.activePhase.flatMap { PhaseType(rawValue: $0.phaseType) }
-		percentComplete = status.phasePercentComplete
+		phasePercentComplete = status.phasePercentComplete
 		isCancelled = status.isCancelled
 		isFailed = status.isFailed
 		error = status.error.map { $0 as NSError }.map { error in
