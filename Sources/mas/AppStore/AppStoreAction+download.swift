@@ -295,7 +295,11 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		do {
 			let fileManager = FileManager.default
 			try run(asEffectiveUID: 0, andEffectiveGID: 0) {
-				try fileManager.createDirectory(at: receiptURL.deletingLastPathComponent(), withIntermediateDirectories: true)
+				if fileManager.fileExists(atPath: receiptURL.path) {
+					try fileManager.removeItem(at: receiptURL)
+				} else {
+					try fileManager.createDirectory(at: receiptURL.deletingLastPathComponent(), withIntermediateDirectories: true)
+				}
 				try fileManager.copyItem(at: receiptHardLinkURL, to: receiptURL)
 				try fileManager.setAttributes([.ownerAccountID: 0, .groupOwnerAccountID: 0], ofItemAtPath: receiptURL.path)
 			}
