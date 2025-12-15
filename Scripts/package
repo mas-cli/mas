@@ -40,40 +40,36 @@ ln -f .build/plugins/GenerateManual/outputs/mas/mas.1 "${installation_staging_fo
 
 ln -fs "${installation_folder}/bin/mas" "${usr_local_bin_staging_folder}/mas"
 
+archs=("${(s: :n)$(lipo -archs "${installation_staging_folder}/bin/mas")}")
+# shellcheck disable=SC2034
+readonly -a archs
+
 pkgbuild\
  --identifier io.github.mas-cli.mas\
  --install-location /\
  --version "${version}"\
  --root "${destination_folder}"\
- "${build_folder}/mas_components.pkg"
+ "${build_folder}/mas.pkg"
 
 # shellcheck disable=SC1036
 productbuild\
  --distribution =(<<<\
-'<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+'<?xml version="1.0" encoding="utf-8"?>
 <installer-gui-script minSpecVersion="2">
 	<title>mas</title>
-	<pkg-ref id="io.github.mas-cli.mas">
-		<bundle-version/>
-	</pkg-ref>
-	<pkg-ref id="io.github.mas-cli.mas" onConclusion="none">#mas_components.pkg</pkg-ref>
-	<domains enable_localSystem="true" enable_anywhere="true" enable_currentUserHome="false"/>
-	<options customize="never" require-scripts="false"/>
+	<options customize="never" require-scripts="false" hostArchitectures="'"${(j:,:)archs[@]}"'"/>
 	<volume-check>
 		<allowed-os-versions>
 			<os-version min="10.15"/>
 		</allowed-os-versions>
 	</volume-check>
 	<choices-outline>
-		<line choice="default">
-			<line choice="io.github.mas-cli.mas"/>
-		</line>
+		<line choice="mas"/>
 	</choices-outline>
-	<choice id="default"/>
-	<choice id="io.github.mas-cli.mas" visible="false">
-		<pkg-ref id="io.github.mas-cli.mas"/>
+	<choice id="mas" title="mas" visible="false">
+		<pkg-ref id="mas">mas.pkg</pkg-ref>
 	</choice>
 </installer-gui-script>'
  )\
  --package-path "${build_folder}"\
- "${build_folder}/mas-${version//\//_}-${${(s: :o)$(lipo -archs "${installation_staging_folder}/bin/mas")}// /-}.pkg"
+ "${build_folder}/mas-${version//\//_}-${(j:-:)archs[@]}.pkg"
