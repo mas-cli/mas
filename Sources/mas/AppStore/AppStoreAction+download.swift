@@ -6,6 +6,7 @@
 //
 
 private import CommerceKit
+private import CoreServices
 private import Foundation
 private import ObjectiveC
 private import StoreFoundation
@@ -334,6 +335,8 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 				"""
 			)
 		}
+
+		LSRegisterURL(appFolderURL as NSURL, true) // swiftlint:disable:this legacy_objc_type
 	}
 
 	private func installPkg(appNameAndVersion: String) throws -> URL {
