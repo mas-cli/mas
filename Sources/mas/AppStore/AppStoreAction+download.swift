@@ -181,21 +181,21 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 			)
 		}
 
-		let currPhaseType = snapshot.activePhaseType
-		if prevPhaseType != currPhaseType {
-			switch currPhaseType {
+		if prevPhaseType != snapshot.activePhaseType {
+			switch snapshot.activePhaseType {
 			case
 				.downloading where prevPhaseType == .initial,
 				.downloaded where prevPhaseType == .downloading,
 				.installing:
-				MAS.printer.progress(phaseType: currPhaseType, for: snapshot.appNameAndVersion)
+				MAS.printer.clearCurrentLine(of: .standardOutput)
+				MAS.printer.notice(snapshot.activePhaseType.description, snapshot.appNameAndVersion)
 			default:
 				break
 			}
 		}
 
 		let phasePercentComplete = snapshot.phasePercentComplete
-		if FileHandle.standardOutput.isTerminal, phasePercentComplete != 0 || currPhaseType != .initial {
+		if FileHandle.standardOutput.isTerminal, phasePercentComplete != 0 || snapshot.activePhaseType != .initial {
 			// Output the progress bar iff connected to a terminal
 			let totalLength = 60
 			let completedLength = Int(phasePercentComplete * Float(totalLength))
@@ -206,13 +206,13 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 				" ",
 				UInt64((phasePercentComplete * 100).rounded()),
 				"% ",
-				currPhaseType.description,
+				snapshot.activePhaseType.description,
 				separator: "",
 				terminator: ""
 			)
 		}
 
-		prevPhaseType = currPhaseType
+		prevPhaseType = snapshot.activePhaseType
 	}
 
 	func removed(_ snapshot: DownloadSnapshot) {
@@ -224,7 +224,11 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 					throw error
 				}
 
+				MAS.printer.notice(PhaseType.downloaded, snapshot.appNameAndVersion)
+				MAS.printer.notice(PhaseType.installing, snapshot.appNameAndVersion)
+				MAS.printer.info("Installation progress cannot be displayed", terminator: "")
 				try install(appNameAndVersion: snapshot.appNameAndVersion)
+				MAS.printer.clearCurrentLine(of: .standardOutput)
 			} else {
 				guard !snapshot.isFailed else {
 					throw MASError.error("Failed to download \(snapshot.appNameAndVersion)")
@@ -451,13 +455,6 @@ extension PhaseType: CustomStringConvertible {
 private extension PhaseType? {
 	var description: String {
 		map(\.description) ?? "Processing"
-	}
-}
-
-private extension Printer {
-	func progress(phaseType: PhaseType?, for appNameAndVersion: String) {
-		clearCurrentLine(of: .standardOutput)
-		notice(phaseType.description, appNameAndVersion)
 	}
 }
 
