@@ -11,7 +11,7 @@ struct CatalogApp {
 	// periphery:ignore
 	let bundleID: String
 	let fileSizeBytes: String
-	let formattedPrice: String
+	let formattedPrice: String?
 	let minimumOSVersion: String
 	let name: String
 	let releaseDate: String
@@ -19,12 +19,16 @@ struct CatalogApp {
 	let sellerURLString: String?
 	let version: String
 
+	var displayPrice: String {
+		formattedPrice ?? "?"
+	}
+
 	init(
 		adamID: ADAMID = 0,
 		appStorePageURLString: String = "",
 		bundleID: String = "",
-		fileSizeBytes: String = "0",
-		formattedPrice: String? = "0",
+		fileSizeBytes: String = "?",
+		formattedPrice: String? = "?",
 		minimumOSVersion: String = "",
 		name: String = "",
 		releaseDate: String = "",
@@ -36,7 +40,7 @@ struct CatalogApp {
 		self.appStorePageURLString = appStorePageURLString
 		self.bundleID = bundleID
 		self.fileSizeBytes = fileSizeBytes
-		self.formattedPrice = formattedPrice ?? "?"
+		self.formattedPrice = formattedPrice
 		self.minimumOSVersion = minimumOSVersion
 		self.name = name
 		self.releaseDate = releaseDate

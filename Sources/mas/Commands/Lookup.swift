@@ -36,7 +36,7 @@ extension MAS {
 			printer.info(
 				catalogApps.map { catalogApp in
 					"""
-					\(catalogApp.name) \(catalogApp.version) [\(catalogApp.formattedPrice)]
+					\(catalogApp.name) \(catalogApp.version) [\(catalogApp.displayPrice)]
 					By: \(catalogApp.sellerName)
 					Released: \(catalogApp.releaseDate.isoCalendarDate)
 					Minimum OS: \(catalogApp.minimumOSVersion)
