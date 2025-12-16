@@ -93,7 +93,11 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 	}
 
 	deinit {
-		if !alreadyResumed, let continuation {
+		resumeOnce(
+			alreadyResumed: alreadyResumed,
+			pkgHardLinkURL: pkgHardLinkURL,
+			receiptHardLinkURL: receiptHardLinkURL
+		) { continuation in
 			continuation.resume(
 				throwing: MASError.error("Observer deallocated before download completed for ADAM ID \(adamID)")
 			)
@@ -134,6 +138,35 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		Task {
 			await removed(snapshot)
 		}
+	}
+
+	func resumeOnce(performing action: (CheckedContinuation<Void, any Error>) -> Void) {
+		resumeOnce(
+			alreadyResumed: alreadyResumed,
+			pkgHardLinkURL: pkgHardLinkURL,
+			receiptHardLinkURL: receiptHardLinkURL,
+			performing: action
+		)
+		alreadyResumed = true
+	}
+
+	private nonisolated func resumeOnce(
+		alreadyResumed: Bool,
+		pkgHardLinkURL: URL?,
+		receiptHardLinkURL: URL?,
+		performing action: (CheckedContinuation<Void, any Error>) -> Void
+	) {
+		guard !alreadyResumed else {
+			return
+		}
+		guard let continuation else {
+			MAS.printer.error("Failed to obtain download continuation for ADAM ID \(adamID)")
+			return
+		}
+
+		action(continuation)
+		deleteTempFolder(containing: pkgHardLinkURL, fileType: "pkg")
+		deleteTempFolder(containing: receiptHardLinkURL, fileType: "receipt")
 	}
 
 	private func statusChanged(_ snapshot: DownloadSnapshot) {
@@ -250,21 +283,6 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		} catch {
 			resumeOnce { $0.resume(throwing: error) }
 		}
-	}
-
-	func resumeOnce(performing action: (CheckedContinuation<Void, any Error>) -> Void) {
-		guard !alreadyResumed else {
-			return
-		}
-		guard let continuation else {
-			MAS.printer.error("Failed to obtain download continuation for ADAM ID \(adamID)")
-			return
-		}
-
-		alreadyResumed = true
-		action(continuation)
-		deleteTempFolder(containing: pkgHardLinkURL, fileType: "pkg")
-		deleteTempFolder(containing: receiptHardLinkURL, fileType: "receipt")
 	}
 
 	private func hardLinkURL(to url: URL?, existing existingHardLinkURL: URL?) throws -> URL? {
