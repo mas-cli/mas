@@ -49,5 +49,5 @@ jobs:
           [[ -n "${bump_url}" ]] && gh pr edit "${bump_url}" --add-label pr-pull
           gh release -R "${GITHUB_REPOSITORY}" delete-asset "${GITHUB_REF_NAME}" bump.url -y
         else
-          printf $'No custom tap formula bump PR URL found for tag\'%s\'\n' "${GITHUB_REF_NAME}"
+          printf $'No custom tap formula bump PR URL found for tag %s\n' "${GITHUB_REF_NAME}"
         fi

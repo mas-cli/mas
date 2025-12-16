@@ -47,7 +47,7 @@ print_notice() {
 	if [[ -t 1 ]]; then
 		local -r prefix=$'\e[1;34m==>\e[0m'
 	else
-		local -r prefix=$'==>'
+		local -r prefix='==>'
 	fi
 	printf $'%s %s mas %s%s\n' "${prefix}" "${1}" "${MAS_VERSION:-$(Scripts/version)}" "${${*:2}:+ (arguments: ${${(q)@:2}[*]})}"
 }

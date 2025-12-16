@@ -14,11 +14,11 @@ print_notice '🎬 Prebuilding' "${@}"
 
 # Generate Swift file containing build information.
 # shellcheck disable=SC1102
-printf $'//
+printf '//
 // MAS+BuildInformation.swift
 // mas
 //
-// Copyright © $(date '\''+%%Y'\'') mas-cli. All rights reserved.
+// Copyright © %s mas-cli. All rights reserved.
 //
 
 extension MAS {
@@ -30,6 +30,7 @@ extension MAS {
 	static let swiftDriverVersion = "%s"
 }
 '\
+ "$(date +%Y)"\
  "$(Scripts/version)"\
  "${MAS_INSTALL_METHOD:-unknown}"\
  "$(git remote get-url origin)"\
