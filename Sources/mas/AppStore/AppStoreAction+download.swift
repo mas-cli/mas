@@ -136,7 +136,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		}
 	}
 
-	func statusChanged(_ snapshot: DownloadSnapshot) {
+	private func statusChanged(_ snapshot: DownloadSnapshot) {
 		// Refresh hard links to latest artifacts in the download directory
 		do {
 			let downloadFolderChildURLs = try FileManager.default.contentsOfDirectory(
@@ -217,7 +217,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		prevPhaseType = snapshot.activePhaseType
 	}
 
-	func removed(_ snapshot: DownloadSnapshot) {
+	private func removed(_ snapshot: DownloadSnapshot) {
 		MAS.printer.clearCurrentLine(of: .standardOutput)
 
 		do {
