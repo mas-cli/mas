@@ -49,7 +49,8 @@ pkgbuild\
 
 # shellcheck disable=SC1036
 productbuild\
- --distribution =(<<< $'<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+ --distribution =(<<<\
+'<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <installer-gui-script minSpecVersion="2">
 	<title>mas</title>
 	<pkg-ref id="io.github.mas-cli.mas">
@@ -72,7 +73,7 @@ productbuild\
 	<choice id="io.github.mas-cli.mas" visible="false">
 		<pkg-ref id="io.github.mas-cli.mas"/>
 	</choice>
-</installer-gui-script>
-')\
+</installer-gui-script>'
+ )\
  --package-path "${build_folder}"\
  "${build_folder}/mas-${version//\//_}-${${(s: :o)$(lipo -archs "${installation_staging_folder}/bin/mas")}// /-}.pkg"
