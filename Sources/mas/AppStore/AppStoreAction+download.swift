@@ -194,17 +194,19 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 			}
 		}
 
-		let phasePercentComplete = snapshot.phasePercentComplete
-		if FileHandle.standardOutput.isTerminal, phasePercentComplete != 0 || snapshot.activePhaseType != .initial {
+		if
+			FileHandle.standardOutput.isTerminal,
+			snapshot.phasePercentComplete != 0 || snapshot.activePhaseType != .initial
+		{
 			// Output the progress bar iff connected to a terminal
 			let totalLength = 60
-			let completedLength = Int(phasePercentComplete * Float(totalLength))
+			let completedLength = Int(snapshot.phasePercentComplete * Float(totalLength))
 			MAS.printer.clearCurrentLine(of: .standardOutput)
 			MAS.printer.info(
 				String(repeating: "#", count: completedLength),
 				String(repeating: "-", count: totalLength - completedLength),
 				" ",
-				UInt64((phasePercentComplete * 100).rounded()),
+				UInt64((snapshot.phasePercentComplete * 100).rounded()),
 				"% ",
 				snapshot.activePhaseType.description,
 				separator: "",
