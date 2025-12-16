@@ -19,7 +19,7 @@ ensure_command_available actionlint git markdownlint-cli2 periphery shellcheck s
 zmodload zsh/zutil
 zparseopts -D -A received_flag A P
 
-export -r MAS_INSTALL_METHOD=lint
+export -r MAS_DISTRIBUTION=lint
 
 integer exit_status=0
 

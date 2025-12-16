@@ -12,6 +12,6 @@
 
 print_notice '🧪 Testing' "${@}"
 
-export -r MAS_INSTALL_METHOD=test
+export -r MAS_DISTRIBUTION=test
 
 swift test --disable-xctest -q "${@}"

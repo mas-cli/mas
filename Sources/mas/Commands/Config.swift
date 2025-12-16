@@ -22,7 +22,7 @@ extension MAS {
 				mas ▁▁▁▁ \(MAS.version)
 				slice ▁▁ \(runningSliceArchitecture)
 				slices ▁ \(supportedSliceArchitectures.joined(separator: " "))
-				from ▁▁▁ \(MAS.installMethod)
+				dist ▁▁▁ \(MAS.distribution)
 				origin ▁ \(MAS.gitOrigin)
 				rev ▁▁▁▁ \(MAS.gitRevision)
 				swift ▁▁ \(MAS.swiftVersion)
