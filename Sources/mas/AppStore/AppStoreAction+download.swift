@@ -81,9 +81,9 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 
 	private nonisolated(unsafe) var continuation: CheckedContinuation<Void, any Error>?
 
-	private var prevPhaseType: PhaseType?
-	private var pkgHardLinkURL: URL?
-	private var receiptHardLinkURL: URL?
+	private var prevPhaseType = PhaseType?.none
+	private var pkgHardLinkURL = URL?.none
+	private var receiptHardLinkURL = URL?.none
 	private var alreadyResumed = false
 
 	init(adamID: ADAMID, shouldCancel: @Sendable @escaping (String?, Bool) -> Bool) {
