@@ -37,6 +37,7 @@ extension OutdatedAppCommand { // swiftlint:disable:this file_types_order
 				await withTaskGroup(of: OutdatedApp?.self, returning: [OutdatedApp].self) { group in
 					let installedApps = await installedApps
 					.filter(by: optionalAppIDsOptionGroup) // swiftformat:disable indent
+					.filterOutIgnoredApps()
 					.filterOutApps(
 						unknownTo: appCatalog,
 						if: shouldIgnoreUnknownApps,
@@ -68,11 +69,12 @@ extension OutdatedAppCommand { // swiftlint:disable:this file_types_order
 				}
 				.sorted { $0.installedApp.name.localizedStandardCompare($1.installedApp.name) == .orderedAscending }
 			},
-			inaccurate: {
-				await installedApps
-				.filter(by: optionalAppIDsOptionGroup) // swiftformat:disable:this indent
+		inaccurate: {
+			await installedApps
+				.filter(by: optionalAppIDsOptionGroup)
+				.filterOutIgnoredApps()
 				.outdated(appCatalog: appCatalog, shouldWarnIfUnknownApp: verboseOptionGroup.verbose)
-			} // swiftformat:disable:previous indent
+		}
 		)
 	}
 }
@@ -85,18 +87,26 @@ typealias OutdatedApp = (
 private extension InstalledApp {
 	var outdated: OutdatedApp? {
 		get async {
-			await withCheckedContinuation { continuation in
+			let ignoreList = IgnoreList.shared
+			if await ignoreList.isIgnored(adamID: adamID) {
+				return nil
+			}
+
+			return await withCheckedContinuation { continuation in
 				Task {
 					let alreadyResumed = ManagedAtomic(false)
 					do {
 						try await AppStore.install.app(withADAMID: adamID) { appStoreVersion, shouldOutput in
-							if
-								shouldOutput,
-								let appStoreVersion,
-								version != appStoreVersion,
-								!alreadyResumed.exchange(true, ordering: .acquiringAndReleasing)
-							{
-								continuation.resume(returning: OutdatedApp(self, appStoreVersion))
+							Task {
+								if
+									shouldOutput,
+									let appStoreVersion,
+									version != appStoreVersion,
+									!alreadyResumed.exchange(true, ordering: .acquiringAndReleasing),
+									!(await ignoreList.isIgnored(adamID: adamID, version: appStoreVersion))
+								{
+									continuation.resume(returning: OutdatedApp(self, appStoreVersion))
+								}
 							}
 							return true
 						}
@@ -163,10 +173,14 @@ private extension [InstalledApp] {
 	}
 
 	func outdated(appCatalog: some AppCatalog, shouldWarnIfUnknownApp: Bool) async -> [OutdatedApp] {
-		await compactMap { installedApp in
+		let ignoreList = IgnoreList.shared
+		return await compactMap { installedApp in
 			do {
 				let catalogApp = try await appCatalog.lookup(appID: .adamID(installedApp.adamID))
 				if installedApp.isOutdated(comparedTo: catalogApp) {
+					if await ignoreList.isIgnored(adamID: installedApp.adamID, version: catalogApp.version) {
+						return nil
+					}
 					return OutdatedApp(installedApp, catalogApp.version)
 				}
 			} catch {
@@ -174,6 +188,17 @@ private extension [InstalledApp] {
 			}
 			return nil
 		}
+	}
+}
+
+private extension [InstalledApp] {
+	func filterOutIgnoredApps() async -> Self {
+		let ignoreList = IgnoreList.shared
+		var filtered = [InstalledApp]()
+		for app in self where !(await ignoreList.isIgnored(adamID: app.adamID)) {
+			filtered.append(app)
+		}
+		return filtered
 	}
 }
 
