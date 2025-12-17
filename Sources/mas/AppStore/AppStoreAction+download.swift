@@ -45,6 +45,7 @@ private extension SSPurchase { // swiftlint:disable:this file_types_order
 		}
 	}
 
+	@MainActor
 	func download(shouldCancel: @Sendable @escaping (String?, Bool) -> Bool) async throws {
 		let adamID = itemIdentifier
 		let queue = CKDownloadQueue.shared()
@@ -59,11 +60,11 @@ private extension SSPurchase { // swiftlint:disable:this file_types_order
 
 			CKPurchaseController.shared().perform(self, withOptions: 0) { _, _, error, response in
 				if let error {
-					Task {
+					Task.detached {
 						await observer.resumeOnce { $0.resume(throwing: error) }
 					}
 				} else if response?.downloads?.isEmpty != false {
-					Task {
+					Task.detached {
 						await observer.resumeOnce { continuation in
 							continuation.resume(throwing: MASError.error("No downloads initiated for ADAM ID \(adamID)"))
 						}
@@ -79,12 +80,12 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 	private let shouldCancel: @Sendable (String?, Bool) -> Bool
 	private let downloadFolderURL: URL
 
-	private var prevPhaseType: PhaseType?
-	private var pkgHardLinkURL: URL?
-	private var receiptHardLinkURL: URL?
-	private var alreadyResumed = false
-
 	private nonisolated(unsafe) var continuation: CheckedContinuation<Void, any Error>?
+
+	private var prevPhaseType = PhaseType?.none
+	private var pkgHardLinkURL = URL?.none
+	private var receiptHardLinkURL = URL?.none
+	private var alreadyResumed = false
 
 	init(adamID: ADAMID, shouldCancel: @Sendable @escaping (String?, Bool) -> Bool) {
 		self.adamID = adamID
@@ -93,10 +94,13 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 	}
 
 	deinit {
-		if !alreadyResumed, let continuation {
-			continuation.resume(
-				throwing: MASError.error("Observer deallocated before download completed for ADAM ID \(adamID)")
-			)
+		resumeOnce(
+			alreadyResumed: alreadyResumed,
+			pkgHardLinkURL: pkgHardLinkURL,
+			receiptHardLinkURL: receiptHardLinkURL
+		) { continuation in
+			continuation // swiftformat:disable:next indent
+			.resume(throwing: MASError.error("Observer deallocated before download completed for ADAM ID \(adamID)"))
 		}
 	}
 
@@ -136,7 +140,36 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		}
 	}
 
-	func statusChanged(_ snapshot: DownloadSnapshot) {
+	func resumeOnce(performing action: (CheckedContinuation<Void, any Error>) -> Void) {
+		resumeOnce(
+			alreadyResumed: alreadyResumed,
+			pkgHardLinkURL: pkgHardLinkURL,
+			receiptHardLinkURL: receiptHardLinkURL,
+			performing: action
+		)
+		alreadyResumed = true
+	}
+
+	private nonisolated func resumeOnce(
+		alreadyResumed: Bool,
+		pkgHardLinkURL: URL?,
+		receiptHardLinkURL: URL?,
+		performing action: (CheckedContinuation<Void, any Error>) -> Void
+	) {
+		guard !alreadyResumed else {
+			return
+		}
+		guard let continuation else {
+			MAS.printer.error("Failed to obtain download continuation for ADAM ID \(adamID)")
+			return
+		}
+
+		action(continuation)
+		deleteTempFolder(containing: pkgHardLinkURL, fileType: "pkg")
+		deleteTempFolder(containing: receiptHardLinkURL, fileType: "receipt")
+	}
+
+	private func statusChanged(_ snapshot: DownloadSnapshot) {
 		// Refresh hard links to latest artifacts in the download directory
 		do {
 			let downloadFolderChildURLs = try FileManager.default.contentsOfDirectory(
@@ -146,8 +179,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 
 			do {
 				pkgHardLinkURL = try hardLinkURL(
-					to: try downloadFolderChildURLs
-					.compactMap { url -> (URL, Date)? in // swiftformat:disable indent
+					to: try downloadFolderChildURLs.compactMap { url -> (URL, Date)? in
 						guard url.pathExtension == "pkg" else {
 							return nil
 						}
@@ -157,7 +189,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 					}
 					.max { $0.1 > $1.1 }?
 					.0,
-					existing: pkgHardLinkURL // swiftformat:enable indent
+					existing: pkgHardLinkURL
 				)
 			} catch {
 				MAS.printer.warning("Failed to link pkg for", snapshot.appNameAndVersion, error: error)
@@ -194,17 +226,19 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 			}
 		}
 
-		let phasePercentComplete = snapshot.phasePercentComplete
-		if FileHandle.standardOutput.isTerminal, phasePercentComplete != 0 || snapshot.activePhaseType != .initial {
+		if
+			FileHandle.standardOutput.isTerminal,
+			snapshot.phasePercentComplete != 0 || snapshot.activePhaseType != .initial
+		{
 			// Output the progress bar iff connected to a terminal
 			let totalLength = 60
-			let completedLength = Int(phasePercentComplete * Float(totalLength))
+			let completedLength = Int(snapshot.phasePercentComplete * Float(totalLength))
 			MAS.printer.clearCurrentLine(of: .standardOutput)
 			MAS.printer.info(
 				String(repeating: "#", count: completedLength),
 				String(repeating: "-", count: totalLength - completedLength),
 				" ",
-				UInt64((phasePercentComplete * 100).rounded()),
+				UInt64((snapshot.phasePercentComplete * 100).rounded()),
 				"% ",
 				snapshot.activePhaseType.description,
 				separator: "",
@@ -215,7 +249,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		prevPhaseType = snapshot.activePhaseType
 	}
 
-	func removed(_ snapshot: DownloadSnapshot) {
+	private func removed(_ snapshot: DownloadSnapshot) {
 		MAS.printer.clearCurrentLine(of: .standardOutput)
 
 		do {
@@ -248,21 +282,6 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		} catch {
 			resumeOnce { $0.resume(throwing: error) }
 		}
-	}
-
-	func resumeOnce(performing action: (CheckedContinuation<Void, any Error>) -> Void) {
-		guard !alreadyResumed else {
-			return
-		}
-		guard let continuation else {
-			MAS.printer.error("Failed to obtain download continuation for ADAM ID \(adamID)")
-			return
-		}
-
-		alreadyResumed = true
-		action(continuation)
-		deleteTempFolder(containing: pkgHardLinkURL, fileType: "pkg")
-		deleteTempFolder(containing: receiptHardLinkURL, fileType: "receipt")
 	}
 
 	private func hardLinkURL(to url: URL?, existing existingHardLinkURL: URL?) throws -> URL? {
