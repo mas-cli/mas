@@ -19,7 +19,7 @@ ensure_command_available markdownlint-cli2 swiftformat swiftlint
 zmodload zsh/zutil
 zparseopts -D -A received_flag A
 
-export -r MAS_INSTALL_METHOD=format
+export -r MAS_DISTRIBUTION=format
 
 printf -- $'--> 🕊​ SwiftFormat\n'
 script -q /dev/null swiftformat --strict --markdown-files format-strict . |

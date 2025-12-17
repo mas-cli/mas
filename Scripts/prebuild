@@ -23,7 +23,7 @@ printf '//
 
 extension MAS {
 	static let version = "%s"
-	static let installMethod = "%s"
+	static let distribution = "%s"
 	static let gitOrigin = "%s"
 	static let gitRevision = "%s"
 	static let swiftVersion = "%s"
@@ -32,7 +32,7 @@ extension MAS {
 '\
  "$(date +%Y)"\
  "$(Scripts/version)"\
- "${MAS_INSTALL_METHOD:-unknown}"\
+ "${MAS_DISTRIBUTION:-unknown}"\
  "$(git remote get-url origin)"\
  "$(git rev-parse HEAD)"\
  "$(printf %s "${${$(swift --version 2>/dev/null)#Apple Swift version }%%$'\n'*}")"\

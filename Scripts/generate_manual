@@ -12,6 +12,6 @@
 
 print_notice '📖 Generating man pages for' "${@}"
 
-export -r MAS_INSTALL_METHOD="${1:-}"
+export -r MAS_DISTRIBUTION="${1:-}"
 
 swift package generate-manual "${@:2}"
