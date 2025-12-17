@@ -6,7 +6,7 @@
 //
 
 /// Protocol for searching for, and for looking up, apps from the MAS catalog.
-protocol AppCatalog {
+protocol AppCatalog: Sendable {
 	/// Looks up app details.
 	///
 	/// - Parameters:

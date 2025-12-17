@@ -11,7 +11,7 @@ internal import Foundation
 
 /// Prints to `stdout` and `stderr` with ANSI color codes when connected to a
 /// terminal.
-struct Printer {
+struct Printer: Sendable {
 	private let errorCounter = ManagedAtomic<UInt64>(0)
 
 	var errorCount: UInt64 {

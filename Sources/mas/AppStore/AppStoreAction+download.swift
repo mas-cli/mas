@@ -453,7 +453,7 @@ private enum Ignorable: Error { // swiftlint:disable:this one_declaration_per_fi
 	case installerWorkaround
 }
 
-private enum PhaseType: Int64 { // swiftlint:disable:this one_declaration_per_file
+private enum PhaseType: Int64, Sendable { // swiftlint:disable:this one_declaration_per_file
 	case initial = 4 // swiftlint:disable:this sorted_enum_cases
 	case downloading = 0
 	case downloaded = 5 // swiftlint:disable:this sorted_enum_cases

@@ -9,7 +9,7 @@ private import ArgumentParser
 private import Darwin
 private import StoreFoundation
 
-enum AppStoreAction {
+enum AppStoreAction: Sendable {
 	case get
 	case install
 	case update

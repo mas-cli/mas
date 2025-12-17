@@ -5,7 +5,7 @@
 // Copyright © 2018 mas-cli. All rights reserved.
 //
 
-struct CatalogApp {
+struct CatalogApp: Sendable {
 	let adamID: ADAMID
 	let appStorePageURLString: String
 	// periphery:ignore

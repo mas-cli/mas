@@ -5,7 +5,7 @@
 // Copyright © 2024 mas-cli. All rights reserved.
 //
 
-enum AppID: CustomStringConvertible {
+enum AppID: CustomStringConvertible, Sendable {
 	case adamID(ADAMID)
 	case bundleID(String)
 
