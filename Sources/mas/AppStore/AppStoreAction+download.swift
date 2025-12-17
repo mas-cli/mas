@@ -45,6 +45,7 @@ private extension SSPurchase { // swiftlint:disable:this file_types_order
 		}
 	}
 
+	@MainActor
 	func download(shouldCancel: @Sendable @escaping (String?, Bool) -> Bool) async throws {
 		let adamID = itemIdentifier
 		let queue = CKDownloadQueue.shared()
