@@ -5,10 +5,12 @@ private import PackageDescription
 private let swiftSettings = [
 	SwiftSetting
 	.enableUpcomingFeature("ExistentialAny"), // swiftformat:disable:this indent
+	.enableUpcomingFeature("ImmutableWeakCaptures"),
 	.enableUpcomingFeature("InferIsolatedConformances"),
 	.enableUpcomingFeature("InternalImportsByDefault"),
 	.enableUpcomingFeature("MemberImportVisibility"),
 	.enableUpcomingFeature("NonisolatedNonsendingByDefault"),
+	.unsafeFlags(["-warnings-as-errors"]),
 ]
 
 _ = Package(
