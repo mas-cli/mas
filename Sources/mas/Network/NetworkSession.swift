@@ -7,6 +7,6 @@
 
 internal import Foundation
 
-protocol NetworkSession {
+protocol NetworkSession: Sendable {
 	func data(from url: URL) async throws -> (Data, URLResponse)
 }
