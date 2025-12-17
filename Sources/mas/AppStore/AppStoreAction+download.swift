@@ -79,12 +79,12 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 	private let shouldCancel: @Sendable (String?, Bool) -> Bool
 	private let downloadFolderURL: URL
 
+	private nonisolated(unsafe) var continuation: CheckedContinuation<Void, any Error>?
+
 	private var prevPhaseType: PhaseType?
 	private var pkgHardLinkURL: URL?
 	private var receiptHardLinkURL: URL?
 	private var alreadyResumed = false
-
-	private nonisolated(unsafe) var continuation: CheckedContinuation<Void, any Error>?
 
 	init(adamID: ADAMID, shouldCancel: @Sendable @escaping (String?, Bool) -> Bool) {
 		self.adamID = adamID
@@ -98,9 +98,8 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 			pkgHardLinkURL: pkgHardLinkURL,
 			receiptHardLinkURL: receiptHardLinkURL
 		) { continuation in
-			continuation.resume(
-				throwing: MASError.error("Observer deallocated before download completed for ADAM ID \(adamID)")
-			)
+			continuation // swiftformat:disable:next indent
+			.resume(throwing: MASError.error("Observer deallocated before download completed for ADAM ID \(adamID)"))
 		}
 	}
 
@@ -179,8 +178,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 
 			do {
 				pkgHardLinkURL = try hardLinkURL(
-					to: try downloadFolderChildURLs
-					.compactMap { url -> (URL, Date)? in // swiftformat:disable indent
+					to: try downloadFolderChildURLs.compactMap { url -> (URL, Date)? in
 						guard url.pathExtension == "pkg" else {
 							return nil
 						}
@@ -190,7 +188,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 					}
 					.max { $0.1 > $1.1 }?
 					.0,
-					existing: pkgHardLinkURL // swiftformat:enable indent
+					existing: pkgHardLinkURL
 				)
 			} catch {
 				MAS.printer.warning("Failed to link pkg for", snapshot.appNameAndVersion, error: error)
