@@ -60,11 +60,11 @@ private extension SSPurchase { // swiftlint:disable:this file_types_order
 
 			CKPurchaseController.shared().perform(self, withOptions: 0) { _, _, error, response in
 				if let error {
-					Task {
+					Task.detached {
 						await observer.resumeOnce { $0.resume(throwing: error) }
 					}
 				} else if response?.downloads?.isEmpty != false {
-					Task {
+					Task.detached {
 						await observer.resumeOnce { continuation in
 							continuation.resume(throwing: MASError.error("No downloads initiated for ADAM ID \(adamID)"))
 						}
