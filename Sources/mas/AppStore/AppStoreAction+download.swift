@@ -267,13 +267,12 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 				guard !snapshot.isFailed else {
 					throw MASError.error("Failed to download \(snapshot.appNameAndVersion)")
 				}
-				guard !snapshot.isCancelled else {
-					guard shouldCancel(snapshot.version, false) else {
-						throw MASError.error("Download cancelled for \(snapshot.appNameAndVersion)")
-					}
-
+				guard !shouldCancel(snapshot.version, false) else {
 					resumeOnce { $0.resume() }
 					return
+				}
+				guard !snapshot.isCancelled else {
+					throw MASError.error("Download cancelled for \(snapshot.appNameAndVersion)")
 				}
 			}
 
