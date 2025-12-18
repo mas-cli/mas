@@ -38,13 +38,17 @@ struct MAS: AsyncParsableCommand, Sendable {
 
 	static let printer = Printer()
 
+	static var _errorPrefix: String { // swiftlint:disable:this identifier_name
+		"\(mas.format(prefix: "\(errorPrefix)", format: errorFormat, for: FileHandle.standardError)) "
+	}
+
 	private static func main() async { // swiftlint:disable:this unused_declaration
 		await main(nil)
 	}
 
 	private static func main(_ arguments: [String]?) async { // swiftlint:disable:this discouraged_optional_collection
 		do {
-			let command = try parseAsRootExitOnFailure(arguments)
+			let command = try parseAsRoot(arguments)
 			if let command = cast(command, as: (any AsyncParsableCommand & Sendable).self) {
 				try await main(command)
 			} else {
@@ -57,17 +61,6 @@ struct MAS: AsyncParsableCommand, Sendable {
 			}
 		} catch {
 			exit(withError: error)
-		}
-	}
-
-	private static func parseAsRootExitOnFailure(_ arguments: [String]?) throws -> any ParsableCommand {
-		do { // swiftlint:disable:previous discouraged_optional_collection
-			return try parseAsRoot(arguments)
-		} catch {
-			printer.error(
-				fullMessage(for: try error.failure).replacingOccurrences(of: "^Error: ", with: "", options: .regularExpression)
-			)
-			exit(withError: exitCode(for: error))
 		}
 	}
 }
