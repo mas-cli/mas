@@ -12,42 +12,33 @@ private import ObjectiveC
 private import StoreFoundation
 
 extension AppStoreAction { // swiftlint:disable:this file_types_order
+	@MainActor
 	func app(withADAMID adamID: ADAMID, shouldCancel: @Sendable @escaping (String?, Bool) -> Bool) async throws {
-		try await SSPurchase(self, appWithADAMID: adamID).download(shouldCancel: shouldCancel)
-	}
-}
-
-private extension SSPurchase { // swiftlint:disable:this file_types_order
-	convenience init(_ action: AppStoreAction, appWithADAMID adamID: ADAMID) async {
-		self.init(
+		let purchase = SSPurchase(
 			buyParameters: """
 				productType=C&price=0&pg=default&appExtVrsId=0&pricingParameters=\
-				\(action == .get ? "STDQ&macappinstalledconfirmed=1" : "STDRDL")&salableAdamId=\(adamID)
+				\(self == .get ? "STDQ&macappinstalledconfirmed=1" : "STDRDL")&salableAdamId=\(adamID)
 				"""
 		)
 
 		// Possibly unnecessary…
-		isRedownload = action != .get
-		isUpdate = action == .update
+		purchase.isRedownload = self != .get
+		purchase.isUpdate = self == .update
 
-		itemIdentifier = adamID
+		purchase.itemIdentifier = adamID
 
 		let downloadMetadata = SSDownloadMetadata(kind: "software")
 		downloadMetadata.itemIdentifier = adamID
-		self.downloadMetadata = downloadMetadata
+		purchase.downloadMetadata = downloadMetadata
 
 		do {
 			let (emailAddress, dsID) = try await appleAccount
-			accountIdentifier = dsID
-			appleID = emailAddress
+			purchase.accountIdentifier = dsID
+			purchase.appleID = emailAddress
 		} catch {
 			// Do nothing
 		}
-	}
 
-	@MainActor
-	func download(shouldCancel: @Sendable @escaping (String?, Bool) -> Bool) async throws {
-		let adamID = itemIdentifier
 		let queue = CKDownloadQueue.shared()
 		let observer = DownloadQueueObserver(adamID: adamID, shouldCancel: shouldCancel)
 		let observerUUID = queue.add(observer)
@@ -58,7 +49,7 @@ private extension SSPurchase { // swiftlint:disable:this file_types_order
 		try await withCheckedThrowingContinuation { continuation in
 			observer.set(continuation: continuation)
 
-			CKPurchaseController.shared().perform(self, withOptions: 0) { _, _, error, response in
+			CKPurchaseController.shared().perform(purchase, withOptions: 0) { _, _, error, response in
 				if let error {
 					Task.detached {
 						await observer.resumeOnce { $0.resume(throwing: error) }
