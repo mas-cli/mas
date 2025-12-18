@@ -14,18 +14,33 @@ enum AppStoreAction: Sendable {
 	case install
 	case update
 
+	var performed: String {
+		switch self {
+		case .get:
+			"got"
+		case .install:
+			"installed"
+		case .update:
+			"updated"
+		}
+	}
+
+	var performing: String {
+		switch self {
+		case .get:
+			"getting"
+		case .install:
+			"installing"
+		case .update:
+			"updating"
+		}
+	}
+
 	func apps(withADAMIDs adamIDs: [ADAMID], force: Bool, installedApps: [InstalledApp]) async throws {
 		try await apps(
 			withADAMIDs: adamIDs.filter { adamID in
 				if !force, let installedApp = installedApps.first(where: { $0.adamID == adamID }) {
-					MAS.printer.warning(
-						self == .get ? "Already gotten: " : "Already installed: ",
-						installedApp.name,
-						" (",
-						adamID,
-						")",
-						separator: ""
-					)
+					MAS.printer.warning("Already ", performed, " ", installedApp.name, " (", adamID, ")", separator: "")
 					return false
 				}
 
