@@ -69,12 +69,12 @@ extension OutdatedAppCommand { // swiftlint:disable:this file_types_order
 				}
 				.sorted { $0.installedApp.name.localizedStandardCompare($1.installedApp.name) == .orderedAscending }
 			},
-		inaccurate: {
-			await installedApps
-				.filter(by: optionalAppIDsOptionGroup)
-				.filterOutIgnoredApps()
-				.outdated(appCatalog: appCatalog, shouldWarnIfUnknownApp: verboseOptionGroup.verbose)
-		}
+			inaccurate: {
+				await installedApps
+					.filter(by: optionalAppIDsOptionGroup)
+					.filterOutIgnoredApps()
+					.outdated(appCatalog: appCatalog, shouldWarnIfUnknownApp: verboseOptionGroup.verbose)
+			}
 		)
 	}
 }

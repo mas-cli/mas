@@ -20,10 +20,8 @@ actor IgnoreList {
 
 		try? FileManager.default.createDirectory(at: masDirectory, withIntermediateDirectories: true)
 
-	if let data = try? Data(contentsOf: fileURL),
-		let decoded = try? JSONDecoder().decode(Set<IgnoreEntry>.self, from: data)
-		{
-			entries = decoded
+		if let data = try? Data(contentsOf: fileURL) {
+			entries = (try? JSONDecoder().decode(Set<IgnoreEntry>.self, from: data)) ?? []
 		}
 	}
 

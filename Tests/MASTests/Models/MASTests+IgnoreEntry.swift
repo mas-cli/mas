@@ -56,7 +56,7 @@ private extension MASTests {
 		let entry = IgnoreEntry(adamID: 12345, version: "1.0")
 		let encoder = JSONEncoder()
 		let data = try encoder.encode(entry)
-		let json = String(data: data, encoding: .utf8)!
+		let json = String(data: data, encoding: .utf8)! // swiftlint:disable:this force_unwrapping
 
 		#expect(json.contains("12345"))
 		#expect(json.contains("1.0"))

@@ -67,9 +67,10 @@ extension MAS.Ignore {
 
 			// Case 2: User wants to ignore all versions, but specific versions are already ignored
 			if cleanedVersion == nil, await ignoreList.hasSpecificVersionIgnores(adamID: adamID) {
-			let existingEntries = await ignoreList.entriesFor(adamID: adamID)
-			let versions = existingEntries.compactMap { $0.version } // swiftlint:disable:this prefer_key_path
-				let versionsList = versions.sorted().joined(separator: ", ")
+				let versionsList = await ignoreList.entriesFor(adamID: adamID)
+					.compactMap(\.version)
+					.sorted()
+					.joined(separator: ", ")
 				MAS.printer.warning(
 					"App \(adamID) already has specific version(s) ignored: \(versionsList)"
 				)
