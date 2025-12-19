@@ -1,5 +1,5 @@
 //
-// OutdatedAppCommand.swift
+// OutdatedApp.swift
 // mas
 //
 // Copyright © 2025 mas-cli. All rights reserved.
@@ -11,6 +11,11 @@ private import Foundation
 private import StoreFoundation
 private import Version
 
+typealias OutdatedApp = (
+	installedApp: InstalledApp,
+	newVersion: String
+)
+
 protocol OutdatedAppCommand: AsyncParsableCommand, Sendable {
 	var accurateOptionGroup: AccurateOptionGroup { get }
 	var verboseOptionGroup: VerboseOptionGroup { get }
@@ -20,7 +25,7 @@ protocol OutdatedAppCommand: AsyncParsableCommand, Sendable {
 	func process(_ outdatedApps: [OutdatedApp]) async throws
 }
 
-extension OutdatedAppCommand { // swiftlint:disable:this file_types_order
+extension OutdatedAppCommand {
 	func run() async throws {
 		try await run(installedApps: try await nonTestFlightInstalledApps, appCatalog: ITunesSearchAppCatalog())
 	}
@@ -30,7 +35,7 @@ extension OutdatedAppCommand { // swiftlint:disable:this file_types_order
 	}
 }
 
-extension OutdatedAppCommand { // swiftlint:disable:this file_types_order
+extension OutdatedAppCommand {
 	func outdatedAppsDefault(installedApps: [InstalledApp], appCatalog: some AppCatalog) async -> [OutdatedApp] {
 		await accurateOptionGroup.outdatedApps(
 			accurate: { shouldIgnoreUnknownApps in
@@ -76,11 +81,6 @@ extension OutdatedAppCommand { // swiftlint:disable:this file_types_order
 		)
 	}
 }
-
-typealias OutdatedApp = (
-	installedApp: InstalledApp,
-	newVersion: String
-)
 
 private extension InstalledApp {
 	var outdated: OutdatedApp? {
