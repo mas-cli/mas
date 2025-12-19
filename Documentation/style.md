@@ -23,7 +23,7 @@
     _should_ break when any expected conditions aren't met
 - Prefer `struct`s over `class`es wherever possible
 - Default to marking classes as `final`
-- Prefer protocol conformance to class inheritance
+- Prefer composition over protocol conformance over class inheritance
 - Break lines at 120 characters
 - Use tabs for indentation
 - Use `let` whenever possible to make immutable bindings
