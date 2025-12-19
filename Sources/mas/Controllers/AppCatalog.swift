@@ -30,7 +30,7 @@ protocol AppCatalog: Sendable {
 }
 
 extension AppCatalog {
-	/// Looks up app details.
+	/// Looks up app details using the default App Store region.
 	///
 	/// - Parameter appID: App ID.
 	/// - Returns: A `CatalogApp` for the given `appID` if `appID` is valid.
@@ -40,7 +40,7 @@ extension AppCatalog {
 		try await lookup(appID: appID, inRegion: appStoreRegion)
 	}
 
-	/// Searches for apps.
+	/// Searches for apps using the default App Store region.
 	///
 	/// - Parameter searchTerm: Term for which to search.
 	/// - Returns: A `[CatalogApp]` matching `searchTerm`.
