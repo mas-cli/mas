@@ -10,7 +10,7 @@ private import StoreFoundation
 
 extension MAS {
 	/// Updates outdated apps installed from the App Store.
-	struct Update: OutdatedAppCommand {
+	struct Update: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
 			abstract: "Update outdated apps installed from the App Store",
 			discussion: requiresRootPrivilegesMessage(),
@@ -18,21 +18,33 @@ extension MAS {
 		)
 
 		@OptionGroup
-		var accurateOptionGroup: AccurateOptionGroup
+		private var accurateOptionGroup: AccurateOptionGroup
 		@OptionGroup
 		private var forceOptionGroup: ForceOptionGroup
 		@OptionGroup
-		var verboseOptionGroup: VerboseOptionGroup
+		private var verboseOptionGroup: VerboseOptionGroup
 		@OptionGroup
-		var optionalAppIDsOptionGroup: OptionalAppIDsOptionGroup
+		private var optionalAppIDsOptionGroup: OptionalAppIDsOptionGroup
 
-		func outdatedApps(installedApps: [InstalledApp], appCatalog: some AppCatalog) async -> [OutdatedApp] {
-			forceOptionGroup.force
-			? installedApps.filter(by: optionalAppIDsOptionGroup).map { ($0, "") } // swiftformat:disable:this indent
-			: await outdatedAppsDefault(installedApps: installedApps, appCatalog: appCatalog)
+		func run() async throws {
+			try await run(installedApps: try await nonTestFlightInstalledApps, appCatalog: ITunesSearchAppCatalog())
 		}
 
-		func process(_ outdatedApps: [OutdatedApp]) async throws {
+		private func run(installedApps: [InstalledApp], appCatalog: some AppCatalog) async throws {
+			try await run(
+				outdatedApps: forceOptionGroup.force
+				? installedApps.filter(by: optionalAppIDsOptionGroup).map { ($0, "") } // swiftformat:disable:this indent
+				: await outdatedApps(
+					installedApps: installedApps,
+					appCatalog: appCatalog,
+					accurateOptionGroup: accurateOptionGroup,
+					verboseOptionGroup: verboseOptionGroup,
+					optionalAppIDsOptionGroup: optionalAppIDsOptionGroup
+				)
+			)
+		}
+
+		private func run(outdatedApps: [OutdatedApp]) async throws {
 			try await AppStore.update.apps(withADAMIDs: outdatedApps.map(\.installedApp.adamID))
 		}
 	}

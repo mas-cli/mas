@@ -16,69 +16,16 @@ typealias OutdatedApp = (
 	newVersion: String
 )
 
-protocol OutdatedAppCommand: AsyncParsableCommand, Sendable {
-	var accurateOptionGroup: AccurateOptionGroup { get }
-	var verboseOptionGroup: VerboseOptionGroup { get }
-	var optionalAppIDsOptionGroup: OptionalAppIDsOptionGroup { get }
+private extension Error {
+	func print(forExpectedAppName appName: String, shouldWarnIfUnknownApp: Bool) {
+		guard let error = self as? MASError, case MASError.unknownAppID = error else {
+			MAS.printer.error(error: self)
+			return
+		}
 
-	func outdatedApps(installedApps: [InstalledApp], appCatalog: some AppCatalog) async -> [OutdatedApp]
-	func process(_ outdatedApps: [OutdatedApp]) async throws
-}
-
-extension OutdatedAppCommand {
-	func run() async throws {
-		try await run(installedApps: try await nonTestFlightInstalledApps, appCatalog: ITunesSearchAppCatalog())
-	}
-
-	private func run(installedApps: [InstalledApp], appCatalog: some AppCatalog) async throws {
-		try await process(await outdatedApps(installedApps: installedApps, appCatalog: appCatalog))
-	}
-}
-
-extension OutdatedAppCommand {
-	func outdatedAppsDefault(installedApps: [InstalledApp], appCatalog: some AppCatalog) async -> [OutdatedApp] {
-		await accurateOptionGroup.outdatedApps(
-			accurate: { shouldIgnoreUnknownApps in
-				await withTaskGroup(of: OutdatedApp?.self, returning: [OutdatedApp].self) { group in
-					let installedApps = await installedApps
-					.filter(by: optionalAppIDsOptionGroup) // swiftformat:disable indent
-					.filterOutApps(
-						unknownTo: appCatalog,
-						if: shouldIgnoreUnknownApps,
-						shouldWarnIfUnknownApp: verboseOptionGroup.verbose
-					)
-					let maxConcurrentTaskCount = min(installedApps.count, 16) // swiftformat:enable indent
-					var index = 0
-					while index < maxConcurrentTaskCount {
-						let installedApp = installedApps[index]
-						index += 1
-						group.addTask {
-							await installedApp.outdated
-						}
-					}
-
-					return await group.reduce(into: [OutdatedApp]()) { outdatedApps, outdatedApp in
-						if let outdatedApp {
-							outdatedApps.append(outdatedApp)
-						}
-
-						guard index < installedApps.count else {
-							return
-						}
-
-						let installedApp = installedApps[index]
-						index += 1
-						_ = group.addTaskUnlessCancelled { await installedApp.outdated }
-					}
-				}
-				.sorted { $0.installedApp.name.localizedStandardCompare($1.installedApp.name) == .orderedAscending }
-			},
-			inaccurate: {
-				await installedApps
-				.filter(by: optionalAppIDsOptionGroup) // swiftformat:disable:this indent
-				.outdated(appCatalog: appCatalog, shouldWarnIfUnknownApp: verboseOptionGroup.verbose)
-			} // swiftformat:disable:previous indent
-		)
+		if shouldWarnIfUnknownApp {
+			MAS.printer.warning(self, "; was expected to identify: ", appName, separator: "")
+		}
 	}
 }
 
@@ -118,25 +65,17 @@ private extension InstalledApp {
 	/// - Parameter catalogApp: `CatalogApp` against which to compare `self`.
 	/// - Returns: `true` if `self` is outdated; `false` otherwise.
 	func isOutdated(comparedTo catalogApp: CatalogApp) -> Bool {
-		if let minimumOSVersion = Version(tolerant: catalogApp.minimumOSVersion) {
-			guard
-				ProcessInfo.processInfo.isOperatingSystemAtLeast(
-					OperatingSystemVersion(
-						majorVersion: minimumOSVersion.major,
-						minorVersion: minimumOSVersion.minor,
-						patchVersion: minimumOSVersion.patch
-					)
-				)
-			else {
-				return false
-			}
+		if
+			let minOSVer = Version(tolerant: catalogApp.minimumOSVersion),
+			!ProcessInfo.processInfo.isOperatingSystemAtLeast(
+				OperatingSystemVersion(majorVersion: minOSVer.major, minorVersion: minOSVer.minor, patchVersion: minOSVer.patch)
+			)
+		{
+			return false
 		}
 
-		return if
-			let installedSemanticVersion = Version(tolerant: version),
-			let catalogSemanticVersion = Version(tolerant: catalogApp.version)
-		{
-			installedSemanticVersion < catalogSemanticVersion
+		return if let installedVer = Version(tolerant: version), let catalogVer = Version(tolerant: catalogApp.version) {
+			installedVer < catalogVer
 		} else {
 			version != catalogApp.version
 		}
@@ -161,31 +100,65 @@ private extension [InstalledApp] {
 			}
 		}
 	}
-
-	func outdated(appCatalog: some AppCatalog, shouldWarnIfUnknownApp: Bool) async -> [OutdatedApp] {
-		await compactMap { installedApp in
-			do {
-				let catalogApp = try await appCatalog.lookup(appID: .adamID(installedApp.adamID))
-				if installedApp.isOutdated(comparedTo: catalogApp) {
-					return OutdatedApp(installedApp, catalogApp.version)
-				}
-			} catch {
-				error.print(forExpectedAppName: installedApp.name, shouldWarnIfUnknownApp: shouldWarnIfUnknownApp)
-			}
-			return nil
-		}
-	}
 }
 
-private extension Error {
-	func print(forExpectedAppName appName: String, shouldWarnIfUnknownApp: Bool) {
-		guard let error = self as? MASError, case MASError.unknownAppID = error else {
-			MAS.printer.error(error: self)
-			return
-		}
+func outdatedApps(
+	installedApps: [InstalledApp],
+	appCatalog: some AppCatalog,
+	accurateOptionGroup: AccurateOptionGroup,
+	verboseOptionGroup: VerboseOptionGroup,
+	optionalAppIDsOptionGroup: OptionalAppIDsOptionGroup
+) async -> [OutdatedApp] {
+	await accurateOptionGroup.outdatedApps(
+		accurate: { shouldIgnoreUnknownApps in
+			await withTaskGroup(of: OutdatedApp?.self, returning: [OutdatedApp].self) { group in
+				let installedApps = await installedApps
+				.filter(by: optionalAppIDsOptionGroup) // swiftformat:disable indent
+				.filterOutApps(
+					unknownTo: appCatalog,
+					if: shouldIgnoreUnknownApps,
+					shouldWarnIfUnknownApp: verboseOptionGroup.verbose
+				)
+				let maxConcurrentTaskCount = min(installedApps.count, 16) // swiftformat:enable indent
+				var index = 0
+				while index < maxConcurrentTaskCount {
+					let installedApp = installedApps[index]
+					index += 1
+					group.addTask {
+						await installedApp.outdated
+					}
+				}
 
-		if shouldWarnIfUnknownApp {
-			MAS.printer.warning(self, "; was expected to identify: ", appName, separator: "")
-		}
-	}
+				return await group.reduce(into: [OutdatedApp]()) { outdatedApps, outdatedApp in
+					if let outdatedApp {
+						outdatedApps.append(outdatedApp)
+					}
+
+					guard index < installedApps.count else {
+						return
+					}
+
+					let installedApp = installedApps[index]
+					index += 1
+					_ = group.addTaskUnlessCancelled { await installedApp.outdated }
+				}
+			}
+			.sorted { $0.installedApp.name.localizedStandardCompare($1.installedApp.name) == .orderedAscending }
+		},
+		inaccurate: {
+			await installedApps
+			.filter(by: optionalAppIDsOptionGroup) // swiftformat:disable indent
+			.compactMap { installedApp in
+				do {
+					let catalogApp = try await appCatalog.lookup(appID: .adamID(installedApp.adamID))
+					if installedApp.isOutdated(comparedTo: catalogApp) {
+						return OutdatedApp(installedApp, catalogApp.version)
+					}
+				} catch {
+					error.print(forExpectedAppName: installedApp.name, shouldWarnIfUnknownApp: verboseOptionGroup.verbose)
+				}
+				return nil
+			}
+		} // swiftformat:enable indent
+	)
 }
