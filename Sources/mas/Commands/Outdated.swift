@@ -24,14 +24,14 @@ extension MAS {
 		private var optionalAppIDsOptionGroup: OptionalAppIDsOptionGroup
 
 		func run() async throws {
-			await run(installedApps: try await nonTestFlightInstalledApps, appCatalog: ITunesSearchAppCatalog())
+			await run(installedApps: try await nonTestFlightInstalledApps, lookupAppFromAppID: lookup(appID:))
 		}
 
-		private func run(installedApps: [InstalledApp], appCatalog: some AppCatalog) async {
+		private func run(installedApps: [InstalledApp], lookupAppFromAppID: (AppID) async throws -> CatalogApp) async {
 			run(
 				outdatedApps: await outdatedApps(
 					installedApps: installedApps,
-					appCatalog: appCatalog,
+					lookupAppFromAppID: lookupAppFromAppID,
 					accurateOptionGroup: accurateOptionGroup,
 					verboseOptionGroup: verboseOptionGroup,
 					optionalAppIDsOptionGroup: optionalAppIDsOptionGroup

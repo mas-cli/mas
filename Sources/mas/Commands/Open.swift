@@ -27,11 +27,11 @@ extension MAS {
 		private var appIDString: String?
 
 		func run() async throws {
-			try await run(appCatalog: ITunesSearchAppCatalog())
+			try await run(lookupAppFromAppID: lookup(appID:))
 		}
 
-		private func run(appCatalog: some AppCatalog) async throws {
-			try await run(appStorePageURLString: appStorePageURLString(appCatalog: appCatalog))
+		private func run(lookupAppFromAppID: (AppID) async throws -> CatalogApp) async throws {
+			try await run(appStorePageURLString: appStorePageURLString(lookupAppFromAppID: lookupAppFromAppID))
 		}
 
 		private func run(appStorePageURLString: String?) async throws {
@@ -44,13 +44,13 @@ extension MAS {
 			try await openMacAppStorePage(forAppStorePageURLString: appStorePageURLString)
 		}
 
-		private func appStorePageURLString(appCatalog: some AppCatalog) async throws -> String? {
+		private func appStorePageURLString(lookupAppFromAppID: (AppID) async throws -> CatalogApp) async throws -> String? {
 			guard let appIDString else {
 				return nil
 			}
 
-			return try await appCatalog.lookup(
-				appID: AppID(from: appIDString, forceBundleID: forceBundleIDOptionGroup.forceBundleID)
+			return try await lookupAppFromAppID(
+				AppID(from: appIDString, forceBundleID: forceBundleIDOptionGroup.forceBundleID)
 			)
 			.appStorePageURLString
 		}

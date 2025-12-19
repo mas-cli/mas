@@ -84,7 +84,7 @@ private extension InstalledApp {
 
 private extension [InstalledApp] {
 	func filterOutApps(
-		unknownTo appCatalog: some AppCatalog,
+		unknownTo lookupAppFromAppID: (AppID) async throws -> CatalogApp,
 		if shouldFilter: Bool,
 		shouldWarnIfUnknownApp: Bool
 	) async -> Self {
@@ -92,7 +92,7 @@ private extension [InstalledApp] {
 		? self // swiftformat:disable:this indent
 		: await compactMap { installedApp in
 			do {
-				_ = try await appCatalog.lookup(appID: .adamID(installedApp.adamID))
+				_ = try await lookupAppFromAppID(.adamID(installedApp.adamID))
 				return installedApp
 			} catch {
 				error.print(forExpectedAppName: installedApp.name, shouldWarnIfUnknownApp: shouldWarnIfUnknownApp)
@@ -104,7 +104,7 @@ private extension [InstalledApp] {
 
 func outdatedApps(
 	installedApps: [InstalledApp],
-	appCatalog: some AppCatalog,
+	lookupAppFromAppID: (AppID) async throws -> CatalogApp,
 	accurateOptionGroup: AccurateOptionGroup,
 	verboseOptionGroup: VerboseOptionGroup,
 	optionalAppIDsOptionGroup: OptionalAppIDsOptionGroup
@@ -115,7 +115,7 @@ func outdatedApps(
 				let installedApps = await installedApps
 				.filter(for: optionalAppIDsOptionGroup.appIDs) // swiftformat:disable indent
 				.filterOutApps(
-					unknownTo: appCatalog,
+					unknownTo: lookupAppFromAppID,
 					if: shouldIgnoreUnknownApps,
 					shouldWarnIfUnknownApp: verboseOptionGroup.verbose
 				)
@@ -150,7 +150,7 @@ func outdatedApps(
 			.filter(for: optionalAppIDsOptionGroup.appIDs) // swiftformat:disable indent
 			.compactMap { installedApp in
 				do {
-					let catalogApp = try await appCatalog.lookup(appID: .adamID(installedApp.adamID))
+					let catalogApp = try await lookupAppFromAppID(.adamID(installedApp.adamID))
 					if installedApp.isOutdated(comparedTo: catalogApp) {
 						return OutdatedApp(installedApp, catalogApp.version)
 					}

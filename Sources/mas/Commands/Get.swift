@@ -26,7 +26,7 @@ extension MAS {
 				withAppIDs: requiredAppIDsOptionGroup.appIDs,
 				force: forceOptionGroup.force,
 				installedApps: try await installedApps,
-				appCatalog: ITunesSearchAppCatalog()
+				lookupAppFromAppID: lookup(appID:)
 			)
 		}
 	}
