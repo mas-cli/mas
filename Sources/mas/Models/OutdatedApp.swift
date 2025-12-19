@@ -113,7 +113,7 @@ func outdatedApps(
 		accurate: { shouldIgnoreUnknownApps in
 			await withTaskGroup(of: OutdatedApp?.self, returning: [OutdatedApp].self) { group in
 				let installedApps = await installedApps
-				.filter(by: optionalAppIDsOptionGroup) // swiftformat:disable indent
+				.filter(for: optionalAppIDsOptionGroup.appIDs) // swiftformat:disable indent
 				.filterOutApps(
 					unknownTo: appCatalog,
 					if: shouldIgnoreUnknownApps,
@@ -147,7 +147,7 @@ func outdatedApps(
 		},
 		inaccurate: {
 			await installedApps
-			.filter(by: optionalAppIDsOptionGroup) // swiftformat:disable indent
+			.filter(for: optionalAppIDsOptionGroup.appIDs) // swiftformat:disable indent
 			.compactMap { installedApp in
 				do {
 					let catalogApp = try await appCatalog.lookup(appID: .adamID(installedApp.adamID))

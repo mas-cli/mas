@@ -23,7 +23,7 @@ extension MAS {
 		}
 
 		func run(installedApps: [InstalledApp]) {
-			let installedApps = installedApps.filter(by: optionalAppIDsOptionGroup)
+			let installedApps = installedApps.filter(for: optionalAppIDsOptionGroup.appIDs)
 			guard
 				let maxADAMIDLength = installedApps.map({ String(describing: $0.adamID).count }).max(),
 				let maxNameLength = installedApps.map(\.name.count).max()
