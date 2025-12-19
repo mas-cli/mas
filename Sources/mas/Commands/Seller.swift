@@ -24,11 +24,13 @@ extension MAS {
 		private var requiredAppIDsOptionGroup: RequiredAppIDsOptionGroup
 
 		func run() async {
-			await run(appCatalog: ITunesSearchAppCatalog())
+			await run(lookupAppFromAppID: lookup(appID:))
 		}
 
-		private func run(appCatalog: some AppCatalog) async {
-			await run(catalogApps: await requiredAppIDsOptionGroup.appIDs.lookupCatalogApps(from: appCatalog))
+		private func run(lookupAppFromAppID: (AppID) async throws -> CatalogApp) async {
+			await run(
+				catalogApps: await requiredAppIDsOptionGroup.appIDs.lookupCatalogApps(lookupAppFromAppID: lookupAppFromAppID)
+			)
 		}
 
 		func run(catalogApps: [CatalogApp]) async { // swiftformat:disable:this organizeDeclarations

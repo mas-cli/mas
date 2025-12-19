@@ -11,23 +11,35 @@ private import Foundation
 extension MAS {
 	/// Outputs a list of installed apps which have updates available to be
 	/// installed from the App Store.
-	struct Outdated: OutdatedAppCommand {
+	struct Outdated: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
 			abstract: "List pending app updates from the App Store"
 		)
 
 		@OptionGroup
-		var accurateOptionGroup: AccurateOptionGroup
+		private var accurateOptionGroup: AccurateOptionGroup
 		@OptionGroup
-		var verboseOptionGroup: VerboseOptionGroup
+		private var verboseOptionGroup: VerboseOptionGroup
 		@OptionGroup
-		var optionalAppIDsOptionGroup: OptionalAppIDsOptionGroup
+		private var optionalAppIDsOptionGroup: OptionalAppIDsOptionGroup
 
-		func outdatedApps(installedApps: [InstalledApp], appCatalog: some AppCatalog) async -> [OutdatedApp] {
-			await outdatedAppsDefault(installedApps: installedApps, appCatalog: appCatalog)
+		func run() async throws {
+			await run(installedApps: try await nonTestFlightInstalledApps, lookupAppFromAppID: lookup(appID:))
 		}
 
-		func process(_ outdatedApps: [OutdatedApp]) {
+		private func run(installedApps: [InstalledApp], lookupAppFromAppID: (AppID) async throws -> CatalogApp) async {
+			run(
+				outdatedApps: await outdatedApps(
+					installedApps: installedApps,
+					lookupAppFromAppID: lookupAppFromAppID,
+					accurateOptionGroup: accurateOptionGroup,
+					verboseOptionGroup: verboseOptionGroup,
+					optionalAppIDsOptionGroup: optionalAppIDsOptionGroup
+				)
+			)
+		}
+
+		private func run(outdatedApps: [OutdatedApp]) {
 			guard
 				let maxADAMIDLength = outdatedApps.map({ String(describing: $0.installedApp.adamID).count }).max(),
 				let maxNameLength = outdatedApps.map(\.installedApp.name.count).max(),

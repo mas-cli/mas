@@ -25,11 +25,11 @@ extension MAS {
 		private var searchTermOptionGroup: SearchTermOptionGroup
 
 		func run() async throws {
-			try await run(appCatalog: ITunesSearchAppCatalog())
+			try await run(searchForAppsMatchingSearchTerm: search(for:))
 		}
 
-		private func run(appCatalog: some AppCatalog) async throws {
-			try run(catalogApps: try await appCatalog.search(for: searchTermOptionGroup.searchTerm))
+		private func run(searchForAppsMatchingSearchTerm: (String) async throws -> [CatalogApp]) async throws {
+			try run(catalogApps: try await searchForAppsMatchingSearchTerm(searchTermOptionGroup.searchTerm))
 		}
 
 		func run(catalogApps: [CatalogApp]) throws { // swiftformat:disable:this organizeDeclarations

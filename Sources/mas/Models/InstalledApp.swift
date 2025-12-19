@@ -22,3 +22,17 @@ struct InstalledApp: Sendable {
 		}
 	}
 }
+
+extension [InstalledApp] {
+	func filter(for appIDs: [AppID]) -> [Element] {
+		appIDs.isEmpty
+		? self // swiftformat:disable:this indent
+		: appIDs.flatMap { appID in
+			let installedApps = filter { $0.matches(appID) }
+			if installedApps.isEmpty {
+				MAS.printer.error(appID.notInstalledMessage)
+			}
+			return installedApps
+		}
+	}
+}

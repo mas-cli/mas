@@ -36,6 +36,19 @@ enum AppStoreAction: Sendable {
 		}
 	}
 
+	func apps(
+		withAppIDs appIDs: [AppID],
+		force: Bool,
+		installedApps: [InstalledApp],
+		lookupAppFromAppID: (AppID) async throws -> CatalogApp
+	) async throws {
+		try await apps(
+			withADAMIDs: await appIDs.lookupCatalogApps(lookupAppFromAppID: lookupAppFromAppID).map(\.adamID),
+			force: force,
+			installedApps: installedApps
+		)
+	}
+
 	func apps(withADAMIDs adamIDs: [ADAMID], force: Bool, installedApps: [InstalledApp]) async throws {
 		try await apps(
 			withADAMIDs: adamIDs.filter { adamID in

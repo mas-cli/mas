@@ -7,9 +7,13 @@
 
 internal import ArgumentParser
 
-struct OptionalAppIDsOptionGroup: AppIDsOptionGroup {
+struct OptionalAppIDsOptionGroup: ParsableArguments {
 	@OptionGroup
-	var forceBundleIDOptionGroup: ForceBundleIDOptionGroup
+	private var forceBundleIDOptionGroup: ForceBundleIDOptionGroup
 	@Argument(help: ArgumentHelp("App ID", valueName: "app-id"))
-	var appIDStrings = [String]()
+	private var appIDStrings = [String]()
+
+	var appIDs: [AppID] {
+		appIDStrings.map { AppID(from: $0, forceBundleID: forceBundleIDOptionGroup.forceBundleID) }
+	}
 }
