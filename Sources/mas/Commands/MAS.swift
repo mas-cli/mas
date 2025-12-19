@@ -18,6 +18,7 @@ struct MAS: AsyncParsableCommand, Sendable {
 			Config.self,
 			Get.self,
 			Home.self,
+			Ignore.self,
 			Install.self,
 			List.self,
 			Lookup.self,
