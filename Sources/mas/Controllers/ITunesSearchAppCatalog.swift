@@ -5,7 +5,7 @@
 // Copyright © 2018 mas-cli. All rights reserved.
 //
 
-private import Foundation
+internal import Foundation
 
 /// Uses the iTunes Search & Lookup APIs to search for, and to look up, apps
 /// from the MAS catalog.
@@ -14,11 +14,13 @@ private import Foundation
 ///
 /// https://performance-partners.apple.com/search-api
 struct ITunesSearchAppCatalog: AppCatalog {
-	private let networkSession: any NetworkSession
+	private let dataFrom: @Sendable (URL) async throws -> (Data, URLResponse)
 
-	/// Designated initializer.
-	init(networkSession: any NetworkSession = URLSession(configuration: .ephemeral)) {
-		self.networkSession = networkSession
+	init(
+		dataFrom: @Sendable @escaping (URL) async throws -> (Data, URLResponse)
+		= URLSession(configuration: .ephemeral).data(from:) // swiftformat:disable:this indent
+	) {
+		self.dataFrom = dataFrom
 	}
 
 	/// Looks up app details.
@@ -106,7 +108,7 @@ struct ITunesSearchAppCatalog: AppCatalog {
 	}
 
 	private func getCatalogApps(from url: URL) async throws -> [CatalogApp] {
-		let (data, _) = try await networkSession.data(from: url)
+		let (data, _) = try await dataFrom(url)
 		do {
 			return try JSONDecoder().decode(CatalogAppResults.self, from: data).results
 		} catch {

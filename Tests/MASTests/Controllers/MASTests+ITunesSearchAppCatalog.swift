@@ -5,6 +5,7 @@
 // Copyright © 2019 mas-cli. All rights reserved.
 //
 
+private import Foundation
 @testable private import mas
 internal import Testing
 
@@ -12,7 +13,7 @@ private extension MASTests {
 	@Test
 	func iTunesSearchesForSlack() async {
 		let actual = await consequencesOf(
-			try await ITunesSearchAppCatalog(networkSession: try MockNetworkSession(responseResource: "slack"))
+			try await ITunesSearchAppCatalog { _ in try (Data(fromResource: "slack"), URLResponse()) }
 			.search(for: "slack") // swiftformat:disable:this indent
 			.count // swiftformat:disable:this indent
 		)
@@ -24,7 +25,7 @@ private extension MASTests {
 	func looksUpSlack() async {
 		let adamID = 803_453_959 as ADAMID
 		let actual = await consequencesOf(
-			try await ITunesSearchAppCatalog(networkSession: try MockNetworkSession(responseResource: "slack-lookup"))
+			try await ITunesSearchAppCatalog { _ in try (Data(fromResource: "slack-lookup"), URLResponse()) }
 			.lookup(appID: .adamID(adamID)) // swiftformat:disable:this indent
 		)
 		#expect(actual.error == nil && actual.stdout.isEmpty && actual.stderr.isEmpty)
