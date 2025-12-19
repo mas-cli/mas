@@ -53,7 +53,11 @@ private var runningSliceArchitecture: String {
 private var supportedSliceArchitectures: [String] {
 	Bundle.main.executableArchitectures.map { archIDs in
 		archIDs.map { archID in
-			switch archID.intValue {
+			guard let arch = Int(exactly: archID) else {
+				return "unknown_\(archID)"
+			}
+
+			return switch arch {
 			case 0x100000c:
 				"arm64"
 			case NSBundleExecutableArchitectureI386:
@@ -65,7 +69,7 @@ private var supportedSliceArchitectures: [String] {
 			case NSBundleExecutableArchitectureX86_64:
 				"x86_64"
 			default:
-				"0x\(String(archID.intValue, radix: 16))"
+				"unknown_0x\(String(arch, radix: 16))"
 			}
 		}
 	}

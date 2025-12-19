@@ -66,7 +66,7 @@ struct Printer: Sendable {
 	/// the prefix is red & underlined.
 	func error(_ items: [Any], error: (any Error)? = nil, separator: String = " ", terminator: String = "\n") {
 		errorCounter.wrappingIncrement(ordering: .relaxed)
-		problem(items, prefix: "Error:", format: "4;31", error: error, separator: separator, terminator: terminator)
+		problem(items, prefix: errorPrefix, format: errorFormat, error: error, separator: separator, terminator: terminator)
 	}
 
 	func clearCurrentLine(of fileHandle: FileHandle) {
@@ -113,7 +113,7 @@ struct Printer: Sendable {
 		terminator: String,
 		to fileHandle: FileHandle
 	) {
-		let formattedPrefix = fileHandle.isTerminal ? "\(csi)\(format)m\(prefix)\(csi)0m" : prefix
+		let formattedPrefix = mas.format(prefix: prefix, format: format, for: fileHandle)
 		print(
 			items.first.map { ["\(formattedPrefix) \($0)"] + items.dropFirst().map(String.init(describing:)) }
 			?? [formattedPrefix], // swiftformat:disable:this indent
@@ -123,6 +123,13 @@ struct Printer: Sendable {
 		)
 	}
 }
+
+func format(prefix: String, format: String, for fileHandle: FileHandle) -> String {
+	fileHandle.isTerminal ? "\(csi)\(format)m\(prefix)\(csi)0m" : prefix
+}
+
+let errorPrefix = "Error:"
+let errorFormat = "4;31"
 
 /// Terminal Control Sequence Indicator.
 private let csi = "\u{001B}["
