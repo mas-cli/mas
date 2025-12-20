@@ -9,12 +9,6 @@ private import Atomics
 private import Foundation
 private import ObjectiveC
 
-private extension String {
-	func removingSuffix(_ suffix: Self) -> Self {
-		hasSuffix(suffix) ? Self(dropLast(suffix.count)) : self
-	}
-}
-
 @MainActor
 var installedApps: [InstalledApp] {
 	get async throws {
