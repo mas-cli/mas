@@ -1,5 +1,5 @@
 //
-// ITunesSearchAppCatalog.swift
+// CatalogApp+ITunesSearch.swift
 // mas
 //
 // Copyright © 2018 mas-cli. All rights reserved.

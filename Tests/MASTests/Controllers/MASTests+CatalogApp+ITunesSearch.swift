@@ -1,5 +1,5 @@
 //
-// MASTests+ITunesSearchAppCatalog.swift
+// MASTests+CatalogApp+ITunesSearch.swift
 // mas
 //
 // Copyright © 2019 mas-cli. All rights reserved.
