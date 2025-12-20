@@ -7,6 +7,7 @@
 
 private import ArgumentParser
 private import Darwin
+private import OrderedCollections
 private import StoreFoundation
 
 enum AppStoreAction: Sendable {
@@ -66,6 +67,8 @@ enum AppStoreAction: Sendable {
 		guard !adamIDs.isEmpty else {
 			return
 		}
+
+		let adamIDs = OrderedSet(adamIDs)
 		guard getuid() == 0 else {
 			try sudo(MAS._commandName, args: [String(describing: self), "--force"] + adamIDs.map(String.init(describing:)))
 			return
