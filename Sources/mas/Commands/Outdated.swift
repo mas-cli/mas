@@ -24,7 +24,7 @@ extension MAS {
 		private var optionalAppIDsOptionGroup: OptionalAppIDsOptionGroup
 
 		func run() async throws {
-			await run(installedApps: try await nonTestFlightInstalledApps, lookupAppFromAppID: lookup(appID:))
+			await run(installedApps: try await installedApps.filter(!\.isTestFlight), lookupAppFromAppID: lookup(appID:))
 		}
 
 		private func run(installedApps: [InstalledApp], lookupAppFromAppID: (AppID) async throws -> CatalogApp) async {

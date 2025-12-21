@@ -11,4 +11,8 @@ extension String {
 	var quoted: String {
 		"'\(replacingOccurrences(of: "'", with: "\\'"))'"
 	}
+
+	func removingSuffix(_ suffix: Self) -> Self {
+		hasSuffix(suffix) ? Self(dropLast(suffix.count)) : self
+	}
 }

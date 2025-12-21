@@ -72,7 +72,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 	private let shouldCancel: @Sendable (String?, Bool) -> Bool
 	private let downloadFolderURL: URL
 
-	private nonisolated(unsafe) var continuation: CheckedContinuation<Void, any Error>?
+	private nonisolated(unsafe) var continuation = CheckedContinuation<Void, any Error>?.none
 
 	private var prevPhaseType = PhaseType?.none
 	private var pkgHardLinkURL = URL?.none

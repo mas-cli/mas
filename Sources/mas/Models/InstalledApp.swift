@@ -13,6 +13,10 @@ struct InstalledApp: Sendable {
 	let path: String
 	let version: String
 
+	var isTestFlight: Bool {
+		adamID == 0
+	}
+
 	func matches(_ appID: AppID) -> Bool {
 		switch appID {
 		case let .adamID(adamID):

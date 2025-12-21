@@ -1,5 +1,5 @@
 //
-// SpotlightInstalledApps.swift
+// InstalledApp+Spotlight.swift
 // mas
 //
 // Copyright © 2025 mas-cli. All rights reserved.
@@ -9,16 +9,10 @@ private import Atomics
 private import Foundation
 private import ObjectiveC
 
-private extension String {
-	func removingSuffix(_ suffix: Self) -> Self {
-		hasSuffix(suffix) ? Self(dropLast(suffix.count)) : self
-	}
-}
-
 @MainActor
 var installedApps: [InstalledApp] {
 	get async throws {
-		var observer: (any NSObjectProtocol)?
+		var observer = (any NSObjectProtocol)?.none
 		defer {
 			if let observer {
 				NotificationCenter.default.removeObserver(observer)
@@ -73,12 +67,6 @@ var installedApps: [InstalledApp] {
 
 			query.start()
 		}
-	}
-}
-
-var nonTestFlightInstalledApps: [InstalledApp] {
-	get async throws {
-		try await installedApps.filter { $0.adamID != 0 }
 	}
 }
 
