@@ -12,7 +12,7 @@ private import ObjectiveC
 @MainActor
 var installedApps: [InstalledApp] {
 	get async throws {
-		var observer: (any NSObjectProtocol)?
+		var observer = (any NSObjectProtocol)?.none
 		defer {
 			if let observer {
 				NotificationCenter.default.removeObserver(observer)
