@@ -6,10 +6,8 @@
 //
 
 internal import ArgumentParser
-private import Darwin
 private import Foundation
 private import OrderedCollections
-private import ScriptingBridge
 
 extension MAS {
 	/// Uninstalls apps installed from the App Store.
@@ -60,13 +58,6 @@ extension MAS {
 			let processInfo = ProcessInfo.processInfo
 			let uid = try processInfo.sudoUID
 			let gid = try processInfo.sudoGID
-			guard let finder = SBApplication(bundleIdentifier: "com.apple.finder") as (any FinderApplication)? else {
-				throw MASError.error("Failed to obtain Finder access: bundle com.apple.finder does not exist")
-			}
-			guard let items = finder.items else {
-				throw MASError.error("Failed to obtain Finder access: FinderApplication.items() does not exist")
-			}
-
 			let fileManager = FileManager.default
 			for appPath in uninstallingAppByPath.keys {
 				let attributes = try fileManager.attributesOfItem(atPath: appPath)
@@ -110,40 +101,22 @@ extension MAS {
 					}
 				}
 
-				let object = items().object(atLocation: URL(fileURLWithPath: appPath, isDirectory: true))
-				guard let item = object as? any FinderItem else {
-					printer.error(
-						"""
-						Failed to obtain Finder access for \(appPath.quoted): FinderApplication.items().object(atLocation:)\
-						 returned a \(type(of: object)), which does not conform to FinderItem
-						"""
-					)
-					continue
-				}
-				guard let delete = item.delete else {
-					printer.error("Failed to obtain Finder access for \(appPath.quoted): FinderItem.delete does not exist")
-					continue
-				}
-				guard let deletedURLString = (delete() as any FinderItem).URL else {
+				var uninstalledAppURL = NSURL?.none // swiftlint:disable:this legacy_objc_type
+				try fileManager.trashItem(
+					at: URL(fileURLWithPath: appPath, isDirectory: true),
+					resultingItemURL: &uninstalledAppURL
+				)
+				guard let uninstalledAppPath = uninstalledAppURL?.path else {
 					printer.error(
 						"""
 						Failed to revert ownership of uninstalled \(appPath.quoted) back to uid \(appUID) & gid \(appGID):\
-						 delete result did not have a URL
-						"""
-					)
-					continue
-				}
-				guard let deletedURL = URL(string: deletedURLString) else {
-					printer.error(
-						"""
-						Failed to revert ownership of uninstalled \(appPath.quoted) back to uid \(appUID) & gid \(appGID):\
-						 delete result URL is invalid: \(deletedURLString)
+						 failed to obtain uninstalled app URL
 						"""
 					)
 					continue
 				}
 
-				chownPath = deletedURL.path
+				chownPath = uninstalledAppPath
 				printer.info("Uninstalled", appPath.quoted, "to", chownPath.quoted)
 			}
 		}
