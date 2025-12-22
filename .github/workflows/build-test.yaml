@@ -25,7 +25,6 @@ jobs:
         - runner: macos-15-intel
           xcode: 26.1.1
         - runner: macos-26
-          xcode: 26.2
     runs-on: ${{matrix.runner}}
     defaults:
       run:
