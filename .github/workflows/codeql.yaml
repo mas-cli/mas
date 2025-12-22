@@ -14,7 +14,7 @@ on:
 jobs:
   analyze:
     name: Analyze ${{matrix.language}}
-    runs-on: macos-15
+    runs-on: macos-26
     permissions:
       security-events: write
     strategy:
@@ -50,6 +50,7 @@ jobs:
       if: matrix.language == 'swift'
       shell: bash
       run: |
+        xcodes select
         Scripts/build codeql -c release
 
     - name: 🔍 Perform CodeQL analysis

@@ -19,9 +19,13 @@ jobs:
       matrix:
         include:
         - runner: macos-14
+          xcode: 16.2
         - runner: macos-15
+          xcode: 26.1.1
         - runner: macos-15-intel
+          xcode: 26.1.1
         - runner: macos-26
+          xcode: 26.2
     runs-on: ${{matrix.runner}}
     defaults:
       run:
@@ -41,9 +45,8 @@ jobs:
     - name: 🔧 Setup repo
       run: Scripts/setup_workflow_repo
 
-    - name: 🛠 Select newest available Xcode
-      if: ${{matrix.runner == 'macos-14'}}
-      run: sudo xcode-select -s /Applications/Xcode_16.2.app/Contents/Developer
+    - name: 🛠 Select Xcode version
+      run: xcodes select ${{matrix.xcode}}
 
     - name: 👢 Bootstrap
       run: Scripts/bootstrap
