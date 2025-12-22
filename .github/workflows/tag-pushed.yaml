@@ -60,6 +60,9 @@ jobs:
           exit 3
         fi
 
+    - name: 🛠 Select Xcode version
+      run: xcodes select
+
     - name: 📦 Build Apple & Intel installers
       run: |
         Scripts/package package --arch arm64
