@@ -40,7 +40,7 @@ extension AppStoreAction { // swiftlint:disable:this file_types_order
 		}
 
 		let queue = CKDownloadQueue.shared()
-		let observer = DownloadQueueObserver(self, adamID: adamID, shouldCancel: shouldCancel)
+		let observer = DownloadQueueObserver(for: self, of: adamID, shouldCancel: shouldCancel)
 		let observerUUID = queue.add(observer)
 		defer {
 			queue.removeObserver(observerUUID)
@@ -74,12 +74,12 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 
 	private nonisolated(unsafe) var continuation = CheckedContinuation<Void, any Error>?.none
 
-	private var prevPhaseType = PhaseType?.none
+	private var prevPhaseType = PhaseType.processing
 	private var pkgHardLinkURL = URL?.none
 	private var receiptHardLinkURL = URL?.none
 	private var alreadyResumed = false
 
-	init(_ action: AppStoreAction, adamID: ADAMID, shouldCancel: @Sendable @escaping (String?, Bool) -> Bool) {
+	init(for action: AppStoreAction, of adamID: ADAMID, shouldCancel: @Sendable @escaping (String?, Bool) -> Bool) {
 		self.action = action
 		self.adamID = adamID
 		self.shouldCancel = shouldCancel
@@ -106,11 +106,12 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 	}
 
 	nonisolated func downloadQueue(_ queue: CKDownloadQueue, statusChangedFor download: SSDownload) {
-		guard let snapshot = DownloadSnapshot(to: action, download), snapshot.adamID == adamID else {
-			return
-		}
-		guard !snapshot.isCancelled, !snapshot.isFailed else {
-			queue.removeDownload(withItemIdentifier: adamID)
+		guard
+			let snapshot = DownloadSnapshot(to: action, download),
+			snapshot.adamID == adamID,
+			!snapshot.isCancelled,
+			!snapshot.isFailed
+		else {
 			return
 		}
 		guard !shouldCancel(snapshot.version, true) else {
@@ -119,7 +120,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		}
 
 		Task {
-			await statusChanged(snapshot)
+			await statusChanged(for: snapshot)
 		}
 	}
 
@@ -162,14 +163,13 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		deleteTempFolder(containing: receiptHardLinkURL, fileType: "receipt")
 	}
 
-	private func statusChanged(_ snapshot: DownloadSnapshot) {
+	private func statusChanged(for snapshot: DownloadSnapshot) {
 		// Refresh hard links to latest artifacts in the download directory
 		do {
 			let downloadFolderChildURLs = try FileManager.default.contentsOfDirectory(
 				at: downloadFolderURL,
 				includingPropertiesForKeys: [.contentModificationDateKey, .isRegularFileKey]
 			)
-
 			do {
 				pkgHardLinkURL = try hardLinkURL(
 					to: try downloadFolderChildURLs.compactMap { url -> (URL, Date)? in
@@ -206,17 +206,17 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 			)
 		}
 
-		if prevPhaseType != snapshot.activePhaseType {
-			switch snapshot.activePhaseType {
-			case
-				.downloading where prevPhaseType == .processing,
-				.downloaded where prevPhaseType == .downloading,
-				.performing:
-				MAS.printer.clearCurrentLine(of: .standardOutput)
-				MAS.printer.notice(snapshot.activePhaseType ?? .processing, snapshot.appNameAndVersion)
-			default:
-				break
-			}
+		switch snapshot.activePhaseType {
+		case prevPhaseType:
+			break
+		case
+			.downloading where prevPhaseType == .processing,
+			.downloaded where prevPhaseType == .downloading,
+			.performing:
+			MAS.printer.clearCurrentLine(of: .standardOutput)
+			MAS.printer.notice(snapshot.activePhaseType, snapshot.appNameAndVersion)
+		default:
+			break
 		}
 
 		if
@@ -233,7 +233,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 				" ",
 				UInt64((snapshot.phasePercentComplete * 100).rounded()),
 				"% ",
-				(snapshot.activePhaseType ?? .processing).performed,
+				snapshot.activePhaseType.performed,
 				separator: "",
 				terminator: ""
 			)
@@ -281,7 +281,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 	}
 
 	private func hardLinkURL(to url: URL?, existing existingHardLinkURL: URL?) throws -> URL? {
-		guard let url, !(try url.linksToSameInode(as: existingHardLinkURL)) else {
+		guard let url, try !url.linksToSameInode(as: existingHardLinkURL) else {
 			return existingHardLinkURL
 		}
 
@@ -421,7 +421,7 @@ private struct DownloadSnapshot: Sendable { // swiftlint:disable:this one_declar
 	let adamID: ADAMID
 	let version: String?
 	let appNameAndVersion: String
-	let activePhaseType: PhaseType?
+	let activePhaseType: PhaseType
 	let phasePercentComplete: Float
 	let isCancelled: Bool
 	let isFailed: Bool
@@ -435,7 +435,7 @@ private struct DownloadSnapshot: Sendable { // swiftlint:disable:this one_declar
 		adamID = metadata.itemIdentifier
 		version = metadata.bundleVersion
 		appNameAndVersion = "\(metadata.title ?? "unknown app") (\(version ?? "unknown version"))"
-		activePhaseType = status.activePhase.flatMap { PhaseType(action, rawValue: $0.phaseType) }
+		activePhaseType = PhaseType(action, rawValue: status.activePhase?.phaseType)
 		phasePercentComplete = status.phasePercentComplete
 		isCancelled = status.isCancelled
 		isFailed = status.isFailed
@@ -468,19 +468,18 @@ private enum PhaseType: Equatable, Sendable { // swiftlint:disable:this one_decl
 		}
 	}
 
-	init?(_ action: AppStoreAction, rawValue: Int64) {
-		switch rawValue {
-		case 0:
-			self = .downloading
-		case 1:
-			self = .performing(action)
-		case 4:
-			self = .processing
-		case 5:
-			self = .downloaded
-		default:
-			return nil
-		}
+	init(_ action: AppStoreAction, rawValue: Int64?) {
+		self =
+			switch rawValue {
+			case 0:
+				.downloading
+			case 1:
+				.performing(action)
+			case 5:
+				.downloaded
+			default:
+				.processing
+			}
 	}
 }
 
