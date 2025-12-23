@@ -67,17 +67,17 @@ sudo port install mas
 <details>
 <summary>
 
-#### 🍻 Custom Homebrew tap
+#### 🍻 Homebrew tap
 
 </summary>
 
-The [mas custom Homebrew tap](https://github.com/mas-cli/homebrew-tap) provides
+The [mas-cli Homebrew tap](https://github.com/mas-cli/homebrew-tap) provides
 pre-built bottles for all macOS versions since 10.11 (El Capitan).
 
 The newest versions of mas, however, are only available for macOS 10.15+
 (Catalina or newer).
 
-To install mas from the custom tap:
+To install mas from the tap:
 
 ```shell
 brew install mas-cli/tap/mas
