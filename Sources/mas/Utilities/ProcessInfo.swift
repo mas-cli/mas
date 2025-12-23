@@ -33,9 +33,8 @@ extension ProcessInfo {
 		geteuid() == 0 ? try runAsSudoEffectiveUserAndSudoEffectiveGroup(body) : try body()
 	}
 
-	func runAsSudoEffectiveUserAndSudoEffectiveGroupIfRootEffectiveUser<T>(
-		_ body: () async throws -> T
-	) async throws -> T {
+	func runAsSudoEffectiveUserAndSudoEffectiveGroupIfRootEffectiveUser<T>(_ body: () async throws -> T)
+	async throws -> T { // swiftformat:disable:this indent
 		geteuid() == 0 ? try await runAsSudoEffectiveUserAndSudoEffectiveGroup(body) : try await body()
 	}
 }

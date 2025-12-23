@@ -90,10 +90,8 @@ extension MAS {
 		}
 	}
 
-	static func main<Command: AsyncParsableCommand & Sendable>(
-		_ command: Command,
-		_ body: (Command) async throws -> Void
-	) async throws {
+	static func main<Command: AsyncParsableCommand & Sendable>(_ command: Command, _ body: (Command) async throws -> Void)
+	async throws { // swiftformat:disable:this indent
 		do {
 			try await ProcessInfo.processInfo.runAsSudoEffectiveUserAndSudoEffectiveGroupIfRootEffectiveUser {
 				try await body(command)

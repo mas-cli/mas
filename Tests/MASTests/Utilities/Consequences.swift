@@ -99,10 +99,8 @@ enum NoValue: Equatable { // swiftlint:disable:this one_declaration_per_file
 	// Empty
 }
 
-func consequencesOf(
-	encoding: String.Encoding = .utf8,
-	_ body: @autoclosure () throws -> Void
-) -> Consequences<NoValue> {
+func consequencesOf(encoding: String.Encoding = .utf8, _ body: @autoclosure () throws -> Void)
+-> Consequences<NoValue> { // swiftformat:disable:this indent
 	let capture = StandardStreamCapture(encoding: encoding)
 	do {
 		return capture.consequences(value: try body())
@@ -111,10 +109,8 @@ func consequencesOf(
 	}
 }
 
-func consequencesOf(
-	encoding: String.Encoding = .utf8,
-	_ body: @autoclosure () async throws -> Void
-) async -> Consequences<NoValue> {
+func consequencesOf(encoding: String.Encoding = .utf8, _ body: @autoclosure () async throws -> Void)
+async -> Consequences<NoValue> { // swiftformat:disable:this indent
 	let capture = StandardStreamCapture(encoding: encoding)
 	do {
 		return capture.consequences(value: try await body())
@@ -123,10 +119,8 @@ func consequencesOf(
 	}
 }
 
-func consequencesOf<Value>(
-	encoding: String.Encoding = .utf8,
-	_ body: @autoclosure () throws -> Value?
-) -> Consequences<Value> {
+func consequencesOf<Value>(encoding: String.Encoding = .utf8, _ body: @autoclosure () throws -> Value?)
+-> Consequences<Value> { // swiftformat:disable:this indent
 	let capture = StandardStreamCapture(encoding: encoding)
 	do {
 		return capture.consequences(value: try body())
@@ -135,10 +129,8 @@ func consequencesOf<Value>(
 	}
 }
 
-func consequencesOf<Value>(
-	encoding: String.Encoding = .utf8,
-	_ body: @autoclosure () async throws -> Value?
-) async -> Consequences<Value> {
+func consequencesOf<Value>(encoding: String.Encoding = .utf8, _ body: @autoclosure () async throws -> Value?)
+async -> Consequences<Value> { // swiftformat:disable:this indent
 	let capture = StandardStreamCapture(encoding: encoding)
 	do {
 		return capture.consequences(value: try await body())
