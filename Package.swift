@@ -21,7 +21,7 @@ _ = Package(
 		.package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.7.0"),
 		.package(url: "https://github.com/apple/swift-atomics.git", from: "1.3.0"),
 		.package(url: "https://github.com/apple/swift-collections.git", from: "1.3.0"),
-		.package(url: "https://github.com/mxcl/Version.git", from: "2.2.0"),
+		.package(url: "https://github.com/attaswift/BigInt.git", from: "5.7.0"),
 	],
 	targets: [
 		.plugin(name: "MASBuildToolPlugin", capability: .buildTool()),
@@ -32,8 +32,8 @@ _ = Package(
 				.product(name: "ArgumentParser", package: "swift-argument-parser"),
 				.product(name: "Atomics", package: "swift-atomics"),
 				.product(name: "OrderedCollections", package: "swift-collections"),
+				"BigInt",
 				"PrivateFrameworks",
-				"Version",
 			],
 			swiftSettings: swiftSettings,
 			linkerSettings: [.unsafeFlags(["-F", "/System/Library/PrivateFrameworks"])],

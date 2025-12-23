@@ -397,18 +397,17 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		guard
 			let appFolderURLResult = appFolderURLRegex
 			.firstMatch(in: standardErrorText, range: NSRange(location: 0, length: standardErrorText.count)),
-			let appFolderURLNSRange = appFolderURLResult.range(at: 1) as NSRange?,
-			appFolderURLNSRange.location != NSNotFound,
-			let appFolderURLRange = Range(appFolderURLNSRange, in: standardErrorText)
+			let appFolderURLString
+			= appFolderURLResult.captureGroupMatch(number: 1, in: standardErrorText).map(String.init(_:))
 		else {
 			throw MASError.error(
 				"Failed to find app folder URL in installer output for \(appNameAndVersion)",
 				error: standardErrorText
 			)
 		}
-		guard let appFolderURL = URL(string: String(standardErrorText[appFolderURLRange])) else {
+		guard let appFolderURL = URL(string: appFolderURLString) else {
 			throw MASError.error(
-				"Failed to parse app folder URL for \(appNameAndVersion) from \(standardErrorText[appFolderURLRange])",
+				"Failed to parse app folder URL for \(appNameAndVersion) from \(appFolderURLString)",
 				error: standardErrorText
 			)
 		}

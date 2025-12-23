@@ -9,7 +9,6 @@ internal import ArgumentParser
 private import Atomics
 private import Foundation
 private import StoreFoundation
-private import Version
 
 typealias OutdatedApp = (
 	installedApp: InstalledApp,
@@ -65,21 +64,22 @@ private extension InstalledApp {
 	/// - Parameter catalogApp: `CatalogApp` against which to compare `self`.
 	/// - Returns: `true` if `self` is outdated; `false` otherwise.
 	func isOutdated(comparedTo catalogApp: CatalogApp) -> Bool {
-		if
-			let minOSVer = Version(tolerant: catalogApp.minimumOSVersion),
-			!ProcessInfo.processInfo.isOperatingSystemAtLeast(
-				OperatingSystemVersion(majorVersion: minOSVer.major, minorVersion: minOSVer.minor, patchVersion: minOSVer.patch)
+		SemVerInt(from: catalogApp.minimumOSVersion).flatMap { minimumOSVersion in
+			ProcessInfo.processInfo.isOperatingSystemAtLeast(
+				OperatingSystemVersion(
+					majorVersion: minimumOSVersion.majorInteger,
+					minorVersion: minimumOSVersion.minorInteger,
+					patchVersion: minimumOSVersion.patchInteger
+				)
 			)
-		{
-			return false
+			? nil // swiftformat:disable:this indent
+			: false
 		}
-
-		return if let installedVer = Version(tolerant: version), let catalogVer = Version(tolerant: catalogApp.version) {
-			installedVer < catalogVer
-		} else {
-			version != catalogApp.version
-		}
-	}
+		?? ( // swiftformat:disable indent
+			UniversalSemVer(from: version).compareSemVerAndBuild(to: UniversalSemVer(from: catalogApp.version))
+			== .orderedAscending
+		)
+	} // swiftformat:enable indent
 }
 
 private extension [InstalledApp] {
