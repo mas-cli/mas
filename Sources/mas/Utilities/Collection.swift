@@ -1,11 +1,11 @@
 //
-// Array.swift
+// Collection.swift
 // mas
 //
 // Copyright © 2025 mas-cli. All rights reserved.
 //
 
-extension Array {
+extension Collection {
 	func compactMap<T, E: Error>(_ transform: (Element) async throws(E) -> T?) async throws(E) -> [T] {
 		var transformedElements = [T]()
 		transformedElements.reserveCapacity(count)
@@ -23,7 +23,7 @@ extension Array {
 	}
 }
 
-extension Array {
+extension Collection {
 	func compactMap<T, E: Error>(attemptingTo effect: String, _ transform: (Element) async throws(E) -> T?) async -> [T] {
 		await compactMap(transform) { MAS.printer.error($1 is MASError ? [] : ["Failed to", effect, $0], error: $1) }
 	}
