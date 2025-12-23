@@ -67,17 +67,17 @@ sudo port install mas
 <details>
 <summary>
 
-#### 🍻 Custom Homebrew tap
+#### 🍻 Homebrew tap
 
 </summary>
 
-The [mas custom Homebrew tap](https://github.com/mas-cli/homebrew-tap) provides
+The [mas-cli Homebrew tap](https://github.com/mas-cli/homebrew-tap) provides
 pre-built bottles for all macOS versions since 10.11 (El Capitan).
 
 The newest versions of mas, however, are only available for macOS 10.15+
 (Catalina or newer).
 
-To install mas from the custom tap:
+To install mas from the tap:
 
 ```shell
 brew install mas-cli/tap/mas
@@ -605,10 +605,16 @@ If an app has been indexed in the MDS, the path to the app can be found:
 mdfind 'kMDItemAppStoreAdamID == <adam-id>'
 ```
 
-If any App Store apps are not indexed, the MDS can be enabled/rebuilt for all
-file system volumes:
+If any App Store apps are not properly indexed, you can reindex:
 
 ```shell
+# Individual apps (if you know exactly what apps were incorrectly omitted):
+mdimport /Applications/Example.app
+
+# All apps (<LargeAppVolume> is the volume optionally selected for large apps):
+mdimport /Applications /Volumes/<LargeAppVolume>/Applications
+
+# All file system volumes (if neither aforementioned command solved the issue):
 sudo mdutil -Eai on
 ```
 

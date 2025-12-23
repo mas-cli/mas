@@ -32,7 +32,7 @@ jobs:
     - name: 🔧 Setup repo
       run: Scripts/setup_workflow_repo
 
-    - name: 🚰 Apply pr-pull label to custom tap formula bump PR
+    - name: 🚰 Apply pr-pull label to tap formula bump PR
       env:
         TOKEN_APP_ID: ${{secrets.TOKEN_APP_ID}}
         TOKEN_APP_INSTALLATION_ID: ${{secrets.TOKEN_APP_INSTALLATION_ID}}
@@ -49,5 +49,5 @@ jobs:
           [[ -n "${bump_url}" ]] && gh pr edit "${bump_url}" --add-label pr-pull
           gh release -R "${GITHUB_REPOSITORY}" delete-asset "${GITHUB_REF_NAME}" bump.url -y
         else
-          printf $'No custom tap formula bump PR URL found for tag %s\n' "${GITHUB_REF_NAME}"
+          printf $'No tap formula bump PR URL found for tag %s\n' "${GITHUB_REF_NAME}"
         fi

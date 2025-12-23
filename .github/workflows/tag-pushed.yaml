@@ -68,7 +68,7 @@ jobs:
         Scripts/package package --arch arm64
         Scripts/package package --arch x86_64
 
-    - name: 🚰 Bump custom tap formula
+    - name: 🚰 Bump tap formula
       env:
         TOKEN_APP_ID: ${{secrets.TOKEN_APP_ID}}
         TOKEN_APP_INSTALLATION_ID: ${{secrets.TOKEN_APP_INSTALLATION_ID}}

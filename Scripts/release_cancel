@@ -25,7 +25,7 @@ if [[ -n "${bump_url}" ]]; then
 	gh pr close "${bump_url}" -d
 	printf $'\n'
 else
-	printf $'\nNo custom tap formula bump PR URL found for draft release tag %s\n\n' "${tag}"
+	printf $'\nNo tap formula bump PR URL found for draft release tag %s\n\n' "${tag}"
 fi
 
 gh release -R https://github.com/mas-cli/mas delete "${tag}" --cleanup-tag -y
