@@ -1,6 +1,15 @@
 {
-	"originHash" : "3ab526cbacd1f108d32a8265753785f4068b12eee7ecda284115d1953368834a",
+	"originHash" : "011a6a364d73cbf30135fa341ecff88db7338cc125e7bddee3dda9bdc1d491bb",
 	"pins" : [
+		{
+			"identity" : "bigint",
+			"kind" : "remoteSourceControl",
+			"location" : "https://github.com/attaswift/BigInt.git",
+			"state" : {
+				"revision" : "e07e00fa1fd435143a2dcf8b7eec9a7710b2fdfe",
+				"version" : "5.7.0"
+			}
+		},
 		{
 			"identity" : "swift-argument-parser",
 			"kind" : "remoteSourceControl",
@@ -26,15 +35,6 @@
 			"state" : {
 				"revision" : "7b847a3b7008b2dc2f47ca3110d8c782fb2e5c7e",
 				"version" : "1.3.0"
-			}
-		},
-		{
-			"identity" : "version",
-			"kind" : "remoteSourceControl",
-			"location" : "https://github.com/mxcl/Version.git",
-			"state" : {
-				"revision" : "67ce582bb9de70e1eb2ee41fd71aad3b5f86d97b",
-				"version" : "2.2.0"
 			}
 		}
 	],

@@ -89,10 +89,8 @@ private func url(_ action: String, _ queryItem: URLQueryItem, inRegion region: R
 	return url
 }
 
-private func getCatalogApps(
-	from url: URL,
-	dataFrom: (URL) async throws -> (Data, URLResponse)
-) async throws -> [CatalogApp] {
+private func getCatalogApps(from url: URL, dataFrom: (URL) async throws -> (Data, URLResponse))
+async throws -> [CatalogApp] { // swiftformat:disable:this indent
 	let (data, _) = try await dataFrom(url)
 	do {
 		return try JSONDecoder().decode(CatalogAppResults.self, from: data).results
