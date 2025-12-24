@@ -14,7 +14,7 @@ extension Collection {
 
 	private func compactMap<T, E: Error>(
 		into transformedElements: inout [T],
-		_ transform: (Element) async throws(E) -> T?
+		_ transform: (Element) async throws(E) -> T?,
 	) async throws(E) -> [T] {
 		for element in self {
 			try await transform(element).map { transformedElements.append($0) }
@@ -30,7 +30,7 @@ extension Collection {
 
 	private func compactMap<T, E: Error>(
 		_ transform: (Element) async throws(E) -> T?,
-		handlingErrors errorHandler: (Element, E) async -> Void
+		handlingErrors errorHandler: (Element, E) async -> Void,
 	) async -> [T] {
 		await compactMap(transform) { element, error in
 			await errorHandler(element, error)
@@ -40,7 +40,7 @@ extension Collection {
 
 	private func compactMap<T, E: Error>(
 		_ transform: (Element) async throws(E) -> T?,
-		handlingErrors errorHandler: (Element, E) async -> T?
+		handlingErrors errorHandler: (Element, E) async -> T?,
 	) async -> [T] {
 		await compactMap { (element: Element) async -> T? in
 			do {
@@ -56,7 +56,7 @@ extension Collection {
 					Error:
 					\(error)
 
-					"""
+					""",
 				)
 			}
 		}

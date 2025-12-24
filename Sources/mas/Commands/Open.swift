@@ -18,7 +18,7 @@ extension MAS {
 	/// https://performance-partners.apple.com/search-api
 	struct Open: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
-			abstract: "Open app page in 'App Store.app'"
+			abstract: "Open app page in 'App Store.app'",
 		)
 
 		@OptionGroup
@@ -50,7 +50,7 @@ extension MAS {
 			}
 
 			return try await lookupAppFromAppID(
-				AppID(from: appIDString, forceBundleID: forceBundleIDOptionGroup.forceBundleID)
+				AppID(from: appIDString, forceBundleID: forceBundleIDOptionGroup.forceBundleID),
 			)
 			.appStorePageURLString
 		}

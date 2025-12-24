@@ -13,7 +13,7 @@ private extension MASTests {
 	@Test
 	func iTunesSearchesForSlack() async {
 		let actual = await consequencesOf(
-			try await search(for: "slack") { _ in try (Data(fromResource: "slack"), URLResponse()) }.count
+			try await search(for: "slack") { _ in try (Data(fromResource: "slack"), URLResponse()) }.count,
 		)
 		let expected = Consequences(39)
 		#expect(actual == expected)
@@ -23,7 +23,7 @@ private extension MASTests {
 	func looksUpSlack() async {
 		let adamID = 803_453_959 as ADAMID
 		let actual = await consequencesOf(
-			try await lookup(appID: .adamID(adamID)) { _ in try (Data(fromResource: "slack-lookup"), URLResponse()) }
+			try await lookup(appID: .adamID(adamID)) { _ in try (Data(fromResource: "slack-lookup"), URLResponse()) },
 		)
 		#expect(actual.error == nil && actual.stdout.isEmpty && actual.stderr.isEmpty)
 		guard let catalogApp = actual.value else {
@@ -37,7 +37,7 @@ private extension MASTests {
 			&& catalogApp.name == "Slack"
 			&& catalogApp.sellerName == "Slack Technologies, Inc."
 			&& catalogApp.sellerURLString == "https://slack.com"
-			&& catalogApp.version == "3.3.3"
+			&& catalogApp.version == "3.3.3",
 		) // swiftformat:enable indent
 	}
 }

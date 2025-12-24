@@ -13,7 +13,7 @@ extension MAS {
 	/// Outputs mas config & related system info.
 	struct Config: ParsableCommand {
 		static let configuration = CommandConfiguration(
-			abstract: "Output mas config & related system info"
+			abstract: "Output mas config & related system info",
 		)
 
 		func run() {
@@ -38,7 +38,7 @@ extension MAS {
 				mac ▁▁▁▁ \(configStringValue("hw.product"))
 				cpu ▁▁▁▁ \(configStringValue("machdep.cpu.brand_string"))
 				arch ▁▁▁ \(configStringValue("hw.machine"))
-				"""
+				""",
 			)
 		}
 	}
@@ -46,9 +46,13 @@ extension MAS {
 
 private var runningSliceArchitecture: String {
 	var info = utsname()
-	return uname(&info) == 0
+	return unsafe uname(&info) == 0
 	? withUnsafePointer(to: &info.machine) { pointer in // swiftformat:disable indent
-		pointer.withMemoryRebound(to: CChar.self, capacity: MemoryLayout.size(ofValue: pointer), String.init(cString:))
+		unsafe pointer.withMemoryRebound(
+			to: CChar.self,
+			capacity: MemoryLayout.size(ofValue: pointer),
+			String.init(cString:),
+		)
 	}
 	: unknown
 } // swiftformat:enable indent
@@ -81,18 +85,18 @@ private var supportedSliceArchitectures: [String] {
 
 private func configStringValue(_ name: String) -> String {
 	var size = 0
-	guard sysctlbyname(name, nil, &size, nil, 0) == 0 else {
-		perror(sysCtlByName)
+	guard unsafe sysctlbyname(name, nil, &size, nil, 0) == 0 else {
+		unsafe perror(sysCtlByName)
 		return unknown
 	}
 
 	var buffer = [CChar](repeating: 0, count: size)
-	guard sysctlbyname(name, &buffer, &size, nil, 0) == 0 else {
-		perror(sysCtlByName)
+	guard unsafe sysctlbyname(name, &buffer, &size, nil, 0) == 0 else {
+		unsafe perror(sysCtlByName)
 		return unknown
 	}
 
-	return String(cString: &buffer)
+	return unsafe String(cString: &buffer)
 }
 
 private let unknown = "unknown"

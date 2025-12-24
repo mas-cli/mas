@@ -9,7 +9,7 @@ internal import Darwin
 
 private extension uid_t {
 	var nameAndID: String {
-		"\(String(cString: getpwuid(self).pointee.pw_name).quoted) (\(self))"
+		"\(unsafe String(cString: unsafe getpwuid(self).pointee.pw_name).quoted) (\(self))"
 	}
 }
 

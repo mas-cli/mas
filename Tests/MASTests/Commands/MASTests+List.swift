@@ -31,7 +31,7 @@ private extension MASTests {
 			# All file system volumes (if neither aforementioned command solved the issue):
 			sudo mdutil -Eai on
 
-			"""
+			""",
 		)
 		#expect(actual == expected)
 	}

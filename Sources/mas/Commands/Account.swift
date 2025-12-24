@@ -11,7 +11,7 @@ extension MAS {
 	/// Outputs the Apple Account signed in to the App Store.
 	struct Account: ParsableCommand {
 		static let configuration = CommandConfiguration(
-			abstract: "Output the Apple Account signed in to the App Store"
+			abstract: "Output the Apple Account signed in to the App Store",
 		)
 
 		func run() throws {

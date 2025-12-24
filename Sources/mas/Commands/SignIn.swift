@@ -12,7 +12,7 @@ extension MAS {
 	struct SignIn: ParsableCommand {
 		static let configuration = CommandConfiguration(
 			commandName: "signin",
-			abstract: "Sign in to an Apple Account in the App Store"
+			abstract: "Sign in to an Apple Account in the App Store",
 		)
 
 		// periphery:ignore

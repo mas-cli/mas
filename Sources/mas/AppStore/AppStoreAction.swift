@@ -41,12 +41,12 @@ enum AppStoreAction: Sendable {
 		withAppIDs appIDs: [AppID],
 		force: Bool,
 		installedApps: [InstalledApp],
-		lookupAppFromAppID: (AppID) async throws -> CatalogApp
+		lookupAppFromAppID: (AppID) async throws -> CatalogApp,
 	) async throws {
 		try await apps(
 			withADAMIDs: await appIDs.lookupCatalogApps(lookupAppFromAppID: lookupAppFromAppID).map(\.adamID),
 			force: force,
-			installedApps: installedApps
+			installedApps: installedApps,
 		)
 	}
 
@@ -59,7 +59,7 @@ enum AppStoreAction: Sendable {
 				}
 
 				return true
-			}
+			},
 		)
 	}
 

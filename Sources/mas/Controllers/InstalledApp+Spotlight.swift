@@ -31,7 +31,7 @@ var installedApps: [InstalledApp] {
 			observer = NotificationCenter.default.addObserver(
 				forName: .NSMetadataQueryDidFinishGathering,
 				object: query,
-				queue: nil
+				queue: nil,
 			) { notification in
 				guard !alreadyResumed.exchange(true, ordering: .acquiringAndReleasing) else {
 					return
@@ -39,8 +39,8 @@ var installedApps: [InstalledApp] {
 				guard let query = notification.object as? NSMetadataQuery else {
 					continuation.resume(
 						throwing: MASError.error(
-							"Notification Center returned a \(type(of: notification.object)) instead of a NSMetadataQuery"
-						)
+							"Notification Center returned a \(type(of: notification.object)) instead of a NSMetadataQuery",
+						),
 					)
 					return
 				}
@@ -57,11 +57,11 @@ var installedApps: [InstalledApp] {
 								name: (item.value(forAttribute: "_kMDItemDisplayNameWithExtensions") as? String ?? "")
 								.removingSuffix(".app"),
 								path: item.value(forAttribute: NSMetadataItemPathKey) as? String ?? "",
-								version: item.value(forAttribute: NSMetadataItemVersionKey) as? String ?? ""
+								version: item.value(forAttribute: NSMetadataItemVersionKey) as? String ?? "",
 							)
 						}
 					}
-					.sorted(using: KeyPathComparator(\.name, comparator: .localizedStandard)) // swiftformat:enable indent
+					.sorted(using: KeyPathComparator(\.name, comparator: .localizedStandard)), // swiftformat:enable indent
 				)
 			}
 

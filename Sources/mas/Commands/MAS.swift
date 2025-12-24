@@ -33,7 +33,7 @@ struct MAS: AsyncParsableCommand, Sendable {
 			Uninstall.self,
 			Update.self,
 			Version.self,
-		]
+		],
 	)
 
 	static let printer = Printer()
@@ -47,38 +47,6 @@ struct MAS: AsyncParsableCommand, Sendable {
 	}
 
 	private static func main(_ arguments: [String]?) async { // swiftlint:disable:this discouraged_optional_collection
-		let swiftVersion = swiftVersion.prefix { $0 != " " }
-		if
-			UniversalSemVer(from: String(swiftVersion)).compareSemVer(to: UniversalSemVer(from: "6.2.0")) == .orderedAscending
-		{
-			printer.warning(
-				"""
-				This mas executable was built with Swift \(swiftVersion).
-
-				Swift compilers < 6.2 (Xcode < 26) cause mas 4 to silently crash.
-
-				The Homebrew Core mas formula thus supports only Apple Silicon (arm64) Macs, which must run macOS 15+.
-
-				All Macs running macOS 11+, including Apple Silicon (arm64) Macs & Intel (x86_64) Macs, are supported by the\
-				 mas-cli Homebrew tap mas formula, and by GitHub Releases (https://github.com/mas-cli/mas/releases).
-
-				To avoid crashes:
-
-				1. Uninstall all existing mas installations. e.g., to uninstall mas from Homebrew Core, run:
-
-				brew uninstall --force mas
-
-				2. Install mas built with Swift 6.2+. e.g., to install mas from the mas-cli Homebrew tap mas formula:
-
-				brew install mas-cli/tap/mas
-
-				Note: Swift 6.2 cannot build for macOS 10.15. If you run macOS 10.15, install mas 3.1, which is available from:
-
-				https://github.com/mas-cli/mas/releases/tag/v3.1.0
-
-				"""
-			)
-		}
 		do {
 			let command = try parseAsRoot(arguments)
 			if let command = cast(command, as: (any AsyncParsableCommand & Sendable).self) {

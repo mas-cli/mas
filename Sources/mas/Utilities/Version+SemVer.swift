@@ -91,7 +91,7 @@ extension SemVer where Integer: FixedWidthInteger {
 	static func parse(_ versionString: String, defaultCoreElement: Integer? = nil) // swiftformat:disable:next indent
 	throws -> (major: Integer, minor: Integer, patch: Integer, prereleaseElements: [String], buildElements: [String]) {
 		guard
-			let match = versionString.wholeMatch(of: semVerRegex),
+			let match = unsafe versionString.wholeMatch(of: semVerRegex),
 			let major = Integer(String(match.1)) ?? defaultCoreElement,
 			let minor = Integer(String(match.2)) ?? defaultCoreElement,
 			let patch = Integer(String(match.3)) ?? defaultCoreElement
@@ -118,7 +118,7 @@ struct SemVerInt: SemVer {
 		minor: Integer = 0,
 		patch: Integer = 0,
 		prereleaseElements: [String] = [],
-		buildElements: [String] = []
+		buildElements: [String] = [],
 	) {
 		majorInteger = major
 		minorInteger = minor
@@ -136,7 +136,7 @@ struct SemVerInt: SemVer {
 				minor: semVer.minor,
 				patch: semVer.patch,
 				prereleaseElements: semVer.prereleaseElements,
-				buildElements: semVer.buildElements
+				buildElements: semVer.buildElements,
 			)
 		} catch {
 			return nil
@@ -150,7 +150,7 @@ struct UniversalSemVer: SemVerSyntax {
 	let buildElements: [String]
 
 	init(from versionString: String) {
-		let match = versionString.wholeMatch(of: universalSemVerRegex)! // swiftlint:disable:this force_unwrapping
+		let match = unsafe versionString.wholeMatch(of: universalSemVerRegex)! // swiftlint:disable:this force_unwrapping
 		coreElements = match.1.elements
 		prereleaseElements = match.2.elements
 		buildElements = match.3.elements
@@ -174,7 +174,7 @@ private extension String {
 		to that: Self,
 		options mask: CompareOptions = [],
 		range: Range<Self.Index>? = nil,
-		locale: Locale? = nil
+		locale: Locale? = nil,
 	) -> ComparisonResult {
 		let selfInteger = BigInt(self)
 		let thatInteger = BigInt(that)

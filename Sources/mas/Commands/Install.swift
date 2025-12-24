@@ -12,7 +12,7 @@ extension MAS {
 	struct Install: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
 			abstract: "Install previously gotten apps from the App Store",
-			discussion: requiresRootPrivilegesMessage()
+			discussion: requiresRootPrivilegesMessage(),
 		)
 
 		@OptionGroup
@@ -25,7 +25,7 @@ extension MAS {
 				withAppIDs: requiredAppIDsOptionGroup.appIDs,
 				force: forceOptionGroup.force,
 				installedApps: try await installedApps,
-				lookupAppFromAppID: lookup(appID:)
+				lookupAppFromAppID: lookup(appID:),
 			)
 		}
 	}

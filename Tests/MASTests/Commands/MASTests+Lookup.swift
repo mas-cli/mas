@@ -32,11 +32,11 @@ private extension MASTests {
 							name: "Awesome App",
 							releaseDate: "2019-01-07T18:53:13Z",
 							sellerName: "Awesome Dev",
-							version: "1.0"
+							version: "1.0",
 						),
-					]
+					],
 				)
-			}
+			},
 		)
 		let expected = Consequences(
 			nil,
@@ -48,7 +48,7 @@ private extension MASTests {
 			Size: 1 MB
 			From: https://awesome.app
 
-			"""
+			""",
 		)
 		#expect(actual == expected)
 	}

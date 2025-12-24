@@ -14,7 +14,7 @@ extension MAS {
 		static let configuration = CommandConfiguration(
 			abstract: "Update outdated apps installed from the App Store",
 			discussion: requiresRootPrivilegesMessage(),
-			aliases: ["upgrade"]
+			aliases: ["upgrade"],
 		)
 
 		@OptionGroup
@@ -40,8 +40,8 @@ extension MAS {
 					lookupAppFromAppID: lookupAppFromAppID,
 					accurateOptionGroup: accurateOptionGroup,
 					verboseOptionGroup: verboseOptionGroup,
-					optionalAppIDsOptionGroup: optionalAppIDsOptionGroup
-				)
+					optionalAppIDsOptionGroup: optionalAppIDsOptionGroup,
+				),
 			)
 		}
 
