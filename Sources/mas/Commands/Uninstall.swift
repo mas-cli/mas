@@ -101,12 +101,12 @@ extension MAS {
 					}
 				}
 
-				var uninstalledAppURL = NSURL?.none // swiftlint:disable:this legacy_objc_type
+				var uninstalledAppNSURL = NSURL?.none // swiftlint:disable:this legacy_objc_type
 				try fileManager.trashItem(
 					at: URL(fileURLWithPath: appPath, isDirectory: true),
-					resultingItemURL: &uninstalledAppURL
+					resultingItemURL: &uninstalledAppNSURL
 				)
-				guard let uninstalledAppPath = uninstalledAppURL?.path else {
+				guard let uninstalledAppPath = uninstalledAppNSURL?.path else {
 					printer.error(
 						"""
 						Failed to revert ownership of uninstalled \(appPath.quoted) back to uid \(appUID) & gid \(appGID):\
