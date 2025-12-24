@@ -172,7 +172,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 			)
 			do {
 				pkgHardLinkURL = try hardLinkURL(
-					to: try downloadFolderChildURLs.compactMap { url -> (URL, Date)? in
+					to: try downloadFolderChildURLs.compactMap { url -> (url: URL, date: Date)? in
 						guard url.pathExtension == "pkg" else {
 							return nil
 						}
@@ -180,8 +180,8 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 						let resourceValues = try url.resourceValues(forKeys: [.contentModificationDateKey, .isRegularFileKey])
 						return resourceValues.isRegularFile == true ? resourceValues.contentModificationDate.map { (url, $0) } : nil
 					}
-					.max { $0.1 > $1.1 }?
-					.0,
+					.max { $0.date < $1.date }?
+					.url,
 					existing: pkgHardLinkURL
 				)
 			} catch {
