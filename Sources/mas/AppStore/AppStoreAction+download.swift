@@ -242,7 +242,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		prevPhaseType = snapshot.activePhaseType
 	}
 
-	private func removed(_ snapshot: DownloadSnapshot) {
+	private func removed(_ snapshot: DownloadSnapshot) async {
 		MAS.printer.clearCurrentLine(of: .standardOutput)
 
 		do {
@@ -258,7 +258,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 					"progress cannot be displayed",
 					terminator: ""
 				)
-				try install(appNameAndVersion: snapshot.appNameAndVersion)
+				try await install(appNameAndVersion: snapshot.appNameAndVersion)
 				MAS.printer.clearCurrentLine(of: .standardOutput)
 			} else {
 				guard !snapshot.isFailed else {
@@ -297,7 +297,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		return hardLinkURL
 	}
 
-	private func install(appNameAndVersion: String) throws {
+	private func install(appNameAndVersion: String) async throws {
 		guard let pkgHardLinkPath = pkgHardLinkURL?.path else {
 			throw MASError.error("Failed to find pkg to \(action) \(appNameAndVersion)")
 		}
@@ -305,7 +305,34 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 			throw MASError.error("Failed to find receipt to import for \(appNameAndVersion)")
 		}
 
-		let appFolderURL = try installPkg(appNameAndVersion: appNameAndVersion)
+		let (_, standardErrorText) = try await run(
+			"/usr/sbin/installer",
+			"-dumplog",
+			"-pkg",
+			pkgHardLinkPath,
+			"-target",
+			"/",
+			runProcess: { process in try run(asEffectiveUID: 0, andEffectiveGID: 0) { try process.run() } },
+			errorMessage: "Failed to \(action) \(appNameAndVersion) from \(pkgHardLinkPath)"
+		)
+		guard
+			let appFolderURLSubstring = appFolderURLRegex
+			.matches(in: standardErrorText, range: NSRange(location: 0, length: standardErrorText.count))
+			.compactMap({ $0.captureGroupMatch(number: 1, in: standardErrorText) })
+			.min(by: { $0.count < $1.count })
+		else {
+			throw MASError.error(
+				"Failed to find app folder URL in installer output for \(appNameAndVersion)",
+				error: standardErrorText
+			)
+		}
+		guard let appFolderURL = URL(string: String(appFolderURLSubstring)) else {
+			throw MASError.error(
+				"Failed to parse app folder URL for \(appNameAndVersion) from \(appFolderURLSubstring)",
+				error: standardErrorText
+			)
+		}
+
 		let receiptURL = appFolderURL.appendingPathComponent("Contents/_MASReceipt/receipt", isDirectory: false)
 		do {
 			let fileManager = FileManager.default
@@ -328,91 +355,13 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 			)
 		}
 
-		let process = Process()
-		process.executableURL = URL(fileURLWithPath: "/usr/bin/mdimport", isDirectory: false)
-		process.arguments = [appFolderURL.path]
-		let standardOutputPipe = Pipe()
-		process.standardOutput = standardOutputPipe
-		let standardErrorPipe = Pipe()
-		process.standardError = standardErrorPipe
-		do {
-			try process.run()
-		} catch {
-			throw MASError.error("Failed to \(action) \(appNameAndVersion) from \(pkgHardLinkPath)", error: error)
-		}
-		process.waitUntilExit()
-		guard process.terminationStatus == 0 else {
-			throw MASError.error(
-				"""
-				Failed to \(action) \(appNameAndVersion) from \(pkgHardLinkPath)
-				Exit status: \(process.terminationStatus)\(
-					String(data: standardOutputPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8)?
-					.trimmingCharacters(in: .whitespacesAndNewlines) // swiftformat:disable indent
-					.prependIfNotEmpty("\n\nStandard output:\n")
-					?? ""
-				)\(String(data: standardErrorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8)?
-					.trimmingCharacters(in: .whitespacesAndNewlines) // swiftformat:enable indent
-					.prependIfNotEmpty("\n\nStandard error:\n")
-					?? "" // swiftformat:disable:this wrap
-				)
-				"""
-			)
-		}
+		_ = try await run(
+			"/usr/bin/mdimport",
+			appFolderURL.path,
+			errorMessage: "Failed to \(action) \(appNameAndVersion) from \(pkgHardLinkPath)"
+		)
 
 		LSRegisterURL(appFolderURL as NSURL, true) // swiftlint:disable:this legacy_objc_type
-	}
-
-	private func installPkg(appNameAndVersion: String) throws -> URL {
-		guard let pkgHardLinkPath = pkgHardLinkURL?.path else {
-			throw MASError.error("Failed to find pkg to \(action) \(appNameAndVersion)")
-		}
-
-		let process = Process()
-		process.executableURL = URL(fileURLWithPath: "/usr/sbin/installer", isDirectory: false)
-		process.arguments = ["-dumplog", "-pkg", pkgHardLinkPath, "-target", "/"]
-		let standardOutputPipe = Pipe()
-		process.standardOutput = standardOutputPipe
-		let standardErrorPipe = Pipe()
-		process.standardError = standardErrorPipe
-		do {
-			try run(asEffectiveUID: 0, andEffectiveGID: 0) { try process.run() }
-		} catch {
-			throw MASError.error("Failed to \(action) \(appNameAndVersion) from \(pkgHardLinkPath)", error: error)
-		}
-		process.waitUntilExit()
-		let standardOutputText =
-			String(data: standardOutputPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? ""
-		let standardErrorText =
-			String(data: standardErrorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? ""
-		guard process.terminationStatus == 0 else {
-			throw MASError.error(
-				"""
-				Failed to \(action) \(appNameAndVersion) from \(pkgHardLinkPath)
-				Exit status: \(process.terminationStatus)\(
-					standardOutputText.trimmingCharacters(in: .whitespacesAndNewlines).prependIfNotEmpty("\n\nStandard output:\n")
-				)\(standardErrorText.trimmingCharacters(in: .whitespacesAndNewlines).prependIfNotEmpty("\n\nStandard error:\n"))
-				"""
-			)
-		}
-		guard
-			let appFolderURLSubstring = appFolderURLRegex
-			.matches(in: standardErrorText, range: NSRange(location: 0, length: standardErrorText.count))
-			.compactMap({ $0.captureGroupMatch(number: 1, in: standardErrorText) })
-			.min(by: { $0.count < $1.count })
-		else {
-			throw MASError.error(
-				"Failed to find app folder URL in installer output for \(appNameAndVersion)",
-				error: standardErrorText
-			)
-		}
-		guard let appFolderURL = URL(string: String(appFolderURLSubstring)) else {
-			throw MASError.error(
-				"Failed to parse app folder URL for \(appNameAndVersion) from \(appFolderURLSubstring)",
-				error: standardErrorText
-			)
-		}
-
-		return appFolderURL
 	}
 }
 
@@ -500,10 +449,6 @@ extension PhaseType: CustomStringConvertible {
 private extension String {
 	var capitalizingFirstCharacter: Self {
 		prefix(1).capitalized + dropFirst()
-	}
-
-	func prependIfNotEmpty(_ prefix: String) -> Self {
-		isEmpty ? self : prefix + self
 	}
 }
 
