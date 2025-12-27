@@ -15,7 +15,7 @@ private let swiftSettings = [
 
 _ = Package(
 	name: "mas",
-	platforms: [.macOS(.v10_15)],
+	platforms: [.macOS(.v13)],
 	products: [.executable(name: "mas", targets: ["mas"])],
 	dependencies: [
 		.package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.7.0"),

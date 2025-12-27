@@ -31,14 +31,6 @@ extension AppStoreAction { // swiftlint:disable:this file_types_order
 		downloadMetadata.itemIdentifier = adamID
 		purchase.downloadMetadata = downloadMetadata
 
-		do {
-			let (emailAddress, dsID) = try await appleAccount
-			purchase.accountIdentifier = dsID
-			purchase.appleID = emailAddress
-		} catch {
-			// Do nothing
-		}
-
 		let queue = CKDownloadQueue.shared()
 		let observer = DownloadQueueObserver(for: self, of: adamID, shouldCancel: shouldCancel)
 		let observerUUID = queue.add(observer)
@@ -83,7 +75,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		self.action = action
 		self.adamID = adamID
 		self.shouldCancel = shouldCancel
-		downloadFolderURL = URL(fileURLWithPath: "\(CKDownloadDirectory(nil))/\(adamID)", isDirectory: true)
+		downloadFolderURL = URL(filePath: "\(CKDownloadDirectory(nil))/\(adamID)", directoryHint: .isDirectory)
 	}
 
 	deinit {
@@ -199,7 +191,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		} catch {
 			MAS.printer.warning(
 				"Failed to read contents of download folder",
-				downloadFolderURL.path.quoted,
+				downloadFolderURL.path(percentEncoded: false).quoted,
 				"for",
 				snapshot.appNameAndVersion,
 				error: error
@@ -289,16 +281,16 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		let hardLinkURL = try fileManager.url(
 			for: .itemReplacementDirectory,
 			in: .userDomainMask,
-			appropriateFor: fileManager.homeDirectoryForCurrentUser,
+			appropriateFor: URL.homeDirectory,
 			create: true
 		)
-		.appendingPathComponent("\(adamID)-\(url.lastPathComponent)", isDirectory: false)
+		.appending(path: "\(adamID)-\(url.lastPathComponent)", directoryHint: .notDirectory)
 		try fileManager.linkItem(at: url, to: hardLinkURL)
 		return hardLinkURL
 	}
 
 	private func install(appNameAndVersion: String) throws {
-		guard let pkgHardLinkPath = pkgHardLinkURL?.path else {
+		guard let pkgHardLinkPath = pkgHardLinkURL?.path(percentEncoded: false) else {
 			throw MASError.error("Failed to find pkg to \(action) \(appNameAndVersion)")
 		}
 		guard let receiptHardLinkURL else {
@@ -306,31 +298,34 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		}
 
 		let appFolderURL = try installPkg(appNameAndVersion: appNameAndVersion)
-		let receiptURL = appFolderURL.appendingPathComponent("Contents/_MASReceipt/receipt", isDirectory: false)
+		let receiptURL = appFolderURL.appending(path: "Contents/_MASReceipt/receipt", directoryHint: .notDirectory)
 		do {
 			let fileManager = FileManager.default
 			try run(asEffectiveUID: 0, andEffectiveGID: 0) {
-				if fileManager.fileExists(atPath: receiptURL.path) {
+				if fileManager.fileExists(atPath: receiptURL.path(percentEncoded: false)) {
 					try fileManager.removeItem(at: receiptURL)
 				} else {
 					try fileManager.createDirectory(at: receiptURL.deletingLastPathComponent(), withIntermediateDirectories: true)
 				}
 				try fileManager.copyItem(at: receiptHardLinkURL, to: receiptURL)
-				try fileManager.setAttributes([.ownerAccountID: 0, .groupOwnerAccountID: 0], ofItemAtPath: receiptURL.path)
+				try fileManager.setAttributes(
+					[.ownerAccountID: 0, .groupOwnerAccountID: 0],
+					ofItemAtPath: receiptURL.path(percentEncoded: false)
+				)
 			}
 		} catch {
 			throw MASError.error(
 				"""
-				Failed to copy receipt for \(appNameAndVersion) from \(receiptHardLinkURL.path.quoted) to\
-				 \(receiptURL.path.quoted)
+				Failed to copy receipt for \(appNameAndVersion) from \(receiptHardLinkURL.path(percentEncoded: false).quoted)\
+				 to \(receiptURL.path(percentEncoded: false).quoted)
 				""",
 				error: error
 			)
 		}
 
 		let process = Process()
-		process.executableURL = URL(fileURLWithPath: "/usr/bin/mdimport", isDirectory: false)
-		process.arguments = [appFolderURL.path]
+		process.executableURL = URL(filePath: "/usr/bin/mdimport", directoryHint: .notDirectory)
+		process.arguments = [appFolderURL.path(percentEncoded: false)]
 		let standardOutputPipe = Pipe()
 		process.standardOutput = standardOutputPipe
 		let standardErrorPipe = Pipe()
@@ -346,12 +341,16 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 				"""
 				Failed to \(action) \(appNameAndVersion) from \(pkgHardLinkPath)
 				Exit status: \(process.terminationStatus)\(
-					String(data: standardOutputPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8)?
-					.trimmingCharacters(in: .whitespacesAndNewlines) // swiftformat:disable indent
+					try standardOutputPipe.fileHandleForReading
+					.readToEnd() // swiftformat:disable indent
+					.flatMap { String(data: $0, encoding: .utf8) }?
+					.trimmingCharacters(in: .whitespacesAndNewlines)
 					.prependIfNotEmpty("\n\nStandard output:\n")
 					?? ""
-				)\(String(data: standardErrorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8)?
-					.trimmingCharacters(in: .whitespacesAndNewlines) // swiftformat:enable indent
+				)\(try standardErrorPipe.fileHandleForReading // swiftformat:enable indent
+					.readToEnd()
+					.flatMap { String(data: $0, encoding: .utf8) }?
+					.trimmingCharacters(in: .whitespacesAndNewlines)
 					.prependIfNotEmpty("\n\nStandard error:\n")
 					?? "" // swiftformat:disable:this wrap
 				)
@@ -363,12 +362,12 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 	}
 
 	private func installPkg(appNameAndVersion: String) throws -> URL {
-		guard let pkgHardLinkPath = pkgHardLinkURL?.path else {
+		guard let pkgHardLinkPath = pkgHardLinkURL?.path(percentEncoded: false) else {
 			throw MASError.error("Failed to find pkg to \(action) \(appNameAndVersion)")
 		}
 
 		let process = Process()
-		process.executableURL = URL(fileURLWithPath: "/usr/sbin/installer", isDirectory: false)
+		process.executableURL = URL(filePath: "/usr/sbin/installer", directoryHint: .notDirectory)
 		process.arguments = ["-dumplog", "-pkg", pkgHardLinkPath, "-target", "/"]
 		let standardOutputPipe = Pipe()
 		process.standardOutput = standardOutputPipe
@@ -381,9 +380,9 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		}
 		process.waitUntilExit()
 		let standardOutputText =
-			String(data: standardOutputPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? ""
+			try standardOutputPipe.fileHandleForReading.readToEnd().flatMap { String(data: $0, encoding: .utf8) } ?? ""
 		let standardErrorText =
-			String(data: standardErrorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? ""
+			try standardErrorPipe.fileHandleForReading.readToEnd().flatMap { String(data: $0, encoding: .utf8) } ?? ""
 		guard process.terminationStatus == 0 else {
 			throw MASError.error(
 				"""
@@ -395,9 +394,9 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 			)
 		}
 		guard
-			let appFolderURLSubstring = appFolderURLRegex
-			.matches(in: standardErrorText, range: NSRange(location: 0, length: standardErrorText.count))
-			.compactMap({ $0.captureGroupMatch(number: 1, in: standardErrorText) })
+			let appFolderURLSubstring = standardErrorText
+			.matches(of: appFolderURLRegex)
+			.compactMap(\.1)
 			.min(by: { $0.count < $1.count })
 		else {
 			throw MASError.error(
@@ -513,10 +512,10 @@ private extension URL {
 			return false
 		}
 		guard let fileID1 = try resourceValues(forKeys: [.fileResourceIdentifierKey]).fileResourceIdentifier else {
-			throw MASError.error("Failed to get file resource identifier for \(path)")
+			throw MASError.error("Failed to get file resource identifier for \(path(percentEncoded: false))")
 		}
 		guard let fileID2 = try url.resourceValues(forKeys: [.fileResourceIdentifierKey]).fileResourceIdentifier else {
-			throw MASError.error("Failed to get file resource identifier for \(url.path)")
+			throw MASError.error("Failed to get file resource identifier for \(url.path(percentEncoded: false))")
 		}
 
 		return fileID1.isEqual(fileID2)
@@ -528,10 +527,14 @@ private func deleteTempFolder(containing url: URL?, fileType: String) {
 		do {
 			try FileManager.default.removeItem(at: url.deletingLastPathComponent())
 		} catch {
-			MAS.printer.warning("Failed to delete temp folder containing", fileType, url.path, error: error)
+			MAS.printer.warning(
+				"Failed to delete temp folder containing",
+				fileType,
+				url.path(percentEncoded: false),
+				error: error
+			)
 		}
 	}
 }
 
-// swiftlint:disable:next force_try
-private let appFolderURLRegex = try! NSRegularExpression(pattern: #"PackageKit: Registered bundle (\S+) for uid 0"#)
+private nonisolated(unsafe) let appFolderURLRegex = /PackageKit: Registered bundle (\S+) for uid 0/

@@ -71,22 +71,18 @@ func search(
 
 private func url(_ action: String, _ queryItem: URLQueryItem, inRegion region: Region) throws -> URL {
 	let urlString = "https://itunes.apple.com/\(action)"
-	guard var urlComponents = URLComponents(string: urlString) else {
+	guard let url = URL(string: urlString) else {
 		throw MASError.unparsableURL(urlString)
 	}
 
-	let queryItems = [
-		URLQueryItem(name: "media", value: "software"),
-		URLQueryItem(name: "entity", value: "desktopSoftware"),
-		URLQueryItem(name: "country", value: region),
-		queryItem,
-	]
-	urlComponents.queryItems = queryItems
-	guard let url = urlComponents.url else {
-		throw MASError.unparsableURL("\(urlString)?\(queryItems.map(String.init(describing:)).joined(separator: "&"))")
-	}
-
-	return url
+	return url.appending(
+		queryItems: [
+			URLQueryItem(name: "media", value: "software"),
+			URLQueryItem(name: "entity", value: "desktopSoftware"),
+			URLQueryItem(name: "country", value: region),
+			queryItem,
+		]
+	)
 }
 
 private func getCatalogApps(from url: URL, dataFrom: (URL) async throws -> (Data, URLResponse))

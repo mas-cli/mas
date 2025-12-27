@@ -98,9 +98,5 @@ var appStoreRegion: Region {
 }
 
 var macRegion: Region {
-	if #available(macOS 13, *) {
-		Locale.current.region?.identifier ?? "US"
-	} else {
-		Locale.current.regionCode ?? "US"
-	}
+	Locale.current.region?.identifier ?? "US"
 }

@@ -8,8 +8,8 @@
 @interface CKDownloadQueue : CKServiceInterface {
 	NSMutableDictionary *_downloadsByItemID;
 	NSLock *_downloadsLock;
-	id _observerToken NS_AVAILABLE_MAC(13);
-	NSLock *_tokenLock NS_AVAILABLE_MAC(13);
+	id _observerToken;
+	NSLock *_tokenLock;
 }
 
 + (nonnull instancetype)sharedDownloadQueue;

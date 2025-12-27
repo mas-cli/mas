@@ -143,7 +143,7 @@ func outdatedApps(
 					_ = group.addTaskUnlessCancelled { await installedApp.outdated }
 				}
 			}
-			.sorted { $0.installedApp.name.localizedStandardCompare($1.installedApp.name) == .orderedAscending }
+			.sorted(using: KeyPathComparator(\.installedApp.name, comparator: .localizedStandard))
 		},
 		inaccurate: {
 			await installedApps
