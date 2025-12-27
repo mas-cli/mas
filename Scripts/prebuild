@@ -35,6 +35,6 @@ extension MAS {
  "${MAS_DISTRIBUTION:-unknown}"\
  "$(git remote get-url origin)"\
  "$(git rev-parse HEAD)"\
- "$(printf %s "${${$(swift --version 2>/dev/null)#Apple Swift version }%%$'\n'*}")"\
- "$(printf %s "${${$((swift --version 3>&2 2>&1 1>&3) 2>/dev/null)#swift-driver version: }% }")"\
+ "${${${$(swift --version 2>/dev/null)##( |[[:alpha:]])##}%%$'\n'*}:-unknown}"\
+ "${${(SM)$(swift --version 2>&1 >/dev/null)##[[:digit:]]([[:digit:]]|.)##}:-unknown}"\
  >"${1}/MAS+BuildInformation.swift"
