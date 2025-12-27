@@ -14,7 +14,6 @@ struct MAS: AsyncParsableCommand, Sendable {
 		abstract: "Mac App Store command-line interface",
 		version: Self.version,
 		subcommands: [
-			Account.self,
 			Config.self,
 			Get.self,
 			Home.self,
@@ -28,7 +27,6 @@ struct MAS: AsyncParsableCommand, Sendable {
 			Reset.self,
 			Search.self,
 			Seller.self,
-			SignIn.self,
 			SignOut.self,
 			Uninstall.self,
 			Update.self,
