@@ -51,7 +51,7 @@ file_length:
   ignore_comment_only_lines: true
   warning: 500
 file_name:
-  excluded: [Group.swift, User.swift]
+  excluded: [Group.swift, Process.swift, User.swift]
 file_types_order:
   order:
   - main_type
