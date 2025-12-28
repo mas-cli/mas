@@ -6,6 +6,7 @@
 //
 
 internal import Foundation
+@testable private import mas
 
 struct Consequences<Value> {
 	let value: Value?
@@ -88,11 +89,8 @@ private struct StandardStreamCapture { // swiftlint:disable:this one_declaration
 		close(outDuplicateFD)
 		close(errDuplicateFD)
 
-		return ( // swiftlint:disable:next force_try
-			try! outPipe.fileHandleForReading.readToEnd().flatMap { String(data: $0, encoding: encoding) } ?? "",
-			try! errPipe.fileHandleForReading.readToEnd().flatMap { String(data: $0, encoding: encoding) } ?? "",
-		) // swiftlint:disable:previous force_try
-	}
+		return (try! outPipe.readToEnd(encoding: encoding) ?? "", try! errPipe.readToEnd(encoding: encoding) ?? "")
+	} // swiftlint:disable:previous force_try
 }
 
 enum NoValue: Equatable { // swiftlint:disable:this one_declaration_per_file
