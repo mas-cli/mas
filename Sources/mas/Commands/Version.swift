@@ -15,7 +15,7 @@ extension MAS {
 		)
 
 		func run() {
-			printer.info(MAS.version)
+			printer.info(version)
 		}
 	}
 }

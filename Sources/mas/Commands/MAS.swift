@@ -36,7 +36,7 @@ struct MAS: AsyncParsableCommand, Sendable {
 	static let printer = Printer()
 
 	static var _errorPrefix: String { // swiftlint:disable:this identifier_name
-		"\(mas.format(prefix: "\(errorPrefix)", format: errorFormat, for: FileHandle.standardError)) "
+		"\(format(prefix: "\(errorPrefix)", format: errorFormat, for: FileHandle.standardError)) "
 	}
 
 	private static func main() async { // swiftlint:disable:this unused_declaration
