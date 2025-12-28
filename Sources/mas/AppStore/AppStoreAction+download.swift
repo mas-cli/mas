@@ -307,10 +307,13 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 			errorMessage: "Failed to \(action) \(appNameAndVersion) from \(pkgHardLinkPath)",
 		) { process in try run(asEffectiveUID: 0, andEffectiveGID: 0) { try process.run() } }
 
-		let appFolderURLMatches = standardErrorString.matches(of: unsafe appFolderURLRegex)
-		// swiftlint:disable:next prefer_key_path
-		guard let appFolderURLSubstring = appFolderURLMatches.compactMap({ $0.1 }).min(by: { $0.count < $1.count }) else {
-			throw MASError.error( // swiftformat:disable:previous preferKeyPath
+		guard
+			let appFolderURLSubstring = standardErrorString
+			.matches(of: unsafe appFolderURLRegex) // swiftformat:disable:next preferKeyPath
+			.compactMap({ $0.1 }) // swiftlint:disable:this prefer_key_path
+			.min(by: { $0.count < $1.count })
+		else {
+			throw MASError.error(
 				"Failed to find app folder URL in installer output for \(appNameAndVersion)",
 				error: standardErrorString,
 			)

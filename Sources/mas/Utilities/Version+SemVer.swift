@@ -91,7 +91,7 @@ extension SemVer where Integer: FixedWidthInteger {
 	static func parse(_ versionString: String, defaultCoreElement: Integer? = nil) // swiftformat:disable:next indent
 	throws -> (major: Integer, minor: Integer, patch: Integer, prereleaseElements: [String], buildElements: [String]) {
 		guard
-			let match = unsafe versionString.wholeMatch(of: semVerRegex),
+			let match = versionString.wholeMatch(of: unsafe semVerRegex),
 			let major = Integer(String(match.1)) ?? defaultCoreElement,
 			let minor = Integer(String(match.2)) ?? defaultCoreElement,
 			let patch = Integer(String(match.3)) ?? defaultCoreElement
@@ -150,7 +150,7 @@ struct UniversalSemVer: SemVerSyntax {
 	let buildElements: [String]
 
 	init(from versionString: String) {
-		let match = unsafe versionString.wholeMatch(of: universalSemVerRegex)! // swiftlint:disable:this force_unwrapping
+		let match = versionString.wholeMatch(of: unsafe universalSemVerRegex)! // swiftlint:disable:this force_unwrapping
 		coreElements = match.1.elements
 		prereleaseElements = match.2.elements
 		buildElements = match.3.elements
