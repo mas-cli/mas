@@ -50,8 +50,8 @@ private var runningSliceArchitecture: String {
 	? withUnsafePointer(to: &info.machine) { pointer in // swiftformat:disable indent
 		unsafe pointer.withMemoryRebound(
 			to: CChar.self,
-			capacity: MemoryLayout.size(ofValue: pointer),
-			String.init(cString:),
+			capacity: unsafe MemoryLayout.size(ofValue: unsafe pointer),
+			unsafe String.init(cString:),
 		)
 	}
 	: unknown
