@@ -19,14 +19,14 @@ extension MAS {
 		func run() {
 			printer.info(
 				"""
-				mas ▁▁▁▁ \(MAS.version)
+				mas ▁▁▁▁ \(version)
 				slice ▁▁ \(runningSliceArchitecture)
 				slices ▁ \(supportedSliceArchitectures.joined(separator: " "))
-				dist ▁▁▁ \(MAS.distribution)
-				origin ▁ \(MAS.gitOrigin)
-				rev ▁▁▁▁ \(MAS.gitRevision)
-				swift ▁▁ \(MAS.swiftVersion)
-				driver ▁ \(MAS.swiftDriverVersion)
+				dist ▁▁▁ \(distribution)
+				origin ▁ \(gitOrigin)
+				rev ▁▁▁▁ \(gitRevision)
+				swift ▁▁ \(swiftVersion)
+				driver ▁ \(swiftDriverVersion)
 				store ▁▁ \(appStoreRegion)
 				region ▁ \(macRegion)
 				macos ▁▁ \(

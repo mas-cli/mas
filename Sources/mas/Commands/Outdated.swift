@@ -49,7 +49,7 @@ extension MAS {
 			}
 
 			let format = "%\(maxADAMIDLength)lu  %@  (%@ -> %@)"
-			MAS.printer.info(
+			printer.info(
 				outdatedApps.map { installedApp, newVersion in
 					unsafe String(
 						format: format,
