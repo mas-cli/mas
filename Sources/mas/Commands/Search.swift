@@ -43,7 +43,7 @@ extension MAS {
 			let format = "%\(maxADAMIDLength)lu  %@  (%@)\(price ? "  %@" : "")"
 			printer.info(
 				catalogApps.map { catalogApp in
-					unsafe String(
+					String(
 						format: format,
 						catalogApp.adamID,
 						catalogApp.name.padding(toLength: maxNameLength, withPad: " ", startingAt: 0),

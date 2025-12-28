@@ -51,7 +51,7 @@ extension MAS {
 			let format = "%\(maxADAMIDLength)lu  %@  (%@)"
 			printer.info(
 				installedApps.map { installedApp in
-					unsafe String(
+					String(
 						format: format,
 						installedApp.adamID,
 						installedApp.name.padding(toLength: maxNameLength, withPad: " ", startingAt: 0),
