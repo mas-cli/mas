@@ -13,7 +13,7 @@ extension MAS {
 		static let configuration = CommandConfiguration(
 			abstract: "Get & install free apps from the App Store",
 			discussion: requiresRootPrivilegesMessage(),
-			aliases: ["purchase"]
+			aliases: ["purchase"],
 		)
 
 		@OptionGroup
@@ -26,7 +26,7 @@ extension MAS {
 				withAppIDs: requiredAppIDsOptionGroup.appIDs,
 				force: forceOptionGroup.force,
 				installedApps: try await installedApps,
-				lookupAppFromAppID: lookup(appID:)
+				lookupAppFromAppID: lookup(appID:),
 			)
 		}
 	}

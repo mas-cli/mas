@@ -12,7 +12,7 @@ extension Sequence {
 
 	private func forEach<E: Error>(
 		_ body: (Element) async throws(E) -> Void,
-		handlingErrors errorHandler: (Element, E) async -> Void
+		handlingErrors errorHandler: (Element, E) async -> Void,
 	) async {
 		for element in self {
 			do {

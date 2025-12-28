@@ -34,7 +34,7 @@ struct CatalogApp: Sendable {
 		releaseDate: String = "",
 		sellerName: String = "",
 		sellerURLString: String? = nil,
-		version: String = ""
+		version: String = "",
 	) { // periphery:ignore
 		self.adamID = adamID
 		self.appStorePageURLString = appStorePageURLString

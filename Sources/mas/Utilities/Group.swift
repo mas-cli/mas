@@ -9,7 +9,7 @@ internal import Darwin
 
 private extension gid_t {
 	var nameAndID: String {
-		"\(String(cString: getgrgid(self).pointee.gr_name).quoted) (\(self))"
+		"\(unsafe String(cString: unsafe getgrgid(self).pointee.gr_name).quoted) (\(self))"
 	}
 }
 

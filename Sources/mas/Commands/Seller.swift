@@ -17,7 +17,7 @@ extension MAS {
 	struct Seller: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
 			abstract: "Open apps' seller pages in the default web browser",
-			aliases: ["vendor"]
+			aliases: ["vendor"],
 		)
 
 		@OptionGroup
@@ -29,7 +29,7 @@ extension MAS {
 
 		private func run(lookupAppFromAppID: (AppID) async throws -> CatalogApp) async {
 			await run(
-				catalogApps: await requiredAppIDsOptionGroup.appIDs.lookupCatalogApps(lookupAppFromAppID: lookupAppFromAppID)
+				catalogApps: await requiredAppIDsOptionGroup.appIDs.lookupCatalogApps(lookupAppFromAppID: lookupAppFromAppID),
 			)
 		}
 
@@ -42,7 +42,7 @@ extension MAS {
 					}
 
 					return sellerURLString
-				}
+				},
 			)
 		}
 

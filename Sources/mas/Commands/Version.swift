@@ -11,7 +11,7 @@ extension MAS {
 	/// Outputs the version of mas.
 	struct Version: ParsableCommand {
 		static let configuration = CommandConfiguration(
-			abstract: "Output version number"
+			abstract: "Output version number",
 		)
 
 		func run() {

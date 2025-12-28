@@ -12,7 +12,7 @@ private import StoreFoundation
 
 typealias OutdatedApp = (
 	installedApp: InstalledApp,
-	newVersion: String
+	newVersion: String,
 )
 
 private extension Error {
@@ -69,8 +69,8 @@ private extension InstalledApp {
 				OperatingSystemVersion(
 					majorVersion: minimumOSVersion.majorInteger,
 					minorVersion: minimumOSVersion.minorInteger,
-					patchVersion: minimumOSVersion.patchInteger
-				)
+					patchVersion: minimumOSVersion.patchInteger,
+				),
 			)
 			? nil // swiftformat:disable:this indent
 			: false
@@ -86,7 +86,7 @@ private extension [InstalledApp] {
 	func filterOutApps(
 		unknownTo lookupAppFromAppID: (AppID) async throws -> CatalogApp,
 		if shouldFilter: Bool,
-		shouldWarnIfUnknownApp: Bool
+		shouldWarnIfUnknownApp: Bool,
 	) async -> Self {
 		!shouldFilter
 		? self // swiftformat:disable:this indent
@@ -107,17 +107,17 @@ func outdatedApps(
 	lookupAppFromAppID: (AppID) async throws -> CatalogApp,
 	accurateOptionGroup: AccurateOptionGroup,
 	verboseOptionGroup: VerboseOptionGroup,
-	optionalAppIDsOptionGroup: OptionalAppIDsOptionGroup
+	optionalAppIDsOptionGroup: OptionalAppIDsOptionGroup,
 ) async -> [OutdatedApp] {
 	await accurateOptionGroup.outdatedApps(
 		accurate: { shouldIgnoreUnknownApps in
-			await withTaskGroup(of: OutdatedApp?.self, returning: [OutdatedApp].self) { group in
+			await withTaskGroup { group in
 				let installedApps = await installedApps
 				.filter(for: optionalAppIDsOptionGroup.appIDs) // swiftformat:disable indent
 				.filterOutApps(
 					unknownTo: lookupAppFromAppID,
 					if: shouldIgnoreUnknownApps,
-					shouldWarnIfUnknownApp: verboseOptionGroup.verbose
+					shouldWarnIfUnknownApp: verboseOptionGroup.verbose,
 				)
 				let maxConcurrentTaskCount = min(installedApps.count, 16) // swiftformat:enable indent
 				var index = 0
@@ -159,6 +159,6 @@ func outdatedApps(
 				}
 				return nil
 			}
-		} // swiftformat:enable indent
+		}, // swiftformat:enable indent
 	)
 }

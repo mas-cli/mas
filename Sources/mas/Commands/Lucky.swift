@@ -18,7 +18,7 @@ extension MAS {
 		static let configuration = CommandConfiguration(
 			abstract: "Install the first app returned from searching the App Store",
 			discussion: // swiftformat:disable:next indent
-				"App will install only if it has already been gotten\n\n\(requiresRootPrivilegesMessage(to: "install"))"
+				"App will install only if it has already been gotten\n\n\(requiresRootPrivilegesMessage(to: "install"))",
 		)
 
 		@OptionGroup
@@ -32,7 +32,7 @@ extension MAS {
 
 		private func run(
 			installedApps: [InstalledApp],
-			searchForAppsMatchingSearchTerm: (String) async throws -> [CatalogApp]
+			searchForAppsMatchingSearchTerm: (String) async throws -> [CatalogApp],
 		) async throws {
 			let searchTerm = searchTermOptionGroup.searchTerm
 			guard let adamID = try await searchForAppsMatchingSearchTerm(searchTerm).first?.adamID else {
@@ -46,7 +46,7 @@ extension MAS {
 			try await AppStore.install.apps(
 				withADAMIDs: [adamID],
 				force: forceOptionGroup.force,
-				installedApps: installedApps
+				installedApps: installedApps,
 			)
 		}
 	}

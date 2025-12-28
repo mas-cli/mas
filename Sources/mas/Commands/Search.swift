@@ -16,7 +16,7 @@ extension MAS {
 	/// https://performance-partners.apple.com/search-api
 	struct Search: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
-			abstract: "Search for apps in the App Store"
+			abstract: "Search for apps in the App Store",
 		)
 
 		@Flag(help: "Output the price of each app")
@@ -43,15 +43,15 @@ extension MAS {
 			let format = "%\(maxADAMIDLength)lu  %@  (%@)\(price ? "  %@" : "")"
 			printer.info(
 				catalogApps.map { catalogApp in
-					String(
+					unsafe String(
 						format: format,
 						catalogApp.adamID,
 						catalogApp.name.padding(toLength: maxNameLength, withPad: " ", startingAt: 0),
 						catalogApp.version,
-						catalogApp.displayPrice
+						catalogApp.displayPrice,
 					)
 				}
-				.joined(separator: "\n")
+				.joined(separator: "\n"),
 			)
 		}
 	}

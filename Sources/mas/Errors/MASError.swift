@@ -16,13 +16,13 @@ enum MASError: Error {
 		_ message: String,
 		error: String?,
 		separator: String = ":\n",
-		separatorAndErrorReplacement: String = ""
+		separatorAndErrorReplacement: String = "",
 	) -> Self {
 		Self.error(
 			message,
 			error: error.map { Self.error($0) },
 			separator: separator,
-			separatorAndErrorReplacement: separatorAndErrorReplacement
+			separatorAndErrorReplacement: separatorAndErrorReplacement,
 		)
 	}
 }

@@ -24,7 +24,7 @@ extension MAS {
 	/// associated with the App Store.
 	struct Reset: ParsableCommand {
 		static let configuration = CommandConfiguration(
-			abstract: "Reset App Store processes & clear cached App Store downloads"
+			abstract: "Reset App Store processes & clear cached App Store downloads",
 		)
 
 		func run() {
@@ -53,21 +53,22 @@ extension MAS {
 
 			var processListMIB = [CTL_KERN, KERN_PROC, KERN_PROC_ALL]
 			var length = 0
-			guard sysctl(&processListMIB, u_int(processListMIB.count), nil, &length, nil, 0) == 0 else {
+			guard unsafe sysctl(&processListMIB, u_int(processListMIB.count), nil, &length, nil, 0) == 0 else {
 				printer.error("Failed to get process list length")
 				return
 			}
 
-			var kinfoProcs = [kinfo_proc](repeating: kinfo_proc(), count: length / MemoryLayout<kinfo_proc>.stride)
-			guard sysctl(&processListMIB, u_int(processListMIB.count), &kinfoProcs, &length, nil, 0) == 0 else {
+			// swiftformat:disable:next spaceAroundBrackets
+			var kinfoProcs = unsafe [kinfo_proc](repeating: kinfo_proc(), count: length / MemoryLayout<kinfo_proc>.stride)
+			guard unsafe sysctl(&processListMIB, u_int(processListMIB.count), &kinfoProcs, &length, nil, 0) == 0 else {
 				printer.error("Failed to get process list")
 				return
 			}
 
 			var executablePathBuffer = [CChar](repeating: 0, count: Int(PATH_MAX))
-			for pid in kinfoProcs.map(\.kp_proc.p_pid) {
+			for pid in unsafe kinfoProcs.map(\.kp_proc.p_pid) {
 				guard
-					proc_pidpath(pid, &executablePathBuffer, UInt32(executablePathBuffer.count)) > 0,
+					unsafe proc_pidpath(pid, &executablePathBuffer, UInt32(executablePathBuffer.count)) > 0,
 					let executablePath = String(cString: executablePathBuffer, encoding: .utf8),
 					executablePathSet.contains(executablePath)
 				else {

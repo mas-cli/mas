@@ -17,7 +17,7 @@ extension MAS {
 	struct Lookup: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
 			abstract: "Output app information from the App Store",
-			aliases: ["info"]
+			aliases: ["info"],
 		)
 
 		@OptionGroup
@@ -45,7 +45,7 @@ extension MAS {
 					"""
 				}
 				.joined(separator: "\n"),
-				terminator: ""
+				terminator: "",
 			)
 		}
 	}

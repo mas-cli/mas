@@ -18,25 +18,25 @@ func sudo(_ executableName: String, args: some Sequence<String>) throws {
 }
 
 private func sudo(_ args: some Sequence<String>) throws {
-	let cArgs = (["sudo"] + args).map { strdup($0) }
+	let cArgs = unsafe (["sudo"] + args).map { unsafe strdup($0) } // swiftformat:disable:this spaceAroundParens
 	defer {
-		for cArg in cArgs {
-			free(cArg)
+		for unsafe cArg in unsafe cArgs {
+			unsafe free(cArg)
 		}
 	}
 
 	var pid = 0 as pid_t
-	let spawnStatus = posix_spawn(&pid, "/usr/bin/sudo", nil, nil, cArgs + [nil], environ)
+	let spawnStatus = unsafe posix_spawn(&pid, "/usr/bin/sudo", nil, nil, cArgs + [nil], environ)
 	guard spawnStatus == 0 else {
 		throw MASError.error(
 			"Failed to spawn installer process",
-			error: String(cString: strerror(spawnStatus)),
-			separator: ": "
+			error: unsafe String(cString: strerror(spawnStatus)),
+			separator: ": ",
 		)
 	}
 
 	var sudoStatus = 0 as Int32
-	waitpid(pid, &sudoStatus, 0)
+	unsafe waitpid(pid, &sudoStatus, 0)
 	guard sudoStatus == 0 else {
 		throw ExitCode(max((sudoStatus >> 8) & 0xff, 1))
 	}

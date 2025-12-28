@@ -11,7 +11,7 @@ extension MAS {
 	/// Outputs the assumed region of the App Store.
 	struct Region: ParsableCommand {
 		static let configuration = CommandConfiguration(
-			abstract: "Output the assumed region of the App Store"
+			abstract: "Output the assumed region of the App Store",
 		)
 
 		func run() {

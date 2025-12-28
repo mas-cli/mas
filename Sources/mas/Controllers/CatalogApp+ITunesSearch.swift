@@ -25,7 +25,7 @@ func lookup(appID: AppID) async throws -> CatalogApp {
 func lookup(
 	appID: AppID,
 	inRegion region: Region = appStoreRegion,
-	dataFrom dataSource: (URL) async throws -> (Data, URLResponse) = urlSession.data(from:)
+	dataFrom dataSource: (URL) async throws -> (Data, URLResponse) = urlSession.data(from:),
 ) async throws -> CatalogApp {
 	let queryItem =
 		switch appID {
@@ -61,11 +61,11 @@ func search(for searchTerm: String) async throws -> [CatalogApp] {
 func search(
 	for searchTerm: String,
 	inRegion region: Region = appStoreRegion,
-	dataFrom dataSource: (URL) async throws -> (Data, URLResponse) = urlSession.data(from:)
+	dataFrom dataSource: (URL) async throws -> (Data, URLResponse) = urlSession.data(from:),
 ) async throws -> [CatalogApp] {
 	try await getCatalogApps(
 		from: try url("search", URLQueryItem(name: "term", value: searchTerm), inRegion: region),
-		dataFrom: dataSource
+		dataFrom: dataSource,
 	)
 }
 
@@ -81,7 +81,7 @@ private func url(_ action: String, _ queryItem: URLQueryItem, inRegion region: R
 			URLQueryItem(name: "entity", value: "desktopSoftware"),
 			URLQueryItem(name: "country", value: region),
 			queryItem,
-		]
+		],
 	)
 }
 

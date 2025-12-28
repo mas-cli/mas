@@ -128,14 +128,6 @@ unused_import:
     - _DarwinFoundation1
     - _DarwinFoundation2
     - _DarwinFoundation3
-    - _limits
-    - _signal
-    - _stdio
-    - _string
-    - DarwinFoundation
-    - sys_types
-    - sys_wait
-    - unistd
   - module: Swift
     allowed_transitive_imports:
     - _Concurrency

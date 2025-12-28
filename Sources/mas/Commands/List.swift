@@ -12,7 +12,7 @@ extension MAS {
 	/// Lists all apps installed from the App Store.
 	struct List: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
-			abstract: "List all apps installed from the App Store"
+			abstract: "List all apps installed from the App Store",
 		)
 
 		@OptionGroup
@@ -43,7 +43,7 @@ extension MAS {
 
 					# All file system volumes (if neither aforementioned command solved the issue):
 					sudo mdutil -Eai on
-					"""
+					""",
 				)
 				return
 			}
@@ -51,14 +51,14 @@ extension MAS {
 			let format = "%\(maxADAMIDLength)lu  %@  (%@)"
 			printer.info(
 				installedApps.map { installedApp in
-					String(
+					unsafe String(
 						format: format,
 						installedApp.adamID,
 						installedApp.name.padding(toLength: maxNameLength, withPad: " ", startingAt: 0),
-						installedApp.version
+						installedApp.version,
 					)
 				}
-				.joined(separator: "\n")
+				.joined(separator: "\n"),
 			)
 		}
 	}

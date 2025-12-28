@@ -14,7 +14,7 @@ extension MAS {
 	struct Uninstall: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
 			abstract: "Uninstall apps installed from the App Store",
-			discussion: requiresRootPrivilegesMessage()
+			discussion: requiresRootPrivilegesMessage(),
 		)
 
 		/// Flag indicating that uninstall shouldn't be performed.
@@ -85,7 +85,7 @@ extension MAS {
 						try mas.run(asEffectiveUID: 0, andEffectiveGID: 0) {
 							try fileManager.setAttributes(
 								[.ownerAccountID: appUID, .groupOwnerAccountID: appGID],
-								ofItemAtPath: chownPath
+								ofItemAtPath: chownPath,
 							)
 						}
 					} catch {
@@ -96,22 +96,22 @@ extension MAS {
 							appUID,
 							"& gid",
 							appGID,
-							error: error
+							error: error,
 						)
 					}
 				}
 
 				var uninstalledAppNSURL = NSURL?.none // swiftlint:disable:this legacy_objc_type
-				try fileManager.trashItem(
+				try unsafe fileManager.trashItem(
 					at: URL(filePath: appPath, directoryHint: .isDirectory),
-					resultingItemURL: &uninstalledAppNSURL
+					resultingItemURL: &uninstalledAppNSURL,
 				)
 				guard let uninstalledAppPath = uninstalledAppNSURL?.path else {
 					printer.error(
 						"""
 						Failed to revert ownership of uninstalled \(appPath.quoted) back to uid \(appUID) & gid \(appGID):\
 						 failed to obtain uninstalled app URL
-						"""
+						""",
 					)
 					continue
 				}

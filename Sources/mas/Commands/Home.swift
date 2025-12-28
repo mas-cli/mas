@@ -16,7 +16,7 @@ extension MAS {
 	/// https://performance-partners.apple.com/search-api
 	struct Home: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
-			abstract: "Open App Store app pages in the default web browser"
+			abstract: "Open App Store app pages in the default web browser",
 		)
 
 		@OptionGroup
@@ -28,7 +28,7 @@ extension MAS {
 
 		private func run(lookupAppFromAppID: (AppID) async throws -> CatalogApp) async {
 			await run(
-				catalogApps: await requiredAppIDsOptionGroup.appIDs.lookupCatalogApps(lookupAppFromAppID: lookupAppFromAppID)
+				catalogApps: await requiredAppIDsOptionGroup.appIDs.lookupCatalogApps(lookupAppFromAppID: lookupAppFromAppID),
 			)
 		}
 

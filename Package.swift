@@ -1,4 +1,4 @@
-// swift-tools-version:6.0
+// swift-tools-version:6.2
 
 private import PackageDescription
 
@@ -10,7 +10,8 @@ private let swiftSettings = [
 	.enableUpcomingFeature("InternalImportsByDefault"),
 	.enableUpcomingFeature("MemberImportVisibility"),
 	.enableUpcomingFeature("NonisolatedNonsendingByDefault"),
-	.unsafeFlags(["-warnings-as-errors"]),
+	.strictMemorySafety(),
+	.treatAllWarnings(as: .error),
 ]
 
 _ = Package(
@@ -37,14 +38,14 @@ _ = Package(
 			],
 			swiftSettings: swiftSettings,
 			linkerSettings: [.unsafeFlags(["-F", "/System/Library/PrivateFrameworks"])],
-			plugins: [.plugin(name: "MASBuildToolPlugin")]
+			plugins: [.plugin(name: "MASBuildToolPlugin")],
 		),
 		.testTarget(
 			name: "MASTests",
 			dependencies: ["mas"],
 			resources: [.process("Resources")],
-			swiftSettings: swiftSettings
+			swiftSettings: swiftSettings,
 		),
 	],
-	swiftLanguageModes: [.v6]
+	swiftLanguageModes: [.v6],
 )

@@ -18,7 +18,7 @@ extension AppStoreAction { // swiftlint:disable:this file_types_order
 			buyParameters: """
 				productType=C&price=0&pg=default&appExtVrsId=0&pricingParameters=\
 				\(self == .get ? "STDQ&macappinstalledconfirmed=1" : "STDRDL")&salableAdamId=\(adamID)
-				"""
+				""",
 		)
 
 		// Possibly unnecessary…
@@ -43,11 +43,11 @@ extension AppStoreAction { // swiftlint:disable:this file_types_order
 
 			CKPurchaseController.shared().perform(purchase, withOptions: 0) { _, _, error, response in
 				if let error {
-					Task.detached {
+					Task {
 						await observer.resumeOnce { $0.resume(throwing: error) }
 					}
 				} else if response?.downloads?.isEmpty != false {
-					Task.detached {
+					Task {
 						await observer.resumeOnce { continuation in
 							continuation.resume(throwing: MASError.error("No downloads initiated for ADAM ID \(adamID)"))
 						}
@@ -82,7 +82,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		resumeOnce(
 			alreadyResumed: alreadyResumed,
 			pkgHardLinkURL: pkgHardLinkURL,
-			receiptHardLinkURL: receiptHardLinkURL
+			receiptHardLinkURL: receiptHardLinkURL,
 		) { continuation in
 			continuation // swiftformat:disable:next indent
 			.resume(throwing: MASError.error("Observer deallocated before download completed for ADAM ID \(adamID)"))
@@ -90,7 +90,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 	}
 
 	nonisolated func set(continuation: CheckedContinuation<Void, any Error>) {
-		self.continuation = continuation
+		unsafe self.continuation = continuation
 	}
 
 	nonisolated func downloadQueue(_: CKDownloadQueue, changedWithAddition _: SSDownload) {
@@ -131,7 +131,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 			alreadyResumed: alreadyResumed,
 			pkgHardLinkURL: pkgHardLinkURL,
 			receiptHardLinkURL: receiptHardLinkURL,
-			performing: action
+			performing: action,
 		)
 		alreadyResumed = true
 	}
@@ -140,12 +140,12 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		alreadyResumed: Bool,
 		pkgHardLinkURL: URL?,
 		receiptHardLinkURL: URL?,
-		performing action: (CheckedContinuation<Void, any Error>) -> Void
+		performing action: (CheckedContinuation<Void, any Error>) -> Void,
 	) {
 		guard !alreadyResumed else {
 			return
 		}
-		guard let continuation else {
+		guard let continuation = unsafe continuation else {
 			MAS.printer.error("Failed to obtain download continuation for ADAM ID \(adamID)")
 			return
 		}
@@ -160,7 +160,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		do {
 			let downloadFolderChildURLs = try FileManager.default.contentsOfDirectory(
 				at: downloadFolderURL,
-				includingPropertiesForKeys: [.contentModificationDateKey, .isRegularFileKey]
+				includingPropertiesForKeys: [.contentModificationDateKey, .isRegularFileKey],
 			)
 			do {
 				pkgHardLinkURL = try hardLinkURL(
@@ -174,7 +174,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 					}
 					.max { $0.date < $1.date }?
 					.url,
-					existing: pkgHardLinkURL
+					existing: pkgHardLinkURL,
 				)
 			} catch {
 				MAS.printer.warning("Failed to link pkg for", snapshot.appNameAndVersion, error: error)
@@ -183,7 +183,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 			do {
 				receiptHardLinkURL = try hardLinkURL(
 					to: downloadFolderChildURLs.first { $0.lastPathComponent == "receipt" },
-					existing: receiptHardLinkURL
+					existing: receiptHardLinkURL,
 				)
 			} catch {
 				MAS.printer.warning("Failed to link receipt for", snapshot.appNameAndVersion, error: error)
@@ -194,7 +194,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 				downloadFolderURL.path(percentEncoded: false).quoted,
 				"for",
 				snapshot.appNameAndVersion,
-				error: error
+				error: error,
 			)
 		}
 
@@ -227,7 +227,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 				"% ",
 				snapshot.activePhaseType.performed,
 				separator: "",
-				terminator: ""
+				terminator: "",
 			)
 		}
 
@@ -248,7 +248,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 				MAS.printer.info(
 					String(describing: action).capitalizingFirstCharacter,
 					"progress cannot be displayed",
-					terminator: ""
+					terminator: "",
 				)
 				try install(appNameAndVersion: snapshot.appNameAndVersion)
 				MAS.printer.clearCurrentLine(of: .standardOutput)
@@ -282,7 +282,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 			for: .itemReplacementDirectory,
 			in: .userDomainMask,
 			appropriateFor: URL.homeDirectory,
-			create: true
+			create: true,
 		)
 		.appending(path: "\(adamID)-\(url.lastPathComponent)", directoryHint: .notDirectory)
 		try fileManager.linkItem(at: url, to: hardLinkURL)
@@ -310,7 +310,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 				try fileManager.copyItem(at: receiptHardLinkURL, to: receiptURL)
 				try fileManager.setAttributes(
 					[.ownerAccountID: 0, .groupOwnerAccountID: 0],
-					ofItemAtPath: receiptURL.path(percentEncoded: false)
+					ofItemAtPath: receiptURL.path(percentEncoded: false),
 				)
 			}
 		} catch {
@@ -319,7 +319,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 				Failed to copy receipt for \(appNameAndVersion) from \(receiptHardLinkURL.path(percentEncoded: false).quoted)\
 				 to \(receiptURL.path(percentEncoded: false).quoted)
 				""",
-				error: error
+				error: error,
 			)
 		}
 
@@ -354,7 +354,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 					.prependIfNotEmpty("\n\nStandard error:\n")
 					?? "" // swiftformat:disable:this wrap
 				)
-				"""
+				""",
 			)
 		}
 
@@ -390,24 +390,24 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 				Exit status: \(process.terminationStatus)\(
 					standardOutputText.trimmingCharacters(in: .whitespacesAndNewlines).prependIfNotEmpty("\n\nStandard output:\n")
 				)\(standardErrorText.trimmingCharacters(in: .whitespacesAndNewlines).prependIfNotEmpty("\n\nStandard error:\n"))
-				"""
+				""",
 			)
 		}
 		guard
 			let appFolderURLSubstring = standardErrorText
-			.matches(of: appFolderURLRegex)
+			.matches(of: unsafe appFolderURLRegex)
 			.compactMap(\.1)
 			.min(by: { $0.count < $1.count })
 		else {
 			throw MASError.error(
 				"Failed to find app folder URL in installer output for \(appNameAndVersion)",
-				error: standardErrorText
+				error: standardErrorText,
 			)
 		}
 		guard let appFolderURL = URL(string: String(appFolderURLSubstring)) else {
 			throw MASError.error(
 				"Failed to parse app folder URL for \(appNameAndVersion) from \(appFolderURLSubstring)",
-				error: standardErrorText
+				error: standardErrorText,
 			)
 		}
 
@@ -531,7 +531,7 @@ private func deleteTempFolder(containing url: URL?, fileType: String) {
 				"Failed to delete temp folder containing",
 				fileType,
 				url.path(percentEncoded: false),
-				error: error
+				error: error,
 			)
 		}
 	}

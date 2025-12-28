@@ -85,7 +85,7 @@ struct Printer: Sendable {
 		format: String,
 		error: (any Error)?,
 		separator: String,
-		terminator: String
+		terminator: String,
 	) {
 		guard !items.isEmpty || (error != nil && !(error is ExitCode)) else {
 			return
@@ -101,7 +101,7 @@ struct Printer: Sendable {
 				return "\(errorDescription.isEmpty ? "" : items.isEmpty ? " " : "\n")\(errorDescription)\(terminator)"
 			}
 			?? terminator, // swiftformat:disable:this indent
-			to: .standardError
+			to: .standardError,
 		)
 	}
 
@@ -119,7 +119,7 @@ struct Printer: Sendable {
 		format: String,
 		separator: String,
 		terminator: String,
-		to fileHandle: FileHandle
+		to fileHandle: FileHandle,
 	) {
 		let formattedPrefix = mas.format(prefix: prefix, format: format, for: fileHandle)
 		print(
@@ -127,7 +127,7 @@ struct Printer: Sendable {
 			?? [formattedPrefix], // swiftformat:disable:this indent
 			separator: separator,
 			terminator: terminator,
-			to: fileHandle
+			to: fileHandle,
 		)
 	}
 }

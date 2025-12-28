@@ -13,7 +13,7 @@ extension MAS {
 	/// installed from the App Store.
 	struct Outdated: AsyncParsableCommand, Sendable {
 		static let configuration = CommandConfiguration(
-			abstract: "List pending app updates from the App Store"
+			abstract: "List pending app updates from the App Store",
 		)
 
 		@OptionGroup
@@ -34,8 +34,8 @@ extension MAS {
 					lookupAppFromAppID: lookupAppFromAppID,
 					accurateOptionGroup: accurateOptionGroup,
 					verboseOptionGroup: verboseOptionGroup,
-					optionalAppIDsOptionGroup: optionalAppIDsOptionGroup
-				)
+					optionalAppIDsOptionGroup: optionalAppIDsOptionGroup,
+				),
 			)
 		}
 
@@ -51,15 +51,15 @@ extension MAS {
 			let format = "%\(maxADAMIDLength)lu  %@  (%@ -> %@)"
 			MAS.printer.info(
 				outdatedApps.map { installedApp, newVersion in
-					String(
+					unsafe String(
 						format: format,
 						installedApp.adamID,
 						installedApp.name.padding(toLength: maxNameLength, withPad: " ", startingAt: 0),
 						installedApp.version.padding(toLength: maxVersionLength, withPad: " ", startingAt: 0),
-						newVersion
+						newVersion,
 					)
 				}
-				.joined(separator: "\n")
+				.joined(separator: "\n"),
 			)
 		}
 	}
