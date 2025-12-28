@@ -10,7 +10,6 @@ enum MASError: Error {
 	case noCatalogAppsFound(for: String)
 	case unknownAppID(AppID)
 	case unparsableURL(String)
-	case unsupportedCommand(String)
 
 	static func error(
 		_ message: String,
@@ -38,11 +37,6 @@ extension MASError: CustomStringConvertible {
 			"No apps found in the App Store for \(appID)"
 		case let .unparsableURL(string):
 			"Failed to parse URL from \(string)"
-		case let .unsupportedCommand(commandName):
-			"""
-			\(commandName) is not supported on this macOS version due to changes in macOS
-			See https://github.com/mas-cli/mas#%EF%B8%8F-known-issues
-			"""
 		}
 	}
 }

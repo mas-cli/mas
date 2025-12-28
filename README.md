@@ -95,28 +95,6 @@ Alternatively, binaries & sources are available from
 [GitHub Releases](https://github.com/mas-cli/mas/releases).
 
 </details>
-<details>
-<summary>
-
-#### 🕊 Swift 5 runtime support
-
-</summary>
-
-mas requires Swift 5 runtime support. macOS 10.14.4 (Mojave) & newer include it,
-but earlier releases do not. Without it, running mas might report errors similar
-to:
-
-> dyld: Symbol not found: _$s11SubSequenceSlTl
-
-To get Swift 5 support on macOS versions older than 10.14.4 (Mojave), you can:
-
-- Update to macOS 10.14.4 (Mojave) or newer
-- Install the [Swift 5 Runtime Support for Command Line Tools](
-    https://support.apple.com/en-us/106446
-  )
-- Install Xcode 10.2 or newer to `/Applications/Xcode.app`
-
-</details>
 </details>
 </details>
 <details>
@@ -386,39 +364,6 @@ All the commands in this section interact with the Apple Account for which you
 are signed in to the App Store. These commands do not interact with the Apple
 Account for which your macOS user is signed in.
 
-<details>
-<summary>
-
-#### `mas signin`
-
-</summary>
-
-> ⛔ The `signin` command is not supported on macOS 10.13 (High Sierra) or newer.
-> On those macOS versions, sign in via the App Store instead (see the
-> [known issue](#-broken-apple-private-frameworks)).
-
-On macOS 10.12 (Sierra) or older, `mas signin <apple-id>` signs in to the
-specified Apple Account in the App Store.
-
-```console
-$ mas signin mas@example.com
-Password:
-```
-
-Providing the `--dialog` flag signs in using a graphical dialog provided by App
-Store.
-
-```shell
-mas signin --dialog mas@example.com
-```
-
-You can also embed your password in the command.
-
-```shell
-mas signin mas@example.com MyPassword
-```
-
-</details>
 <details>
 <summary>
 

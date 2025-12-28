@@ -57,9 +57,6 @@ complete -c mas -n "__fish_seen_subcommand_from help" -xa "open"
 complete -c mas -n "__fish_use_subcommand" -f -a outdated -d "List pending app updates from the App Store"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "outdated"
 complete -c mas -n "__fish_seen_subcommand_from outdated" -l verbose -d "Output warnings about app IDs unknown to the App Store"
-### region
-complete -c mas -n "__fish_use_subcommand" -f -a region -d "Output the assumed region of the App Store"
-complete -c mas -n "__fish_seen_subcommand_from help" -xa "region"
 ### reset
 complete -c mas -n "__fish_use_subcommand" -f -a reset -d "Reset App Store processes & clear cached App Store downloads"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "reset"
