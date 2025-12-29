@@ -186,7 +186,8 @@ private extension String {
 
 private extension [String] {
 	func compareSemVerElements(to that: Self) -> ComparisonResult {
-		zip(self, that).first { $0 != $1 }.map { $0.compareSemVerElement(to: $1) } ?? (count.compare(to: that.count))
+		zip(self, that).first { $0 != $1 }.map { $0.compareSemVerElement(to: $1) }
+		?? dropLast { $0 == "0" }.count.compare(to: that.dropLast { $0 == "0" }.count) // swiftformat:disable:this indent
 	}
 }
 

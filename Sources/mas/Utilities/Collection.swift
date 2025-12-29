@@ -6,6 +6,12 @@
 //
 
 extension Collection {
+	func dropLast(while predicate: (Element) throws -> Bool) rethrows -> SubSequence {
+		try indices.reversed().first { try !predicate(self[$0]) }.map { self[...$0] } ?? self[endIndex...]
+	}
+}
+
+extension Collection {
 	func compactMap<T, E: Error>(_ transform: (Element) async throws(E) -> T?) async throws(E) -> [T] {
 		var transformedElements = [T]()
 		transformedElements.reserveCapacity(count)
