@@ -157,7 +157,7 @@ struct UniversalSemVer: SemVerSyntax {
 	}
 }
 
-private extension BigInt {
+private extension BigUInt {
 	func compare(to that: Self) -> ComparisonResult {
 		self < that ? .orderedAscending : self == that ? .orderedSame : .orderedDescending
 	}
@@ -176,8 +176,8 @@ private extension String {
 		range: Range<Self.Index>? = nil,
 		locale: Locale? = nil,
 	) -> ComparisonResult {
-		let selfInteger = BigInt(self)
-		let thatInteger = BigInt(that)
+		let selfInteger = BigUInt(self)
+		let thatInteger = BigUInt(that)
 		return selfInteger.map { thatInteger.map($0.compare(to:)) ?? .orderedAscending }
 		?? thatInteger.map { _ in .orderedDescending } // swiftformat:disable:this indent
 		?? compare(that, options: mask, range: range, locale: locale) // swiftformat:disable:this indent
