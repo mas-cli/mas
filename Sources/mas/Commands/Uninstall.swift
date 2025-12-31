@@ -18,8 +18,8 @@ extension MAS {
 		)
 
 		/// Flag indicating that uninstall shouldn't be performed.
-		@Flag(help: "Perform dry run")
-		private var dryRun = false
+		@Flag(name: .customLong("dry-run"), help: "Perform dry run")
+		private var isPerformingDryRun = false
 		@OptionGroup
 		private var requiredAppIDsOptionGroup: RequiredAppIDsOptionGroup
 
@@ -43,7 +43,7 @@ extension MAS {
 			guard !uninstallingAppByPath.isEmpty else { // swiftformat:enable indent
 				return
 			}
-			guard !dryRun else {
+			guard !isPerformingDryRun else {
 				printer.notice("Dry run. A wet run would uninstall:\n")
 				for appPath in uninstallingAppByPath.keys {
 					printer.info(appPath)
