@@ -1,5 +1,5 @@
 //
-// OptionalAppIDsOptionGroup.swift
+// InstalledAppIDsOptionGroup.swift
 // mas
 //
 // Copyright © 2025 mas-cli. All rights reserved.
@@ -7,7 +7,7 @@
 
 internal import ArgumentParser
 
-struct OptionalAppIDsOptionGroup: ParsableArguments {
+struct InstalledAppIDsOptionGroup: ParsableArguments {
 	@OptionGroup
 	private var forceBundleIDOptionGroup: ForceBundleIDOptionGroup
 	@Argument(help: ArgumentHelp("App ID", valueName: "app-id"))

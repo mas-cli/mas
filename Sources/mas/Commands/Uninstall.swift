@@ -20,15 +20,19 @@ extension MAS {
 		/// Flag indicating that uninstall shouldn't be performed.
 		@Flag(name: .customLong("dry-run"), help: "Perform dry run")
 		private var isPerformingDryRun = false
+		@Flag(name: .customLong("all"), help: "Uninstall all App Store apps")
+		private var isUninstallingAll = false
 		@OptionGroup
-		private var requiredAppIDsOptionGroup: RequiredAppIDsOptionGroup
+		private var installedAppIDsOptionGroup: InstalledAppIDsOptionGroup
 
 		func run() async throws {
 			try run(installedApps: try await installedApps)
 		}
 
 		private func run(installedApps: [InstalledApp]) throws {
-			let uninstallingAppByPath = requiredAppIDsOptionGroup.appIDs // swiftformat:disable indent
+			let uninstallingAppByPath = (
+				isUninstallingAll ? installedApps.map { AppID.adamID($0.adamID) } : installedAppIDsOptionGroup.appIDs,
+			) // swiftformat:disable indent
 			.reduce(into: OrderedDictionary<String, InstalledApp>()) { uninstallingAppByPath, appID in
 				let uninstallingApps = installedApps.filter { $0.matches(appID) }
 				guard !uninstallingApps.isEmpty else {
