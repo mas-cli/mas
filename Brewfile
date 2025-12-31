@@ -1,4 +1,4 @@
-brew "actionlint"        # 1.7.9
+brew "actionlint"        # 1.7.10
 brew "gh"                # 2.83.2
 brew "git"               # 2.52.0
 brew "ipsw"              # 3.1.647
