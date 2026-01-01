@@ -107,13 +107,13 @@ func outdatedApps(
 	lookupAppFromAppID: (AppID) async throws -> CatalogApp,
 	accurateOptionGroup: AccurateOptionGroup,
 	verboseOptionGroup: VerboseOptionGroup,
-	optionalAppIDsOptionGroup: OptionalAppIDsOptionGroup,
+	installedAppIDsOptionGroup: InstalledAppIDsOptionGroup,
 ) async -> [OutdatedApp] {
 	await accurateOptionGroup.outdatedApps(
 		accurate: { shouldIgnoreUnknownApps in
 			await withTaskGroup { group in
 				let installedApps = await installedApps
-				.filter(for: optionalAppIDsOptionGroup.appIDs) // swiftformat:disable indent
+				.filter(for: installedAppIDsOptionGroup.appIDs) // swiftformat:disable indent
 				.filterOutApps(
 					unknownTo: lookupAppFromAppID,
 					if: shouldIgnoreUnknownApps,
@@ -147,7 +147,7 @@ func outdatedApps(
 		},
 		inaccurate: {
 			await installedApps
-			.filter(for: optionalAppIDsOptionGroup.appIDs) // swiftformat:disable indent
+			.filter(for: installedAppIDsOptionGroup.appIDs) // swiftformat:disable indent
 			.compactMap { installedApp in
 				do {
 					let catalogApp = try await lookupAppFromAppID(.adamID(installedApp.adamID))

@@ -16,14 +16,14 @@ extension MAS {
 		)
 
 		@OptionGroup
-		private var optionalAppIDsOptionGroup: OptionalAppIDsOptionGroup
+		private var installedAppIDsOptionGroup: InstalledAppIDsOptionGroup
 
 		func run() async throws {
 			run(installedApps: try await installedApps)
 		}
 
 		func run(installedApps: [InstalledApp]) {
-			let installedApps = installedApps.filter(for: optionalAppIDsOptionGroup.appIDs)
+			let installedApps = installedApps.filter(for: installedAppIDsOptionGroup.appIDs)
 			guard
 				let maxADAMIDLength = installedApps.map({ String(describing: $0.adamID).count }).max(),
 				let maxNameLength = installedApps.map(\.name.count).max()

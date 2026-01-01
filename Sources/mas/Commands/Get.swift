@@ -19,11 +19,11 @@ extension MAS {
 		@OptionGroup
 		private var forceOptionGroup: ForceOptionGroup
 		@OptionGroup
-		private var requiredAppIDsOptionGroup: RequiredAppIDsOptionGroup
+		private var catalogAppIDsOptionGroup: CatalogAppIDsOptionGroup
 
 		func run() async throws {
 			try await AppStore.get.apps(
-				withAppIDs: requiredAppIDsOptionGroup.appIDs,
+				withAppIDs: catalogAppIDsOptionGroup.appIDs,
 				force: forceOptionGroup.force,
 				installedApps: try await installedApps,
 				lookupAppFromAppID: lookup(appID:),

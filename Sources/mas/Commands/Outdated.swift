@@ -21,7 +21,7 @@ extension MAS {
 		@OptionGroup
 		private var verboseOptionGroup: VerboseOptionGroup
 		@OptionGroup
-		private var optionalAppIDsOptionGroup: OptionalAppIDsOptionGroup
+		private var installedAppIDsOptionGroup: InstalledAppIDsOptionGroup
 
 		func run() async throws {
 			await run(installedApps: try await installedApps.filter(!\.isTestFlight), lookupAppFromAppID: lookup(appID:))
@@ -34,7 +34,7 @@ extension MAS {
 					lookupAppFromAppID: lookupAppFromAppID,
 					accurateOptionGroup: accurateOptionGroup,
 					verboseOptionGroup: verboseOptionGroup,
-					optionalAppIDsOptionGroup: optionalAppIDsOptionGroup,
+					installedAppIDsOptionGroup: installedAppIDsOptionGroup,
 				),
 			)
 		}

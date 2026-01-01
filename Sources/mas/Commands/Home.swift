@@ -20,7 +20,7 @@ extension MAS {
 		)
 
 		@OptionGroup
-		private var requiredAppIDsOptionGroup: RequiredAppIDsOptionGroup
+		private var catalogAppIDsOptionGroup: CatalogAppIDsOptionGroup
 
 		func run() async {
 			await run(lookupAppFromAppID: lookup(appID:))
@@ -28,7 +28,7 @@ extension MAS {
 
 		private func run(lookupAppFromAppID: (AppID) async throws -> CatalogApp) async {
 			await run(
-				catalogApps: await requiredAppIDsOptionGroup.appIDs.lookupCatalogApps(lookupAppFromAppID: lookupAppFromAppID),
+				catalogApps: await catalogAppIDsOptionGroup.appIDs.lookupCatalogApps(lookupAppFromAppID: lookupAppFromAppID),
 			)
 		}
 
