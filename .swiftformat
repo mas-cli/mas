@@ -75,6 +75,7 @@
 --single-line-for-each convert
 --stored-var-attributes prev-line
 --tab-width 2
+--timezone utc
 --type-attributes prev-line
 --type-body-marks remove
 --wrap-effects never
