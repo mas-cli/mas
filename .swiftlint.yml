@@ -2,7 +2,7 @@
 # .swiftlint.yml
 # mas
 #
-# SwiftLint 0.62.2
+# SwiftLint 0.63.0
 #
 ---
 excluded:
@@ -33,7 +33,6 @@ disabled_rules:
 - prefixed_toplevel_constant
 - strict_fileprivate
 - type_body_length
-- vertical_whitespace_between_cases
 attributes:
   always_on_line_above: ['@Flag', '@MainActor', '@OptionGroup']
 deployment_target:
@@ -95,6 +94,8 @@ prefer_key_path:
   restrict_to_standard_functions: false
 private_over_fileprivate:
   validate_extensions: true
+redundant_self:
+  only_in_closures: false
 redundant_type_annotation:
   consider_default_literal_types_redundant: true
 trailing_comma:
@@ -132,3 +133,5 @@ unused_import:
     allowed_transitive_imports:
     - _Concurrency
     - _StringProcessing
+vertical_whitespace_between_cases:
+  separation: never
