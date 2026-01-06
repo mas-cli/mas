@@ -14,7 +14,11 @@
 
 print_notice '🚨 Linting' "${@}"
 
-ensure_command_available actionlint git markdownlint-cli2 periphery shellcheck swiftformat swiftlint yamllint || exit
+ensure_command_available actionlint git markdownlint-cli2 shellcheck swiftformat swiftlint yamllint || exit
+[[ "$(/usr/bin/arch)" = arm64 && "${$(sw_vers -productVersion)%%.*}" -ge 15 ]]
+integer -r can_use_periphery="$((! ?))"
+# shellcheck disable=SC1083
+((can_use_periphery)) && { ensure_command_available periphery || exit }
 
 zmodload zsh/zutil
 zparseopts -D -A received_flag A P
@@ -41,7 +45,7 @@ if ! [[ -v 'received_flag[-A]' ]]; then
 	((exit_status |= ${?}))
 fi
 
-if ! [[ -v 'received_flag[-P]' ]]; then
+if ((can_use_periphery)) && ! [[ -v 'received_flag[-P]' ]]; then
 	printf -- $'--> 🌀 Periphery\n'
 	script -q /dev/null periphery scan --exclude-tests |
 	 (grep -vxE '(?:\x1b\[0;1;32m|\^D\x08{2})\* (?:\x1b\[0;0m\x1b\[0;1m)?No unused code detected\.(?:\x1b\[0;0m)?\r' || true)

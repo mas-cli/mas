@@ -20,8 +20,7 @@ protocol Version: CustomStringConvertible {
 	var prerelease: String? { get }
 	var build: String? { get }
 
-	// periphery:ignore
-	init?(from versionString: String)
+	init?(from versionString: String) // periphery:ignore
 }
 
 protocol CoreIntegerVersion: Version {
@@ -36,12 +35,11 @@ extension CoreIntegerVersion where Integer: FixedWidthInteger {
 	}
 }
 
-// periphery:ignore
 protocol MajorMinorPatch { // swiftlint:disable unused_declaration
-	var major: String { get }
-	var minor: String { get }
-	var patch: String { get } // swiftlint:enable unused_declaration
-}
+	var major: String { get } // periphery:ignore
+	var minor: String { get } // periphery:ignore
+	var patch: String { get } // periphery:ignore
+} // swiftlint:enable unused_declaration
 
 protocol MajorMinorPatchInteger: MajorMinorPatch {
 	associatedtype Integer: BinaryInteger

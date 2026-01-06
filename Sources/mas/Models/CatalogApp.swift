@@ -8,8 +8,7 @@
 struct CatalogApp: Sendable {
 	let adamID: ADAMID
 	let appStorePageURLString: String
-	// periphery:ignore
-	let bundleID: String
+	let bundleID: String // periphery:ignore
 	let fileSizeBytes: String
 	let formattedPrice: String?
 	let minimumOSVersion: String
