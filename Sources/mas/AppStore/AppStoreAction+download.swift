@@ -238,6 +238,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		MAS.printer.clearCurrentLine(of: .standardOutput)
 
 		do {
+			let appFolderPath: String?
 			if let error = snapshot.error {
 				guard error is Ignorable else {
 					throw error
@@ -250,7 +251,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 					"progress cannot be displayed",
 					terminator: "",
 				)
-				try await install(appNameAndVersion: snapshot.appNameAndVersion)
+				appFolderPath = try await install(appNameAndVersion: snapshot.appNameAndVersion)
 				MAS.printer.clearCurrentLine(of: .standardOutput)
 			} else {
 				guard !snapshot.isFailed else {
@@ -263,9 +264,14 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 				guard !snapshot.isCancelled else {
 					throw MASError.error("Download cancelled for \(snapshot.appNameAndVersion)")
 				}
+
+				appFolderPath = snapshot.appFolderPath
 			}
 
-			MAS.printer.notice(action.performed.capitalizingFirstCharacter, snapshot.appNameAndVersion)
+			MAS.printer.notice(
+				[action.performed.capitalizingFirstCharacter, snapshot.appNameAndVersion]
+				+ (appFolderPath.map { ["in", $0] } ?? []), // swiftformat:disable:this indent
+			)
 			resumeOnce { $0.resume() }
 		} catch {
 			resumeOnce { $0.resume(throwing: error) }
@@ -289,7 +295,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		return hardLinkURL
 	}
 
-	private func install(appNameAndVersion: String) async throws {
+	private func install(appNameAndVersion: String) async throws -> String {
 		guard let pkgHardLinkPath = pkgHardLinkURL?.path(percentEncoded: false) else {
 			throw MASError.error("Failed to find pkg to \(action) \(appNameAndVersion)")
 		}
@@ -357,6 +363,8 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		)
 
 		LSRegisterURL(appFolderURL as NSURL, true) // swiftlint:disable:this legacy_objc_type
+
+		return appFolderURL.path(percentEncoded: false)
 	}
 }
 
@@ -366,6 +374,7 @@ private struct DownloadSnapshot: Sendable { // swiftlint:disable:this one_declar
 	let appNameAndVersion: String
 	let activePhaseType: PhaseType
 	let phasePercentComplete: Float
+	let appFolderPath: String?
 	let isCancelled: Bool
 	let isFailed: Bool
 	let error: (any Error)?
@@ -380,6 +389,7 @@ private struct DownloadSnapshot: Sendable { // swiftlint:disable:this one_declar
 		appNameAndVersion = "\(metadata.title ?? "unknown app") (\(version ?? "unknown version"))"
 		activePhaseType = PhaseType(action, rawValue: status.activePhase?.phaseType)
 		phasePercentComplete = status.phasePercentComplete
+		appFolderPath = download.installPath
 		isCancelled = status.isCancelled
 		isFailed = status.isFailed
 		error = status.error.map { $0 as NSError }.map { error in

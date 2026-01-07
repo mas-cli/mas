@@ -23,6 +23,7 @@ struct Printer: Sendable {
 	}
 
 	/// Prints to `stdout`.
+	@_disfavoredOverload
 	func info(_ items: Any..., separator: String = " ", terminator: String = "\n") {
 		info(items, separator: separator, terminator: terminator)
 	}
@@ -34,6 +35,7 @@ struct Printer: Sendable {
 
 	/// Prints to `stdout`, prefixed with "==> "; if connected to a terminal, the
 	/// prefix is blue.
+	@_disfavoredOverload
 	func notice(_ items: Any..., separator: String = " ", terminator: String = "\n") {
 		notice(items, separator: separator, terminator: terminator)
 	}
@@ -46,6 +48,7 @@ struct Printer: Sendable {
 
 	/// Prints to `stderr`, prefixed with "Warning: "; if connected to a terminal,
 	/// the prefix is yellow & underlined.
+	@_disfavoredOverload
 	func warning(_ items: Any..., error: (any Error)? = nil, separator: String = " ", terminator: String = "\n") {
 		warning(items, error: error, separator: separator, terminator: terminator)
 	}
@@ -58,6 +61,7 @@ struct Printer: Sendable {
 
 	/// Prints to `stderr`, prefixed with "Error: "; if connected to a terminal,
 	/// the prefix is red & underlined.
+	@_disfavoredOverload
 	func error(_ items: Any..., error: (any Error)? = nil, separator: String = " ", terminator: String = "\n") {
 		self.error(items, error: error, separator: separator, terminator: terminator)
 	}
