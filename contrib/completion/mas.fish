@@ -20,9 +20,6 @@ end
 # no file completions in mas
 complete -c mas -f
 
-### account
-complete -c mas -n "__fish_use_subcommand" -f -a account -d "Output the Apple Account signed in to the App Store"
-complete -c mas -n "__fish_seen_subcommand_from help" -xa "account"
 ### config
 complete -c mas -n "__fish_use_subcommand" -f -a config -d "Output mas config & related system info"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "config"
@@ -68,10 +65,6 @@ complete -c mas -n "__fish_seen_subcommand_from search" -l price -d "Output the 
 ### seller
 complete -c mas -n "__fish_use_subcommand" -f -a seller -d "Open apps' seller pages in the default web browser"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "seller"
-### signin
-complete -c mas -n "__fish_use_subcommand" -f -a signin -d "Sign in to an Apple Account in the App Store"
-complete -c mas -n "__fish_seen_subcommand_from help" -xa "signin"
-complete -c mas -n "__fish_seen_subcommand_from signin" -l dialog -d "Provide password via graphical dialog"
 ### signout
 complete -c mas -n "__fish_use_subcommand" -f -a signout -d "Sign out of the Apple Account currently signed in to the App Store" # editorconfig-checker-disable-line
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "signout"
