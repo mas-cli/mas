@@ -15,10 +15,10 @@ struct OutdatedAppOptionGroup: ParsableArguments {
 	@Flag(
 		name: .customLong("check-min-os"),
 		inversion: .prefixedNo,
-		help: "Check that macOS is new enough to install the latest app version",
+		help: "Check if macOS can install latest app version",
 	)
 	private var shouldCheckMinimumOSVersion = true // swiftformat:disable:this organizeDeclarations
-	@Flag(name: .customLong("verbose"), help: "Output warnings about app IDs unknown to the App Store")
+	@Flag(name: .customLong("verbose"), help: "Warn about app IDs unknown to the App Store")
 	private var shouldWarnIfUnknownApp = false // swiftformat:disable:this organizeDeclarations
 	@OptionGroup
 	var installedAppIDsOptionGroup: InstalledAppIDsOptionGroup
