@@ -23,7 +23,6 @@ complete -c mas -f
 ### config
 complete -c mas -n "__fish_use_subcommand" -f -a config -d "Output mas config & related system info"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "config"
-complete -c mas -n "__fish_seen_subcommand_from config" -l markdown -d "Output as Markdown"
 ### get
 complete -c mas -n "__fish_use_subcommand" -f -a get -d "Get & install free apps from the App Store"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "get"
@@ -57,7 +56,6 @@ complete -c mas -n "__fish_seen_subcommand_from outdated" -l verbose -d "Output 
 ### reset
 complete -c mas -n "__fish_use_subcommand" -f -a reset -d "Reset App Store processes & clear cached App Store downloads"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "reset"
-complete -c mas -n "__fish_seen_subcommand_from reset" -l debug -d "Output debug information"
 ### search
 complete -c mas -n "__fish_use_subcommand" -f -a search -d "Search for apps in the App Store"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "search"
