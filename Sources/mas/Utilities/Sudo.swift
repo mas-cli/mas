@@ -10,7 +10,7 @@ private import Darwin
 private import Foundation
 
 func sudo(_ executableName: String, args: some Sequence<String>) throws {
-	guard let executablePath = Bundle.main.executableURL?.path(percentEncoded: false) else {
+	guard let executablePath = Bundle.main.executableURL?.filePath else {
 		throw MASError.error("Failed to get the executable path for sudo \(executableName) \(args.joined(separator: " "))")
 	}
 

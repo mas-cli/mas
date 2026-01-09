@@ -9,7 +9,7 @@ struct InstalledApp: Sendable {
 	let adamID: ADAMID
 	let bundleID: String
 	let name: String
-	let path: String // periphery:ignore
+	let path: String
 	let version: String
 
 	var isTestFlight: Bool {
