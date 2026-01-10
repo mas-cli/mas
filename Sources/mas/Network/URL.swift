@@ -10,6 +10,10 @@ private import Foundation
 private import ObjectiveC
 
 extension URL {
+	var filePath: String {
+		String(path(percentEncoded: false).dropLast { $0 == "/" })
+	}
+
 	func open(configuration: NSWorkspace.OpenConfiguration = NSWorkspace.OpenConfiguration()) async throws {
 		try await NSWorkspace.shared.open(self, configuration: configuration)
 	}

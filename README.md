@@ -547,7 +547,7 @@ $ mdls -rn kMDItemAppStoreAdamID /Applications/WhatsApp.app
 If an app has been indexed in the MDS, the path to the app can be found:
 
 ```shell
-mdfind 'kMDItemAppStoreAdamID == <adam-id>'
+mdfind 'kMDItemAppStoreAdamID = <adam-id>'
 ```
 
 If any App Store apps are not properly indexed, you can reindex:

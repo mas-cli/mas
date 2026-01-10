@@ -6,7 +6,7 @@
 //
 
 internal import ArgumentParser
-private import Foundation
+internal import Foundation
 
 @main
 struct MAS: AsyncParsableCommand, Sendable {
@@ -120,3 +120,12 @@ extension ParsableCommand {
 private func cast<T>(_ instance: Any, as _: T.Type) -> T? {
 	instance as? T
 }
+
+private let applicationsFolderPath = "/Applications"
+private let applicationsFolderURL = URL(filePath: applicationsFolderPath, directoryHint: .isDirectory)
+
+let applicationsFolderURLs = UserDefaults(suiteName: "com.apple.appstored")?
+.dictionary(forKey: "PreferredVolume")?["name"] // swiftformat:disable indent
+.map { [applicationsFolderURL, URL(filePath: "/Volumes/\($0)\(applicationsFolderPath)", directoryHint: .isDirectory)] }
+?? [applicationsFolderURL]
+// swiftformat:enable indent
