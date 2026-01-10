@@ -305,10 +305,9 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 					}
 				} else {
 					MAS.printer.warning(
+						action.performed.capitalizingFirstCharacter,
 						snapshot.appNameAndVersion,
-						"was",
-						action.performed,
-						"outside of the applications folders:",
+						"outside of the applications folders, in",
 						appFolderURL.filePath,
 					)
 				}
