@@ -305,10 +305,9 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 					}
 				} else {
 					MAS.printer.warning(
+						action.performed.capitalizingFirstCharacter,
 						snapshot.appNameAndVersion,
-						"was",
-						action.performed,
-						"outside of the applications folders:",
+						"outside of the applications folders, in",
 						appFolderURL.filePath,
 					)
 				}
@@ -380,10 +379,17 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 				if fileManager.fileExists(atPath: receiptURL.filePath) {
 					try fileManager.removeItem(at: receiptURL)
 				} else {
-					try fileManager.createDirectory(at: receiptURL.deletingLastPathComponent(), withIntermediateDirectories: true)
+					try fileManager.createDirectory(
+						at: receiptURL.deletingLastPathComponent(),
+						withIntermediateDirectories: true,
+						attributes: [.ownerAccountID: 0, .groupOwnerAccountID: 0, .posixPermissions: 0o755],
+					)
 				}
 				try fileManager.copyItem(at: receiptHardLinkURL, to: receiptURL)
-				try fileManager.setAttributes([.ownerAccountID: 0, .groupOwnerAccountID: 0], ofItemAtPath: receiptURL.filePath)
+				try fileManager.setAttributes(
+					[.ownerAccountID: 0, .groupOwnerAccountID: 0, .posixPermissions: 0o755],
+					ofItemAtPath: receiptURL.filePath,
+				)
 			}
 		} catch {
 			throw MASError.error(
