@@ -356,10 +356,10 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 
 		guard
 			let appFolderURLSubstring = standardErrorString
-			.matches(of: unsafe appFolderURLRegex)
+			.matches(of: unsafe appFolderURLRegex) // swiftformat:disable indent
 			.compactMap(\.1)
 			.min(by: { $0.count < $1.count })
-		else {
+		else { // swiftformat:enable indent
 			throw MASError.error(
 				"Failed to find app folder URL in installer output for \(appNameAndVersion)",
 				error: standardErrorString,
@@ -413,7 +413,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 	}
 }
 
-private struct DownloadSnapshot: Sendable { // swiftlint:disable:this one_declaration_per_file
+private struct DownloadSnapshot { // swiftlint:disable:this one_declaration_per_file
 	let adamID: ADAMID
 	let version: String?
 	let name: String?
@@ -449,7 +449,7 @@ private enum Ignorable: Error { // swiftlint:disable:this one_declaration_per_fi
 	case installerWorkaround
 }
 
-private enum PhaseType: Equatable, Sendable { // swiftlint:disable:this one_declaration_per_file
+private enum PhaseType: Equatable { // swiftlint:disable:this one_declaration_per_file
 	case processing // swiftlint:disable:this sorted_enum_cases
 	case downloading
 	case downloaded // swiftlint:disable:this sorted_enum_cases

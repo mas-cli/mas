@@ -11,7 +11,7 @@ internal import Testing
 
 private extension MASTests {
 	@Test
-	func cannotFindSellerURLForUnknownAppID() async {
+	func `cannot find seller URL for unknown app ID`() async {
 		let actual = await consequencesOf(try await MAS.main(try MAS.Seller.parse(["1"])) { await $0.run(catalogApps: []) })
 		let expected = Consequences()
 		#expect(actual == expected)

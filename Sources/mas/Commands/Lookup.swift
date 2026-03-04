@@ -14,7 +14,7 @@ extension MAS {
 	/// Uses the iTunes Lookup API:
 	///
 	/// https://performance-partners.apple.com/search-api
-	struct Lookup: AsyncParsableCommand, Sendable {
+	struct Lookup: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
 			abstract: "Output app information from the App Store",
 			aliases: ["info"],

@@ -10,7 +10,7 @@ private import StoreFoundation
 
 extension MAS {
 	/// Updates outdated apps installed from the App Store.
-	struct Update: AsyncParsableCommand, Sendable {
+	struct Update: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
 			abstract: "Update outdated apps installed from the App Store",
 			discussion: requiresRootPrivilegesMessage(),

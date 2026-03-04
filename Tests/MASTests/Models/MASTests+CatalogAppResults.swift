@@ -11,7 +11,7 @@ internal import Testing
 
 private extension MASTests {
 	@Test
-	func parsesCatalogAppResultsFromBBEditJSON() {
+	func `parses catalog app results from BBEdit JSON`() {
 		let actual =
 			consequencesOf(try JSONDecoder().decode(CatalogAppResults.self, from: .init(fromResource: "bbedit")).resultCount)
 		let expected = Consequences(1)
@@ -19,7 +19,7 @@ private extension MASTests {
 	}
 
 	@Test
-	func parsesCatalogAppResultsFromThingsJSON() {
+	func `parses catalog app results from Things JSON`() {
 		let actual =
 			consequencesOf(try JSONDecoder().decode(CatalogAppResults.self, from: .init(fromResource: "things")).resultCount)
 		let expected = Consequences(12)

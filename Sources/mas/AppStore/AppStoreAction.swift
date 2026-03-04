@@ -10,7 +10,7 @@ private import Darwin
 private import OrderedCollections
 private import StoreFoundation
 
-enum AppStoreAction: Sendable {
+enum AppStoreAction {
 	case get
 	case install
 	case update
