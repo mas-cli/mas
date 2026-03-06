@@ -64,7 +64,7 @@ private extension InstalledApp {
 	/// - Parameter catalogApp: `CatalogApp` against which to compare `self`.
 	/// - Returns: `true` if `self` is outdated; `false` otherwise.
 	func isOutdated(comparedTo catalogApp: CatalogApp) -> Bool {
-		SemVerInt(from: catalogApp.minimumOSVersion).flatMap { minimumOSVersion in
+		UniversalSemVerInt(from: catalogApp.minimumOSVersion).flatMap { minimumOSVersion in
 			ProcessInfo.processInfo.isOperatingSystemAtLeast(
 				OperatingSystemVersion(
 					majorVersion: minimumOSVersion.majorInteger,
