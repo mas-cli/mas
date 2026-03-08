@@ -18,17 +18,14 @@ private extension URL {
 				guard
 					let url = item as? URL,
 					(try? url.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) == true,
-					url.lastPathComponent == "Contents"
+					url.pathExtension == "app"
 				else {
 					return nil as URL?
 				}
 
 				enumerator.skipDescendants()
-				return
-					(try? url.appending(path: "_MASReceipt/receipt", directoryHint: .notDirectory).checkResourceIsReachable())
-					== true
-					? url.deletingLastPathComponent()
-					: nil
+				return try? url.appending(path: "Contents/_MASReceipt/receipt", directoryHint: .notDirectory)
+				.checkResourceIsReachable() == true ? url : nil
 			}
 		}
 		?? []
