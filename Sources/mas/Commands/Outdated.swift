@@ -17,7 +17,7 @@ extension MAS {
 		)
 
 		@OptionGroup
-		private var accuracyOptionGroup: AccuracyOptionGroup
+		private var outdatedAppOptionGroup: OutdatedAppOptionGroup
 		@OptionGroup
 		private var verboseOptionGroup: VerboseOptionGroup
 		@OptionGroup
@@ -35,7 +35,7 @@ extension MAS {
 				outdatedApps: await installedApps.outdatedApps(
 					filterFor: installedAppIDsOptionGroup.appIDs,
 					lookupAppFromAppID: lookupAppFromAppID,
-					accuracy: accuracyOptionGroup.accuracy,
+					accuracy: outdatedAppOptionGroup.accuracy,
 					shouldWarnIfUnknownApp: verboseOptionGroup.verbose,
 				),
 			)
