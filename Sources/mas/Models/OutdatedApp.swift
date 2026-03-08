@@ -15,34 +15,61 @@ typealias OutdatedApp = (
 	newVersion: String,
 )
 
-private extension Error {
-	func print(forExpectedAppName appName: String, shouldWarnIfUnknownApp: Bool) {
-		guard let error = self as? MASError, case MASError.unknownAppID = error else {
-			MAS.printer.error(error: self)
-			return
-		}
+extension [InstalledApp] {
+	func outdatedApps(
+		filterFor appIDs: [AppID],
+		lookupAppFromAppID: @escaping @Sendable (AppID) async throws -> CatalogApp,
+		accuracy: OutdatedAccuracy,
+		shouldCheckMinimumOSVersion: Bool,
+		shouldWarnIfUnknownApp: Bool,
+	) async -> [OutdatedApp] {
+		await filter(for: appIDs).concurrentCompactMap { installedApp in
+			if shouldCheckMinimumOSVersion || accuracy == .inaccurate {
+				do {
+					let catalogApp = try await lookupAppFromAppID(.bundleID(installedApp.bundleID))
+					if
+						UniversalSemVerInt(from: catalogApp.minimumOSVersion).flatMap({ minimumOSVersion in
+							ProcessInfo.processInfo.isOperatingSystemAtLeast(
+								OperatingSystemVersion(
+									majorVersion: minimumOSVersion.majorInteger,
+									minorVersion: minimumOSVersion.minorInteger,
+									patchVersion: minimumOSVersion.patchInteger,
+								),
+							)
+						})
+						== false
+					{
+						return nil
+					}
+					if accuracy == .inaccurate {
+						return UniversalSemVer(from: installedApp.version)
+						.compareSemVerAndBuild(to: .init(from: catalogApp.version)) // swiftformat:disable:this indent
+						== .orderedAscending ? OutdatedApp(installedApp, catalogApp.version) : nil
+					} // swiftformat:disable:previous indent
+				} catch {
+					if let error = error as? MASError, case MASError.unknownAppID = error {
+						if shouldWarnIfUnknownApp {
+							MAS.printer.warning(error, "; was expected to identify: ", installedApp.name, separator: "")
+						}
+					} else {
+						MAS.printer.error(error: error)
+					}
 
-		if shouldWarnIfUnknownApp {
-			MAS.printer.warning(self, "; was expected to identify: ", appName, separator: "")
-		}
-	}
-}
-
-private extension InstalledApp {
-	var outdated: OutdatedApp? {
-		get async {
-			await withCheckedContinuation { continuation in
+					return nil
+				}
+			}
+			return await withCheckedContinuation { continuation in
 				Task {
 					let alreadyResumed = ManagedAtomic(false)
 					do {
-						try await AppStore.install.app(withADAMID: adamID) { appStoreVersion, shouldOutput in
+						try await AppStore.install.app(withADAMID: installedApp.adamID) { appStoreVersion, shouldOutput in
 							if
 								shouldOutput,
 								let appStoreVersion,
-								version != appStoreVersion,
+								installedApp.version != appStoreVersion,
 								!alreadyResumed.exchange(true, ordering: .acquiringAndReleasing)
 							{
-								continuation.resume(returning: OutdatedApp(self, appStoreVersion))
+								continuation.resume(returning: OutdatedApp(installedApp, appStoreVersion))
 							}
 							return true
 						}
@@ -53,66 +80,6 @@ private extension InstalledApp {
 						continuation.resume(returning: nil)
 					}
 				}
-			}
-		}
-	}
-
-	/// Determines whether the app is considered outdated.
-	///
-	/// Updates that require a higher macOS version are excluded.
-	///
-	/// - Parameter catalogApp: `CatalogApp` against which to compare `self`.
-	/// - Returns: `true` if `self` is outdated; `false` otherwise.
-	func isOutdated(comparedTo catalogApp: CatalogApp) -> Bool {
-		UniversalSemVerInt(from: catalogApp.minimumOSVersion).flatMap { minimumOSVersion in
-			ProcessInfo.processInfo.isOperatingSystemAtLeast(
-				OperatingSystemVersion(
-					majorVersion: minimumOSVersion.majorInteger,
-					minorVersion: minimumOSVersion.minorInteger,
-					patchVersion: minimumOSVersion.patchInteger,
-				),
-			)
-			? nil // swiftformat:disable:this indent
-			: false
-		}
-		?? ( // swiftformat:disable indent
-			UniversalSemVer(from: version).compareSemVerAndBuild(to: .init(from: catalogApp.version))
-			== .orderedAscending
-		)
-	} // swiftformat:enable indent
-}
-
-extension [InstalledApp] {
-	func outdatedApps(
-		filterFor appIDs: [AppID],
-		lookupAppFromAppID: @escaping @Sendable (AppID) async throws -> CatalogApp,
-		accuracy: OutdatedAccuracy,
-		shouldWarnIfUnknownApp: Bool,
-	) async -> [OutdatedApp] {
-		switch accuracy {
-		case .accurate:
-			await filter(for: appIDs).concurrentCompactMap { await $0.outdated }
-		case .accurateIgnoreUnknownApps:
-			await filter(for: appIDs).concurrentCompactMap { installedApp in
-				do {
-					_ = try await lookupAppFromAppID(.bundleID(installedApp.bundleID))
-					return await installedApp.outdated
-				} catch {
-					error.print(forExpectedAppName: installedApp.name, shouldWarnIfUnknownApp: shouldWarnIfUnknownApp)
-					return nil
-				}
-			}
-		case .inaccurate:
-			await filter(for: appIDs).concurrentCompactMap { installedApp in
-				do {
-					let catalogApp = try await lookupAppFromAppID(.bundleID(installedApp.bundleID))
-					if installedApp.isOutdated(comparedTo: catalogApp) {
-						return OutdatedApp(installedApp, catalogApp.version)
-					}
-				} catch {
-					error.print(forExpectedAppName: installedApp.name, shouldWarnIfUnknownApp: shouldWarnIfUnknownApp)
-				}
-				return nil
 			}
 		}
 	}

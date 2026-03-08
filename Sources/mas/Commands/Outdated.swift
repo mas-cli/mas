@@ -36,6 +36,7 @@ extension MAS {
 					filterFor: installedAppIDsOptionGroup.appIDs,
 					lookupAppFromAppID: lookupAppFromAppID,
 					accuracy: outdatedAppOptionGroup.accuracy,
+					shouldCheckMinimumOSVersion: outdatedAppOptionGroup.shouldCheckMinimumOSVersion,
 					shouldWarnIfUnknownApp: verboseOptionGroup.verbose,
 				),
 			)
