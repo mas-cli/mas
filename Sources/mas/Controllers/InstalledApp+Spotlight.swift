@@ -25,7 +25,9 @@ private extension URL {
 
 				enumerator.skipDescendants()
 				return try? url.appending(path: "Contents/_MASReceipt/receipt", directoryHint: .notDirectory)
-				.checkResourceIsReachable() == true ? url : nil
+				.resourceValues(forKeys: [.fileSizeKey])
+				.fileSize
+				.flatMap { $0 > 0 ? url : nil }
 			}
 		}
 		?? []
