@@ -83,58 +83,50 @@ extension SemVerSyntax {
 	}
 }
 
-protocol SemVer: CoreIntegerVersion, SemVerSyntax, MajorMinorPatchInteger {}
+protocol SemVerSyntaxInteger: CoreIntegerVersion, SemVerSyntax, MajorMinorPatchInteger {}
 
-extension SemVer where Integer: FixedWidthInteger {
-	static func parse(_ versionString: String, defaultCoreElement: Integer? = nil) // swiftformat:disable:next indent
-	throws -> (major: Integer, minor: Integer, patch: Integer, prereleaseElements: [String], buildElements: [String]) {
-		guard
-			let match = versionString.wholeMatch(of: unsafe semVerRegex),
-			let major = Integer(String(match.1)) ?? defaultCoreElement,
-			let minor = Integer(String(match.2)) ?? defaultCoreElement,
-			let patch = Integer(String(match.3)) ?? defaultCoreElement
-		else {
-			throw MASError.error("Failed to parse SemVer from \(versionString)")
-		}
-
-		return (major, minor, patch, match.4.elements, match.5.elements)
-	}
-}
-
-struct SemVerInt: SemVer {
+struct UniversalSemVerInt: SemVerSyntaxInteger {
 	typealias Integer = Int
 
-	let majorInteger: Integer
-	let minorInteger: Integer
-	let patchInteger: Integer
-	var coreIntegers: [Integer]
+	let coreIntegers: [Integer]
 	let prereleaseElements: [String]
 	let buildElements: [String]
 
+	var majorInteger: Integer {
+		coreIntegers[0]
+	}
+
+	var minorInteger: Integer {
+		coreIntegers[1]
+	}
+
+	var patchInteger: Integer {
+		coreIntegers[2]
+	}
+
 	init(
-		major: Integer = 0,
-		minor: Integer = 0,
-		patch: Integer = 0,
+		coreIntegers: [Integer],
 		prereleaseElements: [String] = [],
 		buildElements: [String] = [],
 	) {
-		majorInteger = major
-		minorInteger = minor
-		patchInteger = patch
-		coreIntegers = [major, minor, patch]
+		self.coreIntegers = coreIntegers.padding(toCount: 3, with: 0)
 		self.prereleaseElements = prereleaseElements
 		self.buildElements = buildElements
 	}
 
 	init?(from versionString: String) {
 		do {
-			let semVer = try Self.parse(versionString)
-			self.init(
-				major: semVer.major,
-				minor: semVer.minor,
-				patch: semVer.patch,
-				prereleaseElements: semVer.prereleaseElements,
-				buildElements: semVer.buildElements,
+			let match = versionString.wholeMatch(of: unsafe universalSemVerRegex)! // swiftlint:disable:this force_unwrapping
+			self = .init(
+				coreIntegers: try match.1.elements.map { coreElement in
+					guard let coreInteger = Integer(coreElement) else {
+						throw MASError.error(coreElement)
+					}
+
+					return coreInteger
+				},
+				prereleaseElements: match.2.elements,
+				buildElements: match.3.elements,
 			)
 		} catch {
 			return nil
@@ -211,6 +203,4 @@ extension Version {
 	}
 }
 
-private nonisolated(unsafe) let semVerRegex =
-	/(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?/
 private nonisolated(unsafe) let universalSemVerRegex = /([^-+]*+)?+(?:-([^+]*+))?+(?:\+(.*+))?+/
