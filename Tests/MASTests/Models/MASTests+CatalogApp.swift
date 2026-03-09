@@ -11,7 +11,7 @@ internal import Testing
 
 private extension MASTests {
 	@Test
-	func parsesCatalogAppFromThingsThatGoBumpJSON() {
+	func `parses catalog app from things that go bump JSON`() {
 		let actual = consequencesOf(
 			try JSONDecoder().decode(CatalogApp.self, from: .init(fromResource: "things-lookup")).adamID,
 		)

@@ -9,7 +9,7 @@ internal import ArgumentParser
 internal import Foundation
 
 @main
-struct MAS: AsyncParsableCommand, Sendable {
+struct MAS: AsyncParsableCommand {
 	static let configuration = CommandConfiguration(
 		abstract: "Mac App Store command-line interface",
 		version: Self.version,
@@ -87,7 +87,7 @@ extension MAS {
 		}
 	}
 
-	static func main<Command: AsyncParsableCommand & Sendable>(_ command: Command, _ body: (Command) async throws -> Void)
+	static func main<Command: AsyncParsableCommand>(_ command: Command, _ body: (Command) async throws -> Void)
 	async throws { // swiftformat:disable:this indent
 		do {
 			try await ProcessInfo.processInfo.runAsSudoEffectiveUserAndSudoEffectiveGroupIfRootEffectiveUser {

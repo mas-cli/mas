@@ -11,7 +11,7 @@ internal import Testing
 
 private extension MASTests {
 	@Test
-	func iTunesSearchesForSlack() async {
+	func `iTunes searches for slack`() async {
 		let actual = await consequencesOf(
 			try await search(for: "slack") { _ in try (Data(fromResource: "slack"), URLResponse()) }.count,
 		)
@@ -20,7 +20,7 @@ private extension MASTests {
 	}
 
 	@Test
-	func looksUpSlack() async {
+	func `looks up slack`() async {
 		let adamID = 803_453_959 as ADAMID
 		let actual = await consequencesOf(
 			try await lookup(appID: .adamID(adamID)) { _ in try (Data(fromResource: "slack-lookup"), URLResponse()) },

@@ -14,7 +14,7 @@ extension MAS {
 	/// Uses the iTunes Search API:
 	///
 	/// https://performance-partners.apple.com/search-api
-	struct Lucky: AsyncParsableCommand, Sendable {
+	struct Lucky: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
 			abstract: "Install the first app returned from searching the App Store",
 			discussion: // swiftformat:disable:next indent

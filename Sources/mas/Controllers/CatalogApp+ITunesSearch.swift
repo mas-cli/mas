@@ -36,7 +36,7 @@ func lookup(
 		case let .bundleID(bundleID):
 			URLQueryItem(name: "bundleId", value: bundleID)
 		}
-	guard
+	guard // swiftformat:disable:this wrap wrapArguments
 		let catalogApp = // swiftformat:disable:next indent
 			try await getCatalogApps(from: try url("lookup", queryItem, inRegion: region), dataFrom: dataSource).first
 	else {

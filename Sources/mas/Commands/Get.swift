@@ -9,7 +9,7 @@ internal import ArgumentParser
 
 extension MAS {
 	/// Gets & installs free apps from the App Store.
-	struct Get: AsyncParsableCommand, Sendable {
+	struct Get: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
 			abstract: "Get & install free apps from the App Store",
 			discussion: requiresRootPrivilegesMessage(),

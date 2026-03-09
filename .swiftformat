@@ -2,7 +2,7 @@
 # .swiftformat
 # mas
 #
-# SwiftFormat 0.59.1
+# SwiftFormat 0.60.1
 #
 
 # Disabled rules (enabled by default)
@@ -12,6 +12,8 @@
 # Disabled rules (disabled by default)
 #--enable blankLineAfterSwitchCase
 #--enable markTypes
+#--enable preferExplicitFalse
+#--enable testSuiteAccessControl
 
 # Enabled rules (disabled by default)
 --enable acronyms
@@ -27,7 +29,6 @@
 --enable propertyTypes
 --enable singlePropertyPerLine
 --enable sortSwitchCases
---enable testSuiteAccessControl
 --enable unusedPrivateDeclarations
 --enable urlMacro
 --enable validateTestCases
@@ -50,6 +51,7 @@
 --header //\n// {file}\n// mas\n//\n// Copyright © {created.year} mas-cli\. All rights reserved\.\n//
 --hex-literal-case lowercase
 --ifdef no-indent
+--import-grouping alpha
 --indent tab
 --indent-strings true
 --line-after-marks false
@@ -69,6 +71,11 @@
 --timezone utc
 --type-attributes prev-line
 --type-body-marks remove
+--wrap-arguments before-first
+--wrap-collections before-first
+--wrap-conditions before-first
 --wrap-effects never
+--wrap-parameters before-first
 --wrap-return-type never
 --wrap-ternary before-operators
+--wrap-type-aliases before-first

@@ -11,7 +11,7 @@ internal import Testing
 
 private extension MASTests {
 	@Test
-	func searchesForSlack() {
+	func `searches for slack`() {
 		let actual = consequencesOf(
 			try MAS.main(try MAS.Search.parse(["slack"])) { command in
 				try command.run(catalogApps: [CatalogApp(adamID: 1, name: "slack", version: "0.0")])
@@ -22,7 +22,7 @@ private extension MASTests {
 	}
 
 	@Test
-	func cannotSearchForNonexistentApp() {
+	func `cannot search for nonexistent app`() {
 		let searchTerm = "nonexistent"
 		let actual = consequencesOf(try MAS.main(try MAS.Search.parse([searchTerm])) { try $0.run(catalogApps: []) })
 		let expected = Consequences(nil, "", "Error: \(MASError.noCatalogAppsFound(for: searchTerm))\n")

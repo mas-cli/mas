@@ -11,7 +11,7 @@ private import OrderedCollections
 
 extension MAS {
 	/// Uninstalls apps installed from the App Store.
-	struct Uninstall: AsyncParsableCommand, Sendable {
+	struct Uninstall: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
 			abstract: "Uninstall apps installed from the App Store",
 			discussion: requiresRootPrivilegesMessage(),

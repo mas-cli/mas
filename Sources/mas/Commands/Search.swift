@@ -14,7 +14,7 @@ extension MAS {
 	/// Uses the iTunes Search API:
 	///
 	/// https://performance-partners.apple.com/search-api
-	struct Search: AsyncParsableCommand, Sendable {
+	struct Search: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
 			abstract: "Search for apps in the App Store",
 		)

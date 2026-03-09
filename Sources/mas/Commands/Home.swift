@@ -14,7 +14,7 @@ extension MAS {
 	/// Uses the iTunes Lookup API:
 	///
 	/// https://performance-partners.apple.com/search-api
-	struct Home: AsyncParsableCommand, Sendable {
+	struct Home: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
 			abstract: "Open App Store app pages in the default web browser",
 		)
