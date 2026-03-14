@@ -1,5 +1,5 @@
 {
-	"originHash" : "fe336dc5a91893be96812ec91baba97112f3407b3c398b918ac3eeebc5bc9781",
+	"originHash" : "76aaaabde2fe8e825e9f61608bf9bd472d290509418316ae544bdd3ba181354b",
 	"pins" : [
 		{
 			"identity" : "bigint",
@@ -71,6 +71,23 @@
 			"state" : {
 				"revision" : "8d9834a6189db730f6264db7556a7ffb751e99ee",
 				"version" : "1.4.0"
+			}
+		},
+		{
+			"identity" : "swift-grammar",
+			"kind" : "remoteSourceControl",
+			"location" : "https://github.com/tayloraswift/swift-grammar",
+			"state" : {
+				"revision" : "0dac977b50bf677b2c3adabd7d5586a7b6e09b17",
+				"version" : "0.5.0"
+			}
+		},
+		{
+			"identity" : "swift-json",
+			"kind" : "remoteSourceControl",
+			"location" : "https://github.com/mas-cli/swift-json.git",
+			"state" : {
+				"revision" : "0f683e434dbb493020c13ffdb66ea29f74286ff4"
 			}
 		},
 		{

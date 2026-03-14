@@ -17,8 +17,7 @@ typealias OutdatedApp = (
 
 extension [InstalledApp] {
 	func outdatedApps(
-		filterFor appIDs: [AppID], // swiftlint:disable:next unneeded_escaping
-		lookupAppFromAppID: @escaping @Sendable (AppID) async throws -> CatalogApp,
+		filterFor appIDs: [AppID],
 		accuracy: OutdatedAccuracy,
 		shouldCheckMinimumOSVersion: Bool,
 		shouldWarnIfUnknownApp: Bool,
@@ -26,7 +25,7 @@ extension [InstalledApp] {
 		@Sendable
 		func installableCatalogApp(from installedApp: InstalledApp) async -> CatalogApp? {
 			do {
-				let catalogApp = try await lookupAppFromAppID(.bundleID(installedApp.bundleID))
+				let catalogApp = try await Dependencies.current.lookupAppFromAppID(.bundleID(installedApp.bundleID))
 				return shouldCheckMinimumOSVersion // swiftformat:disable indent
 				&& UniversalSemVerInt(from: catalogApp.minimumOSVersion).flatMap { minimumOSVersion in
 					ProcessInfo.processInfo.isOperatingSystemAtLeast(
@@ -54,28 +53,29 @@ extension [InstalledApp] {
 			accuracy == .accurate
 			? { @Sendable installedApp in // swiftformat:disable indent
 				if shouldCheckMinimumOSVersion, await installableCatalogApp(from: installedApp) == nil {
-					return nil
-				}
-				return await withCheckedContinuation { continuation in
-					Task {
-						let alreadyResumed = ManagedAtomic(false)
-						do {
-							try await AppStore.install.app(withADAMID: installedApp.adamID) { appStoreVersion, shouldOutput in
-								if
-									shouldOutput,
-									let appStoreVersion,
-									installedApp.version != appStoreVersion,
-									!alreadyResumed.exchange(true, ordering: .acquiringAndReleasing)
-								{
-									continuation.resume(returning: OutdatedApp(installedApp, appStoreVersion))
+					nil
+				} else {
+					await withCheckedContinuation { continuation in
+						Task {
+							let alreadyResumed = ManagedAtomic(false)
+							do {
+								try await AppStore.install.app(withADAMID: installedApp.adamID) { appStoreVersion, shouldOutput in
+									if
+										shouldOutput,
+										let appStoreVersion,
+										installedApp.version != appStoreVersion,
+										!alreadyResumed.exchange(true, ordering: .acquiringAndReleasing)
+									{
+										continuation.resume(returning: OutdatedApp(installedApp, appStoreVersion))
+									}
+									return true
 								}
-								return true
+							} catch {
+								MAS.printer.error(error: error)
 							}
-						} catch {
-							MAS.printer.error(error: error)
-						}
-						if !alreadyResumed.load(ordering: .acquiring) {
-							continuation.resume(returning: nil)
+							if !alreadyResumed.load(ordering: .acquiring) {
+								continuation.resume(returning: nil)
+							}
 						}
 					}
 				}

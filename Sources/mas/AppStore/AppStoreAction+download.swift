@@ -204,7 +204,8 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		case
 			.downloading where prevPhaseType == .processing,
 			.downloaded where prevPhaseType == .downloading,
-			.performing:
+			.performing
+		: // swiftformat:disable:this indent
 			MAS.printer.clearCurrentLine(of: .standardOutput)
 			MAS.printer.notice(snapshot.activePhaseType, snapshot.appNameAndVersion)
 		default:
@@ -469,17 +470,16 @@ private enum PhaseType: Equatable { // swiftlint:disable:this one_declaration_pe
 	}
 
 	init(_ action: AppStoreAction, rawValue: Int64?) {
-		self =
-			switch rawValue {
-			case 0:
-				.downloading
-			case 1:
-				.performing(action)
-			case 5:
-				.downloaded
-			default:
-				.processing
-			}
+		self = switch rawValue {
+		case 0:
+			.downloading
+		case 1:
+			.performing(action)
+		case 5:
+			.downloaded
+		default:
+			.processing
+		}
 	}
 }
 

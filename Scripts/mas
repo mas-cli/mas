@@ -1,0 +1,99 @@
+#!/bin/zsh -Ndefgku
+
+# Copyright © 2026 mas-cli. All rights reserved.
+
+# TODO: mas / mas arguments / key mapping & sorting / key filtering / shell setup / correct commands
+
+alias_if_executable_exists_at() {
+	# shellcheck disable=SC2139
+	[[ -x "${1}" ]] && alias "${1:t}=${1}"
+}
+
+alias_if_executable_exists_at "${0:A:h}/../.build/release/mas"
+alias_if_executable_exists_at /usr/bin/column
+alias_if_executable_exists_at /usr/bin/jq
+
+case "${1:-}" in
+outdated)
+	# shellcheck disable=SC2016
+	mas "${@}" 3> >(
+		jq -sr '
+(map(.adamID | tostring | length) | max) as $max_adam_id_length |
+(map(.version | tostring | length) | max) as $max_version_length |
+.[] |
+[
+	((" " * (.adamID | tostring | $max_adam_id_length - length)) + (.adamID | tostring)),
+	.name,
+	"(" + .version + (" " * (.version | tostring | $max_version_length - length)) + " -> " + .newVersion + ")"
+] |
+join("\u001f")
+' |
+		column -ts $'\u001f'
+	)
+	;;
+list|search)
+	# shellcheck disable=SC2016
+	mas "${@}" 3> >(
+		jq -sr '
+(map(.adamID | tostring | length) | max) as $max_adam_id_length |
+.[] |
+[
+	((" " * (.adamID | tostring | $max_adam_id_length - length)) + (.adamID | tostring)),
+	.name,
+	"(" + .version + ")"
+] |
+join("\u001f")
+' |
+		column -ts $'\u001f'
+	)
+	;;
+lookup|info)
+	readonly key_map='{"name":"App","version":"Version","formattedPrice":"Price","sellerName":"By","currentVersionReleaseDate":"Released","minimumOSVersion":"Minimum OS","fileSizeBytes":"Size","appStorePageURL":"From"}'
+	# shellcheck disable=SC2016
+	mas "${@}" 3> >(
+		jq -sr --argjson key_map "${key_map}" '
+def toMB:
+	. as $orig |
+	(tonumber? // null) as $raw |
+	if $raw == null then
+		($orig | tostring)
+	else
+		($raw | abs / 1e6 | round | tostring) as $abs_str |
+		($abs_str | [while(length > 0; .[:-3]) | .[-3:]] | reverse | join(",")) as $with_commas |
+		(if $raw < 0 then "-" else "" end) + $with_commas + " MB"
+	end
+;
+[
+	.[]? |
+	. as $in |
+	([($key_map | keys_unsorted)[] | . as $k | select($in[$k] != null)]) as $filtered_order |
+	select($filtered_order | length > 0) |
+	($filtered_order | map($key_map[.]) | map(length) | max) as $max_length |
+	[
+		$filtered_order[] |
+		. as $k |
+		$key_map[$k] as $label |
+		$in[$k] as $v |
+		(
+			if ($k | endswith("SizeBytes")) then ($v | toMB)
+			elif ($k | endswith("Date")) then (($v | tostring | fromdateiso8601 | strflocaltime("%Y-%m-%d"))? // ($v | tostring // ""))
+			else ($v | tostring // "") end
+		) as $val |
+		"\($label) \("▁" * ($max_length - ($label | length) + 1)) \($val)"
+	] |
+	join("\n")
+] as $blocks |
+if ($blocks | length > 0) then ($blocks | join("\n\n")) else empty end
+'
+	)
+	;;
+config)
+	# shellcheck disable=SC2016
+	mas "${@}" 3> >(
+		jq -r '(keys_unsorted | map(length) | max) as $max_length | to_entries[] | "\(.key) \("▁" * ($max_length - (.key | length) + 1)) \(.value)"'
+	)
+	;;
+*)
+	exec mas "${@}"
+	;;
+esac
