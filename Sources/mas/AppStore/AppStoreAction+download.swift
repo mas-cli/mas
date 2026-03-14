@@ -469,17 +469,16 @@ private enum PhaseType: Equatable { // swiftlint:disable:this one_declaration_pe
 	}
 
 	init(_ action: AppStoreAction, rawValue: Int64?) {
-		self =
-			switch rawValue {
-			case 0:
-				.downloading
-			case 1:
-				.performing(action)
-			case 5:
-				.downloaded
-			default:
-				.processing
-			}
+		self = switch rawValue {
+		case 0:
+			.downloading
+		case 1:
+			.performing(action)
+		case 5:
+			.downloaded
+		default:
+			.processing
+		}
 	}
 }
 
