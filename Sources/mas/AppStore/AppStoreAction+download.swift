@@ -204,7 +204,8 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		case
 			.downloading where prevPhaseType == .processing,
 			.downloaded where prevPhaseType == .downloading,
-			.performing:
+			.performing
+		: // swiftformat:disable:this indent
 			MAS.printer.clearCurrentLine(of: .standardOutput)
 			MAS.printer.notice(snapshot.activePhaseType, snapshot.appNameAndVersion)
 		default:
