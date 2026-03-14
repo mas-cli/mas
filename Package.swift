@@ -10,6 +10,7 @@ private let swiftSettings = [
 	.enableUpcomingFeature("InternalImportsByDefault"),
 	.enableUpcomingFeature("MemberImportVisibility"),
 	.enableUpcomingFeature("NonisolatedNonsendingByDefault"),
+	.strictMemorySafety(),
 	.treatAllWarnings(as: .error),
 ]
 
@@ -23,6 +24,7 @@ _ = Package(
 		.package(url: "https://github.com/apple/swift-atomics.git", from: "1.3.0"),
 		.package(url: "https://github.com/apple/swift-collections.git", from: "1.4.1"),
 		.package(url: "https://github.com/attaswift/BigInt.git", from: "5.7.0"),
+		.package(url: "https://github.com/mas-cli/swift-json.git", from: "3.3.0"),
 		.package(url: "https://github.com/scinfu/SwiftSoup.git", from: "2.13.4"),
 	],
 	targets: [
@@ -33,6 +35,7 @@ _ = Package(
 			dependencies: [
 				.product(name: "ArgumentParser", package: "swift-argument-parser"),
 				.product(name: "Atomics", package: "swift-atomics"),
+				.product(name: "JSON", package: "swift-json"),
 				.product(name: "OrderedCollections", package: "swift-collections"),
 				"BigInt",
 				"PrivateFrameworks",

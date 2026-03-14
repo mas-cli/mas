@@ -35,7 +35,7 @@ extension MAS {
 		}
 
 		func run() async throws {
-			try run(installedApps: try await installedApps)
+			try run(installedApps: try await installedApps())
 		}
 
 		private func run(installedApps: [InstalledApp]) throws {

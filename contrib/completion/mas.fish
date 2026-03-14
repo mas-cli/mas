@@ -35,6 +35,7 @@ complete -c mas -n __fish_use_subcommand -fa uninstall -d 'Uninstall apps instal
 complete -c mas -n __fish_use_subcommand -fa update -d 'Update outdated apps installed from the App Store'
 complete -c mas -n __fish_use_subcommand -fa version -d 'Output version number'
 
+complete -c mas -n '__fish_seen_subcommand_from config info list lookup outdated search; and not __fish_contains_opt json' -l json -d 'Output JSON' # editorconfig-checker-disable-line
 complete -c mas -n '__fish_seen_subcommand_from get home info install lookup open purchase seller vendor' -xa '(__fish_mas_list_available)' # editorconfig-checker-disable-line
 complete -c mas -n '__fish_seen_subcommand_from get home info install list lookup open outdated purchase seller uninstall update upgrade vendor; and not __fish_contains_opt bundle' -l bundle -d 'Process all app IDs as bundle IDs' # editorconfig-checker-disable-line
 complete -c mas -n '__fish_seen_subcommand_from get install lucky purchase update upgrade; and not __fish_contains_opt force' -l force -d 'Force reinstall' # editorconfig-checker-disable-line

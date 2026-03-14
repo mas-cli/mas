@@ -8,6 +8,7 @@
 internal import ArgumentParser
 private import Darwin
 private import Foundation
+private import JSONAST
 
 extension MAS {
 	/// Outputs mas config & related system info.
@@ -16,24 +17,28 @@ extension MAS {
 			abstract: "Output mas config & related system info",
 		)
 
+		@OptionGroup
+		private var outputFormatOptionGroup: OutputFormatOptionGroup
+
 		func run() {
-			printer.info(
-				"""
-				mas ▁▁▁▁ \(version)
-				slice ▁▁ \(runningSliceArchitecture)
-				slices ▁ \(supportedSliceArchitectures.joined(separator: " "))
-				dist ▁▁▁ \(distribution)
-				origin ▁ \(gitOrigin)
-				rev ▁▁▁▁ \(gitRevision)
-				swift ▁▁ \(swiftVersion)
-				driver ▁ \(swiftDriverVersion)
-				store ▁▁ \(appStoreRegion)
-				region ▁ \(macRegion)
-				macos ▁▁ \(macOSVersion)
-				mac ▁▁▁▁ \(configStringValue("hw.product"))
-				cpu ▁▁▁▁ \(configStringValue("machdep.cpu.brand_string"))
-				arch ▁▁▁ \(configStringValue("hw.machine"))
-				""",
+			outputFormatOptionGroup.info(
+				JSON.Object( // swiftformat:disable:this wrap wrapArguments
+					dictionaryLiteral: // swiftformat:disable indent
+						("mas", .string(version)), // swiftlint:disable vertical_parameter_alignment_on_call
+						("slice", .string(runningSliceArchitecture)),
+						("slices", .string(supportedSliceArchitectures.joined(separator: " "))),
+						("dist", .string(distribution)),
+						("origin", .string(gitOrigin)),
+						("rev", .string(gitRevision)),
+						("swift", .string(swiftVersion)),
+						("driver", .string(swiftDriverVersion)),
+						("store", .string(appStoreRegion)),
+						("region", .string(macRegion)),
+						("macos", .string(macOSVersion)),
+						("mac", .string(configStringValue("hw.product"))),
+						("cpu", .string(configStringValue("machdep.cpu.brand_string"))),
+						("arch", .string(configStringValue("hw.machine"))), // swiftlint:enable vertical_parameter_alignment_on_call
+				), // swiftformat:enable indent
 			)
 		}
 	}
@@ -78,8 +83,10 @@ private var supportedSliceArchitectures: [String] {
 	?? .init() // swiftformat:disable:this indent
 }
 
-private var macOSVersion: Substring {
-	ProcessInfo.processInfo.operatingSystemVersionString.dropFirst(8).replacing("Build ", with: "", maxReplacements: 1)
+private var macOSVersion: String {
+	.init(
+		ProcessInfo.processInfo.operatingSystemVersionString.dropFirst(8).replacing("Build ", with: "", maxReplacements: 1),
+	)
 }
 
 private func configStringValue(_ name: String) -> String {

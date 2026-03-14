@@ -6,7 +6,6 @@
 //
 
 internal import ArgumentParser
-private import Foundation
 
 extension MAS {
 	/// Outputs app info from the App Store.
@@ -21,6 +20,8 @@ extension MAS {
 		)
 
 		@OptionGroup
+		private var outputFormatOptionGroup: OutputFormatOptionGroup
+		@OptionGroup
 		private var catalogAppIDsOptionGroup: CatalogAppIDsOptionGroup
 
 		func run() async {
@@ -28,32 +29,7 @@ extension MAS {
 		}
 
 		func run(catalogApps: [CatalogApp]) {
-			printer.info(
-				catalogApps.map { catalogApp in
-					"""
-					\(catalogApp.name) \(catalogApp.version) [\(catalogApp.displayPrice)]
-					By: \(catalogApp.sellerName)
-					Released: \(catalogApp.releaseDate.isoCalendarDate)
-					Minimum OS: \(catalogApp.minimumOSVersion)
-					Size: \(catalogApp.fileSizeBytes.humanReadableSize)
-					From: \(catalogApp.appStorePageURLString)
-
-					"""
-				}
-				.joined(separator: "\n"),
-				terminator: "",
-			)
+			outputFormatOptionGroup.info(catalogApps.map(String.init(describing:)).joined(separator: "\n"))
 		}
-	}
-}
-
-private extension String {
-	var humanReadableSize: Self {
-		Int64(self).map { $0.formatted(.byteCount(style: .file, allowedUnits: .mb, spellsOutZero: false)) } ?? self
-	}
-
-	var isoCalendarDate: Self {
-		(try? Date(self, strategy: .iso8601).formatted(Date.ISO8601FormatStyle(timeZone: .current).year().month().day()))
-		?? self // swiftformat:disable:this indent
 	}
 }

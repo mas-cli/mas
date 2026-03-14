@@ -68,7 +68,7 @@ struct OutdatedAppOptionGroup: ParsableArguments {
 										installedApp.version != appStoreVersion,
 										!alreadyResumed.exchange(true, ordering: .acquiringAndReleasing)
 									{
-										continuation.resume(returning: (installedApp, appStoreVersion))
+										continuation.resume(returning: .init(installedApp: installedApp, newVersion: appStoreVersion))
 									}
 									return true
 								}
@@ -85,14 +85,9 @@ struct OutdatedAppOptionGroup: ParsableArguments {
 			: { @Sendable installedApp in
 				await installableCatalogApp(from: installedApp).flatMap { catalogApp in
 					UniversalSemVer(rawValue: installedApp.version).compareSemVerAndBuild(to: .init(rawValue: catalogApp.version))
-					== .orderedAscending ? (installedApp, catalogApp.version) : nil
+					== .orderedAscending ? .init(installedApp: installedApp, newVersion: catalogApp.version) : nil
 				}
 			},
 		) // swiftformat:enable indent
 	}
 }
-
-typealias OutdatedApp = (
-	installedApp: InstalledApp,
-	newVersion: String,
-)
