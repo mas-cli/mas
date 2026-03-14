@@ -100,6 +100,17 @@ try (
 '
 	} 4>&1 5>&2
 	;;
+config)
+	{
+		{ exec "${mas}" "${@}" 3>&1 1>&4 2>&5 } | "${jq}" -r '
+try (
+	(keys_unsorted | map(length) | max) as $max_key_length |
+	to_entries[] |
+	"\(.key) \("▁" * ($max_key_length - (.key | length) + 1)) \(.value)"
+) catch ("\u001B[4;31mError:\u001B[0m Invalid data from mas: \(.)\n" | halt_error(1))
+'
+	} 4>&1 5>&2
+	;;
 *)
 	exec "${mas}" "${@}"
 	;;
