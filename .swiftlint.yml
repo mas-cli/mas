@@ -34,7 +34,7 @@ disabled_rules:
 - strict_fileprivate
 - type_body_length
 attributes:
-  always_on_line_above: ['@Flag', '@MainActor', '@OptionGroup']
+  always_on_line_above: ['@Flag', '@MainActor', '@OptionGroup', '@TaskLocal']
 deployment_target:
   macOS_deployment_target: 13
   macOSApplicationExtension_deployment_target: 13
