@@ -39,7 +39,7 @@ extension [InstalledApp] {
 				}
 				== false ? nil : catalogApp
 			} catch { // swiftformat:enable indent
-				if let error = error as? MASError, case MASError.unknownAppID = error {
+				if case MASError.unknownAppID = error {
 					if shouldWarnIfUnknownApp {
 						MAS.printer.warning(error, "; was expected to identify: ", installedApp.name, separator: "")
 					}
