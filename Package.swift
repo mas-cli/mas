@@ -24,8 +24,8 @@ _ = Package(
 		.package(url: "https://github.com/apple/swift-atomics.git", from: "1.3.0"),
 		.package(url: "https://github.com/apple/swift-collections.git", from: "1.4.0"),
 		.package(url: "https://github.com/attaswift/BigInt.git", from: "5.7.0"),
+		.package(url: "https://github.com/mas-cli/swift-json.git", revision: "0f683e434dbb493020c13ffdb66ea29f74286ff4"),
 		.package(url: "https://github.com/scinfu/SwiftSoup.git", from: "2.13.0"),
-		.package(url: "https://github.com/tayloraswift/swift-json.git", exact: "2.0.0"),
 	],
 	targets: [
 		.plugin(name: "MASBuildToolPlugin", capability: .buildTool()),

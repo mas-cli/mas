@@ -1,5 +1,5 @@
 {
-	"originHash" : "6afee96f177b6f4484f867258c7dbf97b33b946916a380c7a2c1967f2467cfa6",
+	"originHash" : "76aaaabde2fe8e825e9f61608bf9bd472d290509418316ae544bdd3ba181354b",
 	"pins" : [
 		{
 			"identity" : "bigint",
@@ -85,10 +85,9 @@
 		{
 			"identity" : "swift-json",
 			"kind" : "remoteSourceControl",
-			"location" : "https://github.com/tayloraswift/swift-json.git",
+			"location" : "https://github.com/mas-cli/swift-json.git",
 			"state" : {
-				"revision" : "8b441f3f368db5f0210626fa6fc9076fbe3df37b",
-				"version" : "2.0.0"
+				"revision" : "0f683e434dbb493020c13ffdb66ea29f74286ff4"
 			}
 		},
 		{
