@@ -25,7 +25,6 @@ extension MAS {
 				withAppIDs: catalogAppIDsOptionGroup.appIDs,
 				force: forceOptionGroup.force,
 				installedApps: try await installedApps,
-				lookupAppFromAppID: lookup(appID:),
 			)
 		}
 	}

@@ -17,8 +17,7 @@ typealias OutdatedApp = (
 
 extension [InstalledApp] {
 	func outdatedApps(
-		filterFor appIDs: [AppID], // swiftlint:disable:next unneeded_escaping
-		lookupAppFromAppID: @escaping @Sendable (AppID) async throws -> CatalogApp,
+		filterFor appIDs: [AppID],
 		accuracy: OutdatedAccuracy,
 		shouldCheckMinimumOSVersion: Bool,
 		shouldWarnIfUnknownApp: Bool,
@@ -26,7 +25,7 @@ extension [InstalledApp] {
 		@Sendable
 		func installableCatalogApp(from installedApp: InstalledApp) async -> CatalogApp? {
 			do {
-				let catalogApp = try await lookupAppFromAppID(.bundleID(installedApp.bundleID))
+				let catalogApp = try await Dependencies.current.lookupAppFromAppID(.bundleID(installedApp.bundleID))
 				return shouldCheckMinimumOSVersion // swiftformat:disable indent
 				&& UniversalSemVerInt(from: catalogApp.minimumOSVersion).flatMap { minimumOSVersion in
 					ProcessInfo.processInfo.isOperatingSystemAtLeast(
