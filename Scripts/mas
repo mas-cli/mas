@@ -87,6 +87,12 @@ if ($blocks | length > 0) then ($blocks | join("\n\n")) else empty end
 '
 	)
 	;;
+config)
+	# shellcheck disable=SC2016
+	mas "${@}" 3> >(
+		jq -r '(keys_unsorted | map(length) | max) as $max_length | to_entries[] | "\(.key) \("▁" * ($max_length - (.key | length) + 1)) \(.value)"'
+	)
+	;;
 *)
 	exec mas "${@}"
 	;;
