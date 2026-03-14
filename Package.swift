@@ -10,6 +10,7 @@ private let swiftSettings = [
 	.enableUpcomingFeature("InternalImportsByDefault"),
 	.enableUpcomingFeature("MemberImportVisibility"),
 	.enableUpcomingFeature("NonisolatedNonsendingByDefault"),
+	.strictMemorySafety(),
 	.treatAllWarnings(as: .error),
 ]
 
