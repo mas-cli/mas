@@ -115,8 +115,8 @@ type_contents_order:
   - type_method
   - view_life_cycle_method
   - ib_action
-  - other_method
   - subscript
+  - other_method
 unneeded_override:
   affect_initializers: true
 unused_import:

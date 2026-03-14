@@ -31,7 +31,7 @@ join("\u001f")
 		column -ts $'\u001f'
 	)
 	;;
-list)
+list|search)
 	# shellcheck disable=SC2016
 	mas "${@}" 3> >(
 		jq -sr '
@@ -45,6 +45,46 @@ list)
 join("\u001f")
 ' |
 		column -ts $'\u001f'
+	)
+	;;
+lookup|info)
+	readonly key_map='{"name":"App","version":"Version","formattedPrice":"Price","sellerName":"By","currentVersionReleaseDate":"Released","minimumOSVersion":"Minimum OS","fileSizeBytes":"Size","appStorePageURL":"From"}'
+	# shellcheck disable=SC2016
+	mas "${@}" 3> >(
+		jq -sr --argjson key_map "${key_map}" '
+def toMB:
+	. as $orig |
+	(tonumber? // null) as $raw |
+	if $raw == null then
+		($orig | tostring)
+	else
+		($raw | abs / 1e6 | round | tostring) as $abs_str |
+		($abs_str | [while(length > 0; .[:-3]) | .[-3:]] | reverse | join(",")) as $with_commas |
+		(if $raw < 0 then "-" else "" end) + $with_commas + " MB"
+	end
+;
+[
+	.[]? |
+	. as $in |
+	([($key_map | keys_unsorted)[] | . as $k | select($in[$k] != null)]) as $filtered_order |
+	select($filtered_order | length > 0) |
+	($filtered_order | map($key_map[.]) | map(length) | max) as $max_length |
+	[
+		$filtered_order[] |
+		. as $k |
+		$key_map[$k] as $label |
+		$in[$k] as $v |
+		(
+			if ($k | endswith("SizeBytes")) then ($v | toMB)
+			elif ($k | endswith("Date")) then (($v | tostring | fromdateiso8601 | strflocaltime("%Y-%m-%d"))? // ($v | tostring // ""))
+			else ($v | tostring // "") end
+		) as $val |
+		"\($label) \("▁" * ($max_length - ($label | length) + 1)) \($val)"
+	] |
+	join("\n")
+] as $blocks |
+if ($blocks | length > 0) then ($blocks | join("\n\n")) else empty end
+'
 	)
 	;;
 *)

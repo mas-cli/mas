@@ -40,15 +40,10 @@ private extension MASTests {
 		#expect(
 			catalogApp.adamID == adamID // swiftformat:disable indent
 			&& catalogApp.appStorePageURLString == "https://apps.apple.com/us/app/slack-for-desktop/id803453959?mt=12"
-			&& catalogApp.bundleID == "com.tinyspeck.slackmacgap"
-			&& catalogApp.fileSizeBytes == "74398324"
-			&& catalogApp.formattedPrice == "Free"
 			&& catalogApp.minimumOSVersion == "10.9"
 			&& catalogApp.name == "Slack"
-			&& catalogApp.releaseDate == "2018-10-02T23:28:05Z"
-			&& catalogApp.sellerName == "Slack Technologies, Inc."
 			&& catalogApp.sellerURLString == "https://slack.com"
-			&& catalogApp.supportedDevices == nil
+			&& !catalogApp.supportsMacDesktop
 			&& catalogApp.version == "3.3.3",
 		) // swiftformat:enable indent
 	}

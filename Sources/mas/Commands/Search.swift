@@ -19,8 +19,11 @@ extension MAS {
 			abstract: "Search for apps in the App Store",
 		)
 
-		@Flag(help: "Output the price of each app")
-		private var price = false
+		@OptionGroup
+		private var jsonOptionGroup: JSONOptionGroup
+		// periphery:ignore
+		@Flag(help: "Output the price of each app") // swiftformat:disable:next unusedPrivateDeclarations
+		private var price = false // swiftlint:disable:this unused_declaration
 		@OptionGroup
 		private var searchTermOptionGroup: SearchTermOptionGroup
 
@@ -31,26 +34,11 @@ extension MAS {
 		}
 
 		func run(catalogApps: [CatalogApp]) throws {
-			guard
-				let maxADAMIDLength = catalogApps.map({ String(describing: $0.adamID).count }).max(),
-				let maxNameLength = catalogApps.map(\.name.count).max()
-			else {
+			guard !catalogApps.isEmpty else {
 				throw MASError.noCatalogAppsFound(for: searchTermOptionGroup.searchTerm)
 			}
 
-			let format = "%\(maxADAMIDLength)lu  %@  (%@)\(price ? "  %@" : "")"
-			printer.info(
-				catalogApps.map { catalogApp in
-					String(
-						format: format,
-						catalogApp.adamID,
-						catalogApp.name.padding(toLength: maxNameLength, withPad: " ", startingAt: 0),
-						catalogApp.version,
-						catalogApp.displayPrice,
-					)
-				}
-				.joined(separator: "\n"),
-			)
+			jsonOptionGroup.info(catalogApps.map(String.init(describing:)).joined(separator: "\n"))
 		}
 	}
 }

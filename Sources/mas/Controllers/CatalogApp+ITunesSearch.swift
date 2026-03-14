@@ -6,6 +6,8 @@
 //
 
 internal import Foundation
+private import JSONAST
+private import JSONParsing
 private import Sextant
 private import SwiftSoup
 
@@ -39,11 +41,7 @@ func lookup(appID: AppID, inRegion region: Region = appStoreRegion) async throws
 	} else {
 		try await getCatalogApps(from: try url("lookup", queryItem, inRegion: region, additionalQueryItems: []))
 		.first // swiftformat:disable indent
-		.flatMap { catalogApp in
-			catalogApp.supportedDevices?.contains("MacDesktop-MacDesktop") == true
-			? catalogApp.with(minimumOSVersion: await catalogApp.minimumOSVersionFromAppStorePage)
-			: nil
-		}
+		.flatMap { $0.supportsMacDesktop ? $0.with(minimumOSVersion: await $0.minimumOSVersionFromAppStorePage) : nil }
 		?? { throw MASError.unknownAppID(appID) }()
 	} // swiftformat:enable indent
 }
@@ -91,11 +89,11 @@ func search(for searchTerm: String, inRegion region: Region = appStoreRegion) as
 	let queryItem = URLQueryItem(name: "term", value: searchTerm)
 	let catalogApps = try await getCatalogApps(from: try url("search", queryItem, inRegion: region))
 	let adamIDSet = Set(catalogApps.map(\.adamID))
-	return catalogApps.priorityMerge( // swiftformat:disable indent
+	return catalogApps.priorityMerge(
 		try await getCatalogApps(from: try url("search", queryItem, inRegion: region, additionalQueryItems: []))
-		.filter { ($0.supportedDevices?.contains("MacDesktop-MacDesktop") == true) && !adamIDSet.contains($0.adamID) }
+		.filter { $0.supportsMacDesktop && !adamIDSet.contains($0.adamID) } // swiftformat:disable:this indent
 		.concurrentMap { $0.with(minimumOSVersion: await $0.minimumOSVersionFromAppStorePage) },
-	) { $0.name.similarity(to: searchTerm) } // swiftformat:enable indent
+	) { $0.name.similarity(to: searchTerm) } // swiftformat:disable:previous indent
 }
 
 private func url(
@@ -121,11 +119,11 @@ private func url(
 
 private func getCatalogApps(from url: URL) async throws -> [CatalogApp] {
 	let (data, _) = try await Dependencies.current.dataFrom(url)
-	do {
-		return try JSONDecoder().decode(CatalogAppResults.self, from: data).results
-	} catch {
-		throw MASError.error("Failed to parse JSON from response \(url)", error: .init(data: data, encoding: .utf8) ?? "")
+	guard let json = String(data: data, encoding: .utf8) else {
+		throw MASError.error("Failed to decode response from \(url) as UTF-8")
 	}
+
+	return try CatalogAppResults(json: JSON.Node(parsingFragment: json)).results
 }
 
 private nonisolated(unsafe) let minimumOSVersionRegex = /macOS\s*(?<version>\S+)/
