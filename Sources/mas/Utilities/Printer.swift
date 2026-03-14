@@ -22,15 +22,25 @@ struct Printer {
 		errorCounter.store(0, ordering: .releasing) // swiftlint:disable:previous unused_declaration
 	}
 
-	/// Prints to `stdout`.
+	/// Prints to `fileHandle`.
 	@_disfavoredOverload
-	func info(_ items: Any..., separator: String = " ", terminator: String = "\n") {
-		info(items, separator: separator, terminator: terminator)
+	func info(
+		_ items: Any...,
+		separator: String = " ",
+		terminator: String = "\n",
+		to fileHandle: FileHandle = .standardOutput,
+	) {
+		info(items, separator: separator, terminator: terminator, to: fileHandle)
 	}
 
-	/// Prints to `stdout`.
-	func info(_ items: [Any], separator: String = " ", terminator: String = "\n") {
-		print(items.map(String.init(describing:)), separator: separator, terminator: terminator, to: .standardOutput)
+	/// Prints to `fileHandle`.
+	func info(
+		_ items: [Any],
+		separator: String = " ",
+		terminator: String = "\n",
+		to fileHandle: FileHandle = .standardOutput,
+	) {
+		print(items.map(String.init(describing:)), separator: separator, terminator: terminator, to: fileHandle)
 	}
 
 	/// Prints to `stdout`, prefixed with "==> "; if connected to a terminal, the

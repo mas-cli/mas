@@ -59,6 +59,7 @@
 --max-width 120
 --organization-mode type
 --organize-types actor,class,enum,extension,struct
+--preserve-decls jsonOptionGroup
 --property-types inferred
 --ranges no-space
 --redundant-async always

@@ -1,0 +1,36 @@
+#!/bin/zsh -Ndefgku
+
+# Copyright © 2026 mas-cli. All rights reserved.
+
+# TODO: mas / mas arguments / key mapping & sorting / key filtering / shell setup / correct commands
+
+alias_if_executable_exists_at() {
+	# shellcheck disable=SC2139
+	[[ -x "${1}" ]] && alias "${1:t}=${1}"
+}
+
+alias_if_executable_exists_at "${0:A:h}/../.build/release/mas"
+alias_if_executable_exists_at /usr/bin/column
+alias_if_executable_exists_at /usr/bin/jq
+
+case "${1:-}" in
+list)
+	# shellcheck disable=SC2016
+	mas "${@}" 3> >(
+		jq -sr '
+(map(.adamID | tostring | length) | max) as $max_adam_id_length |
+.[] |
+[
+	((" " * (.adamID | tostring | $max_adam_id_length - length)) + (.adamID | tostring)),
+	.name,
+	"(" + .version + ")"
+] |
+join("\u001f")
+' |
+		column -ts $'\u001f'
+	)
+	;;
+*)
+	exec mas "${@}"
+	;;
+esac

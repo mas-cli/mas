@@ -24,6 +24,7 @@ _ = Package(
 		.package(url: "https://github.com/apple/swift-collections.git", from: "1.4.0"),
 		.package(url: "https://github.com/attaswift/BigInt.git", from: "5.7.0"),
 		.package(url: "https://github.com/scinfu/SwiftSoup.git", from: "2.13.0"),
+		.package(url: "https://github.com/tayloraswift/swift-json.git", exact: "2.0.0"),
 	],
 	targets: [
 		.plugin(name: "MASBuildToolPlugin", capability: .buildTool()),
@@ -33,6 +34,7 @@ _ = Package(
 			dependencies: [
 				.product(name: "ArgumentParser", package: "swift-argument-parser"),
 				.product(name: "Atomics", package: "swift-atomics"),
+				.product(name: "JSON", package: "swift-json"),
 				.product(name: "OrderedCollections", package: "swift-collections"),
 				"BigInt",
 				"PrivateFrameworks",
