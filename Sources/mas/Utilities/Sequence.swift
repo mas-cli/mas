@@ -37,8 +37,8 @@ extension Sequence {
 		var primaryIterator = makeIterator()
 		var secondaryIterator = secondary.makeIterator()
 
-		var primaryItemAndScore: (item: Element, score: Double)? = primaryIterator.next().map { ($0, score($0)) }
-		var secondaryItemAndScore: (item: Element, score: Double)? = secondaryIterator.next().map { ($0, score($0)) }
+		var primaryItemAndScore = primaryIterator.next().map { (item: $0, score: score($0)) }
+		var secondaryItemAndScore = secondaryIterator.next().map { (item: $0, score: score($0)) }
 
 		while let primaryInfo = primaryItemAndScore, let secondaryInfo = secondaryItemAndScore {
 			if primaryInfo.score >= secondaryInfo.score {
