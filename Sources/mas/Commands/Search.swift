@@ -25,14 +25,12 @@ extension MAS {
 		private var searchTermOptionGroup: SearchTermOptionGroup
 
 		func run() async throws {
-			try await run(searchForAppsMatchingSearchTerm: search(for:))
+			try run(
+				catalogApps: try await Dependencies.current.searchForAppsMatchingSearchTerm(searchTermOptionGroup.searchTerm),
+			)
 		}
 
-		private func run(searchForAppsMatchingSearchTerm: (String) async throws -> [CatalogApp]) async throws {
-			try run(catalogApps: try await searchForAppsMatchingSearchTerm(searchTermOptionGroup.searchTerm))
-		}
-
-		func run(catalogApps: [CatalogApp]) throws { // swiftformat:disable:this organizeDeclarations
+		func run(catalogApps: [CatalogApp]) throws {
 			guard
 				let maxADAMIDLength = catalogApps.map({ String(describing: $0.adamID).count }).max(),
 				let maxNameLength = catalogApps.map(\.name.count).max()
