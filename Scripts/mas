@@ -14,6 +14,23 @@ alias_if_executable_exists_at /usr/bin/column
 alias_if_executable_exists_at /usr/bin/jq
 
 case "${1:-}" in
+outdated)
+	# shellcheck disable=SC2016
+	mas "${@}" 3> >(
+		jq -sr '
+(map(.adamID | tostring | length) | max) as $max_adam_id_length |
+(map(.version | tostring | length) | max) as $max_version_length |
+.[] |
+[
+	((" " * (.adamID | tostring | $max_adam_id_length - length)) + (.adamID | tostring)),
+	.name,
+	"(" + .version + (" " * (.version | tostring | $max_version_length - length)) + " -> " + .newVersion + ")"
+] |
+join("\u001f")
+' |
+		column -ts $'\u001f'
+	)
+	;;
 list)
 	# shellcheck disable=SC2016
 	mas "${@}" 3> >(
