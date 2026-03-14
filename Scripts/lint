@@ -78,7 +78,7 @@ shellcheck -s bash -o all -e SC1009,SC1088,SC2296,SC2298,SC2299,SC2300,SC2301,SC
 printf -- $'--> 🚷 Non-Executables\n'
 readonly -a non_executables=(Scripts/***/*(N.^f+111))
 if (("${#non_executables[@]}")); then
-	printf $'%s\n' "${non_executables[@]}"
+	printf $'\e[1;91m%s\e[0m\n' "${non_executables[@]}"
 	((exit_status |= 1))
 fi
 
