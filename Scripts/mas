@@ -20,10 +20,29 @@ jq="$(path_or_simple_command /usr/bin/jq)"
 readonly jq
 
 case "${1:-}" in
-list)
+outdated)
 	# shellcheck disable=SC1056,SC1072,SC1073
 	{
 		# shellcheck disable=SC1083
+		{ exec "${mas}" "${@}" 3>&1 1>&4 2>&5 } | "${jq}" -sr '
+try (
+	(map(.adamID | tostring | length) | max) as $max_adam_id_length |
+	(map(.version // "" | length) | max) as $max_version_length |
+	.[] |
+	(.adamID | tostring) as $adam_id |
+	(.version // "") as $version |
+	[
+		" " * ($max_adam_id_length - ($adam_id | length)) + $adam_id,
+		.name,
+		"(" + $version + " " * ($max_version_length - ($version | length)) + " -> " + .newVersion + ")"
+	] |
+	join("\u001f")
+) catch ("\u001B[4;31mError:\u001B[0m Invalid data from mas: \(.)\n" | halt_error(1))
+' | "${column}" -ts $'\u001f'
+	} 4>&1 5>&2
+	;;
+list)
+	{
 		{ exec "${mas}" "${@}" 3>&1 1>&4 2>&5 } | "${jq}" -sr '
 try (
 	(map(.adamID | tostring | length) | max) as $max_adam_id_length |
