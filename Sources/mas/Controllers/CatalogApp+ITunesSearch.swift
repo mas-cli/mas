@@ -35,25 +35,24 @@ func lookup(
 	case let .bundleID(bundleID):
 		URLQueryItem(name: "bundleId", value: bundleID)
 	}
-	guard // swiftformat:disable:this wrap wrapArguments
+	return if // swiftformat:disable:this wrap wrapArguments
 		let catalogApp = // swiftformat:disable:next indent
 			try await getCatalogApps(from: try url("lookup", queryItem, inRegion: region), dataFrom: dataSource).first
-	else {
-		guard
-			let catalogApp = try await getCatalogApps(
-				from: try url("lookup", queryItem, inRegion: region, additionalQueryItems: []),
-				dataFrom: dataSource,
-			)
-			.first,
-			catalogApp.supportedDevices?.contains("MacDesktop-MacDesktop") ?? false
-		else {
-			throw MASError.unknownAppID(appID)
+	{
+		catalogApp
+	} else {
+		try await getCatalogApps(
+			from: try url("lookup", queryItem, inRegion: region, additionalQueryItems: []),
+			dataFrom: dataSource,
+		)
+		.first
+		.flatMap { catalogApp in
+			catalogApp.supportedDevices?.contains("MacDesktop-MacDesktop") == true // swiftformat:disable:next indent
+			? catalogApp.with(minimumOSVersion: await catalogApp.minimumOSVersion(dataFrom: dataSource))
+			: nil
 		}
-
-		return catalogApp.with(minimumOSVersion: await catalogApp.minimumOSVersion(dataFrom: dataSource))
+		?? { throw MASError.unknownAppID(appID) }()
 	}
-
-	return catalogApp
 }
 
 private extension CatalogApp {
@@ -106,7 +105,7 @@ func search(
 			from: try url("search", queryItem, inRegion: region, additionalQueryItems: []),
 			dataFrom: dataSource,
 		)
-		.filter { ($0.supportedDevices?.contains("MacDesktop-MacDesktop") ?? false) && !adamIDSet.contains($0.adamID) }
+		.filter { ($0.supportedDevices?.contains("MacDesktop-MacDesktop") == true) && !adamIDSet.contains($0.adamID) }
 		.concurrentMap { $0.with(minimumOSVersion: await $0.minimumOSVersion(dataFrom: dataSource)) },
 	) { $0.name.similarity(to: searchTerm) }
 }
