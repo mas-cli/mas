@@ -54,28 +54,29 @@ extension [InstalledApp] {
 			accuracy == .accurate
 			? { @Sendable installedApp in // swiftformat:disable indent
 				if shouldCheckMinimumOSVersion, await installableCatalogApp(from: installedApp) == nil {
-					return nil
-				}
-				return await withCheckedContinuation { continuation in
-					Task {
-						let alreadyResumed = ManagedAtomic(false)
-						do {
-							try await AppStore.install.app(withADAMID: installedApp.adamID) { appStoreVersion, shouldOutput in
-								if
-									shouldOutput,
-									let appStoreVersion,
-									installedApp.version != appStoreVersion,
-									!alreadyResumed.exchange(true, ordering: .acquiringAndReleasing)
-								{
-									continuation.resume(returning: OutdatedApp(installedApp, appStoreVersion))
+					nil
+				} else {
+					await withCheckedContinuation { continuation in
+						Task {
+							let alreadyResumed = ManagedAtomic(false)
+							do {
+								try await AppStore.install.app(withADAMID: installedApp.adamID) { appStoreVersion, shouldOutput in
+									if
+										shouldOutput,
+										let appStoreVersion,
+										installedApp.version != appStoreVersion,
+										!alreadyResumed.exchange(true, ordering: .acquiringAndReleasing)
+									{
+										continuation.resume(returning: OutdatedApp(installedApp, appStoreVersion))
+									}
+									return true
 								}
-								return true
+							} catch {
+								MAS.printer.error(error: error)
 							}
-						} catch {
-							MAS.printer.error(error: error)
-						}
-						if !alreadyResumed.load(ordering: .acquiring) {
-							continuation.resume(returning: nil)
+							if !alreadyResumed.load(ordering: .acquiring) {
+								continuation.resume(returning: nil)
+							}
 						}
 					}
 				}
