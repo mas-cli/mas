@@ -16,6 +16,8 @@ extension MAS {
 		)
 
 		@OptionGroup
+		private var outputFormatOptionGroup: OutputFormatOptionGroup
+		@OptionGroup
 		private var installedAppIDsOptionGroup: InstalledAppIDsOptionGroup
 
 		func run() async throws {
@@ -24,10 +26,7 @@ extension MAS {
 
 		func run(installedApps: [InstalledApp]) {
 			let installedApps = installedApps.filter(for: installedAppIDsOptionGroup.appIDs)
-			guard
-				let maxADAMIDLength = installedApps.map({ String(describing: $0.adamID).count }).max(),
-				let maxNameLength = installedApps.map(\.name.count).max()
-			else {
+			guard !installedApps.isEmpty else {
 				printer.warning(
 					"""
 					No installed apps found
@@ -48,18 +47,7 @@ extension MAS {
 				return
 			}
 
-			let format = "%\(maxADAMIDLength)lu  %@  (%@)"
-			printer.info(
-				installedApps.map { installedApp in
-					String(
-						format: format,
-						installedApp.adamID,
-						installedApp.name.padding(toLength: maxNameLength, withPad: " ", startingAt: 0),
-						installedApp.version,
-					)
-				}
-				.joined(separator: "\n"),
-			)
+			outputFormatOptionGroup.info(installedApps.map(String.init(describing:)).joined(separator: "\n"))
 		}
 	}
 }

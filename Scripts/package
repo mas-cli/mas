@@ -28,19 +28,21 @@ swift package generate-manual
 
 mkdir -p "${installation_staging_folder}/bin"
 mkdir -p "${installation_staging_folder}/etc/bash_completion.d"
+mkdir -p "${installation_staging_folder}/libexec/bin"
 mkdir -p "${installation_staging_folder}/share/fish/vendor_completions.d"
 mkdir -p "${installation_staging_folder}/share/man/man1"
 mkdir -p "${usr_local_bin_staging_folder}"
 
-cp LICENSE README.md "${installation_staging_folder}"
-cp contrib/completion/mas-completion.bash "${installation_staging_folder}/etc/bash_completion.d/mas"
-cp contrib/completion/mas.fish "${installation_staging_folder}/share/fish/vendor_completions.d/mas.fish"
-ln -f "$(swift build -c release --show-bin-path "${@:2}")/mas" "${installation_staging_folder}/bin/mas"
-ln -f .build/plugins/GenerateManual/outputs/mas/mas.1 "${installation_staging_folder}/share/man/man1/mas.1"
+cp -c "$(swift build -c release --show-bin-path "${@:2}")/mas" "${installation_staging_folder}/libexec/bin/mas"
+cp -c .build/plugins/GenerateManual/outputs/mas/mas.1 "${installation_staging_folder}/share/man/man1/mas.1"
+cp -c LICENSE README.md "${installation_staging_folder}"
+cp -c Scripts/mas "${installation_staging_folder}/bin/mas"
+cp -c contrib/completion/mas-completion.bash "${installation_staging_folder}/etc/bash_completion.d/mas"
+cp -c contrib/completion/mas.fish "${installation_staging_folder}/share/fish/vendor_completions.d/mas.fish"
 
 ln -fs "${installation_folder}/bin/mas" "${usr_local_bin_staging_folder}/mas"
 
-archs=("${(s: :n)$(lipo -archs "${installation_staging_folder}/bin/mas")}")
+archs=("${(s: :n)$(lipo -archs "${installation_staging_folder}/libexec/bin/mas")}")
 # shellcheck disable=SC2034
 readonly -a archs
 
