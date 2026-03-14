@@ -29,7 +29,7 @@ final class Sample {
 }
 
 /// Use `()` for void arguments & `Void` for void return types.
-let closure: () -> Void = {
+func x(_: () -> Void) {
 	// Do nothing
 }
 
