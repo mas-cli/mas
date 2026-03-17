@@ -146,7 +146,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 			return
 		}
 		guard let continuation = unsafe continuation else {
-			MAS.printer.error("Failed to obtain download continuation for ADAM ID \(adamID)")
+			MAS.printer.error("Failed to get download continuation for ADAM ID \(adamID)")
 			return
 		}
 
