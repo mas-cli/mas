@@ -1,5 +1,5 @@
 {
-	"originHash" : "fe336dc5a91893be96812ec91baba97112f3407b3c398b918ac3eeebc5bc9781",
+	"originHash" : "ece2543e322834455e09c620ad89bd4a2ee3adca1eeaa84753101e614956db76",
 	"pins" : [
 		{
 			"identity" : "bigint",
@@ -17,6 +17,15 @@
 			"state" : {
 				"revision" : "99d4f4137837a28e1e294eb69ac66ad53c0934d3",
 				"version" : "0.1.14"
+			}
+		},
+		{
+			"identity" : "gram",
+			"kind" : "remoteSourceControl",
+			"location" : "https://github.com/rarestype/gram",
+			"state" : {
+				"revision" : "2b8fe53177582c7e41eecaaf08a14ad94888759c",
+				"version" : "1.0.0"
 			}
 		},
 		{
@@ -51,8 +60,8 @@
 			"kind" : "remoteSourceControl",
 			"location" : "https://github.com/apple/swift-argument-parser.git",
 			"state" : {
-				"revision" : "c5d11a805e765f52ba34ec7284bd4fcd6ba68615",
-				"version" : "1.7.0"
+				"revision" : "626b5b7b2f45e1b0b1c6f4a309296d1d21d7311b",
+				"version" : "1.7.1"
 			}
 		},
 		{
@@ -69,8 +78,16 @@
 			"kind" : "remoteSourceControl",
 			"location" : "https://github.com/apple/swift-collections.git",
 			"state" : {
-				"revision" : "8d9834a6189db730f6264db7556a7ffb751e99ee",
-				"version" : "1.4.0"
+				"revision" : "6675bc0ff86e61436e615df6fc5174e043e57924",
+				"version" : "1.4.1"
+			}
+		},
+		{
+			"identity" : "swift-json",
+			"kind" : "remoteSourceControl",
+			"location" : "https://github.com/mas-cli/swift-json.git",
+			"state" : {
+				"revision" : "564110e7f56a573aafed49da379368a65faf0eb7"
 			}
 		},
 		{
@@ -78,8 +95,8 @@
 			"kind" : "remoteSourceControl",
 			"location" : "https://github.com/scinfu/SwiftSoup.git",
 			"state" : {
-				"revision" : "dba183c96b2da4e4b80bb31b1e2e59cb9542b8fc",
-				"version" : "2.13.0"
+				"revision" : "fd541c4b3fa7dcec2e7cfe049505b6e4382cd66b",
+				"version" : "2.13.2"
 			}
 		}
 	],

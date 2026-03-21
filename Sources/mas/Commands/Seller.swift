@@ -24,14 +24,10 @@ extension MAS {
 		private var catalogAppIDsOptionGroup: CatalogAppIDsOptionGroup
 
 		func run() async {
-			await run(lookupAppFromAppID: lookup(appID:))
+			await run(catalogApps: await catalogAppIDsOptionGroup.appIDs.catalogApps)
 		}
 
-		private func run(lookupAppFromAppID: @escaping @Sendable (AppID) async throws -> CatalogApp) async {
-			await run(catalogApps: await catalogAppIDsOptionGroup.appIDs.lookupCatalogApps(using: lookupAppFromAppID))
-		}
-
-		func run(catalogApps: [CatalogApp]) async { // swiftformat:disable:this organizeDeclarations
+		func run(catalogApps: [CatalogApp]) async {
 			await run(
 				sellerURLStrings: catalogApps.compactMap { catalogApp in
 					guard let sellerURLString = catalogApp.sellerURLString else {
@@ -44,7 +40,7 @@ extension MAS {
 			)
 		}
 
-		private func run(sellerURLStrings: [String]) async { // swiftformat:disable:this organizeDeclarations
+		private func run(sellerURLStrings: [String]) async {
 			await sellerURLStrings.forEach(attemptTo: "open") { sellerURLString in
 				guard let url = URL(string: sellerURLString) else {
 					throw MASError.unparsableURL(sellerURLString)

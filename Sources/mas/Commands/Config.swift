@@ -8,6 +8,9 @@
 internal import ArgumentParser
 private import Darwin
 private import Foundation
+private import JSON
+private import JSONAST
+private import JSONEncoding
 
 extension MAS {
 	/// Outputs mas config & related system info.
@@ -16,24 +19,30 @@ extension MAS {
 			abstract: "Output mas config & related system info",
 		)
 
+		@OptionGroup
+		private var outputFormatOptionGroup: OutputFormatOptionGroup
+
 		func run() {
-			printer.info(
-				"""
-				mas ▁▁▁▁ \(version)
-				slice ▁▁ \(runningSliceArchitecture)
-				slices ▁ \(supportedSliceArchitectures.joined(separator: " "))
-				dist ▁▁▁ \(distribution)
-				origin ▁ \(gitOrigin)
-				rev ▁▁▁▁ \(gitRevision)
-				swift ▁▁ \(swiftVersion)
-				driver ▁ \(swiftDriverVersion)
-				store ▁▁ \(appStoreRegion)
-				region ▁ \(macRegion)
-				macos ▁▁ \(macOSVersion)
-				mac ▁▁▁▁ \(configStringValue("hw.product"))
-				cpu ▁▁▁▁ \(configStringValue("machdep.cpu.brand_string"))
-				arch ▁▁▁ \(configStringValue("hw.machine"))
-				""",
+			outputFormatOptionGroup.info(
+				JSON.encode(
+					KeyValuePairs(
+						dictionaryLiteral:
+						("mas", version),
+						("slice", runningSliceArchitecture),
+						("slices", supportedSliceArchitectures.joined(separator: " ")),
+						("dist", distribution),
+						("origin", gitOrigin),
+						("rev", gitRevision),
+						("swift", swiftVersion),
+						("driver", swiftDriverVersion),
+						("store", appStoreRegion),
+						("region", macRegion),
+						("macos", macOSVersion),
+						("mac", configStringValue("hw.product")),
+						("cpu", configStringValue("machdep.cpu.brand_string")),
+						("arch", configStringValue("hw.machine")),
+					),
+				),
 			)
 		}
 	}
@@ -42,7 +51,7 @@ extension MAS {
 private var runningSliceArchitecture: String {
 	var info = utsname()
 	return unsafe uname(&info) == 0
-	? withUnsafePointer(to: &info.machine) { pointer in // swiftformat:disable indent
+	? unsafe withUnsafePointer(to: &info.machine) { pointer in // swiftformat:disable indent
 		unsafe pointer.withMemoryRebound(
 			to: CChar.self,
 			capacity: unsafe MemoryLayout.size(ofValue: unsafe pointer),
@@ -78,8 +87,10 @@ private var supportedSliceArchitectures: [String] {
 	?? [] // swiftformat:disable:this indent
 }
 
-private var macOSVersion: Substring {
-	ProcessInfo.processInfo.operatingSystemVersionString.dropFirst(8).replacing("Build ", with: "", maxReplacements: 1)
+private var macOSVersion: String {
+	String(
+		ProcessInfo.processInfo.operatingSystemVersionString.dropFirst(8).replacing("Build ", with: "", maxReplacements: 1),
+	)
 }
 
 private func configStringValue(_ name: String) -> String {

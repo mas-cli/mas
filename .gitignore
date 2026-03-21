@@ -2,5 +2,6 @@
 /.idea/
 /.swiftpm/
 /.vscode/
+/libexec/bin/mas
 .DS_Store
 *~

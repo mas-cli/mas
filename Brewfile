@@ -1,7 +1,7 @@
 brew "actionlint"        # 1.7.11
-brew "gh"                # 2.87.3
+brew "gh"                # 2.88.1
 brew "git"               # 2.53.0
-brew "ipsw"              # 3.1.660
+brew "ipsw"              # 3.1.665
 brew "markdownlint-cli2" # 0.21.0
 brew "periphery" if MacOS.version >= :sequoia && `/usr/bin/arch` == "arm64" # 3.6.0
 brew "shellcheck"        # 0.11.0

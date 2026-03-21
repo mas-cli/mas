@@ -6,7 +6,6 @@
 //
 
 internal import ArgumentParser
-private import Foundation
 
 extension MAS {
 	/// Outputs app information from the App Store.
@@ -21,43 +20,16 @@ extension MAS {
 		)
 
 		@OptionGroup
+		private var outputFormatOptionGroup: OutputFormatOptionGroup
+		@OptionGroup
 		private var catalogAppIDsOptionGroup: CatalogAppIDsOptionGroup
 
 		func run() async {
-			await run(lookupAppFromAppID: lookup(appID:))
+			run(catalogApps: await catalogAppIDsOptionGroup.appIDs.catalogApps)
 		}
 
-		private func run(lookupAppFromAppID: @escaping @Sendable (AppID) async throws -> CatalogApp) async {
-			run(catalogApps: await catalogAppIDsOptionGroup.appIDs.lookupCatalogApps(using: lookupAppFromAppID))
+		func run(catalogApps: [CatalogApp]) {
+			outputFormatOptionGroup.info(catalogApps.map { "\($0)\n" }.joined(), terminator: "")
 		}
-
-		func run(catalogApps: [CatalogApp]) { // swiftformat:disable:this organizeDeclarations
-			printer.info(
-				catalogApps.map { catalogApp in
-					"""
-					\(catalogApp.name) \(catalogApp.version) [\(catalogApp.displayPrice)]
-					By: \(catalogApp.sellerName)
-					Released: \(catalogApp.releaseDate.isoCalendarDate)
-					Minimum OS: \(catalogApp.minimumOSVersion)
-					Size: \(catalogApp.fileSizeBytes.humanReadableSize)
-					From: \(catalogApp.appStorePageURLString)
-
-					"""
-				}
-				.joined(separator: "\n"),
-				terminator: "",
-			)
-		}
-	}
-}
-
-private extension String {
-	var humanReadableSize: Self {
-		Int64(self).map { $0.formatted(.byteCount(style: .file, allowedUnits: .mb, spellsOutZero: false)) } ?? self
-	}
-
-	var isoCalendarDate: Self {
-		(try? Date(self, strategy: .iso8601).formatted(Date.ISO8601FormatStyle(timeZone: .current).year().month().day()))
-		?? self // swiftformat:disable:this indent
 	}
 }

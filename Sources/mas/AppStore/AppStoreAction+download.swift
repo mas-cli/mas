@@ -146,7 +146,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 			return
 		}
 		guard let continuation = unsafe continuation else {
-			MAS.printer.error("Failed to obtain download continuation for ADAM ID \(adamID)")
+			MAS.printer.error("Failed to get download continuation for ADAM ID \(adamID)")
 			return
 		}
 
@@ -204,7 +204,8 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		case
 			.downloading where prevPhaseType == .processing,
 			.downloaded where prevPhaseType == .downloading,
-			.performing:
+			.performing
+		: // swiftformat:disable:this indent
 			MAS.printer.clearCurrentLine(of: .standardOutput)
 			MAS.printer.notice(snapshot.activePhaseType, snapshot.appNameAndVersion)
 		default:
@@ -469,17 +470,16 @@ private enum PhaseType: Equatable { // swiftlint:disable:this one_declaration_pe
 	}
 
 	init(_ action: AppStoreAction, rawValue: Int64?) {
-		self =
-			switch rawValue {
-			case 0:
-				.downloading
-			case 1:
-				.performing(action)
-			case 5:
-				.downloaded
-			default:
-				.processing
-			}
+		self = switch rawValue {
+		case 0:
+			.downloading
+		case 1:
+			.performing(action)
+		case 5:
+			.downloaded
+		default:
+			.processing
+		}
 	}
 }
 

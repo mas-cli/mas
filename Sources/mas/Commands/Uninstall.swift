@@ -122,7 +122,7 @@ extension MAS {
 					printer.error(
 						"""
 						Failed to revert ownership of uninstalled \(appPath.quoted) back to uid \(appUID) & gid \(appGID):\
-						 failed to obtain uninstalled app URL
+						 failed to get uninstalled app URL
 						""",
 					)
 					continue
