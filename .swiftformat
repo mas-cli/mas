@@ -14,6 +14,7 @@
 #--enable markTypes
 #--enable preferExplicitFalse
 #--enable testSuiteAccessControl
+#--enable wrapMultilineConditionalAssignment
 
 # Enabled rules (disabled by default)
 --enable acronyms
@@ -34,7 +35,6 @@
 --enable validateTestCases
 --enable wrapConditionalBodies
 --enable wrapEnumCases
---enable wrapMultilineConditionalAssignment
 --enable wrapMultilineFunctionChains
 --enable wrapSwitchCases
 

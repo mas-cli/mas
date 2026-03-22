@@ -27,19 +27,15 @@ extension MAS {
 		private var installedAppIDsOptionGroup: InstalledAppIDsOptionGroup
 
 		func run() async throws {
-			try await run(installedApps: try await installedApps.filter(!\.isTestFlight), lookupAppFromAppID: lookup(appID:))
+			try await run(installedApps: try await installedApps.filter(!\.isTestFlight))
 		}
 
-		private func run(
-			installedApps: [InstalledApp],
-			lookupAppFromAppID: @escaping @Sendable (AppID) async throws -> CatalogApp,
-		) async throws {
+		private func run(installedApps: [InstalledApp]) async throws {
 			try await run(
 				outdatedApps: forceOptionGroup.force // swiftformat:disable:next indent
 				? installedApps.filter(for: installedAppIDsOptionGroup.appIDs).map { ($0, "") }
 				: await installedApps.outdatedApps(
 					filterFor: installedAppIDsOptionGroup.appIDs,
-					lookupAppFromAppID: lookupAppFromAppID,
 					accuracy: outdatedAppOptionGroup.accuracy,
 					shouldCheckMinimumOSVersion: outdatedAppOptionGroup.shouldCheckMinimumOSVersion,
 					shouldWarnIfUnknownApp: verboseOptionGroup.verbose,
