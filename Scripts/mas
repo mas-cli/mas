@@ -1,0 +1,117 @@
+#!/bin/zsh -Ndefgku
+
+# Copyright © 2026 mas-cli. All rights reserved.
+
+setopt pipefail
+
+path_or_simple_command() {
+	# shellcheck disable=SC2139
+	[[ -x "${1}" ]] && printf %s "${1}" || printf %s "${1:t}"
+}
+
+# shellcheck disable=SC2311
+mas="$(path_or_simple_command "${0:A:h}/../libexec/bin/mas")"
+readonly mas
+# shellcheck disable=SC2311
+column="$(path_or_simple_command /usr/bin/column)"
+readonly column
+# shellcheck disable=SC2311
+jq="$(path_or_simple_command /usr/bin/jq)"
+readonly jq
+
+case "${1:-}" in
+outdated)
+	# shellcheck disable=SC1056,SC1072,SC1073
+	{
+		# shellcheck disable=SC1083
+		{ exec "${mas}" "${@}" 3>&1 1>&4 2>&5 } | "${jq}" -sr '
+try (
+	(map(.adamID | tostring | length) | max) as $max_adam_id_length |
+	(map(.version // "" | length) | max) as $max_version_length |
+	.[] |
+	(.adamID | tostring) as $adam_id |
+	(.version // "") as $version |
+	[
+		" " * ($max_adam_id_length - ($adam_id | length)) + $adam_id,
+		.name,
+		"(" + $version + " " * ($max_version_length - ($version | length)) + " -> " + .newVersion + ")"
+	] |
+	join("\u001f")
+) catch ("\u001B[4;31mError:\u001B[0m Invalid data from mas: \(.)\n" | halt_error(1))
+' | "${column}" -ts $'\u001f'
+	} 4>&1 5>&2
+	;;
+list|search)
+	{
+		{ exec "${mas}" "${@}" 3>&1 1>&4 2>&5 } | "${jq}" -sr '
+try (
+	(map(.adamID | tostring | length) | max) as $max_adam_id_length |
+	.[] |
+	(.adamID | tostring) as $adam_id |
+	[
+		" " * ($max_adam_id_length - ($adam_id | length)) + $adam_id,
+		.name,
+		"(" + (.version // "") + ")"
+	] |
+	join("\u001f")
+) catch ("\u001B[4;31mError:\u001B[0m Invalid data from mas: \(.)\n" | halt_error(1))
+' | "${column}" -ts $'\u001f'
+	} 4>&1 5>&2
+	;;
+lookup|info)
+	{
+		{ exec "${mas}" "${@}" 3>&1 1>&4 2>&5 } | "${jq}" -sr '
+def numberCommas($n):
+	($n | abs | round | tostring) as $s |
+	if $n < 0 then "-" else "" end + ([$s | while(length > 0; .[:-3]) | .[-3:]] | reverse | join(","))
+;
+try (
+	{
+		"name": "App",
+		"version": "Version",
+		"formattedPrice": "Price",
+		"sellerName": "By",
+		"currentVersionReleaseDate": "Released",
+		"minimumOSVersion": "Minimum OS",
+		"fileSizeBytes": "Size",
+		"appStorePageURL": "From"
+	} as $key_map |
+	($key_map | values | map(length) | max) as $max_key_length |
+	[
+		.[]? as $in |
+		[
+			($key_map | keys_unsorted)[] |
+			select($in[.] != null) as $k |
+			"\($key_map[$k]) \("▁" * ($max_key_length - ($key_map[$k] | length) + 1)) \(
+				$in[$k] |
+				if $k == "fileSizeBytes" then
+					numberCommas(tonumber? / 1e6 // 0) + " MB"
+				elif $k == "currentVersionReleaseDate" then
+					(fromdateiso8601? | strflocaltime("%Y-%m-%d")) // .
+				else
+					.
+				end
+			)"
+		] |
+		join("\n")
+	] |
+	map(select(length > 0)) | if length > 0 then join("\n\n") else empty end
+) catch ("\u001B[4;31mError:\u001B[0m Invalid data from mas: \(.)\n" | halt_error(1))
+'
+	} 4>&1 5>&2
+	;;
+config)
+	{
+		{ exec "${mas}" "${@}" 3>&1 1>&4 2>&5 } | "${jq}" -r '
+try (
+	(keys_unsorted | map(length) | max) as $max_key_length |
+	to_entries[] |
+	"\(.key) \("▁" * ($max_key_length - (.key | length) + 1)) \(.value)"
+) catch ("\u001B[4;31mError:\u001B[0m Invalid data from mas: \(.)\n" | halt_error(1))
+'
+	} 4>&1 5>&2
+	;;
+*)
+	exec "${mas}" "${@}"
+	;;
+esac

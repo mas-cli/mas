@@ -1,0 +1,15 @@
+#!/bin/zsh -Ndefgku
+#
+# Scripts/setup_libexec
+# mas
+#
+# Copyright © 2026 mas-cli. All rights reserved.
+#
+# Copies executable to libexec/bin/mas.
+#
+
+. "${0:A:h}/_setup_script"
+
+mkdir -p libexec/bin
+# shellcheck disable=SC1036,SC2086,SC2225
+cp -c .build/${1:-(debug|release)}/mas(om[1]) libexec/bin/mas
