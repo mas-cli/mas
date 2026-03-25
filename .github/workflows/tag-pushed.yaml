@@ -34,8 +34,8 @@ jobs:
       run: |
         git fetch --force origin "${GITHUB_REF}:${GITHUB_REF}"
         if [[\
-         "$(git cat-file tag "${GITHUB_REF_NAME}")" != *'-----BEGIN SSH SIGNATURE-----'*'-----END SSH SIGNATURE-----'\
-         ]]; then
+         "$(git cat-file tag "${GITHUB_REF_NAME}")" != *'-----BEGIN SSH SIGNATURE-----'*'-----END SSH SIGNATURE-----' \
+        ]]; then
           printf $'Error: Deleting tag %s because it does not have a valid signature\n' "${GITHUB_REF_NAME}" >&2
           git push -d origin "${GITHUB_REF_NAME}"
           exit 1
