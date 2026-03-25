@@ -19,7 +19,7 @@ extension Collection where Element: Sendable {
 		await concurrentTransform(maxConcurrentTaskCount: maxConcurrentTaskCount, transform).map { $0! }
 	}
 
-	func concurrentMap<T: Sendable>(
+	func concurrentMap<T: Sendable>( // swiftlint:disable:this unused_declaration
 		maxConcurrentTaskCount: Int = defaultMaxConcurrentTaskCount,
 		_ transform: @escaping @Sendable (Element) async throws -> T,
 	) async rethrows -> [T] { // periphery:ignore
@@ -33,7 +33,7 @@ extension Collection where Element: Sendable {
 		await concurrentTransform(maxConcurrentTaskCount: maxConcurrentTaskCount, transform).compactMap(\.self)
 	}
 
-	func concurrentCompactMap<T: Sendable>(
+	func concurrentCompactMap<T: Sendable>( // swiftlint:disable:this unused_declaration
 		maxConcurrentTaskCount: Int = defaultMaxConcurrentTaskCount,
 		_ transform: @escaping @Sendable (Element) async throws -> T?,
 	) async rethrows -> [T] { // periphery:ignore
