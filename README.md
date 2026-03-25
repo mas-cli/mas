@@ -4,6 +4,7 @@
 
 </h1>
 
+<!--editorconfig-checker-disable-->
 [![current release version](https://img.shields.io/github/v/release/mas-cli/mas.svg?style=for-the-badge)](https://github.com/mas-cli/mas/releases)
 [![supported OS: macOS 13+](https://img.shields.io/badge/Supported_OS-macOS_13%2B-teal?style=for-the-badge)](Package.swift)
 [![license: MIT](https://img.shields.io/badge/license-MIT-750014.svg?style=for-the-badge)](LICENSE)
@@ -12,6 +13,7 @@
   https://github.com/mas-cli/mas/actions/workflows/build-test.yaml?query=branch%3Amain
 )
 [![dependencies status](https://img.shields.io/librariesio/github/mas-cli/mas?style=for-the-badge)](Package.swift)
+<!--editorconfig-checker-enable-->
 
 mas is a command-line interface for the Mac App Store that is designed for
 scripting & automation.

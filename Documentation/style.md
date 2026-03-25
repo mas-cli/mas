@@ -4,10 +4,10 @@
 - Run `Scripts/format` to automatically fix many linting violations
 - Remove unnecessary trailing whitespace
   - Note that 2 trailing spaces is valid Markdown to create a line break like
-    `<br>`, so those should _not_ be removed
+    `<br>`, so those should _not_ be removed <!--editorconfig-checker-disable-->
 - End each file with a [single newline character](
     https://unix.stackexchange.com/questions/18743/whats-the-point-in-adding-a-new-line-to-the-end-of-a-file#18789
-  )
+  ) <!--editorconfig-checker-enable-->
 
 ## Swift
 

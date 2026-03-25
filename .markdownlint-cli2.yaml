@@ -1,5 +1,7 @@
+# editorconfig-checker-disable
 # yamllint disable-line rule:line-length
 # yaml-language-server: $schema=https://raw.githubusercontent.com/DavidAnson/markdownlint-cli2/main/schema/markdownlint-cli2-config-schema.json
+# editorconfig-checker-enable
 #
 # .markdownlint-cli2.yaml
 # mas

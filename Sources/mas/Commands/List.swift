@@ -28,7 +28,7 @@ extension MAS {
 				let maxADAMIDLength = installedApps.map({ String(describing: $0.adamID).count }).max(),
 				let maxNameLength = installedApps.map(\.name.count).max()
 			else {
-				printer.warning(
+				printer.warning( // editorconfig-checker-disable
 					"""
 					No installed apps found
 
@@ -43,7 +43,7 @@ extension MAS {
 
 					# All file system volumes (if neither aforementioned command solved the issue):
 					sudo mdutil -Eai on
-					""",
+					""", // editorconfig-checker-enable
 				)
 				return
 			}

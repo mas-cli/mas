@@ -22,9 +22,10 @@ where `main` is the trunk.
 - [Fork the repository](https://github.com/mas-cli/mas#fork-button) on
   GitHub
 - Clone your fork: `git clone git@github.com:your-username/mas.git`
-- Create a topic branch instead of [working directly on `main`](
+- <!--editorconfig-checker-disable-->
+  Create a topic branch instead of [working directly on `main`](
     https://softwareengineering.stackexchange.com/questions/223400/when-should-i-stop-committing-to-master-on-new-projects
-  )
+  ) <!--editorconfig-checker-enable-->
   - To branch a topic branch from `main` named, e.g., `feature`, run:
     `git checkout -b feature main`
 - Commit logical units

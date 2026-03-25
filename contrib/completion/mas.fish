@@ -56,7 +56,7 @@ complete -c mas -n "__fish_seen_subcommand_from help" -xa "open"
 ### outdated
 complete -c mas -n "__fish_use_subcommand" -f -a outdated -d "List pending app updates from the App Store"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "outdated"
-complete -c mas -n "__fish_seen_subcommand_from outdated" -l verbose -d "Output warnings about app IDs unknown to the App Store"
+complete -c mas -n "__fish_seen_subcommand_from outdated" -l verbose -d "Output warnings about app IDs unknown to the App Store" # editorconfig-checker-disable-line
 ### reset
 complete -c mas -n "__fish_use_subcommand" -f -a reset -d "Reset App Store processes & clear cached App Store downloads"
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "reset"
@@ -73,7 +73,7 @@ complete -c mas -n "__fish_use_subcommand" -f -a signin -d "Sign in to an Apple 
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "signin"
 complete -c mas -n "__fish_seen_subcommand_from signin" -l dialog -d "Provide password via graphical dialog"
 ### signout
-complete -c mas -n "__fish_use_subcommand" -f -a signout -d "Sign out of the Apple Account currently signed in to the App Store"
+complete -c mas -n "__fish_use_subcommand" -f -a signout -d "Sign out of the Apple Account currently signed in to the App Store" # editorconfig-checker-disable-line
 complete -c mas -n "__fish_seen_subcommand_from help" -xa "signout"
 ### uninstall
 complete -c mas -n "__fish_use_subcommand" -f -a uninstall -d "Uninstall apps installed from the App Store"

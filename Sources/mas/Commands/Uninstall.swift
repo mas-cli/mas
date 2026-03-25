@@ -120,11 +120,11 @@ extension MAS {
 					resultingItemURL: &uninstalledAppNSURL,
 				)
 				guard let uninstalledAppPath = uninstalledAppNSURL?.path else {
-					printer.error(
+					printer.error( // editorconfig-checker-disable
 						"""
 						Failed to revert ownership of uninstalled \(appPath.quoted) back to uid \(appUID) & gid \(appGID):\
 						 failed to get uninstalled app URL
-						""",
+						""", // editorconfig-checker-enable
 					)
 					continue
 				}

@@ -15,7 +15,7 @@ private extension MASTests {
 		let actual = consequencesOf(try MAS.main(try MAS.List.parse([])) { $0.run(installedApps: []) })
 		let expected = Consequences(
 			nil,
-			"",
+			"", // editorconfig-checker-disable
 			"""
 			Warning: No installed apps found
 
@@ -31,7 +31,7 @@ private extension MASTests {
 			         # All file system volumes (if neither aforementioned command solved the issue):
 			         sudo mdutil -Eai on
 
-			""",
+			""", // editorconfig-checker-enable
 		)
 		#expect(actual == expected)
 	}

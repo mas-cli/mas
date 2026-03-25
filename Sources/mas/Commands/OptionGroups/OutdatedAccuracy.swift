@@ -13,11 +13,11 @@ enum OutdatedAccuracy: String, EnumerableFlag {
 
 	static func help(for outdatedAccuracy: Self) -> ArgumentHelp? {
 		switch outdatedAccuracy {
-		case .accurate:
+		case .accurate: // editorconfig-checker-disable
 			"""
 			Use accurate, slower logic that starts then cancels a download for each queried app, which can exceed download\
 			 limits & which will open dialogs for undownloadable apps
-			"""
+			""" // editorconfig-checker-enable
 		case .inaccurate:
 			"Use inaccurate, faster logic that avoids dialogs"
 		}

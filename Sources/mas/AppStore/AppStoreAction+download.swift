@@ -413,11 +413,11 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 				)
 			}
 		} catch {
-			throw MASError.error(
+			throw MASError.error( // editorconfig-checker-disable
 				"""
 				Failed to copy receipt for \(appNameAndVersion) from \(receiptHardLinkURL.filePath.quoted) to\
 				 \(receiptURL.filePath.quoted)
-				""",
+				""", // editorconfig-checker-enable
 				error: error,
 			)
 		}
