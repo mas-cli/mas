@@ -63,9 +63,7 @@ extension Collection where Element: Sendable {
 			var iterator = enumerated().makeIterator()
 			func addNextTask() {
 				if let next = iterator.next() {
-					group.addTask {
-						(next.offset, try await transform(next.element))
-					}
+					group.addTask { (next.offset, try await transform(next.element)) }
 				}
 			}
 

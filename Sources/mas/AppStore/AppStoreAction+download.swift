@@ -34,18 +34,14 @@ extension AppStoreAction { // swiftlint:disable:this file_types_order
 		let queue = CKDownloadQueue.shared()
 		let observer = DownloadQueueObserver(for: self, of: adamID, shouldCancel: shouldCancel)
 		let observerUUID = queue.add(observer)
-		defer {
-			queue.removeObserver(observerUUID)
-		}
+		defer { queue.removeObserver(observerUUID) }
 
 		try await withCheckedThrowingContinuation { continuation in
 			observer.set(continuation: continuation)
 
 			CKPurchaseController.shared().perform(purchase, withOptions: 0) { _, _, error, response in
 				if let error {
-					Task {
-						await observer.resumeOnce { $0.resume(throwing: error) }
-					}
+					Task { await observer.resumeOnce { $0.resume(throwing: error) } }
 				} else if response?.downloads?.isEmpty != false {
 					Task {
 						await observer.resumeOnce { continuation in
@@ -111,9 +107,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 			return
 		}
 
-		Task {
-			await statusChanged(for: snapshot)
-		}
+		Task { await statusChanged(for: snapshot) }
 	}
 
 	nonisolated func downloadQueue(_: CKDownloadQueue, changedWithRemoval download: SSDownload) {
@@ -121,9 +115,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 			return
 		}
 
-		Task {
-			await removed(snapshot)
-		}
+		Task { await removed(snapshot) }
 	}
 
 	func resumeOnce(performing action: (CheckedContinuation<Void, any Error>) -> Void) {
