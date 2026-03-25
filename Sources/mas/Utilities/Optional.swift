@@ -6,9 +6,8 @@
 //
 
 extension Optional {
-	// periphery:ignore
 	func map<E: Error, U: ~Copyable>(_ transform: (Wrapped) async throws(E) -> U) async throws(E) -> U? {
-		guard let self else { // swiftlint:disable:previous unused_declaration
+		guard let self else {
 			return nil
 		}
 

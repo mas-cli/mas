@@ -44,7 +44,7 @@ if ((can_use_periphery)) && ! [[ -v 'received_flag[-P]' ]]; then
 	((exit_status |= ${?}))
 
 	printf -- $'--> 🌀 Periphery Tests\n'
-	periphery scan |
+	periphery scan --no-superfluous-ignore-comments |
 	 (grep -vxE '(?:\x1b\[0;1;32m|\^D\x08{2})\* (?:\x1b\[0;0m\x1b\[0;1m)?No unused code detected\.(?:\x1b\[0;0m)?\r?' || true)
 	((exit_status |= ${?}))
 fi

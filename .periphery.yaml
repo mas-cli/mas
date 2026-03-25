@@ -2,7 +2,7 @@
 # .periphery.yaml
 # mas
 #
-# Periphery 3.6.0
+# Periphery 3.7.2
 #
 ---
 color: always
@@ -10,4 +10,3 @@ disable_update_check: true
 quiet: true
 relative_results: true
 strict: true
-superfluous_ignore_comments: false

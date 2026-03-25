@@ -1,9 +1,0 @@
-#
-# .github/actionlint.yaml
-# mas
-#
-# actionlint 1.7.11
-#
----
-self-hosted-runner:
-  labels: [macos-26-intel]

@@ -1,5 +1,5 @@
 {
-	"originHash" : "fe336dc5a91893be96812ec91baba97112f3407b3c398b918ac3eeebc5bc9781",
+	"originHash" : "1e59b315a1259424c1a6805e5b9e9164e4267377e7bf98e1bb3f1c5986eab67d",
 	"pins" : [
 		{
 			"identity" : "bigint",
@@ -24,8 +24,8 @@
 			"kind" : "remoteSourceControl",
 			"location" : "https://github.com/KittyMac/Hitch.git",
 			"state" : {
-				"revision" : "d3bfe4b90303653d71f5423c6ec2cbe47b75d7ed",
-				"version" : "0.4.151"
+				"revision" : "067a1e36837a8e62461841665715028bf3b48f5f",
+				"version" : "0.4.153"
 			}
 		},
 		{
@@ -33,8 +33,8 @@
 			"kind" : "remoteSourceControl",
 			"location" : "https://github.com/KittyMac/Sextant.git",
 			"state" : {
-				"revision" : "d4f794ac57a84dadacd1a0edd5d29717ef0e7b74",
-				"version" : "0.4.38"
+				"revision" : "6e83a22ceb31a59fc76333f5c2346d989f78a309",
+				"version" : "0.4.39"
 			}
 		},
 		{
@@ -78,8 +78,8 @@
 			"kind" : "remoteSourceControl",
 			"location" : "https://github.com/scinfu/SwiftSoup.git",
 			"state" : {
-				"revision" : "fd541c4b3fa7dcec2e7cfe049505b6e4382cd66b",
-				"version" : "2.13.2"
+				"revision" : "6c7915e16f729857aec3e99068c361e58a00ed68",
+				"version" : "2.13.4"
 			}
 		}
 	],
