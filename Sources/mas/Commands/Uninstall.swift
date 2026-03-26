@@ -17,7 +17,6 @@ extension MAS {
 			discussion: requiresRootPrivilegesMessage(),
 		)
 
-		/// Flag indicating that uninstall shouldn't be performed.
 		@Flag(name: .customLong("dry-run"), help: "Perform dry run")
 		private var isPerformingDryRun = false
 		@Flag(name: .customLong("all"), help: "Uninstall all App Store apps")
