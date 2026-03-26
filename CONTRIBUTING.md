@@ -29,7 +29,7 @@ where `main` is the trunk.
   - To branch a topic branch from `main` named, e.g., `feature`, run:
     `git checkout -b feature main`
 - Commit logical units
-- Follow the [style guide](Documentation/style.md)
+- Follow the [project guidelines](AGENTS.md)
 - Run `Scripts/format` before committing
 - Run `Scripts/lint` before committing, then fix all lint violations
 - Write tests
