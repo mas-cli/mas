@@ -56,11 +56,18 @@ extension AppStoreAction { // swiftlint:disable:this file_types_order
 }
 
 private actor DownloadQueueObserver: CKDownloadQueueObserver {
+	private enum Event {
+		case statusChanged(DownloadSnapshot)
+		case removed(DownloadSnapshot)
+	}
+
 	private let action: AppStoreAction
 	private let adamID: ADAMID
 	private let shouldCancel: @Sendable (String?, Bool) -> Bool
 	private let downloadFolderURL: URL
+	private let eventStreamContinuation: AsyncStream<Event>.Continuation
 
+	private nonisolated(unsafe) var task = Task<Void, Never>?.none
 	private nonisolated(unsafe) var continuation = CheckedContinuation<Void, any Error>?.none
 
 	private var prevPhaseType = PhaseType.processing
@@ -73,9 +80,29 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		self.adamID = adamID
 		self.shouldCancel = shouldCancel
 		downloadFolderURL = URL(filePath: "\(CKDownloadDirectory(nil))/\(adamID)", directoryHint: .isDirectory)
+
+		let (eventStream, eventStreamContinuation) = AsyncStream.makeStream(of: Event.self)
+		self.eventStreamContinuation = eventStreamContinuation // swiftlint:disable:this redundant_self
+
+		unsafe task = Task { [weak self] in
+			for await event in eventStream {
+				guard let self else {
+					break
+				}
+
+				switch event {
+				case let .statusChanged(snapshot):
+					await statusChanged(for: snapshot)
+				case let .removed(snapshot):
+					await removed(snapshot)
+				}
+			}
+		}
 	}
 
 	deinit {
+		eventStreamContinuation.finish()
+		unsafe task?.cancel()
 		resumeOnce(
 			alreadyResumed: alreadyResumed,
 			pkgHardLinkURL: pkgHardLinkURL,
@@ -108,7 +135,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 			return
 		}
 
-		Task { await statusChanged(for: snapshot) }
+		eventStreamContinuation.yield(.statusChanged(snapshot))
 	}
 
 	nonisolated func downloadQueue(_: CKDownloadQueue, changedWithRemoval download: SSDownload) {
@@ -116,7 +143,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 			return
 		}
 
-		Task { await removed(snapshot) }
+		eventStreamContinuation.yield(.removed(snapshot))
 	}
 
 	func resumeOnce(performing action: (CheckedContinuation<Void, any Error>) -> Void) {
