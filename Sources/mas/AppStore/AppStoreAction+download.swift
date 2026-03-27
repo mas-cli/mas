@@ -433,8 +433,12 @@ private struct DownloadSnapshot { // swiftlint:disable:this one_declaration_per_
 		appFolderPath = download.installPath
 		isCancelled = status.isCancelled
 		isFailed = status.isFailed
-		error = status.error.map { $0 as NSError }.map { error in
-			error.domain == "PKInstallErrorDomain" && error.code == 201 ? Ignorable.installerWorkaround : error as any Error
+		error = status.error.map { error in
+			if case let error as NSError = error, error.domain == "PKInstallErrorDomain", error.code == 201 {
+				Ignorable.installerWorkaround
+			} else {
+				error
+			}
 		}
 	}
 }
