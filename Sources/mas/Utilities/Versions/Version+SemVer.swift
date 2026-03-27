@@ -116,7 +116,7 @@ struct UniversalSemVerInt: SemVerSyntaxInteger {
 
 	init?(from versionString: String) {
 		do {
-			let match = versionString.wholeMatch(of: unsafe universalSemVerRegex)! // swiftlint:disable:this force_unwrapping
+			let match = versionString.wholeMatch(of: universalSemVerRegex)! // swiftlint:disable:this force_unwrapping
 			self = .init(
 				coreIntegers: try match.1.elements.map { coreElement in
 					guard let coreInteger = Integer(coreElement) else {
@@ -140,7 +140,7 @@ struct UniversalSemVer: SemVerSyntax {
 	let buildElements: [String]
 
 	init(from versionString: String) {
-		let match = versionString.wholeMatch(of: unsafe universalSemVerRegex)! // swiftlint:disable:this force_unwrapping
+		let match = versionString.wholeMatch(of: universalSemVerRegex)! // swiftlint:disable:this force_unwrapping
 		coreElements = match.1.elements
 		prereleaseElements = match.2.elements
 		buildElements = match.3.elements
@@ -203,4 +203,4 @@ extension Version {
 	}
 }
 
-private nonisolated(unsafe) let universalSemVerRegex = /([^-+]*+)?+(?:-([^+]*+))?+(?:\+(.*+))?+/
+private let universalSemVerRegex = /([^-+]*+)?+(?:-([^+]*+))?+(?:\+(.*+))?+/

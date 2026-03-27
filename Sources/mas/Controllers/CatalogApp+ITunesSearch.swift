@@ -54,7 +54,7 @@ private extension CatalogApp {
 			do {
 				return try await URL(string: appStorePageURLString)
 				.flatMap { url in // swiftformat:disable indent
-					try unsafe SwiftSoup.parse(try await Dependencies.current.dataFrom(url).0, appStorePageURLString)
+					try SwiftSoup.parse(try await Dependencies.current.dataFrom(url).0, appStorePageURLString)
 					.select("#serialized-server-data")
 					.first()?
 					.data()
@@ -128,4 +128,4 @@ private func getCatalogApps(from url: URL) async throws -> [CatalogApp] {
 	}
 }
 
-private nonisolated(unsafe) let minimumOSVersionRegex = /macOS\s*(?<version>\S+)/
+private let minimumOSVersionRegex = /macOS\s*(?<version>\S+)/

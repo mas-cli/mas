@@ -350,7 +350,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 
 		guard
 			let appFolderURLSubstring = standardErrorString
-			.matches(of: unsafe appFolderURLRegex) // swiftformat:disable indent
+			.matches(of: appFolderURLRegex) // swiftformat:disable indent
 			.compactMap(\.1)
 			.min(by: { $0.count < $1.count })
 		else { // swiftformat:enable indent
@@ -527,4 +527,4 @@ private func deleteTempFolder(containing url: URL?, fileType: String) {
 	}
 }
 
-private nonisolated(unsafe) let appFolderURLRegex = /PackageKit: Registered bundle (\S+) for uid 0/
+private let appFolderURLRegex = /PackageKit: Registered bundle (\S+) for uid 0/

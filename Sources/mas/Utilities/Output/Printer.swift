@@ -157,7 +157,7 @@ extension String {
 }
 
 private func indent(_ item: Any, with indent: String) -> String {
-	.init(describing: item).replacing(unsafe nonEmptyLineStartRegex, with: indent)
+	.init(describing: item).replacing(nonEmptyLineStartRegex, with: indent)
 }
 
 let errorPrefix = "Error:"
@@ -166,4 +166,4 @@ let errorFormat = "4;31"
 /// Terminal Control Sequence Indicator.
 private let csi = "\u{001B}["
 
-private nonisolated(unsafe) let nonEmptyLineStartRegex = /\n(?!\n)/
+private let nonEmptyLineStartRegex = /\n(?!\n)/
