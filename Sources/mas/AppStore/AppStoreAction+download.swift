@@ -6,6 +6,7 @@
 //
 
 private import CommerceKit
+private import CoreFoundation
 private import CoreServices
 private import Foundation
 private import ObjectiveC
@@ -400,7 +401,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 			errorMessage: "Failed to \(action) \(appNameAndVersion) from \(pkgHardLinkPath)",
 		)
 
-		LSRegisterURL(appFolderURL as NSURL, true) // swiftlint:disable:this legacy_objc_type
+		LSRegisterURL(appFolderURL as CFURL, true)
 
 		return appFolderURL
 	}
