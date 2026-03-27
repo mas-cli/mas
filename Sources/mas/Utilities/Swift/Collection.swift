@@ -15,29 +15,29 @@ extension Collection where Element: Sendable {
 	func concurrentMap<T: Sendable>(
 		maxConcurrentTaskCount: Int = defaultMaxConcurrentTaskCount,
 		_ transform: @escaping @Sendable (Element) async -> T,
-	) async -> [T] { // swiftlint:disable:next force_unwrapping
-		await concurrentTransform(maxConcurrentTaskCount: maxConcurrentTaskCount, transform).map { $0! }
+	) async -> [T] {
+		await concurrentTransform(maxConcurrentTaskCount: maxConcurrentTaskCount, transform)
 	}
 
 	func concurrentMap<T: Sendable>( // swiftlint:disable:this unused_declaration
 		maxConcurrentTaskCount: Int = defaultMaxConcurrentTaskCount,
 		_ transform: @escaping @Sendable (Element) async throws -> T,
 	) async rethrows -> [T] { // periphery:ignore
-		try await concurrentTransform(maxConcurrentTaskCount: maxConcurrentTaskCount, transform).map { $0! }
-	} // swiftlint:disable:previous force_unwrapping
+		try await concurrentTransform(maxConcurrentTaskCount: maxConcurrentTaskCount, transform)
+	}
 
 	func concurrentCompactMap<T: Sendable>(
 		maxConcurrentTaskCount: Int = defaultMaxConcurrentTaskCount,
 		_ transform: @escaping @Sendable (Element) async -> T?,
 	) async -> [T] {
-		await concurrentTransform(maxConcurrentTaskCount: maxConcurrentTaskCount, transform).compactMap(\.self)
+		await concurrentTransform(maxConcurrentTaskCount: maxConcurrentTaskCount, transform)
 	}
 
 	func concurrentCompactMap<T: Sendable>( // swiftlint:disable:this unused_declaration
 		maxConcurrentTaskCount: Int = defaultMaxConcurrentTaskCount,
 		_ transform: @escaping @Sendable (Element) async throws -> T?,
 	) async rethrows -> [T] { // periphery:ignore
-		try await concurrentTransform(maxConcurrentTaskCount: maxConcurrentTaskCount, transform).compactMap(\.self)
+		try await concurrentTransform(maxConcurrentTaskCount: maxConcurrentTaskCount, transform)
 	}
 
 	func concurrentCompactMap<T: Sendable, E: Error>(
@@ -58,7 +58,7 @@ extension Collection where Element: Sendable {
 	private func concurrentTransform<T: Sendable>(
 		maxConcurrentTaskCount: Int,
 		_ transform: @escaping @Sendable (Element) async throws -> T?,
-	) async rethrows -> [T?] {
+	) async rethrows -> [T] {
 		try await withThrowingTaskGroup(of: (index: Int, result: T?).self) { group in
 			var iterator = enumerated().makeIterator()
 			func addNextTask() {
@@ -75,6 +75,7 @@ extension Collection where Element: Sendable {
 				results[indexedResult.index] = indexedResult.result
 				addNextTask()
 			}
+			.compactMap(\.self)
 		}
 	}
 }
