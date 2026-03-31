@@ -16,24 +16,31 @@
 mas is a command-line interface for the Mac App Store that is designed for
 scripting & automation.
 
-<details>
-<summary>
+## Table of Contents
 
-## 📲 Installation
+- [Installation](#installation)
+  - [macOS 13 (Ventura) or newer](#macos-13-ventura-or-newer)
+  - [macOS 10.11 (El Capitan) - 12 (Monterey)](#macos-1011-el-capitan---12-monterey)
+- [Usage](#usage)
+  - [App IDs](#app-ids)
+  - [Info from the App Store](#info-from-the-app-store)
+  - [Info from your local app library](#info-from-your-local-app-library)
+  - [Installing apps](#installing-apps)
+  - [Upgrading apps](#upgrading-apps)
+  - [App Store account management](#app-store-account-management)
+  - [Root privileges](#root-privileges)
+- [Integrations](#integrations)
+- [Known Issues](#known-issues)
+- [Troubleshooting](#troubleshooting)
+- [Building](#building)
+- [Testing](#testing)
+- [License](#license)
 
-</summary>
-<details>
-<summary>
+## Installation
 
-### 🔮 macOS 13 (Ventura) or newer
+### macOS 13 (Ventura) or newer
 
-</summary>
-<details>
-<summary>
-
-#### 🍺 Homebrew Core formula
-
-</summary>
+#### Homebrew Core formula
 
 [Homebrew](https://brew.sh) is the preferred way to install:
 
@@ -41,13 +48,7 @@ scripting & automation.
 brew install mas
 ```
 
-</details>
-<details>
-<summary>
-
-#### 🔌 MacPorts
-
-</summary>
+#### MacPorts
 
 [MacPorts](https://www.macports.org/install.php) is an alternative way to
 install:
@@ -56,20 +57,9 @@ install:
 sudo port install mas
 ```
 
-</details>
-</details>
-<details>
-<summary>
+### macOS 10.11 (El Capitan) - 12 (Monterey)
 
-### 🧮 macOS 10.11 (El Capitan) - 12 (Monterey)
-
-</summary>
-<details>
-<summary>
-
-#### 🍻 Homebrew tap
-
-</summary>
+#### Homebrew tap
 
 The [mas-cli Homebrew tap](https://github.com/mas-cli/homebrew-tap) provides
 pre-built bottles for all macOS versions since 10.11 (El Capitan).
@@ -83,32 +73,14 @@ To install mas from the tap:
 brew install mas-cli/tap/mas
 ```
 
-</details>
-<details>
-<summary>
-
-#### 🐙 GitHub Releases
-
-</summary>
+#### GitHub Releases
 
 Alternatively, binaries & sources are available from
 [GitHub Releases](https://github.com/mas-cli/mas/releases).
 
-</details>
-</details>
-</details>
-<details>
-<summary>
+## Usage
 
-## 🤳 Usage
-
-</summary>
-<details>
-<summary>
-
-### 🪪 App IDs
-
-</summary>
+### App IDs
 
 Each app in the App Store has a unique integer app identifier (ADAM ID) & a
 unique text app identifier (bundle ID). mas commands accept either form of app
@@ -124,23 +96,12 @@ Alternatively, to find an app's ADAM ID:
    - e.g., extract ADAM ID `497799835` from the URL for Xcode
      (<https://apps.apple.com/us/app/xcode/id497799835?mt=12>)
 
-</details>
-<details>
-<summary>
-
-### 🛍 Info from the App Store
-
-</summary>
+### Info from the App Store
 
 The commands in this section do not require you to be logged into an Apple
 Account, neither for your macOS user nor for the App Store.
 
-<details>
-<summary>
-
 #### `mas search`
-
-</summary>
 
 `mas search <search-term>` searches by name for apps available from the App
 Store.
@@ -154,13 +115,7 @@ $ mas search Xcode
 …
 ```
 
-</details>
-<details>
-<summary>
-
 #### `mas lookup`
-
-</summary>
 
 `mas lookup <app-id>` outputs more detailed information about an app available
 from the App Store.
@@ -175,24 +130,12 @@ Size: 2,913.8 MB
 From: https://apps.apple.com/us/app/xcode/id497799835?mt=12&uo=4
 ```
 
-</details>
-</details>
-<details>
-<summary>
-
-### 📚 Info from your local app library
-
-</summary>
+### Info from your local app library
 
 All the commands in this section require you to be logged into an Apple Account
 for your macOS user.
 
-<details>
-<summary>
-
 #### `mas list`
-
-</summary>
 
 `mas list` outputs all the apps on your Mac that were installed from the App
 Store.
@@ -204,13 +147,7 @@ $ mas list
 899247664 TestFlight  (3.5.2)
 ```
 
-</details>
-<details>
-<summary>
-
 #### `mas outdated`
-
-</summary>
 
 `mas outdated` outputs all apps installed from the App Store on your Mac that
 have pending updates.
@@ -223,14 +160,7 @@ $ mas outdated
 
 Run [`mas update`](#mas-update) to install pending updates.
 
-</details>
-</details>
-<details>
-<summary>
-
-### ⬇️ Installing apps
-
-</summary>
+### Installing apps
 
 All the commands in this section require you to be logged into an Apple Account
 in the App Store.
@@ -239,17 +169,12 @@ in the App Store.
 > the App Store to perform a `get`, `install`, `lucky`, or `update`, even if you
 > are already signed in to an Apple Account in the App Store.
 
-<details>
-<summary>
-
 #### `mas get`
-
-</summary>
 
 `mas get <app-id>…` installs free apps that you haven't yet gotten/"purchased"
 from the App Store.
 
-[Requires root privileges to install apps](#-root-privileges).
+[Requires root privileges to install apps](#root-privileges).
 
 > The `purchase` alias is currently a misnomer, because it currently can only
 > "purchase" free apps. To purchase apps that cost money, purchase them directly
@@ -261,19 +186,13 @@ $ mas get 497799835
 ==> Installed Xcode
 ```
 
-</details>
-<details>
-<summary>
-
 #### `mas install`
-
-</summary>
 
 `mas install <app-id>…` installs apps that you have already gotten or purchased
 from the App Store. Providing the `--force` flag re-installs the app even if it
 is already installed on your Mac.
 
-[Requires root privileges to install apps](#-root-privileges).
+[Requires root privileges to install apps](#root-privileges).
 
 ```console
 $ mas install 497799835
@@ -281,19 +200,13 @@ $ mas install 497799835
 ==> Installed Xcode
 ```
 
-</details>
-<details>
-<summary>
-
 #### `mas lucky`
-
-</summary>
 
 `mas lucky <search-term>` installs the first result that would be returned by
 `mas search <search-term>`. Like `mas install`, `mas lucky` can only install
 apps that have previously been gotten or purchased.
 
-[Requires root privileges to install apps](#-root-privileges).
+[Requires root privileges to install apps](#root-privileges).
 
 ```console
 $ mas lucky Xcode
@@ -301,14 +214,7 @@ $ mas lucky Xcode
 ==> Installed Xcode
 ```
 
-</details>
-</details>
-<details>
-<summary>
-
-### 🆕 Upgrading apps
-
-</summary>
+### Upgrading apps
 
 All the commands in this section require you to be logged into an Apple Account
 in the App Store.
@@ -318,17 +224,12 @@ in the App Store.
 > Use [`softwareupdate(8)`](https://www.unix.com/man-page/osx/8/softwareupdate)
 > to install system updates (e.g., Xcode Command Line Tools, Safari, etc.)
 
-<details>
-<summary>
-
 #### `mas update`
-
-</summary>
 
 `mas update` updates outdated apps installed from the App Store. Without any
 arguments, it updates all such apps.
 
-[Requires root privileges to update apps](#-root-privileges).
+[Requires root privileges to update apps](#root-privileges).
 
 ```console
 $ mas update
@@ -351,36 +252,17 @@ Xcode (15.4) -> (16.0)
 ==> Installed Xcode
 ```
 
-</details>
-</details>
-<details>
-<summary>
-
-### 🪪 App Store account management
-
-</summary>
+### App Store account management
 
 All the commands in this section interact with the Apple Account for which you
 are signed in to the App Store. These commands do not interact with the Apple
 Account for which your macOS user is signed in.
 
-<details>
-<summary>
-
 #### `mas signout`
-
-</summary>
 
 `mas signout` signs out from the current Apple Account in the App Store.
 
-</details>
-</details>
-<details>
-<summary>
-
-### 🫚 Root privileges
-
-</summary>
+### Root privileges
 
 Root privileges are now necessary to install/update apps from the App Store,
 because Apple secured `installd` on macOS 26.1+, 15.7.2+ & 14.8.2+ to fix
@@ -404,20 +286,9 @@ code, nor is it stored in any way.
 Any sudo credentials used or established by the `mas` executable will remain
 valid, pursuant to your user-configured sudo timeout settings.
 
-</details>
-</details>
-<details>
-<summary>
+## Integrations
 
-## 🧩 Integrations
-
-</summary>
-<details>
-<summary>
-
-### 🍻 Homebrew Bundle
-
-</summary>
+### Homebrew Bundle
 
 If mas is installed:
 
@@ -429,31 +300,14 @@ See the
 [Homebrew Bundle documentation](https://docs.brew.sh/Brew-Bundle-and-Brewfile)
 for more details.
 
-</details>
-<details>
-<summary>
-
-### ⚙️ Topgrade
-
-</summary>
+### Topgrade
 
 If mas is installed, running [Topgrade](https://github.com/topgrade-rs/topgrade)
 updates installed App Store apps.
 
-</details>
-</details>
-<details>
-<summary>
+## Known Issues
 
-## ⚠️ Known issues
-
-</summary>
-<details>
-<summary>
-
-### 💥 Broken Apple private frameworks
-
-</summary>
+### Broken Apple private frameworks
 
 mas uses multiple undocumented Apple private frameworks to implement much of its
 functionality.
@@ -468,26 +322,14 @@ functionality, including:
     https://github.com/mas-cli/mas/issues/164
   )
 
-</details>
-<details>
-<summary>
-
-### ⏳ Eventual consistency
-
-</summary>
+### Eventual consistency
 
 The App Store operates on eventual consistency.
 
 [The app versions seen by various parts of mas or the App Store might be
 inconsistent for days](https://github.com/mas-cli/mas/issues/387).
 
-</details>
-<details>
-<summary>
-
-### 📱 iOS & iPadOS apps
-
-</summary>
+### iOS & iPadOS apps
 
 Apple Silicon Macs can install iOS & iPadOS apps from the App Store.
 
@@ -495,13 +337,7 @@ Apple Silicon Macs can install iOS & iPadOS apps from the App Store.
   https://github.com/mas-cli/mas/issues/321
 ).
 
-</details>
-<details>
-<summary>
-
-### 📺 `tmux`
-
-</summary>
+### `tmux`
 
 mas depends on the same XPC system services as the App Store.
 
@@ -520,13 +356,7 @@ brew install reattach-to-user-namespace
 reattach-to-user-namespace mas install
 ```
 
-</details>
-<details>
-<summary>
-
-### 🤷 Undetected installed apps
-
-</summary>
+### Undetected installed apps
 
 mas 2.0.0+ sources data for installed App Store apps from macOS's Spotlight
 Metadata Server (aka MDS).
@@ -563,20 +393,9 @@ mdimport /Applications /Volumes/<LargeAppVolume>/Applications
 sudo mdutil -Eai on
 ```
 
-</details>
-</details>
-<details>
-<summary>
+## Troubleshooting
 
-## ❗ Troubleshooting
-
-</summary>
-<details>
-<summary>
-
-### 🚫 Redownload not available
-
-</summary>
+### Redownload not available
 
 If the following error occurs, you probably [haven't yet gotten or purchased the
 app from the App Store](#mas-install).
@@ -584,13 +403,7 @@ app from the App Store](#mas-install).
 > This redownload is not available for this Apple Account either because it was
 > bought by a different user or the item was refunded or canceled.
 
-</details>
-<details>
-<summary>
-
-### ❓ Other issues
-
-</summary>
+### Other issues
 
 If mas doesn't work as expected (e.g., apps can't be installed/updated), run
 `mas reset`, then try again.
@@ -601,14 +414,7 @@ If the issue persists, please [file a bug](
 
 All feedback is much appreciated!
 
-</details>
-</details>
-<details>
-<summary>
-
-## 🏗 Building
-
-</summary>
+## Building
 
 mas can be built in Xcode or built by the following script:
 
@@ -618,13 +424,7 @@ Scripts/build
 
 Build output can be found in the `.build` folder in the project's root folder.
 
-</details>
-<details>
-<summary>
-
-## 🧪 Testing
-
-</summary>
+## Testing
 
 Tests are implemented in
 [Swift Testing](https://developer.apple.com/xcode/swift-testing).
@@ -635,18 +435,10 @@ Tests can be run by the following script:
 Scripts/test
 ```
 
-</details>
-<details>
-<summary>
-
-## 📄 License
-
-</summary>
+## License
 
 Code is under the [MIT license](LICENSE).
 
 mas was originally created by Andrew Naylor
 ([@argon on GitHub](https://github.com/argon) /
 [@argon on X](https://x.com/argon)).
-
-</details>
