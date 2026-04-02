@@ -46,7 +46,7 @@ extension MAS {
 					throw MASError.unparsableURL(sellerURLString)
 				}
 
-				try await url.open()
+				_ = try await url.open()
 			}
 		}
 	}

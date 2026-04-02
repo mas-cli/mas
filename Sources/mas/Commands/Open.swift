@@ -71,7 +71,7 @@ private func openMacAppStorePage(forAppStorePageURLString appStorePageURLString:
 		throw MASError.unparsableURL(.init(describing: urlComponents))
 	}
 
-	try await url.open()
+	_ = try await url.open()
 }
 
 private let masScheme = "macappstore"

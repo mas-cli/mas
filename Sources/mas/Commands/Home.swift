@@ -36,7 +36,7 @@ extension MAS {
 					throw MASError.unparsableURL(appStorePageURLString)
 				}
 
-				try await url.open()
+				_ = try await url.open()
 			}
 		}
 	}
