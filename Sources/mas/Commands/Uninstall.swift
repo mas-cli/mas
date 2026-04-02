@@ -24,9 +24,9 @@ extension MAS {
 		@OptionGroup
 		private var installedAppIDsOptionGroup: InstalledAppIDsOptionGroup
 
-		func validate() throws {
+		func validate() throws(ValidationError) {
 			if isUninstallingAll != installedAppIDsOptionGroup.appIDs.isEmpty {
-				throw ValidationError(
+				throw .init(
 					isUninstallingAll
 					? "Cannot specify both --all & app IDs" // swiftformat:disable:this indent
 					: "Must specify either --all or at least one app ID",

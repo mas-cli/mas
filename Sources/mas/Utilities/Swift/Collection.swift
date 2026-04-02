@@ -40,10 +40,10 @@ extension Collection where Element: Sendable {
 		try await concurrentCompactTransform(maxConcurrentTaskCount: maxConcurrentTaskCount, transform)
 	}
 
-	func concurrentCompactMap<T: Sendable, E: Error>(
+	func concurrentCompactMap<T: Sendable>(
 		attemptingTo perform: String,
 		maxConcurrentTaskCount: Int = defaultMaxConcurrentTaskCount,
-		_ transform: @escaping @Sendable (Element) async throws(E) -> T?,
+		_ transform: @escaping @Sendable (Element) async throws -> T?,
 	) async -> [T] {
 		await concurrentCompactMap(maxConcurrentTaskCount: maxConcurrentTaskCount) { element in
 			do {
