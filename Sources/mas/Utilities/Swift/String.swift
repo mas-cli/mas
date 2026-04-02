@@ -69,10 +69,11 @@ private extension Character {
 		isWhitespace || isPunctuation || isSymbol ? 0.25 : 1.0
 	}
 
-	func substitutionCost(for char: Character) -> Double {
-		String(self).folding(options: .diacriticInsensitive, locale: .current)
-		== String(char).folding(options: .diacriticInsensitive, locale: .current) // swiftformat:disable:this indent
-		? 0.1 // swiftformat:disable:this indent
-		: lowercased() == char.lowercased() ? 0.2 : 1.0
+	private var folded: String {
+		.init(self).folding(options: .diacriticInsensitive, locale: .current)
+	}
+
+	func substitutionCost(for that: Self) -> Double {
+		folded == that.folded ? 0.1 : lowercased() == that.lowercased() ? 0.2 : 1.0
 	}
 }
