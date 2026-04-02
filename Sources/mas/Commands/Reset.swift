@@ -68,7 +68,7 @@ extension MAS {
 			var executablePathBuffer = [CChar](repeating: 0, count: .init(PATH_MAX))
 			for pid in unsafe kinfoProcs.map(\.kp_proc.p_pid) {
 				guard
-					unsafe proc_pidpath(pid, &executablePathBuffer, UInt32(executablePathBuffer.count)) > 0,
+					unsafe proc_pidpath(pid, &executablePathBuffer, .init(executablePathBuffer.count)) > 0,
 					let executablePath = String(cString: executablePathBuffer, encoding: .utf8),
 					executablePathSet.contains(executablePath)
 				else {

@@ -53,8 +53,8 @@ private struct StandardStreamCapture { // swiftlint:disable:this one_declaration
 		outDuplicateFD = dup(outOriginalFD)
 		errDuplicateFD = dup(errOriginalFD)
 
-		outPipe = Pipe()
-		errPipe = Pipe()
+		outPipe = .init()
+		errPipe = .init()
 
 		dup2(outPipe.fileHandleForWriting.fileDescriptor, outOriginalFD)
 		dup2(errPipe.fileHandleForWriting.fileDescriptor, errOriginalFD)

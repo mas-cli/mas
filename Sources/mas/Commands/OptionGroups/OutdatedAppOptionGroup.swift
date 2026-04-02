@@ -31,7 +31,7 @@ struct OutdatedAppOptionGroup: ParsableArguments {
 				return shouldCheckMinimumOSVersion // swiftformat:disable indent
 				&& UniversalSemVerInt(from: catalogApp.minimumOSVersion).flatMap { minimumOSVersion in
 					ProcessInfo.processInfo.isOperatingSystemAtLeast(
-						OperatingSystemVersion(
+						.init(
 							majorVersion: minimumOSVersion.majorInteger,
 							minorVersion: minimumOSVersion.minorInteger,
 							patchVersion: minimumOSVersion.patchInteger,

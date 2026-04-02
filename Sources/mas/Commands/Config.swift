@@ -95,7 +95,7 @@ private func configStringValue(_ name: String) -> String {
 		return unknown
 	}
 
-	return unsafe String(cString: &buffer)
+	return unsafe .init(cString: &buffer) // swiftformat:disable:this spaceAroundOperators
 }
 
 private let unknown = "unknown"

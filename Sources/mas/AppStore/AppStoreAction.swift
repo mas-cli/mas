@@ -60,7 +60,7 @@ enum AppStoreAction {
 
 		let adamIDs = OrderedSet(adamIDs)
 		guard getuid() == 0 else {
-			try sudo(MAS._commandName, args: [String(describing: self), "--force"] + adamIDs.map(String.init(describing:)))
+			try sudo(MAS._commandName, args: [.init(describing: self), "--force"] + adamIDs.map(String.init(describing:)))
 			return
 		}
 

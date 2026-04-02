@@ -50,7 +50,7 @@ extension MAS {
 				}
 
 				for uninstallingApp in uninstallingApps {
-					uninstallingADAMIDByPath[uninstallingApp.path] = String(uninstallingApp.adamID)
+					uninstallingADAMIDByPath[uninstallingApp.path] = .init(uninstallingApp.adamID)
 				}
 			}
 			guard !uninstallingADAMIDByPath.isEmpty else {

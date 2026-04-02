@@ -30,7 +30,7 @@ extension MAS {
 			try await run(
 				appStorePageURLString: appIDString.map { appIDString in
 					try await Dependencies.current // swiftformat:disable:next indent
-					.lookupAppFromAppID(AppID(from: appIDString, forceBundleID: forceBundleIDOptionGroup.forceBundleID))
+					.lookupAppFromAppID(.init(from: appIDString, forceBundleID: forceBundleIDOptionGroup.forceBundleID))
 					.appStorePageURLString // swiftformat:disable:this indent
 				},
 			)
@@ -68,7 +68,7 @@ private func openMacAppStorePage(forAppStorePageURLString appStorePageURLString:
 
 	urlComponents.scheme = masScheme
 	guard let url = urlComponents.url else {
-		throw MASError.unparsableURL(String(describing: urlComponents))
+		throw MASError.unparsableURL(.init(describing: urlComponents))
 	}
 
 	try await url.open()

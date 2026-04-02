@@ -79,7 +79,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		self.action = action
 		self.adamID = adamID
 		self.shouldCancel = shouldCancel
-		downloadFolderURL = URL(filePath: "\(CKDownloadDirectory(nil))/\(adamID)", directoryHint: .isDirectory)
+		downloadFolderURL = .init(filePath: "\(CKDownloadDirectory(nil))/\(adamID)", directoryHint: .isDirectory)
 
 		let (eventStream, eventStreamContinuation) = AsyncStream.makeStream(of: Event.self)
 		self.eventStreamContinuation = eventStreamContinuation // swiftlint:disable:this redundant_self
@@ -238,7 +238,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		{
 			// Output the progress bar iff connected to a terminal
 			let totalLength = 60
-			let completedLength = Int(snapshot.phasePercentComplete * Float(totalLength))
+			let completedLength = Int(snapshot.phasePercentComplete * .init(totalLength))
 			MAS.printer.clearCurrentLine(of: .standardOutput)
 			MAS.printer.info(
 				String(repeating: "#", count: completedLength),
@@ -455,7 +455,7 @@ private struct DownloadSnapshot { // swiftlint:disable:this one_declaration_per_
 		name = metadata.title
 		version = metadata.bundleVersion
 		appNameAndVersion = "\(metadata.title ?? "unknown app") (\(version ?? "unknown version"))"
-		activePhaseType = PhaseType(action, rawValue: status.activePhase?.phaseType)
+		activePhaseType = .init(action, rawValue: status.activePhase?.phaseType)
 		phasePercentComplete = status.phasePercentComplete
 		appFolderPath = download.installPath
 		isCancelled = status.isCancelled

@@ -14,7 +14,7 @@ private extension MASTests {
 	func `searches for slack`() {
 		let actual = consequencesOf(
 			try MAS.main(try MAS.Search.parse(["slack"])) { command in
-				try command.run(catalogApps: [CatalogApp(adamID: 1, name: "slack", version: "0.0")])
+				try command.run(catalogApps: [.init(adamID: 1, name: "slack", version: "0.0")])
 			},
 		)
 		let expected = Consequences(nil, "1  slack  (0.0)\n")

@@ -54,7 +54,7 @@ func installedApps(matching metadataQuery: String) async throws -> [InstalledApp
 	}
 
 	let query = NSMetadataQuery()
-	query.predicate = NSPredicate(format: metadataQuery)
+	query.predicate = .init(format: metadataQuery)
 	query.searchScopes = applicationsFolderURLs
 
 	return try await withCheckedThrowingContinuation { continuation in

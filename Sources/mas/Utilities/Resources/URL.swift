@@ -14,7 +14,7 @@ extension URL {
 		.init(path(percentEncoded: false).dropLast { $0 == "/" })
 	}
 
-	func open(configuration: NSWorkspace.OpenConfiguration = NSWorkspace.OpenConfiguration()) async throws {
+	func open(configuration: NSWorkspace.OpenConfiguration = .init()) async throws {
 		try await NSWorkspace.shared.open(self, configuration: configuration)
 	}
 }
