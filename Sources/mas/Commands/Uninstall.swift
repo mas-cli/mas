@@ -39,10 +39,10 @@ extension MAS {
 		}
 
 		private func run(installedApps: [InstalledApp]) throws {
-			let uninstallingADAMIDByPath = (
+			let uninstallingADAMIDOrderedByPath = (
 				isUninstallingAll ? installedApps.map { .bundleID($0.bundleID) } : installedAppIDsOptionGroup.appIDs,
 			)
-			.reduce(into: OrderedDictionary<String, String>()) { uninstallingADAMIDByPath, appID in
+			.reduce(into: OrderedDictionary<String, String>()) { uninstallingADAMIDOrderedByPath, appID in
 				let uninstallingApps = installedApps.filter { $0.matches(appID) }
 				guard !uninstallingApps.isEmpty else {
 					printer.error(appID.notInstalledMessage)
@@ -50,21 +50,21 @@ extension MAS {
 				}
 
 				for uninstallingApp in uninstallingApps {
-					uninstallingADAMIDByPath[uninstallingApp.path] = .init(uninstallingApp.adamID)
+					uninstallingADAMIDOrderedByPath[uninstallingApp.path] = .init(uninstallingApp.adamID)
 				}
 			}
-			guard !uninstallingADAMIDByPath.isEmpty else {
+			guard !uninstallingADAMIDOrderedByPath.isEmpty else {
 				return
 			}
 			guard !isPerformingDryRun else {
 				printer.notice("Dry run. A wet run would uninstall:\n")
-				for appPath in uninstallingADAMIDByPath.keys {
+				for appPath in uninstallingADAMIDOrderedByPath.keys {
 					printer.info(appPath)
 				}
 				return
 			}
 			guard getuid() == 0 else {
-				try sudo(MAS._commandName, args: [Self._commandName] + uninstallingADAMIDByPath.values)
+				try sudo(MAS._commandName, args: [Self._commandName] + uninstallingADAMIDOrderedByPath.values)
 				return
 			}
 
@@ -72,7 +72,7 @@ extension MAS {
 			let uid = try processInfo.sudoUID
 			let gid = try processInfo.sudoGID
 			let fileManager = FileManager.default
-			for appPath in uninstallingADAMIDByPath.keys {
+			for appPath in uninstallingADAMIDOrderedByPath.keys {
 				let attributes = try fileManager.attributesOfItem(atPath: appPath)
 				guard let appUID = attributes[.ownerAccountID] as? uid_t else {
 					printer.error("Failed to get uid of", appPath)
