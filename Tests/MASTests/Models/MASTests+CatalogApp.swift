@@ -15,7 +15,7 @@ private extension MASTests {
 		let actual = consequencesOf(
 			try JSONDecoder().decode(CatalogApp.self, from: .init(fromResource: "things-lookup")).adamID,
 		)
-		let expected = Consequences(1_472_954_003 as ADAMID)
+		let expected = Consequences(ADAMID(1_472_954_003))
 		#expect(actual == expected)
 	}
 }

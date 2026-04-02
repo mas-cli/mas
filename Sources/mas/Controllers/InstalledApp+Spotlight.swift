@@ -20,7 +20,7 @@ private extension URL {
 					(try? url.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) == true,
 					url.pathExtension == "app"
 				else {
-					return nil as URL?
+					return URL?.none
 				}
 
 				enumerator.skipDescendants()
@@ -83,11 +83,11 @@ func installedApps(matching metadataQuery: String) async throws -> [InstalledApp
 				(result as? NSMetadataItem).map { item in
 					InstalledApp(
 						adamID: item.value(forAttribute: "kMDItemAppStoreAdamID") as? ADAMID ?? 0,
-						bundleID: item.value(forAttribute: NSMetadataItemCFBundleIdentifierKey) as? String ?? "",
-						name: (item.value(forAttribute: "_kMDItemDisplayNameWithExtensions") as? String ?? "")
+						bundleID: .init(describing: item.value(forAttribute: NSMetadataItemCFBundleIdentifierKey) ?? ""),
+						name: .init(describing: item.value(forAttribute: "_kMDItemDisplayNameWithExtensions") ?? "")
 						.removingSuffix(".app"),
-						path: item.value(forAttribute: NSMetadataItemPathKey) as? String ?? "",
-						version: item.value(forAttribute: NSMetadataItemVersionKey) as? String ?? "",
+						path: .init(describing: item.value(forAttribute: NSMetadataItemPathKey) ?? ""),
+						version: .init(describing: item.value(forAttribute: NSMetadataItemVersionKey) ?? ""),
 					)
 				}
 			}

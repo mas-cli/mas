@@ -23,7 +23,7 @@ private extension MASTests {
 
 	@Test
 	func `looks up slack`() async {
-		let adamID = 803_453_959 as ADAMID
+		let adamID = ADAMID(803_453_959)
 		let actual = await consequencesOf(
 			try await Dependencies.$current.withValue(
 				.init { _ in (try Data(fromResource: "slack-lookup"), URLResponse()) },
