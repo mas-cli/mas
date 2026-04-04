@@ -55,8 +55,7 @@ private extension CatalogApp {
 				return try await URL(string: appStorePageURLString)
 				.flatMap { url in // swiftformat:disable indent
 					try SwiftSoup.parse(try await Dependencies.current.dataFrom(url).0, appStorePageURLString)
-					.select("#serialized-server-data")
-					.first()?
+					.getElementById("serialized-server-data")? // swiftformat:disable:this acronyms
 					.data()
 					.query(
 						string:
