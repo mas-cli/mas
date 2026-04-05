@@ -13,6 +13,7 @@ extension MAS {
 	struct List: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
 			abstract: "List apps installed from the App Store",
+			aliases: ["ls"],
 		)
 
 		@OptionGroup
