@@ -15,7 +15,12 @@ struct MASBuildToolPlugin: BuildToolPlugin {
 			.prebuildCommand(
 				displayName: "Prebuild mas",
 				executable: context.package.directoryURL.appending(path: "Scripts/prebuild", directoryHint: .notDirectory),
-				arguments: [context.pluginWorkDirectoryURL.path(percentEncoded: false)],
+				arguments: [
+					{ url in
+						unsafe url.withUnsafeFileSystemRepresentation { unsafe $0.map(String.init(cString:)) }
+						?? url.path(percentEncoded: false) // swiftformat:disable:this indent
+					}(context.pluginWorkDirectoryURL),
+				],
 				environment: ProcessInfo.processInfo.environment,
 				outputFilesDirectory: context.pluginWorkDirectoryURL,
 			),

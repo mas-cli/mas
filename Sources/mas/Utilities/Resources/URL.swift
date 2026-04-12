@@ -8,10 +8,12 @@
 internal import AppKit
 private import Foundation
 private import ObjectiveC
+private import System
 
 extension URL {
 	var filePath: String {
-		.init(path(percentEncoded: false).dropLast { $0 == "/" })
+		unsafe withUnsafeFileSystemRepresentation { unsafe $0.map(String.init(cString:)) }
+		?? .init(path(percentEncoded: false).dropLast { $0 == "/" }) // swiftformat:disable:this indent
 	}
 
 	func open(configuration: NSWorkspace.OpenConfiguration = .init()) async throws -> NSRunningApplication {

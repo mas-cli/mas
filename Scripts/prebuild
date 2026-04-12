@@ -37,4 +37,4 @@ extension MAS {
 	"$(git rev-parse HEAD)"\
 	"${${${$(swift --version 2>/dev/null)##( |[[:alpha:]])##}%%$'\n'*}:-unknown}"\
 	"${${(SM)$(swift --version 2>&1 >/dev/null)##[[:digit:]]([[:digit:]]|.)##}:-unknown}"\
-	>"${1}/MAS+BuildInformation.swift"
+	>"${1%%/#}/MAS+BuildInformation.swift"
