@@ -31,6 +31,35 @@
 - Before committing automated edits: run `Scripts/format` until it no longer
   changes files, then `Scripts/lint` & fix violations.
 
+## Code Refactoring Guidelines
+
+Do NOT refactor code if doing so makes the caller interface worse. Specifically:
+
+- **Inline a utility function at a call site only if it is single-use**.
+  Inlining increases verbosity, introduces duplication bugs & makes code harder
+  to maintain. Keep clean abstractions. Example of what NOT to do:
+  ```swift
+  // ❌ BAD: Inlining capitalizingFirstCharacter at each call site
+  action.performing.prefix(1).uppercased() + action.performing.dropFirst()
+  // ✅ GOOD: Use the utility function
+  action.performing.capitalizingFirstCharacter
+  ```
+- **Never replace a clean, readable abstraction with a verbose closure**. e.g.,
+  if a custom `SortComparator` or similar exists & is used multiple times, keep
+  it. Only consider inlining if it's used in exactly one place. Example of what
+  NOT to do:
+  ```swift
+  // ❌ BAD: Replacing a clean comparator with verbose closure
+  [].sorted { $0.compare($1, options: .numeric) == .orderedAscending }
+  // ✅ GOOD: Keep the abstraction
+  [].sorted(using: NumericStringComparator.forward)
+  ```
+- **Replace a utility call** only when the new calling interface is at least as
+  simple as the current calling interface
+- **Replace a utility implementation** when the new implementation is more
+  correct, performant, and/or simpler than the existing implementation, in
+  descending order of priority
+
 ## Minimum Versions
 
 - **Swift**: [6.2](.swift-version)

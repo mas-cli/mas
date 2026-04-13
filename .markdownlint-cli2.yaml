@@ -22,7 +22,7 @@ config:
   emphasis-style:
     style: underscore
   fenced-code-language:
-    allowed_languages: [console, shell]
+    allowed_languages: [console, shell, swift]
     language_only: true
   heading-style:
     style: atx
