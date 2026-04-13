@@ -1,5 +1,36 @@
 # Project Guidelines
 
+## Notes for automated/codegen agents
+
+- Read this `AGENTS.md` in full before making any changes to the repository; it
+  is the canonical source of project conventions
+- No repository-level AI instruction files were found (e.g.,
+  `.github/copilot-instructions.md`, `AGENT.md`, `CLAUDE.md`, or
+  `.cursor`/`.cursorrules` files); rely on this document & the concrete files
+  listed below
+- Quick entry points (use these scripts rather than invoking swift directly when
+  possible):
+  - `Scripts/bootstrap`
+  - `Scripts/format`
+  - `Scripts/lint -AP` (quick) / `Scripts/lint` (full)
+  - `Scripts/test`
+  - `Scripts/build` / `Scripts/build '' -c release`
+- Useful code locations & examples (look here for patterns to follow):
+  - CLI commands: `Sources/mas/Commands/` (e.g. `Install.swift`, `List.swift`)
+  - Models: `Sources/mas/Models/` (e.g. `AppID.swift`, `CatalogApp.swift`)
+  - Utilities: `Sources/mas/Utilities/` (e.g. `JSON/AnyJSONEncodable.swift`)
+  - Tests & test naming: `Tests/MASTests/` (see `MASTests+*.swift` files)
+  - Private framework headers: `Sources/PrivateFrameworks/include/CommerceKit/`
+    & `Sources/PrivateFrameworks/include/StoreFoundation/` (used via the
+    `PrivateFrameworks` target)
+  - Build plugin: `Plugins/MASBuildToolPlugin/MASBuildToolPlugin.swift`
+  - Completion scripts: `contrib/completion/` (bash/fish)
+  - Packaged runtime: `libexec/bin/mas` (used by `Scripts/mas` wrapper)
+- Edits & commits: preserve formatting & style (tabs, max line length, single
+  newline at EOF).
+- Before committing automated edits: run `Scripts/format` until it no longer
+  changes files, then `Scripts/lint` & fix violations.
+
 ## Minimum Versions
 
 - **Swift**: [6.2](.swift-version)
