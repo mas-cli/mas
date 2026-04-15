@@ -18,7 +18,7 @@ export MAS_VERSION="${tag#v}"
 print_notice '❌ Canceling release for' "${@}"
 unset MAS_VERSION
 
-bump_url="$(gh release -R https://github.com/mas-cli/mas download "${tag}" -p bump.url -O - 2>/dev/null || true)"
+bump_url="$(gh release -R mas-cli/mas download "${tag}" -p bump.url -O - 2>/dev/null || true)"
 readonly bump_url
 if [[ -n "${bump_url}" ]]; then
 	printf $'\n'
@@ -28,4 +28,4 @@ else
 	printf $'\nNo tap formula bump PR URL found for draft release tag %s\n\n' "${tag}"
 fi
 
-gh release -R https://github.com/mas-cli/mas delete "${tag}" --cleanup-tag -y
+gh release -R mas-cli/mas delete "${tag}" --cleanup-tag -y
