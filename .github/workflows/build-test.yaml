@@ -19,9 +19,11 @@ jobs:
       matrix:
         include:
         - runner: macos-14
-          xcode: brew
+          xcode: swift
         - runner: macos-15
+          xcode: 26.3
         - runner: macos-15-intel
+          xcode: 26.3
         - runner: macos-26
         - runner: macos-26-intel
     runs-on: ${{matrix.runner}}
@@ -44,14 +46,14 @@ jobs:
       run: Scripts/setup_workflow_repo
 
     - name: 🛠 Select Xcode version
-      if: matrix.xcode != 'brew'
+      if: matrix.xcode != 'swift'
       run: xcodes select ${{matrix.xcode}}
 
     - name: 👢 Bootstrap
       run: Scripts/bootstrap
 
     - name: 🕊 Use Homebrew Core Swift
-      if: matrix.xcode == 'brew'
+      if: matrix.xcode == 'swift'
       run: |
         brew install swift
         printf $'%s\n' "$(brew --prefix swift)/bin" >> "${GITHUB_PATH}"
@@ -60,9 +62,8 @@ jobs:
       run: Scripts/build build-test -c release
 
     - name: 🧪 Test
-      if: matrix.xcode != 'brew'
+      if: matrix.runner != 'macos-14'
       run: Scripts/test
 
     - name: 🚨 Lint
-      if: matrix.xcode != 'brew'
       run: Scripts/lint
