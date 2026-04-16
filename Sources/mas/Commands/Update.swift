@@ -6,7 +6,6 @@
 //
 
 internal import ArgumentParser
-private import StoreFoundation
 
 extension MAS {
 	/// Updates outdated apps installed from the App Store.

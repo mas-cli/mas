@@ -8,7 +8,6 @@
 private import ArgumentParser
 private import Darwin
 private import OrderedCollections
-private import StoreFoundation
 
 enum AppStoreAction {
 	case get
