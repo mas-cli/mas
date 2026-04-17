@@ -505,22 +505,18 @@ Feedback is much appreciated!
 
 </summary>
 
-🏗 mas can be built in Xcode 26+ or via:
+<!--markdownlint-disable line-length-->
+<!--editorconfig-checker-disable-->
+| Action                                                                  | Command                      |
+|:------------------------------------------------------------------------|:-----------------------------|
+| Build                                                                   | `Scripts/build` or Xcode 26+ |
+| Test ([Swift Testing](https://developer.apple.com/xcode/swift-testing)) | `Scripts/test`               |
+<!--editorconfig-checker-enable-->
+<!--markdownlint-enable line-length-->
 
-```shell
-Scripts/build
-```
+Licensed under the [MIT license](LICENSE).
 
-🧪 [Swift Testing](https://developer.apple.com/xcode/swift-testing) tests are
-run via:
-
-```shell
-Scripts/test
-```
-
-📄 Licensed under the [MIT license](LICENSE).
-
-✍️ Originally created by Andrew Naylor
+Originally created by Andrew Naylor
 ([@argon on GitHub](https://github.com/argon) /
 [@argon on X](https://x.com/argon)).
 
