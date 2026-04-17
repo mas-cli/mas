@@ -33,29 +33,31 @@ automation.
 
 ## App IDs
 
-Each App Store app has a unique integer app identifier (ADAM ID) & a unique text
-app identifier (bundle ID).
+App Store apps each have 2 unique IDs:
+
+| Type      | Format  | Example (for Xcode) |
+|:----------|:--------|:--------------------|
+| ADAM ID   | Integer | 497799835           |
+| Bundle ID | String  | com.apple.dt.Xcode  |
 
 mas commands accept both types of app IDs as arguments.
 
-App IDs that contain only digits are automatically processed as ADAM IDs; other
-app IDs are processed as bundle IDs.
+By default, all-digit app IDs are considered ADAM IDs; other app IDs are
+considered bundle IDs.
 
-The `--bundle` flag forces all app IDs (including all-digit ones) in a command
-line to be processed as bundle IDs (all-digit bundle IDs are theoretically
-possible, but likely don't exist).
+`--bundle` forces all-digit app IDs to also be considered bundle IDs.
 
-`mas search <term>…` & `mas list` can be used to find app ADAM IDs.
+ADAM IDs can be found via:
 
-Alternatively, to find an app's ADAM ID:
-
-1. Open an app's App Store page
-2. Open the page's Share Sheet via the Share Button (an up arrow superimposed
-   over a square)
-3. Choose `Copy`
-4. Extract the ADAM ID from the URL in the copied text
-   - e.g., extract ADAM ID `497799835` from the URL for Xcode
-     (<https://apps.apple.com/us/app/xcode/id497799835?mt=12>)
+1. `mas search <term>…`
+2. `mas list`
+3. The App Store:
+   1. Open an app's App Store page
+   2. Open the page's Share Sheet
+   3. Choose `Copy`
+   4. Extract the ADAM ID from the URL in the copied text
+      - e.g., `497799835` from
+        <https://apps.apple.com/us/app/xcode/id497799835?mt=12>
 
 ## Commands
 
