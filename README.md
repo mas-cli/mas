@@ -211,8 +211,10 @@ that is being gotten.
 <!--editorconfig-checker-enable-->
 <!--markdownlint-enable line-length-->
 
+## License
+
 Licensed under the [MIT license](LICENSE).
 
 Originally created by Andrew Naylor
-([@argon on GitHub](https://github.com/argon) /
+([@argon on GitHub](https://github.com/argon) |
 [@argon on X](https://x.com/argon)).
