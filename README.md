@@ -63,6 +63,45 @@ Detailed documentation is available via `man mas` & `mas --help`.
 <!--editorconfig-checker-enable-->
 <!--markdownlint-enable line-length-->
 
+## Integrations
+
+<!--markdownlint-disable line-length-->
+<!--editorconfig-checker-disable-->
+| Tool                                                             | Functionality                                                               |
+|:-----------------------------------------------------------------|:----------------------------------------------------------------------------|
+| [Homebrew Bundle](https://docs.brew.sh/Brew-Bundle-and-Brewfile) | Include installed apps in `Brewfile`; get, install & update `Brewfile` apps |
+| [Topgrade](https://github.com/topgrade-rs/topgrade)              | Update apps                                                                 |
+<!--editorconfig-checker-enable-->
+<!--markdownlint-enable line-length-->
+
+## Known Issues
+
+<!--markdownlint-disable line-length-->
+<!--editorconfig-checker-disable-->
+| Issue                                                                      | Solution                                                                                                                                                         |
+|:---------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Manage system software (macOS, Safari…)                                    | Use [`softwareupdate`](https://www.unix.com/man-page/osx/8/softwareupdate)                                                                                       |
+| [App info inconsistencies](https://github.com/mas-cli/mas/issues/387)      | Wait hours – days (App Store uses eventual consistency)                                                                                                          |
+| [Cannot purchase paid apps](https://github.com/mas-cli/mas/issues/558)     | <a id="paid-apps"></a>Purchase paid apps directly in App Store; submit PR                                                                                        |
+| [iOS & iPadOS apps unsupported](https://github.com/mas-cli/mas/issues/321) | Submit PR                                                                                                                                                        |
+| [Hangs](https://github.com/mas-cli/mas/issues/1222)                        | [Index apps in Spotlight](#spotlight); [open bug report](https://github.com/mas-cli/mas/issues/new?template=01-bug-report.yaml) if hangs persist                 |
+| Undetected installed apps                                                  | [Index apps in Spotlight](#spotlight)                                                                                                                            |
+| `This redownload is not available for this Apple Account…` error           | Sign in correct Apple Account to App Store, or&nbsp;uninstall&nbsp;app&nbsp;&amp;&nbsp;get&nbsp;it&nbsp;with&nbsp;current&nbsp;Apple&nbsp;Account                |
+| Other bugs                                                                 | [Subscribe to existing](https://github.com/mas-cli/mas/issues), or [open new](https://github.com/mas-cli/mas/issues/new?template=01-bug-report.yaml), bug report |
+<!--editorconfig-checker-enable-->
+<!--markdownlint-enable line-length-->
+
+## Development
+
+<!--markdownlint-disable line-length-->
+<!--editorconfig-checker-disable-->
+| Action                                                                  | Command                      |
+|:------------------------------------------------------------------------|:-----------------------------|
+| Build                                                                   | `Scripts/build` or Xcode 26+ |
+| Test ([Swift Testing](https://developer.apple.com/xcode/swift-testing)) | `Scripts/test`               |
+<!--editorconfig-checker-enable-->
+<!--markdownlint-enable line-length-->
+
 ## App IDs
 
 App Store apps each have 2 unique IDs:
@@ -172,45 +211,6 @@ If that setting is disabled, then if `System Settings` > `Apple Account` >
 `Media & Purchases` > `Free Downloads` is set to `Always Require`, then you must
 authenticate via the Apple Account password for each previously ungotten app
 that is being gotten.
-
-## Integrations
-
-<!--markdownlint-disable line-length-->
-<!--editorconfig-checker-disable-->
-| Tool                                                             | Functionality                                                               |
-|:-----------------------------------------------------------------|:----------------------------------------------------------------------------|
-| [Homebrew Bundle](https://docs.brew.sh/Brew-Bundle-and-Brewfile) | Include installed apps in `Brewfile`; get, install & update `Brewfile` apps |
-| [Topgrade](https://github.com/topgrade-rs/topgrade)              | Update apps                                                                 |
-<!--editorconfig-checker-enable-->
-<!--markdownlint-enable line-length-->
-
-## Known Issues
-
-<!--markdownlint-disable line-length-->
-<!--editorconfig-checker-disable-->
-| Issue                                                                      | Solution                                                                                                                                                         |
-|:---------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Manage system software (macOS, Safari…)                                    | Use [`softwareupdate`](https://www.unix.com/man-page/osx/8/softwareupdate)                                                                                       |
-| [App info inconsistencies](https://github.com/mas-cli/mas/issues/387)      | Wait hours – days (App Store uses eventual consistency)                                                                                                          |
-| [Cannot purchase paid apps](https://github.com/mas-cli/mas/issues/558)     | <a id="paid-apps"></a>Purchase paid apps directly in App Store; submit PR                                                                                        |
-| [iOS & iPadOS apps unsupported](https://github.com/mas-cli/mas/issues/321) | Submit PR                                                                                                                                                        |
-| [Hangs](https://github.com/mas-cli/mas/issues/1222)                        | [Index apps in Spotlight](#spotlight); [open bug report](https://github.com/mas-cli/mas/issues/new?template=01-bug-report.yaml) if hangs persist                 |
-| Undetected installed apps                                                  | [Index apps in Spotlight](#spotlight)                                                                                                                            |
-| `This redownload is not available for this Apple Account…` error           | Sign in correct Apple Account to App Store, or&nbsp;uninstall&nbsp;app&nbsp;&amp;&nbsp;get&nbsp;it&nbsp;with&nbsp;current&nbsp;Apple&nbsp;Account                |
-| Other bugs                                                                 | [Subscribe to existing](https://github.com/mas-cli/mas/issues), or [open new](https://github.com/mas-cli/mas/issues/new?template=01-bug-report.yaml), bug report |
-<!--editorconfig-checker-enable-->
-<!--markdownlint-enable line-length-->
-
-## Development
-
-<!--markdownlint-disable line-length-->
-<!--editorconfig-checker-disable-->
-| Action                                                                  | Command                      |
-|:------------------------------------------------------------------------|:-----------------------------|
-| Build                                                                   | `Scripts/build` or Xcode 26+ |
-| Test ([Swift Testing](https://developer.apple.com/xcode/swift-testing)) | `Scripts/test`               |
-<!--editorconfig-checker-enable-->
-<!--markdownlint-enable line-length-->
 
 ## License
 
