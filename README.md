@@ -18,12 +18,7 @@
 mas is a command-line interface for the Mac App Store designed for scripting &
 automation.
 
-<details>
-<summary>
-
 ## Installation
-
-</summary>
 
 <!--markdownlint-disable line-length-->
 <!--editorconfig-checker-disable-->
@@ -36,19 +31,9 @@ automation.
 <!--editorconfig-checker-enable-->
 <!--markdownlint-enable line-length-->
 
-</details>
-<details>
-<summary>
-
 ## Usage
 
-</summary>
-<details>
-<summary>
-
-### 🆔 App IDs
-
-</summary>
+### App IDs
 
 Each App Store app has a unique integer app identifier (ADAM ID) & a unique text
 app identifier (bundle ID).
@@ -74,13 +59,7 @@ Alternatively, to find an app's ADAM ID:
    - e.g., extract ADAM ID `497799835` from the URL for Xcode
      (<https://apps.apple.com/us/app/xcode/id497799835?mt=12>)
 
-</details>
-<details>
-<summary>
-
-### 🔍 `mas search`
-
-</summary>
+### `mas search`
 
 `mas search <search-term>…` searches by name for apps available from the App
 Store.
@@ -94,13 +73,7 @@ $ mas search --price Xcode
 …
 ```
 
-</details>
-<details>
-<summary>
-
-### 👀 `mas lookup`
-
-</summary>
+### `mas lookup`
 
 `mas lookup <app-id>…` outputs more detailed information about apps available
 from the App Store.
@@ -118,13 +91,7 @@ Size: 2,913.8 MB
 From: https://apps.apple.com/us/app/xcode/id497799835?mt=12&uo=4
 ```
 
-</details>
-<details>
-<summary>
-
-### 📜 `mas list`
-
-</summary>
+### `mas list`
 
 `mas list` outputs apps installed from the App Store.
 
@@ -135,13 +102,7 @@ $ mas list
 497799835  Xcode       (26.4)
 ```
 
-</details>
-<details>
-<summary>
-
-### ⌛ `mas outdated`
-
-</summary>
+### `mas outdated`
 
 `mas outdated` outputs apps installed from the App Store that have pending
 updates.
@@ -152,15 +113,9 @@ $ mas outdated
 497799835  Xcode      (26.3   -> 26.4)
 ```
 
-Run [`mas update`](#-mas-update) to install pending updates.
+Run [`mas update`](#mas-update) to install pending updates.
 
-</details>
-<details>
-<summary>
-
-### ✨ `mas get`
-
-</summary>
+### `mas get`
 
 `mas get <app-id>…` gets & installs free apps from the App Store.
 
@@ -170,7 +125,7 @@ The `--force` flag re-installs apps even if they are already installed; without
 it, already installed apps are not modified.
 
 Requires an Apple Account signed in to the App Store &
-[root privileges](#-root-privileges).
+[root privileges](#root-privileges).
 
 While getting an app, depending on your Apple Account settings, your Apple
 Account might need to be authenticated in the App Store, even if it is already
@@ -197,26 +152,20 @@ $ mas get 497799835
 ==> Got Xcode (26.4) in /Applications/Xcode.app
 ```
 
-</details>
-<details>
-<summary>
-
-### ⬇️ `mas install`
-
-</summary>
+### `mas install`
 
 `mas install <app-id>…` installs apps from the App Store.
 
 `mas install` installs only apps that have already been gotten or purchased by
 the Apple Account signed in to the App Store. If a free app hasn't already been
-gotten, use [`mas get`](#-mas-get); if a paid app hasn't been purchased,
-purchase it in the App Store.
+gotten, use [`mas get`](#mas-get); if a paid app hasn't been purchased, purchase
+it in the App Store.
 
 The `--force` flag re-installs apps even if they are already installed; without
 it, already installed apps are not modified.
 
 Requires an Apple Account signed in to the App Store &
-[root privileges](#-root-privileges).
+[root privileges](#root-privileges).
 
 ```console
 $ mas install 497799835
@@ -226,13 +175,7 @@ $ mas install 497799835
 ==> Installed Xcode (26.4) in /Applications/Xcode.app
 ```
 
-</details>
-<details>
-<summary>
-
-### 🍀 `mas lucky`
-
-</summary>
+### `mas lucky`
 
 `mas lucky <search-term>…` installs the first result that would be returned by
 `mas search <search-term>…`.
@@ -241,7 +184,7 @@ Like `mas install`, `mas lucky` can install only apps that have previously been
 gotten or purchased.
 
 Requires an Apple Account signed in to the App Store &
-[root privileges](#-root-privileges).
+[root privileges](#root-privileges).
 
 ```console
 $ mas lucky Xcode
@@ -251,13 +194,7 @@ $ mas lucky Xcode
 ==> Installed Xcode (26.4) in /Applications/Xcode.app
 ```
 
-</details>
-<details>
-<summary>
-
-### 🆙 `mas update`
-
-</summary>
+### `mas update`
 
 `mas update` updates outdated apps installed from the App Store.
 
@@ -269,7 +206,7 @@ The `--force` flag updates apps even if they aren't outdated; without it, only
 outdaetd apps are modified.
 
 Requires an Apple Account signed in to the App Store &
-[root privileges](#-root-privileges).
+[root privileges](#root-privileges).
 
 `update` was formerly `upgrade`; the `upgrade` alias exists for backwards
 compatibility.
@@ -296,23 +233,11 @@ $ mas update 497799835
 ==> Updated Xcode (26.4) in /Applications/Xcode.app
 ```
 
-</details>
-<details>
-<summary>
-
-### 🚪 `mas signout`
-
-</summary>
+### `mas signout`
 
 `mas signout` signs out from the Apple Account signed in to the App Store.
 
-</details>
-<details>
-<summary>
-
-### 🔦 Spotlight
-
-</summary>
+### Spotlight
 
 `list`, `outdated`, `get`, `install`, `lucky`, `update` & `uninstall` obtain
 data for installed apps from the Spotlight Metadata Service (MDS).
@@ -358,13 +283,7 @@ sudo mdutil -Eai on
 <!--editorconfig-checker-enable-->
 <!--markdownlint-enable line-length-->
 
-</details>
-<details>
-<summary>
-
-### 🔑 Root Privileges
-
-</summary>
+### Root Privileges
 
 `get`, `install`, `lucky`, `update` & `uninstall` require root privileges.
 
@@ -377,14 +296,7 @@ never visible to, nor stored by, mas.
 Any sudo credentials used or established by mas remain valid after mas finishes,
 pursuant to the user-configured sudo timeout.
 
-</details>
-</details>
-<details>
-<summary>
-
 ## Integrations
-
-</summary>
 
 <!--markdownlint-disable line-length-->
 <!--editorconfig-checker-disable-->
@@ -395,13 +307,7 @@ pursuant to the user-configured sudo timeout.
 <!--editorconfig-checker-enable-->
 <!--markdownlint-enable line-length-->
 
-</details>
-<details>
-<summary>
-
 ## Known Issues
-
-</summary>
 
 <!--markdownlint-disable line-length-->
 <!--editorconfig-checker-disable-->
@@ -411,19 +317,14 @@ pursuant to the user-configured sudo timeout.
 | [App info inconsistencies](https://github.com/mas-cli/mas/issues/387)      | Wait hours – days (App Store uses eventual consistency)                                                                                                          |
 | [Cannot purchase paid apps](https://github.com/mas-cli/mas/issues/558)     | Purchase paid apps directly in App Store; submit PR                                                                                                              |
 | [iOS & iPadOS apps unsupported](https://github.com/mas-cli/mas/issues/321) | Submit PR                                                                                                                                                        |
-| [Hangs](https://github.com/mas-cli/mas/issues/1222)                        | [Index apps in Spotlight](#-spotlight); [open bug report](https://github.com/mas-cli/mas/issues/new?template=01-bug-report.yaml) if hangs persist                |
-| Undetected installed apps                                                  | [Index apps in Spotlight](#-spotlight)                                                                                                                           |
+| [Hangs](https://github.com/mas-cli/mas/issues/1222)                        | [Index apps in Spotlight](#spotlight); [open bug report](https://github.com/mas-cli/mas/issues/new?template=01-bug-report.yaml) if hangs persist                 |
+| Undetected installed apps                                                  | [Index apps in Spotlight](#spotlight)                                                                                                                            |
 | `This redownload is not available for this Apple Account…` error           | Sign in correct Apple Account to App Store, or&nbsp;uninstall&nbsp;app&nbsp;&amp;&nbsp;get&nbsp;it&nbsp;with&nbsp;current&nbsp;Apple&nbsp;Account                |
 | Other bugs                                                                 | [Subscribe to existing](https://github.com/mas-cli/mas/issues), or [open new](https://github.com/mas-cli/mas/issues/new?template=01-bug-report.yaml), bug report |
 <!--editorconfig-checker-enable-->
 <!--markdownlint-enable line-length-->
-</details>
-<details>
-<summary>
 
 ## Development
-
-</summary>
 
 <!--markdownlint-disable line-length-->
 <!--editorconfig-checker-disable-->
@@ -439,5 +340,3 @@ Licensed under the [MIT license](LICENSE).
 Originally created by Andrew Naylor
 ([@argon on GitHub](https://github.com/argon) /
 [@argon on X](https://x.com/argon)).
-
-</details>
