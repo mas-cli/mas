@@ -31,34 +31,6 @@ automation.
 <!--editorconfig-checker-enable-->
 <!--markdownlint-enable line-length-->
 
-## App IDs
-
-App Store apps each have 2 unique IDs:
-
-| Type      | Format  | Example (for Xcode) |
-|:----------|:--------|:--------------------|
-| ADAM ID   | Integer | 497799835           |
-| Bundle ID | String  | com.apple.dt.Xcode  |
-
-mas commands accept both types of app IDs as arguments.
-
-By default, all-digit app IDs are considered ADAM IDs; other app IDs are
-considered bundle IDs.
-
-`--bundle` forces all-digit app IDs to also be considered bundle IDs.
-
-ADAM IDs can be found via:
-
-1. `mas search <term>…`
-2. `mas list`
-3. The App Store:
-   1. Open an app's App Store page
-   2. Open the page's Share Sheet
-   3. Choose `Copy`
-   4. Extract the ADAM ID from the URL in the copied text
-      - e.g., `497799835` from
-        <https://apps.apple.com/us/app/xcode/id497799835?mt=12>
-
 ## Commands
 
 Detailed documentation is available via `man mas` & `mas --help`.
@@ -89,6 +61,34 @@ Detailed documentation is available via `man mas` & `mas --help`.
 | `version`                  | Output version                                |                                                                                                                       |
 <!--editorconfig-checker-enable-->
 <!--markdownlint-enable line-length-->
+
+## App IDs
+
+App Store apps each have 2 unique IDs:
+
+| Type      | Format  | Example (for Xcode) |
+|:----------|:--------|:--------------------|
+| ADAM ID   | Integer | 497799835           |
+| Bundle ID | String  | com.apple.dt.Xcode  |
+
+mas commands accept both types of app IDs as arguments.
+
+By default, all-digit app IDs are considered ADAM IDs; other app IDs are
+considered bundle IDs.
+
+`--bundle` forces all-digit app IDs to also be considered bundle IDs.
+
+ADAM IDs can be found via:
+
+1. `mas search <term>…`
+2. `mas list`
+3. The App Store:
+   1. Open an app's App Store page
+   2. Open the page's Share Sheet
+   3. Choose `Copy`
+   4. Extract the ADAM ID from the URL in the copied text
+      - e.g., `497799835` from
+        <https://apps.apple.com/us/app/xcode/id497799835?mt=12>
 
 ## Spotlight
 
