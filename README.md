@@ -25,32 +25,16 @@ automation.
 
 </summary>
 
-🍺 The [Homebrew](https://brew.sh) Core
-[mas formula](https://formulae.brew.sh/formula/mas) is the preferred way to
-install on macOS 14+:
-
-```shell
-brew install mas
-```
-
-🚰 The
-[mas-cli Homebrew tap mas formula](https://github.com/mas-cli/homebrew-tap) is
-an alternative way to install on macOS 13+:
-
-```shell
-brew install mas-cli/tap/mas
-```
-
-🔌 The [MacPorts](https://www.macports.org/install.php)
-[mas port](https://ports.macports.org/port/mas/) is an alternative way to
-install on macOS 13+:
-
-```shell
-sudo port install mas
-```
-
-🐙 [GitHub Releases](https://github.com/mas-cli/mas/releases) provides `.pkg`
-installers & source archives for every release.
+<!--markdownlint-disable line-length-->
+<!--editorconfig-checker-disable-->
+| Provider                                                                   | Method                         | mas    | macOS             |
+|:---------------------------------------------------------------------------|:-------------------------------|:-------|:------------------|
+| [Homebrew](https://brew.sh) [Core](https://formulae.brew.sh/formula/mas)   | `brew install mas`             | Latest | 14+ (recommended) |
+| [Homebrew](https://brew.sh) [Tap](https://github.com/mas-cli/homebrew-tap) | `brew install mas-cli/tap/mas` | Latest | 13+               |
+| [MacPorts](https://www.macports.org/install.php)                           | `sudo port install mas`        | Latest | 13+               |
+| [GitHub Releases](https://github.com/mas-cli/mas/releases)                 | Installers & source archives   | Any    | Release-dependent |
+<!--editorconfig-checker-enable-->
+<!--markdownlint-enable line-length-->
 
 </details>
 <details>
