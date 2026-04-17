@@ -330,22 +330,13 @@ $ mas update 497799835
 
 </summary>
 
-Root privileges are now necessary to install or update apps from the App Store,
-because Apple secured `installd` on macOS 26.1+, 15.7.2+ & 14.8.2+ to fix
-[CVE-2025-43411](https://nvd.nist.gov/vuln/detail/CVE-2025-43411). To simplify
-the code, mas 4.0.0+ requires root privileges to install or update apps for all
-versions of macOS, even older versions for which `installd` hasn't been secured.
-Most users are already, or soon will be, using affected macOS versions.
+`get`, `install`, `lucky`, `update` & `uninstall` require root privileges.
 
-Root privileges were always necessary to uninstall apps from the App Store,
-because such apps are owned by the `root` user on macOS.
+If run without root privileges, mas requests them as necessary.
 
-If mas 4.0.0+ needs root privileges yet was run without them, mas requests them
-by spawning an external process that uses sudo to run mas. If existing sudo
-credentials are within the sudo timeout, the spawned sudo automatically uses
-them. If no such sudo credentials exist, the spawned sudo prompts for the macOS
-user password; the provided password is piped directly from the sudo process, so
-the password is never visible to mas, nor is it stored in any way.
+mas uses existing valid sudo credentials, falling back to prompting for the
+macOS user password, which is piped directly to a sudo process; the password is
+never visible to, nor stored by, mas.
 
 Any sudo credentials used or established by mas remain valid after mas finishes,
 pursuant to the user-configured sudo timeout.
