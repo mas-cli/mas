@@ -334,15 +334,14 @@ pursuant to the user-configured sudo timeout.
 
 </summary>
 
-🍻 [Homebrew Bundle](https://docs.brew.sh/Brew-Bundle-and-Brewfile): If mas is
-installed:
-
-- `brew bundle dump` includes installed App Store apps in the generated
-  `Brewfile`
-- Homebrew Bundle commands process App Store apps included in a `Brewfile`
-
-⚙️ [Topgrade](https://github.com/topgrade-rs/topgrade): If mas is installed,
-Topgrade updates installed App Store apps.
+<!--markdownlint-disable line-length-->
+<!--editorconfig-checker-disable-->
+| Tool                                                             | Functionality                                                               |
+|:-----------------------------------------------------------------|:----------------------------------------------------------------------------|
+| [Homebrew Bundle](https://docs.brew.sh/Brew-Bundle-and-Brewfile) | Include installed apps in `Brewfile`; get, install & update `Brewfile` apps |
+| [Topgrade](https://github.com/topgrade-rs/topgrade)              | Update apps                                                                 |
+<!--editorconfig-checker-enable-->
+<!--markdownlint-enable line-length-->
 
 </details>
 <details>
