@@ -310,7 +310,59 @@ $ mas update 497799835
 <details>
 <summary>
 
-### 🔑 Root privileges
+### 🔦 Spotlight
+
+</summary>
+
+`list`, `outdated`, `get`, `install`, `lucky`, `update` & `uninstall` obtain
+data for installed apps from the Spotlight Metadata Service (MDS).
+
+Spotlight indexing thus must be enabled & valid for folders containing App Store
+apps.
+
+Check if an app is properly indexed in Spotlight via:
+
+```console
+## General format:
+$ mdls -rn kMDItemAppStoreAdamID <path-to-app>
+## Outputs the ADAM ID if the app is indexed
+## Outputs nothing if the app is not indexed
+
+## Example:
+$ mdls -rn kMDItemAppStoreAdamID /Applications/Xcode.app
+497799835
+```
+
+If an app is indexed in Spotlight, find the path to the app from its ADAM ID
+via:
+
+```shell
+mdfind 'kMDItemAppStoreAdamID = <adam-id>'
+```
+
+If any App Store apps are not properly indexed, index via:
+
+<!--markdownlint-disable line-length-->
+<!--editorconfig-checker-disable-->
+```shell
+# Individual app (if the omitted apps are known). e.g., for Xcode:
+mdimport /Applications/Xcode.app
+
+# All apps:
+vol="$(/usr/libexec/PlistBuddy -c "Print :PreferredVolume:name" ~/Library/Preferences/com.apple.appstored.plist 2>/dev/null)"
+mdimport /Applications ${vol:+"/Volumes/${vol}/Applications"}
+
+# All volumes:
+sudo mdutil -Eai on
+```
+<!--editorconfig-checker-enable-->
+<!--markdownlint-enable line-length-->
+
+</details>
+<details>
+<summary>
+
+### 🔑 Root Privileges
 
 </summary>
 
@@ -347,156 +399,24 @@ pursuant to the user-configured sudo timeout.
 <details>
 <summary>
 
-## Known issues
-
-</summary>
-<details>
-<summary>
-
-### &nbsp;&nbsp;&nbsp; System software
+## Known Issues
 
 </summary>
 
-mas manages apps only from the App Store.
-
-Use [`softwareupdate`](https://www.unix.com/man-page/osx/8/softwareupdate) to
-manage system software (e.g., macOS, Xcode Command Line Tools, Safari, etc.).
-
-</details>
-<details>
-<summary>
-
-### 💥 Broken Apple private frameworks
-
-</summary>
-
-mas uses multiple undocumented Apple private frameworks to implement much of its
-functionality.
-
-Over time, Apple has silently changed these frameworks, breaking some
-functionality, including:
-
-- [`account` not supported on macOS 12+](
-    https://github.com/mas-cli/mas/issues/417
-  )
-- [`signin` not supported on macOS 10.13+](
-    https://github.com/mas-cli/mas/issues/164
-  )
-
-</details>
-<details>
-<summary>
-
-### ⏳ Eventual consistency
-
-</summary>
-
-The App Store operates on eventual consistency.
-
-[The app versions seen by various parts of mas or the App Store might be
-inconsistent for days](https://github.com/mas-cli/mas/issues/387).
-
-</details>
-<details>
-<summary>
-
-### 📱 iOS & iPadOS apps
-
-</summary>
-
-Apple Silicon Macs can install iOS & iPadOS apps from the App Store.
-
-[mas does not yet support iOS or iPadOS apps](
-  https://github.com/mas-cli/mas/issues/321
-).
-
-</details>
-<details>
-<summary>
-
-### 🤷 Undetected installed apps
-
-</summary>
-
-mas 2.0.0+ sources data for installed App Store apps from macOS's Spotlight
-Metadata Server (aka MDS).
-
-Check if an App Store app is properly indexed in Spotlight via:
-
-```console
-## General format:
-$ mdls -rn kMDItemAppStoreAdamID <path-to-app>
-## Outputs the ADAM ID if the app is indexed
-## Outputs nothing if the app is not indexed
-
-## Example:
-$ mdls -rn kMDItemAppStoreAdamID /Applications/WhatsApp.app
-310633997
-```
-
-If an app has been indexed in Spotlight, find the path to the app for an ADAM ID
-via:
-
-```shell
-mdfind 'kMDItemAppStoreAdamID = <adam-id>'
-```
-
-Reindex improperly indexed App Store apps via:
-
-```shell
-# Individual apps (if the incorrectly omitted apps are known):
-mdimport /Applications/Example.app
-
-# All apps (<LargeAppVolume> is the volume optionally selected for large apps):
-mdimport /Applications /Volumes/<LargeAppVolume>/Applications
-
-# All file system volumes (if neither aforementioned command solved the issue):
-sudo mdutil -Eai on
-```
-
-</details>
-<details>
-<summary>
-
-### 🚫 Redownload not available
-
-</summary>
-
-If the following error is reported, the app was probably gotten or purchased by
-a different Apple Account.
-
-> This redownload is not available for this Apple Account either because it was
-> bought by a different user or the item was refunded or canceled.
-
-Either:
-
-1. Uninstall the app if it's already installed.
-2. Get or purchase the app.
-
-Or:
-
-1. Sign out this Apple Account from the App Store.
-2. Sign in the other Apple Account to the App Store.
-3. Install or update the app.
-
-</details>
-<details>
-<summary>
-
-### ❓ Other issues
-
-</summary>
-
-If mas doesn't work as expected (e.g., apps can't be installed or updated), run
-`mas reset`, then try again.
-
-If the issue persists, please [file a bug](
-  https://github.com/mas-cli/mas/issues/new?template=01-bug-report.yaml
-).
-
-Feedback is much appreciated!
-
-</details>
+<!--markdownlint-disable line-length-->
+<!--editorconfig-checker-disable-->
+| Issue                                                                      | Solution                                                                                                                                                         |
+|:---------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Manage system software (macOS, Safari…)                                    | Use [`softwareupdate`](https://www.unix.com/man-page/osx/8/softwareupdate)                                                                                       |
+| [App info inconsistencies](https://github.com/mas-cli/mas/issues/387)      | Wait hours – days (App Store uses eventual consistency)                                                                                                          |
+| [Cannot purchase paid apps](https://github.com/mas-cli/mas/issues/558)     | Purchase paid apps directly in App Store; submit PR                                                                                                              |
+| [iOS & iPadOS apps unsupported](https://github.com/mas-cli/mas/issues/321) | Submit PR                                                                                                                                                        |
+| [Hangs](https://github.com/mas-cli/mas/issues/1222)                        | [Index apps in Spotlight](#-spotlight); [open bug report](https://github.com/mas-cli/mas/issues/new?template=01-bug-report.yaml) if hangs persist                |
+| Undetected installed apps                                                  | [Index apps in Spotlight](#-spotlight)                                                                                                                           |
+| `This redownload is not available for this Apple Account…` error           | Sign in correct Apple Account to App Store, or&nbsp;uninstall&nbsp;app&nbsp;&amp;&nbsp;get&nbsp;it&nbsp;with&nbsp;current&nbsp;Apple&nbsp;Account                |
+| Other bugs                                                                 | [Subscribe to existing](https://github.com/mas-cli/mas/issues), or [open new](https://github.com/mas-cli/mas/issues/new?template=01-bug-report.yaml), bug report |
+<!--editorconfig-checker-enable-->
+<!--markdownlint-enable line-length-->
 </details>
 <details>
 <summary>
