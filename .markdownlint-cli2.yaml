@@ -37,7 +37,7 @@ config:
     code_blocks: false
     spaces_per_tab: 2
   no-inline-html:
-    allowed_elements: [details, h1, summary]
+    allowed_elements: [a, details, h1, summary]
   no-trailing-spaces:
     code_blocks: true
     strict: true
