@@ -9,13 +9,6 @@ private import Foundation
 @testable private import mas
 
 extension Data {
-	/// Unsafe initializer for loading data from string paths.
-	///
-	/// - Parameters:
-	///   - resourcePath: Relative path of resource within subfolderPath
-	///   - ext: Extension of the resource
-	///   - subfolderPath: Relative path of folder within the module
-	/// - Throws: An `Error` if any problem occurs.
 	init(
 		fromResource resourcePath: String?,
 		withExtension ext: String? = "json",

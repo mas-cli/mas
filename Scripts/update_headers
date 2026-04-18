@@ -20,44 +20,52 @@ readonly -a frameworks_globs=("${@:-*(/)}")
 cd Sources/PrivateFrameworks/include
 
 for framework in ${~frameworks_globs[@]}; do
-	! [[ -v 'received_flag[-X]' ]] && ipsw class-dump --headers --output . /System/Volumes/Preboot/Cryptexes/OS/System/Library/dyld/dyld_shared_cache_arm64e -- "${framework}"
+	! [[ -v 'received_flag[-X]' ]] &&
+		ipsw\
+		class-dump\
+		--headers\
+		--output .\
+		/System/Volumes/Preboot/Cryptexes/OS/System/Library/dyld/dyld_shared_cache_arm64e\
+		--\
+		"${framework}"
 
 	# shellcheck disable=SC1046,SC1047,SC1072,SC1073
 	if ! [[ -v 'received_flag[-C]' ]]; then
 		cd -- "${framework}"
 
+		# editorconfig-checker-disable
 		# shellcheck disable=SC1036
 		sed -Ei ''\
-		 -e 's!^//    -!// -!g'\
-		 -e 's!^//  !//!g'\
-		 -e '/^#(define|endif|ifndef).*/d'\
-		 -e '/^ *\/\*.*\*\/$/d'\
-		 -e '/^@import Foundation;$/d'\
-		 -e 's/^    /\t/g'\
-		 -e 's/_Bool/BOOL/g'\
-		 -e 's/^- \(id\)description;$/- \(nonnull NSString \*\)description;/g'\
-		 -e 's/^- \(void\)encodeWithCoder:\(id\)coder;$/- \(void\)encodeWithCoder:\(nullable NSCoder \*\)coder;/g'\
-		 -e 's/^- \(id\)initWithCoder:\(id\)coder;$/- \(nonnull instancetype\)initWithCoder:\(nullable NSCoder \*\)coder;/g'\
-		 -e 's/^- \(BOOL\)isEqual:\(id\)equal;$/- \(BOOL\)isEqual:\(nullable id\)object;/g'\
-		 -e 's/^\+ \(id\)interface;$/\+ \(nonnull NSXPCInterface \*\)interface;/g'\
-		 -e 's/\(copy\)/\(copy, nullable\)/g'\
-		 -e 's/\(copy, nonatomic\)/\(copy, nonatomic, nullable\)/g'\
-		 -e 's/\(id\)client/\(nullable ISStoreClient \*\)client/g'\
-		 -e 's/\(id\)dictionary/\(nullable NSDictionary \*\)dictionary/g'\
-		 -e 's/\(id\)init/\(nonnull instancetype)init/g'\
-		 -e 's/\(retain\)/\(retain, nullable\)/g'\
-		 -e 's/\(retain, nonatomic\)/\(retain, nonatomic, nullable\)/g'\
-		 -e 's/\(id\)dsid/\(nullable NSNumber \*\)dsID/g'\
-		 -e 's/NSArray \*downloads/NSArray\<SSDownload \*\> \*downloads/g'\
-		 -e 's/\(id\)productID/\(nonnull NSNumber \*\)productID/g'\
-		 -e 's/- \(id\)copyWithZone:\(struct _NSZone \*\)zone;/- \(nonnull instancetype\)copyWithZone:\(nullable struct _NSZone \*\)zone;/g'\
-		 -e 's/\(id\)progress/\(nullable SSOperationProgress \*\)progress/g'\
-		 -e 's/\(id\)url/\(nullable NSURL \*\)url/g'\
-		 -e 's/:\(id\)error/:\(nullable NSError \*\)error/g'\
-		 -e 's/NSObject\<OS_dispatch_queue\> \*/dispatch_queue_t /g'\
-		 -e 's/NSObject\<OS_dispatch_source\> \*/dispatch_source_t /g'\
-		 -e 's!id /\* block \*/!UnknownBlock!g'\
-		 ***/*.h(.N)
+			-e 's!^//    -!// -!g'\
+			-e 's!^//  !//!g'\
+			-e '/^#(define|endif|ifndef).*/d'\
+			-e '/^ *\/\*.*\*\/$/d'\
+			-e '/^@import Foundation;$/d'\
+			-e 's/^    /\t/g'\
+			-e 's/_Bool/BOOL/g'\
+			-e 's/^- \(id\)description;$/- \(nonnull NSString \*\)description;/g'\
+			-e 's/^- \(void\)encodeWithCoder:\(id\)coder;$/- \(void\)encodeWithCoder:\(nullable NSCoder \*\)coder;/g'\
+			-e 's/^- \(id\)initWithCoder:\(id\)coder;$/- \(nonnull instancetype\)initWithCoder:\(nullable NSCoder \*\)coder;/g'\
+			-e 's/^- \(BOOL\)isEqual:\(id\)equal;$/- \(BOOL\)isEqual:\(nullable id\)object;/g'\
+			-e 's/^\+ \(id\)interface;$/\+ \(nonnull NSXPCInterface \*\)interface;/g'\
+			-e 's/\(copy\)/\(copy, nullable\)/g'\
+			-e 's/\(copy, nonatomic\)/\(copy, nonatomic, nullable\)/g'\
+			-e 's/\(id\)client/\(nullable ISStoreClient \*\)client/g'\
+			-e 's/\(id\)dictionary/\(nullable NSDictionary \*\)dictionary/g'\
+			-e 's/\(id\)init/\(nonnull instancetype)init/g'\
+			-e 's/\(retain\)/\(retain, nullable\)/g'\
+			-e 's/\(retain, nonatomic\)/\(retain, nonatomic, nullable\)/g'\
+			-e 's/\(id\)dsid/\(nullable NSNumber \*\)dsID/g'\
+			-e 's/NSArray \*downloads/NSArray\<SSDownload \*\> \*downloads/g'\
+			-e 's/\(id\)productID/\(nonnull NSNumber \*\)productID/g'\
+			-e 's/- \(id\)copyWithZone:\(struct _NSZone \*\)zone;/- \(nonnull instancetype\)copyWithZone:\(nullable struct _NSZone \*\)zone;/g'\
+			-e 's/\(id\)progress/\(nullable SSOperationProgress \*\)progress/g'\
+			-e 's/\(id\)url/\(nullable NSURL \*\)url/g'\
+			-e 's/:\(id\)error/:\(nullable NSError \*\)error/g'\
+			-e 's/NSObject\<OS_dispatch_queue\> \*/dispatch_queue_t /g'\
+			-e 's/NSObject\<OS_dispatch_source\> \*/dispatch_source_t /g'\
+			-e 's!id /\* block \*/!UnknownBlock!g'\
+			***/*.h(.N) # editorconfig-checker-enable
 
 		for header in ***/*.h(.N); do
 			sed -i '' -e ':a' -e '/^\n*$/{$d;N;ba' -e '}' "${header}"

@@ -39,7 +39,7 @@ private extension MASTests {
 			},
 		)
 		let expected = Consequences(
-			nil,
+			nil, // editorconfig-checker-disable
 			"""
 			Awesome App 1.0 [$2.00]
 			By: Awesome Dev
@@ -48,7 +48,7 @@ private extension MASTests {
 			Size: 1 MB
 			From: https://awesome.app
 
-			""",
+			""", // editorconfig-checker-enable
 		)
 		#expect(actual == expected)
 	}

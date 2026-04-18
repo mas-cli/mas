@@ -116,14 +116,10 @@ struct UniversalSemVerInt: SemVerSyntaxInteger {
 
 	init?(from versionString: String) {
 		do {
-			let match = versionString.wholeMatch(of: unsafe universalSemVerRegex)! // swiftlint:disable:this force_unwrapping
+			let match = versionString.wholeMatch(of: universalSemVerRegex)! // swiftlint:disable:this force_unwrapping
 			self = .init(
 				coreIntegers: try match.1.elements.map { coreElement in
-					guard let coreInteger = Integer(coreElement) else {
-						throw MASError.error(coreElement)
-					}
-
-					return coreInteger
+					try .init(coreElement) ?? { throw MASError.error(coreElement) }()
 				},
 				prereleaseElements: match.2.elements,
 				buildElements: match.3.elements,
@@ -140,7 +136,7 @@ struct UniversalSemVer: SemVerSyntax {
 	let buildElements: [String]
 
 	init(from versionString: String) {
-		let match = versionString.wholeMatch(of: unsafe universalSemVerRegex)! // swiftlint:disable:this force_unwrapping
+		let match = versionString.wholeMatch(of: universalSemVerRegex)! // swiftlint:disable:this force_unwrapping
 		coreElements = match.1.elements
 		prereleaseElements = match.2.elements
 		buildElements = match.3.elements
@@ -166,9 +162,8 @@ private extension String {
 		range: Range<Self.Index>? = nil,
 		locale: Locale? = nil,
 	) -> ComparisonResult {
-		let selfInteger = BigUInt(self)
 		let thatInteger = BigUInt(that)
-		return selfInteger.map { thatInteger.map($0.compare(to:)) ?? .orderedAscending }
+		return BigUInt(self).map { thatInteger.map($0.compare(to:)) ?? .orderedAscending }
 		?? thatInteger.map { _ in .orderedDescending } // swiftformat:disable:this indent
 		?? compare(that, options: mask, range: range, locale: locale) // swiftformat:disable:this indent
 	}
@@ -203,4 +198,4 @@ extension Version {
 	}
 }
 
-private nonisolated(unsafe) let universalSemVerRegex = /([^-+]*+)?+(?:-([^+]*+))?+(?:\+(.*+))?+/
+private let universalSemVerRegex = /([^-+]*+)?+(?:-([^+]*+))?+(?:\+(.*+))?+/

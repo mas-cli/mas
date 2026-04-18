@@ -20,7 +20,7 @@ private extension URL {
 					(try? url.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) == true,
 					url.pathExtension == "app"
 				else {
-					return nil as URL?
+					return URL?.none
 				}
 
 				enumerator.skipDescendants()
@@ -54,7 +54,7 @@ func installedApps(matching metadataQuery: String) async throws -> [InstalledApp
 	}
 
 	let query = NSMetadataQuery()
-	query.predicate = NSPredicate(format: metadataQuery)
+	query.predicate = .init(format: metadataQuery)
 	query.searchScopes = applicationsFolderURLs
 
 	return try await withCheckedThrowingContinuation { continuation in
@@ -83,15 +83,15 @@ func installedApps(matching metadataQuery: String) async throws -> [InstalledApp
 				(result as? NSMetadataItem).map { item in
 					InstalledApp(
 						adamID: item.value(forAttribute: "kMDItemAppStoreAdamID") as? ADAMID ?? 0,
-						bundleID: item.value(forAttribute: NSMetadataItemCFBundleIdentifierKey) as? String ?? "",
-						name: (item.value(forAttribute: "_kMDItemDisplayNameWithExtensions") as? String ?? "")
+						bundleID: .init(describing: item.value(forAttribute: NSMetadataItemCFBundleIdentifierKey) ?? ""),
+						name: .init(describing: item.value(forAttribute: "_kMDItemDisplayNameWithExtensions") ?? "")
 						.removingSuffix(".app"),
-						path: item.value(forAttribute: NSMetadataItemPathKey) as? String ?? "",
-						version: item.value(forAttribute: NSMetadataItemVersionKey) as? String ?? "",
+						path: .init(describing: item.value(forAttribute: NSMetadataItemPathKey) ?? ""),
+						version: .init(describing: item.value(forAttribute: NSMetadataItemVersionKey) ?? ""),
 					)
 				}
 			}
-			.sorted(using: KeyPathComparator(\.name, comparator: .localizedStandard)) // swiftformat:enable indent
+			.sorted(using: KeyPathComparator(\.name, comparator: .localizedStandard))
 
 			if !["1", "true", "yes"].contains(ProcessInfo.processInfo.environment["MAS_NO_AUTO_INDEX"]?.lowercased()) {
 				let installedAppPathSet = Set(installedApps.map(\.path))

@@ -54,9 +54,8 @@ private extension CatalogApp {
 			do {
 				return try await URL(string: appStorePageURLString)
 				.flatMap { url in // swiftformat:disable indent
-					try unsafe SwiftSoup.parse(try await Dependencies.current.dataFrom(url).0, appStorePageURLString)
-					.select("#serialized-server-data")
-					.first()?
+					try SwiftSoup.parse(try await Dependencies.current.dataFrom(url).0, appStorePageURLString)
+					.getElementById("serialized-server-data")? // swiftformat:disable:this acronyms
 					.data()
 					.query(
 						string:
@@ -102,7 +101,7 @@ private func url(
 	_ action: String,
 	_ queryItem: URLQueryItem,
 	inRegion region: Region,
-	additionalQueryItems: [URLQueryItem] = [URLQueryItem(name: "entity", value: "desktopSoftware")],
+	additionalQueryItems: [URLQueryItem] = [.init(name: "entity", value: "desktopSoftware")],
 ) throws -> URL {
 	let urlString = "https://itunes.apple.com/\(action)"
 	guard let url = URL(string: urlString) else {
@@ -110,13 +109,10 @@ private func url(
 	}
 
 	return url.appending(
-		queryItems: [URLQueryItem(name: "media", value: "software")]
-		+ additionalQueryItems // swiftformat:disable indent
-		+ [
-			URLQueryItem(name: "country", value: region),
-			queryItem,
-		],
-	) // swiftformat:enable indent
+		queryItems: [.init(name: "media", value: "software")]
+		+ additionalQueryItems // swiftformat:disable:this indent
+		+ [.init(name: "country", value: region), queryItem], // swiftformat:disable:this indent
+	)
 }
 
 private func getCatalogApps(from url: URL) async throws -> [CatalogApp] {
@@ -128,4 +124,4 @@ private func getCatalogApps(from url: URL) async throws -> [CatalogApp] {
 	}
 }
 
-private nonisolated(unsafe) let minimumOSVersionRegex = /macOS\s*(?<version>\S+)/
+private let minimumOSVersionRegex = /macOS\s*(?<version>\S+)/

@@ -54,7 +54,7 @@ struct MAS: AsyncParsableCommand {
 
 			let errorCount = printer.errorCount
 			if errorCount > 0 {
-				throw ExitCode(errorCount >= UInt64(Int32.max) ? .max : .init(errorCount))
+				throw ExitCode(errorCount >= .init(Int32.max) ? .max : .init(errorCount))
 			}
 		} catch {
 			exit(withError: error)
@@ -112,7 +112,7 @@ private extension Error {
 }
 
 extension ParsableCommand {
-	static func requiresRootPrivilegesMessage(to action: String = String(describing: Self.self).lowercased()) -> String {
+	static func requiresRootPrivilegesMessage(to action: String = .init(describing: Self.self).lowercased()) -> String {
 		"Requires root privileges to \(action) apps"
 	}
 }
@@ -126,6 +126,11 @@ private let applicationsFolderURL = URL(filePath: applicationsFolderPath, direct
 
 let applicationsFolderURLs = UserDefaults(suiteName: "com.apple.appstored")?
 .dictionary(forKey: "PreferredVolume")?["name"] // swiftformat:disable indent
-.map { [applicationsFolderURL, URL(filePath: "/Volumes/\($0)\(applicationsFolderPath)", directoryHint: .isDirectory)] }
+.map { largeAppVolumeName in
+	[
+		applicationsFolderURL,
+		.init(filePath: "/Volumes/\(largeAppVolumeName)\(applicationsFolderPath)", directoryHint: .isDirectory),
+	]
+} // swiftformat:disable:this blankLinesBetweenScopes
 ?? [applicationsFolderURL]
 // swiftformat:enable indent

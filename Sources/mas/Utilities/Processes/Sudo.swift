@@ -25,17 +25,17 @@ private func sudo(_ args: some Sequence<String>) throws {
 		}
 	}
 
-	var pid = 0 as pid_t
+	var pid = pid_t(0)
 	let spawnStatus = unsafe posix_spawn(&pid, "/usr/bin/sudo", nil, nil, cArgs + [nil], environ)
 	guard spawnStatus == 0 else {
 		throw MASError.error(
 			"Failed to spawn installer process",
-			error: unsafe String(cString: strerror(spawnStatus)),
+			error: unsafe .init(cString: strerror(spawnStatus)), // swiftformat:disable:this spaceAroundOperators
 			separator: ": ",
 		)
 	}
 
-	var sudoStatus = 0 as Int32
+	var sudoStatus = Int32(0)
 	unsafe waitpid(pid, &sudoStatus, 0)
 	guard sudoStatus == 0 else {
 		throw ExitCode(max((sudoStatus >> 8) & 0xff, 1))

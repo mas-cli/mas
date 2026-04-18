@@ -8,7 +8,6 @@
 private import ArgumentParser
 private import Darwin
 private import OrderedCollections
-private import StoreFoundation
 
 enum AppStoreAction {
 	case get
@@ -59,13 +58,16 @@ enum AppStoreAction {
 			return
 		}
 
-		let adamIDs = OrderedSet(adamIDs)
+		let adamIDOrderedSet = OrderedSet(adamIDs)
 		guard getuid() == 0 else {
-			try sudo(MAS._commandName, args: [String(describing: self), "--force"] + adamIDs.map(String.init(describing:)))
+			try sudo(
+				MAS._commandName,
+				args: [.init(describing: self), "--force"] + adamIDOrderedSet.map(String.init(describing:)),
+			)
 			return
 		}
 
-		await adamIDs.forEach(attemptTo: "\(self) app for ADAM ID") { adamID in
+		await adamIDOrderedSet.forEach(attemptTo: "\(self) app for ADAM ID") { adamID in
 			try await app(withADAMID: adamID) { _, _ in false }
 		}
 	}

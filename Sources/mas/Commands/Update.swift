@@ -6,7 +6,6 @@
 //
 
 internal import ArgumentParser
-private import StoreFoundation
 
 extension MAS {
 	/// Updates outdated apps installed from the App Store.
@@ -18,13 +17,9 @@ extension MAS {
 		)
 
 		@OptionGroup
-		private var outdatedAppOptionGroup: OutdatedAppOptionGroup
-		@OptionGroup
 		private var forceOptionGroup: ForceOptionGroup
 		@OptionGroup
-		private var verboseOptionGroup: VerboseOptionGroup
-		@OptionGroup
-		private var installedAppIDsOptionGroup: InstalledAppIDsOptionGroup
+		private var outdatedAppOptionGroup: OutdatedAppOptionGroup
 
 		func run() async throws {
 			try await run(installedApps: try await installedApps.filter(!\.isTestFlight))
@@ -33,13 +28,8 @@ extension MAS {
 		private func run(installedApps: [InstalledApp]) async throws {
 			try await run(
 				outdatedApps: forceOptionGroup.force // swiftformat:disable:next indent
-				? installedApps.filter(for: installedAppIDsOptionGroup.appIDs).map { ($0, "") }
-				: await installedApps.outdatedApps(
-					filterFor: installedAppIDsOptionGroup.appIDs,
-					accuracy: outdatedAppOptionGroup.accuracy,
-					shouldCheckMinimumOSVersion: outdatedAppOptionGroup.shouldCheckMinimumOSVersion,
-					shouldWarnIfUnknownApp: verboseOptionGroup.verbose,
-				),
+				? installedApps.filter(for: outdatedAppOptionGroup.installedAppIDsOptionGroup.appIDs).map { ($0, "") }
+				: await outdatedAppOptionGroup.outdatedApps(from: installedApps),
 			)
 		}
 

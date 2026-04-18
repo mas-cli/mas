@@ -15,37 +15,58 @@
 
 print_notice '🚨 Linting' "${@}"
 
-ensure_command_available actionlint git markdownlint-cli2 shellcheck swiftformat swiftlint yamllint || exit
-[[ "$(/usr/bin/arch)" = arm64 && "${$(sw_vers -productVersion)%%.*}" -ge 15 ]]
+ensure_command_available\
+	actionlint\
+	editorconfig-checker\
+	git\
+	markdownlint-cli2\
+	shellcheck\
+	swiftformat\
+	swiftlint\
+	yamllint ||
+	exit
+autoload -Uz is-at-least
+is-at-least 15 "$(sw_vers -productVersion)" && [[ "$(/usr/bin/arch)" = arm64 ]]
 integer -r can_use_periphery="$((! ?))"
 # shellcheck disable=SC1073,SC1083
 ((can_use_periphery)) && { ensure_command_available periphery || exit }
 
 zmodload zsh/zutil
-zparseopts -D -A received_flag P
+zparseopts -D -A received_flag A P
 
 export -r MAS_DISTRIBUTION=lint
 
 integer exit_status=0
 
 printf -- $'--> 🕊​ SwiftFormat\n'
-script -q /dev/null swiftformat --lint --markdown-files format-strict . |
- (grep -vxE '(?:\^D\x08{2})?Running SwiftFormat\.{3}\r|\(lint mode - no files will be changed\.\)\r|Reading (?:config|swift-version) file at .*|\x1b\[32mSwiftFormat completed in \d+(?:\.\d+)?s\.\x1b\[0m\r|0/\d+ files require formatting\.\r|Source input did not pass lint check\.\r' || true)
+script -q /dev/null swiftformat --lint --markdown-files format-strict . | # editorconfig-checker-disable-next-line
+	grep -vxE '(?:\^D\x08{2})?Running SwiftFormat\.{3}\r|\(lint mode - no files will be changed\.\)\r|Reading (?:config|swift-version) file at .*|\x1b\[32mSwiftFormat completed in \d+(?:\.\d+)?s\.\x1b\[0m\r|0/\d+ files require formatting\.\r|Source input did not pass lint check\.\r' || true
 ((exit_status |= ${?}))
 
 printf -- $'--> 🦅 SwiftLint\n'
 swiftlint --strict --quiet --reporter relative-path
 ((exit_status |= ${?}))
 
+# shellcheck disable=SC1046,SC1047,SC1072,SC1073
+if is-at-least 6.3 "${${$(swift --version 2>/dev/null)##( |[[:alpha:]])##}%% *}" && ! [[ -v 'received_flag[-A]' ]]; then
+	printf -- $'--> 🔬 SwiftLint Analyze\n'
+	# shellcheck disable=SC1036
+	swiftlint analyze --strict --quiet --reporter relative-path --compiler-log-path\
+		=(xcodebuild -scheme mas -destination "platform=macOS,arch=$(arch),variant=macos" 2>&1)
+	((exit_status |= ${?}))
+fi
+
 if ((can_use_periphery)) && ! [[ -v 'received_flag[-P]' ]]; then
 	printf -- $'--> 🌀 Periphery\n'
 	periphery scan --exclude-tests |
-	 (grep -vxE '(?:\x1b\[0;1;32m|\^D\x08{2})\* (?:\x1b\[0;0m\x1b\[0;1m)?No unused code detected\.(?:\x1b\[0;0m)?\r?' || true)
+		grep -vxE '(?:\x1b\[0;1;32m|\^D\x08{2})\* (?:\x1b\[0;0m\x1b\[0;1m)?No unused code detected\.(?:\x1b\[0;0m)?\r?' ||
+		true
 	((exit_status |= ${?}))
 
 	printf -- $'--> 🌀 Periphery Tests\n'
-	periphery scan |
-	 (grep -vxE '(?:\x1b\[0;1;32m|\^D\x08{2})\* (?:\x1b\[0;0m\x1b\[0;1m)?No unused code detected\.(?:\x1b\[0;0m)?\r?' || true)
+	periphery scan --no-superfluous-ignore-comments |
+		grep -vxE '(?:\x1b\[0;1;32m|\^D\x08{2})\* (?:\x1b\[0;0m\x1b\[0;1m)?No unused code detected\.(?:\x1b\[0;0m)?\r?' ||
+		true
 	((exit_status |= ${?}))
 fi
 
@@ -73,6 +94,10 @@ actionlint -shellcheck shellcheck
 
 printf -- $'--> 🐚 ShellCheck\n'
 shellcheck -s bash -o all -e SC1009,SC1088,SC2296,SC2298,SC2299,SC2300,SC2301,SC2312 -a -P SCRIPTDIR Scripts/***/*(.)
+((exit_status |= ${?}))
+
+printf -- $'--> 🐭 EditorConfig\n'
+editorconfig-checker
 ((exit_status |= ${?}))
 
 printf -- $'--> 🚷 Non-Executables\n'

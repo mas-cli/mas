@@ -15,7 +15,7 @@ func run(
 	runProcess run: (Process) throws -> Void = { try $0.run() },
 ) async throws -> (standardOutputString: String, standardErrorString: String) {
 	let process = Process()
-	process.executableURL = URL(filePath: executablePath, directoryHint: .notDirectory)
+	process.executableURL = .init(filePath: executablePath, directoryHint: .notDirectory)
 	process.arguments = args
 
 	let standardOutputPipe = Pipe()

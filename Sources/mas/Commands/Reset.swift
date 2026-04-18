@@ -37,19 +37,20 @@ extension MAS {
 				}
 			}
 
-			let executablePathSet = Set([
-				"/System/Library/Frameworks/StoreKit.framework/Support/storekitagent",
-				"/System/Library/PrivateFrameworks/AppStoreComponents.framework/Support/appstorecomponentsd",
-				"/System/Library/PrivateFrameworks/AppStoreDaemon.framework/Support/appstoreagent",
-				"""
-				/System/Library/PrivateFrameworks/CascadeSets.framework/Versions/A/XPCServices/SetStoreUpdateService.xpc/Contents/MacOS/SetStoreUpdateService
-				""",
-				"/System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/storeaccountd",
-				"/System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/storeassetd",
-				"/System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/storedownloadd",
-				"/System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/storeinstalld",
-				"/System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/storelegacy",
-			])
+			let executablePathSet = Set(
+				[
+					"/System/Library/Frameworks/StoreKit.framework/Support/storekitagent",
+					"/System/Library/PrivateFrameworks/AppStoreComponents.framework/Support/appstorecomponentsd",
+					"/System/Library/PrivateFrameworks/AppStoreDaemon.framework/Support/appstoreagent",
+					"/System/Library/PrivateFrameworks/CascadeSets.framework/Versions/A/XPCServices"
+					+ "/SetStoreUpdateService.xpc/Contents/MacOS/SetStoreUpdateService", // swiftformat:disable:this indent
+					"/System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/storeaccountd",
+					"/System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/storeassetd",
+					"/System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/storedownloadd",
+					"/System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/storeinstalld",
+					"/System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/storelegacy",
+				],
+			)
 
 			var processListMIB = [CTL_KERN, KERN_PROC, KERN_PROC_ALL]
 			var length = 0
@@ -67,7 +68,7 @@ extension MAS {
 			var executablePathBuffer = [CChar](repeating: 0, count: .init(PATH_MAX))
 			for pid in unsafe kinfoProcs.map(\.kp_proc.p_pid) {
 				guard
-					unsafe proc_pidpath(pid, &executablePathBuffer, UInt32(executablePathBuffer.count)) > 0,
+					unsafe proc_pidpath(pid, &executablePathBuffer, .init(executablePathBuffer.count)) > 0,
 					let executablePath = String(cString: executablePathBuffer, encoding: .utf8),
 					executablePathSet.contains(executablePath)
 				else {

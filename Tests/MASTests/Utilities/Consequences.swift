@@ -53,8 +53,8 @@ private struct StandardStreamCapture { // swiftlint:disable:this one_declaration
 		outDuplicateFD = dup(outOriginalFD)
 		errDuplicateFD = dup(errOriginalFD)
 
-		outPipe = Pipe()
-		errPipe = Pipe()
+		outPipe = .init()
+		errPipe = .init()
 
 		dup2(outPipe.fileHandleForWriting.fileDescriptor, outOriginalFD)
 		dup2(errPipe.fileHandleForWriting.fileDescriptor, errOriginalFD)
@@ -62,7 +62,7 @@ private struct StandardStreamCapture { // swiftlint:disable:this one_declaration
 
 	func consequences(value _: Void, error: (any Error)? = nil) -> Consequences<NoValue> {
 		let (stdout, stderr) = finishAndRead(encoding: encoding)
-		return .init(nil as NoValue?, error, stdout, stderr)
+		return .init(NoValue?.none, error, stdout, stderr)
 	}
 
 	func consequences<Value>(value: Value? = nil, error: (any Error)? = nil) -> Consequences<Value> {

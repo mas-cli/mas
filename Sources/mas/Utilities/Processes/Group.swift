@@ -13,9 +13,9 @@ private extension gid_t {
 	}
 }
 
-func set(effectiveGID gid: gid_t) throws {
+func set(effectiveGID gid: gid_t) throws(MASError) {
 	guard setegid(gid) == 0 else {
-		throw MASError.error("Failed to switch effective group from \(getegid().nameAndID) to \(gid.nameAndID)")
+		throw .error("Failed to switch effective group from \(getegid().nameAndID) to \(gid.nameAndID)")
 	}
 }
 

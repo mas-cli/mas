@@ -2,7 +2,7 @@
 # .swiftformat
 # mas
 #
-# SwiftFormat 0.60.1
+# SwiftFormat 0.61.0
 #
 
 # Disabled rules (enabled by default)
@@ -25,6 +25,7 @@
 --enable noGuardInTests
 --enable organizeDeclarations
 --enable preferFinalClasses
+--enable preferSwiftStringAPI
 --enable preferSwiftTesting
 --enable privateStateVariables
 --enable propertyTypes
@@ -33,6 +34,7 @@
 --enable unusedPrivateDeclarations
 --enable urlMacro
 --enable validateTestCases
+--enable wrapCaseBodies
 --enable wrapConditionalBodies
 --enable wrapEnumCases
 --enable wrapMultilineFunctionChains
@@ -67,6 +69,7 @@
 --short-optionals always
 --single-line-for-each convert
 --stored-var-attributes prev-line
+--suite-name-format standard-identifiers
 --tab-width 2
 --timezone utc
 --type-attributes prev-line

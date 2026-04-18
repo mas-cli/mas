@@ -18,24 +18,13 @@ extension MAS {
 
 		@OptionGroup
 		private var outdatedAppOptionGroup: OutdatedAppOptionGroup
-		@OptionGroup
-		private var verboseOptionGroup: VerboseOptionGroup
-		@OptionGroup
-		private var installedAppIDsOptionGroup: InstalledAppIDsOptionGroup
 
 		func run() async throws {
 			await run(installedApps: try await installedApps.filter(!\.isTestFlight))
 		}
 
 		private func run(installedApps: [InstalledApp]) async {
-			run(
-				outdatedApps: await installedApps.outdatedApps(
-					filterFor: installedAppIDsOptionGroup.appIDs,
-					accuracy: outdatedAppOptionGroup.accuracy,
-					shouldCheckMinimumOSVersion: outdatedAppOptionGroup.shouldCheckMinimumOSVersion,
-					shouldWarnIfUnknownApp: verboseOptionGroup.verbose,
-				),
-			)
+			run(outdatedApps: await outdatedAppOptionGroup.outdatedApps(from: installedApps))
 		}
 
 		private func run(outdatedApps: [OutdatedApp]) {

@@ -1,5 +1,7 @@
+# editorconfig-checker-disable
 # yamllint disable-line rule:line-length
 # yaml-language-server: $schema=https://raw.githubusercontent.com/DavidAnson/markdownlint-cli2/main/schema/markdownlint-cli2-config-schema.json
+# editorconfig-checker-enable
 #
 # .markdownlint-cli2.yaml
 # mas
@@ -20,7 +22,7 @@ config:
   emphasis-style:
     style: underscore
   fenced-code-language:
-    allowed_languages: [console, shell]
+    allowed_languages: [console, shell, swift]
     language_only: true
   heading-style:
     style: atx
@@ -35,7 +37,7 @@ config:
     code_blocks: false
     spaces_per_tab: 2
   no-inline-html:
-    allowed_elements: [details, h1, summary]
+    allowed_elements: [a, details, h1, summary]
   no-trailing-spaces:
     code_blocks: true
     strict: true

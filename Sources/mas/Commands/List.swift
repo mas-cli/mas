@@ -28,22 +28,22 @@ extension MAS {
 				let maxADAMIDLength = installedApps.map({ String(describing: $0.adamID).count }).max(),
 				let maxNameLength = installedApps.map(\.name.count).max()
 			else {
-				printer.warning(
+				printer.warning( // editorconfig-checker-disable
 					"""
 					No installed apps found
 
-					If this is unexpected, any of the following command lines should fix things by reindexing apps in Spotlight\
-					 (which might take some time):
+					If this is unexpected, index apps in Spotlight (which might take some time):
 
-					# Individual apps (if you know exactly what apps were incorrectly omitted):
-					mdimport /Applications/Example.app
+					# Individual app (if the omitted apps are known). e.g., for Xcode:
+					mdimport /Applications/Xcode.app
 
-					# All apps (<LargeAppVolume> is the volume optionally selected for large apps):
-					mdimport /Applications /Volumes/<LargeAppVolume>/Applications
+					# All apps:
+					vol="$(/usr/libexec/PlistBuddy -c "Print :PreferredVolume:name" ~/Library/Preferences/com.apple.appstored.plist 2>/dev/null)"
+					mdimport /Applications ${vol:+"/Volumes/${vol}/Applications"}
 
-					# All file system volumes (if neither aforementioned command solved the issue):
+					# All volumes:
 					sudo mdutil -Eai on
-					""",
+					""", // editorconfig-checker-enable
 				)
 				return
 			}

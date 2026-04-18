@@ -10,26 +10,26 @@
 
 builtin unalias -as
 setopt\
- autopushd\
- combiningchars\
- extendedglob\
- extendedhistory\
- no_globalrcs\
- histexpiredupsfirst\
- histignorespace\
- histverify\
- incappendhistorytime\
- interactivecomments\
- pipefail\
- no_rcs\
- no_unset
-export -r HISTCHARS='!^#'
-export -r IFS=$' \t\n\0'
-export -r NULLCMD=cat
-export -r PAGER=cat
-export -r READNULLCMD=cat
-export -r TMPDIR="${"${TMPDIR:-/tmp/}"/%(#b)([^\/])/"${match[1]}"/}"
-export -r TMPPREFIX="${TMPPREFIX:-"${TMPDIR}"zsh}"
+	autopushd\
+	combiningchars\
+	extendedglob\
+	extendedhistory\
+	no_globalrcs\
+	histexpiredupsfirst\
+	histignorespace\
+	histverify\
+	incappendhistorytime\
+	interactivecomments\
+	pipefail\
+	no_rcs\
+	no_unset
+export HISTCHARS='!^#'
+export IFS=$' \t\n\0'
+export NULLCMD=cat
+export PAGER=cat
+export READNULLCMD=cat
+export TMPDIR="${"${TMPDIR:-/tmp/}"/%(#b)([^\/])/"${match[1]}"/}"
+export TMPPREFIX="${TMPPREFIX:-"${TMPDIR}"zsh}"
 unset CDPATH
 unset ENV
 unset KEYBOARD_HACK
@@ -49,7 +49,11 @@ print_notice() {
 	else
 		local -r prefix='==>'
 	fi
-	printf $'%s %s mas %s%s\n' "${prefix}" "${1}" "${MAS_VERSION:-$(Scripts/version)}" "${${*:2}:+ (arguments: ${${(q)@:2}[*]})}"
+	printf $'%s %s mas %s%s\n'\
+		"${prefix}"\
+		"${1}"\
+		"${MAS_VERSION:-$(Scripts/version)}"\
+		"${${*:2}:+ (arguments: ${${(q)@:2}[*]})}"
 }
 
 ensure_command_available() {
@@ -57,7 +61,10 @@ ensure_command_available() {
 	local command
 	for command in "${@}"; do
 		if ! whence "${command}" >/dev/null; then
-			printf $'error: %s is not installed. Run \'Scripts/bootstrap\' or \'brew install %s\'.\n' "${command}" "${command}" >&2
+			printf $'error: %s is not installed. Run \'Scripts/bootstrap\' or \'brew install %s\'.\n'\
+				"${command}"\
+				"${command}"\
+				>&2
 			return_status=1
 		fi
 	done

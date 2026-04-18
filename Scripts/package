@@ -45,15 +45,15 @@ archs=("${(s: :n)$(lipo -archs "${installation_staging_folder}/bin/mas")}")
 readonly -a archs
 
 pkgbuild\
- --identifier io.github.mas-cli.mas\
- --install-location /\
- --version "${version}"\
- --root "${destination_folder}"\
- "${build_folder}/mas.pkg"
+	--identifier io.github.mas-cli.mas\
+	--install-location /\
+	--version "${version}"\
+	--root "${destination_folder}"\
+	"${build_folder}/mas.pkg"
 
 # shellcheck disable=SC1036
 productbuild\
- --distribution =(<<<\
+	--distribution =(<<<\
 '<?xml version="1.0" encoding="utf-8"?>
 <installer-gui-script minSpecVersion="2">
 	<title>mas</title>
@@ -70,6 +70,6 @@ productbuild\
 		<pkg-ref id="mas">mas.pkg</pkg-ref>
 	</choice>
 </installer-gui-script>'
- )\
- --package-path "${build_folder}"\
- "${build_folder}/mas-${version//\//_}-${(j:-:)archs[@]}.pkg"
+	)\
+	--package-path "${build_folder}"\
+	"${build_folder}/mas-${version//\//_}-${(j:-:)archs[@]}.pkg"

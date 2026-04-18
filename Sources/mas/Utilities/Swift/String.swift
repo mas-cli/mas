@@ -13,7 +13,7 @@ extension String {
 	}
 
 	func removingSuffix(_ suffix: Self) -> Self {
-		hasSuffix(suffix) ? Self(dropLast(suffix.count)) : self
+		hasSuffix(suffix) ? .init(dropLast(suffix.count)) : self
 	}
 
 	func similarity(to other: Self) -> Double {
@@ -33,10 +33,10 @@ extension String {
 
 		// Initialize base costs (deletions/insertions)
 		for index in 0...thisLength {
-			matrix[index][0] = Double(index)
+			matrix[index][0] = .init(index)
 		}
 		for index in 0...thatLength {
-			matrix[0][index] = Double(index)
+			matrix[0][index] = .init(index)
 		}
 
 		for i in 1...thisLength { // swiftlint:disable:this identifier_name
@@ -60,7 +60,7 @@ extension String {
 			}
 		}
 
-		return max(0, 1.0 - (matrix[thisLength][thatLength] / Double(max(thisLength, thatLength))))
+		return max(0, 1.0 - (matrix[thisLength][thatLength] / .init(max(thisLength, thatLength))))
 	}
 }
 
@@ -69,10 +69,11 @@ private extension Character {
 		isWhitespace || isPunctuation || isSymbol ? 0.25 : 1.0
 	}
 
-	func substitutionCost(for char: Character) -> Double {
-		String(self).folding(options: .diacriticInsensitive, locale: .current)
-		== String(char).folding(options: .diacriticInsensitive, locale: .current) // swiftformat:disable:this indent
-		? 0.1 // swiftformat:disable:this indent
-		: lowercased() == char.lowercased() ? 0.2 : 1.0
+	private var folded: String {
+		.init(self).folding(options: .diacriticInsensitive, locale: .current)
+	}
+
+	func substitutionCost(for that: Self) -> Double {
+		folded == that.folded ? 0.1 : lowercased() == that.lowercased() ? 0.2 : 1.0
 	}
 }

@@ -12,7 +12,7 @@ typealias Region = String
 private extension Region {
 	var appStoreRegion: Self {
 		switch self { // swiftlint:disable switch_case_on_newline
-		case "AD": "ES" // Andorra                                      > Spain
+		case "AD": "ES" // Andorra                                      > Spain // swiftformat:disable wrapCaseBodies
 		case "AQ": "NO" // Antarctica                                   > Norway
 		case "AS": "US" // American Samoa                               > United States
 		case "AW": "NL" // Aruba                                        > Netherlands
@@ -89,7 +89,7 @@ private extension Region {
 		case "WS": "AU" // Samoa                                        > Australia
 		case "YT": "FR" // Mayotte                                      > France
 		default: self // swiftlint:enable switch_case_on_newline
-		}
+		} // swiftformat:enable wrapCaseBodies
 	}
 }
 

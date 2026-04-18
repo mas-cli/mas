@@ -52,14 +52,10 @@ extension Sequence {
 
 		if let primaryItemAndScore {
 			merged.append(primaryItemAndScore.item)
-			while let item = primaryIterator.next() {
-				merged.append(item)
-			}
+			merged.append(contentsOf: IteratorSequence(primaryIterator))
 		} else if let secondaryItemAndScore {
 			merged.append(secondaryItemAndScore.item)
-			while let item = secondaryIterator.next() {
-				merged.append(item)
-			}
+			merged.append(contentsOf: IteratorSequence(secondaryIterator))
 		}
 
 		return merged

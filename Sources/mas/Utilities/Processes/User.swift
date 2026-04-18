@@ -13,9 +13,9 @@ private extension uid_t {
 	}
 }
 
-func set(effectiveUID uid: uid_t) throws {
+func set(effectiveUID uid: uid_t) throws(MASError) {
 	guard seteuid(uid) == 0 else {
-		throw MASError.error("Failed to switch effective user from \(geteuid().nameAndID) to \(uid.nameAndID)")
+		throw .error("Failed to switch effective user from \(geteuid().nameAndID) to \(uid.nameAndID)")
 	}
 }
 

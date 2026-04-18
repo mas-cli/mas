@@ -6,6 +6,7 @@
 //
 
 private import CommerceKit
+private import CoreFoundation
 private import CoreServices
 private import Foundation
 private import ObjectiveC
@@ -34,18 +35,14 @@ extension AppStoreAction { // swiftlint:disable:this file_types_order
 		let queue = CKDownloadQueue.shared()
 		let observer = DownloadQueueObserver(for: self, of: adamID, shouldCancel: shouldCancel)
 		let observerUUID = queue.add(observer)
-		defer {
-			queue.removeObserver(observerUUID)
-		}
+		defer { queue.removeObserver(observerUUID) }
 
 		try await withCheckedThrowingContinuation { continuation in
 			observer.set(continuation: continuation)
 
 			CKPurchaseController.shared().perform(purchase, withOptions: 0) { _, _, error, response in
 				if let error {
-					Task {
-						await observer.resumeOnce { $0.resume(throwing: error) }
-					}
+					Task { await observer.resumeOnce { $0.resume(throwing: error) } }
 				} else if response?.downloads?.isEmpty != false {
 					Task {
 						await observer.resumeOnce { continuation in
@@ -59,11 +56,18 @@ extension AppStoreAction { // swiftlint:disable:this file_types_order
 }
 
 private actor DownloadQueueObserver: CKDownloadQueueObserver {
+	private enum Event {
+		case statusChanged(DownloadSnapshot)
+		case removed(DownloadSnapshot)
+	}
+
 	private let action: AppStoreAction
 	private let adamID: ADAMID
 	private let shouldCancel: @Sendable (String?, Bool) -> Bool
 	private let downloadFolderURL: URL
+	private let eventStreamContinuation: AsyncStream<Event>.Continuation
 
+	private nonisolated(unsafe) var task = Task<Void, Never>?.none
 	private nonisolated(unsafe) var continuation = CheckedContinuation<Void, any Error>?.none
 
 	private var prevPhaseType = PhaseType.processing
@@ -75,10 +79,30 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		self.action = action
 		self.adamID = adamID
 		self.shouldCancel = shouldCancel
-		downloadFolderURL = URL(filePath: "\(CKDownloadDirectory(nil))/\(adamID)", directoryHint: .isDirectory)
+		downloadFolderURL = .init(filePath: "\(CKDownloadDirectory(nil))/\(adamID)", directoryHint: .isDirectory)
+
+		let (eventStream, eventStreamContinuation) = AsyncStream.makeStream(of: Event.self)
+		self.eventStreamContinuation = eventStreamContinuation // swiftlint:disable:this redundant_self
+
+		unsafe task = Task { [weak self] in
+			for await event in eventStream {
+				guard let self else {
+					break
+				}
+
+				switch event {
+				case let .statusChanged(snapshot):
+					await statusChanged(for: snapshot)
+				case let .removed(snapshot):
+					await removed(snapshot)
+				}
+			}
+		}
 	}
 
 	deinit {
+		eventStreamContinuation.finish()
+		unsafe task?.cancel()
 		resumeOnce(
 			alreadyResumed: alreadyResumed,
 			pkgHardLinkURL: pkgHardLinkURL,
@@ -111,9 +135,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 			return
 		}
 
-		Task {
-			await statusChanged(for: snapshot)
-		}
+		eventStreamContinuation.yield(.statusChanged(snapshot))
 	}
 
 	nonisolated func downloadQueue(_: CKDownloadQueue, changedWithRemoval download: SSDownload) {
@@ -121,9 +143,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 			return
 		}
 
-		Task {
-			await removed(snapshot)
-		}
+		eventStreamContinuation.yield(.removed(snapshot))
 	}
 
 	func resumeOnce(performing action: (CheckedContinuation<Void, any Error>) -> Void) {
@@ -166,7 +186,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 				pkgHardLinkURL = try hardLinkURL(
 					to: try downloadFolderChildURLs.compactMap { url in
 						guard url.pathExtension == "pkg" else {
-							return nil as (url: URL, date: Date)?
+							return (url: URL, date: Date)?.none
 						}
 
 						let resourceValues = try url.resourceValues(forKeys: [.contentModificationDateKey, .isRegularFileKey])
@@ -218,7 +238,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		{
 			// Output the progress bar iff connected to a terminal
 			let totalLength = 60
-			let completedLength = Int(snapshot.phasePercentComplete * Float(totalLength))
+			let completedLength = Int(snapshot.phasePercentComplete * .init(totalLength))
 			MAS.printer.clearCurrentLine(of: .standardOutput)
 			MAS.printer.info(
 				String(repeating: "#", count: completedLength),
@@ -357,7 +377,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 
 		guard
 			let appFolderURLSubstring = standardErrorString
-			.matches(of: unsafe appFolderURLRegex) // swiftformat:disable indent
+			.matches(of: appFolderURLRegex) // swiftformat:disable indent
 			.compactMap(\.1)
 			.min(by: { $0.count < $1.count })
 		else { // swiftformat:enable indent
@@ -393,11 +413,11 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 				)
 			}
 		} catch {
-			throw MASError.error(
+			throw MASError.error( // editorconfig-checker-disable
 				"""
 				Failed to copy receipt for \(appNameAndVersion) from \(receiptHardLinkURL.filePath.quoted) to\
 				 \(receiptURL.filePath.quoted)
-				""",
+				""", // editorconfig-checker-enable
 				error: error,
 			)
 		}
@@ -408,7 +428,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 			errorMessage: "Failed to \(action) \(appNameAndVersion) from \(pkgHardLinkPath)",
 		)
 
-		LSRegisterURL(appFolderURL as NSURL, true) // swiftlint:disable:this legacy_objc_type
+		LSRegisterURL(appFolderURL as CFURL, true)
 
 		return appFolderURL
 	}
@@ -435,13 +455,17 @@ private struct DownloadSnapshot { // swiftlint:disable:this one_declaration_per_
 		name = metadata.title
 		version = metadata.bundleVersion
 		appNameAndVersion = "\(metadata.title ?? "unknown app") (\(version ?? "unknown version"))"
-		activePhaseType = PhaseType(action, rawValue: status.activePhase?.phaseType)
+		activePhaseType = .init(action, rawValue: status.activePhase?.phaseType)
 		phasePercentComplete = status.phasePercentComplete
 		appFolderPath = download.installPath
 		isCancelled = status.isCancelled
 		isFailed = status.isFailed
-		error = status.error.map { $0 as NSError }.map { error in
-			error.domain == "PKInstallErrorDomain" && error.code == 201 ? Ignorable.installerWorkaround : error as any Error
+		error = status.error.map { error in
+			if case let error as NSError = error, error.domain == "PKInstallErrorDomain", error.code == 201 {
+				Ignorable.installerWorkaround
+			} else {
+				error
+			}
 		}
 	}
 }
@@ -530,4 +554,4 @@ private func deleteTempFolder(containing url: URL?, fileType: String) {
 	}
 }
 
-private nonisolated(unsafe) let appFolderURLRegex = /PackageKit: Registered bundle (\S+) for uid 0/
+private let appFolderURLRegex = /PackageKit: Registered bundle (\S+) for uid 0/

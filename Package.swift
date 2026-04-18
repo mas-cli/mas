@@ -18,12 +18,12 @@ _ = Package(
 	platforms: [.macOS(.v13)],
 	products: [.executable(name: "mas", targets: ["mas"])],
 	dependencies: [
-		.package(url: "https://github.com/KittyMac/Sextant.git", from: "0.4.38"),
+		.package(url: "https://github.com/KittyMac/Sextant.git", from: "0.4.39"),
 		.package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.7.1"),
 		.package(url: "https://github.com/apple/swift-atomics.git", from: "1.3.0"),
 		.package(url: "https://github.com/apple/swift-collections.git", from: "1.4.1"),
 		.package(url: "https://github.com/attaswift/BigInt.git", from: "5.7.0"),
-		.package(url: "https://github.com/scinfu/SwiftSoup.git", from: "2.13.2"),
+		.package(url: "https://github.com/scinfu/SwiftSoup.git", from: "2.13.4"),
 	],
 	targets: [
 		.plugin(name: "MASBuildToolPlugin", capability: .buildTool()),
