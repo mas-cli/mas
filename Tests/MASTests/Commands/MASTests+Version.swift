@@ -12,7 +12,7 @@ internal import Testing
 private extension MASTests {
 	@Test
 	func `outputs version`() {
-		let actual = consequencesOf(try MAS.main(try MAS.Version.parse([])))
+		let actual = consequencesOf(try MAS.main(try MAS.Version.parse(.init())))
 		let expected = Consequences(nil, "\(MAS.version)\n")
 		#expect(actual == expected)
 	}
