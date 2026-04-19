@@ -2,8 +2,8 @@
 changelog:
   categories:
   - title: 🚀 Features
-    labels: [🆕 feature request]
+    labels: [feature]
   - title: 🐛 Bug Fixes
-    labels: [🐛 bug]
+    labels: [bug]
   - title: Changes
     labels: ['*']

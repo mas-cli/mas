@@ -1,7 +1,7 @@
 ---
 name: Feature Request
 description: Request a feature.
-labels: [\U0001F195 feature request]
+labels: [feature]
 body:
 - type: textarea
   id: problems

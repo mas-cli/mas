@@ -5,7 +5,7 @@ updates:
   schedule:
     interval: daily
   directory: /
-  labels: [📚 dependencies]
+  labels: [dependencies]
   commit-message:
     prefix: ⬆️
     include: scope
@@ -13,7 +13,7 @@ updates:
   schedule:
     interval: daily
   directory: /
-  labels: [📚 dependencies]
+  labels: [dependencies]
   commit-message:
     prefix: ⬆️
     include: scope
