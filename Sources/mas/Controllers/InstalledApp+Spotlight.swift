@@ -30,7 +30,7 @@ private extension URL {
 				.flatMap { $0 > 0 ? url : nil }
 			}
 		}
-		?? []
+		?? .init()
 	} // swiftformat:enable indent
 }
 

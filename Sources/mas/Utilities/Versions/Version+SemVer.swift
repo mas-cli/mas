@@ -106,8 +106,8 @@ struct UniversalSemVerInt: SemVerSyntaxInteger {
 
 	init(
 		coreIntegers: [Integer],
-		prereleaseElements: [String] = [],
-		buildElements: [String] = [],
+		prereleaseElements: [String] = .init(),
+		buildElements: [String] = .init(),
 	) {
 		self.coreIntegers = coreIntegers.padding(toCount: 3, with: 0)
 		self.prereleaseElements = prereleaseElements
@@ -158,7 +158,7 @@ private extension FixedWidthInteger {
 private extension String {
 	func compareSemVerElement(
 		to that: Self,
-		options mask: CompareOptions = [],
+		options mask: CompareOptions = .init(),
 		range: Range<Self.Index>? = nil,
 		locale: Locale? = nil,
 	) -> ComparisonResult {
@@ -178,7 +178,7 @@ private extension [String] {
 
 private extension Substring? {
 	var elements: [String] {
-		map { $0.split(separator: ".") }?.map(String.init(_:)) ?? []
+		map { $0.split(separator: ".") }?.map(String.init(_:)) ?? .init()
 	}
 }
 

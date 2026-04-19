@@ -37,7 +37,7 @@ func lookup(appID: AppID, inRegion region: Region = appStoreRegion) async throws
 	{
 		catalogApp
 	} else {
-		try await getCatalogApps(from: try url("lookup", queryItem, inRegion: region, additionalQueryItems: []))
+		try await getCatalogApps(from: try url("lookup", queryItem, inRegion: region, additionalQueryItems: .init()))
 		.first // swiftformat:disable indent
 		.flatMap { catalogApp in
 			catalogApp.supportedDevices?.contains("MacDesktop-MacDesktop") == true
@@ -91,7 +91,7 @@ func search(for searchTerm: String, inRegion region: Region = appStoreRegion) as
 	let catalogApps = try await getCatalogApps(from: try url("search", queryItem, inRegion: region))
 	let adamIDSet = Set(catalogApps.map(\.adamID))
 	return catalogApps.priorityMerge( // swiftformat:disable indent
-		try await getCatalogApps(from: try url("search", queryItem, inRegion: region, additionalQueryItems: []))
+		try await getCatalogApps(from: try url("search", queryItem, inRegion: region, additionalQueryItems: .init()))
 		.filter { ($0.supportedDevices?.contains("MacDesktop-MacDesktop") == true) && !adamIDSet.contains($0.adamID) }
 		.concurrentMap { $0.with(minimumOSVersion: await $0.minimumOSVersionFromAppStorePage) },
 	) { $0.name.similarity(to: searchTerm) } // swiftformat:enable indent

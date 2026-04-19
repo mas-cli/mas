@@ -256,7 +256,7 @@ Each subsection contains code preferences in descending order.
    - `var a = [] as [String]`
    - `var o = nil as Int?`
 3. Explicit type, e.g.:
-   - `var a: [String] = []`
+   - `var a: [String] = .init()`
    - `var o: Int? = nil`
    - `var c: String { String(a.count) }`
 
