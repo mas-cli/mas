@@ -29,7 +29,7 @@ struct OutdatedAppOptionGroup: ParsableArguments {
 			do {
 				let catalogApp = try await Dependencies.current.lookupAppFromAppID(.bundleID(installedApp.bundleID))
 				return shouldCheckMinimumOSVersion // swiftformat:disable indent
-				&& UniversalSemVerInt(from: catalogApp.minimumOSVersion).flatMap { minimumOSVersion in
+				&& UniversalSemVerInt(from: catalogApp.minimumOSVersion).map { minimumOSVersion in
 					ProcessInfo.processInfo.isOperatingSystemAtLeast(
 						.init(
 							majorVersion: minimumOSVersion.majorInteger,
