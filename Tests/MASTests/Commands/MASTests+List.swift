@@ -12,7 +12,7 @@ internal import Testing
 private extension MASTests {
 	@Test
 	func `lists apps`() {
-		let actual = consequencesOf(try MAS.main(try MAS.List.parse([])) { $0.run(installedApps: []) })
+		let actual = consequencesOf(try MAS.main(try MAS.List.parse(.init())) { $0.run(installedApps: .init()) })
 		let expected = Consequences(
 			nil,
 			"", // editorconfig-checker-disable

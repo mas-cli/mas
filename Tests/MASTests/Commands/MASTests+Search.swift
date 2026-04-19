@@ -24,7 +24,7 @@ private extension MASTests {
 	@Test
 	func `cannot search for nonexistent app`() {
 		let searchTerm = "nonexistent"
-		let actual = consequencesOf(try MAS.main(try MAS.Search.parse([searchTerm])) { try $0.run(catalogApps: []) })
+		let actual = consequencesOf(try MAS.main(try MAS.Search.parse([searchTerm])) { try $0.run(catalogApps: .init()) })
 		let expected = Consequences(nil, "", "Error: \(MASError.noCatalogAppsFound(for: searchTerm))\n")
 		#expect(actual == expected)
 	}

@@ -291,7 +291,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 
 			MAS.printer.notice(
 				[action.performed.capitalizingFirstCharacter, snapshot.appNameAndVersion]
-				+ (appFolderURL.map { ["in", $0.filePath] } ?? []), // swiftformat:disable:this indent
+				+ (appFolderURL.map { ["in", $0.filePath] } ?? .init()), // swiftformat:disable:this indent
 			)
 
 			if let appFolderURL {

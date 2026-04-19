@@ -39,32 +39,30 @@ extension MAS {
 		}
 
 		private func run(installedApps: [InstalledApp]) throws {
-			let uninstallingADAMIDOrderedByPath = (
+			let uninstallingADAMIDByPathOrdered = (
 				isUninstallingAll ? installedApps.map { .bundleID($0.bundleID) } : installedAppIDsOptionGroup.appIDs,
 			)
-			.reduce(into: OrderedDictionary<String, String>()) { uninstallingADAMIDOrderedByPath, appID in
+			.reduce(into: OrderedDictionary<String, String>()) { uninstallingADAMIDByPathOrdered, appID in
 				let uninstallingApps = installedApps.filter { $0.matches(appID) }
 				guard !uninstallingApps.isEmpty else {
 					printer.error(appID.notInstalledMessage)
 					return
 				}
 
-				for uninstallingApp in uninstallingApps {
-					uninstallingADAMIDOrderedByPath[uninstallingApp.path] = .init(uninstallingApp.adamID)
-				}
+				uninstallingADAMIDByPathOrdered.merge(uninstallingApps.map { ($0.path, .init($0.adamID)) }) { $1 }
 			}
-			guard !uninstallingADAMIDOrderedByPath.isEmpty else {
+			guard !uninstallingADAMIDByPathOrdered.isEmpty else {
 				return
 			}
 			guard !isPerformingDryRun else {
 				printer.notice("Dry run. A wet run would uninstall:\n")
-				for appPath in uninstallingADAMIDOrderedByPath.keys {
+				for appPath in uninstallingADAMIDByPathOrdered.keys {
 					printer.info(appPath)
 				}
 				return
 			}
 			guard getuid() == 0 else {
-				try sudo(MAS._commandName, args: [Self._commandName] + uninstallingADAMIDOrderedByPath.values)
+				try sudo(MAS._commandName, args: [Self._commandName] + uninstallingADAMIDByPathOrdered.values)
 				return
 			}
 
@@ -72,7 +70,7 @@ extension MAS {
 			let uid = try processInfo.sudoUID
 			let gid = try processInfo.sudoGID
 			let fileManager = FileManager.default
-			for appPath in uninstallingADAMIDOrderedByPath.keys {
+			for appPath in uninstallingADAMIDByPathOrdered.keys {
 				let attributes = try fileManager.attributesOfItem(atPath: appPath)
 				guard let appUID = attributes[.ownerAccountID] as? uid_t else {
 					printer.error("Failed to get uid of", appPath)

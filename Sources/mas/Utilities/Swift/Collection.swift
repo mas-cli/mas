@@ -49,7 +49,7 @@ extension Collection where Element: Sendable {
 			do {
 				return try await transform(element)
 			} catch {
-				MAS.printer.error(error is MASError ? [] : ["Failed to", perform, element], error: error)
+				MAS.printer.error(error is MASError ? .init() : ["Failed to", perform, element], error: error)
 				return nil
 			}
 		}

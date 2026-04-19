@@ -30,7 +30,7 @@ private extension URL {
 				.flatMap { $0 > 0 ? url : nil }
 			}
 		}
-		?? []
+		?? .init()
 	} // swiftformat:enable indent
 }
 
@@ -91,7 +91,7 @@ func installedApps(matching metadataQuery: String) async throws -> [InstalledApp
 					)
 				}
 			}
-			.sorted(using: KeyPathComparator(\.name, comparator: .localizedStandard))
+			.sorted(using: KeyPathComparator(\.name, comparator: .localizedStandard)) // swiftformat:enable indent
 
 			if !["1", "true", "yes"].contains(ProcessInfo.processInfo.environment["MAS_NO_AUTO_INDEX"]?.lowercased()) {
 				let installedAppPathSet = Set(installedApps.map(\.path))

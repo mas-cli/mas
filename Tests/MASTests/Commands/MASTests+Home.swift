@@ -12,7 +12,8 @@ internal import Testing
 private extension MASTests {
 	@Test
 	func `cannot find app home for unknown app ID`() async {
-		let actual = await consequencesOf(try await MAS.main(try MAS.Home.parse(["1"])) { await $0.run(catalogApps: []) })
+		let actual =
+			await consequencesOf(try await MAS.main(try MAS.Home.parse(["1"])) { await $0.run(catalogApps: .init()) })
 		let expected = Consequences()
 		#expect(actual == expected)
 	}
