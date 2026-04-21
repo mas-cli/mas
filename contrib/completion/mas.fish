@@ -35,17 +35,17 @@ complete -c mas -n __fish_use_subcommand -fa uninstall -d 'Uninstall apps instal
 complete -c mas -n __fish_use_subcommand -fa update -d 'Update outdated apps installed from the App Store'
 complete -c mas -n __fish_use_subcommand -fa version -d 'Output version number'
 
-complete -c mas -n '__fish_seen_subcommand_from get home install lookup open seller' -xa '(__fish_mas_list_available)'
-complete -c mas -n '__fish_seen_subcommand_from get home install list lookup open outdated seller uninstall update; and not __fish_contains_opt bundle' -l bundle -d 'Process all app IDs as bundle IDs' # editorconfig-checker-disable-line
-complete -c mas -n '__fish_seen_subcommand_from get install lucky update; and not __fish_contains_opt force' -l force -d 'Force reinstall' # editorconfig-checker-disable-line
+complete -c mas -n '__fish_seen_subcommand_from get home info install lookup open purchase seller vendor' -xa '(__fish_mas_list_available)' # editorconfig-checker-disable-line
+complete -c mas -n '__fish_seen_subcommand_from get home info install list lookup open outdated purchase seller uninstall update upgrade vendor; and not __fish_contains_opt bundle' -l bundle -d 'Process all app IDs as bundle IDs' # editorconfig-checker-disable-line
+complete -c mas -n '__fish_seen_subcommand_from get install lucky purchase update upgrade; and not __fish_contains_opt force' -l force -d 'Force reinstall' # editorconfig-checker-disable-line
 complete -c mas -n '__fish_seen_subcommand_from help' -xa 'config get help home install list lookup lucky open outdated reset search seller signout uninstall update version' # editorconfig-checker-disable-line
 complete -c mas -n '__fish_seen_subcommand_from list outdated uninstall' -xa '(__fish_mas_list_installed)'
-complete -c mas -n '__fish_seen_subcommand_from outdated update; and not __fish_contains_opt accurate; and not __fish_contains_opt inaccurate' -l accurate -d 'Accurate, slower outdated app detection' # editorconfig-checker-disable-line
-complete -c mas -n '__fish_seen_subcommand_from outdated update; and not __fish_contains_opt accurate; and not __fish_contains_opt inaccurate' -l inaccurate -d 'Inaccurate, faster outdated app detection' # editorconfig-checker-disable-line
-complete -c mas -n '__fish_seen_subcommand_from outdated update; and not __fish_contains_opt check-min-os; and not __fish_contains_opt no-check-min-os' -l check-min-os -d 'Check if macOS can install latest app version' # editorconfig-checker-disable-line
-complete -c mas -n '__fish_seen_subcommand_from outdated update; and not __fish_contains_opt check-min-os; and not __fish_contains_opt no-check-min-os' -l no-check-min-os -d 'Do not check if macOS can install latest app version' # editorconfig-checker-disable-line
-complete -c mas -n '__fish_seen_subcommand_from outdated update; and not __fish_contains_opt verbose' -l verbose -d 'Warn about app IDs unknown to the App Store' # editorconfig-checker-disable-line
+complete -c mas -n '__fish_seen_subcommand_from outdated update upgrade; and not __fish_contains_opt accurate; and not __fish_contains_opt inaccurate' -l accurate -d 'Accurate, slower outdated app detection' # editorconfig-checker-disable-line
+complete -c mas -n '__fish_seen_subcommand_from outdated update upgrade; and not __fish_contains_opt accurate; and not __fish_contains_opt inaccurate' -l inaccurate -d 'Inaccurate, faster outdated app detection' # editorconfig-checker-disable-line
+complete -c mas -n '__fish_seen_subcommand_from outdated update upgrade; and not __fish_contains_opt check-min-os; and not __fish_contains_opt no-check-min-os' -l check-min-os -d 'Check if macOS can install latest app version' # editorconfig-checker-disable-line
+complete -c mas -n '__fish_seen_subcommand_from outdated update upgrade; and not __fish_contains_opt check-min-os; and not __fish_contains_opt no-check-min-os' -l no-check-min-os -d 'Do not check if macOS can install latest app version' # editorconfig-checker-disable-line
+complete -c mas -n '__fish_seen_subcommand_from outdated update upgrade; and not __fish_contains_opt verbose' -l verbose -d 'Warn about app IDs unknown to the App Store' # editorconfig-checker-disable-line
 complete -c mas -n '__fish_seen_subcommand_from search; and not __fish_contains_opt price' -l price -d 'Output the price of each app' # editorconfig-checker-disable-line
 complete -c mas -n '__fish_seen_subcommand_from uninstall; and not __fish_contains_opt all' -l all -d 'Uninstall all App Store apps' # editorconfig-checker-disable-line
 complete -c mas -n '__fish_seen_subcommand_from uninstall; and not __fish_contains_opt dry-run' -l dry-run -d 'Perform dry run' # editorconfig-checker-disable-line
-complete -c mas -n '__fish_seen_subcommand_from update' -xa '(__fish_mas_outdated_installed)'
+complete -c mas -n '__fish_seen_subcommand_from update upgrade' -xa '(__fish_mas_outdated_installed)'
