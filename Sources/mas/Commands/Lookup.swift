@@ -9,14 +9,14 @@ internal import ArgumentParser
 private import Foundation
 
 extension MAS {
-	/// Outputs app information from the App Store.
+	/// Outputs app info from the App Store.
 	///
 	/// Uses the iTunes Lookup API:
 	///
 	/// https://performance-partners.apple.com/search-api
 	struct Lookup: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
-			abstract: "Output app information from the App Store",
+			abstract: "Output app info from the App Store",
 			aliases: ["info"],
 		)
 
