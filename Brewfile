@@ -1,8 +1,8 @@
 brew "actionlint"           # 1.7.12
 brew "editorconfig-checker" # 3.6.1
 brew "gh"                   # 2.90.0
-brew "git"                  # 2.53.0
-brew "ipsw"                 # 3.1.671
+brew "git"                  # 2.54.0
+brew "ipsw"                 # 3.1.672
 brew "markdownlint-cli2"    # 0.22.0
 brew "periphery" if MacOS.version >= :sequoia && `/usr/bin/arch` == "arm64" # 3.7.2
 brew "shellcheck"           # 0.11.0
