@@ -39,6 +39,7 @@ complete -c mas -n '__fish_seen_subcommand_from get home install lookup open sel
 complete -c mas -n '__fish_seen_subcommand_from get home install list lookup open outdated seller uninstall update' -l bundle -d 'Process all app IDs as bundle IDs' # editorconfig-checker-disable-line
 complete -c mas -n '__fish_seen_subcommand_from get install lucky update' -l force -d 'Force reinstall'
 complete -c mas -n '__fish_seen_subcommand_from help' -xa 'config get help home install list lookup lucky open outdated reset search seller signout uninstall update version' # editorconfig-checker-disable-line
+complete -c mas -n '__fish_seen_subcommand_from list outdated uninstall' -xa '(__fish_mas_list_installed)'
 complete -c mas -n '__fish_seen_subcommand_from outdated update' -l accurate -d 'Accurate, slower outdated app detection' # editorconfig-checker-disable-line
 complete -c mas -n '__fish_seen_subcommand_from outdated update' -l check-min-os -d 'Check if macOS can install latest app version' # editorconfig-checker-disable-line
 complete -c mas -n '__fish_seen_subcommand_from outdated update' -l inaccurate -d 'Inaccurate, faster outdated app detection' # editorconfig-checker-disable-line
@@ -47,5 +48,4 @@ complete -c mas -n '__fish_seen_subcommand_from outdated update' -l verbose -d '
 complete -c mas -n '__fish_seen_subcommand_from search' -l price -d 'Output the price of each app'
 complete -c mas -n '__fish_seen_subcommand_from uninstall' -l all -d 'Uninstall all App Store apps'
 complete -c mas -n '__fish_seen_subcommand_from uninstall' -l dry-run -d 'Perform dry run'
-complete -c mas -n '__fish_seen_subcommand_from uninstall' -xa '(__fish_mas_list_installed)'
 complete -c mas -n '__fish_seen_subcommand_from update' -xa '(__fish_mas_outdated_installed)'
