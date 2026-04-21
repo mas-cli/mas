@@ -44,13 +44,13 @@ Detailed documentation is available via `man mas` & `mas --help`.
 | `lookup <id>…`             | Output App Store app details                  |                                                                                                                       |
 | `info <id>…`               | `lookup` alias                                |                                                                                                                       |
 | `list [<id>…]`             | Output installed apps                         | [spotlight](#spotlight)                                                                                               |
-| `outdated [<id>…]`         | Output outdated apps                          | [spotlight](#spotlight), [account](#apple-account-signed-in-to-app-store) for `--accurate`                            |
-| `get <id>…`                | [Get free apps](#paid-apps), install any apps | [spotlight](#spotlight), [root](#root-privileges), [account for `get`](#apple-account-signed-in-to-app-store-for-get) |
-| `purchase <id>…`           | `get` alias                                   | [spotlight](#spotlight), [root](#root-privileges), [account for `get`](#apple-account-signed-in-to-app-store-for-get) |
-| `install <id>…`            | Install already gotten or purchased apps      | [spotlight](#spotlight), [root](#root-privileges), [account](#apple-account-signed-in-to-app-store)                   |
-| `lucky <term>…`            | Install first app from `search <term>…`       | [spotlight](#spotlight), [root](#root-privileges), [account](#apple-account-signed-in-to-app-store)                   |
-| `update [<id>…]`           | Update outdated apps                          | [spotlight](#spotlight), [root](#root-privileges), [account](#apple-account-signed-in-to-app-store)                   |
-| `upgrade [<id>…]`          | `update` alias                                | [spotlight](#spotlight), [root](#root-privileges), [account](#apple-account-signed-in-to-app-store)                   |
+| `outdated [<id>…]`         | Output outdated apps                          | [spotlight](#spotlight), [account](#app-store-apple-account-requirements) for `--accurate`                            |
+| `get <id>…`                | [Get free apps](#paid-apps), install any apps | [spotlight](#spotlight), [root](#root-privileges), [account for `get`](#app-store-apple-account-requirements-for-get) |
+| `purchase <id>…`           | `get` alias                                   | [spotlight](#spotlight), [root](#root-privileges), [account for `get`](#app-store-apple-account-requirements-for-get) |
+| `install <id>…`            | Install already gotten or purchased apps      | [spotlight](#spotlight), [root](#root-privileges), [account](#app-store-apple-account-requirements)                   |
+| `lucky <term>…`            | Install first app from `search <term>…`       | [spotlight](#spotlight), [root](#root-privileges), [account](#app-store-apple-account-requirements)                   |
+| `update [<id>…]`           | Update outdated apps                          | [spotlight](#spotlight), [root](#root-privileges), [account](#app-store-apple-account-requirements)                   |
+| `upgrade [<id>…]`          | `update` alias                                | [spotlight](#spotlight), [root](#root-privileges), [account](#app-store-apple-account-requirements)                   |
 | `uninstall (<id>…\|--all)` | Uninstall apps                                | [spotlight](#spotlight), [root](#root-privileges)                                                                     |
 | `signout`                  | Sign out Apple Account from App Store         |                                                                                                                       |
 | `open [<id>]`              | Open app App Store page                       |                                                                                                                       |
@@ -189,28 +189,32 @@ never visible to, nor stored by, mas.
 Any sudo credentials used or established by mas remain valid after mas finishes,
 pursuant to the user-configured sudo timeout.
 
-## Apple Account Signed in to App Store
+## App Store Apple Account Requirements
 
 `get`, `install`, `lucky`, `update` & `outdated --accurate` require an Apple
 Account signed in to the App Store.
 
-## Apple Account Signed in to App Store for `get`
+## App Store Apple Account Requirements for `get`
 
 `get` requires an Apple Account signed in to the App Store.
 
-Depending on the Apple Account settings, the Apple Account might need to be
-authenticated in the App Store for each gotten app, even if the Apple Account is
-already signed in to the App Store.
+Even when an Apple Account is already signed in to the App Store, the system
+security settings might require authenticating the Apple Account for each app
+being gotten.
 
 If `System Settings` > `Touch ID & Password` > `Use Touch ID for purchases in
-iTunes Store, App Store and Apple Books` is enabled, then you must authenticate
-(either via Touch ID or via the Apple Account password) for each previously
-ungotten app that is being gotten.
+iTunes Store, App Store and Apple Books` is:
 
-If that setting is disabled, then if `System Settings` > `Apple Account` >
-`Media & Purchases` > `Free Downloads` is set to `Always Require`, then you must
-authenticate via the Apple Account password for each previously ungotten app
-that is being gotten.
+- `Enabled`: You must authenticate (via Touch ID or Apple Account password) for
+  each app being gotten.
+- `Disabled`: If `System Settings` > `Apple Account` > `Media & Purchases` >
+  `Free Downloads` is:
+  - `Always Require`: You must authenticate (via Apple Account password) for
+    each app being gotten.
+  - `Never Require`: Apps are gotten without additional authentication.
+
+> **Note:** App Store authentication is separate from any macOS user
+> authentication required to grant root privileges to get apps.
 
 ## License
 
