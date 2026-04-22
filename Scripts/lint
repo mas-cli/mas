@@ -40,7 +40,7 @@ integer exit_status=0
 
 printf -- $'--> 🕊​ SwiftFormat\n'
 script -q /dev/null swiftformat --lint --markdown-files format-strict . | # editorconfig-checker-disable-next-line
-	grep -vxE '(?:\^D\x08{2})?Running SwiftFormat\.{3}\r|\(lint mode - no files will be changed\.\)\r|Reading (?:config|swift-version) file at .*|\x1b\[32mSwiftFormat completed in \d+(?:\.\d+)?s\.\x1b\[0m\r|0/\d+ files require formatting\.\r|Source input did not pass lint check\.\r' || true
+	(grep -vxE '(?:\^D\x08{2})?Running SwiftFormat\.{3}\r|\(lint mode - no files will be changed\.\)\r|Reading (?:config|swift-version) file at .*|\x1b\[32mSwiftFormat completed in \d+(?:\.\d+)?s\.\x1b\[0m\r|0/\d+ files require formatting\.\r|Source input did not pass lint check\.\r' || true)
 ((exit_status |= ${?}))
 
 printf -- $'--> 🦅 SwiftLint\n'
@@ -58,15 +58,17 @@ fi
 
 if ((can_use_periphery)) && ! [[ -v 'received_flag[-P]' ]]; then
 	printf -- $'--> 🌀 Periphery\n'
-	periphery scan --exclude-tests |
+	periphery scan --exclude-tests | (
 		grep -vxE '(?:\x1b\[0;1;32m|\^D\x08{2})\* (?:\x1b\[0;0m\x1b\[0;1m)?No unused code detected\.(?:\x1b\[0;0m)?\r?' ||
 		true
+	)
 	((exit_status |= ${?}))
 
 	printf -- $'--> 🌀 Periphery Tests\n'
-	periphery scan --no-superfluous-ignore-comments |
+	periphery scan --no-superfluous-ignore-comments | (
 		grep -vxE '(?:\x1b\[0;1;32m|\^D\x08{2})\* (?:\x1b\[0;0m\x1b\[0;1m)?No unused code detected\.(?:\x1b\[0;0m)?\r?' ||
 		true
+	)
 	((exit_status |= ${?}))
 fi
 
