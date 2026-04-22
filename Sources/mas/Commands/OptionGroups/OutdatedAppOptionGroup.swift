@@ -29,7 +29,7 @@ struct OutdatedAppOptionGroup: ParsableArguments {
 			do {
 				let catalogApp = try await Dependencies.current.lookupAppFromAppID(.bundleID(installedApp.bundleID))
 				return shouldCheckMinimumOSVersion // swiftformat:disable indent
-				&& UniversalSemVerInt(from: catalogApp.minimumOSVersion).map { minimumOSVersion in
+				&& UniversalSemVerInt(rawValue: catalogApp.minimumOSVersion).map { minimumOSVersion in
 					ProcessInfo.processInfo.isOperatingSystemAtLeast(
 						.init(
 							majorVersion: minimumOSVersion.majorInteger,
@@ -68,7 +68,7 @@ struct OutdatedAppOptionGroup: ParsableArguments {
 										installedApp.version != appStoreVersion,
 										!alreadyResumed.exchange(true, ordering: .acquiringAndReleasing)
 									{
-										continuation.resume(returning: OutdatedApp(installedApp, appStoreVersion))
+										continuation.resume(returning: (installedApp, appStoreVersion))
 									}
 									return true
 								}
@@ -84,8 +84,8 @@ struct OutdatedAppOptionGroup: ParsableArguments {
 			}
 			: { @Sendable installedApp in
 				await installableCatalogApp(from: installedApp).flatMap { catalogApp in
-					UniversalSemVer(from: installedApp.version).compareSemVerAndBuild(to: .init(from: catalogApp.version))
-					== .orderedAscending ? OutdatedApp(installedApp, catalogApp.version) : nil
+					UniversalSemVer(rawValue: installedApp.version).compareSemVerAndBuild(to: .init(rawValue: catalogApp.version))
+					== .orderedAscending ? (installedApp, catalogApp.version) : nil
 				}
 			},
 		) // swiftformat:enable indent

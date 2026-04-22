@@ -107,16 +107,16 @@ type_contents_order:
   - type_alias
   - subtype
   - type_property
+  - type_method
   - instance_property
   - ib_inspectable
   - ib_outlet
   - initializer
   - deinitializer
-  - type_method
   - view_life_cycle_method
   - ib_action
-  - other_method
   - subscript
+  - other_method
 unneeded_override:
   affect_initializers: true
 unused_import:
