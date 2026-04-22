@@ -23,12 +23,12 @@ automation.
 
 <!--markdownlint-disable line-length-->
 <!--editorconfig-checker-disable-->
-| Provider                                                                   | Method                         | mas    | macOS             |
-|:---------------------------------------------------------------------------|:-------------------------------|:-------|:------------------|
-| [Homebrew](https://brew.sh) [Core](https://formulae.brew.sh/formula/mas)   | `brew install mas`             | Latest | 14+ (recommended) |
-| [Homebrew](https://brew.sh) [Tap](https://github.com/mas-cli/homebrew-tap) | `brew install mas-cli/tap/mas` | Latest | 13+               |
-| [MacPorts](https://www.macports.org/install.php)                           | `sudo port install mas`        | Latest | 13+               |
-| [GitHub Releases](https://github.com/mas-cli/mas/releases)                 | Installers & source archives   | Any    | Release-dependent |
+| Provider                                                                      | Method                         | mas                                                                                                                                                                                                                                         | macOS             |
+|:------------------------------------------------------------------------------|:-------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------------|
+| [Homebrew](https://brew.sh) [Core](https://github.com/Homebrew/homebrew-core) | `brew install mas`             | [![Homebrew Core](https://repology.org/badge/version-for-repo/homebrew/mas-mac-app-store.svg?header=)](https://formulae.brew.sh/formula/mas)                                                                                                | 14+ (recommended) |
+| [Homebrew](https://brew.sh) [Tap](https://github.com/mas-cli/homebrew-tap)    | `brew install mas-cli/tap/mas` | [![Homebrew Tap](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.github.com%2Frepos%2Fmas-cli%2Fhomebrew-tap%2Freleases%2Flatest&query=%24.name&label=&color=4c1)](https://github.com/mas-cli/homebrew-tap/releases/latest) | 13+               |
+| [MacPorts](https://www.macports.org/install.php)                              | `sudo port install mas`        | [![MacPorts](https://repology.org/badge/version-for-repo/macports/mas-mac-app-store.svg?header=)](https://ports.macports.org/port/mas/details/)                                                                                             | 13+               |
+| [GitHub Releases](https://github.com/mas-cli/mas/releases)                    | Installers & source archives   | All                                                                                                                                                                                                                                         | Release-dependent |
 <!--editorconfig-checker-enable-->
 <!--markdownlint-enable line-length-->
 
@@ -38,28 +38,26 @@ Detailed documentation is available via `man mas` & `mas --help`.
 
 <!--markdownlint-disable line-length-->
 <!--editorconfig-checker-disable-->
-| Command                    | Functionality                                 | Requires                                                                                                              |
-|:---------------------------|:----------------------------------------------|:----------------------------------------------------------------------------------------------------------------------|
-| `search <term>…`           | Search for App Store apps by name             |                                                                                                                       |
-| `lookup <id>…`             | Output App Store app details                  |                                                                                                                       |
-| `info <id>…`               | `lookup` alias                                |                                                                                                                       |
-| `list [<id>…]`             | Output installed apps                         | [spotlight](#spotlight)                                                                                               |
-| `outdated [<id>…]`         | Output outdated apps                          | [spotlight](#spotlight), [account](#app-store-apple-account-requirements) for `--accurate`                            |
-| `get <id>…`                | [Get free apps](#paid-apps), install any apps | [spotlight](#spotlight), [root](#root-privileges), [account for `get`](#app-store-apple-account-requirements-for-get) |
-| `purchase <id>…`           | `get` alias                                   | [spotlight](#spotlight), [root](#root-privileges), [account for `get`](#app-store-apple-account-requirements-for-get) |
-| `install <id>…`            | Install already gotten or purchased apps      | [spotlight](#spotlight), [root](#root-privileges), [account](#app-store-apple-account-requirements)                   |
-| `lucky <term>…`            | Install first app from `search <term>…`       | [spotlight](#spotlight), [root](#root-privileges), [account](#app-store-apple-account-requirements)                   |
-| `update [<id>…]`           | Update outdated apps                          | [spotlight](#spotlight), [root](#root-privileges), [account](#app-store-apple-account-requirements)                   |
-| `upgrade [<id>…]`          | `update` alias                                | [spotlight](#spotlight), [root](#root-privileges), [account](#app-store-apple-account-requirements)                   |
-| `uninstall (<id>…\|--all)` | Uninstall apps                                | [spotlight](#spotlight), [root](#root-privileges)                                                                     |
-| `signout`                  | Sign out Apple Account from App Store         |                                                                                                                       |
-| `open [<id>]`              | Open app App Store page                       |                                                                                                                       |
-| `home <id>…`               | Open app web pages                            |                                                                                                                       |
-| `seller <id>…`             | Open seller app web pages                     |                                                                                                                       |
-| `vendor <id>…`             | `seller` alias                                |                                                                                                                       |
-| `reset`                    | Reset App Store processes                     |                                                                                                                       |
-| `config`                   | Output config                                 |                                                                                                                       |
-| `version`                  | Output version                                |                                                                                                                       |
+| Command                       | Functionality                                 | Requirements                                                                                                | Aliases    |
+|:------------------------------|:----------------------------------------------|:------------------------------------------------------------------------------------------------------------|:-----------|
+| `search <term>…`              | Search for App Store apps                     |                                                                                                             |            |
+| `lookup <id>…`                | Output App Store app details                  |                                                                                                             | `info`     |
+| `list [<id>…]`                | Output installed apps                         | [spotlight](#spotlight)                                                                                     |            |
+| `outdated [<id>…]`            | Output outdated apps                          | [spotlight](#spotlight)                                                                                     |            |
+| `outdated --accurate [<id>…]` | Output outdated apps                          | [spotlight](#spotlight), [account](#app-store-apple-account-requirements)                                   |            |
+| `get <id>…`                   | [Get free apps](#paid-apps), install any apps | [spotlight](#spotlight), [root](#root-privileges), [account](#app-store-apple-account-requirements-for-get) | `purchase` |
+| `install <id>…`               | Install gotten or purchased apps              | [spotlight](#spotlight), [root](#root-privileges), [account](#app-store-apple-account-requirements)         |            |
+| `lucky <term>…`               | Install first matching app                    | [spotlight](#spotlight), [root](#root-privileges), [account](#app-store-apple-account-requirements)         |            |
+| `update [<id>…]`              | Update outdated apps                          | [spotlight](#spotlight), [root](#root-privileges), [account](#app-store-apple-account-requirements)         | `upgrade`  |
+| `update --accurate [<id>…]`   | Update outdated apps                          | [spotlight](#spotlight), [root](#root-privileges), [account](#app-store-apple-account-requirements)         | `upgrade`  |
+| `uninstall (<id>…\|--all)`    | Uninstall apps                                | [spotlight](#spotlight), [root](#root-privileges)                                                           |            |
+| `signout`                     | Sign out from App Store                       |                                                                                                             |            |
+| `open [<id>]`                 | Open app App Store page                       |                                                                                                             |            |
+| `home <id>…`                  | Open app web pages                            |                                                                                                             |            |
+| `seller <id>…`                | Open seller app web pages                     |                                                                                                             | `vendor`   |
+| `reset`                       | Reset App Store processes                     |                                                                                                             |            |
+| `config`                      | Output config                                 |                                                                                                             |            |
+| `version`                     | Output version                                |                                                                                                             |            |
 <!--editorconfig-checker-enable-->
 <!--markdownlint-enable line-length-->
 
