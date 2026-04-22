@@ -9,7 +9,7 @@ private import ArgumentParser
 private import Darwin
 private import OrderedCollections
 
-enum AppStoreAction {
+enum AppStoreAction: String {
 	case get
 	case install
 	case update
@@ -60,10 +60,7 @@ enum AppStoreAction {
 
 		let adamIDOrderedSet = OrderedSet(adamIDs)
 		guard getuid() == 0 else {
-			try sudo(
-				MAS._commandName,
-				args: [.init(describing: self), "--force"] + adamIDOrderedSet.map(String.init(describing:)),
-			)
+			try sudo(MAS._commandName, args: [rawValue, "--force"] + adamIDOrderedSet.map(String.init(_:)))
 			return
 		}
 

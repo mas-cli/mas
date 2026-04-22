@@ -267,11 +267,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 
 				MAS.printer.notice(PhaseType.downloaded, snapshot.appNameAndVersion)
 				MAS.printer.notice(action.performing.capitalizingFirstCharacter, snapshot.appNameAndVersion)
-				MAS.printer.info(
-					String(describing: action).capitalizingFirstCharacter,
-					"progress cannot be displayed",
-					terminator: "",
-				)
+				MAS.printer.info(action.rawValue.capitalizingFirstCharacter, "progress cannot be displayed", terminator: "")
 				appFolderURL = try await install(appNameAndVersion: snapshot.appNameAndVersion)
 				MAS.printer.clearCurrentLine(of: .standardOutput)
 			} else {
