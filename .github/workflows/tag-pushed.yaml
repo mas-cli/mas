@@ -62,7 +62,7 @@ jobs:
         fi
 
     - name: 🛠 Select Xcode version
-      run: xcodes select
+      run: sudo xcode-select -s /Applications/Xcode_26.4.app
 
     - name: 📦 Build Apple & Intel installers
       run: |

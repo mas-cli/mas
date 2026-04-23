@@ -8,5 +8,4 @@ brew "periphery" if MacOS.version >= :sequoia && `/usr/bin/arch` == "arm64" # 3.
 brew "shellcheck"           # 0.11.0
 brew "swiftformat"          # 0.61.0
 brew "swiftlint"            # 0.63.2
-brew "xcodes"               # 1.6.2
 brew "yamllint"             # 1.38.0
