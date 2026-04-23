@@ -103,7 +103,7 @@ func installedApps(matching metadataQuery: String) async throws -> [InstalledApp
 						"""
 
 
-						Indexing now, which will not complete until sometime after mas exits
+						Indexing now; will likely complete sometime after mas exits
 
 						Disable auto-indexing via: export MAS_NO_AUTO_INDEX=1
 						""",
