@@ -125,7 +125,6 @@ private let applicationsFolderPath = "/Applications"
 private let applicationsFolderURL = URL(folderPath: applicationsFolderPath)
 
 let applicationsFolderURLs = UserDefaults(suiteName: "com.apple.appstored")?
-.dictionary(forKey: "PreferredVolume")?["name"] // swiftformat:disable indent
-.map { [applicationsFolderURL, .init(folderPath: "/Volumes/\($0)\(applicationsFolderPath)")] }
-?? [applicationsFolderURL]
-// swiftformat:enable indent
+	.dictionary(forKey: "PreferredVolume")?["name"]
+	.map { [applicationsFolderURL, .init(folderPath: "/Volumes/\($0)\(applicationsFolderPath)")] }
+	?? [applicationsFolderURL]

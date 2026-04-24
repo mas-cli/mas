@@ -108,8 +108,8 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 			pkgHardLinkURL: pkgHardLinkURL,
 			receiptHardLinkURL: receiptHardLinkURL,
 		) { continuation in
-			continuation // swiftformat:disable:next indent
-			.resume(throwing: MASError.error("Observer deallocated before download completed for ADAM ID \(adamID)"))
+			continuation
+				.resume(throwing: MASError.error("Observer deallocated before download completed for ADAM ID \(adamID)"))
 		}
 	}
 
@@ -287,7 +287,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 
 			MAS.printer.notice(
 				[action.performed.capitalizingFirstCharacter, snapshot.appNameAndVersion]
-				+ (appFolderURL.map { ["in", $0.filePath] } ?? .init()), // swiftformat:disable:this indent
+					+ (appFolderURL.map { ["in", $0.filePath] } ?? .init()),
 			)
 
 			if let appFolderURL {
@@ -373,10 +373,10 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 
 		guard
 			let appFolderURLSubstring = standardErrorString
-			.matches(of: appFolderURLRegex) // swiftformat:disable indent
-			.compactMap(\.1)
-			.min(by: { $0.count < $1.count })
-		else { // swiftformat:enable indent
+				.matches(of: appFolderURLRegex)
+				.compactMap(\.1)
+				.min(by: { $0.count < $1.count })
+		else {
 			throw MASError.error(
 				"Failed to find app folder URL in installer output for \(appNameAndVersion)",
 				error: standardErrorString,

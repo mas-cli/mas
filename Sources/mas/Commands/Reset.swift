@@ -43,7 +43,7 @@ extension MAS {
 					"/System/Library/PrivateFrameworks/AppStoreComponents.framework/Support/appstorecomponentsd",
 					"/System/Library/PrivateFrameworks/AppStoreDaemon.framework/Support/appstoreagent",
 					"/System/Library/PrivateFrameworks/CascadeSets.framework/Versions/A/XPCServices"
-					+ "/SetStoreUpdateService.xpc/Contents/MacOS/SetStoreUpdateService", // swiftformat:disable:this indent
+						+ "/SetStoreUpdateService.xpc/Contents/MacOS/SetStoreUpdateService",
 					"/System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/storeaccountd",
 					"/System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/storeassetd",
 					"/System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/storedownloadd",

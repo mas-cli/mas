@@ -11,27 +11,27 @@ private import ObjectiveC
 
 private extension URL {
 	var installedAppURLs: [URL] {
-		FileManager.default // swiftformat:disable indent
-		.enumerator(at: self, includingPropertiesForKeys: [.isDirectoryKey], options: [.skipsHiddenFiles])
-		.map { enumerator in
-			enumerator.compactMap { item in
-				guard
-					let url = item as? URL,
-					(try? url.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) == true,
-					url.pathExtension == "app"
-				else {
-					return URL?.none
-				}
+		FileManager.default
+			.enumerator(at: self, includingPropertiesForKeys: [.isDirectoryKey], options: [.skipsHiddenFiles])
+			.map { enumerator in
+				enumerator.compactMap { item in
+					guard
+						let url = item as? URL,
+						(try? url.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) == true,
+						url.pathExtension == "app"
+					else {
+						return URL?.none
+					}
 
-				enumerator.skipDescendants()
-				return try? url.appending(path: "Contents/_MASReceipt/receipt", directoryHint: .notDirectory)
-				.resourceValues(forKeys: [.fileSizeKey])
-				.fileSize
-				.flatMap { $0 > 0 ? url : nil }
+					enumerator.skipDescendants()
+					return try? url.appending(path: "Contents/_MASReceipt/receipt", directoryHint: .notDirectory)
+						.resourceValues(forKeys: [.fileSizeKey])
+						.fileSize
+						.flatMap { $0 > 0 ? url : nil }
+				}
 			}
-		}
-		?? .init()
-	} // swiftformat:enable indent
+			?? .init()
+	}
 }
 
 var installedApps: [InstalledApp] {
@@ -79,19 +79,19 @@ func installedApps(matching metadataQuery: String) async throws -> [InstalledApp
 			query.stop()
 
 			let installedApps = query.results
-			.compactMap { result in // swiftformat:disable indent
-				(result as? NSMetadataItem).map { item in
-					InstalledApp(
-						adamID: item.value(forAttribute: "kMDItemAppStoreAdamID") as? ADAMID ?? 0,
-						bundleID: .init(describing: item.value(forAttribute: NSMetadataItemCFBundleIdentifierKey) ?? ""),
-						name: .init(describing: item.value(forAttribute: "_kMDItemDisplayNameWithExtensions") ?? "")
-						.removingSuffix(".app"),
-						path: .init(describing: item.value(forAttribute: NSMetadataItemPathKey) ?? ""),
-						version: .init(describing: item.value(forAttribute: NSMetadataItemVersionKey) ?? ""),
-					)
+				.compactMap { result in
+					(result as? NSMetadataItem).map { item in
+						InstalledApp(
+							adamID: item.value(forAttribute: "kMDItemAppStoreAdamID") as? ADAMID ?? 0,
+							bundleID: .init(describing: item.value(forAttribute: NSMetadataItemCFBundleIdentifierKey) ?? ""),
+							name: .init(describing: item.value(forAttribute: "_kMDItemDisplayNameWithExtensions") ?? "")
+								.removingSuffix(".app"),
+							path: .init(describing: item.value(forAttribute: NSMetadataItemPathKey) ?? ""),
+							version: .init(describing: item.value(forAttribute: NSMetadataItemVersionKey) ?? ""),
+						)
+					}
 				}
-			}
-			.sorted(using: KeyPathComparator(\.name, comparator: .localizedStandard)) // swiftformat:enable indent
+				.sorted(using: KeyPathComparator(\.name, comparator: .localizedStandard))
 
 			if !["1", "true", "yes"].contains(ProcessInfo.processInfo.environment["MAS_NO_AUTO_INDEX"]?.lowercased()) {
 				let installedAppPathSet = Set(installedApps.map(\.path))
