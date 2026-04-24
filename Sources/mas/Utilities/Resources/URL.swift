@@ -16,6 +16,14 @@ extension URL {
 		?? .init(path(percentEncoded: false).dropLast { $0 == "/" }) // swiftformat:disable:this indent
 	}
 
+	init(folderPath path: String, relativeTo base: URL? = nil) {
+		self.init(filePath: path, directoryHint: .isDirectory, relativeTo: base)
+	}
+
+	init(nonFolderPath path: String, relativeTo base: URL? = nil) {
+		self.init(filePath: path, directoryHint: .notDirectory, relativeTo: base)
+	}
+
 	func open(configuration: NSWorkspace.OpenConfiguration = .init()) async throws -> NSRunningApplication {
 		try await NSWorkspace.shared.open(self, configuration: configuration)
 	}

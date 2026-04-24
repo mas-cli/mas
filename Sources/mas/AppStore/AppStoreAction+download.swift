@@ -79,7 +79,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		self.action = action
 		self.adamID = adamID
 		self.shouldCancel = shouldCancel
-		downloadFolderURL = .init(filePath: "\(CKDownloadDirectory(nil))/\(adamID)", directoryHint: .isDirectory)
+		downloadFolderURL = .init(folderPath: "\(CKDownloadDirectory(nil))/\(adamID)")
 
 		let (eventStream, eventStreamContinuation) = AsyncStream.makeStream(of: Event.self)
 		self.eventStreamContinuation = eventStreamContinuation // swiftlint:disable:this redundant_self
@@ -282,7 +282,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 					throw MASError.error("Download cancelled for \(snapshot.appNameAndVersion)")
 				}
 
-				appFolderURL = snapshot.appFolderPath.map { .init(filePath: $0, directoryHint: .isDirectory) }
+				appFolderURL = snapshot.appFolderPath.map { .init(folderPath: $0) }
 			}
 
 			MAS.printer.notice(

@@ -113,10 +113,7 @@ extension MAS {
 				}
 
 				var uninstalledAppNSURL = NSURL?.none // swiftlint:disable:this legacy_objc_type
-				try unsafe fileManager.trashItem(
-					at: .init(filePath: appPath, directoryHint: .isDirectory),
-					resultingItemURL: &uninstalledAppNSURL,
-				)
+				try unsafe fileManager.trashItem(at: .init(folderPath: appPath), resultingItemURL: &uninstalledAppNSURL)
 				guard let uninstalledAppPath = uninstalledAppNSURL?.path else {
 					printer.error( // editorconfig-checker-disable
 						"""

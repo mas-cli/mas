@@ -122,15 +122,10 @@ private func cast<T>(_ instance: Any, as _: T.Type) -> T? {
 }
 
 private let applicationsFolderPath = "/Applications"
-private let applicationsFolderURL = URL(filePath: applicationsFolderPath, directoryHint: .isDirectory)
+private let applicationsFolderURL = URL(folderPath: applicationsFolderPath)
 
 let applicationsFolderURLs = UserDefaults(suiteName: "com.apple.appstored")?
 .dictionary(forKey: "PreferredVolume")?["name"] // swiftformat:disable indent
-.map { largeAppVolumeName in
-	[
-		applicationsFolderURL,
-		.init(filePath: "/Volumes/\(largeAppVolumeName)\(applicationsFolderPath)", directoryHint: .isDirectory),
-	]
-} // swiftformat:disable:this blankLinesBetweenScopes
+.map { [applicationsFolderURL, .init(folderPath: "/Volumes/\($0)\(applicationsFolderPath)")] }
 ?? [applicationsFolderURL]
 // swiftformat:enable indent
