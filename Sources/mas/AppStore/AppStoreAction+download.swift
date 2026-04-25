@@ -379,13 +379,13 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		else {
 			throw MASError.error(
 				"Failed to find app folder URL in installer output for \(appNameAndVersion)",
-				error: standardErrorString,
+				cause: standardErrorString,
 			)
 		}
 		guard let appFolderURL = URL(string: .init(appFolderURLSubstring)) else {
 			throw MASError.error(
 				"Failed to parse app folder URL for \(appNameAndVersion) from \(appFolderURLSubstring)",
-				error: standardErrorString,
+				cause: standardErrorString,
 			)
 		}
 
@@ -414,7 +414,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 				Failed to copy receipt for \(appNameAndVersion) from \(receiptHardLinkURL.filePath.quoted) to\
 				 \(receiptURL.filePath.quoted)
 				""", // editorconfig-checker-enable
-				error: error,
+				cause: error,
 			)
 		}
 

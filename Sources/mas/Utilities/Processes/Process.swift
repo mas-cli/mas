@@ -34,7 +34,7 @@ func run(
 	do {
 		try run(process)
 	} catch {
-		throw MASError.error(errorMessage(), error: error)
+		throw MASError.error(errorMessage(), cause: error)
 	}
 	process.waitUntilExit()
 
