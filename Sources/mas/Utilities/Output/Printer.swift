@@ -163,7 +163,5 @@ private func indent(_ item: Any, with indent: String) -> String {
 let errorPrefix = "Error:"
 let errorFormat = "4;31"
 
-/// Terminal Control Sequence Indicator.
 private let csi = "\u{001B}["
-
 private let nonEmptyLineStartRegex = /\n(?!\n)/

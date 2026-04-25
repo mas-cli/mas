@@ -13,17 +13,6 @@ func lookup(appID: AppID) async throws -> CatalogApp {
 	try await lookup(appID: appID, inRegion: appStoreRegion)
 }
 
-/// Look up app details from the App Store catalog via the iTunes Search API.
-///
-/// https://performance-partners.apple.com/search-api
-///
-/// - Parameters:
-///   - appID: App ID.
-///   - region: The ISO 3166-1 alpha-2 region of the storefront in which to
-///     lookup apps.
-/// - Returns: A `CatalogApp` for the given `appID` if `appID` is valid.
-/// - Throws: A `MASError.unknownAppID(appID)` if `appID` is invalid.
-///   Some other `Error` if any other problem occurs.
 func lookup(appID: AppID, inRegion region: Region = appStoreRegion) async throws -> CatalogApp {
 	let queryItem = switch appID {
 	case let .adamID(adamID):
@@ -77,16 +66,6 @@ func search(for searchTerm: String) async throws -> [CatalogApp] {
 	try await search(for: searchTerm, inRegion: appStoreRegion)
 }
 
-/// Search for app details from the App Store catalog via the iTunes Search API.
-///
-/// https://performance-partners.apple.com/search-api
-///
-/// - Parameters:
-///   - searchTerm: Term for which to search.
-///   - region: The ISO 3166-1 alpha-2 region of the storefront in which to
-///     search for apps.
-/// - Returns: A `[CatalogApp]` matching `searchTerm`.
-/// - Throws: An `Error` if any problem occurs.
 func search(for searchTerm: String, inRegion region: Region = appStoreRegion) async throws -> [CatalogApp] {
 	let queryItem = URLQueryItem(name: "term", value: searchTerm)
 	let catalogApps = try await getCatalogApps(from: try url("search", queryItem, inRegion: region))
