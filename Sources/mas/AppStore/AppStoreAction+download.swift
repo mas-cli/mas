@@ -118,7 +118,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 	}
 
 	nonisolated func downloadQueue(_: CKDownloadQueue, changedWithAddition _: SSDownload) {
-		// Do nothing
+		// Empty
 	}
 
 	nonisolated func downloadQueue(_ queue: CKDownloadQueue, statusChangedFor download: SSDownload) {
@@ -518,12 +518,6 @@ extension PhaseType: CustomStringConvertible {
 	}
 }
 
-private extension String {
-	var capitalizingFirstCharacter: Self {
-		prefix(1).capitalized + dropFirst()
-	}
-}
-
 private extension URL {
 	func linksToSameInode(as url: URL?) throws -> Bool {
 		guard let url, url.isFileURL, isFileURL else {
@@ -541,7 +535,7 @@ private extension URL {
 }
 
 private func deleteTempFolder(containing url: URL?, fileType: String) {
-	url.map { url in
+	if let url {
 		do {
 			try FileManager.default.removeItem(at: url.deletingLastPathComponent())
 		} catch {
