@@ -75,11 +75,7 @@ struct Printer {
 
 	func clearCurrentLine(of fileHandle: FileHandle) {
 		if fileHandle.isTerminal {
-			do {
-				try fileHandle.write(contentsOf: Data("\(csi)2K\(csi)0G".utf8))
-			} catch {
-				// Do nothing
-			}
+			try? fileHandle.write(contentsOf: clearLine)
 		}
 	}
 
@@ -110,11 +106,10 @@ struct Printer {
 	}
 
 	private func print(_ items: [String], separator: String, terminator: String, to fileHandle: FileHandle) {
-		do {
-			try fileHandle.write(contentsOf: Data(items.joined(separator: separator).appending(terminator).utf8))
-		} catch {
-			// Do nothing
-		}
+		unsafe items.joined(separator: separator)
+			.appending(terminator)
+			.utf8
+			.withContiguousStorageIfAvailable { try? unsafe fileHandle.write(contentsOf: unsafe $0) }
 	}
 
 	private func print(
@@ -164,4 +159,5 @@ let errorPrefix = "Error:"
 let errorFormat = "4;31"
 
 private let csi = "\u{001B}["
+private let clearLine = Data("\(csi)2K\(csi)0G".utf8)
 private let nonEmptyLineStartRegex = /\n(?!\n)/
