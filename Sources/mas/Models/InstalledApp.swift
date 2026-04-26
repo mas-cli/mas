@@ -19,10 +19,13 @@ struct InstalledApp {
 	let path: String
 	let version: String
 
-	let jsonObject: Lazy<JSON.Object>
-
 	private let jsonObjectRaw: JSON.Object
+	private let _jsonObject: Lazy<JSON.Object>
 	private let json: Lazy<String>
+
+	var jsonObject: JSON.Object {
+		_jsonObject.value
+	}
 
 	var isTestFlight: Bool {
 		adamID == 0
@@ -54,13 +57,13 @@ struct InstalledApp {
 		jsonObjectRaw = .init(valueByAttribute.map { (.init(rawValue: $0.key), .init(for: $0.value)) })
 		let jsonObjectRaw = jsonObjectRaw
 		let name = name
-		jsonObject = .init(
+		_jsonObject = .init(
 			.init(
 				(jsonObjectRaw.fields.map { ($0.normalized, $1) } + [("name", .string(name))])
 					.sorted(using: KeyPathComparator(\.0.rawValue, comparator: NumericStringComparator.forward)),
 			),
 		)
-		let jsonObject = jsonObject
+		let jsonObject = _jsonObject
 		json = .init(.init(jsonObject.value))
 	}
 
