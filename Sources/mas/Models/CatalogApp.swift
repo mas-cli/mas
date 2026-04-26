@@ -297,13 +297,10 @@ private func lookup(appID: AppID, inRegion region: Region = appStoreRegion) asyn
 	case let .bundleID(bundleID):
 		URLQueryItem(name: "bundleId", value: bundleID)
 	}
-	return if // swiftformat:disable:this wrap wrapArguments
-		let catalogApp = // swiftformat:disable:next indent
-			try await catalogApps(from: try url("lookup", queryItem, inRegion: region)).first
-	{
+	return if let catalogApp = try await catalogApps("lookup", queryItem, inRegion: region).first {
 		catalogApp
 	} else {
-		try await catalogApps(from: try url("lookup", queryItem, inRegion: region, additionalQueryItems: .init()))
+		try await catalogApps("lookup", queryItem, inRegion: region, additionalQueryItems: .init())
 			.first
 			.flatMap { await $0.asMacDesktopApp }
 			?? { throw MASError.unknownAppID(appID) }()
@@ -316,37 +313,37 @@ func search(for searchTerm: String) async throws -> [CatalogApp] {
 
 private func search(for searchTerm: String, inRegion region: Region = appStoreRegion) async throws -> [CatalogApp] {
 	let queryItem = URLQueryItem(name: "term", value: searchTerm)
-	let catalogApps = try await catalogApps(from: try url("search", queryItem, inRegion: region))
+	let catalogApps = try await catalogApps("search", queryItem, inRegion: region)
 	let adamIDSet = Set(catalogApps.map(\.adamID))
 	return catalogApps.priorityMerge(
-		try await mas.catalogApps(from: try url("search", queryItem, inRegion: region, additionalQueryItems: .init()))
+		try await mas.catalogApps("search", queryItem, inRegion: region, additionalQueryItems: .init())
 			.filter { !adamIDSet.contains($0.adamID) }
 			.concurrentCompactMap { await $0.asMacDesktopApp },
 	) { $0.name.similarity(to: searchTerm) }
 }
 
-private func url(
+private func catalogApps(
 	_ action: String,
 	_ queryItem: URLQueryItem,
 	inRegion region: Region,
 	additionalQueryItems: [URLQueryItem] = [.init(name: "entity", value: "desktopSoftware")],
-) throws -> URL {
+) async throws -> [CatalogApp] {
 	let urlString = "https://itunes.apple.com/\(action)"
-	guard let url = URL(string: urlString) else {
-		throw MASError.unparsableURL(urlString)
+	return try await URL(string: urlString).map { url in
+		try await unsafe Dependencies.current
+			.dataFrom(
+				url.appending(
+					queryItems: [.init(name: "media", value: "software")]
+						+ additionalQueryItems
+						+ [.init(name: "country", value: region), queryItem],
+				),
+			)
+			.0
+			.withUnsafeBytes { bufferPointer in
+				try CatalogAppResults(json: .init(parsing: unsafe RawSpan(_unsafeBytes: unsafe bufferPointer))).results
+			}
 	}
-
-	return url.appending(
-		queryItems: [.init(name: "media", value: "software")]
-			+ additionalQueryItems
-			+ [.init(name: "country", value: region), queryItem],
-	)
-}
-
-private func catalogApps(from url: URL) async throws -> [CatalogApp] {
-	try await unsafe Dependencies.current.dataFrom(url).0.withUnsafeBytes { bufferPointer in
-		try CatalogAppResults(json: .init(parsing: unsafe RawSpan(_unsafeBytes: unsafe bufferPointer))).results
-	}
+	?? { throw MASError.unparsableURL(urlString) }() // swiftformat:disable:this indent
 }
 
 private let minimumOSVersionKey = JSON.Key("minimumOSVersion")
