@@ -14,7 +14,7 @@ struct CatalogAppResults: JSONDecodable {
 
 	init(json: JSON.Node) throws {
 		guard case let .object(object) = json else {
-			throw MASError.unparsableJSON(.init(json))
+			throw MASError.invalidJSON(.init(json))
 		}
 
 		resultCount = try object["resultCount"]?.decode() ?? 0

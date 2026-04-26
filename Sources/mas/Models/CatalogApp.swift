@@ -99,7 +99,7 @@ extension CatalogApp: CustomStringConvertible {
 extension CatalogApp: JSONDecodable {
 	fileprivate init(json: JSON.Node) throws {
 		guard case let .object(object) = json else {
-			throw MASError.unparsableJSON(.init(json))
+			throw MASError.invalidJSON(.init(json))
 		}
 
 		self.init(
@@ -345,7 +345,7 @@ private func catalogApps(
 				try CatalogAppResults(json: .init(parsing: unsafe RawSpan(_unsafeBytes: unsafe bufferPointer))).results
 			}
 	}
-	?? { throw MASError.unparsableURL(urlString) }() // swiftformat:disable:this indent
+	?? { throw MASError.invalidURL(urlString) }() // swiftformat:disable:this indent
 }
 
 private let minimumOSVersionKey = JSON.Key("minimumOSVersion")
