@@ -56,7 +56,7 @@ struct InstalledApp {
 		let name = name
 		jsonObject = .init(
 			.init(
-				(jsonObjectRaw.fields.map { (.init(rawValue: $0.rawValue.mappingKey), $1) } + [("name", .string(name))])
+				(jsonObjectRaw.fields.map { ($0.normalized, $1) } + [("name", .string(name))])
 					.sorted(using: KeyPathComparator(\.0.rawValue, comparator: NumericStringComparator.forward)),
 			),
 		)
@@ -129,9 +129,9 @@ private extension JSON.Node {
 	}
 }
 
-private extension String {
-	var mappingKey: Self {
-		switch self {
+private extension JSON.Key {
+	var normalized: Self {
+		switch rawValue {
 		case NSMetadataItemCFBundleIdentifierKey:
 			"bundleID"
 		case "_kMDItemDisplayNameWithExtensions":
@@ -243,10 +243,12 @@ private extension String {
 		case NSMetadataItemVersionKey:
 			"version"
 		default:
-			replacing(keyRegex) { match in
-				let output = match.output
-				return output.1?.isEmpty == false ? "fileSystem" : output.2?.lowercased() ?? ""
-			}
+			.init(
+				rawValue: rawValue.replacing(keyRegex) { match in
+					let output = match.output
+					return output.1?.isEmpty == false ? "fileSystem" : output.2?.lowercased() ?? ""
+				},
+			)
 		}
 	}
 }

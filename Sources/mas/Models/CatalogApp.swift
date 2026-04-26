@@ -86,7 +86,7 @@ struct CatalogApp {
 		self.supportsMacDesktop = supportsMacDesktop
 		self.version = version
 		self.jsonObjectRaw = jsonObjectRaw
-		json = .init(.init(jsonObjectRaw.mappingKeys))
+		json = .init(.init(jsonObjectRaw.normalized))
 	}
 }
 
@@ -117,12 +117,12 @@ extension CatalogApp: JSONDecodable {
 }
 
 private extension JSON.Node {
-	var mappingKeys: Self {
+	var normalized: Self {
 		switch self {
 		case let .object(object):
-			.object(object.mappingKeys)
+			.object(object.normalized)
 		case let .array(array):
-			.array(.init(array.elements.map(\.mappingKeys)))
+			.array(.init(array.elements.map(\.normalized)))
 		default:
 			self
 		}
@@ -130,18 +130,18 @@ private extension JSON.Node {
 }
 
 private extension JSON.Object {
-	var mappingKeys: Self {
+	var normalized: Self {
 		.init(
 			fields
-				.map { (.init(rawValue: $0.rawValue.mappingKey), $1.mappingKeys) }
+				.map { ($0.normalized, $1.normalized) }
 				.sorted(using: KeyPathComparator(\.0.rawValue, comparator: NumericStringComparator.forward)),
 		)
 	}
 }
 
-private extension String {
-	var mappingKey: Self {
-		switch self {
+private extension JSON.Key {
+	var normalized: Self {
+		switch rawValue {
 		case "appletvScreenshotUrls":
 			"appleTVScreenshotURLs"
 		case "artistId":
@@ -167,7 +167,7 @@ private extension String {
 		case "isVppDeviceBasedLicensingEnabled":
 			"isVPPDeviceBasedLicensingEnabled"
 		case "minimumOsVersion":
-			minimumOSVersionKey.rawValue
+			minimumOSVersionKey
 		case "primaryGenreId":
 			"primaryCategoryID"
 		case "primaryGenreName":
@@ -213,75 +213,77 @@ private extension String {
 		: // swiftformat:disable:this indent
 			self
 		default:
-			replacing(artworkURLRegex) { match in
-				let output = match.output
-				guard let first = output.0.first else {
-					return ""
-				}
+			.init(
+				rawValue: rawValue.replacing(artworkURLRegex) { match in
+					let output = match.output
+					guard let first = output.0.first else {
+						return ""
+					}
 
-				return first.isLowercase ? "icon\(output.1)URL" : "Icon\(output.1)URL"
-			}
-			.replacing(trackRegex) { match in
-				func track(_ prefix: Self) -> Self {
-					output.3.first.map { $0.isUppercase ? $0.lowercased() : "\(prefix)\(output.2)\($0)" }
-					?? "\(prefix)\(output.2)" // swiftformat:disable:this indent
+					return first.isLowercase ? "icon\(output.1)URL" : "Icon\(output.1)URL"
 				}
+					.replacing(trackRegex) { match in // swiftformat:disable indent
+						func track(_ prefix: String) -> String {
+							output.3.first.map { $0.isUppercase ? $0.lowercased() : "\(prefix)\(output.2)\($0)" }
+							?? "\(prefix)\(output.2)"
+						}
 
-				let output = match.output
-				return switch output.1 {
-				case "track":
-					track("app")
-				case "Track":
-					track("App")
-				case "trackId":
-					"adamID\(output.2)\(output.3)"
-				case "TrackId":
-					"ADAMID\(output.2)\(output.3)"
-				default:
-					Self(output.0)
-				}
-			}
-			.replacing(manyRegex) { match in
-				let output = match.output
-				return switch output.1 {
-				case "appletv":
-					"appleTV\(output.2)"
-				case "Appletv":
-					"AppleTV\(output.2)"
-				case "artist":
-					"developer\(output.2)"
-				case "Artist":
-					"Developer\(output.2)"
-				case "artwork":
-					"icon\(output.2)"
-				case "Artwork":
-					"Icon\(output.2)"
-				case "genre":
-					output.2.isEmpty ? "category" : "categories"
-				case "Genre":
-					output.2.isEmpty ? "Category" : "Categories"
-				case "Id":
-					"ID\(output.2)"
-				case "ipad":
-					"iPad\(output.2)"
-				case "Ipad":
-					"IPad\(output.2)"
-				case "Os":
-					output.2.isEmpty ? "OS" : .init(output.0)
-				case "releaseDate":
-					"originalVersionReleaseDate\(output.2)"
-				case "Url":
-					"URL\(output.2)"
-				case "view":
-					"appStorePage\(output.2)"
-				case "View":
-					"AppStorePage\(output.2)"
-				case "Vpp":
-					"VPP\(output.2)"
-				default:
-					Self(output.0)
-				}
-			}
+						let output = match.output
+						return switch output.1 {
+						case "track":
+							track("app")
+						case "Track":
+							track("App")
+						case "trackId":
+							"adamID\(output.2)\(output.3)"
+						case "TrackId":
+							"ADAMID\(output.2)\(output.3)"
+						default:
+							String(output.0)
+						}
+					}
+					.replacing(manyRegex) { match in
+						let output = match.output
+						return switch output.1 {
+						case "appletv":
+							"appleTV\(output.2)"
+						case "Appletv":
+							"AppleTV\(output.2)"
+						case "artist":
+							"developer\(output.2)"
+						case "Artist":
+							"Developer\(output.2)"
+						case "artwork":
+							"icon\(output.2)"
+						case "Artwork":
+							"Icon\(output.2)"
+						case "genre":
+							output.2.isEmpty ? "category" : "categories"
+						case "Genre":
+							output.2.isEmpty ? "Category" : "Categories"
+						case "Id":
+							"ID\(output.2)"
+						case "ipad":
+							"iPad\(output.2)"
+						case "Ipad":
+							"IPad\(output.2)"
+						case "Os":
+							output.2.isEmpty ? "OS" : .init(output.0)
+						case "releaseDate":
+							"originalVersionReleaseDate\(output.2)"
+						case "Url":
+							"URL\(output.2)"
+						case "view":
+							"appStorePage\(output.2)"
+						case "View":
+							"AppStorePage\(output.2)"
+						case "Vpp":
+							"VPP\(output.2)"
+						default:
+							String(output.0)
+						}
+					},
+			) // swiftformat:enable indent
 		}
 	}
 }
