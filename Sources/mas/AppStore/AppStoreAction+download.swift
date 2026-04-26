@@ -266,8 +266,8 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 				}
 
 				MAS.printer.notice(PhaseType.downloaded, snapshot.appNameAndVersion)
-				MAS.printer.notice(action.performing.capitalizingFirstCharacter, snapshot.appNameAndVersion)
-				MAS.printer.info(action.rawValue.capitalizingFirstCharacter, "progress cannot be displayed", terminator: "")
+				MAS.printer.notice(action.performing.uppercasingFirst, snapshot.appNameAndVersion)
+				MAS.printer.info(action.rawValue.uppercasingFirst, "progress cannot be displayed", terminator: "")
 				appFolderURL = try await install(appNameAndVersion: snapshot.appNameAndVersion)
 				MAS.printer.clearCurrentLine(of: .standardOutput)
 			} else {
@@ -286,7 +286,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 			}
 
 			MAS.printer.notice(
-				[action.performed.capitalizingFirstCharacter, snapshot.appNameAndVersion]
+				[action.performed.uppercasingFirst, snapshot.appNameAndVersion]
 					+ (appFolderURL.map { ["in", $0.filePath] } ?? .init()),
 			)
 
@@ -312,7 +312,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 							"Multiple installations of ",
 							snapshot.name ?? "unknown app",
 							" exist in the applications folders\n\n",
-							action.performed.capitalizingFirstCharacter,
+							action.performed.uppercasingFirst,
 							":\n",
 							appFolderPath,
 							"\n\nOthers:\n",
@@ -322,7 +322,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 					}
 				} else {
 					MAS.printer.warning(
-						action.performed.capitalizingFirstCharacter,
+						action.performed.uppercasingFirst,
 						snapshot.appNameAndVersion,
 						"outside of the applications folders, in",
 						appFolderURL.filePath,

@@ -40,12 +40,12 @@ Do NOT refactor code if doing so makes the caller interface worse. Specifically:
   verbosity, introduces duplication bugs & makes code harder to maintain. Keep
   clean abstractions. Example of what NOT to do:
   ```swift
-  // ❌ BAD: Inlining capitalizingFirstCharacter at multiple call sites
+  // ❌ BAD: Inlining uppercasingFirst at multiple call sites
   action1.performing.prefix(1).uppercased() + action.performing.dropFirst()
   action2.performing.prefix(1).uppercased() + action.performing.dropFirst()
   // ✅ GOOD: Use the utility function
-  action1.performing.capitalizingFirstCharacter
-  action2.performing.capitalizingFirstCharacter
+  action1.performing.uppercasingFirst
+  action2.performing.uppercasingFirst
   ```
 - **Never replace a clean, readable abstraction with a verbose closure**. e.g.,
   if a custom `SortComparator` or similar is used multiple times, keep it.
