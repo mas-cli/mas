@@ -5,8 +5,7 @@
 // Copyright © 2026 mas-cli. All rights reserved.
 //
 
-internal import Foundation
-private import JSONAST
+private import Foundation
 internal import JSONDecoding
 private import JSONParsing
 @testable private import mas
