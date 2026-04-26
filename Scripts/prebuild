@@ -12,10 +12,10 @@
 
 print_notice '🎬 Prebuilding' "${@}"
 
-# Generate Swift file containing build information.
+# Generate Swift file containing build info.
 # shellcheck disable=SC1102
 printf '//
-// MAS+BuildInformation.swift
+// MAS+BuildInfo.swift
 // mas
 //
 // Copyright © %s mas-cli. All rights reserved.
@@ -37,4 +37,4 @@ extension MAS {
 	"$(git rev-parse HEAD)"\
 	"${${${$(swift --version 2>/dev/null)##( |[[:alpha:]])##}%%$'\n'*}:-unknown}"\
 	"${${(SM)$(swift --version 2>&1 >/dev/null)##[[:digit:]]([[:digit:]]|.)##}:-unknown}"\
-	>"${1%%/#}/MAS+BuildInformation.swift"
+	>"${1%%/#}/MAS+BuildInfo.swift"

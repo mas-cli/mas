@@ -27,7 +27,7 @@ extension MAS {
 		private var searchTermOptionGroup: SearchTermOptionGroup
 
 		func run() async throws {
-			try await run(installedApps: try await installedApps)
+			try await run(installedApps: try await installedApps())
 		}
 
 		private func run(installedApps: [InstalledApp]) async throws {

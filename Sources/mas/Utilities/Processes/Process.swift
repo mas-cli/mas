@@ -15,7 +15,7 @@ func run(
 	runProcess run: (Process) throws -> Void = { try $0.run() },
 ) async throws -> (standardOutputString: String, standardErrorString: String) {
 	let process = Process()
-	process.executableURL = .init(filePath: executablePath, directoryHint: .notDirectory)
+	process.executableURL = .init(nonFolderPath: executablePath)
 	process.arguments = args
 
 	let standardOutputPipe = Pipe()
@@ -34,7 +34,7 @@ func run(
 	do {
 		try run(process)
 	} catch {
-		throw MASError.error(errorMessage(), error: error)
+		throw MASError.error(errorMessage(), cause: error)
 	}
 	process.waitUntilExit()
 

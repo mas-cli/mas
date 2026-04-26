@@ -29,9 +29,9 @@ extension MAS {
 		func run() async throws {
 			try await run(
 				appStorePageURLString: appIDString.map { appIDString in
-					try await Dependencies.current // swiftformat:disable:next indent
-					.lookupAppFromAppID(.init(from: appIDString, forceBundleID: forceBundleIDOptionGroup.forceBundleID))
-					.appStorePageURLString // swiftformat:disable:this indent
+					try await Dependencies.current
+						.lookupAppFromAppID(.init(from: appIDString, forceBundleID: forceBundleIDOptionGroup.forceBundleID))
+						.appStorePageURLString
 				},
 			)
 		}

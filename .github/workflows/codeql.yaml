@@ -50,7 +50,7 @@ jobs:
       if: matrix.language == 'swift'
       shell: bash
       run: |
-        xcodes select
+        sudo xcode-select -s /Applications/Xcode_26.4.app
         Scripts/build codeql -c release
 
     - name: 🔍 Perform CodeQL analysis

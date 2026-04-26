@@ -79,7 +79,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		self.action = action
 		self.adamID = adamID
 		self.shouldCancel = shouldCancel
-		downloadFolderURL = .init(filePath: "\(CKDownloadDirectory(nil))/\(adamID)", directoryHint: .isDirectory)
+		downloadFolderURL = .init(folderPath: "\(CKDownloadDirectory(nil))/\(adamID)")
 
 		let (eventStream, eventStreamContinuation) = AsyncStream.makeStream(of: Event.self)
 		self.eventStreamContinuation = eventStreamContinuation // swiftlint:disable:this redundant_self
@@ -108,8 +108,8 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 			pkgHardLinkURL: pkgHardLinkURL,
 			receiptHardLinkURL: receiptHardLinkURL,
 		) { continuation in
-			continuation // swiftformat:disable:next indent
-			.resume(throwing: MASError.error("Observer deallocated before download completed for ADAM ID \(adamID)"))
+			continuation
+				.resume(throwing: MASError.error("Observer deallocated before download completed for ADAM ID \(adamID)"))
 		}
 	}
 
@@ -118,7 +118,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 	}
 
 	nonisolated func downloadQueue(_: CKDownloadQueue, changedWithAddition _: SSDownload) {
-		// Do nothing
+		// Empty
 	}
 
 	nonisolated func downloadQueue(_ queue: CKDownloadQueue, statusChangedFor download: SSDownload) {
@@ -267,11 +267,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 
 				MAS.printer.notice(PhaseType.downloaded, snapshot.appNameAndVersion)
 				MAS.printer.notice(action.performing.capitalizingFirstCharacter, snapshot.appNameAndVersion)
-				MAS.printer.info(
-					String(describing: action).capitalizingFirstCharacter,
-					"progress cannot be displayed",
-					terminator: "",
-				)
+				MAS.printer.info(action.rawValue.capitalizingFirstCharacter, "progress cannot be displayed", terminator: "")
 				appFolderURL = try await install(appNameAndVersion: snapshot.appNameAndVersion)
 				MAS.printer.clearCurrentLine(of: .standardOutput)
 			} else {
@@ -286,12 +282,12 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 					throw MASError.error("Download cancelled for \(snapshot.appNameAndVersion)")
 				}
 
-				appFolderURL = snapshot.appFolderPath.map { .init(filePath: $0, directoryHint: .isDirectory) }
+				appFolderURL = snapshot.appFolderPath.map { .init(folderPath: $0) }
 			}
 
 			MAS.printer.notice(
 				[action.performed.capitalizingFirstCharacter, snapshot.appNameAndVersion]
-				+ (appFolderURL.map { ["in", $0.filePath] } ?? .init()), // swiftformat:disable:this indent
+					+ (appFolderURL.map { ["in", $0.filePath] } ?? .init()),
 			)
 
 			if let appFolderURL {
@@ -377,19 +373,19 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 
 		guard
 			let appFolderURLSubstring = standardErrorString
-			.matches(of: appFolderURLRegex) // swiftformat:disable indent
-			.compactMap(\.1)
-			.min(by: { $0.count < $1.count })
-		else { // swiftformat:enable indent
+				.matches(of: appFolderURLRegex)
+				.compactMap(\.1)
+				.min(by: { $0.count < $1.count })
+		else {
 			throw MASError.error(
 				"Failed to find app folder URL in installer output for \(appNameAndVersion)",
-				error: standardErrorString,
+				cause: standardErrorString,
 			)
 		}
 		guard let appFolderURL = URL(string: .init(appFolderURLSubstring)) else {
 			throw MASError.error(
 				"Failed to parse app folder URL for \(appNameAndVersion) from \(appFolderURLSubstring)",
-				error: standardErrorString,
+				cause: standardErrorString,
 			)
 		}
 
@@ -418,7 +414,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 				Failed to copy receipt for \(appNameAndVersion) from \(receiptHardLinkURL.filePath.quoted) to\
 				 \(receiptURL.filePath.quoted)
 				""", // editorconfig-checker-enable
-				error: error,
+				cause: error,
 			)
 		}
 
@@ -522,12 +518,6 @@ extension PhaseType: CustomStringConvertible {
 	}
 }
 
-private extension String {
-	var capitalizingFirstCharacter: Self {
-		prefix(1).capitalized + dropFirst()
-	}
-}
-
 private extension URL {
 	func linksToSameInode(as url: URL?) throws -> Bool {
 		guard let url, url.isFileURL, isFileURL else {
@@ -545,7 +535,7 @@ private extension URL {
 }
 
 private func deleteTempFolder(containing url: URL?, fileType: String) {
-	url.map { url in
+	if let url {
 		do {
 			try FileManager.default.removeItem(at: url.deletingLastPathComponent())
 		} catch {

@@ -18,7 +18,7 @@
 - Useful code locations & examples (look here for patterns to follow):
   - CLI commands: `Sources/mas/Commands/` (e.g. `Install.swift`, `List.swift`)
   - Models: `Sources/mas/Models/` (e.g. `AppID.swift`, `CatalogApp.swift`)
-  - Utilities: `Sources/mas/Utilities/` (e.g. `JSON/AnyJSONEncodable.swift`)
+  - Utilities: `Sources/mas/Utilities/` (e.g. `Output/Printer.swift`)
   - Tests & test naming: `Tests/MASTests/` (see `MASTests+*.swift` files)
   - Private framework headers: `Sources/PrivateFrameworks/include/CommerceKit/`
     & `Sources/PrivateFrameworks/include/StoreFoundation/` (used via the
@@ -35,24 +35,29 @@
 
 Do NOT refactor code if doing so makes the caller interface worse. Specifically:
 
-- **Inline a utility function at a call site only if it is single-use**.
-  Inlining increases verbosity, introduces duplication bugs & makes code harder
-  to maintain. Keep clean abstractions. Example of what NOT to do:
+- **Inline a utility function or computed var at a call site iff it is
+  single-use**. Inlining multi-use functions or computed vars increases
+  verbosity, introduces duplication bugs & makes code harder to maintain. Keep
+  clean abstractions. Example of what NOT to do:
   ```swift
-  // ❌ BAD: Inlining capitalizingFirstCharacter at each call site
-  action.performing.prefix(1).uppercased() + action.performing.dropFirst()
+  // ❌ BAD: Inlining capitalizingFirstCharacter at multiple call sites
+  action1.performing.prefix(1).uppercased() + action.performing.dropFirst()
+  action2.performing.prefix(1).uppercased() + action.performing.dropFirst()
   // ✅ GOOD: Use the utility function
-  action.performing.capitalizingFirstCharacter
+  action1.performing.capitalizingFirstCharacter
+  action2.performing.capitalizingFirstCharacter
   ```
 - **Never replace a clean, readable abstraction with a verbose closure**. e.g.,
-  if a custom `SortComparator` or similar exists & is used multiple times, keep
-  it. Only consider inlining if it's used in exactly one place. Example of what
-  NOT to do:
+  if a custom `SortComparator` or similar is used multiple times, keep it.
+  Consider inlining only if the abstraction is used in exactly one place.
+  Example of what NOT to do:
   ```swift
   // ❌ BAD: Replacing a clean comparator with verbose closure
-  [].sorted { $0.compare($1, options: .numeric) == .orderedAscending }
+  [6, 9, 3].sorted { $0.compare($1, options: .numeric) == .orderedAscending }
+  [2, 8, 4].sorted { $0.compare($1, options: .numeric) == .orderedAscending }
   // ✅ GOOD: Keep the abstraction
-  [].sorted(using: NumericStringComparator.forward)
+  [6, 9, 3].sorted(using: NumericStringComparator.forward)
+  [2, 8, 4].sorted(using: NumericStringComparator.forward)
   ```
 - **Replace a utility call** only when the new calling interface is at least as
   simple as the current calling interface
@@ -227,6 +232,8 @@ Source is organized by concern:
 
 Each subsection contains code preferences in descending order.
 
+Within this section & all subsections, `X` is a placeholder for any type name.
+
 #### Naming
 
 1. Standardized name
@@ -249,16 +256,20 @@ Each subsection contains code preferences in descending order.
 #### Typing
 
 1. Inferred type, e.g.:
-   - `var a = [String]()`
-   - `var o = Int?.none`
-   - `var c: String { .init(a.count) }`
+   - `var a = [X]()`
+   - `var o = X?.none`
+   - `var c: X { .init() }`
+   - `f(array: .init())`
+   - `f(dictionary: .init())`
 2. Cast type, e.g.:
-   - `var a = [] as [String]`
-   - `var o = nil as Int?`
+   - `var a = [] as [X]`
+   - `var o = nil as X?`
 3. Explicit type, e.g.:
-   - `var a: [String] = .init()`
-   - `var o: Int? = nil`
-   - `var c: String { String(a.count) }`
+   - `var a: [X] = .init()`
+   - `var o: X? = nil`
+   - `var c: X { X() }`
+   - `f(array: [])`
+   - `f(dictionary: [:])`
 
 #### Functional
 
@@ -281,14 +292,14 @@ Each subsection contains code preferences in descending order.
 
 1. Nil-coalescing operator (`??`)
 2. Ternary operator
-3. `Optional.map`/`flatMap`
+3. `Optional.map(_:)` / `Optional.flatMap(_:)`
 4. Single `guard`
-5. `if`/`else` (no `else if`)
+5. `if` / `else` (no `else if`)
 6. `switch`
 7. Multiple `guard`
-8. `if`/`else if`…/`else`
+8. `if` / `else if`… / `else`
 9. Forced unwrapping (`!` suffix)
-10. `fatalError()`
+10. `fatalError(_:file:line:)`
 
 #### Throwing
 
@@ -321,15 +332,15 @@ Each subsection contains code preferences in descending order.
 #### Type Syntax
 
 1. Concision:
-   - Generics: `<T: String>`
-   - Optional: `String?`
-   - Collection: `[String]`
-   - Dictionary: `[String:String]`
+   - Generics: `<T: X>`
+   - Optional: `X?`
+   - Collection: `[X]`
+   - Dictionary: `[X:X]`
 2. Verbosity:
-   - Generics: `where T: String`
-   - Optional: `Optional<String>`
-   - Collection: `Array<String>`
-   - Dictionary: `Dictionary<String, String>`
+   - Generics: `where T: X`
+   - Optional: `Optional<X>`
+   - Collection: `Array<X>`
+   - Dictionary: `Dictionary<X, X>`
 
 #### Void Types
 
@@ -343,7 +354,7 @@ Each subsection contains code preferences in descending order.
 
 #### Closure Arguments
 
-1. Shorthand argument names (e.g., `$0`) only for one-line closure
+1. Shorthand argument names (e.g., `$0`) iff one-line closure
 2. Explicit argument names for multi-line closure
 
 #### Functional Arguments
@@ -366,6 +377,5 @@ Each subsection contains code preferences in descending order.
 - Derive test file paths from source file paths:
   - replace the `Sources/mas/` source path folder prefix with `Tests/MASTests/`
   - prepend `MASTests+` to the source file name
-  - e.g., `Sources/mas/Models/Foo.swift` →
-    `Tests/MASTests/Models/MASTests+Foo.swift`
+  - e.g., `Sources/mas/X.swift` → `Tests/MASTests/MASTests+X.swift`
 - Use force unwrapping (`!` suffix)

@@ -12,10 +12,10 @@ extension Collection {
 }
 
 extension Collection where Element: Sendable {
-	func concurrentMap<T: Sendable>(
+	func concurrentMap<T: Sendable>( // swiftlint:disable:this unused_declaration
 		maxConcurrentTaskCount: Int = defaultMaxConcurrentTaskCount,
 		_ transform: @escaping @Sendable (Element) async -> T,
-	) async -> [T] {
+	) async -> [T] { // periphery:ignore
 		await concurrentTransform(maxConcurrentTaskCount: maxConcurrentTaskCount, transform)
 	}
 

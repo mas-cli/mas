@@ -22,13 +22,14 @@ extension MAS {
 		private var outdatedAppOptionGroup: OutdatedAppOptionGroup
 
 		func run() async throws {
-			try await run(installedApps: try await installedApps.filter(!\.isTestFlight))
+			try await run(installedApps: try await installedApps().filter(!\.isTestFlight))
 		}
 
 		private func run(installedApps: [InstalledApp]) async throws {
 			try await run(
 				outdatedApps: forceOptionGroup.force // swiftformat:disable:next indent
-				? installedApps.filter(for: outdatedAppOptionGroup.installedAppIDsOptionGroup.appIDs).map { ($0, "") }
+				? installedApps.filter(for: outdatedAppOptionGroup.installedAppIDsOptionGroup.appIDs)
+					.map { OutdatedApp(installedApp: $0, newVersion: "") } // swiftformat:disable:this indent
 				: await outdatedAppOptionGroup.outdatedApps(from: installedApps),
 			)
 		}

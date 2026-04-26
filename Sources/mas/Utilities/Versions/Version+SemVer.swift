@@ -11,17 +11,16 @@ internal import Foundation
 // swiftlint:disable:next blanket_disable_command
 // swiftlint:disable file_types_order one_declaration_per_file
 
-protocol Version: CustomStringConvertible {
+protocol Version: RawRepresentable<String> {
 	var coreElements: [String] { get }
 	var prereleaseElements: [String] { get }
 	var buildElements: [String] { get }
 
-	var core: String { get }
-	var prerelease: String? { get }
-	var build: String? { get }
-
-	init?(from versionString: String) // periphery:ignore
-}
+	// swiftlint:disable unused_declaration
+	var core: String { get } // periphery:ignore
+	var prerelease: String? { get } // periphery:ignore
+	var build: String? { get } // periphery:ignore
+} // swiftlint:enable unused_declaration
 
 protocol CoreIntegerVersion: Version {
 	associatedtype Integer: BinaryInteger
@@ -30,8 +29,12 @@ protocol CoreIntegerVersion: Version {
 }
 
 extension CoreIntegerVersion where Integer: FixedWidthInteger {
-	var coreElements: [String] {
+	fileprivate static func coreElements(from coreIntegers: [Integer]) -> [String] {
 		coreIntegers.map { .init($0) }
+	}
+
+	var coreElements: [String] {
+		Self.coreElements(from: coreIntegers)
 	}
 }
 
@@ -66,67 +69,94 @@ extension MajorMinorPatchInteger {
 protocol SemVerSyntax: Version {}
 
 extension SemVerSyntax {
-	var core: String {
+	fileprivate static func core(from coreElements: [String]) -> String {
 		coreElements.joined(separator: ".")
 	}
 
-	var prerelease: String? {
+	fileprivate static func prerelease(from prereleaseElements: [String]) -> String? {
 		prereleaseElements.isEmpty ? nil : prereleaseElements.joined(separator: ".")
 	}
 
-	var build: String? {
+	fileprivate static func build(from buildElements: [String]) -> String? {
 		buildElements.isEmpty ? nil : buildElements.joined(separator: ".")
 	}
 
-	var description: String {
-		"\(core)\(prerelease.map { "-\($0)" } ?? "")\(build.map { "+\($0)" } ?? "")"
+	var core: String {
+		Self.core(from: coreElements)
+	}
+
+	var prerelease: String? {
+		Self.prerelease(from: prereleaseElements)
+	}
+
+	var build: String? {
+		Self.build(from: buildElements)
 	}
 }
 
 protocol SemVerSyntaxInteger: CoreIntegerVersion, SemVerSyntax, MajorMinorPatchInteger {}
 
 struct UniversalSemVerInt: SemVerSyntaxInteger {
-	typealias Integer = Int
-
-	let coreIntegers: [Integer]
+	let coreIntegers: [Int]
 	let prereleaseElements: [String]
 	let buildElements: [String]
+	let rawValue: String
 
-	var majorInteger: Integer {
+	var majorInteger: Int {
 		coreIntegers[0]
 	}
 
-	var minorInteger: Integer {
+	var minorInteger: Int {
 		coreIntegers[1]
 	}
 
-	var patchInteger: Integer {
+	var patchInteger: Int {
 		coreIntegers[2]
 	}
 
 	init(
-		coreIntegers: [Integer],
+		coreIntegers: [Int],
 		prereleaseElements: [String] = .init(),
 		buildElements: [String] = .init(),
-	) {
-		self.coreIntegers = coreIntegers.padding(toCount: 3, with: 0)
-		self.prereleaseElements = prereleaseElements
-		self.buildElements = buildElements
+	) { // periphery:ignore
+		self.init(
+			coreIntegers: coreIntegers,
+			prereleaseElements: prereleaseElements,
+			buildElements: buildElements,
+			rawValue: """
+				\(Self.core(from: Self.coreElements(from: coreIntegers)))\
+				\(Self.prerelease(from: prereleaseElements).map { "-\($0)" } ?? "")\
+				\(Self.build(from: buildElements).map { "+\($0)" } ?? "")
+				""",
+		)
 	}
 
-	init?(from versionString: String) {
+	init?(rawValue: String) {
 		do {
-			let match = versionString.wholeMatch(of: universalSemVerRegex)! // swiftlint:disable:this force_unwrapping
+			let match = rawValue.wholeMatch(of: universalSemVerRegex)! // swiftlint:disable:this force_unwrapping
 			self = .init(
 				coreIntegers: try match.1.elements.map { coreElement in
 					try .init(coreElement) ?? { throw MASError.error(coreElement) }()
 				},
 				prereleaseElements: match.2.elements,
 				buildElements: match.3.elements,
+				rawValue: rawValue,
 			)
 		} catch {
 			return nil
 		}
+	}
+
+	private init(
+		coreIntegers: [Int],
+		prereleaseElements: [String],
+		buildElements: [String],
+		rawValue: String,
+	) {
+		self.coreIntegers = coreIntegers.padding(toCount: 3, with: 0)
+		self.prereleaseElements = prereleaseElements
+		self.buildElements = buildElements
+		self.rawValue = rawValue
 	}
 }
 
@@ -134,12 +164,14 @@ struct UniversalSemVer: SemVerSyntax {
 	let coreElements: [String]
 	let prereleaseElements: [String]
 	let buildElements: [String]
+	let rawValue: String
 
-	init(from versionString: String) {
-		let match = versionString.wholeMatch(of: universalSemVerRegex)! // swiftlint:disable:this force_unwrapping
+	init(rawValue: String) {
+		let match = rawValue.wholeMatch(of: universalSemVerRegex)! // swiftlint:disable:this force_unwrapping
 		coreElements = match.1.elements
 		prereleaseElements = match.2.elements
 		buildElements = match.3.elements
+		self.rawValue = rawValue
 	}
 }
 

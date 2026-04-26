@@ -22,15 +22,25 @@ struct Printer {
 		errorCounter.store(0, ordering: .releasing) // swiftlint:disable:previous unused_declaration
 	}
 
-	/// Prints to `stdout`.
+	/// Prints to `fileHandle`.
 	@_disfavoredOverload
-	func info(_ items: Any..., separator: String = " ", terminator: String = "\n") {
-		info(items, separator: separator, terminator: terminator)
+	func info(
+		_ items: Any...,
+		separator: String = " ",
+		terminator: String = "\n",
+		to fileHandle: FileHandle = .standardOutput,
+	) {
+		info(items, separator: separator, terminator: terminator, to: fileHandle)
 	}
 
-	/// Prints to `stdout`.
-	func info(_ items: [Any], separator: String = " ", terminator: String = "\n") {
-		print(items.map(String.init(describing:)), separator: separator, terminator: terminator, to: .standardOutput)
+	/// Prints to `fileHandle`.
+	func info(
+		_ items: [Any],
+		separator: String = " ",
+		terminator: String = "\n",
+		to fileHandle: FileHandle = .standardOutput,
+	) {
+		print(items.map(String.init(describing:)), separator: separator, terminator: terminator, to: fileHandle)
 	}
 
 	/// Prints to `stdout`, prefixed with "==> "; if connected to a terminal, the
@@ -75,11 +85,7 @@ struct Printer {
 
 	func clearCurrentLine(of fileHandle: FileHandle) {
 		if fileHandle.isTerminal {
-			do {
-				try fileHandle.write(contentsOf: Data("\(csi)2K\(csi)0G".utf8))
-			} catch {
-				// Do nothing
-			}
+			try? fileHandle.write(contentsOf: clearLine)
 		}
 	}
 
@@ -110,11 +116,10 @@ struct Printer {
 	}
 
 	private func print(_ items: [String], separator: String, terminator: String, to fileHandle: FileHandle) {
-		do {
-			try fileHandle.write(contentsOf: Data(items.joined(separator: separator).appending(terminator).utf8))
-		} catch {
-			// Do nothing
-		}
+		unsafe items.joined(separator: separator)
+			.appending(terminator)
+			.utf8
+			.withContiguousStorageIfAvailable { try? unsafe fileHandle.write(contentsOf: unsafe $0) }
 	}
 
 	private func print(
@@ -140,7 +145,7 @@ struct Printer {
 		print(
 			items.first.map { item in
 				["\(formattedPrefix) \(mas.indent(item, with: indent))"]
-				+ items.dropFirst().map { mas.indent($0, with: indent) } // swiftformat:disable:this indent
+					+ items.dropFirst().map { mas.indent($0, with: indent) }
 			}
 			?? [formattedPrefix], // swiftformat:disable:this indent
 			separator: mas.indent(separator, with: indent),
@@ -163,7 +168,6 @@ private func indent(_ item: Any, with indent: String) -> String {
 let errorPrefix = "Error:"
 let errorFormat = "4;31"
 
-/// Terminal Control Sequence Indicator.
 private let csi = "\u{001B}["
-
+private let clearLine = Data("\(csi)2K\(csi)0G".utf8)
 private let nonEmptyLineStartRegex = /\n(?!\n)/

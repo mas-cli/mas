@@ -5,7 +5,19 @@
 // Copyright © 2018 mas-cli. All rights reserved.
 //
 
-struct CatalogAppResults: Decodable { // swiftlint:disable:next unused_declaration
+internal import JSONAST
+private import JSONDecoding
+
+struct CatalogAppResults: JSONDecodable {
 	let resultCount: Int // periphery:ignore
 	let results: [CatalogApp]
+
+	init(json: JSON.Node) throws {
+		guard case let .object(object) = json else {
+			throw MASError.unparsableJSON(.init(json))
+		}
+
+		resultCount = try object["resultCount"]?.decode() ?? 0
+		results = try object["results"]?.decode() ?? .init()
+	}
 }

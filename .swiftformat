@@ -74,6 +74,7 @@
 --timezone utc
 --type-attributes prev-line
 --type-body-marks remove
+--type-order beforeMarks,nestedType,staticProperty,staticPropertyWithBody,classPropertyWithBody,staticMethod,classMethod,overriddenProperty,swiftUIPropertyWrapper,instanceProperty,computedProperty,instanceLifecycle,swiftUIProperty,swiftUIMethod,overriddenMethod,instanceMethod
 --wrap-arguments before-first
 --wrap-collections before-first
 --wrap-conditions before-first
