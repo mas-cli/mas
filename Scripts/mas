@@ -57,7 +57,7 @@ try (
 lookup|info)
 	{
 		{ exec "${mas}" "${@}" 3>&1 1>&4 2>&5 } | "${jq}" -sr '
-def numberCommas($n):
+def number_commas($n):
 	($n | abs | round | tostring) as $s |
 	if $n < 0 then "-" else "" end + ([$s | while(length > 0; .[:-3]) | .[-3:]] | reverse | join(","))
 ;
@@ -81,7 +81,7 @@ try (
 			"\($key_map[$k]) \("▁" * ($max_key_length - ($key_map[$k] | length) + 1)) \(
 				$in[$k] |
 				if $k == "fileSizeBytes" then
-					numberCommas(tonumber? / 1e6 // 0) + " MB"
+					number_commas(tonumber? / 1e6 // 0) + " MB"
 				elif $k == "currentVersionReleaseDate" then
 					(fromdateiso8601? | strflocaltime("%Y-%m-%d")) // .
 				else
