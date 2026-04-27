@@ -6,8 +6,6 @@
 //
 
 internal import ArgumentParser
-private import JSON
-private import JSONAST
 
 extension MAS {
 	/// Outputs a list of installed apps which have updates available to be

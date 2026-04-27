@@ -48,7 +48,6 @@ private extension MASTests {
 			&& catalogApp.minimumOSVersion == "10.9"
 			&& catalogApp.name == "Slack"
 			&& catalogApp.sellerURLString == "https://slack.com"
-			&& !catalogApp.supportsMacDesktop
 			&& catalogApp.version == "3.3.3",
 		) // swiftformat:enable indent
 	}

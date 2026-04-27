@@ -8,8 +8,8 @@
 private import Foundation
 
 extension String {
-	var capitalizingFirstCharacter: Self {
-		prefix(1).capitalized + dropFirst()
+	var uppercasingFirst: Self {
+		prefix(1).uppercased() + dropFirst()
 	}
 
 	var quoted: Self {

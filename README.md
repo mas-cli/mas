@@ -141,20 +141,23 @@ block for each app, with a blank line between apps.
 If `--json` is supplied, these commands output a stream of JSON objects—one per
 app—each containing all fields provided by Apple for that app.
 
-Many of the JSON keys provided by Apple are poorly named, so they are mapped to
+Many of the keys provided by Apple are poorly named, so they are mapped to
 better names by an algorithm.
 
 <!--editorconfig-checker-disable-->
-Mapped JSON keys are [sorted](
+Mapped keys are [sorted](
   https://developer.apple.com/documentation/foundation/nsstring/compareoptions/numeric
 ).
 <!--editorconfig-checker-enable-->
 
-Each JSON key should be unique within an object; if duplicate keys exist in an
+Each key should be unique within an object; if duplicate keys exist in an
 object, their relative ordering in the input is preserved in the output.
 
-If Apple renames or adds JSON keys, suboptimal JSON keys might be output until
-the mapping is updated.
+For tabular output, if an object contains duplicate keys, the last value is
+used.
+
+If Apple renames or adds keys, suboptimal keys might be output until the mapping
+is updated.
 
 ## JSON Config Output
 
@@ -162,8 +165,7 @@ the mapping is updated.
 
 If `--json` is supplied, `config` outputs all settings in a single JSON object.
 
-Since the JSON keys are defined by mas, they are guaranteed to be unique &
-correct.
+Since the keys are defined by mas, they are guaranteed to be unique & correct.
 
 ## Spotlight
 

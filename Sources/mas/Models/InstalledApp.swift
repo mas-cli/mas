@@ -19,10 +19,13 @@ struct InstalledApp {
 	let path: String
 	let version: String
 
-	let jsonObject: Lazy<JSON.Object>
-
 	private let jsonObjectRaw: JSON.Object
+	private let _jsonObject: Lazy<JSON.Object>
 	private let json: Lazy<String>
+
+	var jsonObject: JSON.Object {
+		_jsonObject.value
+	}
 
 	var isTestFlight: Bool {
 		adamID == 0
@@ -51,16 +54,16 @@ struct InstalledApp {
 		?? "" // swiftformat:disable:this indent
 		version = .init(describing: valueByAttribute[NSMetadataItemVersionKey] ?? "")
 
-		jsonObjectRaw = .init(valueByAttribute.map { (.init(rawValue: $0.key), jsonNode(for: $0.value)) })
+		jsonObjectRaw = .init(valueByAttribute.map { (.init(rawValue: $0.key), .init(for: $0.value)) })
 		let jsonObjectRaw = jsonObjectRaw
 		let name = name
-		jsonObject = .init(
+		_jsonObject = .init(
 			.init(
-				(jsonObjectRaw.fields.map { (.init(rawValue: $0.rawValue.mappingKey), $1) } + [("name", .string(name))])
+				(jsonObjectRaw.fields.map { ($0.normalized, $1) } + [("name", .string(name))])
 					.sorted(using: KeyPathComparator(\.0.rawValue, comparator: NumericStringComparator.forward)),
 			),
 		)
-		let jsonObject = jsonObject
+		let jsonObject = _jsonObject
 		json = .init(.init(jsonObject.value))
 	}
 
@@ -94,42 +97,44 @@ extension [InstalledApp] {
 	}
 }
 
-private func jsonNode(for value: Any?) -> JSON.Node {
-	switch value {
-	case let jsonNode as JSON.Node:
-		jsonNode
-	case let number as NSNumber: // swiftlint:disable:this legacy_objc_type
-		number === kCFBooleanTrue || number === kCFBooleanFalse
-		? .bool(number.boolValue) // swiftformat:disable:this indent
-		: .init(.init(describing: number)) ?? .null
-	case let date as Date:
-		.string(date.formatted(.iso8601))
-	case let data as Data:
-		data.isEmpty
-		? .string("") // swiftformat:disable:this indent // swiftlint:disable:this void_function_in_ternary
-		: {
-			var hex = "0x"
-			hex.reserveCapacity(2 + data.count * 2)
-			return .string(
-				data.reduce(into: hex) { hex, byte in
-					let byteHex = String(byte, radix: 16)
-					if byteHex.count < 2 {
-						hex += "0"
-					}
-					hex += byteHex
-				},
-			)
-		}()
-	case let array as [Any?]:
-		.array(.init(array.map { jsonNode(for: $0) }))
-	default:
-		value.map { .string(.init(describing: $0)) } ?? .null // swiftformat:disable:this indent
+private extension JSON.Node {
+	init(for value: Any?) {
+		self = switch value {
+		case let jsonNode as JSON.Node:
+			jsonNode
+		case let number as NSNumber: // swiftlint:disable:this legacy_objc_type
+			number === kCFBooleanTrue || number === kCFBooleanFalse
+			? .bool(number.boolValue) // swiftformat:disable:this indent
+			: .init(.init(describing: number)) ?? .null
+		case let date as Date:
+			.string(date.formatted(.iso8601))
+		case let data as Data:
+			data.isEmpty // swiftlint:disable:next void_function_in_ternary
+			? .string("") // swiftformat:disable:this indent
+			: {
+				var hex = "0x"
+				hex.reserveCapacity(2 + data.count * 2)
+				return .string(
+					data.reduce(into: hex) { hex, byte in
+						let byteHex = String(byte, radix: 16)
+						if byteHex.count < 2 {
+							hex += "0"
+						}
+						hex += byteHex
+					},
+				)
+			}()
+		case let array as [Any?]:
+			.array(.init(array.map { .init(for: $0) }))
+		default:
+			value.map { .string(.init(describing: $0)) } ?? .null // swiftformat:disable:this indent
+		}
 	}
 }
 
-private extension String {
-	var mappingKey: Self {
-		switch self {
+private extension JSON.Key {
+	var normalized: Self {
+		switch rawValue {
 		case NSMetadataItemCFBundleIdentifierKey:
 			"bundleID"
 		case "_kMDItemDisplayNameWithExtensions":
@@ -241,10 +246,12 @@ private extension String {
 		case NSMetadataItemVersionKey:
 			"version"
 		default:
-			replacing(keyRegex) { match in
-				let output = match.output
-				return output.1?.isEmpty == false ? "fileSystem" : output.2?.lowercased() ?? ""
-			}
+			.init(
+				rawValue: rawValue.replacing(keyRegex) { match in
+					let output = match.output
+					return output.1?.isEmpty == false ? "fileSystem" : output.2?.lowercased() ?? ""
+				},
+			)
 		}
 	}
 }

@@ -16,7 +16,7 @@ struct OutdatedApp {
 	init(installedApp: InstalledApp, newVersion: String) {
 		self.installedApp = installedApp
 		self.newVersion = newVersion
-		var jsonObjectInstalled = installedApp.jsonObject.value
+		var jsonObjectInstalled = installedApp.jsonObject
 		jsonObjectInstalled.fields.insert(
 			(newVersionKey, .string(newVersion)),
 			at: jsonObjectInstalled.fields

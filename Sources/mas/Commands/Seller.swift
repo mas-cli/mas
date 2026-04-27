@@ -43,7 +43,7 @@ extension MAS {
 		private func run(sellerURLStrings: [String]) async {
 			await sellerURLStrings.forEach(attemptTo: "open") { sellerURLString in
 				guard let url = URL(string: sellerURLString) else {
-					throw MASError.unparsableURL(sellerURLString)
+					throw MASError.invalidURL(sellerURLString)
 				}
 
 				_ = try await url.open()

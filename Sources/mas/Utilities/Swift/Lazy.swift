@@ -8,25 +8,21 @@
 private import os
 
 final class Lazy<Value: Sendable>: Sendable {
-	private struct Storage {
-		var value = Value?.none
-		var initializer = (@Sendable () -> Value)?.none
-	}
-
-	private let state: OSAllocatedUnfairLock<Storage>
+	private let state: OSAllocatedUnfairLock<(value: Value?, initializer: (@Sendable () -> Value)?)>
 
 	var value: Value {
-		state.withLock { storage in
-			storage.value ?? {
-				storage.value = storage.initializer!() // swiftlint:disable:this force_unwrapping
-				storage.initializer = nil
-				return storage.value! // swiftlint:disable:this force_unwrapping
+		state.withLock { state in
+			state.value ?? {
+				let value = state.initializer!() // swiftlint:disable:this force_unwrapping
+				state.value = value
+				state.initializer = nil
+				return value
 			}()
 		}
 	}
 
-	init(_ initializer: @escaping @Sendable () -> Value) {
-		state = .init(initialState: Storage(value: nil, initializer: initializer))
+	init(_ initializer: @escaping @Sendable () -> Value) { // swiftlint:disable:this unneeded_escaping
+		state = .init(initialState: (value: nil, initializer: initializer))
 	}
 
 	convenience init(_ initializer: @autoclosure @escaping @Sendable () -> Value) {
