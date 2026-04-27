@@ -22,44 +22,33 @@ readonly jq
 
 [[ -t 2 ]] && readonly error_prefix=$'\u001B[4;31mError:\u001B[0m' || readonly error_prefix=Error:
 
+# shellcheck disable=SC1072,SC1073
 case "${1:-}" in
 outdated)
-	# shellcheck disable=SC1056,SC1072,SC1073
+	readonly max_version_length_jq=$'\n\t(map(.version // "" | length) | max) as $max_version_length |'
+	readonly new_version_jq=$' + ($version | pad_spaces($max_version_length)) + " -> " + .newVersion'
+	;|
+search)
+	[[ -n ${argv[(r)--price]-} ]] && readonly output_price=' + [.formattedPrice // .price // "?"]'
+	;&
+list|outdated)
+	# shellcheck disable=SC1056
 	{
 		# shellcheck disable=SC1083
 		{ exec "${mas}" "${@}" 3>&1 1>&4 2>&5 } | "${jq}" -sr '
+def pad_spaces($count):
+	" " * ($count - (. | length))
+;
 try (
-	(map(.adamID | tostring | length) | max) as $max_adam_id_length |
-	(map(.version // "" | length) | max) as $max_version_length |
+	(map(.adamID | tostring | length) | max) as $max_adam_id_length |'"${max_version_length_jq-}"'
 	.[] |
 	(.adamID | tostring) as $adam_id |
 	(.version // "") as $version |
 	[
-		" " * ($max_adam_id_length - ($adam_id | length)) + $adam_id,
+		($adam_id | pad_spaces($max_adam_id_length)) + $adam_id,
 		.name,
-		"(" + $version + " " * ($max_version_length - ($version | length)) + " -> " + .newVersion + ")"
-	] |
-	join("\u001f")
-) catch ("'"${error_prefix}"' Invalid data from mas: \(.)\n" | halt_error(1))
-' | "${column}" -ts $'\u001f'
-	} 4>&1 5>&2
-	;;
-search)
-	[[ -n ${argv[(r)--price]-} ]] && readonly output_price=' + [.formattedPrice // .price // "?"]'
-	;&
-list)
-	{
-		{ exec "${mas}" "${@}" 3>&1 1>&4 2>&5 } |
-		"${jq}" -sr '
-try (
-	(map(.adamID | tostring | length) | max) as $max_adam_id_length |
-	.[] |
-	(.adamID | tostring) as $adam_id |
-	[
-		" " * ($max_adam_id_length - ($adam_id | length)) + $adam_id,
-		.name,
-		"(" + (.version // "") + ")"
-	] '"${output_price-}"'|
+		"(" + $version'"${new_version_jq-}"' + ")"
+	]'"${output_price-}"' |
 	join("\u001f")
 ) catch ("'"${error_prefix}"' Invalid data from mas: \(.)\n" | halt_error(1))
 ' | "${column}" -ts $'\u001f'
