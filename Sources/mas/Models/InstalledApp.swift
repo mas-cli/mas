@@ -127,7 +127,7 @@ private extension JSON.Node {
 		case let array as [Any?]:
 			.array(.init(array.map { .init(for: $0) }))
 		default:
-			value.map { .string(.init(describing: $0)) } ?? .null // swiftformat:disable:this indent
+			value.map { .string(.init(describing: $0)) } ?? .null
 		}
 	}
 }
