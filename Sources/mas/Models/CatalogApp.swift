@@ -353,8 +353,8 @@ private func catalogAppJSONObjects(
 		.dataFrom(
 			url.appending(
 				queryItems: [.init(name: "media", value: "software")]
-					+ additionalQueryItems
-					+ [.init(name: "country", value: region), queryItem],
+				+ additionalQueryItems // swiftformat:disable:this indent
+				+ [.init(name: "country", value: region), queryItem], // swiftformat:disable:this indent
 			),
 		)
 		.0
