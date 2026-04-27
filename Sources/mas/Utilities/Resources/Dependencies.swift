@@ -11,6 +11,10 @@ struct Dependencies {
 	@TaskLocal
 	static var current = Self()
 
+	@Required(URL(string: "https://itunes.apple.com/lookup"))
+	var lookupURL: URL
+	@Required(URL(string: "https://itunes.apple.com/search"))
+	var searchURL: URL
 	let dataFrom: @Sendable (URL) async throws -> (Data, URLResponse)
 	let lookupAppFromAppID: @Sendable (AppID) async throws -> CatalogApp
 	let searchForAppsMatchingSearchTerm: @Sendable (String) async throws -> [CatalogApp]
