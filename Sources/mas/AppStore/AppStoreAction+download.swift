@@ -513,7 +513,7 @@ extension PhaseType: CustomStringConvertible {
 		case .downloaded:
 			"Downloaded"
 		case let .performing(action):
-			action.performing
+			action.performing.uppercasingFirst
 		}
 	}
 }
