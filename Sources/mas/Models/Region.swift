@@ -10,9 +10,9 @@ private import Foundation
 typealias Region = String
 
 private extension Region {
-	var appStoreRegion: Self {
-		switch self { // swiftlint:disable switch_case_on_newline
-		case "AD": "ES" // Andorra                                      > Spain // swiftformat:disable wrapCaseBodies
+	var appStoreRegion: Self { // swiftlint:disable switch_case_on_newline
+		switch self { // swiftformat:disable wrapCaseBodies
+		case "AD": "ES" // Andorra                                      > Spain
 		case "AQ": "NO" // Antarctica                                   > Norway
 		case "AS": "US" // American Samoa                               > United States
 		case "AW": "NL" // Aruba                                        > Netherlands

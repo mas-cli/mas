@@ -105,8 +105,8 @@ private func jsonNode(for value: Any?) -> JSON.Node {
 	case let date as Date:
 		.string(date.formatted(.iso8601))
 	case let data as Data:
-		data.isEmpty
-		? .string("") // swiftformat:disable:this indent // swiftlint:disable:this void_function_in_ternary
+		data.isEmpty // swiftlint:disable:next void_function_in_ternary
+		? .string("") // swiftformat:disable:this indent
 		: {
 			var hex = "0x"
 			hex.reserveCapacity(2 + data.count * 2)
