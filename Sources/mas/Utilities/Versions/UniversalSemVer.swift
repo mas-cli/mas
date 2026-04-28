@@ -8,7 +8,7 @@
 private import BigInt
 internal import Foundation
 
-struct UniversalSemVer: SemVerSyntax {
+struct UniversalSemVer: SemVerSyntax, ExpressibleByStringLiteral {
 	let coreElements: [String]
 	let prereleaseElements: [String]
 	let buildElements: [String]
@@ -23,6 +23,10 @@ struct UniversalSemVer: SemVerSyntax {
 		prereleaseElements = match.2.elements
 		buildElements = match.3.elements
 		self.rawValue = rawValue
+	}
+
+	init(stringLiteral value: String) {
+		self.init(rawValue: value)
 	}
 }
 
@@ -68,9 +72,11 @@ extension Substring? {
 extension Version {
 	func compareSemVer(to that: Self) -> ComparisonResult {
 		let coreComparison = coreElements.compareSemVerElements(to: that.coreElements)
-		return coreComparison == .orderedSame
-		? prereleaseElements.compareSemVerElements(to: that.prereleaseElements) // swiftformat:disable:this indent
-		: coreComparison
+		return coreComparison != .orderedSame
+		? coreComparison // swiftformat:disable:this indent
+		: prereleaseElements.isEmpty != that.prereleaseElements.isEmpty // swiftformat:disable:next wrap wrapArguments
+			? prereleaseElements.isEmpty ? .orderedDescending : .orderedAscending
+			: prereleaseElements.compareSemVerElements(to: that.prereleaseElements)
 	}
 
 	func compareSemVerAndBuild(to that: Self) -> ComparisonResult {
