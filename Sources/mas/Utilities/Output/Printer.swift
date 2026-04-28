@@ -145,7 +145,7 @@ struct Printer {
 		print(
 			items.first.map { item in
 				["\(formattedPrefix) \(mas.indent(item, with: indent))"]
-					+ items.dropFirst().map { mas.indent($0, with: indent) }
+				+ items.dropFirst().map { mas.indent($0, with: indent) } // swiftformat:disable:this indent
 			}
 			?? [formattedPrefix], // swiftformat:disable:this indent
 			separator: mas.indent(separator, with: indent),

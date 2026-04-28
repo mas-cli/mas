@@ -1,5 +1,5 @@
 //
-// Version.swift
+// MAS.Version.swift
 // mas
 //
 // Copyright © 2015 mas-cli. All rights reserved.

@@ -287,7 +287,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 
 			MAS.printer.notice(
 				[action.performed.uppercasingFirst, snapshot.appNameAndVersion]
-					+ (appFolderURL.map { ["in", $0.filePath] } ?? .init()),
+				+ (appFolderURL.map { ["in", $0.filePath] } ?? .init()), // swiftformat:disable:this indent
 			)
 
 			if let appFolderURL {
@@ -513,7 +513,7 @@ extension PhaseType: CustomStringConvertible {
 		case .downloaded:
 			"Downloaded"
 		case let .performing(action):
-			action.performing
+			action.performing.uppercasingFirst
 		}
 	}
 }

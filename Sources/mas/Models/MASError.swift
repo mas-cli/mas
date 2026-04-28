@@ -20,7 +20,7 @@ enum MASError: Error {
 	) -> Self {
 		.error(
 			message,
-			cause: cause.map { Self.error($0) }, // swiftformat:disable:this redundantStaticSelf
+			cause: cause.map { Self.error($0) },
 			separatorWhenCause: separatorWhenCause,
 			separatorWhenNoCause: separatorWhenNoCause,
 		)

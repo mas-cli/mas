@@ -1,5 +1,5 @@
 //
-// Config.swift
+// MAS.Config.swift
 // mas
 //
 // Copyright © 2025 mas-cli. All rights reserved.
@@ -23,8 +23,8 @@ extension MAS {
 		func run() {
 			outputFormatOptionGroup.info(
 				JSON.Object( // swiftformat:disable:this wrap wrapArguments
-					dictionaryLiteral: // swiftformat:disable indent
-						("mas", .string(version)), // swiftlint:disable vertical_parameter_alignment_on_call
+					dictionaryLiteral: // swiftlint:disable vertical_parameter_alignment_on_call
+						("mas", .string(version)), // swiftformat:disable indent
 						("slice", .string(runningSliceArchitecture)),
 						("slices", .string(supportedSliceArchitectures.joined(separator: " "))),
 						("dist", .string(distribution)),
@@ -102,7 +102,7 @@ private func configStringValue(_ name: String) -> String {
 		return unknown
 	}
 
-	return unsafe .init(cString: &buffer) // swiftformat:disable:this spaceAroundOperators
+	return unsafe .init(cString: &buffer)
 }
 
 private let unknown = "unknown"

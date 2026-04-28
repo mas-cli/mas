@@ -30,7 +30,7 @@ private func sudo(_ args: some Sequence<String>) throws {
 	guard spawnStatus == 0 else {
 		throw MASError.error(
 			"Failed to spawn installer process",
-			cause: unsafe .init(cString: strerror(spawnStatus)), // swiftformat:disable:this spaceAroundOperators
+			cause: unsafe .init(cString: strerror(spawnStatus)),
 			separatorWhenCause: ": ",
 		)
 	}

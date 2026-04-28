@@ -1,5 +1,5 @@
 //
-// SignOut.swift
+// MAS.SignOut.swift
 // mas
 //
 // Copyright © 2016 mas-cli. All rights reserved.

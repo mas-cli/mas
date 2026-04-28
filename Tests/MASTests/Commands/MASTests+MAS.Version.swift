@@ -1,5 +1,5 @@
 //
-// MASTests+Version.swift
+// MASTests+MAS.Version.swift
 // mas
 //
 // Copyright © 2018 mas-cli. All rights reserved.

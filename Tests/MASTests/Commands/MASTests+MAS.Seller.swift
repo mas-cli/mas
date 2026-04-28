@@ -1,5 +1,5 @@
 //
-// MASTests+Seller.swift
+// MASTests+MAS.Seller.swift
 // mas
 //
 // Copyright © 2019 mas-cli. All rights reserved.

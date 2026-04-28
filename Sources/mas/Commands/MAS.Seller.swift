@@ -1,5 +1,5 @@
 //
-// Seller.swift
+// MAS.Seller.swift
 // mas
 //
 // Copyright © 2018 mas-cli. All rights reserved.
