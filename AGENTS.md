@@ -298,8 +298,9 @@ Within this section & all subsections, `X` is a placeholder for any type name.
 6. `switch`
 7. Multiple `guard`
 8. `if` / `else if`… / `else`
-9. Forced unwrapping (`!` suffix)
-10. `fatalError(_:file:line:)`
+9. `preconditionFailure(_:file:line:)`
+10. Forced unwrapping (`!` suffix)
+11. `fatalError(_:file:line:)`
 
 #### Throwing
 
