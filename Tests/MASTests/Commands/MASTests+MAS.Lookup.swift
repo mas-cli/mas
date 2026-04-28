@@ -1,5 +1,5 @@
 //
-// MASTests+Lookup.swift
+// MASTests+MAS.Lookup.swift
 // mas
 //
 // Copyright © 2018 mas-cli. All rights reserved.

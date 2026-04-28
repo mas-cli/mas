@@ -1,5 +1,5 @@
 //
-// Version+SemVer.swift
+// Version.swift
 // mas
 //
 // Copyright © 2025 mas-cli. All rights reserved.

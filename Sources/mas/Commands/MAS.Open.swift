@@ -1,5 +1,5 @@
 //
-// Open.swift
+// MAS.Open.swift
 // mas
 //
 // Copyright © 2018 mas-cli. All rights reserved.

@@ -1,5 +1,5 @@
 //
-// MASTests+Home.swift
+// MASTests+MAS.Home.swift
 // mas
 //
 // Copyright © 2018 mas-cli. All rights reserved.

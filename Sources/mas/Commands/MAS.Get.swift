@@ -1,18 +1,19 @@
 //
-// Install.swift
+// MAS.Get.swift
 // mas
 //
-// Copyright © 2015 mas-cli. All rights reserved.
+// Copyright © 2026 mas-cli. All rights reserved.
 //
 
 internal import ArgumentParser
 
 extension MAS {
-	/// Installs previously gotten apps from the App Store.
-	struct Install: AsyncParsableCommand {
+	/// Gets & installs free apps from the App Store.
+	struct Get: AsyncParsableCommand {
 		static let configuration = CommandConfiguration(
-			abstract: "Install previously gotten apps from the App Store",
+			abstract: "Get & install free apps from the App Store",
 			discussion: requiresRootPrivilegesMessage(),
+			aliases: ["purchase"],
 		)
 
 		@OptionGroup
@@ -21,7 +22,7 @@ extension MAS {
 		private var catalogAppIDsOptionGroup: CatalogAppIDsOptionGroup
 
 		func run() async throws {
-			try await AppStore.install.apps(
+			try await AppStore.get.apps(
 				withAppIDs: catalogAppIDsOptionGroup.appIDs,
 				force: forceOptionGroup.force,
 				installedApps: try await installedApps(),

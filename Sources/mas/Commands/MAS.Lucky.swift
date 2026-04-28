@@ -1,5 +1,5 @@
 //
-// Lucky.swift
+// MAS.Lucky.swift
 // mas
 //
 // Copyright © 2017 mas-cli. All rights reserved.

@@ -1,5 +1,5 @@
 //
-// Outdated.swift
+// MAS.Outdated.swift
 // mas
 //
 // Copyright © 2015 mas-cli. All rights reserved.
