@@ -14,9 +14,8 @@ internal import Foundation
 protocol Version: RawRepresentable<String> {
 	var coreElements: [String] { get }
 	var prereleaseElements: [String] { get }
-	var buildElements: [String] { get }
+	var buildElements: [String] { get } // swiftlint:disable unused_declaration
 
-	// swiftlint:disable unused_declaration
 	var core: String { get } // periphery:ignore
 	var prerelease: String? { get } // periphery:ignore
 	var build: String? { get } // periphery:ignore
