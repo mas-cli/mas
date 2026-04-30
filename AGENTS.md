@@ -67,9 +67,9 @@ Do NOT refactor code if doing so makes the caller interface worse. Specifically:
 
 ## Minimum Versions
 
-- **Swift**: [6.2](.swift-version)
-- **Xcode**: [26](.xcode-version)
-- **macOS**: [13](Package.swift)
+- **Swift:** [6.2](.swift-version)
+- **Xcode:** [26](.xcode-version)
+- **macOS:** [13](Package.swift)
 
 ## Distributions
 
@@ -133,22 +133,22 @@ Scripts/package
 
 ## Git Workflow
 
-- **Trunk-based development**: `main` is the trunk
-- **Topic branches**: Branch from `main` (e.g., `git checkout -b feature main`)
-- **Commit messages**: Follow [commit message conventions](
+- **Trunk-based development:** `main` is the trunk
+- **Topic branches:** Branch from `main` (e.g., `git checkout -b feature main`)
+- **Commit messages:** Follow [commit message conventions](
     https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html
   )
-- **Release tags**: Format like `v1.2.3`
-- **Before committing**: Run `Scripts/format` repeatedly until it no longer
+- **Release tags:** Format like `v1.2.3`
+- **Before committing:** Run `Scripts/format` repeatedly until it no longer
   modifies any files, then run `Scripts/lint`, then fix all violations
 
 ## Content Formatting
 
-- **Newlines**: UNIX (i.e. `\n`)
-- **Indentation**: Tabs (width: 2)
-- **Max line length**: 120 characters
-- **Unnecessary trailing whitespace**: Remove
-- **File ends**: Single newline
+- **Newlines:** UNIX (i.e. `\n`)
+- **Indentation:** Tabs (width: 2)
+- **Max line length:** 120 characters
+- **Unnecessary trailing whitespace:** Remove
+- **File ends:** Single newline
 
 ## Content Preservation
 
@@ -199,8 +199,8 @@ The `PrivateFrameworks` SwiftPM target allows using the following Apple private
 frameworks (via Objective-C headers extracted from the DSC) to deploy App Store
 apps:
 
-- **CommerceKit**: Controllers
-- **StoreFoundation**: Models
+- **CommerceKit:** Controllers
+- **StoreFoundation:** Models
 
 Use them only where public APIs are insufficient.
 
@@ -210,12 +210,12 @@ Apple-exclusive entitlements.
 
 ### Source Folder Hierarchy
 
-Source is organized by concern:
+Source is organized in folders by concern:
 
-- **AppStore/**: App Store integration
-- **Commands/**: CLI implementation
-- **Models/**: Data types
-- **Utilities/**: Utilities
+- **AppStore:** App Store integration
+- **Commands:** CLI implementation
+- **Models:** Data types
+- **Utilities:** Utilities
 
 ### Style Essentials
 
