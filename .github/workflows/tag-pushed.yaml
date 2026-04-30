@@ -6,8 +6,7 @@ name: tag-pushed
 on:
   push:
     tags: ['**']
-permissions:
-  contents: write
+permissions: {}
 defaults:
   run:
     # Force all run commands to not use Rosetta 2
@@ -16,6 +15,8 @@ jobs:
   tag-pushed:
     if: ${{!github.event.repository.fork}}
     runs-on: macos-26
+    permissions:
+      contents: write
     steps:
     - name: 🛒 Checkout repo
       env:

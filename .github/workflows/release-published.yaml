@@ -8,8 +8,6 @@ on:
     types: [published]
 permissions:
   actions: read
-  contents: write
-  pull-requests: write
 defaults:
   run:
     # Force all run commands to not use Rosetta 2
@@ -18,6 +16,9 @@ jobs:
   release-published:
     if: ${{!github.event.repository.fork}}
     runs-on: macos-26
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
     - name: 🛒 Checkout repo
       env:
