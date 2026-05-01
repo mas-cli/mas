@@ -1,6 +1,6 @@
 <!--editorconfig-checker-disable-->
 <!--markdownlint-disable-next-line first-line-h1-->
-[![current release version](https://img.shields.io/github/v/release/mas-cli/mas.svg?style=for-the-badge)](https://github.com/mas-cli/mas/releases/latest)
+[![current version](https://img.shields.io/github/v/release/mas-cli/mas.svg?style=for-the-badge)](https://github.com/mas-cli/mas/releases/latest)
 [![supported OS: macOS 13+](https://img.shields.io/badge/Supported_OS-macOS_13%2B-teal?style=for-the-badge)](Package.swift)
 [![license: MIT](https://img.shields.io/badge/license-MIT-750014.svg?style=for-the-badge)](LICENSE)
 [![language: Swift 6.2](https://img.shields.io/badge/language-Swift_6.2-F05138.svg?style=for-the-badge)](https://www.swift.org)
@@ -76,16 +76,16 @@ Detailed documentation is available via `man mas` & `mas --help`.
 
 <!--markdownlint-disable line-length-->
 <!--editorconfig-checker-disable-->
-| Issue                                                                      | Solution                                                                                                                                                         |
-|:---------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Manage system software (macOS, Safari…)                                    | Use [`softwareupdate`](https://www.unix.com/man-page/osx/8/softwareupdate)                                                                                       |
-| [App info inconsistencies](https://github.com/mas-cli/mas/issues/387)      | Wait hours – days (App Store uses eventual consistency)                                                                                                          |
-| [Cannot purchase paid apps](https://github.com/mas-cli/mas/issues/558)     | <a id="paid-apps"></a>Purchase paid apps directly in App Store; submit PR                                                                                        |
-| [iOS & iPadOS apps unsupported](https://github.com/mas-cli/mas/issues/321) | Submit PR                                                                                                                                                        |
-| [Hangs](https://github.com/mas-cli/mas/issues/1222)                        | [Index apps in Spotlight](#spotlight); [open bug report](https://github.com/mas-cli/mas/issues/new?template=01-bug-report.yaml) if hangs persist                 |
-| Undetected installed apps                                                  | [Index apps in Spotlight](#spotlight)                                                                                                                            |
-| `This redownload is not available for this Apple Account…` error           | Sign in correct Apple Account to App Store, or&nbsp;uninstall&nbsp;app&nbsp;&amp;&nbsp;get&nbsp;it&nbsp;with&nbsp;current&nbsp;Apple&nbsp;Account                |
-| Other bugs                                                                 | [Subscribe to existing](https://github.com/mas-cli/mas/issues), or [open new](https://github.com/mas-cli/mas/issues/new?template=01-bug-report.yaml), bug report |
+| Issue                                                                          | Solution                                                                                                                                                                    |
+|:-------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Manage system software (macOS, Safari…)                                        | Use [`softwareupdate`](https://www.unix.com/man-page/osx/8/softwareupdate)                                                                                                  |
+| [Inconsistent app data](https://github.com/mas-cli/mas/issues/387)             | Wait hours – days (the App Store uses eventual consistency)                                                                                                                 |
+| [Cannot purchase paid apps](https://github.com/mas-cli/mas/issues/558)         | <a id="paid-apps"></a>Purchase paid apps directly in the App Store; submit a PR                                                                                             |
+| [iOS & iPadOS apps are unsupported](https://github.com/mas-cli/mas/issues/321) | Submit a PR                                                                                                                                                                 |
+| [Hangs](https://github.com/mas-cli/mas/issues/1222)                            | [Index apps in Spotlight](#spotlight); [open a bug report](https://github.com/mas-cli/mas/issues/new?template=01-bug-report.yaml) if hangs persist                          |
+| Undetected installed apps                                                      | [Index apps in Spotlight](#spotlight)                                                                                                                                       |
+| `This redownload is not available for this Apple Account…` error               | Sign in the correct Apple Account to the App Store, or&nbsp;uninstall&nbsp;the&nbsp;app&nbsp;&amp;&nbsp;get&nbsp;it&nbsp;with&nbsp;the&nbsp;current&nbsp;Apple&nbsp;Account |
+| Other bugs                                                                     | [Subscribe to an existing](https://github.com/mas-cli/mas/issues), or [open a new](https://github.com/mas-cli/mas/issues/new?template=01-bug-report.yaml), bug report       |
 <!--editorconfig-checker-enable-->
 <!--markdownlint-enable line-length-->
 
@@ -120,15 +120,14 @@ considered bundle IDs.
 
 ADAM IDs can be found via:
 
-1. `mas search <term>…`
-2. `mas list`
-3. The App Store:
-   1. Open an app's App Store page
-   2. Open the page's Share Sheet
-   3. Choose `Copy`
-   4. Extract the ADAM ID from the URL in the copied text
-      - e.g., `497799835` from
-        <https://apps.apple.com/us/app/xcode/id497799835?mt=12>
+- `mas search <term>…`
+- `mas list`
+- The App Store:
+  1. Open an app's App Store page.
+  2. Open the page's Share Sheet.
+  3. Choose `Copy`.
+  4. Extract the ADAM ID from the URL in the copied text. e.g., `497799835` from
+     `https://apps.apple.com/us/app/xcode/id497799835?mt=12`.
 
 ## JSON App Output
 
@@ -180,8 +179,8 @@ Check if an app is properly indexed in Spotlight via:
 ```console
 ## General format:
 $ mdls -rn kMDItemAppStoreAdamID <path-to-app>
-## Outputs the ADAM ID if the app is indexed
-## Outputs nothing if the app is not indexed
+## Outputs the ADAM ID if the app is indexed.
+## Outputs nothing if the app is not indexed.
 
 ## Example:
 $ mdls -rn kMDItemAppStoreAdamID /Applications/Xcode.app
@@ -250,8 +249,117 @@ iTunes Store, App Store and Apple Books` is:
     each app being gotten.
   - `Never Require`: Apps are gotten without additional authentication.
 
-> **Note:** App Store authentication is separate from any macOS user
-> authentication required to grant root privileges to get apps.
+**Note:** App Store authentication is separate from any macOS user
+authentication required to grant root privileges to get apps.
+
+## Outdated-App Detection
+
+In `outdated` & `update`, the determination of whether an app is outdated is
+configurable via 2 settings:
+
+- [Minimum macOS Check](#minimum-macos-check)
+- [Accuracy](#accuracy)
+
+### Concepts & Constraints
+
+A **release** is a build of an app distributed to users.
+
+A **version** is a label that orders a release relative to all other releases of
+the same app.
+
+The [iTunes Search API](https://performance-partners.apple.com/search-api)
+reports app data only for the latest release of which it is aware; eventual
+consistency delays can prevent the API from knowing about the latest release
+available from the App Store.
+
+### Minimum macOS Check
+
+- `--check-min-os` (default): Filters outdated apps to include only those for
+  which the release reported by the
+  [iTunes Search API](https://performance-partners.apple.com/search-api) is
+  compatible with your current macOS.
+- `--no-check-min-os`: Does not filter outdated apps. This is useful only when
+  multiple newer releases are available, with some compatible with your current
+  macOS, but the latest incompatible. With this setting, an app whose latest
+  release is newer than the installed release but incompatible with your current
+  macOS will:
+  - `outdated`: Be reported as outdated, which avoids false negatives, but could
+    cause false positives.
+  - `update`: Display a dialog offering to install the newest release compatible
+    with your current macOS, which might be the installed, or a newer (but not
+    the latest), release.
+
+### Accuracy
+
+The 2 outdated-app-detection modes are selectable via mutually exclusive flags:
+
+<!--markdownlint-disable line-length-->
+<!--editorconfig-checker-disable-->
+| Feature          | `--inaccurate` (default)                                                         | `--accurate`                                 |
+|:-----------------|:---------------------------------------------------------------------------------|:---------------------------------------------|
+| **Method**       | Query the [iTunes Search API](https://performance-partners.apple.com/search-api) | Initiate App Store download to read metadata |
+| **Accuracy**     | Potential false positives or negatives                                           | No false positives or negatives              |
+| **Speed**        | Fast (~7ms per app)                                                              | Slow (~175ms per app)                        |
+| **Requirements** | [iTunes Search API](https://performance-partners.apple.com/search-api)           | Apple Account signed in to the App Store     |
+| **Dialogs**      | Only if `--no-check-min-os`                                                      | Various potential dialogs                    |
+| **Hangs**        | None                                                                             | If checking 100+ apps in quick succession    |
+<!--editorconfig-checker-enable-->
+<!--markdownlint-enable line-length-->
+
+#### `--inaccurate` (default)
+
+The inaccurate mode is optimized to:
+
+- Be fast.
+- Avoid hangs.
+- Avoid dialogs (as long as `--no-check-min-os` is not supplied).
+- Report outdated apps owned by any Apple Account without requiring an Apple
+  Account signed in to the App Store (apps can be updated, however, only for an
+  Apple Account signed in to the App Store).
+
+It compares an installed app's version with the version reported by the
+[iTunes Search API](https://performance-partners.apple.com/search-api) as
+[Semantic Versions](https://semver.org), with build metadata adjudicating ties.
+
+This mode suffers from potential false positives & negatives:
+
+- **Inconsistent versions:** For certain apps, the iTunes Search API
+  consistently reports a different version for the same release than is reported
+  by all other App Store systems & by installed apps, causing false positives or
+  negatives.
+- **Eventual consistency delays:** Lags between the App Store & the iTunes
+  Search API can cause false negatives.
+
+#### `--accurate`
+
+The accurate mode is optimized to avoid false positives & negatives at the
+expense of speed, potential hangs & potential dialogs.
+
+It initiates a download of an installed app's latest release from the App Store
+to obtain the correct latest version from the download metadata. Subsequent
+behavior depends on the command:
+
+- `outdated`: Each download is immediately cancelled; an app is reported as
+  outdated if its version differs from the download metadata version.
+- `update`: The download is cancelled iff the installed version is the same as
+  the download metadata version. Otherwise, the update is allowed to complete.
+
+This mode:
+
+- Connects to the
+  [iTunes Search API](https://performance-partners.apple.com/search-api) iff
+  `--no-check-min-os` is not supplied.
+- Requires an Apple Account signed in to the App Store.
+- Opens a dialog:
+  - If no Apple Account is signed in to the App Store.
+  - For each app owned by a different Apple Account.
+  - For each app no longer available from the App Store.
+  - If `--no-check-min-os` is supplied, for each app for which the release
+    reported by the iTunes Search API is incompatible with your current macOS.
+- Can hang: Initiating downloads for dozens of apps is safe, but for hundreds of
+  apps can cause the App Store to stop responding. This is likely due to Apple
+  rate limiting, for which the exact thresholds, durations & ramifications are
+  currently unknown.
 
 ## License
 

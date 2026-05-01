@@ -11,6 +11,7 @@ on:
   schedule:
   - cron: 44 14 * * 4
   workflow_dispatch: {}
+permissions: {}
 jobs:
   analyze:
     name: Analyze ${{matrix.language}}
@@ -31,7 +32,7 @@ jobs:
         GIT_CONFIG_COUNT: 1
         GIT_CONFIG_KEY_0: init.defaultBranch
         GIT_CONFIG_VALUE_0: ${{github.event.repository.default_branch}}
-      uses: actions/checkout@v6
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       with:
         # Include all history & tags for Scripts/version
         fetch-depth: 0
@@ -40,7 +41,7 @@ jobs:
       run: Scripts/setup_workflow_repo
 
     - name: 🔩 Initialize CodeQL
-      uses: github/codeql-action/init@v4
+      uses: github/codeql-action/init@95e58e9a2cdfd71adc6e0353d5c52f41a045d225 # v4.35.2
       with:
         languages: ${{matrix.language}}
         build-mode: ${{matrix.build-mode}}
@@ -54,6 +55,6 @@ jobs:
         Scripts/build codeql -c release
 
     - name: 🔍 Perform CodeQL analysis
-      uses: github/codeql-action/analyze@v4
+      uses: github/codeql-action/analyze@95e58e9a2cdfd71adc6e0353d5c52f41a045d225 # v4.35.2
       with:
         category: /language:${{matrix.language}}

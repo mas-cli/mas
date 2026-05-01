@@ -324,9 +324,8 @@ func search(for searchTerm: String) async throws -> [CatalogApp] {
 
 private func search(for searchTerm: String, inRegion region: Region = appStoreRegion) async throws -> [CatalogApp] {
 	let queryItem = URLQueryItem(name: "term", value: searchTerm)
-	let catalogApps =
-		try await catalogAppJSONObjects(from: Dependencies.current.searchURL, queryItem, inRegion: region)
-			.map { try CatalogApp(object: $0) }
+	let catalogApps = try await catalogAppJSONObjects(from: Dependencies.current.searchURL, queryItem, inRegion: region)
+		.map { try CatalogApp(object: $0) }
 	let adamIDSet = Set(catalogApps.map(\.adamID))
 	return catalogApps.priorityMerge(
 		try await catalogAppJSONObjects(
@@ -365,7 +364,6 @@ private func catalogAppJSONObjects(
 
 private let minimumOSVersionKey = JSON.Key("minimumOsVersion")
 private let artworkURLRegex = /(?:^artworkUrl|ArtworkUrl)(\d+)/
-private let trackRegex = /((?:^track|Track)(?:Id)?)(s?)($|[\d\p{Upper}])/
-// editorconfig-checker-disable-next-line
+private let trackRegex = /((?:^track|Track)(?:Id)?)(s?)($|[\d\p{Upper}])/ // editorconfig-checker-disable-next-line
 private let manyRegex = /(^appletv|Appletv|^artist|Artist|^artwork|Artwork|^genre|Genre|Id|^ipad|Ipad|Os|^releaseDate|Url|^view|View|Vpp)(s?)(?=$|[\d\p{Upper}])/
 private let minimumOSVersionRegex = /macOS\s*(?<version>\S+)/

@@ -87,7 +87,7 @@ private actor DownloadQueueObserver: CKDownloadQueueObserver {
 		unsafe task = Task { [weak self] in
 			for await event in eventStream {
 				guard let self else {
-					break
+					return
 				}
 
 				switch event {

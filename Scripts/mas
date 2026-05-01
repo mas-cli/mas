@@ -10,12 +10,7 @@ path_or_simple_command() {
 	[[ -x "${1}" ]] && printf %s "${1}" || printf %s "${1:t}"
 }
 
-# shellcheck disable=SC2311
-mas="$(path_or_simple_command "${0:A:h}/../libexec/bin/mas")"
-readonly mas
-# shellcheck disable=SC2311
-column="$(path_or_simple_command /usr/bin/column)"
-readonly column
+readonly mas="${0:A:h}/../libexec/bin/mas"
 # shellcheck disable=SC2311
 jq="$(path_or_simple_command /usr/bin/jq)"
 readonly jq
@@ -50,8 +45,8 @@ try (
 		"(" + $version'"${new_version_jq-}"' + ")"
 	]'"${output_price-}"' |
 	join("\u001f")
-) catch ("'"${error_prefix}"' Invalid data from mas: \(.)\n" | halt_error(1))
-' | "${column}" -ts $'\u001f'
+) catch ("'"${error_prefix}"' Invalid JSON: \(.)\n" | halt_error(1))
+' | /usr/bin/column -ts $'\u001f'
 	} 4>&1 5>&2
 	;;
 lookup|info)
@@ -92,7 +87,7 @@ try (
 		join("\n")
 	] |
 	map(select(length > 0)) | if length > 0 then join("\n\n") else empty end
-) catch ("'"${error_prefix}"' Invalid data from mas: \(.)\n" | halt_error(1))
+) catch ("'"${error_prefix}"' Invalid JSON: \(.)\n" | halt_error(1))
 '
 	} 4>&1 5>&2
 	;;
@@ -103,7 +98,7 @@ try (
 	(keys_unsorted | map(length) | max) as $max_key_length |
 	to_entries[] |
 	"\(.key) \("▁" * ($max_key_length - (.key | length) + 1)) \(.value)"
-) catch ("'"${error_prefix}"' Invalid data from mas: \(.)\n" | halt_error(1))
+) catch ("'"${error_prefix}"' Invalid JSON: \(.)\n" | halt_error(1))
 '
 	} 4>&1 5>&2
 	;;
