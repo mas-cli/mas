@@ -13,7 +13,7 @@
 #
 # ^v[[:digit:]]+(\.[[:digit:]]+)*(-(alpha|beta|rc)\.[[:digit:]]+)?$
 #
-# <version-title> must may contain at most 64 characters, which may be only visible characters or spaces
+# <version-title> may contain at most 64 characters, which cannot be control characters
 #
 # <version-ref> if optional value supplied, must be on the main branch; defaults to HEAD
 #
@@ -35,18 +35,18 @@ if [[ ! "${tag}" =~ '^v[[:digit:]]+(\.[[:digit:]]+)*(-(alpha|beta|rc)\.[[:digit:
 fi
 
 if (("${#title}" > 64)); then
-	printf $'\'%s\' is too long for a version title, which may contain at most 64 characters\n' "${(q)title}" >&2
+	printf $'\'%s\' is too long for a version title, which cannot contain more than 64 characters\n' "${(q)title}" >&2
 	exit 2
 fi
 
-if [[ "${title}" =~ [[:cntrl:]$'\t\n\r'] ]]; then
-	printf $'\'%s\' is not a valid version title, which may contain only visible characters or spaces\n' "${(q)title}" >&2
+if [[ "${title}" =~ [[:cntrl:]] ]]; then
+	printf $'\'%s\' is not a valid version title, which cannot contain control characters\n' "${(q)title}" >&2
 	exit 3
 fi
 
 # shellcheck disable=SC1027,SC1036,SC1072,SC1073
 if [[ "${title}" = (' '*|*' ') ]]; then
-	printf $'\'%s\' is not a valid version title, which may not begin or end with a space\n' "${(q)title}" >&2
+	printf $'\'%s\' is not a valid version title, which cannot begin or end with a space\n' "${(q)title}" >&2
 	exit 4
 fi
 
