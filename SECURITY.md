@@ -6,8 +6,9 @@ Security (& other) updates are released only for the current version.
 
 ## Vulnerability Reporting
 
-If you believe that you have discovered a security vulnerability, please report
-it via [Security and quality](https://github.com/mas-cli/mas/security).
+If you believe that you have discovered a vulnerability that has not [already
+been published](https://github.com/mas-cli/mas/security/advisories), please
+[report it](https://github.com/mas-cli/mas/security/advisories/new).
 
 Reports must include:
 
