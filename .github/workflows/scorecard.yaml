@@ -1,0 +1,55 @@
+#
+# .github/workflows/scorecard.yaml
+#
+---
+name: OSSF Scorecard
+on:
+  branch_protection_rule:
+    types: [created, deleted, edited]
+  pull_request:
+    branches:
+    - main
+  push:
+    branches: [main]
+  schedule:
+  - cron: 27 21 * * 4
+  workflow_dispatch: {}
+permissions: {}
+jobs:
+  analysis:
+    name: Scorecard analysis
+    runs-on: ubuntu-latest
+    if: github.event.repository.default_branch == github.ref_name || github.event_name == 'pull_request'
+    permissions:
+      contents: read
+      security-events: write
+      id-token: write
+    steps:
+    - name: Checkout code
+      env:
+        GIT_CONFIG_COUNT: 1
+        GIT_CONFIG_KEY_0: init.defaultBranch
+        GIT_CONFIG_VALUE_0: ${{github.event.repository.default_branch}}
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      with:
+        persist-credentials: false
+
+    - name: Run analysis
+      uses: ossf/scorecard-action@4eaacf0543bb3f2c246792bd56e8cdeffafb205a # v2.4.3
+      with:
+        results_file: results.sarif
+        results_format: sarif
+        repo_token: ${{github.token}}
+        publish_results: ${{github.event_name != 'pull_request'}}
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      with:
+        name: SARIF file
+        path: results.sarif
+        retention-days: 5
+
+    - name: Upload to code-scanning
+      uses: github/codeql-action/upload-sarif@e46ed2cbd01164d986452f91f178727624ae40d7 # v4.35.3
+      with:
+        sarif_file: results.sarif
