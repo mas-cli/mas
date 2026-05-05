@@ -67,7 +67,8 @@ Refer to [AGENTS.md](AGENTS.md) for comprehensive guidelines. Key highlights:
 
 ### YAML Guidelines
 
-- **Style:** 2 spaces indentation, single quotes for strings, unix newlines.
+- **Style:** 2-space indentation, unix newlines, quoted strings only when
+  necessary, single quotes for strings.
 - **Rules:** Forbid non-empty braces, require document start (`---`).
 
 ### Zsh Scripting

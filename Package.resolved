@@ -1,5 +1,5 @@
 {
-	"originHash" : "a431011731c9cc16971b9a9760bd3b53ff3c42043a189d0bc6d9079bc46387bd",
+	"originHash" : "2277ed9d2daa7a09520ff58214e4aed1453d61cb6bf1cdee8c13b6f71eb09a02",
 	"pins" : [
 		{
 			"identity" : "bigint",
@@ -87,8 +87,8 @@
 			"kind" : "remoteSourceControl",
 			"location" : "https://github.com/mas-cli/swift-json.git",
 			"state" : {
-				"revision" : "7f39f41878ed56acccc3634d917022737c82e030",
-				"version" : "3.3.0"
+				"revision" : "e9e1d77bbfe277d7e4e4557f0e26b35ac1e06337",
+				"version" : "3.3.1"
 			}
 		},
 		{
