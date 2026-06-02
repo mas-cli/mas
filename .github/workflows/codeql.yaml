@@ -41,7 +41,7 @@ jobs:
       run: Scripts/setup_workflow_repo
 
     - name: 🔩 Initialize CodeQL
-      uses: github/codeql-action/init@7211b7c8077ea37d8641b6271f6a365a22a5fbfa # v4.36.0
+      uses: github/codeql-action/init@87557b9c84dde89fdd9b10e88954ac2f4248e463 # v4.36.1
       with:
         languages: ${{matrix.language}}
         build-mode: ${{matrix.build-mode}}
@@ -55,6 +55,6 @@ jobs:
         Scripts/build codeql -c release
 
     - name: 🔍 Perform CodeQL analysis
-      uses: github/codeql-action/analyze@7211b7c8077ea37d8641b6271f6a365a22a5fbfa # v4.36.0
+      uses: github/codeql-action/analyze@87557b9c84dde89fdd9b10e88954ac2f4248e463 # v4.36.1
       with:
         category: /language:${{matrix.language}}
