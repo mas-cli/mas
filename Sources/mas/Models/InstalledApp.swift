@@ -5,12 +5,10 @@
 // Copyright © 2018 mas-cli. All rights reserved.
 //
 
-private import Atomics
 private import CoreFoundation
 private import Foundation
 internal import JSONAST
 private import JSONParsing
-private import ObjectiveC
 
 struct InstalledApp {
 	let adamID: ADAMID
@@ -31,29 +29,22 @@ struct InstalledApp {
 		adamID == 0
 	}
 
-	fileprivate init(for item: NSMetadataItem, withFullJSON: Bool) {
-		let valueByAttribute = item.values(
-			forAttributes: withFullJSON
-			? item.attributes + [NSMetadataItemPathKey] // swiftformat:disable:this indent
-			: [
-				"kMDItemAppStoreAdamID",
-				NSMetadataItemCFBundleIdentifierKey,
-				"_kMDItemDisplayNameWithExtensions",
-				NSMetadataItemPathKey,
-				NSMetadataItemVersionKey,
-			],
-		)
-		?? .init() // swiftformat:disable:this indent
-		adamID = valueByAttribute["kMDItemAppStoreAdamID"] as? ADAMID ?? 0
-		bundleID = .init(describing: valueByAttribute[NSMetadataItemCFBundleIdentifierKey] ?? "")
-		name = .init(describing: valueByAttribute["_kMDItemDisplayNameWithExtensions"] ?? "").removingSuffix(".app")
-		path = valueByAttribute[NSMetadataItemPathKey].map { pathAny in
-			let path = String(describing: pathAny)
-			return (try? URL(folderPath: path).resourceValues(forKeys: [.canonicalPathKey]))?.canonicalPath ?? path
-		}
-		?? "" // swiftformat:disable:this indent
-		version = .init(describing: valueByAttribute[NSMetadataItemVersionKey] ?? "")
+	init(adamID: ADAMID, bundleID: String, name: String, path: String, version: String) {
+		self.adamID = adamID
+		self.bundleID = bundleID
+		self.name = name
+		self.path = path
+		self.version = version
 
+		// Build the same attribute map the Spotlight-backed init produced, using the kMDItem* keys
+		// so `JSON.Key.normalized` maps them to adamID/bundleID/path/version; the tail (sort + inject
+		// "name") is identical to the original so `--json` output stays well-formed.
+		let valueByAttribute: [String: Any] = [
+			"kMDItemAppStoreAdamID": adamID,
+			NSMetadataItemCFBundleIdentifierKey: bundleID,
+			NSMetadataItemPathKey: path,
+			NSMetadataItemVersionKey: version,
+		]
 		jsonObjectRaw = .init(valueByAttribute.map { (.init(rawValue: $0.key), .init(for: $0.value)) })
 		let jsonObjectRaw = jsonObjectRaw
 		let name = name
@@ -282,85 +273,166 @@ private extension URL {
 }
 
 func installedApps(withFullJSON: Bool = false) async throws -> [InstalledApp] {
-	try await installedApps(matching: "kMDItemAppStoreAdamID LIKE '*'", withFullJSON: withFullJSON)
+	installedAppsFromReceipts()
 }
 
 func installedApps(withADAMID adamID: ADAMID, withFullJSON: Bool = false) async throws -> [InstalledApp] {
-	try await installedApps(matching: "kMDItemAppStoreAdamID = \(adamID)", withFullJSON: withFullJSON)
+	installedAppsFromReceipts().filter { $0.adamID == adamID }
 }
 
-@MainActor
-func installedApps(matching metadataQuery: String, withFullJSON: Bool = false) async throws -> [InstalledApp] {
-	var observer = (any NSObjectProtocol)?.none
-	defer {
-		if let observer {
-			NotificationCenter.default.removeObserver(observer)
+// macOS 26 (Tahoe) no longer indexes the kMDItemAppStore* Spotlight attributes (kMDItemAppStoreAdamID
+// is null even for installed apps), so the previous NSMetadataQuery-based discovery returned nothing.
+// Enumerate App Store apps from each app's Contents/_MASReceipt/receipt — written by the App Store at
+// install time — which is authoritative and Spotlight-independent.
+private func installedAppsFromReceipts() -> [InstalledApp] {
+	applicationsFolderURLs
+	.flatMap(\.installedAppURLs) // swiftformat:disable:this indent
+	.compactMap { appURL in
+		guard
+			let receipt = try? Data(
+				contentsOf: appURL.appending(path: "Contents/_MASReceipt/receipt", directoryHint: .notDirectory),
+			)
+		else {
+			return InstalledApp?.none
+		}
+
+		let attributes = receiptAttributes([UInt8](receipt))
+		return InstalledApp(
+			adamID: attributes[masReceiptAdamIDType].flatMap(adamID(fromReceiptValue:)) ?? 0,
+			bundleID: attributes[masReceiptBundleIDType].flatMap(string(fromReceiptValue:)) ?? "",
+			name: appURL.deletingPathExtension().lastPathComponent,
+			path: appURL.filePath,
+			version: attributes[masReceiptVersionType].flatMap(string(fromReceiptValue:)) ?? "",
+		)
+	}
+	.sorted(using: KeyPathComparator(\.name, comparator: .localizedStandard))
+}
+
+// ─── Mac App Store receipt (DER PKCS#7) attribute reader ───
+//
+// The receipt's eContent is a SET of attributes, each:
+//   SEQUENCE { type INTEGER, version INTEGER, value OCTET STRING }
+// where the value wraps a single DER element:
+//   type 1 (adamID) → INTEGER, type 2 (bundleID) → UTF8String, type 3 (version) → UTF8String.
+// See: https://developer.apple.com/library/archive/releasenotes/General/ValidateAppStoreReceipt
+
+private let masReceiptAdamIDType = 1
+private let masReceiptBundleIDType = 2
+private let masReceiptVersionType = 3
+
+// Walk the DER tree collecting receipt attributes as `type -> raw OCTET STRING value bytes`.
+private func receiptAttributes(_ bytes: [UInt8]) -> [Int: [UInt8]] {
+	var attributes: [Int: [UInt8]] = [:]
+
+	func attribute(_ sequence: [UInt8]) -> (type: Int, value: [UInt8])? {
+		var index = 0
+		guard let typeElement = DER.element(sequence, &index), typeElement.tag == DER.integer else {
+			return nil
+		}
+		guard let versionElement = DER.element(sequence, &index), versionElement.tag == DER.integer else {
+			return nil
+		}
+		guard let valueElement = DER.element(sequence, &index), valueElement.tag == DER.octetString else {
+			return nil
+		}
+		guard index == sequence.count else {
+			return nil // exactly three elements
+		}
+		_ = versionElement
+		return (Int(DER.unsignedInteger(typeElement.content)), valueElement.content)
+	}
+
+	func walk(_ bytes: [UInt8]) {
+		var index = 0
+		while index < bytes.count {
+			let start = index
+			guard let node = DER.element(bytes, &index) else {
+				break
+			}
+			if node.tag == DER.sequence, let attribute = attribute(node.content) {
+				attributes[attribute.type] = attribute.value
+			}
+			if node.tag & DER.constructed != 0 {
+				walk(node.content) // descend into SEQUENCE / SET / context-tagged nodes
+			} else if node.tag == DER.octetString {
+				walk(node.content) // the eContent payload is wrapped in an OCTET STRING
+			}
+			if index <= start {
+				break
+			}
 		}
 	}
 
-	let query = NSMetadataQuery()
-	query.predicate = .init(format: metadataQuery)
-	query.searchScopes = applicationsFolderURLs
+	walk(bytes)
+	return attributes
+}
 
-	return try await withCheckedThrowingContinuation { continuation in
-		let alreadyResumed = ManagedAtomic(false)
-		observer = NotificationCenter.default.addObserver(
-			forName: .NSMetadataQueryDidFinishGathering,
-			object: query,
-			queue: nil,
-		) { notification in
-			guard !alreadyResumed.exchange(true, ordering: .acquiringAndReleasing) else {
-				return
-			}
-			guard let query = notification.object as? NSMetadataQuery else {
-				continuation.resume(
-					throwing: MASError.error(
-						"Notification Center returned a \(type(of: notification.object)) instead of a NSMetadataQuery",
-					),
-				)
-				return
-			}
+private func adamID(fromReceiptValue value: [UInt8]) -> ADAMID? {
+	var index = 0
+	guard let inner = DER.element(value, &index), inner.tag == DER.integer else {
+		return nil
+	}
+	return DER.unsignedInteger(inner.content)
+}
 
-			query.stop()
+private func string(fromReceiptValue value: [UInt8]) -> String? {
+	var index = 0
+	guard
+		let inner = DER.element(value, &index),
+		inner.tag == DER.utf8String || inner.tag == DER.ia5String || inner.tag == DER.printableString
+	else {
+		return nil
+	}
+	return String(bytes: inner.content, encoding: .utf8)
+}
 
-			let installedApps = query.results
-				.compactMap { ($0 as? NSMetadataItem).map { InstalledApp(for: $0, withFullJSON: withFullJSON) } }
-				.sorted(using: KeyPathComparator(\.name, comparator: .localizedStandard))
+// Minimal DER reader supporting definite-length encodings (which is all DER uses).
+private enum DER {
+	static let integer: UInt8 = 0x02
+	static let octetString: UInt8 = 0x04
+	static let utf8String: UInt8 = 0x0C
+	static let printableString: UInt8 = 0x13
+	static let ia5String: UInt8 = 0x16
+	static let sequence: UInt8 = 0x30
+	static let constructed: UInt8 = 0x20
 
-			if !["1", "true", "yes"].contains(ProcessInfo.processInfo.environment["MAS_NO_AUTO_INDEX"]?.lowercased()) {
-				let installedAppPathSet = Set(installedApps.map(\.path))
-				for installedAppURL in applicationsFolderURLs.flatMap(\.installedAppURLs)
-				where !installedAppPathSet.contains(installedAppURL.filePath) { // swiftformat:disable:this indent
-					MAS.printer.warning(
-						"Found a likely App Store app that is not indexed in Spotlight in ",
-						installedAppURL.filePath,
-						"""
-
-
-						Indexing now; will likely complete sometime after mas exits
-
-						Disable auto-indexing via: export MAS_NO_AUTO_INDEX=1
-						""",
-						separator: "",
-					)
-					Task {
-						do {
-							_ = try await run(
-								"/usr/bin/mdimport",
-								installedAppURL.filePath,
-								errorMessage: "Failed to index the Spotlight data for \(installedAppURL.filePath)",
-							)
-						} catch {
-							MAS.printer.error(error: error)
-						}
-					}
-				}
-			}
-
-			continuation.resume(returning: installedApps)
+	// Parse one tag-length-value element starting at `index`, advancing `index` past it.
+	static func element(_ bytes: [UInt8], _ index: inout Int) -> (tag: UInt8, content: [UInt8])? {
+		guard index < bytes.count else {
+			return nil
 		}
+		let tag = bytes[index]
+		index += 1
+		guard index < bytes.count else {
+			return nil
+		}
+		var length = Int(bytes[index])
+		index += 1
+		if length & 0x80 != 0 {
+			let byteCount = length & 0x7F
+			guard byteCount >= 1, byteCount <= 4, index + byteCount <= bytes.count else {
+				return nil
+			}
+			length = 0
+			for _ in 0 ..< byteCount {
+				length = (length << 8) | Int(bytes[index])
+				index += 1
+			}
+		}
+		guard length >= 0, index + length <= bytes.count else {
+			return nil
+		}
+		let content = Array(bytes[index ..< (index + length)])
+		index += length
+		return (tag, content)
+	}
 
-		query.start()
+	static func unsignedInteger(_ bytes: [UInt8]) -> UInt64 {
+		var value: UInt64 = 0
+		for byte in bytes {
+			value = (value << 8) | UInt64(byte)
+		}
+		return value
 	}
 }
 
