@@ -36,7 +36,5 @@ final class Lazy<Value: Sendable>: Sendable {
 		self.init(initialize)
 	}
 
-	deinit {
-		// Empty
-	}
+	deinit {}
 }

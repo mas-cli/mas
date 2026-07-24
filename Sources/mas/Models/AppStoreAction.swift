@@ -431,18 +431,14 @@ private final class DownloadQueueObserver: NSObject, CKDownloadQueueObserver {
 		self.continuation = continuation
 	}
 
-	deinit {
-		// Empty
-	}
+	deinit {}
 
 	@MainActor
 	func start() -> String {
 		CKDownloadQueue.shared().add(self)
 	}
 
-	func downloadQueue(_: CKDownloadQueue, changedWithAddition _: SSDownload) {
-		// Empty
-	}
+	func downloadQueue(_: CKDownloadQueue, changedWithAddition _: SSDownload) {}
 
 	func downloadQueue(_ queue: CKDownloadQueue, statusChangedFor download: SSDownload) {
 		guard
