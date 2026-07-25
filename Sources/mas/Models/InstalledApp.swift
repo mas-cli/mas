@@ -299,8 +299,7 @@ func installedApps(
 			}
 		}
 	}
-	// Remove TestFlight apps from global fetch results
-	return appIDs.isEmpty ? installedApps.filter { $0.adamID != 0 } : installedApps
+	return appIDs.isEmpty ? installedApps.filter { $0.adamID != 0 } : installedApps // Remove TestFlight apps
 }
 
 func installedApps(matching appIDs: [AppID], withFullJSON: Bool) async -> [InstalledApp] {
