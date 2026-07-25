@@ -7,6 +7,7 @@
 
 internal import ArgumentParser
 private import Foundation
+private import os
 
 struct OutdatedAppsOptionGroup: ParsableArguments {
 	@Flag
@@ -46,6 +47,8 @@ struct OutdatedAppsOptionGroup: ParsableArguments {
 						)
 					}
 					== false ? nil : catalogApp
+			} catch is CancellationError {
+				return nil
 			} catch {
 				if case MASError.unknownAppID = error {
 					if shouldWarnIfUnknownApp {
@@ -62,27 +65,23 @@ struct OutdatedAppsOptionGroup: ParsableArguments {
 			accuracy == .accurate
 				? { @Sendable installedApp in
 					if shouldCheckMinimumOSVersion, await installableCatalogApp(from: installedApp) == nil {
-						nil
-					} else {
-						await AsyncStream { continuation in
-							let task = Task {
-								do {
-									try await AppStore.install.app(withADAMID: installedApp.adamID) { appStoreVersion, shouldOutput in
-										if shouldOutput, let appStoreVersion, installedApp.version != appStoreVersion {
-											continuation.yield(.init(installedApp: installedApp, newVersion: appStoreVersion))
-											continuation.finish()
-										}
-										return true
-									}
-								} catch {
-									MAS.printer.error(error: error)
-								}
-								continuation.finish()
-							}
-							continuation.onTermination = { _ in task.cancel() }
-						}
-						.first { _ in true }
+						return nil
 					}
+
+					let newVersionGate = OSAllocatedUnfairLock(initialState: String?.none)
+					do {
+						try await AppStore.install.app(withADAMID: installedApp.adamID) { appStoreVersion, shouldOutput in
+							if shouldOutput, let appStoreVersion, installedApp.version != appStoreVersion {
+								newVersionGate.withLock { $0 = appStoreVersion }
+							}
+							return true
+						}
+					} catch is CancellationError {
+						// Fallthrough
+					} catch {
+						MAS.printer.error(error: error)
+					}
+					return newVersionGate.withLock(\.self).map { .init(installedApp: installedApp, newVersion: $0) }
 				}
 				: { @Sendable installedApp in
 					await installableCatalogApp(from: installedApp).flatMap { catalogApp in

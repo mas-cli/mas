@@ -47,12 +47,13 @@ enum AppStoreAction: String {
 	}
 
 	func apps(withADAMIDs adamIDs: [ADAMID], force: Bool) async {
-		let installedApps = await installedApps(withAppIDs: adamIDs.map(AppID.adamID), withFullJSON: false) { _ in }
+		let installedAppByADAMID = await installedApps(withAppIDs: adamIDs.map(AppID.adamID), withFullJSON: false) { _ in }
+			.reduce(into: [ADAMID: InstalledApp]()) { $0[$1.adamID] = $1 }
 		await apps(
 			withADAMIDs: force
 				? adamIDs
 				: adamIDs.filter { adamID in
-					guard let installedApp = installedApps.first(where: { $0.adamID == adamID }) else {
+					guard let installedApp = installedAppByADAMID[adamID] else {
 						return true
 					}
 
@@ -85,7 +86,29 @@ enum AppStoreAction: String {
 			Task { @MainActor in CKDownloadQueue.shared().removeObserver(observerUUID) }
 		}
 		defer { eventContinuation.finish() }
-		try await performPurchase(adamID: adamID)
+		try await withCheckedThrowingContinuation { continuation in
+			let purchase = SSPurchase(
+				buyParameters: """
+					productType=C&price=0&pg=default&appExtVrsId=0&pricingParameters=\
+					\(self == .get ? "STDQ&macappinstalledconfirmed=1" : "STDRDL")&salableAdamId=\(adamID)
+					""",
+			)
+			purchase.isRedownload = self != .get // Possibly unnecessary
+			purchase.isUpdate = self == .update // Possibly unnecessary
+			purchase.itemIdentifier = adamID
+			let downloadMetadata = SSDownloadMetadata(kind: "software")
+			downloadMetadata.itemIdentifier = adamID
+			purchase.downloadMetadata = downloadMetadata
+			CKPurchaseController.shared().perform(purchase, withOptions: 0) { _, _, error, response in
+				if let error {
+					continuation.resume(throwing: error)
+				} else if response?.downloads?.isEmpty != false {
+					continuation.resume(throwing: MASError.error("Failed to initiate download for ADAM ID \(adamID)"))
+				} else {
+					continuation.resume()
+				}
+			}
+		} as Void
 		let downloadFolderURL = URL(folderPath: "\(CKDownloadDirectory(nil))/\(adamID)")
 		var pkgHardLinkURL = URL?.none
 		defer { deleteTempFolder(containing: pkgHardLinkURL, fileType: "pkg") }
@@ -174,114 +197,83 @@ enum AppStoreAction: String {
 				prevPhaseType = snapshot.activePhaseType
 			case let .removed(snapshot):
 				MAS.printer.clearCurrentLine(of: .standardOutput)
-				do {
-					let appFolderURL: URL?
-					if let error = snapshot.error {
-						guard error is Ignorable else {
-							throw error
-						}
-
-						MAS.printer.notice(PhaseType.downloaded, snapshot.appNameAndVersion)
-						MAS.printer.notice(performing.uppercasingFirst, snapshot.appNameAndVersion)
-						MAS.printer.info(rawValue.uppercasingFirst, "progress cannot be displayed", terminator: "")
-						appFolderURL = try await install(
-							appNameAndVersion: snapshot.appNameAndVersion,
-							pkgHardLinkURL: pkgHardLinkURL,
-							receiptHardLinkURL: receiptHardLinkURL,
-						)
-						MAS.printer.clearCurrentLine(of: .standardOutput)
-					} else {
-						guard !snapshot.isFailed else {
-							throw MASError.error("Failed to download \(snapshot.appNameAndVersion)")
-						}
-						guard !shouldCancel(snapshot.version, false) else {
-							return
-						}
-						guard !snapshot.isCancelled else {
-							throw MASError.error("Download cancelled for \(snapshot.appNameAndVersion)")
-						}
-
-						appFolderURL = snapshot.appFolderPath.map { .init(folderPath: $0) }
+				let appFolderURL: URL?
+				if let error = snapshot.error {
+					guard error is Ignorable else {
+						throw error
 					}
 
-					MAS.printer.notice(
-						[performed.uppercasingFirst, snapshot.appNameAndVersion]
-							+ (appFolderURL.map { ["in", $0.filePath] } ?? .init()),
+					MAS.printer.notice(PhaseType.downloaded, snapshot.appNameAndVersion)
+					MAS.printer.notice(performing.uppercasingFirst, snapshot.appNameAndVersion)
+					MAS.printer.info(rawValue.uppercasingFirst, "progress cannot be displayed", terminator: "")
+					appFolderURL = try await install(
+						appNameAndVersion: snapshot.appNameAndVersion,
+						pkgHardLinkURL: pkgHardLinkURL,
+						receiptHardLinkURL: receiptHardLinkURL,
 					)
+					MAS.printer.clearCurrentLine(of: .standardOutput)
+				} else {
+					guard !snapshot.isFailed else {
+						throw MASError.error("Failed to download \(snapshot.appNameAndVersion)")
+					}
+					guard !shouldCancel(snapshot.version, false) else {
+						return
+					}
+					guard !snapshot.isCancelled else {
+						throw MASError.error("Download cancelled for \(snapshot.appNameAndVersion)")
+					}
 
-					if let appFolderURL {
-						let fileManager = FileManager.default
-						if
-							try applicationsFolderURLs.contains(
-								where: { applicationsFolderURL in
-									var relationship = FileManager.URLRelationship.other
-									try unsafe fileManager.getRelationship(
-										&relationship,
-										ofDirectoryAt: applicationsFolderURL,
-										toItemAt: appFolderURL,
-									)
-									return relationship == .contains
-								},
-							)
-						{
-							let appFolderPath = appFolderURL.filePath
-							let installedApps = await installedApps(matching: [.adamID(snapshot.adamID)], withFullJSON: false)
-								.filter { $0.path != appFolderPath }
-							if !installedApps.isEmpty {
-								MAS.printer.warning(
-									"Multiple installations of ",
-									snapshot.name ?? "unknown app",
-									" exist in the applications folders\n\n",
-									performed.uppercasingFirst,
-									":\n",
-									appFolderPath,
-									"\n\nOthers:\n",
-									installedApps.map(\.path).sorted(using: .localizedStandard).joined(separator: "\n"),
-									separator: "",
+					appFolderURL = snapshot.appFolderPath.map { .init(folderPath: $0) }
+				}
+
+				MAS.printer.notice(
+					[performed.uppercasingFirst, snapshot.appNameAndVersion]
+						+ (appFolderURL.map { ["in", $0.filePath] } ?? .init()),
+				)
+
+				if let appFolderURL {
+					let fileManager = FileManager.default
+					if
+						try applicationsFolderURLs.contains(
+							where: { applicationsFolderURL in
+								var relationship = FileManager.URLRelationship.other
+								try unsafe fileManager.getRelationship(
+									&relationship,
+									ofDirectoryAt: applicationsFolderURL,
+									toItemAt: appFolderURL,
 								)
-							}
-						} else {
+								return relationship == .contains
+							},
+						)
+					{
+						let appFolderPath = appFolderURL.filePath
+						let installedApps = await installedApps(matching: [.adamID(snapshot.adamID)], withFullJSON: false)
+							.filter { $0.path != appFolderPath }
+						if !installedApps.isEmpty {
 							MAS.printer.warning(
+								"Multiple installations of ",
+								snapshot.name ?? "unknown app",
+								" exist in the applications folders\n\n",
 								performed.uppercasingFirst,
-								snapshot.appNameAndVersion,
-								"outside of the applications folders, in",
-								appFolderURL.filePath,
+								":\n",
+								appFolderPath,
+								"\n\nOthers:\n",
+								installedApps.map(\.path).sorted(using: .localizedStandard).joined(separator: "\n"),
+								separator: "",
 							)
 						}
+					} else {
+						MAS.printer.warning(
+							performed.uppercasingFirst,
+							snapshot.appNameAndVersion,
+							"outside of the applications folders, in",
+							appFolderURL.filePath,
+						)
 					}
-					return
-				} catch {
-					throw error
 				}
+				return
 			}
 		}
-	}
-
-	@MainActor
-	private func performPurchase(adamID: ADAMID) async throws {
-		try await withCheckedThrowingContinuation { continuation in
-			let purchase = SSPurchase(
-				buyParameters: """
-					productType=C&price=0&pg=default&appExtVrsId=0&pricingParameters=\
-					\(self == .get ? "STDQ&macappinstalledconfirmed=1" : "STDRDL")&salableAdamId=\(adamID)
-					""",
-			)
-			purchase.isRedownload = self != .get // Possibly unnecessary
-			purchase.isUpdate = self == .update // Possibly unnecessary
-			purchase.itemIdentifier = adamID
-			let downloadMetadata = SSDownloadMetadata(kind: "software")
-			downloadMetadata.itemIdentifier = adamID
-			purchase.downloadMetadata = downloadMetadata
-			CKPurchaseController.shared().perform(purchase, withOptions: 0) { _, _, error, response in
-				if let error {
-					continuation.resume(throwing: error)
-				} else if response?.downloads?.isEmpty != false {
-					continuation.resume(throwing: MASError.error("Failed to initiate download for ADAM ID \(adamID)"))
-				} else {
-					continuation.resume()
-				}
-			}
-		} as Void
 	}
 
 	private func install(
@@ -301,7 +293,7 @@ enum AppStoreAction: String {
 				.terminationStatus
 				.isSuccess != true
 		{
-			MAS.printer.info([])
+			MAS.printer.info()
 		}
 		let (_, standardErrorString) = try await run(
 			.path("/usr/bin/sudo"),
@@ -325,7 +317,7 @@ enum AppStoreAction: String {
 				cause: standardErrorString,
 			)
 		}
-		guard let appFolderURL = URL(string: .init(appFolderURLSubstring)) else {
+		guard let appFolderURL = URL(string: .init(appFolderURLSubstring)), appFolderURL.isFileURL else {
 			throw MASError.error(
 				"Failed to parse app folder URL for \(appNameAndVersion) from \(appFolderURLSubstring)",
 				cause: standardErrorString,
@@ -335,64 +327,18 @@ enum AppStoreAction: String {
 		let receiptURL = appFolderURL.appending(path: "Contents/_MASReceipt/receipt", directoryHint: .notDirectory)
 		let receiptPath = receiptURL.filePath
 		let receiptHardLinkPath = receiptHardLinkURL.filePath
-		do {
-			let receiptFolderPath = receiptURL.deletingLastPathComponent().filePath
-			_ = try await run(
-				.path("/usr/bin/sudo"),
-				"/bin/mkdir",
-				"-p",
-				receiptFolderPath,
-				errorMessage: "Failed to create receipt folder \(receiptFolderPath)",
-			)
-			_ = try await run(
-				.path("/usr/bin/sudo"),
-				"/bin/chmod",
-				"755",
-				receiptFolderPath,
-				errorMessage: "Failed to set permissions of receipt folder \(receiptFolderPath)",
-			)
-			_ = try await run(
-				.path("/usr/bin/sudo"),
-				"/usr/sbin/chown",
-				"0:0",
-				receiptFolderPath,
-				errorMessage: "Failed to set owner of receipt folder \(receiptFolderPath)",
-			)
-			_ = try await run(
-				.path("/usr/bin/sudo"),
-				"/bin/rm",
-				"-f",
-				receiptPath,
-				errorMessage: "Failed to remove existing receipt \(receiptPath)",
-			)
-			_ = try await run(
-				.path("/usr/bin/sudo"),
-				"/bin/cp",
-				"-c",
-				receiptHardLinkPath,
-				receiptPath,
-				errorMessage: "Failed to copy receipt to \(receiptPath)",
-			)
-			_ = try await run(
-				.path("/usr/bin/sudo"),
-				"/usr/sbin/chown",
-				"0:0",
-				receiptPath,
-				errorMessage: "Failed to set owner of receipt \(receiptPath)",
-			)
-			_ = try await run(
-				.path("/usr/bin/sudo"),
-				"/bin/chmod",
-				"644",
-				receiptPath,
-				errorMessage: "Failed to set permissions of receipt \(receiptPath)",
-			)
-		} catch {
-			throw MASError.error(
+		_ = try await run(
+			.path("/usr/bin/sudo"),
+			"/bin/sh",
+			"-c",
+			#"/bin/mkdir -pm 755 "$1" && /bin/cp -cf "$2" "$3" && /usr/sbin/chown 0:0 "$3" && /bin/chmod 644 "$3""#,
+			"--",
+			receiptURL.deletingLastPathComponent().filePath,
+			receiptHardLinkPath,
+			receiptPath,
+			errorMessage: // swiftformat:disable:next indent
 				"Failed to copy receipt for \(appNameAndVersion) from \(receiptHardLinkPath.quoted) to \(receiptPath.quoted)",
-				cause: error,
-			)
-		}
+		)
 
 		_ = try await run(
 			.path("/usr/bin/mdimport"),
@@ -431,18 +377,14 @@ private final class DownloadQueueObserver: NSObject, CKDownloadQueueObserver {
 		self.continuation = continuation
 	}
 
-	deinit {
-		// Empty
-	}
+	deinit {}
 
 	@MainActor
 	func start() -> String {
 		CKDownloadQueue.shared().add(self)
 	}
 
-	func downloadQueue(_: CKDownloadQueue, changedWithAddition _: SSDownload) {
-		// Empty
-	}
+	func downloadQueue(_: CKDownloadQueue, changedWithAddition _: SSDownload) {}
 
 	func downloadQueue(_ queue: CKDownloadQueue, statusChangedFor download: SSDownload) {
 		guard
@@ -599,4 +541,4 @@ private func deleteTempFolder(containing url: URL?, fileType: String) {
 	}
 }
 
-private let appFolderURLRegex = /PackageKit: Registered bundle (\S+) for uid 0/ // swiftlint:disable:this file_length
+private let appFolderURLRegex = /PackageKit: Registered bundle (\S+) for uid 0/
