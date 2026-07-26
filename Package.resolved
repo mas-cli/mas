@@ -1,5 +1,5 @@
 {
-	"originHash" : "15b8eb806c3bfec0acb2b7b38dce2a04d5492e25c6d436feab71a0e63d3bbaad",
+	"originHash" : "1258f65541610f93b99036489fb6f1ff4c4fa75f237e9462d1c5185364a3a9f4",
 	"pins" : [
 		{
 			"identity" : "bigint",
@@ -24,8 +24,8 @@
 			"kind" : "remoteSourceControl",
 			"location" : "https://github.com/rarestype/gram",
 			"state" : {
-				"revision" : "d9276e23523174cd04213e945f146dd9a553a571",
-				"version" : "2.0.0"
+				"revision" : "1ac5c79ea3a078b5d84e69664e0a3c9d92ec23b5",
+				"version" : "2.1.0"
 			}
 		},
 		{
@@ -42,8 +42,8 @@
 			"kind" : "remoteSourceControl",
 			"location" : "https://github.com/KittyMac/Sextant",
 			"state" : {
-				"revision" : "61b2f49b249353a3e83c2df9b56b6b9542e8a2bb",
-				"version" : "0.4.40"
+				"revision" : "960ac266012fecd98f93dcf64b0dd4fdb3753f26",
+				"version" : "0.4.41"
 			}
 		},
 		{
@@ -51,8 +51,8 @@
 			"kind" : "remoteSourceControl",
 			"location" : "https://github.com/KittyMac/Spanker",
 			"state" : {
-				"revision" : "13789974bcb73c72995c9927a217c0c07817d42c",
-				"version" : "0.2.55"
+				"revision" : "7177446066ac3b106e16184420ff2a1aa1f6df96",
+				"version" : "0.2.60"
 			}
 		},
 		{
