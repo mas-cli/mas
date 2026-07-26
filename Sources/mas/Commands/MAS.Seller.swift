@@ -28,15 +28,11 @@ extension MAS {
 		}
 
 		func run(catalogApps: [CatalogApp]) async {
-			await catalogApps.compactMap { catalogApp in
+			await catalogApps.forEach(attemptTo: "open") { catalogApp in
 				guard let sellerURLString = catalogApp.sellerURLString else {
 					printer.error("Failed to find seller app web page for ADAM ID", catalogApp.adamID)
-					return String?.none
+					return
 				}
-
-				return sellerURLString
-			}
-			.forEach(attemptTo: "open") { sellerURLString in
 				guard let url = URL(string: sellerURLString) else {
 					throw MASError.invalidURL(sellerURLString)
 				}

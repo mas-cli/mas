@@ -27,9 +27,9 @@ extension MAS {
 		}
 
 		func run(catalogApps: [CatalogApp]) async {
-			await catalogApps.map(\.appStorePageURLString).forEach(attemptTo: "open") { appStorePageURLString in
-				guard let url = URL(string: appStorePageURLString) else {
-					throw MASError.invalidURL(appStorePageURLString)
+			await catalogApps.forEach(attemptTo: "open") { catalogApp in
+				guard let url = URL(string: catalogApp.appStorePageURLString) else {
+					throw MASError.invalidURL(catalogApp.appStorePageURLString)
 				}
 
 				_ = try await url.open()
