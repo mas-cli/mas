@@ -8,12 +8,6 @@
 internal import Foundation
 internal import Subprocess
 
-private extension String {
-	func ifNotEmptyPrepend(_ prefix: String) -> Self {
-		isEmpty ? self : prefix + self
-	}
-}
-
 func run<Encoding: Unicode.Encoding>(
 	_ executable: Executable,
 	_ args: String...,
