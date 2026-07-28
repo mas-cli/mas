@@ -11,7 +11,7 @@ struct InstalledAppsOptionGroup: ParsableArguments {
 	@OptionGroup
 	private var forceBundleIDOptionGroup: ForceBundleIDOptionGroup // swiftformat:disable:this organizeDeclarations
 	@Argument(help: .init("App ID", valueName: "app-id"))
-	var appIDStrings = [String]()
+	private(set) var appIDStrings = [String]()
 
 	var appIDs: [AppID] {
 		appIDStrings.map { .init(from: $0, forceBundleID: forceBundleIDOptionGroup.forceBundleID) }

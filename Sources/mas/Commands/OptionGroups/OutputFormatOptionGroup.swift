@@ -11,7 +11,7 @@ private import Foundation
 
 struct OutputFormatOptionGroup: ParsableArguments {
 	@Flag(name: .customLong("json"), help: "Output JSON")
-	var shouldOutputJSON = false
+	private(set) var shouldOutputJSON = false
 
 	func info(_ items: Any..., separator: String = " ", terminator: String = "\n") {
 		var stat = stat()
