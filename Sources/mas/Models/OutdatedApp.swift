@@ -16,15 +16,20 @@ struct OutdatedApp {
 	init(installedApp: InstalledApp, newVersion: String) {
 		self.installedApp = installedApp
 		self.newVersion = newVersion
-		var jsonObjectInstalled = installedApp.jsonObject
-		jsonObjectInstalled.fields.insert(
-			(newVersionKey, .string(newVersion)),
-			at: jsonObjectInstalled.fields
-				.map(\.key.rawValue)
-				.lowerBound(of: newVersionKey.rawValue, using: NumericStringComparator.forward),
+		lazyJSON = .init(
+			.init(
+				describing: {
+					var jsonObject = installedApp.jsonObject
+					jsonObject.fields.insert(
+						(newVersionKey, .string(newVersion)),
+						at: jsonObject.fields
+							.map(\.key.rawValue)
+							.lowerBound(of: newVersionKey.rawValue, using: NumericStringComparator.forward),
+					)
+					return jsonObject
+				}(),
+			),
 		)
-		let jsonObject = jsonObjectInstalled
-		lazyJSON = .init(.init(describing: jsonObject))
 	}
 }
 
