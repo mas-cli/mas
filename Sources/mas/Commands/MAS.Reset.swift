@@ -30,9 +30,9 @@ extension MAS {
 		func run() {
 			for bundleID in ["com.apple.dock", "com.apple.storeuid"] {
 				for app in NSRunningApplication.runningApplications(withBundleIdentifier: bundleID) where !app.terminate() {
-					printer.warning("Failed to terminate app with bundle ID:", bundleID)
+					printer.warning("Failed to terminate app with bundle ID", bundleID)
 					if !app.forceTerminate() {
-						printer.error("Failed to force terminate app with bundle ID:", bundleID)
+						printer.error("Failed to force terminate app with bundle ID", bundleID)
 					}
 				}
 			}
