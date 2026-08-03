@@ -28,20 +28,36 @@ struct InstalledApp {
 		lazyJSONObject.value
 	}
 
-	fileprivate init(for valueByAttribute: [String: Any]) {
-		adamID = valueByAttribute["kMDItemAppStoreAdamID"] as? ADAMID ?? 0
-		bundleID = .init(describing: valueByAttribute[NSMetadataItemCFBundleIdentifierKey] ?? "")
-		name = .init(describing: valueByAttribute["_kMDItemDisplayNameWithExtensions"] ?? "").removingSuffix(".app")
-		path = valueByAttribute[NSMetadataItemPathKey].map { pathAny in
-			let path = String(describing: pathAny)
-			return (try? URL(folderPath: path).resourceValues(forKeys: [.canonicalPathKey]))?.canonicalPath ?? path
-		}
-			?? ""
-		version = .init(describing: valueByAttribute[NSMetadataItemVersionKey] ?? "")
+	init(for valueByAttribute: [String: Any]) {
+		self.init(
+			adamID: valueByAttribute["kMDItemAppStoreAdamID"] as? ADAMID ?? 0,
+			bundleID: .init(describing: valueByAttribute[NSMetadataItemCFBundleIdentifierKey] ?? ""),
+			name: .init(describing: valueByAttribute["_kMDItemDisplayNameWithExtensions"] ?? "").removingSuffix(".app"),
+			path: valueByAttribute[NSMetadataItemPathKey].map { pathAny in
+				let path = String(describing: pathAny)
+				return (try? URL(folderPath: path).resourceValues(forKeys: [.canonicalPathKey]))?.canonicalPath ?? path
+			}
+				?? "",
+			version: .init(describing: valueByAttribute[NSMetadataItemVersionKey] ?? ""),
+			jsonObjectRaw: .init(valueByAttribute.map { (.init(rawValue: $0.key), .init(for: $0.value)) }),
+		)
+	}
 
-		jsonObjectRaw = .init(valueByAttribute.map { (.init(rawValue: $0.key), .init(for: $0.value)) })
-		let jsonObjectRaw = jsonObjectRaw
-		let name = name
+	private init(
+		adamID: ADAMID,
+		bundleID: String,
+		name: String,
+		path: String,
+		version: String,
+		jsonObjectRaw: JSON.Object,
+	) {
+		self.adamID = adamID
+		self.bundleID = bundleID
+		self.name = name
+		self.path = path
+		self.version = version
+
+		self.jsonObjectRaw = jsonObjectRaw
 		lazyJSONObject = .init(
 			.init(
 				(jsonObjectRaw.fields.map { ($0.normalized, $1) } + [("name", .string(name))])
@@ -60,11 +76,40 @@ struct InstalledApp {
 			self.bundleID == bundleID
 		}
 	}
+
+	fileprivate func named(_ name: String) -> Self {
+		.init(adamID: adamID, bundleID: bundleID, name: name, path: path, version: version, jsonObjectRaw: jsonObjectRaw)
+	}
 }
 
 extension InstalledApp: CustomStringConvertible {
 	var description: String {
 		lazyJSON.value
+	}
+}
+
+extension [InstalledApp] {
+	/// Replaces each app's Spotlight-derived name with its exact App Store name.
+	///
+	/// Neither Spotlight nor `Info.plist` records the App Store name, so both
+	/// only approximate it; e.g., "WFMU Radio" (324175340) is named "WFMU" in
+	/// both. Apps that the App Store does not know about, such as TestFlight
+	/// apps, keep their approximated names.
+	var withCatalogNames: Self {
+		get async {
+			let lookupAppFromAppID = Environment.current.lookupAppFromAppID
+			return await concurrentMap { installedApp in
+				guard
+					installedApp.adamID != 0,
+					let catalogName = try? await lookupAppFromAppID(.adamID(installedApp.adamID)).name,
+					!catalogName.isEmpty
+				else {
+					return installedApp
+				}
+
+				return installedApp.named(catalogName)
+			}
+		}
 	}
 }
 
@@ -304,6 +349,7 @@ func installedApps(
 
 func installedApps(matching appIDs: [AppID], withFullJSON: Bool) async -> [InstalledApp] {
 	await unsortedInstalledApps(matching: appIDs, withFullJSON: withFullJSON)
+		.withCatalogNames
 		.sorted(using: KeyPathComparator(\.name, comparator: .localizedStandard))
 }
 
