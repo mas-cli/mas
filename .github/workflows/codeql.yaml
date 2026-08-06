@@ -60,6 +60,6 @@ jobs:
         Scripts/build codeql -c release
 
     - name: 🔍 Perform CodeQL analysis
-      uses: github/codeql-action/analyze@f205ea1c3313d32999d8d6a48b4f6530d4437b38 # v4.37.4
+      uses: github/codeql-action/analyze@d1ba80a13dd99fba24a470575428917156a28b43 # v4.37.5
       with:
         category: /language:${{matrix.language}}
