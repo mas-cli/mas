@@ -24,7 +24,8 @@ Read it before making repository changes.
 
 - `main` is the trunk
 - Branch topics from `main`
-- Before committing (to preserve tokens, agents should skip steps 2 & 3):
+- Before committing (to preserve tokens, agents should skip all of the following
+  steps unless explicitly directed to perform them):
   1. Add or edit tests for non-trivial changes
   2. Repeatedly run `Scripts/format` until no modifications are made
   3. Repeatedly run `Scripts/lint` & fix all violations until no violations are
@@ -36,11 +37,35 @@ Read it before making repository changes.
 
 ## Content Formatting
 
-- **Newlines:** UNIX (i.e. `\n`)
-- **Indentation:** Tabs (width: 2)
-- **Max line length:** 120 characters (tabs count as 2 characters)
+- **Newlines:** Unix (i.e. `\n`)
+- **Indentation:** Tabs (2 characters wide) for all files unless otherwise
+  specified; 2 spaces for YAML; 1 space for Markdown
+- **Max line length:** 120 characters for all files unless otherwise specified
+  (tabs count as 2 characters); 80 for Markdown; unlimited for header, JSON &
+  swiftformat
 - **Unnecessary trailing whitespace:** Remove
 - **File ends:** Single newline
+- **Quoting:** Quote strings only when necessary, preferring the most literal
+  format that works over more interpreted formats; if multiple quote syntaxes
+  are functionally equivalent, prefer the visually lightest, e.g., prefer single
+  quotes over double quotes if they are functionally equivalent
+- **Text**: In documentation, comments, strings, etc.:
+  - **Commas:** Use Oxford commas for lists
+  - **Ampersands:** Prefer `&` to `and` (omit Oxford comma before `&`)
+  - **Exceptions:** `and` should be used in `and/or` & after a comma that
+    separates distinct clauses (but not in a list)
+  - **Quotes**: The enclosing quotations marks of a quote at the end of a
+    sentence (iff the whole sentence isn't a quote) should not enclose the
+    terminal punctuation mark of the encompassing sentence
+  - **Iff**: Use `iff` as `if & only if`
+
+### Markdown Guidelines
+
+- **Style:** GitHub-Flavored Markdown (GFM), ATX headings, backtick-fenced code
+  blocks with language identifier, underscore emphasis, asterisk strong & hyphen
+  bullets
+- **HTML:** Limit to HTML supported by GFM that doesn't have a native GFM
+  equivalent
 
 ## Refactoring Rules
 
@@ -129,10 +154,11 @@ Commands follow a consistent structure:
 ### Style Essentials
 
 - Name most function parameters
-- Capitalize acronym & initialism characters consistently (e.g., `HTTPRequest`,
-  not `HttpRequest`)
+- Capitalize acronym & initialism characters consistently (e.g., `ADAM`, `API`,
+  `HTTPRequest`, `JSON`)
 - Shadow variables if the respective original will no longer be used
 - Strongify weak references instead of evaluating them multiple times
+- Group computed properties below stored properties
 
 ### Code Preference Hierarchies
 
@@ -279,7 +305,8 @@ Within this section & all subsections, `X` is a placeholder for any type name.
 
 ### Testing Requirements
 
-- Add tests for all non-trivial changes
+- Add tests for all non-trivial changes (to preserve tokens, agents should not
+  add tests unless explicitly directed to do so)
 - Implement in [Swift Testing](https://github.com/swiftlang/swift-testing)
 - Derive test file paths from source file paths:
   - replace the `Sources/mas` source path folder prefix with `Tests/MASTests`

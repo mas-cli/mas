@@ -68,9 +68,8 @@ enum AppStoreAction: String {
 			return
 		}
 
-		await OrderedSet(adamIDs).forEach(attemptTo: "\(self) app for ADAM ID") { adamID in
-			try await app(withADAMID: adamID) { _, _ in false }
-		}
+		await OrderedSet(adamIDs)
+			.forEach(attemptTo: "\(self) app for ADAM ID") { try await app(withADAMID: $0) { _, _ in false } }
 	}
 
 	func app(withADAMID adamID: ADAMID, shouldCancel: @escaping @Sendable (String?, Bool) -> Bool) async throws {

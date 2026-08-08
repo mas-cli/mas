@@ -92,8 +92,7 @@ extension CatalogApp: JSONDecodable {
 		}
 
 		var object = object
-		let jsonMinimumOSVersion = try object[minimumOSVersionKey]?.decode() ?? ""
-		if jsonMinimumOSVersion != minimumOSVersion {
+		if try object[minimumOSVersionKey]?.decode() != minimumOSVersion {
 			if let index = object.fields.firstIndex(where: { $0.key == minimumOSVersionKey }) {
 				object.fields[index] = (minimumOSVersionKey, .string(minimumOSVersion))
 			} else {

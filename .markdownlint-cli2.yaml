@@ -6,7 +6,7 @@
 # .markdownlint-cli2.yaml
 # mas
 #
-# markdownlint-cli2 0.23.1 / markdownlint 0.41.1
+# markdownlint-cli2 0.23.2 / markdownlint 0.41.1
 #
 ---
 gitignore: true
@@ -22,7 +22,7 @@ config:
   emphasis-style:
     style: underscore
   fenced-code-language:
-    allowed_languages: [console, shell, swift]
+    allowed_languages: [console, shell]
     language_only: true
   heading-style:
     style: atx

@@ -33,13 +33,13 @@ extension MASError: CustomStringConvertible {
 		case let .error(message, cause, separatorWhenCause, separatorWhenNoCause):
 			"\(message)\(cause.map { "\(separatorWhenCause)\($0)" } ?? separatorWhenNoCause)"
 		case let .invalidJSON(string):
-			"Invalid JSON:\n\(string)"
+			"Failed to parse JSON:\n\(string)"
 		case let .invalidURL(string):
-			"Invalid URL: \(string)"
+			"Failed to parse URL: \(string)"
 		case let .noCatalogAppsFound(searchTerm):
-			"No apps found in the App Store for search term: \(searchTerm)"
+			"Failed to find apps in the App Store for search term: \(searchTerm)"
 		case let .unknownAppID(appID):
-			"No apps found in the App Store for \(appID)"
+			"Failed to find app in the App Store with \(appID)"
 		}
 	}
 }

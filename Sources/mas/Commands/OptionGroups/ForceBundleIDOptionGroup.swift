@@ -9,5 +9,5 @@ private import ArgumentParser
 
 struct ForceBundleIDOptionGroup: ParsableArguments {
 	@Flag(name: .customLong("bundle"), help: "Process all app IDs as bundle IDs")
-	var forceBundleID = false
+	private(set) var forceBundleID = false
 }

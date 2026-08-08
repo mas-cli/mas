@@ -9,5 +9,5 @@ private import ArgumentParser
 
 struct ForceOptionGroup: ParsableArguments {
 	@Flag(help: "Force reinstall")
-	var force = false
+	private(set) var force = false
 }

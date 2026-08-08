@@ -19,7 +19,7 @@ _ = Package(
 	platforms: [.macOS(.v13)],
 	products: [.executable(name: "mas", targets: ["mas"])],
 	dependencies: [
-		.package(url: "https://github.com/KittyMac/Sextant", from: "0.4.40"),
+		.package(url: "https://github.com/KittyMac/Sextant", from: "0.4.41"),
 		.package(url: "https://github.com/apple/swift-argument-parser", from: "1.8.2"),
 		.package(url: "https://github.com/apple/swift-atomics", from: "1.3.1"),
 		.package(url: "https://github.com/apple/swift-collections", from: "1.6.0"),

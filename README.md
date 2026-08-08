@@ -21,23 +21,23 @@ automation.
 
 ## Installation
 
-<!--markdownlint-disable line-length-->
 <!--editorconfig-checker-disable-->
+<!--markdownlint-disable line-length-->
 | Provider                                                                      | Method                         | mas                                                                                                                                                                                                                                         | macOS             |
 |:------------------------------------------------------------------------------|:-------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------------|
 | [Homebrew](https://brew.sh) [Core](https://github.com/Homebrew/homebrew-core) | `brew install mas`             | [![Homebrew Core](https://repology.org/badge/version-for-repo/homebrew/mas-mac-app-store.svg?header=)](https://formulae.brew.sh/formula/mas)                                                                                                | 14+ (recommended) |
 | [Homebrew](https://brew.sh) [Tap](https://github.com/mas-cli/homebrew-tap)    | `brew install mas-cli/tap/mas` | [![Homebrew Tap](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.github.com%2Frepos%2Fmas-cli%2Fhomebrew-tap%2Freleases%2Flatest&query=%24.name&label=&color=4c1)](https://github.com/mas-cli/homebrew-tap/releases/latest) | 13+               |
 | [MacPorts](https://www.macports.org/install.php)                              | `sudo port install mas`        | [![MacPorts](https://repology.org/badge/version-for-repo/macports/mas-mac-app-store.svg?header=)](https://ports.macports.org/port/mas/details/)                                                                                             | 13+               |
 | [GitHub Releases](https://github.com/mas-cli/mas/releases)                    | Installers & source archives   | All                                                                                                                                                                                                                                         | Release-dependent |
-<!--editorconfig-checker-enable-->
 <!--markdownlint-enable line-length-->
+<!--editorconfig-checker-enable-->
 
 ## Commands
 
 Detailed documentation is available via `man mas` & `mas --help`.
 
-<!--markdownlint-disable line-length-->
 <!--editorconfig-checker-disable-->
+<!--markdownlint-disable line-length-->
 | Command                       | Functionality                                 | Notes                                                                                                       | Aliases    |
 |:------------------------------|:----------------------------------------------|:------------------------------------------------------------------------------------------------------------|:-----------|
 | `search <term>…`              | Search for App Store apps                     | [json](#json-app-output)                                                                                    |            |
@@ -58,24 +58,24 @@ Detailed documentation is available via `man mas` & `mas --help`.
 | `reset`                       | Reset App Store processes                     |                                                                                                             |            |
 | `config`                      | Output config                                 | [json](#json-config-output)                                                                                 |            |
 | `version`                     | Output version                                |                                                                                                             |            |
-<!--editorconfig-checker-enable-->
 <!--markdownlint-enable line-length-->
+<!--editorconfig-checker-enable-->
 
 ## Integrations
 
-<!--markdownlint-disable line-length-->
 <!--editorconfig-checker-disable-->
+<!--markdownlint-disable line-length-->
 | Tool                                                             | Functionality                                                               |
 |:-----------------------------------------------------------------|:----------------------------------------------------------------------------|
 | [Homebrew Bundle](https://docs.brew.sh/Brew-Bundle-and-Brewfile) | Include installed apps in `Brewfile`; get, install & update `Brewfile` apps |
 | [Topgrade](https://github.com/topgrade-rs/topgrade)              | Update apps                                                                 |
-<!--editorconfig-checker-enable-->
 <!--markdownlint-enable line-length-->
+<!--editorconfig-checker-enable-->
 
 ## Known Issues
 
-<!--markdownlint-disable line-length-->
 <!--editorconfig-checker-disable-->
+<!--markdownlint-disable line-length-->
 | Issue                                                                          | Solution                                                                                                                                                                    |
 |:-------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Manage system software (macOS, Safari…)                                        | Use [`softwareupdate`](https://www.unix.com/man-page/osx/8/softwareupdate)                                                                                                  |
@@ -86,21 +86,21 @@ Detailed documentation is available via `man mas` & `mas --help`.
 | Undetected installed apps                                                      | [Index apps in Spotlight](#spotlight)                                                                                                                                       |
 | `This redownload is not available for this Apple Account…` error               | Sign in the correct Apple Account to the App Store, or&nbsp;uninstall&nbsp;the&nbsp;app&nbsp;&amp;&nbsp;get&nbsp;it&nbsp;with&nbsp;the&nbsp;current&nbsp;Apple&nbsp;Account |
 | Other bugs                                                                     | [Subscribe to an existing](https://github.com/mas-cli/mas/issues), or [open a new](https://github.com/mas-cli/mas/issues/new?template=01-bug-report.yaml), bug report       |
-<!--editorconfig-checker-enable-->
 <!--markdownlint-enable line-length-->
+<!--editorconfig-checker-enable-->
 
 ## Development
 
-<!--markdownlint-disable line-length-->
 <!--editorconfig-checker-disable-->
+<!--markdownlint-disable line-length-->
 | Action                                                                  | Command                        |
 |:------------------------------------------------------------------------|:-------------------------------|
 | Build                                                                   | `Scripts/build` or Xcode 26.4+ |
 | Set up zsh wrapper                                                      | `Scripts/setup_libexec`        |
 | Run zsh wrapper                                                         | `Scripts/mas`                  |
 | Test ([Swift Testing](https://developer.apple.com/xcode/swift-testing)) | `Scripts/test`                 |
-<!--editorconfig-checker-enable-->
 <!--markdownlint-enable line-length-->
+<!--editorconfig-checker-enable-->
 
 ## App IDs
 
@@ -196,8 +196,8 @@ mdfind 'kMDItemAppStoreAdamID = <adam-id>'
 
 If any App Store apps are not properly indexed, index via:
 
-<!--markdownlint-disable line-length-->
 <!--editorconfig-checker-disable-->
+<!--markdownlint-disable line-length-->
 ```shell
 # Individual app (if the omitted apps are known). e.g., for Xcode:
 mdimport /Applications/Xcode.app
@@ -209,8 +209,8 @@ mdimport /Applications ${vol:+"/Volumes/${vol}/Applications"}
 # All volumes:
 sudo mdutil -Eai on
 ```
-<!--editorconfig-checker-enable-->
 <!--markdownlint-enable line-length-->
+<!--editorconfig-checker-enable-->
 
 ## Root Privileges
 
@@ -293,8 +293,8 @@ available from the App Store.
 
 The 2 outdated-app-detection modes are selectable via mutually exclusive flags:
 
-<!--markdownlint-disable line-length-->
 <!--editorconfig-checker-disable-->
+<!--markdownlint-disable line-length-->
 | Feature          | `--inaccurate` (default)                                                         | `--accurate`                                 |
 |:-----------------|:---------------------------------------------------------------------------------|:---------------------------------------------|
 | **Method**       | Query the [iTunes Search API](https://performance-partners.apple.com/search-api) | Initiate App Store download to read metadata |
@@ -303,8 +303,8 @@ The 2 outdated-app-detection modes are selectable via mutually exclusive flags:
 | **Requirements** | [iTunes Search API](https://performance-partners.apple.com/search-api)           | Apple Account signed in to the App Store     |
 | **Dialogs**      | Only if `--no-check-min-os`                                                      | Various potential dialogs                    |
 | **Hangs**        | None                                                                             | If checking 100+ apps in quick succession    |
-<!--editorconfig-checker-enable-->
 <!--markdownlint-enable line-length-->
+<!--editorconfig-checker-enable-->
 
 #### `--inaccurate` (default)
 
