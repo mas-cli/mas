@@ -26,7 +26,7 @@ _ = Package(
 		.package(url: "https://github.com/attaswift/BigInt", from: "6.0.0"),
 		.package(url: "https://github.com/rarestype/swift-json", from: "3.5.0"),
 		.package(url: "https://github.com/scinfu/SwiftSoup", from: "2.13.7"),
-		.package(url: "https://github.com/swiftlang/swift-subprocess", from: "0.5.0"),
+		.package(url: "https://github.com/swiftlang/swift-subprocess", from: "1.0.0"),
 	],
 	targets: [
 		.plugin(name: "MASBuildToolPlugin", capability: .buildTool()),
