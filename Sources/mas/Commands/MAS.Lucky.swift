@@ -32,7 +32,7 @@ extension MAS {
 				throw MASError.noCatalogAppsFound(for: searchTerm)
 			}
 
-			await AppStore.install.apps(withADAMIDs: [adamID], force: forceOptionGroup.force)
+			await AppStore.install.apps(withADAMIDs: [adamID], force: forceOptionGroup.force, maxConcurrentTaskCount: 1)
 		}
 	}
 }

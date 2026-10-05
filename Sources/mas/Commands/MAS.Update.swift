@@ -20,12 +20,15 @@ extension MAS {
 		private var forceOptionGroup: ForceOptionGroup
 		@OptionGroup
 		private var outdatedAppsOptionGroup: OutdatedAppsOptionGroup
+		@OptionGroup
+		private var jobsOptionGroup: JobsOptionGroup
 
 		func run() async {
 			await AppStore.update.apps(
 				withADAMIDs: await outdatedAppsOptionGroup
 					.outdatedApps(considerAllOutdated: forceOptionGroup.force, withFullJSON: false)
 					.map(\.installedApp.adamID),
+				maxConcurrentTaskCount: jobsOptionGroup.jobs,
 			)
 		}
 	}

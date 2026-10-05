@@ -70,12 +70,16 @@ struct OutdatedAppsOptionGroup: ParsableArguments {
 
 					let newVersionGate = OSAllocatedUnfairLock(initialState: String?.none)
 					do {
-						try await AppStore.install.app(withADAMID: installedApp.adamID) { appStoreVersion, shouldOutput in
-							if shouldOutput, let appStoreVersion, installedApp.version != appStoreVersion {
-								newVersionGate.withLock { $0 = appStoreVersion }
-							}
-							return true
-						}
+						try await AppStore.install.app(
+							withADAMID: installedApp.adamID,
+							shouldCancel: { appStoreVersion, shouldOutput in
+								if shouldOutput, let appStoreVersion, installedApp.version != appStoreVersion {
+									newVersionGate.withLock { $0 = appStoreVersion }
+								}
+								return true
+							},
+							board: ProgressBoard(),
+						)
 					} catch is CancellationError {
 						// Fallthrough
 					} catch {

@@ -8,6 +8,7 @@
 private import ArgumentParser
 private import Atomics
 internal import Foundation
+private import OrderedCollections
 
 /// Prints to `FileHandle`s like `.standardOutput` & `.standardError` with ANSI
 /// color codes when connected to a terminal.
@@ -83,12 +84,6 @@ struct Printer {
 		problem(items, prefix: errorPrefix, format: errorFormat, error: error, separator: separator, terminator: terminator)
 	}
 
-	func clearCurrentLine(of fileHandle: FileHandle) {
-		if fileHandle.isTerminal {
-			try? fileHandle.write(contentsOf: clearLineData)
-		}
-	}
-
 	private func problem(
 		_ items: [Any],
 		prefix: String,
@@ -158,6 +153,54 @@ extension String {
 	func formatted(with format: Self, for fileHandle: FileHandle) -> Self {
 		fileHandle.isTerminal ? "\(csi)\(format)m\(self)\(csi)0m" : self
 	}
+}
+
+/// Tracks live progress lines for concurrently running operations, each
+/// identified by an `ADAMID`, redrawing all of them in place as a block at the
+/// bottom of the terminal; permanent lines interleaved with an update are
+/// printed above that block so they stay in the scrollback.
+///
+/// When `stdout` isn't a terminal, the live block is skipped entirely &
+/// permanent lines are printed as they arrive.
+actor ProgressBoard {
+	private var rows = OrderedDictionary<ADAMID, String>()
+	private var lineCount = 0
+
+	func update(adamID: ADAMID, permanentLines: [String] = [], row: String? = nil) {
+		rows[adamID] = row ?? rows[adamID] ?? ""
+		redraw(permanentLines: permanentLines)
+	}
+
+	func finish(adamID: ADAMID, permanentLines: [String] = []) {
+		rows.removeValue(forKey: adamID)
+		redraw(permanentLines: permanentLines)
+	}
+
+	private func redraw(permanentLines: [String]) {
+		guard FileHandle.standardOutput.isTerminal else {
+			for line in permanentLines {
+				MAS.printer.notice(line)
+			}
+			return
+		}
+
+		if lineCount > 0 {
+			try? FileHandle.standardOutput.write(contentsOf: moveUpData(lineCount))
+		}
+		for line in permanentLines {
+			try? FileHandle.standardOutput.write(contentsOf: clearLineData)
+			MAS.printer.notice(line)
+		}
+		for row in rows.values {
+			try? FileHandle.standardOutput.write(contentsOf: clearLineData)
+			MAS.printer.info(row)
+		}
+		lineCount = rows.count
+	}
+}
+
+private func moveUpData(_ lineCount: Int) -> Data {
+	Data("\(csi)\(lineCount)A".utf8)
 }
 
 private func indent(_ item: Any, with indent: String) -> String {
