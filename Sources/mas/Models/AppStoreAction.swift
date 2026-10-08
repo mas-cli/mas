@@ -42,11 +42,15 @@ enum AppStoreAction: String {
 		}
 	}
 
-	func apps(withAppIDs appIDs: [AppID], force: Bool) async {
-		await apps(withADAMIDs: await appIDs.catalogApps.map(\.adamID), force: force)
+	func apps(withAppIDs appIDs: [AppID], force: Bool, maxConcurrentTaskCount: Int) async {
+		await apps(
+			withADAMIDs: await appIDs.catalogApps.map(\.adamID),
+			force: force,
+			maxConcurrentTaskCount: maxConcurrentTaskCount,
+		)
 	}
 
-	func apps(withADAMIDs adamIDs: [ADAMID], force: Bool) async {
+	func apps(withADAMIDs adamIDs: [ADAMID], force: Bool, maxConcurrentTaskCount: Int) async {
 		let installedAppByADAMID = await installedApps(withAppIDs: adamIDs.map(AppID.adamID), withFullJSON: false) { _ in }
 			.reduce(into: [ADAMID: InstalledApp]()) { $0[$1.adamID] = $1 }
 		await apps(
@@ -60,19 +64,41 @@ enum AppStoreAction: String {
 					MAS.printer.warning("Already ", performed, " ", installedApp.name, " (", adamID, ")", separator: "")
 					return false
 				},
+			maxConcurrentTaskCount: maxConcurrentTaskCount,
 		)
 	}
 
-	func apps(withADAMIDs adamIDs: [ADAMID]) async {
+	func apps(withADAMIDs adamIDs: [ADAMID], maxConcurrentTaskCount: Int) async {
 		guard !adamIDs.isEmpty else {
 			return
 		}
 
+		let board = ProgressBoard()
 		await OrderedSet(adamIDs)
-			.forEach(attemptTo: "\(self) app for ADAM ID") { try await app(withADAMID: $0) { _, _ in false } }
+			.concurrentForEach(attemptTo: "\(self) app for ADAM ID", maxConcurrentTaskCount: maxConcurrentTaskCount) {
+				try await app(withADAMID: $0, shouldCancel: { _, _ in false }, board: board)
+			}
 	}
 
-	func app(withADAMID adamID: ADAMID, shouldCancel: @escaping @Sendable (String?, Bool) -> Bool) async throws {
+	func app(
+		withADAMID adamID: ADAMID,
+		shouldCancel: @escaping @Sendable (String?, Bool) -> Bool,
+		board: ProgressBoard,
+	) async throws {
+		await board.update(adamID: adamID, row: "\(adamID) \(performing.uppercasingFirst)")
+		do {
+			try await performApp(withADAMID: adamID, shouldCancel: shouldCancel, board: board)
+		} catch {
+			await board.finish(adamID: adamID)
+			throw error
+		}
+	}
+
+	private func performApp(
+		withADAMID adamID: ADAMID,
+		shouldCancel: @escaping @Sendable (String?, Bool) -> Bool,
+		board: ProgressBoard,
+	) async throws {
 		let (eventStream, eventContinuation) = AsyncStream.makeStream(of: QueueEvent.self)
 		let observerUUID = await DownloadQueueObserver(
 			action: self,
@@ -161,6 +187,7 @@ enum AppStoreAction: String {
 						error: error,
 					)
 				}
+				var permanentLines = [String]()
 				switch snapshot.activePhaseType {
 				case prevPhaseType:
 					break
@@ -169,53 +196,48 @@ enum AppStoreAction: String {
 					.downloaded where prevPhaseType == .downloading,
 					.performing
 				: // swiftformat:disable:this indent
-					MAS.printer.clearCurrentLine(of: .standardOutput)
-					MAS.printer.notice(snapshot.activePhaseType, snapshot.appNameAndVersion)
+					permanentLines.append("\(snapshot.activePhaseType) \(snapshot.appNameAndVersion)")
 				default:
 					break
 				}
-				if
-					FileHandle.standardOutput.isTerminal,
-					snapshot.phasePercentComplete != 0 || snapshot.activePhaseType != .processing
-				{
-					// Output the progress bar iff connected to a terminal
+				var row = String?.none
+				if snapshot.phasePercentComplete != 0 || snapshot.activePhaseType != .processing {
 					let totalLength = 60
 					let completedLength = Int(snapshot.phasePercentComplete * .init(totalLength))
-					MAS.printer.clearCurrentLine(of: .standardOutput)
-					MAS.printer.info(
-						String(repeating: "#", count: completedLength),
-						String(repeating: "-", count: totalLength - completedLength),
-						" ",
-						UInt64((snapshot.phasePercentComplete * 100).rounded()),
-						"% ",
-						snapshot.activePhaseType.performed,
-						separator: "",
-						terminator: "",
-					)
+					row = """
+						\(snapshot.appNameAndVersion) \
+						\(String(repeating: "#", count: completedLength))\(String(repeating: "-", count: totalLength - completedLength)) \
+						\(UInt64((snapshot.phasePercentComplete * 100).rounded()))% \(snapshot.activePhaseType.performed)
+						"""
 				}
+				await board.update(adamID: adamID, permanentLines: permanentLines, row: row)
 				prevPhaseType = snapshot.activePhaseType
 			case let .removed(snapshot):
-				MAS.printer.clearCurrentLine(of: .standardOutput)
 				let appFolderURL: URL?
 				if let error = snapshot.error {
 					guard error is Ignorable else {
 						throw error
 					}
 
-					MAS.printer.notice(PhaseType.downloaded, snapshot.appNameAndVersion)
-					MAS.printer.notice(performing.uppercasingFirst, snapshot.appNameAndVersion)
-					MAS.printer.info(rawValue.uppercasingFirst, "progress cannot be displayed", terminator: "")
+					await board.update(
+						adamID: adamID,
+						permanentLines: [
+							"\(PhaseType.downloaded) \(snapshot.appNameAndVersion)",
+							"\(performing.uppercasingFirst) \(snapshot.appNameAndVersion)",
+						],
+						row: "\(snapshot.appNameAndVersion) \(rawValue.uppercasingFirst) progress cannot be displayed",
+					)
 					appFolderURL = try await install(
 						appNameAndVersion: snapshot.appNameAndVersion,
 						pkgHardLinkURL: pkgHardLinkURL,
 						receiptHardLinkURL: receiptHardLinkURL,
 					)
-					MAS.printer.clearCurrentLine(of: .standardOutput)
 				} else {
 					guard !snapshot.isFailed else {
 						throw MASError.error("Failed to download \(snapshot.appNameAndVersion)")
 					}
 					guard !shouldCancel(snapshot.version, false) else {
+						await board.finish(adamID: adamID)
 						return
 					}
 					guard !snapshot.isCancelled else {
@@ -225,9 +247,13 @@ enum AppStoreAction: String {
 					appFolderURL = snapshot.appFolderPath.map { .init(folderPath: $0) }
 				}
 
-				MAS.printer.notice(
-					[performed.uppercasingFirst, snapshot.appNameAndVersion]
-						+ (appFolderURL.map { ["in", $0.filePath] } ?? .init()),
+				await board.finish(
+					adamID: adamID,
+					permanentLines: [
+						([performed.uppercasingFirst, snapshot.appNameAndVersion]
+							+ (appFolderURL.map { ["in", $0.filePath] } ?? .init()))
+							.joined(separator: " "),
+					],
 				)
 
 				if let appFolderURL {

@@ -20,9 +20,15 @@ extension MAS {
 		private var forceOptionGroup: ForceOptionGroup
 		@OptionGroup
 		private var catalogAppsOptionGroup: CatalogAppsOptionGroup
+		@OptionGroup
+		private var jobsOptionGroup: JobsOptionGroup
 
 		func run() async {
-			await AppStore.get.apps(withAppIDs: catalogAppsOptionGroup.appIDs, force: forceOptionGroup.force)
+			await AppStore.get.apps(
+				withAppIDs: catalogAppsOptionGroup.appIDs,
+				force: forceOptionGroup.force,
+				maxConcurrentTaskCount: jobsOptionGroup.jobs,
+			)
 		}
 	}
 }

@@ -49,6 +49,18 @@ extension Collection where Element: Sendable {
 		}
 	}
 
+	/// Runs `body` concurrently for each element, letting elements that can
+	/// succeed finish even if others fail.
+	func concurrentForEach(
+		attemptTo perform: String,
+		maxConcurrentTaskCount: Int = defaultMaxConcurrentTaskCount,
+		_ body: @escaping @Sendable (Element) async throws -> Void,
+	) async {
+		_ = await concurrentCompactMap(attemptingTo: perform, maxConcurrentTaskCount: maxConcurrentTaskCount) {
+			try await body($0) as Void?
+		}
+	}
+
 	private func concurrentTransform<T: Sendable>(
 		maxConcurrentTaskCount: Int,
 		_ transform: @escaping @Sendable (Element) async throws -> T,
