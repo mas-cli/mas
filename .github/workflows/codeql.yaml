@@ -44,7 +44,7 @@ jobs:
       run: Scripts/setup_workflow_repo
 
     - name: 🔩 Initialize CodeQL
-      uses: github/codeql-action/init@5595ccaf912efad79be6eef63a5619ff05969be3 # v4.37.6
+      uses: github/codeql-action/init@33d7b85da1a04171e211befe2c739303b9a4c066 # v4.39.3
       with:
         languages: ${{matrix.language}}
         build-mode: ${{matrix.build-mode}}
